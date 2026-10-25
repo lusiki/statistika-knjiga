@@ -383,11 +383,8 @@ New in this book.
 - Hedging is not the same as honesty. "Čini se da bi moglo postojati" is worse
   than a clear claim with a stated interval. State the finding, then its
   precision, then its limits.
-- The `callout-model` box tells the reader what to ask, **what to verify, and
-  where models typically fail** on this specific task. A box that only says "AI
-  can help with this" has not been written.
 - The `callout-greska` box contains **exactly one** realistic mistake, of a kind
-  a real assistant actually makes — a plausible wrong number, a mis-specified
+  a real analyst or assistant actually makes — a plausible wrong number, a mis-specified
   test, a causal conclusion from correlational data, a confidently wrong
   interpretation of a p-value. Never a typo, never something absurd. The
   canonical key lives in one solution record. A deliberately separated
@@ -416,6 +413,11 @@ page at most, two to four paragraphs. A real case, a real decision, a question
 someone actually faced. It ends on the question the chapter answers, and does
 not answer it. No meta sentence announcing what the chapter will do.
 
+The opening case has no visible category label. Chapters carry no reading-time,
+data or prerequisite metadata strip. Introduce the data in the argument before
+the first calculation, naming their source, unit and relevant variables. When
+returning to a dataset, say briefly which familiar records are being reused.
+
 ### Interakcija
 
 One widget in each numbered chapter 1–17, named and registered in
@@ -435,15 +437,18 @@ source is named and cited (H7 with no exceptions). The box shows the reasoning,
 not the verdict: it takes the claim apart and lets the reader see where it holds
 and where it does not. Never mocks the source.
 
-### Pitajte model
+### Nađite grešku
 
-`::: {.callout-model}` followed by `::: {.callout-greska}`. First beat: how to
-use an assistant for this chapter's task, what to ask, what to verify, where
-models typically fail. Second beat: a short AI-produced analysis containing one
-planted realistic mistake. See S9 for what counts.
-
-The prompt itself, when the box shows one, is written as an ordinary block
-quote inside `callout-model`; CSS renders it as a monospace strip.
+`::: {.callout-greska}` contains a short piece of analytical work with one
+planted realistic mistake. It may be attributed to an assistant, colleague,
+editor, or research team. Supply inspectable evidence, distinguish observed
+data from simulations and constructed teaching examples, and ask for a useful
+repair that preserves the valid work. Match the evidence and response format
+to the chapter rather than repeating one template. Titles and introductions
+must not reveal the solution. The answer belongs on the separate solutions
+route, generated from its canonical record. See S9 for what counts. The
+recurring instruction box asking the assistant what to do is not part of this
+edition.
 
 ### Razrađeni primjer
 
@@ -589,7 +594,7 @@ calibrated values from `conventions.json`.
 2. Run the linters; triage hits against the Prose zones table.
 3. Fix H1/H2/H6 hits with the Repair patterns.
 4. Check the structural elements against their formats: vignette, widget intro,
-   divljina, the two AI boxes, worked example, summary, terms, four exercise
+   divljina, the error-finding box, worked example, summary, terms, four exercise
    tiers.
 5. Sweep for H7 and H9: every number and named finding has its `[@key]`
    in-sentence; every symbol has a prose gloss; every formula has an intuition
@@ -625,6 +630,51 @@ written, the chapter is not done.
 ---
 
 ## Provenance
+
+- **2026-10-23** — The author explicitly authorised implementation of the
+  October PDF audits after the P6-VERIFY restriction was disclosed. This
+  separate editorial revision preserves the old control state and draft
+  status. A printed glossary and notation list may precede self-study checks.
+  No publication or final-gate acceptance is implied.
+
+- **2026-10-22** — The author authorised the attached reader-progression
+  revision on the latest working manuscript and PDF, as an exception to the
+  current comprehensive-review packet limit. Short completion and prediction
+  pauses may occur within existing sections, followed by an explanation.
+  They are exercises in continuous prose, not a new callout or skeleton part.
+  Worked examples may quote a finished report and explain its sentences.
+  The PDF adds an unnumbered self-study section before the bibliography,
+  with hints separated from explanations, both generated from the same
+  canonical solution records as the online route. No instructor rubric is
+  included. Main reading proceeds from question to clean results and
+  interpretation; an optional receipt follows. P6-VERIFY is not closed or
+  certified by this separate editorial revision.
+
+- **2026-10-21** — At the author's request, revised all nineteen error-finding
+  exercises and their separated checks. The approved Chapter 13 replacement
+  governs the principles of inspectable evidence, one meaningful mistake,
+  retained correct work, and a useful repair, without imposing its table or
+  question pattern on the other chapters. Roles may include human analysts.
+
+- **2026-10-20** — The author removed the recurring `Pitajte model`
+  instruction box from the reader edition. Each chapter retains the separate
+  error-finding example and its model-revision exercise. Dataset introductions
+  now name source, unit and variables before first use, with a concrete record
+  preview where the data would otherwise remain abstract.
+
+- **2026-10-12** — At the author's request, removed chapter metadata strips
+  and the visible vignette label in every edition. Opening cases remain.
+  Dataset introductions belong in continuous prose before their first use;
+  distinguish the two simulated media datasets from each other and from
+  observed research data. Simplified internal-sounding transition headings
+  without changing chapter order or the shared instructional components.
+
+- **2026-10-12** — At the author's request, the printed preface is a short
+  continuous introduction, without the chapter exercise/callout skeleton.
+  The digital preface keeps its existing teaching material. Print carries
+  static figures and explanations only, without browser controls or their
+  instructions. Definition terms remain in bold, without numbered labels.
+  Appendices are excluded from this PDF edition.
 
 - **2026-07-29** — File created for this book. H1–H8 and S1–S7 carried over
   unchanged in substance from the editorial guide of *Javne politike u
@@ -670,3 +720,8 @@ written, the chapter is not done.
   rubrics, and structural exclusion of protected content from public AI
   exports. The cumulative human–AI ladder assesses task specification,
   validation, alternatives, provenance, and responsibility rather than syntax.
+- **2026-10-23** — The user-authorised October PDF audit revision adds short
+  reading introductions to the existing part-divider pages and a print
+  apparatus before the exercise checks: chapter navigation, bilingual terms,
+  a dictionary for the two recurring teaching datasets, and formula notation.
+  These support print navigation; they do not reorder the fixed chapter core.

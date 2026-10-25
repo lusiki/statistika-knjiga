@@ -8,20 +8,20 @@
     "anchor": "ex-16-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:1264bd0027be154fde6ecbcdd168950426ef78e01af36ad702a1bb09ec409c4b",
+  "prompt_fingerprint": "sha256:2d202e42aa07e56535c8d7c720408a94bd637883a0029351e3b13b98c898fff4",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "training-set-fit-treated-as-unseen-data-validation",
-      "statement": "Koeficijent determinacije i RMSE izračunati na istom uzorku na kojem je model procijenjen dovoljni su za tvrdnju o pouzdanom predviđanju novih korisnika.",
+      "statement": "Pogreška na skupu za učenje manja je od dva boda, pa je time zadani kriterij za nove korisnike zadovoljen.",
       "why_wrong": "Obje brojke opisuju pristajanje na skupu za učenje. Procjena je već prilagodila koeficijente upravo tim ishodima, pa takav račun u očekivanju podcjenjuje pogrešku na novim jedinicama i ne provjerava obećanje izvan uzorka."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Za svaku brojku utvrditi na kojim je redcima model procijenjen i na kojim je redcima ishod uspoređen s predviđanjem; zatim provjeriti postoji li skup izdvojen prije procjene.",
-      "expected_evidence": "Model rabi `data = uzorak`, `fitted(model)` vraća predviđanja za isti taj uzorak, a i `summary(model)$r.squared` pripada istom prilagođavanju. Nema odvojenoga skupa, pa nema provjere novih korisnika."
+      "procedure": "Usporediti retke korištene za procjenu koeficijenata s retcima u računu pogreške i R-kvadrata. Utvrditi postoji li ijedan odvojeni redak za provjeru.",
+      "expected_evidence": "Oba izračuna valjano opisuju pristajanje istim 200 zapisima. `data = uzorak` određuje podatke za procjenu koeficijenata, a `fitted(model)` vraća prilagođene vrijednosti upravo za te retke. Nula redaka neovisne provjere ulazi u račun. Dostupnost prediktora prije ishoda čuva vremensku granicu, ali ne stvara provjeru novih korisnika. Još treba izdvojiti nove podatke iz ciljanih uvjeta primjene, zaključati model i izračunati istu mjeru pogreške, uz procjenu njezine nesigurnosti.\n\nJedna moguća zamjena glasi ovako.\n\nNa skupu za učenje korijen srednje kvadratne pogreške manji je od dva boda. O uspješnosti kod novih korisnika odlučit ćemo tek nakon provjere zaključanog modela na odvojenim podacima i usporedbe te pogreške s unaprijed zadanim kriterijem.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,19 +64,29 @@
           "component_id": "require-held-out-check",
           "required_claim": "Prediktivnu tvrdnju treba provjeriti istom mjerom na podacima izdvojenima prije procjene, uz unaprijed zadanu vremensku granicu i kriterij korisnosti.",
           "required_evidence": "Takvi ishodi nisu sudjelovali u izboru koeficijenata, pa njihova pogreška odgovara pitanju o novim korisnicima."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Na skupu za učenje korijen srednje kvadratne pogreške manji je od dva boda. O uspješnosti kod novih korisnika odlučit ćemo tek nakon provjere zaključanog modela na odvojenim podacima i usporedbe te pogreške s unaprijed zadanim kriterijem.",
+          "required_evidence": "Oba izračuna valjano opisuju pristajanje istim 200 zapisima. `data = uzorak` određuje podatke za procjenu koeficijenata, a `fitted(model)` vraća prilagođene vrijednosti upravo za te retke. Nula redaka neovisne provjere ulazi u račun. Dostupnost prediktora prije ishoda čuva vremensku granicu, ali ne stvara provjeru novih korisnika. Još treba izdvojiti nove podatke iz ciljanih uvjeta primjene, zaključati model i izračunati istu mjeru pogreške, uz procjenu njezine nesigurnosti."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "Obje prijavljene veličine pripadaju istih n redaka skupa za učenje: R-kvadrat je 1 − SSE/SST na tom skupu, a `pogreska` je sqrt(SSE/n) iz istih reziduala. Nula redaka odvojene provjere ulazi u račun.",
-      "tolerance_or_acceptance_rule": "Traži se točna identifikacija zajedničkoga skupa i nula odvojenih redaka. Ne traži se izmišljena brojčana vrijednost jer prompt ne daje konkretan objekt `uzorak`; zaključak o novim podacima mora biti odbijen.",
-      "independent_method": "Algebarski povezati `fitted(model)` s rezidualnim zbrojem kvadrata i provjeriti iz koda identitet izvora redaka, bez izvršavanja nedostupnoga objekta `uzorak` i bez prepisivanja zaključka iz poglavlja.",
+      "expected_result": "Obje prijavljene veličine pripadaju istih 200 redaka skupa za učenje. R-kvadrat je 1 − SSE/SST na tom skupu, a pogreška je sqrt(SSE/200) iz istih reziduala. Nula redaka odvojene provjere ulazi u račun.",
+      "tolerance_or_acceptance_rule": "Treba povezati oba pokazatelja s istih 200 redaka i utvrditi odsutnost odvojene provjere. Brojke se prihvaćaju zaokružene na dvije decimale iz ispisa.",
+      "independent_method": "Na prvih 200 zapisa data/populacija-medija.csv prilagoditi navedeni linearni model. Zasebno iz rezidualnog zbroja kvadrata izračunati R-kvadrat i korijen srednje kvadratne pogreške.",
       "evidence_reference": "chapters/16-regresija.qmd#ex-16-callout-greska-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-accepts-unseen-claim",
@@ -113,8 +123,8 @@
     }
   ],
   "instructor_notes": [
-    "Callout i revizija modela moraju zatvoriti isti planted-error ID. Ne prihvatiti tvrdnju da su sami prediktori poslijeishodni jer prompt tu mogućnost izričito isključuje.",
-    "Ne tražiti brojčani izlaz za nedostupan objekt `uzorak`. Ocjenjuju se identitet redaka, značenje mjera i granica zaključka."
+    "Pogreška je zaključak o novim korisnicima na temelju mjera pristajanja skupu za učenje. Sam račun tih mjera i vremenska dostupnost prediktora ispravni su.",
+    "Uzorak je sada izričito određen kao prvih 200 simuliranih zapisa. Ne tražiti kod od studenta; ocjenjuju se retci, značenje mjera i predložena neovisna provjera."
   ],
   "visibility_contract": "D06-two-layer-v1",
   "human_responsibility": {

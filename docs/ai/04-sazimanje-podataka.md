@@ -4,128 +4,204 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 21 min | Oblikovanje distribucije | DigiKat i simulirana anketa | pogl. 1 do 3 |
+DigiKat je istraživački projekt iz kojega koristimo podatke o internetskim
+objavama s katoličkim pojmovima. U odabrani korpus, odnosno skup tekstova za
+analizu, ulaze praćene objave koje sadrže najmanje dva različita pojma s
+projektnog popisa (Šikić, 2026). Pred nama su tri zbirne tablice. Dvije
+prikazuju objave po platformama, mjesečno i godišnje, a treća po internetskim
+domenama (Šikić, 2026). Zamislimo urednika koji iz njih želi saznati koliko
+objava ima tipičan izvor.
 
-**Vinjeta.**
-Istraživački tim projekta DigiKat pripremio je tri agregatna izvatka istoga
-korpusa. To su mjesečni retci po platformi, godišnji retci po platformi i retci po
-imenovanoj internetskoj domeni (Šikić, 2026). Urednik želi jednu brojku za
-„tipičan izvor”. Za nekoliko minuta dobiva prosjek, medijan i tablicu po
-platformama. Svi su računi uredni.
+Prije tumačenja treba provjeriti što je zapravo uspoređeno. Redak u prvim
+dvjema tablicama predstavlja platformu u određenom razdoblju, a u trećoj
+domenu tijekom cijelog obuhvata. Mjesečnu i godišnju tablicu povezujemo prema
+dvama poljima. Neke nule angažmana označuju nedostupnu metriku. Uz to tablica
+domena obuhvaća 551.712 objava, a platformske 710.307. Pogrešan spoj ili
+nazivnik zato može promijeniti odgovor i uz točnu aritmetiku.
 
-Problem nastaje korak prije računa. Redak u prvim dvjema datotekama predstavlja
-platformu u vremenskom razdoblju, a u trećoj domenu kroz cijeli promatrani
-raspon. Mjesečna i godišnja tablica dijele dva ključa, ne jedan. Neke nule
-angažmana označuju da metrika nije bila dostupna. Datoteka domena obuhvaća
-551.712 objava, dok platformske datoteke obuhvaćaju 710.307. Jedan nepažljiv
-spoj ili nazivnik može zato proizvesti uvjerljiv odgovor na pitanje koje nitko
-nije postavio.
+Kako provjeriti tablicu prije računanja sažetaka?
 
-Kako iz tih izvora izgraditi tablicu kojoj se smije vjerovati prije nego što je
-sažmemo?
+Što bismo uredniku odgovorili o tipičnom izvoru kada bismo smjeli pokazati
+samo jedan broj? Prosjek broja objava čini se prirodnim izborom, ali možda
+prikriva da najveći dio objava dolazi iz malog dijela izvora. Prije izračuna
+trebamo riješiti još jedno pitanje. Moramo biti sigurni da zbrajamo usporedive
+zapise i da odsutno mjerenje nismo zamijenili izmjerenom nulom.
+
+Dosadašnja pitanja o jedinici, nazivniku i podrijetlu podataka sada
+primjenjujemo pri pripremi vlastite analize. Polazimo od stvarnih zbirnih
+tablica projekta DigiKat (Šikić, 2026). U njima redak predstavlja platformu u
+određenom razdoblju ili internetsku domenu tijekom obuhvata datoteke. Broj
+objava, doseg i interakcije različite su veličine, a njihova dostupnost nije
+jednaka. Provjerit ćemo koji se zapisi mogu spojiti, što pritom mora ostati
+nepromijenjeno i koje vrijednosti možemo uključiti u sažetak.
+
+Ponašanje pojedinih mjera zatim ćemo istražiti na skupu `anketa_mreze`,
+zasebnoj simuliranoj anketi u kojoj jedan redak predstavlja zamišljenu osobu s
+dobi, dnevnim minutama na društvenim mrežama i ocjenom povjerenja u tamošnji
+sadržaj (Šikić, 2026). Taj skup nije uzorak iz ranije uvedene populacije
+medijskih navika. Na njemu možemo usporediti različite opise istih odgovora,
+bez predstavljanja tih odgovora kao nalaza o stvarnim korisnicima.
+
+Sredina i medijan opisuju središte raspodjele, a mjere raspršenosti razlike
+među opažanjima. Njihovu prikladnost provjeravamo prema obliku podataka i
+reakciji na pomicanje krajnjih vrijednosti. Standardizacijom opisujemo
+položaj opažanja u odnosu na ostala. Na kraju se vraćamo DigiKatovim
+domenama i sastavljamo brojčani opis s jasno navedenim značenjem i granicom
+svake mjere.
 
 ## Od izvora do sažetka
 
-Protokol skeptičnoga čitanja s granice Dijela I ovdje mijenja smjer rada. Više
-ne rastavljamo tuđu gotovu brojku, nego od provjerljivoga izvora gradimo vlastiti
-sažetak. [Analitička tablica]{.pojam
-def="Tablica čiji svaki red predstavlja unaprijed imenovanu jedinicu analize i nosi samo provjerene varijable potrebne za pitanje."
-en="analysis table" ch="4"} nije datoteka koju pronađemo, nego rezultat odluka
-o jedinici, ključu, spajanju, kodovima, filtrima i nedostajućim vrijednostima.
-Svaka odluka mora ostaviti trag koji druga osoba može ponoviti.
+Za vlastitu analizu trebamo [analitičku tablicu]{.pojam def="Tablica čiji
+svaki red predstavlja unaprijed imenovanu jedinicu analize i nosi samo
+provjerene varijable potrebne za pitanje." en="analysis table" ch="4"}. Pri
+njezinoj izradi određujemo što predstavlja redak, kojim ključem povezujemo
+zapise i kako tumačimo kodove. Bilježimo filtre i pravila za nedostajuće
+vrijednosti kako bi druga osoba mogla ponoviti postupak.
 
 ### Tri tablice, tri jedinice
 
-DigiKatov paket potječe iz korpusa praćenih objava koje sadrže najmanje dva
-različita katolička pojma. Nije slučajan uzorak hrvatskih medija, publike ni
-korisnika. Ovdje se čitaju samo redistribuirani agregati, ne pojedinačne objave.
-Već popis jedinica pokazuje koje se datoteke smiju povezati, a koje ne smiju.
+DigiKatov izbor tekstova određuje i granicu našeg zaključka. Tablice opisuju
+objave obuhvaćene pravilima projekta, a ne slučajan uzorak hrvatskih medija,
+publike ili korisnika (Šikić, 2026). Raspolažemo već izračunatim zbrojevima,
+bez pojedinačnih objava. Prije računanja zato provjeravamo predstavljaju li
+retci različitih datoteka usporedive jedinice.
 
 *Slika. Tri pogleda u paketu DigiKat imaju različite jedinice i ključeve. Izvor: DigiKat, agregatni izvadak, CC BY 4.0 [@digikat2026].*
 
-Datoteka izvora nema zajednički ključ s platformskim datotekama i s njima se
-ne spaja. Ona će poslije odgovoriti na pitanje kako su objave raspoređene među
-imenovanim domenama. Mjesečna i godišnja datoteka mogu se povezati, ali samo na
-paru `godina + platforma`. Izostavi li se jedan dio ključa, mijenja se ono što
-redak predstavlja.
+Datoteka domena nema zajednički ključ s platformskim tablicama pa je
+analiziramo zasebno. Ona pokazuje raspored objava među domenama. Mjesečne i
+godišnje podatke o platformama možemo povezati parom `godina + platforma`. Izostavljanjem
+jednog dijela ključa spojili bismo zapise koji ne pripadaju istoj jedinici.
+
+U mjesečnoj tablici, primjerice, jedan redak bilježi 11.701 obuhvaćenu
+objavu na webu u siječnju 2021. (Šikić, 2026). U tablici domena redak za `hkm.hr` bilježi
+56.500 objava kroz cijeli obuhvaćeni raspon (Šikić, 2026). Prvi broj
+opisuje platformu i mjesec, a drugi jednu domenu kroz više godina. Nijedan
+ne broji jedinstvene čitatelje.
 
 ### Ključ prije sažetka
 
-Mjesečna tablica ima `r hr_broj(nrow(s4_mjesecno), 0)` redaka i jednako toliko
-jedinstvenih ključeva `mjesec + platforma`. Godišnja tablica služi samo da joj
-pridruži godišnji nazivnik i oznaku potpunosti. Ispravan spoj zadržava i broj
-redaka i zbroj objava. Spoj samo po godini svakom mjesečnom retku pridružuje sve
-platforme iste godine, pa aritmetika poslije radi nad umnoženim jedinicama.
+Mjesečna tablica ima `r hr_broj(nrow(s4_mjesecno), 0)` redaka, svaki s jedinstvenim ključem `mjesec + platforma`.
+Iz godišnje joj tablice pridružujemo godišnji nazivnik i oznaku potpunosti.
+Nakon ispravnog spajanja broj redaka i ukupan broj objava moraju ostati isti.
+Ako spojimo samo po godini, svaki mjesečni redak dobit će par sa svim
+platformama te godine i pojavit će se više puta.
 
-*Slika. Kontrola retka, ključa i zbroja prije i nakon dvaju spajanja DigiKatovih agregata. Pogrešni redak prikazuje dijagnostiku, ne dopuštenu analizu. Izvor: DigiKat [@digikat2026].*
+Za dva mjesečna zapisa weba vidimo što je spoj dodao. Mjesec i njegov broj
+objava dolaze iz mjesečne datoteke, a ukupni godišnji nazivnik iz godišnje.
+Tražimo podudaranje i godine i platforme. Oba mjesečna zapisa tako dobivaju
+isti godišnji nazivnik, bez ponovnog brojanja njihovih objava.
 
-Provjera nije završena time što se ukupni zbroj dviju izvornih datoteka
-poklapa. Mjesečni i godišnji izvadak razlikuju se u
-`r hr_broj(s4_broj_odstupanja, 0)` od 49 platformskih godišnjih ćelija, premda
-se razlike ukupno poništavaju. Zato spoj ne zamjenjuje mjesečne vrijednosti
-godišnjima niti od njih gradi neprekinuti trend. Za sljedeći korak zadržava se
-samo potpuna 2025. godina; rupa i lom metode u 2024. ne ulaze u usporedbu.
+*Slika. Dva mjesečna retka nakon pridruživanja godišnjeg nazivnika. Izrada autora prema @digikat2026.*
+
+U sljedećoj tablici uspoređujemo broj redaka, jedinstvene mjesečne ključeve
+i zbroj objava prije i nakon ispravnog spajanja.
+
+*Slika. Kontrola retka, ključa i zbroja prije i nakon ispravnog spajanja DigiKatovih agregata. Izvor: DigiKat [@digikat2026].*
+
+Provjeravamo i pojedine ćelije, jer jednak ukupan zbroj ne jamči njihovo
+slaganje. Mjesečni i godišnji izvadak razlikuju se u `r hr_broj(s4_broj_odstupanja, 0)` od 49
+kombinacija platforme i godine, a odstupanja se u ukupnom zbroju poništavaju.
+Zato ne zamjenjujemo mjesečne vrijednosti godišnjima i ne gradimo neprekinut
+trend. Za daljnju analizu koristimo potpunu 2025. godinu, uz isključenje 2024.
+zbog praznine i promjene metode. U 2024. nedostaju mjesečni retci od veljače
+do svibnja, siječanj je djelomičan, a lipanj označuje promjenu metode i
+obuhvata (Šikić, 2026).
 
 ### Kada nula znači da mjera nije dostupna
 
-U presjeku 2025. svih devet platformskih redaka ima broj objava, ali za tri
-platforme pružatelj ne isporučuje usporediv doseg ni interakcije. Te su ćelije
-u izvatku zapisane nulom i označene kodom `metrika_dostupna = ne`. Analitička
-tablica zato čuva izvorne stupce, a u izvedenim stupcima te nule pretvara u
-nedostajuće vrijednosti. Time se ne izmišlja rezultat ondje gdje mjerenja nema.
+U podacima za 2025. svih devet platformi ima zabilježen broj objava. Za tri od
+njih nema usporedivog podatka o dosegu i interakcijama. Ondje zapisana nula,
+uz oznaku `metrika_dostupna = ne`, znači da mjerenje nije dostupno. Izvorni stupac čuvamo, a
+za analizu izrađujemo novi u kojem te nule označujemo kao nedostajuće
+vrijednosti.
 
-Trag odluke počinje brojem označenih redaka. Tri su od devet. To su platforme
-`reddit`, `forum` i `comment`, koje zajedno nose
-`r hr_broj(s4_2025_objave_nemjerene, 0)` objava. Njihovo podudaranje s
-metapodacima pokazuje da praznina slijedi način mjerenja, a ne slučajni propust.
-Zato broj objava koristi svih devet platformi, dok sažetak angažmana smije
-obuhvatiti samo šest platformi s dostupnom metrikom. Osjetljivost toga izbora
-provjeravamo na količini izmjerenoj u svim redcima, dakle na broju objava,
-nikada na dosegu ili interakcijama.
+Primjerice, u mjesečnom retku za `reddit` izvorno je uz interakcije zapisana
+nula, ali oznaka dostupnosti glasi `ne`. Analitički zapis zato čuva broj
+objava, a interakcije pretvara u oznaku nedostajanja. Redak ne brišemo niti
+njegovu nulu uključujemo u prosjek interakcija.
+
+To se odnosi na platforme `reddit`, `forum` i `comment`, koje zajedno imaju
+`r hr_broj(s4_2025_objave_nemjerene, 0)` objava. Metapodaci potvrđuju da metrika nedostaje zbog načina
+mjerenja. Broj objava zato možemo sažeti za svih devet platformi, a angažman
+samo za šest s dostupnom metrikom. Učinak sužavanja skupa provjeravamo na
+broju objava, koji poznajemo za sve platforme. Doseg i interakcije
+nedostajućih platformi ne možemo tako usporediti.
 
 *Slika. Osjetljivost medijana broja objava na nepotrebno izbacivanje platformi kojima nedostaje druga metrika. Presjek je potpuna 2025. godina; angažman i doseg ne uspoređuju se. Izvor: DigiKat [@digikat2026].*
 
-Procjena se mijenja s `r hr_broj(s4_medijan_sve_platforme, 1)` na
-`r hr_broj(s4_medijan_mjerene_platforme, 1)` objava, ali mijenja se i
-predstavljeni skup, od svih devet vrsta platforme prema šest vrsta s dostupnom
-metrikom angažmana. Neizvjesnost o interakcijama i dosegu preostalih triju time
-se ne smanjuje; ona ostaje granica mjerenja, a ne broj koji treba popuniti.
+Medijan, središnja vrijednost u poredanom nizu, mijenja se s `r hr_broj(s4_medijan_sve_platforme, 1)` na `r hr_broj(s4_medijan_mjerene_platforme, 1)` objava. Usporedili smo svih devet
+vrsta platformi sa šest koje imaju metriku angažmana. Promijenio se skup na
+koji se rezultat odnosi. O dosegu i interakcijama preostalih triju platformi i
+dalje nemamo podatke.
+
+Za ručnu provjeru poredani brojevi objava po platformama u 2025. iznose
+231, 1.641, 1.779, 2.122, 2.724, 4.228, 26.891, 44.502 i 152.048
+(Šikić, 2026). Izbacivanjem platformi bez metrike angažmana uklanjamo
+vrijednosti 1.641, 1.779 i 4.228 (Šikić, 2026).
 
 ### Nazivnik je dio tvrdnje
 
-Broj bez baze ne govori koliko je pojava raširena. Pod jednim fiksnim pravilom
-brojanja, s riječima odvojenima razmakom i bez obzira na velika slova, riječ
-*Analysis* pojavljuje se jednom u naslovu *Exploratory Data Analysis*, dakle
-jednom među tri riječi (Tukey, 1977). Pojavljuje se jednom i u naslovu
-*Statistical Power Analysis for the Behavioral Sciences*, ali ondje među sedam
-riječi (Cohen, 1988). Broj je isti; udio nije. Duljina naslova nije prevalencija
-riječi, nego njezin nazivnik.
+Za udio trebamo znati i ukupnu količinu. Ako riječi brojimo prema razmacima,
+ne razlikujući velika i mala slova, *Analysis* se u naslovu *Exploratory Data
+Analysis* pojavljuje jednom među trima riječima (Tukey, 1977). U naslovu
+*Statistical Power Analysis for the Behavioral Sciences* također se pojavljuje
+jednom, ali među sedam riječi (Cohen, 1988). Učestalost je ista, dok se udjeli
+razlikuju zbog duljine naslova.
 
-Ista disciplina vrijedi za DigiKat. Datoteka imenovanih domena sadrži
-`r hr_broj(nrow(s4_izvori), 0)` redaka i njihove objave zbrajaju se na
-`r hr_broj(s4_izvori_sazetak$objave, 0)`. Svaki udio objava iz te datoteke zato
-imenuje upravo 551.712 kao nazivnik, ne 710.307 iz platformskih datoteka.
+Tablica imenovanih domena ima `r hr_broj(nrow(s4_izvori), 0)` redaka i ukupno `r hr_broj(s4_izvori_sazetak$objave, 0)` objava. Za
+udjele objava među tim domenama zato koristimo nazivnik 551.712. Nazivnik
+710.307 iz platformskih tablica odnosi se na drugi obuhvat.
 
-Tek sada prelazimo na ponašanje sažetaka. Za formule i interakciju koristimo
-simuliranu anketu o društvenim mrežama s `r s4$n` ispitanika, dobi, dnevnim
-vremenom korištenja i povjerenjem na ljestvici od 1 do 10. Uzorak je proizveden
-kodom uz fiksno sjeme i ne opisuje nijednu stvarnu populaciju. Njegova je uloga
-pokazati kako se mjere ponašaju u unaprijed poznatoj desno asimetričnoj
-simulaciji; nije dokaz o medijskoj uporabi izvan te simulacije.
+Ponašanje sredine i drugih mjera lakše ćemo pratiti na tablici pojedinačnih
+odgovora. Zato prelazimo na skup `anketa_mreze`, simuliranu anketu s `r s4$n`
+ispitanika (Šikić, 2026). Jedan redak predstavlja jednu zamišljenu osobu. Za
+nju su zadani dob, dnevne minute na društvenim mrežama i povjerenje u tamošnji
+sadržaj na ljestvici od 1 do 10 (Šikić, 2026). To je zaseban skup, a ne uzorak
+iz ranije uvedene populacije medijskih navika.
+
+Generator je zadao četiri dobne skupine s 90, 84, 66 i 60 osoba. Unutar
+svake dob je slučajno odabrana iz njezina raspona, a minute nastaju zasebnim
+izvlačenjem pozitivnih, desno asimetričnih vrijednosti. Tipična vrijednost
+minuta niža je u starijim skupinama. Zaokruživanjem zadržavamo barem jednu
+minutu. Povjerenju također zadajemo niže prosjeke u starijim skupinama, uz
+slučajna odstupanja i granice ljestvice od 1 do 10 (Šikić, 2026).
+
+Nekoliko pojedinačnih zapisa omogućuje da prije prosjeka vidimo što se
+zbraja. Oznaka ispitanika služi razlikovanju redaka; dnevne minute i ocjena
+povjerenja dvije su odvojene varijable (Šikić, 2026).
+
+*Slika. Tri zapisa iz zasebne simulirane ankete o društvenim mrežama. Izrada autora prema @sikicanketa2026.*
+
+Na istoj ćemo anketi poslije usporediti grafove, izračunati povezanost i
+sastaviti završno istraživanje. Vrijednosti su stvorene tako da većina osoba
+provodi kraće vrijeme na mrežama, a manji dio znatno dulje (Šikić, 2026). Takav
+oblik omogućuje da vidimo zašto sredina i medijan daju različite opise. Ne
+predstavlja nalaz o stvarnim medijskim navikama.
+
+**Dnevnik transformacija** bilježi što smo promijenili između izvora i
+analize, prema kojem pravilu i s kakvim učinkom na broj redaka ili rezultat.
+Ovdje u njega pripadaju ključ spajanja, isključeno razdoblje i razlikovanje
+nedostupne metrike od nule. **Osjetljivost na odluku o podacima** znači da
+provjerimo mijenja li se zaključak uz drugu opravdanu odluku, primjerice uz
+drukčiji obuhvat dostupnih platformi.
+
+**Poštena rečenica izvještaja** imenuje jedinicu, obuhvat, mjeru i granicu
+zaključka. Rečenica o medijanu objava po domeni zato mora reći odnosi li se
+na sve domene ili samo one s dostupnom metrikom. Uz uzoračku procjenu dodaje
+se odgovarajući opis nesigurnosti. Precizan broj bez tih podataka ostavlja
+čitatelju da sam izmisli doseg tvrdnje.
 
 ### Mjere središta
 
-Prosjek raspoređuje ukupno izmjereno vrijeme ravnomjerno na sve ispitanike. Ako
-svakome pripišemo jednak dio zajedničkog zbroja, svaki dobiva upravo
-aritmetičku sredinu. Zapis te operacije koristi $n$ za broj opažanja u uzorku i
-$x_i$ za vrijednost izmjerenu kod pojedinog ispitanika, a crta nad slovom kaže
-da je riječ o sredini tih vrijednosti.
+Prosjek dobivamo kada ukupno vrijeme ravnomjerno rasporedimo među
+ispitanicima. U formuli $n$ označuje broj opažanja, a $x_i$ vrijednost za
+pojedinog ispitanika. Crta iznad slova označuje aritmetičku sredinu tih
+vrijednosti.
 
 $$
 \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
@@ -134,194 +210,201 @@ $$
 **Aritmetička sredina** je zbroj svih izmjerenih vrijednosti podijeljen njihovim
 brojem.
 
-Sredina našeg uzorka iznosi `r hr_broj(s4$sredina, 1)` minuta dnevno. Brojka
-zvuči kao opis tipičnog ispitanika, a nije, jer više vremena od nje provodi
-samo `r paste0(hr_broj(s4$iznad, 0), " %")` ljudi u uzorku. Sredina koristi
-svaku vrijednost i izravno odgovara na pitanja o ukupnom iznosu raspoređenom
-među opažanjima. Ista joj osjetljivost dopušta da je nekoliko krajnjih
-slučajeva odvuče iznad gotovo svih opažanja. Nije zato općenito bolja od
-medijana; dvije mjere odgovaraju na različita pitanja.
+Zbroj minuta svih 300 osoba iznosi `r hr_broj(sum(s4_minute), 0)`.
+Dijeljenjem toga zbroja s 300 dobivamo `r hr_broj(s4$sredina, 2)` minuta.
+Tri prikazana retka samo su početak toga zbrajanja. Nijedan od 300 odgovora
+ovdje ne nedostaje.
 
-Krajnjim opažanjima može se smanjiti utjecaj i bez potpunog prelaska na
-medijan. **Skraćena sredina** (*trimmed mean*) najprije poreda vrijednosti,
-zatim s oba kraja uklanja jednak unaprijed zadani udio i računa sredinu
-preostalih opažanja. Uz uklanjanje po 5 % s obje strane naš prosjek pada na
-`r hr_broj(s4$skracena5, 1)` minuta, a uz 10 % na
-`r hr_broj(s4$skracena10, 1)`.
+Sredina iznosi `r hr_broj(s4$sredina, 1)` minuta dnevno, ali samo `r paste0(hr_broj(s4$iznad, 0), " %")` ljudi
+provodi više vremena od toga. Ukupno smo vrijeme ravnomjerno podijelili među
+svim ispitanicima, pa su i rijetke velike vrijednosti podigle dobiveni broj.
+Ako nas zanima osoba u sredini poretka, trebamo drukčiji sažetak. Do njega ćemo
+doći promatrajući što se događa kada krajnjim vrijednostima postupno smanjujemo
+utjecaj.
 
-Skraćivanje dovedeno do kraja daje medijan. Ono što medijan čini drukčijim nije
-samo otpornost, nego pitanje na koje odgovara. Sredina je vrijednost koja
-minimizira zbroj kvadriranih odstupanja i zato velikim odstupanjima daje veliku
-težinu, dok medijan minimizira zbroj apsolutnih odstupanja i sva odstupanja
-tretira jednako.
+Utjecaj krajnjih vrijednosti možemo ublažiti **skraćenom sredinom** (*trimmed
+mean*). Poredamo opažanja, uklonimo unaprijed zadan jednak udio s oba kraja i
+izračunamo sredinu ostatka. U našem uzorku po 5 % znači 15 najmanjih i 15
+najvećih vrijednosti, pa novi zbroj dijelimo s 270. Uz po 10 % ostaje 240
+vrijednosti. Nakon uklanjanja po 5 % s oba kraja ovdje dobivamo
+`r hr_broj(s4$skracena5, 1)` minuta, a uz po 10 % dobivamo `r hr_broj(s4$skracena10, 1)`.
+
+Nastavimo li uklanjati vrijednosti s oba kraja, približavamo se medijanu,
+središtu poredanog niza. Različit odnos prema krajnjim vrijednostima možemo
+izraziti i računom odstupanja. Zbroj kvadriranih odstupanja najmanji je kada ih računamo od sredine.
+Kvadriranjem velika odstupanja dobivaju veću težinu. Medijan pak daje
+najmanji zbroj apsolutnih odstupanja, bez njihova kvadriranja. Zato te dvije mjere ne
+moraju odabrati istu vrijednost kao središte podataka.
 
 **Medijan** je vrijednost koja poredani niz opažanja dijeli na dvije jednako
 velike polovine.
 
-Medijan našeg uzorka iznosi `r hr_broj(s4$medijan, 0)` minuta i time za
-sredinom zaostaje `r hr_broj(s4$sredina - s4$medijan, 1)` minuta. Razmak između
-dviju mjera prvi je signal za pregled oblika. Sredina veća od medijana može
-upućivati na rep prema većim vrijednostima, ali isti znak mogu proizvesti
-mješavine skupina i složeniji oblici, pa zaključak traži graf. Mod opisuje
-najčešću vrijednost i za
-neprekinuto vrijeme korištenja nije koristan, ali za povjerenje mjereno cijelim
-brojevima jest, gdje najčešći odgovor iznosi
-`r hr_broj(s4$mod_povjerenja, 0)`. Za kategorije poput dobne skupine mod je
-jedina mjera središta koja ima značenje, jer prosjek kategorija ne postoji.
+U poredanih 300 odgovora središnja su mjesta 150 i 151. Na njima su
+`r sort(s4_minute)[150]` i `r sort(s4_minute)[151]` minuta. Njihov prosjek daje
+medijan. Dakle, mijenjamo redoslijed istih zapisa, a ne osobe koje opisujemo.
+
+Medijan je `r hr_broj(s4$medijan, 0)` minuta, što je `r hr_broj(s4$sredina - s4$medijan, 1)` minuta manje od sredine. Takav
+razmak potiče nas da pogledamo graf. Može nastati zbog repa prema velikim
+vrijednostima, ali i zbog mješavine skupina ili složenijeg oblika raspodjele.
+Još jedna mjera središta, mod, označuje najčešću vrijednost. Za kontinuirano
+vrijeme korištenja ovdje nam malo koristi, dok za cjelobrojne odgovore o
+povjerenju iznosi `r hr_broj(s4$mod_povjerenja, 0)`. Kod kategorija mod pokazuje koja je najčešća, bez
+računanja prosjeka kategorijskih oznaka.
 
 ## Mjere raspršenosti
 
-Znati gdje se opažanja grupiraju tek je pola opisa. Zamislimo dva portala u
-konstruiranom primjeru. Mogu imati jednak prosječan broj komentara po članku,
-a na prvome svaki članak
-dobiva između 45 i 55 komentara dok na drugome neki prolaze bez ijednoga, a
-poneki skupe 200. Prosjek ne razlikuje te dvije situacije, a čitatelju su
-potpuno različite.
+Uz središte trebamo opisati koliko se vrijednosti razlikuju. Zamislimo dva
+portala s istim prosjekom komentara po članku. Na prvom svaki članak ima
+između 45 i 55 komentara. Na drugom neki nemaju nijedan, a poneki imaju 200.
+Prosjek ne pokazuje tu razliku u raspodjeli.
 
-Najjednostavniji odgovor je raspon, razlika između najveće i najmanje
-izmjerene vrijednosti. U našem uzorku vrijeme korištenja ide od
-`r hr_broj(s4$najmanje, 0)` do `r hr_broj(s4$najvise, 0)` minuta, pa raspon
-iznosi `r hr_broj(s4$raspon, 0)` minuta. Ta brojka ima istu slabost kao
-sredina, samo izraženiju, jer ovisi isključivo o dva najekstremnija opažanja i
-sve ostale zanemaruje.
+Raspon je razlika najveće i najmanje vrijednosti. Vrijeme u našem uzorku kreće
+se od `r hr_broj(s4$najmanje, 0)` do `r hr_broj(s4$najvise, 0)` minuta, uz raspon od `r hr_broj(s4$raspon, 0)` minuta. Raspon
+ovisi samo o dvama krajnjim opažanjima, pa ne govori kako su raspoređena
+ostala.
 
-Sadržajnija mjera polazi od udaljenosti pojedinog opažanja od sredine. Tu
-udaljenost nazivamo odstupanjem, a njezinu veličinu bez obzira na smjer daje
-apsolutna vrijednost. Prosječno apsolutno odstupanje zato ima izravno čitljivo
-značenje, jer kaže koliko se tipičan ispitanik razlikuje od sredine.
+Za potpuniji opis razmatramo odstupanje svake vrijednosti od sredine. Njegova
+apsolutna vrijednost daje udaljenost bez obzira na smjer. Prosjek tih
+udaljenosti, prosječno apsolutno odstupanje, govori koliko se opažanja u
+prosjeku udaljavaju od sredine.
 
 $$
 \text{PAO} = \frac{1}{n} \sum_{i=1}^{n} |x_i - \bar{x}|
 $$
 
-Za naše podatke ta mjera iznosi `r hr_broj(s4$aad, 1)` minuta. Mnoge statističke
-metode umjesto apsolutnih koriste kvadrirana odstupanja jer se takvi izrazi
-lakše povezuju s kasnijim modelima. Cijena je izgubljena neposrednost, a
-rezultat te zamjene je varijanca.
+Ovdje prosječno apsolutno odstupanje iznosi `r hr_broj(s4$aad, 1)` minuta. Umjesto
+apsolutnih odstupanja mnogi postupci koriste kvadrirana jer ih je lakše
+povezati s kasnijim modelima. Tako dolazimo do varijance, koju je nešto teže
+izravno protumačiti.
 
 $$
 s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
 $$
 
-U uzorku se zbroj kvadriranih odstupanja dijeli s $n-1$, a ne s $n$. Taj se
-izbor naziva Besselovom korekcijom. Za sada je dovoljno zapamtiti da sredinu
-procjenjujemo iz istih podataka; zašto taj korak uklanja dugoročnu pristranost
-provjerit ćemo simulacijom u poglavlju o uzorkovanju.
+Za varijancu uzorka zbroj kvadriranih odstupanja dijelimo s $n-1$. To je
+Besselova korekcija. Povezana je s time što smo sredinu procijenili iz istog
+uzorka. U poglavlju o uzorkovanju simulacijom ćemo vidjeti zašto takvo
+dijeljenje uklanja dugoročnu pristranost procjene.
 
-Razlika između uzorka i populacije od ovog mjesta ulazi i u zapis. Statistike
-izračunane iz uzorka nose latinična slova, pa je sredina uzorka $\bar{x}$ a
-njegova varijanca $s^2$. Nepoznate vrijednosti koje opisuju populaciju nose
-grčka slova, pa je populacijska sredina $\mu$ a populacijska varijanca
-$\sigma^2$. Broj opažanja u uzorku ostaje $n$, a slovo $N$ knjiga zadržava za
-veličinu populacije.
+Uzoračke veličine zapisujemo latiničnim slovima. Sredina je $\bar{x}$, a
+varijanca $s^2$. Populacijsku sredinu označujemo grčkim slovom $\mu$, a
+populacijsku varijancu oznakom $\sigma^2$. Veličina uzorka je $n$, dok $N$
+označuje veličinu populacije.
 
 U toj ćemo simulaciji mnogo puta izvući uzorak iz iste poznate populacije i
 usporediti što se dugoročno događa s djeliteljima $n$ i $n-1$.
 
-Varijanca našeg uzorka iznosi `r hr_broj(s4$varijanca, 1)`. Broj je velik i
-gotovo neupotrebljiv u izvještaju, jer kvadriranje nosi i mjernu jedinicu, pa
-je rezultat izražen u kvadriranim minutama. Kvadriranje istodobno objašnjava
-zašto je varijanca osjetljiva na krajnje slučajeve, budući da odstupanje
-dvostruko veće od drugoga u zbroj ulazi četverostruko.
+Prva osoba ima `r s4_minute[1]` minuta. Odstupanje od sredine iznosi
+`r hr_broj(s4_minute[1] - s4$sredina, 2)`, a njegov kvadrat
+`r hr_broj((s4_minute[1] - s4$sredina)^2, 2)`. Takav kvadrat računamo za
+svaku osobu, zbrajamo svih 300 vrijednosti i dijelimo s 299. Kvadrat računamo
+iz nezaokruženog odstupanja, a ne iz njegova prikaza na dvije decimale.
+
+Varijanca iznosi `r hr_broj(s4$varijanca, 1)` kvadriranih minuta. Kvadrira se i mjerna jedinica,
+zbog čega broj nije lako tumačiti u izvještaju. Kvadriranje također povećava
+utjecaj krajnjih vrijednosti. Dvostruko veće odstupanje pridonosi zbroju
+četverostruko više.
 
 ## Standardna devijacija i kvartili
 
-Korijen varijance vraća mjeru u jedinice u kojima su podaci izmjereni i time
-je čini čitljivom.
+Vađenjem korijena iz varijance vraćamo se na izvornu mjernu jedinicu, ovdje
+minute.
 
-**Standardna devijacija** uzorka korijen je varijance, pri čemu je varijanca
-zbroj kvadriranih odstupanja od aritmetičke sredine podijeljen s $n-1$; korijen
-raspršenost vraća u iste jedinice kao izmjerene vrijednosti.
+**Standardna devijacija** uzorka korijen je varijance. Varijancu računamo
+dijeljenjem zbroja kvadriranih odstupanja od sredine s $n-1$, a korijen vraća
+raspršenost u jedinice izvornih vrijednosti.
 
 $$
 s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 $$
 
-Standardna devijacija našeg uzorka iznosi `r hr_broj(s4$sd, 1)` minuta, dakle
-nešto više od prosječnog apsolutnog odstupanja od `r hr_broj(s4$aad, 1)`
-minuta. Taj je odnos pravilo, ne slučajnost, jer kvadriranje pojačava velika
-odstupanja pa ih standardna devijacija nosi teže. Zbog toga se standardna
-devijacija čita kao tipična udaljenost od sredine samo približno.
+Standardna devijacija ovdje iznosi `r hr_broj(s4$sd, 1)` minuta i veća je od prosječnog
+apsolutnog odstupanja od `r hr_broj(s4$aad, 1)` minuta. Kvadriranje daje veću težinu
+velikim odstupanjima. Zato standardnu devijaciju možemo samo približno opisati
+kao tipičnu udaljenost od sredine.
 
-Za približno normalnu raspodjelu vrijedi korisno pravilo palca po kojem oko
-68 % opažanja leži unutar jedne standardne devijacije od sredine, oko 95 %
-unutar dviju i oko 99,7 % unutar triju. Naši podaci pokazuju što se dogodi kada
-se pravilo primijeni bez provjere pretpostavke. Unutar jedne standardne
-devijacije nalazi se `r paste0(hr_broj(s4$u_jednoj_sd, 1), " %")` ispitanika, a
-ne 68 %, a raspon dviju devijacija proteže se od minus
-`r hr_broj(abs(s4$donja_dvije), 1)` do `r hr_broj(s4$gornja_dvije, 1)` minuta.
-Negativno trajanje nema sadržajno značenje. Takva donja referentna točka zato
-upozorava da normalno pravilo ovdje treba provjeriti na grafu; sama po sebi ne
-dokazuje oblik raspodjele.
-
-Zanimljiviji je drugi dio provjere. Unutar dviju standardnih devijacija
-nalazi se `r paste0(hr_broj(s4$u_dvije_sd, 1), " %")` ispitanika, što se s
-pravilom poklapa gotovo točno. Jedna brojka koja izađe kako smo očekivali ne
-potvrđuje pretpostavku na kojoj očekivanje počiva, a upravo takva poklapanja
-najčešće zaustave provjeru prerano.
-
-Kada sredina i standardna devijacija zataje, opis se prenosi na položaje u
-poredanom nizu. **Percentil** je vrijednost ispod koje leži zadani postotak
-opažanja, pa je medijan pedeseti percentil. Prvi i treći kvartil odsijecaju
-donjih i gornjih 25 %, a razlika između njih opisuje širinu središnje polovine
+Za normalnu raspodjelu, koju ćemo razraditi u poglavlju o vjerojatnosti,
+postoji korisno pravilo. U približno normalnoj raspodjeli oko 68 % opažanja nalazi se unutar jedne
+standardne devijacije od sredine, oko 95 % unutar dviju, a oko 99,7 % unutar
+triju. U našem je uzorku unutar jedne devijacije `r paste0(hr_broj(s4$u_jednoj_sd, 1), " %")` ispitanika. Raspon
+dviju devijacija ide od minus `r hr_broj(abs(s4$donja_dvije), 1)` do `r hr_broj(s4$gornja_dvije, 1)` minuta. Budući da
+trajanje ne može biti negativno, taj raspon upozorava da trebamo provjeriti
+odgovara li normalno pravilo podacima. Sam po sebi ipak ne određuje oblik
 raspodjele.
+
+Unutar dviju devijacija ovdje se nalazi `r paste0(hr_broj(s4$u_dvije_sd, 1), " %")` ispitanika, gotovo kao prema
+normalnom pravilu. Jedno takvo podudaranje ne potvrđuje da je cijela
+raspodjela približno normalna. Za to treba pregledati podatke.
+
+Ako želimo opis raspršenosti koji manje ovisi o krajnjim vrijednostima,
+možemo se, kao kod medijana, osloniti na položaje u poredanom nizu. **Percentil** je
+vrijednost ispod koje se nalazi zadani postotak opažanja, pa je medijan
+pedeseti percentil. Prvi kvartil odvaja donjih 25 %, a treći gornjih 25 %.
+Njihova razlika obuhvaća raspon središnje polovine podataka.
 
 *Slika. Percentili dnevnog vremena korištenja u simuliranoj anketi. Izrada autora.*
 
-Interkvartilni raspon našeg uzorka iznosi `r hr_broj(s4$iqr, 1)` minuta i
-proteže se od `r hr_broj(s4$q1, 1)` do `r hr_broj(s4$q3, 1)` minuta. Pomicanje
-već krajnjeg opažanja obično ga ne mijenja dok to opažanje ostaje izvan
-središnje polovine, premda promjena poretka na granici kvartila može promijeniti
-rezultat. Zato se ta mjera s medijanom uobičajeno uparuje kao standardna
-devijacija sa sredinom. Drukčiji par nije aritmetički zabranjen, ali traži
-objašnjenje pitanja na koje odgovara.
+Taj interkvartilni raspon ovdje iznosi `r hr_broj(s4$iqr, 1)` minuta, od `r hr_broj(s4$q1, 1)` do
+`r hr_broj(s4$q3, 1)` minuta. Pomicanje opažanja koje već leži daleko izvan središnje
+polovine obično ga ne mijenja. Promjena poretka oko kvartila ipak može
+utjecati na rezultat. Interkvartilni raspon često navodimo uz medijan, a
+standardnu devijaciju uz sredinu. Druge kombinacije mogu biti korisne ako
+objasnimo čemu služe.
 
 ## Oblik raspodjele i položaj opažanja
 
-Središte i raspršenost ne kazuju je li raspodjela simetrična. Kada lijeva i
-desna strana izgledaju kao zrcalne slike, sredina i medijan često padaju blizu
-istoga mjesta. Dugi rep prema većim vrijednostima može povući sredinu za sobom,
-ali njihov razmak nije samostalna mjera oblika. [Asimetrija]{.pojam
-def="Mjera nesimetričnosti raspodjele, pozitivna kada je rep okrenut prema većim vrijednostima."
-en="skewness" ch="4"} se zato procjenjuje iz cijele raspodjele.
+Graf nam pokazuje i oblik raspodjele. U simetričnoj raspodjeli dvije strane
+približno su zrcalne i sredina je često blizu medijana. Dugi rep prema većim
+vrijednostima može povući sredinu naviše. Njihov razmak ipak nije dovoljan
+opis oblika. [Asimetrija]{.pojam def="Mjera nesimetričnosti raspodjele,
+pozitivna kada je rep okrenut prema većim vrijednostima." en="skewness"
+ch="4"} uzima u obzir cijelu raspodjelu.
 
-Formalna mjera polazi od standardiziranih odstupanja i diže ih na treću
-potenciju. Neparna potencija čuva predznak, pa velika pozitivna odstupanja
-zbroj vuku prema pozitivnome, a velika negativna prema negativnome.
+Dugi rep koji smo naslutili iz razmaka sredine i medijana želimo opisati i
+brojem koji razlikuje dvije strane raspodjele. Zato odstupanja najprije
+izražavamo u standardnim devijacijama, a zatim ih dižemo na treću potenciju.
+Neparna potencija čuva njihov predznak. Velika pozitivna odstupanja tako vuku
+zbroj prema pozitivnome, a velika negativna prema negativnome.
 
 $$
 \text{asimetrija} = \frac{1}{n} \sum_{i=1}^{n}
   \left( \frac{x_i - \bar{x}}{s} \right)^3
 $$
 
-Asimetrija simuliranoga uzorka iznosi `r hr_broj(s4$asimetrija, 2)`. Taj je
-oblik svojstvo generatora ovoga nastavnog skupa, ne opća tvrdnja o medijskoj
-uporabi. Isti izraz s eksponentom četiri daje koeficijent zaobljenosti
-(*kurtosis*); ovdje višak nad referentnom normalnom vrijednošću iznosi
-`r hr_broj(s4$visak_zaobljenosti, 2)`. Koeficijent je trag za pregled repova,
-ne dokaz o njihovu uzroku ni samostalan broj krajnjih slučajeva.
+Asimetrija simuliranog uzorka iznosi `r hr_broj(s4$asimetrija, 2)` i proizlazi iz načina
+generiranja podataka. Ne govori o stvarnoj medijskoj uporabi. Ako u izrazu
+upotrijebimo četvrtu potenciju, dobivamo koeficijent zaobljenosti
+(*kurtosis*). Njegov višak nad referentnom normalnom vrijednošću ovdje je
+`r hr_broj(s4$visak_zaobljenosti, 2)`. On pomaže pri pregledu repova raspodjele, ali ne objašnjava njihov
+uzrok ni broj krajnjih slučajeva. Ovdje koristimo prosjek trećih odnosno
+četvrtih potencija odstupanja standardiziranih uzoračkom standardnom
+devijacijom, bez korekcije za mali uzorak. Od četvrtog momenta oduzimamo tri.
+Drugi programski postupci mogu koristiti drukčiju korekciju, pa uz usporedbu
+vrijednosti treba provjeriti i definiciju.
 
 **Podsjetnik.** Logaritamska skala
 
-Kada strogo pozitivne vrijednosti imaju takav oblik, promjena ljestvice može
-pomoći više od promjene mjere. Logaritam sabija velike vrijednosti i omjere
-pretvara u jednake razmake, pa su omjeri 20 prema 10 i 120 prema 60 jednaki na
-logaritamskoj ljestvici. Nula nema logaritam; mehaničko dodavanje jedinice nije
-neutralan popravak nego nova analitička odluka.
+Za strogo pozitivne vrijednosti možemo razmotriti logaritamsku ljestvicu. Ona
+sabija velike vrijednosti i jednake omjere prikazuje jednakim razmacima.
+Omjeri 20 prema 10 i 120 prema 60 zato imaju isti razmak. Nulu ne možemo
+logaritmirati. Dodavanje jedinice svim vrijednostima mijenja analizu i traži
+obrazloženje.
 
-*Slika. Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom.*
+*Slika. Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom. Logaritamska ljestvica sažima dugi desni rep. Izrada autora prema @sikicanketa2026.*
 
-Na logaritamskoj ljestvici asimetrija pada na
-`r hr_broj(s4$asimetrija_log, 2)`, a sredina i medijan gotovo se poklapaju na
-`r hr_broj(s4$sredina_log, 2)` i `r hr_broj(s4$medijan_log, 2)`.
-Transformacija time nije popravila podatke, nego je promijenila pitanje.
-Razliku dviju logaritmiranih vrijednosti treba eksponencirati da bismo dobili
-njihov omjer; tek tada tvrdnja govori o višekratniku, a ne o broju minuta.
+Isti se odgovor sada zapisuje na drugoj ljestvici. Prvih
+`r s4_minute[1]` minuta postaje $\ln(`r s4_minute[1]`) =
+`r hr_broj(log(s4_minute[1]), 2)`$. Sve su minute pozitivne, pa transformiramo
+svih 300 odgovora bez izostavljanja. To nisu nove osobe ni ponovljena mjerenja.
 
-Oblik odlučuje i o tome kada je pojedino opažanje neobično. Dnevnih 100 minuta
-znači jedno u skupini koja se u prosjeku zadržava 15 minuta, a nešto posve
-drugo u skupini koja se zadržava 80. Položaj postaje čitljiv kada udaljenost od
-sredine izrazimo u standardnim devijacijama.
+Nakon logaritmiranja asimetrija iznosi `r hr_broj(s4$asimetrija_log, 2)`, a sredina i medijan bliski
+su, `r hr_broj(s4$sredina_log, 2)` i `r hr_broj(s4$medijan_log, 2)`. Sada, međutim, tumačimo drugu ljestvicu.
+Eksponenciranjem razlike logaritama dobivamo omjer izvornih vrijednosti.
+Rezultat govori o višekratniku, a ne o razlici minuta.
+
+Uz oblik raspodjele zanima nas i položaj pojedine osobe u njoj. Dnevnih 100 minuta može biti mnogo u skupini s prosjekom od 15 minuta, a manje
+neobično u skupini s prosjekom od 80. Da bismo opisali položaj, udaljenost od
+sredine izražavamo brojem standardnih devijacija.
 
 **Standardizirana vrijednost** kaže koliko standardnih devijacija pojedino
 opažanje leži iznad ili ispod aritmetičke sredine.
@@ -330,31 +413,32 @@ $$
 z_i = \frac{x_i - \bar{x}}{s}
 $$
 
-Standardizirana varijabla ima sredinu nula i standardnu devijaciju jedan, pa
-položaji vrijednosti izmjerenih u minutama i na ljestvici povjerenja postaju
-usporedivi u odnosu na vlastite referentne raspodjele. Time sami konstrukti ne
-postaju zamjenjivi. Standardizacija ne uklanja oblik raspodjele ni ograničenja
-izvorne ljestvice, pa se krajnji položaj uvijek tumači uz prikaz podataka.
+Standardizirana varijabla ima sredinu nula i standardnu devijaciju jedan. Tako
+možemo usporediti relativni položaj osobe prema vremenu korištenja i prema
+povjerenju, svako unutar njegove raspodjele. Time vrijeme i povjerenje ne
+postaju isti pojam. Standardizacija također ne mijenja oblik raspodjele ni
+ograničenja ljestvice, pa uz krajnje vrijednosti i dalje gledamo graf.
 
-Odluka koja se lako preskoči jest odluka o skupini prema kojoj se položaj mjeri.
-Standardizacija u cijelom uzorku i standardizacija unutar dobne skupine
-odgovaraju na različita pitanja, a njihovi se odgovori mogu razlikovati i u
-predznaku.
+Moramo navesti i referentnu skupinu. Položaj u cijelom uzorku može se
+razlikovati od položaja unutar dobne skupine, čak i po predznaku. Za
+najstariju skupinu sredina iznosi
+`r hr_broj(mean(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
+minute, a standardna devijacija
+`r hr_broj(sd(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
+minuta; račun koristi nezaokružene vrijednosti (Šikić, 2026).
 
 *Slika. Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora.*
 
-Ispitanici u tablici provode manje vremena od prosjeka cijelog uzorka i unutar
-svoje dobne skupine pripadaju najintenzivnijim korisnicima. Obje su tvrdnje
-istinite i opisuju isti podatak, pa izvještaj mora reći prema čemu je položaj
-mjeren. Kada referentna skupina ostane neimenovana, čitatelj joj pridaje onu
-koja mu je bliža i zaključak se tiho mijenja.
+Osobe iz tablice provode manje vremena od prosjeka cijelog uzorka, a u svojoj
+su dobnoj skupini među najintenzivnijim korisnicima. Obje tvrdnje mogu biti
+točne jer koriste različite referentne skupine. U izvještaju zato navodimo
+prema kojoj je skupini položaj izračunat.
 
 ## Interakcija — Oblikovanje distribucije
 
-Oblikovatelj raspodjele pomiče jedno krajnje opažanje i širi preostalih devet
-oko njihova zajedničkog središta. Sredina, medijan i dvije mjere raspršenosti
-mijenjaju se pred čitateljem. Tako postaje vidljivo koje mjere slušaju svaku
-vrijednost, a koje prvenstveno čuvaju redoslijed.
+Tri raspodjele prikazuju utjecaj krajnjeg opažanja i raspršenosti ostalih
+vrijednosti. Usporedba sredine, medijana i mjera raspršenosti pokazuje koje
+mjere jače reagiraju na pojedinu vrijednost, a koje više ovise o poretku.
 
 *Slika. Reakcija mjera središta i raspršenosti na oblik konstruirane raspodjele.*
 
@@ -365,96 +449,127 @@ vrijednost, a koje prvenstveno čuvaju redoslijed.
 3. Postavite krajnje opažanje na 11 pa povećajte faktor raspršenosti i
    usporedite dvije raspodjele iste sredine.
 
-Za tisak i za ručnu provjeru tri stanja imaju iste točne ulaze i provjerene
-sažetke. Graf pokazuje oblik, a tablica čuva brojke potrebne za račun.
+Uz graf su u tablici navedene vrijednosti za sva tri stanja i njihovi sažeci.
+Na njima se račun može provjeriti ručno.
 
-*Slika. Točne vrijednosti i provjereni sažeci triju stanja widgeta 04.1. Izrada autora.*
+*Slika. Točne vrijednosti i sažeci triju prikazanih raspodjela. Izrada autora.*
 
 **Statistika u divljini.**
-**Mogući urednički naslov glasi „Prosječan izvor ima 153 objave.”** U DigiKatovoj
-datoteci imenovanih domena
-aritmetička sredina iznosi `r hr_broj(s4_izvori_sazetak$sredina, 1)` objave, ali
-medijan samo `r hr_broj(s4_izvori_sazetak$medijan, 0)`. Prvih deset domena nosi
-`r hr_broj(s4_izvori_sazetak$prvih_deset, 0)` od 551.712 objava, odnosno
-`r paste0(hr_broj(100 * s4_izvori_sazetak$udio_prvih_deset, 2), " %")`
-(Šikić, 2026). Prosjek je točan, ali bez medijana i raspodjele nije opis
-tipične domene.
+**Prosječan izvor i tipična domena.** Urednik iz uvodnog primjera želi
+opisati koliko se katolička tematika pojavljuje u izvorima koje DigiKat
+prati. Za naslov razmatra rečenicu da prosječan izvor ima 153 objave.
+U toj zamišljenoj uredničkoj odluci koristimo stvarnu tablicu domena,
+ali ne opisujemo naslov koji je netko doista objavio.
 
-Tvrdnja vrijedi samo za 3.604 imenovane domene koje su prošle filtar ovoga
-korpusa. Ne opisuje prosječan hrvatski medij, objavu ni korisnika, a izvorna
-datoteka ne razlikuje izmjerenu nulu dosega od nedostupne metrike. Zato se iz
-nje ovdje ne uspoređuju ni doseg ni interakcije.
+Sredina tablice iznosi `r hr_broj(s4_izvori_sazetak$sredina, 1)` objave,
+dok je medijan `r hr_broj(s4_izvori_sazetak$medijan, 0)`
+(Šikić, 2026). Razlika nije posljedica pogrešnog računa. Kada bi svaka
+domena nosila jednak dio svih objava, dobila bi vrijednost sredine.
+Kada domene poredamo prema broju objava i pogledamo sredinu toga niza,
+dobivamo medijan. Urednik treba odlučiti koju od tih dviju slika želi
+prenijeti čitatelju.
 
-**Pitajte model.**
-Asistent može točno računati nad pogrešno izgrađenom tablicom. Prije sažetka
-vrijedi mu zadati kontrolni ugovor. Neka imenuje jedinicu svakog izvora, očekuje
-jedinstvenost ključa na strani šifrarnika, prijavi broj redaka i jedinstvenih
-ključeva prije i nakon spajanja te uskladi ukupni zbroj. Tek poslije toga smije
-primijeniti filtar, pravilo za nedostajuće vrijednosti i sažetak. Provjera
-oblika raspodjele ostaje odvojena od provjere aritmetike.
+Raspored objava objašnjava zašto je odluka važna. Prvih deset domena
+ima `r hr_broj(s4_izvori_sazetak$prvih_deset, 0)` od ukupno 551.712
+objava, odnosno `r paste0(hr_broj(100 * s4_izvori_sazetak$udio_prvih_deset, 2), " %")`
+(Šikić, 2026). Ako naslov treba približiti tipičnu domenu, sama
+sredina mogla bi stvoriti dojam da je mnogo objava uobičajeno za većinu
+izvora. Ako istraživanje zanima gdje se objave koncentriraju, samo
+medijan ne bi pokazao ulogu najvećih domena.
 
-> Spoji mjesečnu i godišnju DigiKatovu tablicu. Prije računa napiši što
-> predstavlja redak i navedi puni ključ spajanja. Vrati broj redaka, broj
-> jedinstvenih ključeva `mjesec + platforma` i zbroj objava prije i poslije
-> spoja. Kod `metrika_dostupna = ne` ne tumači nulu kao izmjerenu vrijednost.
+Urednik zato može uz opis tipične domene prikazati koliko objava nose
+najveći izvori. Te se informacije dopunjuju. Pritom treba zadržati
+ograničenje da opisujemo 3.604 imenovane domene uključene prema
+pravilima DigiKatova korpusa, a ne sve hrvatske medije
+(Šikić, 2026). Broj objava također nije broj čitatelja. Iz ovih
+sažetaka ne zaključujemo koji izvor ima najveći utjecaj ili doseg.
+
+Izbor mjere tako mijenja priču koju ista tablica podržava. Za pitanje
+o tipičnom izvoru tražimo njegov položaj u raspodjeli. Za pitanje o
+koncentraciji trebamo pogledati koliko ukupnog broja objava pripada
+malom dijelu izvora. Riječ prosjek ne može sama obaviti oba posla.
+
+Prije računanja sažetaka trebamo provjeriti što jedan redak predstavlja
+nakon povezivanja tablica. Sljedeći zapis omogućuje takav pregled.
 
 **Nađite grešku.**
-Mjesečnu i godišnju tablicu spojio sam po stupcu `godina`. Dobio sam
-`r hr_broj(s4_pogresni_redci, 0)` redaka i zbroj od
-`r hr_broj(s4_pogresni_zbroj, 0)` objava. Tablica i dalje sadrži svih
-`r hr_broj(s4_pogresni_kljucevi, 0)` različitih kombinacija
-`mjesec + platforma`, a zbroj se točno dobiva iz prikazanih redaka. Spoj je
-zato valjan i može se sažeti po platformi.
+Prije sažimanja objava po platformi pregledajte zapis spajanja
+DigiKatovih tablica (Šikić, 2026). Redak mjesečne tablice predstavlja
+platformu u mjesecu, a redak godišnje platformu u godini. U mjesečnoj je
+tablici jedinstvena kombinacija `mjesec + platforma`; u godišnjoj se ista
+godina pojavljuje uz više platformi.
+
+Asistent je spojio mjesečnu i godišnju tablicu te priložio provjeru.
+Zbroj se odnosi na broj objava iz mjesečne tablice.
+
+| Provjera | Prije spajanja | Nakon spajanja |
+|---|---:|---:|
+| Broj redaka | 438 | `r hr_broj(s4_pogresni_redci, 0)` |
+| Različite kombinacije mjeseca i platforme | 438 | `r hr_broj(s4_pogresni_kljucevi, 0)` |
+| Zbroj objava | 710.307 | `r hr_broj(s4_pogresni_zbroj, 0)` |
+
+: Provjera ulazne i spojene tablice. Izrada autora prema digikat2026.
+
+> Sve početne kombinacije mjeseca i platforme ostale su u rezultatu.
+> Zbroj objava točno odgovara dobivenim redcima. Spoj je zato valjan i
+> tablicu možemo sažeti po platformi.
+
+Odlučite može li tablica u sljedeći korak analize. Pokažite koji podatak
+podupire vašu odluku, navedite potpuni ključ spajanja i zapišite broj
+redaka te zbroj objava koje treba dobiti nakon popravka. Zadržite ono što
+je u asistentovoj provjeri doista točno.
 
 ## Razrađeni primjer
 
-Zadatak je opisati raspodjelu objava među imenovanim domenama u DigiKatovu
-izvatku. Jedinica je domena kroz cijeli obuhvaćeni raspon, ključ je `izvor`, a
-cilj nije procjena hrvatskoga medijskog prostora. Datoteka je već filtrirana na
-gole internetske domene i svedena na mala slova; stranice, kanali i osobni
-računi nisu u njoj. Trag transformacije zato počinje provjerom jedinstvenosti
-ključa i nazivnika, ne računanjem sredine.
+Na simuliranim minutama vidjeli smo zašto uz sredinu trebamo i druge opise
+raspodjele. Sada se vraćamo urednikovu pitanju o tipičnom izvoru u DigiKatovu
+izvatku. Redak predstavlja domenu tijekom cijelog obuhvaćenog razdoblja, a
+ključ je `izvor`. Datoteka već sadržava samo internetske domene
+zapisane malim slovima, bez stranica, kanala i osobnih računa. Najprije
+provjeravamo jedinstvenost domena i ukupan broj objava, a zatim biramo sažetke
+za opis ovog korpusa. Ne procjenjujemo stanje u cijelom hrvatskom medijskom
+prostoru.
 
-Provjera zaustavlja račun ako se domena ponovi ili ako zbroj više nije 551.712.
-Tek nakon toga jedan redak sažetka doista opisuje 3.604 različite domene. Sredina
-i medijan odgovaraju na različita pitanja, a brojnik prvih deset postaje udio
-tek kada mu se pridruži puni nazivnik.
+Sljedeći programski račun služi dodatnoj provjeri. Objekt `s4_izvori`
+sadržava retke datoteke `data/digikat-izvori.csv`, a funkcije za sažimanje
+pripadaju paketu dplyr. Priprema podataka opisana je u mrežnom R praktikumu.
+Račun i bez pokretanja koda možemo pratiti prema brojčanim provjerama u tekstu.
+
+Ako se domena ponovi ili zbroj odstupi od 551.712, zaustavljamo račun i
+provjeravamo razlog. Nakon uspješne provjere možemo sažeti 3.604 različite
+domene. Sredina i medijan opisuju različite aspekte raspodjele, a udio objava
+prvih deset domena računamo prema ukupnom broju objava u datoteci.
 
 *Slika. Provjereni sažetak objava po imenovanoj domeni. Izvor: DigiKat, datoteka izvora, CC BY 4.0 [@digikat2026].*
 
-Omjer sredine i medijana veći je od 38. Taj razmak nije formalna mjera
-asimetrije, ali uz udio prvih deset domena opravdava pregled raspodjele i
-upozorava da prosjek nije vrijednost tipične domene. Doseg i interakcije nisu
-sažeti jer datoteka izvora nema oznaku kojom bi se njihove nule razdvojile na
-izmjerene i nedostupne.
+Sredina je više od 38 puta veća od medijana. To nije formalna mjera
+asimetrije, ali uz koncentraciju objava u prvih deset domena pokazuje zašto
+treba pregledati raspodjelu. Prosjek ne predstavlja tipičnu domenu. Doseg i
+interakcije izostavljamo jer njihove nule u ovoj datoteci ne možemo pouzdano
+protumačiti.
 
-Poštena rečenica izvještaja čuva procjenu, jedinicu, predstavljeni skup i
-granicu u istom dahu. Među 3.604 imenovane domene u DigiKatovu filtriranom
-korpusu medijan iznosi četiri objave po domeni, dok prvih deset domena nosi
-`r paste0(hr_broj(100 * s4_rezultat$prvih_deset / s4_rezultat$objave, 2), " %")`
-od 551.712 objava u toj datoteci; opis se ne može generalizirati na hrvatske
-medije, objave ni publiku izvan pravila ulaska u korpus.
+Rezultat možemo opisati ovako. U DigiKatovu filtriranom korpusu od 3.604
+imenovane domene medijan je četiri objave po domeni. Prvih deset domena ima
+`r paste0(hr_broj(100 * s4_rezultat$prvih_deset / s4_rezultat$objave, 2), " %")` od 551.712 objava. Opis vrijedi za domene uključene prema pravilima
+korpusa i ne prenosimo ga na ostale hrvatske medije, objave ili publiku.
 
 ## Sažetak
 
-Sažetak počinje prije formule. Analitička tablica mora zadržati imenovanu
-jedinicu, puni ključ, provjerljiv broj redaka, pravilo za nedostajuće vrijednosti
-i nazivnik tvrdnje. Točna aritmetika ne popravlja spoj koji je umnožio retke,
-a izbacivanje redaka kojima nedostaje druga metrika može promijeniti i procjenu
-i predstavljeni skup. Tek nakon tih provjera odabir mjera središta,
-raspršenosti i oblika određuje koji dio raspodjele čuvamo u malom broju
-vrijednosti.
-Standardizacija opisuje relativni položaj, transformacija mijenja ljestvicu
-tvrdnje, a poštena rečenica imenuje jedinicu, obuhvat i granicu. Sljedeće
-poglavlje provjerenu tablicu vraća u prostor i pokazuje kako graf postaje dio
-argumenta.
+Sažetak može odgovoriti na naše pitanje tek kada znamo što predstavlja svaki
+redak, jesu li zapisi ispravno spojeni, kako su označene nedostajuće
+vrijednosti i koji nazivnik koristimo. Pogrešan spoj može umnožiti zapise, a
+isključivanje redaka mijenja skup koji opisujemo, pa ni točan račun ne može
+nadomjestiti te provjere. Na provjerenoj tablici biramo mjere središta i raspršenosti prema obliku
+raspodjele. Standardizacijom opisujemo relativni položaj opažanja, a
+transformacijom mijenjamo ljestvicu. Uz odabrane mjere zato zadržavamo
+jedinicu i obuhvat, kao i ono što se jednim brojem ne može opisati. U poglavlju
+o vizualizaciji graf će nam pomoći vidjeti upravo te pojedinosti.
 
 ## Pojmovi
 
 analitička tablica (*analysis table*), spajanje (*join*), nedostajuća vrijednost
 (*missing value*), osjetljivost na odluku o podacima (*data-decision
-sensitivity*), nazivnik (*denominator*), trag transformacije (*transformation
-trail*), poštena rečenica izvještaja (*honest reporting sentence*), aritmetička
+sensitivity*), nazivnik (*denominator*), dnevnik transformacija (*transformation log*), poštena rečenica izvještaja (*honest reporting sentence*), aritmetička
 sredina (*mean*), skraćena sredina (*trimmed mean*), medijan (*median*), mod
 (*mode*), varijanca (*variance*), standardna devijacija (*standard deviation*),
 interkvartilni raspon (*interquartile range*), standardizirana vrijednost
@@ -462,34 +577,38 @@ interkvartilni raspon (*interquartile range*), standardizirana vrijednost
 
 ## Zadaci
 
+Nakon vlastitog pokušaja otvorite naznake i provjere rješenja.
+
 ### Konceptualni
 
 Mjesečna datoteka ima ključ `mjesec + platforma`, a godišnja `godina +
 platforma`. Objasnite zašto spoj samo po godini može zadržati sva popunjena
-polja, a ipak promijeniti jedinicu retka. Predajte predviđanje za broj redaka,
-broj jedinstvenih mjesečnih ključeva i zbroj objava prije nego što pogledate
-kontrolnu tablicu. Zatim navedite koju od te tri provjere nijedna druga ne može
+polja, a ipak promijeniti jedinicu retka. Uz pomoć kontrolne tablice objasnite što provjeravaju broj redaka,
+broj jedinstvenih mjesečnih ključeva i zbroj objava. Zatim navedite koju od te tri provjere nijedna druga ne može
 zamijeniti.
 
 ### Računski
 
-Iz tablice preseta 04.1 odaberite stanja *Zbijena* i *Krajnje opažanje*. Ručno
-izračunajte njihove sredine i medijane iz svih deset navedenih vrijednosti, pa
-rezultate provjerite prema posljednja dva stupca. U dvije rečenice objasnite
-zašto se sredina promijenila više od medijana. Zadatak je jednak u digitalnoj i
-tiskanoj inačici; interakcija služi samo za dodatne pokuse.
+Iz tablice zadanih vrijednosti uzmite stanja *Zbijena* i *Krajnje opažanje*. Iz svih
+deset vrijednosti ručno izračunajte sredine i medijane te ih usporedite s
+posljednjim dvama stupcima. U dvije rečenice objasnite zašto se sredina
+promijenila više od medijana. Za stanje *Zbijena* izračunajte i uzoračku
+standardnu devijaciju, koristeći djelitelj devet. U tablici raspršenosti
+usporedite promjene SD-a i IQR-a nakon zamjene krajnjeg opažanja. Koja se
+mjera više promijenila i zašto? Ako je standardizirana vrijednost neke osobe
+$z=1,5$, opišite njezin položaj prema sredini bez pretvaranja te vrijednosti
+u postotak osoba.
 
-Druga provjera koristi upravljani agregat simulirane ankete, prikazan bez
-ponovnoga zaokruživanja. Svaki redak nosi brojnik, nazivnik i cjelobrojni zbroj
-uz prosjek.
+Za drugu provjeru koristimo agregate simulirane ankete, bez dodatnog
+zaokruživanja. U svakom su retku uz prosjek navedeni brojnik, nazivnik i
+cjelobrojni zbroj.
 
 *Slika. Kontrolni agregat simulirane ankete za ručnu i tiskanu provjeru. Izvor: data/anketa-mreze-agregat.csv, CC BY 4.0.*
 
-Za šifru 1 provjerite `7339 / 90` i `90 / 300`, a zatim zbrojite četiri
-brojnika i četiri zbroja minuta. Ako radite s datotekom, filtrirajte
-`data/anketa-mreze.csv` na šifru 1 i iz analitičkih redaka ponovno proizvedite
-cijeli prvi agregatni red; zadatak ne zahtijeva pisanje koda. U tisku su svi
-potrebni brojnici, nazivnici i provjereni odgovori već u tablici.
+Za šifru 1 provjerite `7339 / 90` i `90 / 300`. Zatim zbrojite četiri brojnika i
+četiri zbroja minuta. Ako koristite datoteku `data/anketa-mreze.csv`, izdvojite šifru 1 i iz
+tih redaka ponovno izračunajte prvi redak zbirne tablice. Nije potrebno pisati
+kod. Tablica sadržava i sve vrijednosti potrebne za ručnu provjeru.
 
 ### Kritički
 
@@ -502,8 +621,8 @@ interakcijama.
 
 ### Revizija modela
 
-Ocijenite modelsku analizu iz okvira. Potvrdite da je zbroj točan za tablicu
-koju je model proizveo, a zatim dokažite jednu pogrešku. Usporedite 3.571 redak
-s 438 jedinstvenih ključeva, imenujte izostavljeni dio ključa i navedite kakav
-bi zbroj dao ispravan spoj. Završite rečenicom o tome zašto točna aritmetika
-nije odgovor na pogrešno definiranu jedinicu.
+Provjerite modelsku analizu iz okvira. Najprije potvrdite zbroj u tablici koju
+je model proizveo. Zatim usporedite 3.571 redak s 438 jedinstvenih ključeva i
+navedite koji dio ključa nedostaje. Napišite ukupan broj objava koji bi dao
+ispravan spoj. Završite objašnjenjem zašto točan zbroj ne potvrđuje ispravno
+spajanje.

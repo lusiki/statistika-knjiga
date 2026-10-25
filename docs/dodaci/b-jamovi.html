@@ -24,26 +24,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,9 +46,9 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -154,35 +135,6 @@ div.csl-indent {
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
 
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -614,7 +566,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -684,6 +636,11 @@ window.Quarto = {
   <a href="../dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -696,9 +653,21 @@ window.Quarto = {
     <h2 id="toc-title">Sadržaj</h2>
    
   <ul>
-  <li><a href="#priprema-podataka" id="toc-priprema-podataka" class="nav-link active" data-scroll-target="#priprema-podataka">Priprema podataka</a></li>
-  <li><a href="#povezanost-i-skupine" id="toc-povezanost-i-skupine" class="nav-link" data-scroll-target="#povezanost-i-skupine">Povezanost i skupine</a></li>
-  <li><a href="#izvoz-koji-se-može-provjeriti" id="toc-izvoz-koji-se-može-provjeriti" class="nav-link" data-scroll-target="#izvoz-koji-se-može-provjeriti">Izvoz koji se može provjeriti</a></li>
+  <li><a href="#sec-b-priprema" id="toc-sec-b-priprema" class="nav-link active" data-scroll-target="#sec-b-priprema">Priprema podataka</a>
+  <ul class="collapse">
+  <li><a href="#fiksni-uzorci-i-filtri" id="toc-fiksni-uzorci-i-filtri" class="nav-link" data-scroll-target="#fiksni-uzorci-i-filtri">Fiksni uzorci i filtri</a></li>
+  </ul></li>
+  <li><a href="#sec-b-rute" id="toc-sec-b-rute" class="nav-link" data-scroll-target="#sec-b-rute">Osnovni postupci</a>
+  <ul class="collapse">
+  <li><a href="#povezanost-i-uvjetni-udio" id="toc-povezanost-i-uvjetni-udio" class="nav-link" data-scroll-target="#povezanost-i-uvjetni-udio">Povezanost i uvjetni udio</a></li>
+  <li><a href="#standardna-pogreška-i-interval" id="toc-standardna-pogreška-i-interval" class="nav-link" data-scroll-target="#standardna-pogreška-i-interval">Standardna pogreška i interval</a></li>
+  <li><a href="#razlika-dviju-skupina-i-veličina-učinka" id="toc-razlika-dviju-skupina-i-veličina-učinka" class="nav-link" data-scroll-target="#razlika-dviju-skupina-i-veličina-učinka">Razlika dviju skupina i veličina učinka</a></li>
+  <li><a href="#kategorije-dvije-i-više-grupa" id="toc-kategorije-dvije-i-više-grupa" class="nav-link" data-scroll-target="#kategorije-dvije-i-više-grupa">Kategorije, dvije i više grupa</a></li>
+  <li><a href="#regresija" id="toc-regresija" class="nav-link" data-scroll-target="#regresija">Regresija</a></li>
+  </ul></li>
+  <li><a href="#pripremljena-tekstna-tablica" id="toc-pripremljena-tekstna-tablica" class="nav-link" data-scroll-target="#pripremljena-tekstna-tablica">Pripremljena tekstna tablica</a></li>
+  <li><a href="#sec-b-granica" id="toc-sec-b-granica" class="nav-link" data-scroll-target="#sec-b-granica">Ograničenja opisanih postupaka</a></li>
+  <li><a href="#spremanje-i-provjera" id="toc-spremanje-i-provjera" class="nav-link" data-scroll-target="#spremanje-i-provjera">Spremanje i provjera</a></li>
   </ul>
 </nav>
     </div>
@@ -748,10 +717,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -805,30 +778,187 @@ window.Quarto = {
 }());
 </script>
 
-<!-- =====================================================================
-  STATUS:  djelomični nacrt — konceptualna mapa bez krhkih snimki zaslona
-  IZVOR:   novo
-  OPSEG:   ~4000 riječi
-  NAPOMENA: OTVORENA ODLUKA: dokumentiraju li se točni izbornici (snimke zaslona brzo zastare) ili dodatak ostaje konceptualan. Vidi notes/struktura-knjige.md.
-
-  SADRŽAJ (iz plana):
-  Pratitelj u jamoviju, četiri stranice po dijelu knjige, koji svaku analizu iz knjige preslikava na softver s izbornicima, za odsjeke koji ne uče programiranje.
-===================================================================== -->
-<p>Ovaj dodatak prati analize iz knjige u jamoviju. Namjerno se oslanja na nazive analiza i očekivane izlaze, a ne na snimke zaslona koje se mijenjaju s verzijom sučelja. Čitatelj bez programiranja tako može reproducirati statistički postupak, dok iste provjere dizajna i interpretacije ostaju obvezne.</p>
-<section id="priprema-podataka" class="level2">
-<h2 class="anchored" data-anchor-id="priprema-podataka">Priprema podataka</h2>
-<p>Svaki redak predstavlja jedinicu analize, a svaki stupac varijablu. Prije odabira analize provjeravamo razinu mjerenja koju jamovi prikazuje ikonom uz ime stupca. Pogrešno postavljena razina može sakriti postupak ili ponuditi račun koji nema sadržajno značenje.</p>
-<p>U opisnom modulu najprije tražimo broj valjanih opažanja, nedostajuće vrijednosti, prikladnu mjeru središta i raspršenosti te graf raspodjele. Izlaz spremamo uz datoteku podataka i bilježimo verziju programa.</p>
+<p>Ovaj dodatak pokazuje kako dio analiza iz Dodatka A ponoviti kroz izbornike programa jamovi. Koristimo iste datoteke i varijable te odgovaramo na ista pitanja. Dobivene rezultate uspoređujemo s vrijednostima iz Dodatka A.</p>
+<p>Upute su pripremljene za jamovi 2.7.30.0 i ugrađeni modul jmv 2.7.7. Inačice su provjerene 25. kolovoza 2026. u <a href="https://github.com/jamovi/jamovi/releases/tag/v2.7.30">službenom izdanju programa</a> i <a href="https://raw.githubusercontent.com/jamovi/jmv/8c07513626f458bf9d855ac3a8271a9de9c312f9/DESCRIPTION">zapisu ugrađenoga modula</a>. Detaljne postavke, filtri i nezaokružene referentne vrijednosti nalaze se u <a href="../config/appendix-b-jamovi-route.json">verzioniranoj datoteci s uputama za provjeru</a>.</p>
+<p>Upute su provjerene prema dokumentaciji, ali još nisu ispitane na čistoj instalaciji programa. Tu provjeru treba dovršiti Luka Šikić, autor i nositelj kolegija. Do tada zapis uz svaki postupak zadržava oznaku <code>documented_pending_clean_install</code>.</p>
+<section id="sec-b-priprema" class="level2">
+<h2 class="anchored" data-anchor-id="sec-b-priprema">Priprema podataka</h2>
+<p>Otvorite točno jednu datoteku priloženu knjizi. Za povezanost vremena na mrežama i povjerenja skup <code>anketa_mreze</code> koristi <code>data/anketa-mreze.csv</code>. Pitanje o povjerenju, dobi i izvoru vijesti u skupu <code>populacija_medija</code> koristi <code>data/populacija-medija.csv</code>, a pregled pripremljene tekstne tablice koristi <code>data/parlament_oznake.csv</code>.</p>
+<p>Prve dvije datoteke sadrže generirane osobe. Ne daju nalaz o stvarnoj populaciji. Treća datoteka sadrži označene parlamentarne rečenice i ima vlastita pravila atribucije. Uvjeti stoje uz <a href="../data/anketa-mreze.LICENCA.md">anketu</a>, <a href="../data/populacija-medija.LICENCA.md">populaciju</a> i <a href="../data/parlament-oznake.LICENCA.md">tekstnu tablicu</a>.</p>
+<p>Nakon uvoza otvorite postavke varijabli. Identifikatore <code>ispitanik</code>, <code>osoba</code>, <code>record_id</code> i <code>source_document_id</code> postavite kao <code>ID</code>. Brojčane varijable <code>dob</code>, <code>minute_dnevno</code>, <code>povjerenje</code> i <code>povjerenje_medijima</code> postavite kao <code>Continuous</code>. Kategorijske varijable <code>obrazovanje</code>, <code>izvor_vijesti</code>, <code>derived_split</code>, <code>recorded_label</code> i <code>label_path</code> postavite kao <code>Nominal</code>. Datoteka s uputama navodi samo tipove varijabli potrebne pojedinom postupku.</p>
+<p>Nijedna od tih datoteka nema težinu uzorkovanja. Ne stvarajte prazan stupac težina i ne uključujte težine u analizi. Ta odluka dolazi iz kataloga podataka, a ne iz zadanih postavki programa.</p>
+<section id="fiksni-uzorci-i-filtri" class="level3">
+<h3 class="anchored" data-anchor-id="fiksni-uzorci-i-filtri">Fiksni uzorci i filtri</h3>
+<p>Poglavlja 9, 10, 13, 14 i 15 u Dodatku A rade na fiksnim izvacima. Da bi jamovi dobio iste retke, na vrpci <code>Data</code> odaberite <code>Filters</code> i kopirajte polje <code>jamovi_formula</code> iz zapisa za odgovarajući postupak. Formula koristi samo ključ <code>osoba</code> i logički operator <code>or</code>; ne stvara novi skup ni novu analitičku varijablu. <a href="https://docs.jamovi.org/usermanual/um_4_spreadsheet.html">Službene upute za filtre</a> potvrđuju oba dijela sintakse.</p>
+<p>Prije analize provjerite broj uključenih redaka naveden kao <code>selected_rows</code>. Ako se broj ne slaže, ne nastavljajte. Najčešći su uzroci pogrešna datoteka, promijenjen redak ili nepotpuno kopirana formula.</p>
 </section>
-<section id="povezanost-i-skupine" class="level2">
-<h2 class="anchored" data-anchor-id="povezanost-i-skupine">Povezanost i skupine</h2>
-<p>Za dvije brojčane varijable biramo korelacijsku matricu i uključujemo raspršeni prikaz. Pearsonov i Spearmanov koeficijent uspoređujemo tek nakon pregleda oblika. Za dvije skupine odabiremo neovisni ili upareni t-test prema jedinici analize, a ne prema rasporedu stupaca.</p>
-<p>Kod više skupina koristimo ANOVA-u, uključujemo prikaz reziduala, veličinu učinka i unaprijed obrazložene usporedbe. Hi-kvadrat analiza pripada kontingencijskim tablicama i uz test treba pokazati očekivane frekvencije, reziduale i Cramérovo V.</p>
 </section>
-<section id="izvoz-koji-se-može-provjeriti" class="level2">
-<h2 class="anchored" data-anchor-id="izvoz-koji-se-može-provjeriti">Izvoz koji se može provjeriti</h2>
-<p>Tablica iz jamovija nije samostalan zaključak. Uz nju čuvamo opis varijabli, dizajna, svih uključenih opcija i razloga odabira. U izvještaj prenosimo procjenu i interval prije testa, a graf preuređujemo samo ako promjena ne skriva ljestvicu, skupine ili pojedinačna opažanja.</p>
-
+<section id="sec-b-rute" class="level2">
+<h2 class="anchored" data-anchor-id="sec-b-rute">Osnovni postupci</h2>
+<p>Tablica <a href="#tbl-b-rute" class="quarto-xref">Tablica&nbsp;<span>1</span></a> donosi vrijednosti s kojima uspoređujemo rezultate dobivene u programu jamovi. Preuzima ih iz iste verzionirane datoteke koja sadrži postavke i filtre za opisane postupke.</p>
+<div class="cell">
+<div id="tbl-b-rute" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-b-rute-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Dokumentirane jamovi rute i zlatne vrijednosti Dodatka A
+</figcaption>
+<div aria-describedby="tbl-b-rute-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruta</th>
+<th style="text-align: left;">Mjera</th>
+<th style="text-align: right;">Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">C06-PEARSON</td>
+<td style="text-align: left;">Pearsonov r</td>
+<td style="text-align: right;">0,179849</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C07-UVJETNI-UDIO</td>
+<td style="text-align: left;">uvjetni udio mreža</td>
+<td style="text-align: right;">0,458576</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C08-STANDARDNA-POGRESKA</td>
+<td style="text-align: left;">standardna pogreška, n = 100</td>
+<td style="text-align: right;">0,198410</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C09-INTERVAL</td>
+<td style="text-align: left;">sredina</td>
+<td style="text-align: right;">4,815000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C09-INTERVAL</td>
+<td style="text-align: left;">donja granica 95 %</td>
+<td style="text-align: right;">4,524857</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C09-INTERVAL</td>
+<td style="text-align: left;">gornja granica 95 %</td>
+<td style="text-align: right;">5,105143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C10-RAZLIKA</td>
+<td style="text-align: left;">razlika portal − tisak</td>
+<td style="text-align: right;">-0,640939</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C11-COHEN-D</td>
+<td style="text-align: left;">Cohenov d, portal − tisak</td>
+<td style="text-align: right;">-0,388898</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C13-HI-KVADRAT</td>
+<td style="text-align: left;">hi-kvadrat</td>
+<td style="text-align: right;">6,037092</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C13-HI-KVADRAT</td>
+<td style="text-align: left;">Cramérov V</td>
+<td style="text-align: right;">0,050154</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C14-WELCH</td>
+<td style="text-align: left;">razlika TV − mreže</td>
+<td style="text-align: right;">1,185714</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C14-WELCH</td>
+<td style="text-align: left;">donja Welchova granica</td>
+<td style="text-align: right;">0,446686</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C14-WELCH</td>
+<td style="text-align: left;">gornja Welchova granica</td>
+<td style="text-align: right;">1,924742</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C15-ANOVA</td>
+<td style="text-align: left;">F-omjer</td>
+<td style="text-align: right;">8,381813</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C15-ANOVA</td>
+<td style="text-align: left;">eta-kvadrat</td>
+<td style="text-align: right;">0,102053</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C16-REGRESIJA</td>
+<td style="text-align: left;">nagib dobi</td>
+<td style="text-align: right;">0,026885</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C16-REGRESIJA</td>
+<td style="text-align: left;">koeficijent mreža</td>
+<td style="text-align: right;">-0,533534</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C16-REGRESIJA</td>
+<td style="text-align: left;">prilagođeni R-kvadrat</td>
+<td style="text-align: right;">0,122190</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TEXT-PREPARED</td>
+<td style="text-align: left;">pripremljeni redci</td>
+<td style="text-align: right;">2698,000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<section id="povezanost-i-uvjetni-udio" class="level3">
+<h3 class="anchored" data-anchor-id="povezanost-i-uvjetni-udio">Povezanost i uvjetni udio</h3>
+<p>Za <code>B-C06-PEARSON</code> slijedite <code>Analyses → Regression → Correlation Matrix</code>. Premjestite <code>minute_dnevno</code> i <code>povjerenje</code> među varijable, ostavite uključen samo Pearsonov koeficijent i zatražite broj opažanja. Koeficijent sažima linearnu povezanost; prije tumačenja i dalje treba pogledati raspršeni prikaz.</p>
+<p>Za <code>B-C07-UVJETNI-UDIO</code> najprije uključite filtar <code>dob &lt;= 29</code>. Zatim slijedite <code>Analyses → Exploration → Descriptives</code>, premjestite <code>izvor_vijesti</code> među varijable i uključite tablicu frekvencija. Traženi je nazivnik broj svih uključenih redaka, a brojnik broj redaka s oznakom <code>društvene mreže</code>.</p>
+</section>
+<section id="standardna-pogreška-i-interval" class="level3">
+<h3 class="anchored" data-anchor-id="standardna-pogreška-i-interval">Standardna pogreška i interval</h3>
+<p>Ruta <code>B-C08-STANDARDNA-POGRESKA</code> koristi <code>Data → Compute</code>. Nazovite novu provjernu varijablu <code>se_n100</code> i kopirajte formulu iz polja <code>settings.jamovi_formula</code>. Korekcija pretvara uzoračku standardnu devijaciju koju vraća <code>VSTDEV()</code> u populacijsku vrijednost koju koristi Dodatak A, pa je ne smijete izostaviti.</p>
+<p>Za <code>B-C09-INTERVAL</code> prvo primijenite njegov fiksni filtar. U <code>Analyses → Exploration → Descriptives</code> zatražite <code>N</code>, <code>Mean</code> i <code>SE</code> za <code>povjerenje_medijima</code>. Granice se provjeravaju pravilom <code>Mean − 1,96 × SE</code> i <code>Mean + 1,96 × SE</code>. To je ista normalna aproksimacija kao u Dodatku A, a ne dodatni postupak.</p>
+</section>
+<section id="razlika-dviju-skupina-i-veličina-učinka" class="level3">
+<h3 class="anchored" data-anchor-id="razlika-dviju-skupina-i-veličina-učinka">Razlika dviju skupina i veličina učinka</h3>
+<p>Ruta <code>B-C10-RAZLIKA</code> koristi samo fiksni uzorak i opisne sredine po <code>izvor_vijesti</code>. U <code>Analyses → Exploration → Descriptives</code> postavite <code>povjerenje_medijima</code> kao varijablu, a <code>izvor_vijesti</code> kao podjelu. Oduzmite sredinu tiska od sredine portala. Ne čitajte p-vrijednost iz drugoga testa kao zamjenu za permutacijski rezultat Dodatka A.</p>
+<p>Za <code>B-C11-COHEN-D</code> najprije uključite samo <code>portal</code> i <code>tisak</code>. Slijedite <code>Analyses → T-Tests → Independent Samples T-Test</code>, postavite <code>povjerenje_medijima</code> kao zavisnu varijablu i <code>izvor_vijesti</code> kao skupinu, zadržite Studentovu granu i uključite veličinu učinka. Redoslijed je portal minus tisak. Tumačite samo Cohenov (d) koji je imenovan u tablici.</p>
+</section>
+<section id="kategorije-dvije-i-više-grupa" class="level3">
+<h3 class="anchored" data-anchor-id="kategorije-dvije-i-više-grupa">Kategorije, dvije i više grupa</h3>
+<p>Za <code>B-C13-HI-KVADRAT</code> primijenite njegov fiksni filtar. Slijedite <code>Analyses → Frequencies → Contingency Tables → Independent Samples</code>, postavite <code>obrazovanje</code> u retke i <code>izvor_vijesti</code> u stupce te uključite očekivane frekvencije, hi-kvadrat i Cramérov V.</p>
+<p>Za <code>B-C14-WELCH</code> primijenite njegov fiksni filtar. Slijedite <code>Analyses → T-Tests → Independent Samples T-Test</code>, postavite <code>povjerenje_medijima</code> kao zavisnu varijablu i <code>izvor_vijesti</code> kao skupinu, isključite Studentovu i uključite Welchovu granu, razliku sredina te interval od 95 %. Redoslijed je TV minus društvene mreže.</p>
+<p>Za <code>B-C15-ANOVA</code> primijenite njegov fiksni filtar. Slijedite <code>Analyses → ANOVA → ANOVA</code>, postavite <code>povjerenje_medijima</code> kao zavisnu varijablu i <code>izvor_vijesti</code> kao fiksni faktor. Upotrijebite klasični model i uključite eta-kvadrat; ne prebacujte se na Welchovu jednofaktorsku analizu.</p>
+</section>
+<section id="regresija" class="level3">
+<h3 class="anchored" data-anchor-id="regresija">Regresija</h3>
+<p>Za <code>B-C16-REGRESIJA</code> slijedite <code>Analyses → Regression → Linear Regression</code>. Postavite <code>povjerenje_medijima</code> kao zavisnu varijablu, <code>dob</code> kao kovarijatu i <code>izvor_vijesti</code> kao faktor. Referentna kategorija mora biti <code>portal</code>. Uključite procjene koeficijenata i mjere pristajanja modela.</p>
+<p>Koeficijent dobi tumači promjenu uz isti izvor vijesti. Koeficijent društvenih mreža uspoređuje tu kategoriju s portalom uz istu dob. Ni jedan koeficijent ne dokazuje uzročnost.</p>
+</section>
+</section>
+<section id="pripremljena-tekstna-tablica" class="level2">
+<h2 class="anchored" data-anchor-id="pripremljena-tekstna-tablica">Pripremljena tekstna tablica</h2>
+<p>Ruta <code>B-TEXT-PREPARED</code> otvara <code>data/parlament_oznake.csv</code> i slijedi <code>Analyses → Exploration → Descriptives</code>. Uključite tablice frekvencija za <code>derived_split</code>, <code>recorded_label</code> i <code>label_path</code>.</p>
+<p>Jedinica je jedna označena rečenica, a očekivani nazivnik je vrijednost <code>A-tekst:prepared_rows</code> u tablici <a href="#tbl-b-rute" class="quarto-xref">Tablica&nbsp;<span>1</span></a>. <code>recorded_label</code> je zabilježeni referentni ishod, ne istina o rečenici. <code>label_path</code> razlikuje put dvaju kodera i usklađivanja od puta jednoga uvježbanog kodera. <code>derived_split</code> čuva dokumentno razdvajanje bez curenja, kako opisuje <a href="../data/parlament_tekst/PUTOVNICA.md">putovnica podataka</a>.</p>
+<p>Pitanje je preuzeto iz Dodatka A, ali ova pripremljena tablica nema varijablu stranačke pripadnosti. Zato ruta ne računa razliku među strankama i ne širi tekstni zadatak. Ona provjerava samo uvoz, jedinicu, nazivnik, kodiranje i odluku o validaciji.</p>
+</section>
+<section id="sec-b-granica" class="level2">
+<h2 class="anchored" data-anchor-id="sec-b-granica">Ograničenja opisanih postupaka</h2>
+<p>Ugrađeni <code>jmv 2.7.7</code> nema dokumentiran postupak koji bi točno ponovio permutacijsku p-vrijednost iz poglavlja 10 s istim brojem preslagivanja i istom korekcijom. Ne dokumentira ni fiksni spoj dokaznoga paketa iz poglavlja 12 u obliku kojim ga izvodi Dodatak A. Tih sedam referentnih vrijednosti ostaje zabilježeno radi usporedbe s Dodatkom A, ali ovaj dodatak ne daje postupak kojim ih možemo ponoviti u programu jamovi.</p>
+<p>Ne zamjenjujte ih parametarskim testom, drugim brojem preslagivanja ili nedatiranim vanjskim modulom. Za te rezultate upotrijebite <a href="../dodaci/a-praktikum.html#sec-a-rute-06-16">provjerenu R rutu</a>. Time Dodatak B ostaje uži od Dodatka A, ali se ne razilazi ni u jednoj vrijednosti koju podupire.</p>
+</section>
+<section id="spremanje-i-provjera" class="level2">
+<h2 class="anchored" data-anchor-id="spremanje-i-provjera">Spremanje i provjera</h2>
+<p>Spremite radnu datoteku kao <code>.omv</code>. Taj format čuva podatke, postavke i rezultate. Uz nju izvezite samo tablicu koja sadrži vrijednost imenovanu u tablici <a href="#tbl-b-rute" class="quarto-xref">Tablica&nbsp;<span>1</span></a> i zapišite identifikator rute. Ne prenosite p-vrijednost ili drugi izlaz koji ruta ne imenuje.</p>
+<p>Strojnu provjeru paketa pokrenite iz korijena knjige ovom naredbom.</p>
+<pre class="text"><code>python scripts/check-appendix-b.py</code></pre>
+<p>Provjera u privremenoj mapi ponovno priprema upute iz izvornih datoteka i postupaka Dodatka A. Zatim uspoređuje svih 26 očekivanih vrijednosti, popis varijabli, pitanja, inačice, filtre, poveznice i tiskovnu tablicu. Time provjeravamo datoteke i upute uz knjigu. Rad samog programa na čistoj instalaciji treba provjeriti zasebno; za tu je provjeru odgovorna osoba navedena u <a href="#sec-b-granica">odjeljku o granici</a>.</p>
 
 
 </section>
@@ -930,23 +1060,21 @@ window.Quarto = {
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -956,9 +1084,275 @@ window.Quarto = {
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1244,7 +1638,9 @@ window.Quarto = {
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1300,25 +1696,25 @@ window.Quarto = {
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -1734,31 +2130,33 @@ window.Quarto = {
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3375,6 +3773,16 @@ window.Quarto = {
     <li class="nav-item">
     <a class="nav-link" href="../resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

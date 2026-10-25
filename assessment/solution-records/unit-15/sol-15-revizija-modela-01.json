@@ -8,20 +8,20 @@
     "anchor": "ex-15-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:18c23cf47e6865a39fd7e346829346e43bc7b9e1070c42be4b451d41c8b6468d",
+  "prompt_fingerprint": "sha256:943447de54ed7eb57564957c15c20e0b21f3e4ecf8386a6596711147ea6db7ed",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "unadjusted-pairwise-tests-treated-as-family-protected",
-      "statement": "Poziv s `p.adjust.method = \"none\"` može poduprijeti zaključke o svih deset parova jer su pojedinačni t-testovi uredno izračunati.",
-      "why_wrong": "Neprilagođeni testovi ne štite stopu obiteljske pogreške. Čak i kada je svaki pojedinačni račun ispravan, deset odluka otvara više prilika da barem jedan istiniti nulti par slučajno prođe prag."
+      "statement": "Nakon značajnog ukupnog testa svaki par možemo prosuditi na razini 0,05 bez prilagodbe, a da cijela obitelj parnih odluka ostane zaštićena na toj razini.",
+      "why_wrong": "Postavka bez prilagodbe ne daje zaštitu cijele obitelji parnih odluka. Ukupni test ispituje jednakost svih sredina; njegovo odbacivanje ne govori koji se parovi razlikuju. Kad neke razlike postoje, preostale istinite jednakosti i dalje mogu biti pogrešno odbačene. Obećanje o zaštiti svake obitelji ne slijedi iz samog prethodnog ukupnog testa."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Razdvojiti korisni ukupni model i valjano odabrane varijable od parametra prilagodbe, zatim prebrojiti parove i usporediti nultu stopu barem jedne parne pogreške sa stopom jednoga ukupnog testa.",
-      "expected_evidence": "Pet skupina daje deset parova. Jedina fatalna postavka jest `none`. Fiksna provjera daje 548 od 2000 nultih ponavljanja s barem jednim lažno pozitivnim parom, nasuprot 85 od 2000 za jedan ukupni test."
+      "expected_evidence": "Ukupni test i broj od deset parova ispravno su određeni. `p.adjust.method = \"none\"` ipak ne štiti cijelu obitelj parnih odluka. Značajni ukupni test govori da nisu sve sredine jednake, ali ne jamči zaštitu preostalih istinitih jednakosti kad se neki parovi doista razlikuju. Zato prolazak ukupnog testa nije dovoljan za obećanje o svakoj konfiguraciji sredina. U zadanim uvjetima možemo rabiti Tukeyjev postupak i istodobne intervale. Bez ispisa parnih rezultata još ne znamo koji se parovi razlikuju.\n\nJedna moguća zamjena glasi ovako.\n\nNakon ukupnog testa prikazat ćemo svih deset parnih razlika uz Tukeyjeve istodobne intervale i pripadne prilagođene p-vrijednosti. Iz pojedinačnih neprilagođenih testova nećemo izvoditi obećanje da je cijela obitelj odluka zaštićena na razini 0,05.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -47,7 +47,7 @@
       "components": [
         {
           "component_id": "name-single-fatal-error",
-          "required_claim": "Jedina fatalna pogreška jest izostanak prilagodbe u `p.adjust.method = \"none\"`.",
+          "required_claim": "Pogrešan je zaključak da neprilagođeni parni testovi nakon značajnog ukupnog testa jamče zaštitu cijele obitelji. Postavka `p.adjust.method = \"none\"` otkriva kako su odluke donesene.",
           "required_evidence": "Poziv otvara deset parnih odluka bez imenovane zaštite obitelji."
         },
         {
@@ -64,19 +64,29 @@
           "component_id": "avoid-code-repair",
           "required_claim": "Revizija završava statističkom dijagnozom i dokazom, bez izvršavanja ili pisanja zamjenskoga koda.",
           "required_evidence": "Predani odgovor imenuje postavku, obitelj i stopu pogreške u prozi."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Nakon ukupnog testa prikazat ćemo svih deset parnih razlika uz Tukeyjeve istodobne intervale i pripadne prilagođene p-vrijednosti. Iz pojedinačnih neprilagođenih testova nećemo izvoditi obećanje da je cijela obitelj odluka zaštićena na razini 0,05.",
+          "required_evidence": "Ukupni test i broj od deset parova ispravno su određeni. `p.adjust.method = \"none\"` ipak ne štiti cijelu obitelj parnih odluka. Značajni ukupni test govori da nisu sve sredine jednake, ali ne jamči zaštitu preostalih istinitih jednakosti kad se neki parovi doista razlikuju. Zato prolazak ukupnog testa nije dovoljan za obećanje o svakoj konfiguraciji sredina. U zadanim uvjetima možemo rabiti Tukeyjev postupak i istodobne intervale. Bez ispisa parnih rezultata još ne znamo koji se parovi razlikuju."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "Artefakt uspoređuje 5 skupina kroz 10 parova. Nezaštićena obitelj u fiksnoj nultoj simulaciji daje 548/2000 = 27,4 % ponavljanja s barem jednom pogreškom, dok jedan ukupni test daje 85/2000 = 4,25 %. Deset neovisnih testova daje 808/2000 = 40,4 %, blizu teorijskih 40,126306076162 %.",
-      "tolerance_or_acceptance_rule": "Traže se točan broj 10 parova i točni simulacijski brojevi 548, 85 i 808; postotke prihvatiti unutar 0,01 postotnoga boda. Formula za neovisne testove ne smije se pripisati dijeljenim parovima.",
+      "expected_result": "Pet skupina daje 5 × 4 / 2 = 10 parova. Ranija simulacija iz poglavlja, bez uvjetovanja na prolazak ukupnog testa, daje 548/2000 = 27,4 % ponavljanja s barem jednom parnom pogreškom i 85/2000 = 4,25 % za ukupni test. Za deset neovisnih testova daje 808/2000 = 40,4 %, a teorijski 40,126306076162 %. Ti postotci nisu stopa pogreške dvostupanjskog postupka iz okvira.",
+      "tolerance_or_acceptance_rule": "U ovom zadatku traži se deset parova i obrazloženje zaštite obitelji. Raniji simulacijski brojevi služe samo dodatnoj provjeri odgovarajućeg postupka; ne traže se u odgovoru na okvir.",
       "independent_method": "Neovisno kombinatorno prebrojiti parove i s fiksnim strujama iz kanonske simulirane populacije ponovno izvesti 2000 potpunih nultih obitelji parnih i ukupnih testova te zasebnu provjeru deset neovisnih testova.",
       "evidence_reference": "chapters/15-vise-grupa.qmd#ex-15-revizija-modela-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-misses-or-retains-none",
@@ -113,7 +123,7 @@
     }
   ],
   "instructor_notes": [
-    "Jedina fatalna pogreška ostaje `p.adjust.method = \"none\"`; puni model i odabrane varijable nisu posađeni nedostaci.",
+    "Središnja pogreška je obećanje zaštite obitelji uz neprilagođene parne testove. Sam ukupni test i izbor varijabli valjani su; račun neprilagođene p-vrijednosti nije sam po sebi računski nedostatak.",
     "Student ne treba znati sintaksu zamjene. Ocjenjuju se obitelj, stopa pogreške, dokaz i očuvanje korisnih dijelova."
   ],
   "visibility_contract": "D06-two-layer-v1",

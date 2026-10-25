@@ -8,7 +8,7 @@
     "anchor": "ex-08-racunski-01"
   },
   "task_class": "racunski",
-  "prompt_fingerprint": "sha256:9585e2845d5807613bbf12b9629141184e55100531d3cd2edb4e3bfc5de56715",
+  "prompt_fingerprint": "sha256:8a57ae18d090edd9aafde7cc99f12a991eaa396f86a980194b1f1577a03601af",
   "answer_components": {
     "planted_error": {
       "applicable": false,
@@ -20,7 +20,7 @@
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Najprije zbrojiti odgovore i broj redaka. Zatim svaki odgovor pomnožiti pripadnom težinom dva ili četiri, zasebno zbrojiti ponderirane odgovore i sve težine te usporediti doprinose dvaju slojeva nazivniku.",
+      "procedure": "Najprije zbrojiti odgovore i broj redaka. Zatim svaki odgovor pomnožiti pripadnom težinom dva ili četiri, zasebno zbrojiti ponderirane odgovore i sve težine te usporediti doprinose dvaju slojeva nazivniku. Račun pretpostavlja jednostavni slučajni uzorak, malu uzoračku frakciju i udio 0,5; ne obuhvaća pogreške pokrivenosti ili mjerenja.",
       "expected_evidence": "Bez težina brojnik je 3, nazivnik 6 i procjena 50 %. S težinama brojnik je 6, nazivnik 16 i procjena 37,5 %. Procjena pada jer dvije nule iz rjeđe uključivanoga sloja dobivaju težinu četiri, ali taj račun ne ispravlja nepokrivenost, neodgovor, loše mjerenje ni neizmjerene razlike."
     },
     "plausible_non_answers": {
@@ -68,15 +68,25 @@
           "component_id": "state-unrepaired-error",
           "required_claim": "Težine same ne mogu ispraviti barem jednu pogrešku poput nepokrivenosti, neodgovora ili mjerenja.",
           "required_evidence": "Obrnute vjerojatnosti uključivanja korigiraju samo poznatu nejednaku priliku ulaska među obuhvaćenim jedinicama."
+        },
+        {
+          "component_id": "october-08-numerical-extension",
+          "required_claim": "Za n = 64 standardna pogreška jest 12/8 = 1,5; za n = 256 jest 12/16 = 0,75. Prepolovljenje traži četverostruki uzorak. Za n = 400 približna margina udjela iznosi 1/20 = 0,05, odnosno pet postotnih bodova.",
+          "required_evidence": "Račun pretpostavlja jednostavni slučajni uzorak, malu uzoračku frakciju i udio 0,5; ne obuhvaća pogreške pokrivenosti ili mjerenja."
+        },
+        {
+          "component_id": "october-final-sampling-range",
+          "required_claim": "Za 64 osobe dobivamo 1,96 × 1,5 = 2,94, a za 256 osoba 1,96 × 0,75 = 1,47. Približno 95 % uzoračkih sredina tada bi bilo unutar ±2,94, odnosno ±1,47 jedinica od populacijske sredine.",
+          "required_evidence": "Raspon pretpostavlja normalno približenje. Margina udjela od pet postotnih bodova opisuje uzoračku nesigurnost pod zadanim nacrtom; ne uključuje pristranost odabira ni pogrešku mjerenja."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "Bez težina 3/6 = 0,50, odnosno 50 %. S težinama ponderirani je brojnik 2 + 2 + 2 = 6, ponderirani nazivnik 2 + 2 + 2 + 2 + 4 + 4 = 16, pa je 6/16 = 0,375, odnosno 37,5 %. Razlika iznosi -12,5 postotnih bodova.",
+      "expected_result": "Bez težina 3/6 = 0,50, odnosno 50 %. S težinama ponderirani je brojnik 2 + 2 + 2 = 6, ponderirani nazivnik 2 + 2 + 2 + 2 + 4 + 4 = 16, pa je 6/16 = 0,375, odnosno 37,5 %. Razlika iznosi -12,5 postotnih bodova. Za n = 64 standardna pogreška jest 12/8 = 1,5; za n = 256 jest 12/16 = 0,75. Prepolovljenje traži četverostruki uzorak. Za n = 400 približna margina udjela iznosi 1/20 = 0,05, odnosno pet postotnih bodova. Za 64 osobe dobivamo 1,96 × 1,5 = 2,94, a za 256 osoba 1,96 × 0,75 = 1,47. Približno 95 % uzoračkih sredina tada bi bilo unutar ±2,94, odnosno ±1,47 jedinica od populacijske sredine.",
       "tolerance_or_acceptance_rule": "Oba brojnika i nazivnika moraju biti točni; prihvatiti 37,5 % ili 0,375 te pomak od 12,5 postotnih bodova prema dolje. Objašnjenje mora vezati pomak uz veće težine nula iz rjeđe uključivanoga sloja.",
-      "independent_method": "Iz javno prikazane tablice ručno rekonstruirati šest umnožaka težine i odgovora te ih zbrojiti odvojeno od zbroja težina, bez oslanjanja na R ili ESS mikropodatke.",
+      "independent_method": "Iz javno prikazane tablice ručno rekonstruirati šest umnožaka težine i odgovora te ih zbrojiti odvojeno od zbroja težina, bez oslanjanja na R ili ESS mikropodatke. Raspon pretpostavlja normalno približenje. Margina udjela od pet postotnih bodova opisuje uzoračku nesigurnost pod zadanim nacrtom; ne uključuje pristranost odabira ni pogrešku mjerenja.",
       "evidence_reference": "chapters/08-uzorkovanje.qmd#tbl-sinteticke-tezine"
     },
     "severity_ranked_rubric": {
@@ -130,5 +140,10 @@
     "judgment_owner": "student_or_submitting_author",
     "verification_required": true,
     "code_production_assessed": false
+  },
+  "self_study": {
+    "hint": "Najprije zbrojite odgovore i prebrojite retke. Zatim svaki odgovor pomnožite pripadnom težinom dva ili četiri, zasebno zbrojite ponderirane odgovore i sve težine te usporedite doprinose dvaju slojeva nazivniku. Račun pretpostavlja jednostavni slučajni uzorak, malu uzoračku frakciju i udio 0,5; ne obuhvaća pogreške pokrivenosti ili mjerenja. Za raspon oko populacijske sredine pomnožite svaku standardnu pogrešku s 1,96.",
+    "worked_answer": "Bez težina 3/6 = 0,50, odnosno 50 %. S težinama ponderirani je brojnik 2 + 2 + 2 = 6, ponderirani nazivnik 2 + 2 + 2 + 2 + 4 + 4 = 16, pa je 6/16 = 0,375, odnosno 37,5 %. Razlika iznosi -12,5 postotnih bodova. Za n = 64 standardna pogreška jest 12/8 = 1,5; za n = 256 jest 12/16 = 0,75. Prepolovljenje traži četverostruki uzorak. Za n = 400 približna margina udjela iznosi 1/20 = 0,05, odnosno pet postotnih bodova.\n\nZa 64 osobe dobivamo 1,96 × 1,5 = 2,94, a za 256 osoba 1,96 × 0,75 = 1,47. Približno 95 % uzoračkih sredina tada bi bilo unutar ±2,94, odnosno ±1,47 jedinica od populacijske sredine.",
+    "why_adequate": "Prikazani su računi, njihove pretpostavke i granica zaključka. Raspon pretpostavlja normalno približenje. Margina udjela od pet postotnih bodova opisuje uzoračku nesigurnost pod zadanim nacrtom; ne uključuje pristranost odabira ni pogrešku mjerenja."
   }
 }

@@ -11,9 +11,8 @@
 %  osiromašenje nego uvjet — svaki element knjige mora ostati razumljiv kad
 %  se boja oduzme, pa se značenje nosi debljinom crte, položajem i oznakom.
 %
-%  PISMA. Newsreader · Literata · Public Sans · JetBrains Mono. Ako nisu
-%  instalirana u sustavu, blok se tiho gradi na Latin Modernu — PDF nikad
-%  ne pada zbog pisma. Instalacija: fonts/print/README.md.
+%  PISMA. Staticke instance u fonts/print/ dio su izvora knjige. Gradnja
+%  izravno ucitava te datoteke pa izgled ne ovisi o pismima u sustavu.
 % =====================================================================
 
 % ---- paleta (JEDINO mjesto s bojama u tiskarskom sloju) -------------
@@ -57,40 +56,37 @@
 \usepackage{fontspec}
 \usepackage{iftex}
 
-\newif\ifbkfonts \bkfontsfalse
-\IfFontExistsTF{Literata}{\IfFontExistsTF{Newsreader}{\bkfontstrue}{}}{}
+\setmainfont{Literata-Regular.ttf}[
+  Path=fonts/print/,
+  BoldFont=Literata-Bold.ttf,
+  ItalicFont=Literata-Italic.ttf,
+  BoldItalicFont=Literata-BoldItalic.ttf,
+  Numbers={Proportional,OldStyle},
+  WordSpace={1,1,0},
+  Ligatures=TeX ]
+\newfontfamily\bkdisplay{Newsreader-Light.ttf}[
+  Path=fonts/print/,
+  BoldFont=Newsreader-Regular.ttf,
+  ItalicFont=Newsreader-LightItalic.ttf,
+  BoldItalicFont=Newsreader-LightItalic.ttf,
+  Ligatures=TeX ]
+\setsansfont{PublicSans-Regular.ttf}[
+  Path=fonts/print/,
+  BoldFont=PublicSans-Bold.ttf,
+  ItalicFont=PublicSans-Italic.ttf,
+  Ligatures=TeX ]
+% Ligature u kodu iskljucene su kako bi se svaki znak mogao prepisati.
+\setmonofont{JetBrainsMono-Regular.ttf}[
+  Path=fonts/print/,
+  BoldFont=JetBrainsMono-Bold.ttf,
+  Scale=0.86,
+  Numbers={Monospaced,Lining},
+  Ligatures=ResetAll,
+  RawFeature={-calt,-liga,-clig} ]
 
-\ifbkfonts
-  \setmainfont{Literata}[
-    Numbers   = {Proportional, OldStyle},
-    Ligatures = TeX ]
-  \newfontfamily\bkdisplay{Newsreader}[
-    UprightFont = *-Light,
-    BoldFont    = *-Regular,
-    ItalicFont  = *-LightItalic,
-    Ligatures   = TeX ]
-  \IfFontExistsTF{Public Sans}{%
-    \setsansfont{Public Sans}[Ligatures = TeX]}{}
-  % LIGATURE U KODU ISKLJUČENE. JetBrains Mono bi inače R-ov `<-` ispisao
-  % kao strelicu, a `<=` `>=` `!=` `%>%` kao znakove kojih nema na
-  % tipkovnici. Čitatelj mora moći prepisati svaki znak koji vidi.
-  \IfFontExistsTF{JetBrains Mono}{%
-    \setmonofont{JetBrains Mono}[
-      Scale     = 0.86,
-      Numbers   = {Monospaced, Lining},
-      Ligatures = ResetAll ]}{}
-\else
-  % Rezerva: Latin Modern. Blok se gradi svugdje, bez ijednog preuzimanja.
-  \newcommand{\bkdisplay}{\rmfamily}
-\fi
-
-% Razmaknuta verzalna oznaka („eyebrow"). Razmicanje slova traži pismo
-% učitano preko fontspeca; bez knjižnih pisama ispisuje se bez razmicanja.
-\ifbkfonts
-  \newcommand{\bkls}[1]{{\addfontfeature{LetterSpace=14}#1}}
-\else
-  \newcommand{\bkls}[1]{#1}
-\fi
+\newcommand{\bkls}[1]{{\addfontfeature{LetterSpace=14}#1}}
+% Ne sabijati razmake medu rijecima ni rastezati odlomke do dna stranice.
+\AtBeginDocument{\raggedbottom}
 \newcommand{\eyebrow}[2][bkink]{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{#1}\bkls{#2}}}
 
 % ---- poveznice: tinta, nikad plavo ----------------------------------
@@ -108,13 +104,16 @@
 \renewcommand*{\partformat}{}
 \renewcommand*{\partheadstartvskip}{\null\vskip 8em}
 \renewcommand*{\partheadendvskip}{\vfil\newpage}
+\input{tex/part-introductions.tex}
 \newcommand{\BookPartHead}[1]{%
   \raggedright
   {\color{bkink}\rule{\linewidth}{1.2pt}}\par
   \vskip 1.1em
   {\bkdisplay\mdseries\color{bkink}\fontsize{30}{34}\selectfont #1\par}%
   \vskip 1.1em
-  {\color{bkrule}\rule{\linewidth}{0.4pt}}%
+  {\color{bkrule}\rule{\linewidth}{0.4pt}}\par
+  \vskip 1.5em
+  {\normalfont\normalsize\color{bkink}\BookPartIntro{#1}\par}%
 }
 \renewcommand{\partlineswithprefixformat}[3]{\BookPartHead{#3}}
 
@@ -123,6 +122,8 @@
 % najviše ~14 znakova širine, pa vlas linija. Bez slike, bez broja kao
 % ukrasa. Natpis se gasi u dodacima da literatura ne bude krivo označena.
 \newif\ifbookeyebrow \bookeyebrowtrue
+\newif\ifbklabeled \bklabeledfalse
+\newcommand{\bkchapterid}{}
 \let\bookoldappendix\appendix
 \renewcommand{\appendix}{\bookoldappendix\bookeyebrowfalse}
 \setkomafont{chapter}{\bkdisplay\mdseries\color{bkink}}
@@ -131,13 +132,31 @@
 \renewcommand*{\chapterheadendvskip}{\vskip 2.4em}
 \newcommand{\BookChapHead}[1]{%
   \raggedright
-  \ifbookeyebrow {\eyebrow{POGLAVLJE \thechapter}\par}\vskip 1.3em \fi
-  {\usekomafont{chapter}\fontsize{30}{33}\selectfont #1\par}%
+  \ifbookeyebrow\ifbklabeled
+    {\eyebrow{POGLAVLJE \bkchapterid}\par}\vskip 1.3em
+  \fi\fi
+  {\usekomafont{chapter}\fontsize{32}{35}\selectfont #1\par}%
   \vskip 1.1em
   {\color{bkrule}\rule{\linewidth}{0.4pt}}%
 }
 \renewcommand{\chapterlinesformat}[3]{\BookChapHead{#3}}
 \renewcommand{\chapterlineswithprefixformat}[3]{\BookChapHead{#3}}
+
+% Kratak tiskani zapis metapodataka, bez stisnute tablice s cetiri stupca.
+\usepackage{tabularx}
+\newcommand{\bkmetakey}[1]{{\sffamily\bfseries\fontsize{7.5pt}{10pt}\selectfont\color{bkmuted}#1}}
+\newcommand{\bkchaptermeta}[4]{%
+  \par\vspace{0.2\baselineskip}%
+  {\fontsize{9pt}{12pt}\selectfont
+   \renewcommand{\arraystretch}{1.17}%
+   \noindent\begin{tabularx}{\linewidth}{@{}p{24mm}X@{}}
+     \toprule
+     \bkmetakey{VRIJEME ČITANJA} & #1 \\
+     \bkmetakey{PODACI} & #3 \\
+     \bkmetakey{PREDUVJET} & #4 \\
+   \end{tabularx}\par}%
+  \vspace{1.1\baselineskip}%
+}
 
 % Uvodna rečenica ispod naslova poglavlja.
 \newcommand{\bklead}[1]{%
@@ -146,8 +165,8 @@
   \vskip 1.2\baselineskip}
 
 % ---- ODJELJCI -------------------------------------------------------
-\setkomafont{section}{\bkdisplay\mdseries\color{bkink}}
-\setkomafont{subsection}{\bkdisplay\mdseries\color{bkink}}
+\setkomafont{section}{\bkdisplay\mdseries\fontsize{17}{21}\selectfont\color{bkink}}
+\setkomafont{subsection}{\bkdisplay\mdseries\fontsize{13.5}{17}\selectfont\color{bkink}}
 \setkomafont{subsubsection}{\sffamily\bfseries\color{bktext}}
 \setkomafont{paragraph}{\sffamily\bfseries\color{bktext}}
 
@@ -163,8 +182,8 @@
 \automark[section]{chapter}
 \setkomafont{pagehead}{\normalfont}
 \setkomafont{pagenumber}{\normalfont}
-\lehead{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\leftmark}}
-\rohead{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\rightmark}}
+\lehead{{\ttfamily\addfontfeatures{Ligatures=TeX}\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\leftmark}}
+\rohead{{\ttfamily\addfontfeatures{Ligatures=TeX}\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\rightmark}}
 \cfoot*{{\ttfamily\fontsize{8pt}{10pt}\selectfont\color{bkmuted}\thepage}}
 \KOMAoptions{headsepline=off}
 \pagestyle{scrheadings}
@@ -199,6 +218,9 @@
 %  dok literalno Đ prolazi ispravno.
 % =====================================================================
 \usepackage[most]{tcolorbox}
+\usepackage{needspace}
+% The late filter gives repeated table heads short continuation captions.
+\usepackage{longtable,booktabs,array,calc}
 \usepackage{marginnote}
 
 \newcommand{\bklbl}[1]{{\eyebrow{#1}\par}\vspace{7pt}}
@@ -206,7 +228,6 @@
 % Vinjeta
 \newenvironment{calloutvinjeta}{%
   \par\vspace{6pt}{\color{bkink}\hrule height 1.2pt}\vspace{11pt}%
-  \bklbl{VINJETA}%
   \bkdisplay\itshape\fontsize{13pt}{18pt}\selectfont\color{bkink}\raggedright
 }{%
   \par\vspace{11pt}{\color{bkrule}\hrule height 0.4pt}\vspace{16pt}\normalfont\color{bktext}%
@@ -240,6 +261,19 @@
   \bklbl{NAĐITE GREŠKU}%
   \fontsize{9.5pt}{13.5pt}\selectfont
 }{\par\vspace{14pt}\normalfont\normalsize}
+
+% Dulji slučaj s dvjema tablicama u 13. poglavlju: malo gušći slog drži
+% dokaze i sva tri pitanja na istoj stranici bez promjene teksta.
+\newenvironment{calloutgreskaduga}{%
+  \par\vspace{14pt}{\color{bkink}\hrule height 2.4pt}\vspace{10pt}%
+  \bklbl{NAĐITE GREŠKU}%
+  \fontsize{9pt}{12pt}\selectfont
+}{\par\vspace{14pt}\normalfont\normalsize}
+
+% Kratki zadaci čiji se podaci i pitanje trebaju čitati na istoj stranici.
+\newenvironment{calloutgreskazadrzi}{%
+  \Needspace{.78\textheight}\begin{calloutgreska}%
+}{\end{calloutgreska}}
 
 % Razrađeni primjer
 \newenvironment{calloutprimjer}{%
@@ -277,7 +311,7 @@
 %  OPISI SLIKA I TABLICA
 %  Oznaka u monou, rečenica u sansu, oboje prigušeno.
 % =====================================================================
-\setkomafont{caption}{\sffamily\fontsize{8.5pt}{11.5pt}\selectfont\color{bkmuted}}
+\setkomafont{caption}{\sffamily\fontsize{9pt}{12pt}\selectfont\color{bkmuted}}
 \setkomafont{captionlabel}{\ttfamily\fontsize{7.5pt}{10pt}\selectfont\color{bkink}}
 
 % ---- bilješke uz rub -------------------------------------------------
@@ -291,16 +325,12 @@
 %  NASLOVNICA (nadjačava \maketitle; ide prije sadržaja)
 % =====================================================================
 \makeatletter
-\newcommand{\bkcoverauthor}[3]{%
+\newcommand{\bkcoverauthor}[2]{%
   \begin{minipage}[t]{0.44\textwidth}%
     \centering
-    \IfFileExists{#1}{%
-      \includegraphics[width=0.72\linewidth,height=34mm,keepaspectratio]{#1}\par
-      \vskip 0.65em
-    }{}
-    {\sffamily\large\color{bkink}#2\par}%
+    {\sffamily\large\color{bkink}#1\par}%
     \vskip 0.35em
-    {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}#3\par}%
+    {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}#2\par}%
   \end{minipage}%
 }
 \renewcommand{\maketitle}{%
@@ -312,7 +342,7 @@
   \vskip 1.1em
   {\color{bkink}\rule{\linewidth}{1.2pt}}\par
   \vskip 2em
-  {\bkdisplay\mdseries\color{bkink}\fontsize{34}{38}\selectfont \@title\par}%
+  {\bkdisplay\mdseries\color{bkink}\fontsize{38}{41}\selectfont \@title\par}%
   \ifx\@subtitle\@empty\else
     \vskip 1em
     {\itshape\fontsize{14}{19}\selectfont\color{bktext}\@subtitle\par}%
@@ -321,8 +351,8 @@
   {\color{bkrule}\rule{\linewidth}{0.4pt}}\par
   \vskip 1.4em
   \noindent
-  \bkcoverauthor{images/luka-sikic.jpg}{Luka Šikić}{Doc. dr. sc. · Sveučilišni odjel za komunikologiju}\hfill
-  \bkcoverauthor{images/petra-palic.jpg}{Petra Palić}{Izv. prof. dr. sc. · Sveučilišni odjel za sociologiju}\par
+  \bkcoverauthor{Luka Šikić}{Doc. dr. sc. · Sveučilišni odjel za komunikologiju}\hfill
+  \bkcoverauthor{Petra Palić}{Izv. prof. dr. sc. · Sveučilišni odjel za sociologiju}\par
   \vskip 1.4em
   {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}%
     Hrvatsko katoličko sveučilište\par}%

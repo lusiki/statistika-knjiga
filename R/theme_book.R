@@ -104,6 +104,14 @@ ucitaj_fontove <- function(google = TRUE) {
       !requireNamespace("sysfonts", quietly = TRUE)) return(invisible(FALSE))
 
   trazena <- c("Newsreader", "Public Sans", "JetBrains Mono")
+  # Prefer the licensed local print fonts; rendering must not require Google.
+  lokalna <- c("Newsreader-Regular.ttf", "PublicSans-Regular.ttf", "JetBrainsMono-Regular.ttf")
+  for (i in seq_along(trazena)) {
+    put <- file.path("fonts", "print", lokalna[[i]])
+    if (!trazena[[i]] %in% sysfonts::font_families() && file.exists(put)) {
+      sysfonts::font_add(trazena[[i]], regular = put)
+    }
+  }
   if (google) {
     for (f in trazena) {
       if (f %in% sysfonts::font_families()) next
@@ -316,7 +324,7 @@ hr_broj <- function(x, decimala = 1) {
   format(
     round(x, decimala),
     scientific = FALSE,
-    big.mark = "\u202f",
+    big.mark = " ",
     decimal.mark = ",",
     trim = TRUE,
     nsmall = as.integer(decimala)

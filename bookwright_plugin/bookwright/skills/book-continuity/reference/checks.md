@@ -10,7 +10,7 @@ Measure:
 - `#def-` definition divs;
 - logical figures, counting an HTML widget and static print twin once;
 - `callout-divljina`;
-- one `callout-model` and one `callout-greska`;
+- one `callout-greska` and no reader-facing `callout-model`;
 - all four exercise tiers under `## Zadaci`;
 - unresolved TODO or placeholder content;
 - widget registration and static-twin coverage against `data/widgets.json`.

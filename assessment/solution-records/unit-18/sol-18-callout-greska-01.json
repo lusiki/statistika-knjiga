@@ -8,7 +8,7 @@
     "anchor": "ex-18-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:55fe3a73d4b703f570948803c2572be6f7b1dbb3142018d4bf9274fa386a1393",
+  "prompt_fingerprint": "sha256:1a9cff8b1b11a32d4b37f8e1c180583b64bb684bba95c09be2f19af2bb03d436",
   "answer_components": {
     "planted_error": {
       "applicable": true,
@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Neovisno obnoviti prilagođeni nagib i njegov 95 % interval, pomnožiti ih s trideset te provjeriti koje vrijednosti interval uključuje i isključuje. Zatim usporediti prilagođenu procjenu s neprilagođenom provjerom osjetljivosti.",
-      "expected_evidence": "Prilagođena razlika iznosi -0,008323 boda, uz 95 % interval od -0,186355 do 0,169708. Interval uključuje nulu i male razlike oba predznaka, dok neprilagođena razlika iznosi 0,246146 boda, uz interval od 0,092666 do 0,399625."
+      "expected_evidence": "Točne su prilagođena procjena od −0,01 boda, granice od −0,19 do 0,17 i ograničenje linearne, aditivne prilagodbe. Pogreška je tvrdnja da obuhvaćanje nule dokazuje odsutnost povezanosti. Usporedba s neprilagođenih 0,25 boda pokazuje osjetljivost zbirnog odnosa na uključivanje dobi. Razlike oba predznaka ostaju uskladive s prilagođenim intervalom. Prije predaje može se provjeriti oblik odnosa s dobi i ponoviti brojčani račun; bez dodatnih pretpostavki taj nalaz ne postaje uzročni.\n\nJedna moguća zamjena glasi ovako.\n\nNakon unaprijed određene prilagodbe za dob procijenjena razlika iznosi −0,01 boda za trideset minuta više dnevnog vremena, uz 95 % interval od −0,19 do 0,17. Pozitivna neprilagođena procjena osjetljiva je na dob, a prilagođeni rezultat ostavlja otvorene male razlike oba predznaka. Zaključak ovisi o linearnom, aditivnom obliku prilagodbe i ne dokazuje odsutnost svake povezanosti.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,6 +64,11 @@
           "component_id": "retain-specific-limitation",
           "required_claim": "Zaključak ostaje uvjetovan linearnom, aditivnom prilagodbom za dob i presječnim simuliranim skupom.",
           "required_evidence": "Drukčiji oblik dobnoga odnosa mogao bi promijeniti procjenu, a dizajn ne podupire uzročnu ni populacijsku tvrdnju."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Nakon unaprijed određene prilagodbe za dob procijenjena razlika iznosi −0,01 boda za trideset minuta više dnevnog vremena, uz 95 % interval od −0,19 do 0,17. Pozitivna neprilagođena procjena osjetljiva je na dob, a prilagođeni rezultat ostavlja otvorene male razlike oba predznaka. Zaključak ovisi o linearnom, aditivnom obliku prilagodbe i ne dokazuje odsutnost svake povezanosti.",
+          "required_evidence": "Točne su prilagođena procjena od −0,01 boda, granice od −0,19 do 0,17 i ograničenje linearne, aditivne prilagodbe. Pogreška je tvrdnja da obuhvaćanje nule dokazuje odsutnost povezanosti. Usporedba s neprilagođenih 0,25 boda pokazuje osjetljivost zbirnog odnosa na uključivanje dobi. Razlike oba predznaka ostaju uskladive s prilagođenim intervalom. Prije predaje može se provjeriti oblik odnosa s dobi i ponoviti brojčani račun; bez dodatnih pretpostavki taj nalaz ne postaje uzročni."
         }
       ]
     },
@@ -76,7 +81,12 @@
       "evidence_reference": "scripts/check-unit-18-numerics.R#UNIT_18_NUMERICS_OK"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-accepts-no-association-proof",

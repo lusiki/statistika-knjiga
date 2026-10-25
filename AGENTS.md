@@ -152,9 +152,8 @@ recording the decision in STYLE.md.
    edition and its static twin in print (see the twin pattern below).
 4. **Statistika u divljini** — `::: {.callout-divljina}`. A genuine published
    claim, poll, headline or chart, dissected.
-5. **Pitajte model** — `::: {.callout-model}` for how to use an assistant on
-   this chapter's task, then `::: {.callout-greska}` with a short AI-produced
-   analysis containing exactly one realistic mistake the reader must find.
+5. **Nađite grešku** — `::: {.callout-greska}` contains short analytical work
+   with inspectable evidence and exactly one realistic mistake to find and repair.
 6. **Razrađeni primjer** — one complete analysis, narrated, code folded.
 7. **Sažetak i pojmovi** — closing summary `{.sazetak}`, key terms in Croatian
    and English `{.pojmovi}`, then four exercise tiers: konceptualni, računski,
@@ -281,30 +280,21 @@ Otvarajući slučaj poglavlja.
 **Naslov slučaja.** Rastavljena objavljena tvrdnja.
 :::
 
-::: {.callout-model}
-Kako se ovaj zadatak radi s asistentom, što tražiti i što provjeriti.
-
-> Sam upit, kao obični blok citat — CSS ga pretvara u mono traku.
-:::
-
 ::: {.callout-greska}
-Kratka AI-analiza s jednom greškom koju čitatelj mora naći.
+Kratka analiza s provjerljivim podacima i jednom greškom koju čitatelj mora pronaći i ispraviti.
 :::
 ```
 
-The category label is drawn by CSS. Do not type it into the box, and never
+Category labels are drawn by CSS; the opening vignette has no visible label.
+Do not type labels into the box, and never
 write a raw `<div>` or an inline style — if an element does not exist, ask for
 the system to be extended rather than improvising one.
 
-Three further authoring affordances, all specified in DESIGN.md §5:
+Chapters have no reading-time, data or prerequisite metadata strip. Introduce
+each dataset in prose before using it, with its source, unit and relevant
+variables. Two further authoring affordances are specified in DESIGN.md §5:
 
 ```markdown
-::: {.chapter-meta}
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 28 min | Stroj za CLT | ESS HR 2023 | pogl. 4, 7 |
-:::
-
 …počiva cijelo [statističko zaključivanje]{.pojam
   def="Izvođenje tvrdnji o populaciji na temelju uzorka."
   en="statistical inference" ch="8"}.

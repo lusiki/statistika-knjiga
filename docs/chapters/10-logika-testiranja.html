@@ -100,9 +100,9 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -654,7 +654,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -724,6 +724,11 @@ window.Quarto = {
   <a href="../dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -739,7 +744,10 @@ window.Quarto = {
   <li><a href="#sudnica-i-njezina-asimetrija" id="toc-sudnica-i-njezina-asimetrija" class="nav-link active" data-scroll-target="#sudnica-i-njezina-asimetrija">Sudnica i njezina asimetrija</a></li>
   <li><a href="#kako-se-gradi-svijet-bez-učinka" id="toc-kako-se-gradi-svijet-bez-učinka" class="nav-link" data-scroll-target="#kako-se-gradi-svijet-bez-učinka">Kako se gradi svijet bez učinka</a></li>
   <li><a href="#interakcija-simulator-p-vrijednosti" id="toc-interakcija-simulator-p-vrijednosti" class="nav-link" data-scroll-target="#interakcija-simulator-p-vrijednosti">Interakcija — Simulator p-vrijednosti</a></li>
-  <li><a href="#dvije-vrste-pogreške" id="toc-dvije-vrste-pogreške" class="nav-link" data-scroll-target="#dvije-vrste-pogreške">Dvije vrste pogreške</a></li>
+  <li><a href="#dvije-vrste-pogreške" id="toc-dvije-vrste-pogreške" class="nav-link" data-scroll-target="#dvije-vrste-pogreške">Dvije vrste pogreške</a>
+  <ul class="collapse">
+  <li><a href="#referentna-oznaka-nije-isto-što-i-istina" id="toc-referentna-oznaka-nije-isto-što-i-istina" class="nav-link" data-scroll-target="#referentna-oznaka-nije-isto-što-i-istina">Referentna oznaka nije isto što i istina</a></li>
+  </ul></li>
   <li><a href="#prag-je-konvencija-a-ne-mjera" id="toc-prag-je-konvencija-a-ne-mjera" class="nav-link" data-scroll-target="#prag-je-konvencija-a-ne-mjera">Prag je konvencija, a ne mjera</a></li>
   <li><a href="#što-p-vrijednost-nije" id="toc-što-p-vrijednost-nije" class="nav-link" data-scroll-target="#što-p-vrijednost-nije">Što p-vrijednost nije</a></li>
   <li><a href="#drugo-pitanje-i-drugi-račun" id="toc-drugo-pitanje-i-drugi-račun" class="nav-link" data-scroll-target="#drugo-pitanje-i-drugi-račun">Drugo pitanje i drugi račun</a></li>
@@ -748,10 +756,10 @@ window.Quarto = {
   <li><a href="#pojmovi" id="toc-pojmovi" class="nav-link" data-scroll-target="#pojmovi">Pojmovi</a></li>
   <li><a href="#zadaci" id="toc-zadaci" class="nav-link" data-scroll-target="#zadaci">Zadaci</a>
   <ul class="collapse">
-  <li><a href="#konceptualni" id="toc-konceptualni" class="nav-link" data-scroll-target="#konceptualni">Konceptualni</a></li>
-  <li><a href="#računski" id="toc-računski" class="nav-link" data-scroll-target="#računski">Računski</a></li>
-  <li><a href="#kritički" id="toc-kritički" class="nav-link" data-scroll-target="#kritički">Kritički</a></li>
-  <li><a href="#revizija-modela" id="toc-revizija-modela" class="nav-link" data-scroll-target="#revizija-modela">Revizija modela</a></li>
+  <li><a href="#ex-10-konceptualni-01" id="toc-ex-10-konceptualni-01" class="nav-link" data-scroll-target="#ex-10-konceptualni-01">Konceptualni</a></li>
+  <li><a href="#ex-10-racunski-01" id="toc-ex-10-racunski-01" class="nav-link" data-scroll-target="#ex-10-racunski-01">Računski</a></li>
+  <li><a href="#ex-10-kriticki-01" id="toc-ex-10-kriticki-01" class="nav-link" data-scroll-target="#ex-10-kriticki-01">Kritički</a></li>
+  <li><a href="#ex-10-revizija-modela-01" id="toc-ex-10-revizija-modela-01" class="nav-link" data-scroll-target="#ex-10-revizija-modela-01">Revizija modela</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -803,10 +811,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -896,97 +908,192 @@ window.Quarto = {
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
 ===================================================================== -->
-<div class="chapter-meta">
-<table class="caption-top table">
+<div class="callout-vinjeta page-columns page-full">
+<p>Američko statističko udruženje objavilo je 2016. izjavu o tome kako tumačiti p-vrijednost <span class="citation" data-cites="wasserstein2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein i Lazar 2016.</a>)</span>. Razlog je bila raširena praksa da se iz jednoga broja automatski odlučuje postoji li učinak. Izjava je trebala razjasniti što taj račun dopušta zaključiti.</p>
+<div class="no-row-height column-margin column-container"></div><p>U izvještajima se prag značajnosti često čitao kao granica između učinaka koji „postoje” i onih kojih „nema”. Test uspoređuje podatke s određenim modelom. Sam po sebi ne može opravdati takvu podjelu.</p>
+<p>Što mala p-vrijednost govori o podacima, a što ne može reći o hipotezi?</p>
+</div>
+<p>Procjena s intervalom već nam govori koliku smo razliku našli i koliko smo je precizno odredili. U istraživačkim izvještajima uz nju često stoji i p-vrijednost. Da bismo taj broj mogli pročitati, trebamo promijeniti pitanje. Umjesto traženja raspona za nepoznatu veličinu, pitat ćemo kakve bi rezultate proizvodio određeni model u kojem nema povezanosti koju istražujemo.</p>
+<p>Uzimamo uzorak osoba iz poznate simulirane populacije <code>populacija_medija</code> kojima su tisak ili portal glavni izvor vijesti <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Jedan redak pripada jednoj zamišljenoj osobi, a uspoređujemo njezinu ocjenu povjerenja u medije s ocjenama osoba iz druge skupine. Najprije ćemo prikazati opaženu razliku i njezin interval. Potom ćemo privremeno pretpostaviti da je raspodjela povjerenja jednaka među skupinama i provjeriti što bismo očekivali kada oznake izvora ne bi bile povezane s odgovorima.</p>
+<div class="no-row-height column-margin column-container"></div><p>I u ovoj usporedbi ponavljamo postupak, ali drukčije nego pri uzorkovanju ili bootstrapu. Ocjene ostaju zabilježene, a oznake skupina nasumično premještamo među osobama. Svaki takav raspored daje novu razliku. Iz njihove raspodjele možemo procijeniti koliko su česta odstupanja barem toliko velika kao opaženo, uz pretpostavke koje dopuštaju premještanje. Tek nakon te provjere imenovat ćemo nultu hipotezu, testnu statistiku i p-vrijednost.</p>
+<p>Odluka na temelju testa može biti pogrešna na dva načina. Možemo prijaviti razliku koje nema ili propustiti razliku koja postoji. Prag odluke utječe na obje mogućnosti, a neodbacivanje hipoteze ne potvrđuje njezinu istinitost. Pitanje o vjerojatnosti hipoteze zahtijeva drugi račun i dodatne pretpostavke, kakve ćemo upoznati u kratkoj usporedbi s Bayesovim pristupom. Pri čitanju nalaza zato odvajamo ono što test kaže o podacima od procjene veličine razlike, njezine važnosti i mogućeg uzroka.</p>
+<section id="sudnica-i-njezina-asimetrija" class="level2">
+<h2 class="anchored" data-anchor-id="sudnica-i-njezina-asimetrija">Sudnica i njezina asimetrija</h2>
+<p>Prije testa trebamo prikazati veličinu opažene razlike i njezinu nesigurnost. Trebamo razmotriti i posljedice pogrešne odluke. Hoće li veći problem biti prijaviti razliku koje nema ili propustiti onu koja postoji? Ta pitanja određuju kako ćemo koristiti rezultat.</p>
+<p>Usporedba podataka s početnom pretpostavkom ima sličnost sa suđenjem. Dokazi se procjenjuju u odnosu na pretpostavku nevinosti. Ako optužba nije dokazana, time ne mora biti dokazana nevinost. Slično vrijedi za test. Kada nemamo dovoljno dokaza za odbacivanje početne hipoteze, još nismo pokazali da je ona istinita.</p>
+<p>Usporedba sa suđenjem ima granice. Statističke stope pogreške opisuju kako bi se postupak ponašao kroz mnogo ponavljanja. One nisu vjerojatnosti da je odluka u pojedinom istraživanju pogrešna.</p>
+<p>Zato prije uvida u podatke zapisujemo nulti model, mjeru odstupanja i prag odluke. Za tako određen postupak možemo procijeniti stopu pogreške. Ako postupak prilagođavamo dobivenim rezultatima, ta stopa više nije zajamčena. Posljedice takvih prilagodbi razmotrit ćemo u poglavlju o krizi i obnovi.</p>
+</section>
+<section id="kako-se-gradi-svijet-bez-učinka" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="kako-se-gradi-svijet-bez-učinka">Kako se gradi svijet bez učinka</h2>
+<p>U uzorku za usporedbu tiska i portala imamo 300 osoba iz <code>populacija_medija</code> <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Njihove ocjene povjerenja najprije čitamo uz izvorne oznake skupina, prije bilo kakva premještanja.</p>
+<div class="no-row-height column-margin column-container"></div><p>Odabir smo najprije ograničili na osobe kojima je glavni izvor tisak ili portal, a iz njih izabrali 300 zapisa bez vraćanja. Druge izvore nismo prekodirali u te dvije skupine. U uzorku je 73 čitatelja tiska i 227 korisnika portala. Ocjene zbrajamo zasebno i dijelimo odgovarajućim brojem osoba.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-s10-opazena-razlika" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s10-opazena-razlika-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Od ocjena do dviju sredina u istom uzorku. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-s10-opazena-razlika-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th>Vrijeme čitanja</th>
-<th>Widget</th>
-<th>Podaci</th>
-<th>Preduvjet</th>
+<th style="text-align: left;">Izvor</th>
+<th style="text-align: right;">Broj osoba</th>
+<th style="text-align: right;">Zbroj ocjena</th>
+<th style="text-align: left;">Sredina</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>24 min</td>
-<td>Simulator p-vrijednosti</td>
-<td>simulirana populacija</td>
-<td>pogl. 7–9</td>
+<td style="text-align: left;">portal</td>
+<td style="text-align: right;">227</td>
+<td style="text-align: right;">1117</td>
+<td style="text-align: left;">4,921</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tisak</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">406</td>
+<td style="text-align: left;">5,562</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="callout-vinjeta page-columns page-full">
-<p>Američko statističko udruženje moralo je 2016. javno razjasniti p-vrijednost jer je jedan računski izlaz prečesto služio kao automatska odluka o postojanju učinka <span class="citation" data-cites="wasserstein2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein i Lazar 2016.</a>)</span>. Udruženje se u svojoj povijesti dotad nije oglasilo o pojedinačnom statističkom postupku, pa je sama izjava bila priznanje da problem nije u računu nego u tome što se s njim radi.</p>
-<div class="no-row-height column-margin column-container"></div><p>Izvještaji su prag pretvarali u granicu između rezultata koji „postoje” i onih koji „ne postoje”. Postupak takvu podjelu ne može nositi, jer ne uspoređuje dvije tvrdnje o svijetu nego jednu tvrdnju s onim što bi slučajnost proizvela.</p>
-<p>Što mala p-vrijednost govori o podacima, a što ne može reći o hipotezi?</p>
 </div>
-<section id="sudnica-i-njezina-asimetrija" class="level2">
-<h2 class="anchored" data-anchor-id="sudnica-i-njezina-asimetrija">Sudnica i njezina asimetrija</h2>
-<p>Testiranje počinje pretpostavkom u koju nitko ne vjeruje. Postupak najprije opiše svijet u kojem učinka koji tražimo nema, izračuna što bi taj svijet proizveo, i tek onda pogleda podatke. Ako podaci u takvom svijetu izgledaju neobično, pretpostavka postaje neodrživa.</p>
+</figure>
+</div>
+</div>
+<p>Od sredine za tisak oduzimamo sredinu za portal. Nijedno opažanje nije premješteno prije tog računa, pa razlika opisuje upravo izvorne skupine.</p>
+<p>Najprije navodimo procjenu. Čitatelji tiska imaju u prosjeku 0,64 boda više povjerenja, uz interval pouzdanosti od 0,17 do 1,11. Testom ćemo zatim provjeriti koliko su podaci uskladivi s određenim modelom bez razlike.</p>
+<p>Taj 95-postotni interval koristimo kao normalnu približnu procjenu za razliku neovisnih sredina. Standardnu pogrešku računamo kao <span class="math inline">\(\sqrt{s_T^2/n_T+s_P^2/n_P}\)</span>, gdje su <span class="math inline">\(s_T\)</span> i <span class="math inline">\(s_P\)</span> uzoračke standardne devijacije tiska i portala, a <span class="math inline">\(n_T\)</span> i <span class="math inline">\(n_P\)</span> njihove brojnosti. Razlici dodajemo i od nje oduzimamo <span class="math inline">\(1,96\)</span> standardnih pogrešaka. Račun traži neovisne osobe i dovoljno stabilnu približno normalnu raspodjelu razlike. To nije interval dobiven premještanjem oznaka. Za manje uzorke poglavlje o dvjema grupama razvija t-prilagodbu i Welchove stupnjeve slobode.</p>
+<p>Pretpostavimo da je cijela raspodjela povjerenja jednaka među čitateljima tiska i portala. Pod tom pretpostavkom oznake izvora vijesti zamjenjive su u odnosu na ishod. Možemo ih nasumično premjestiti među osobama, ponovno izračunati razliku sredina i to ponoviti mnogo puta. Dobivene razlike pokazuju što bismo mogli očekivati pod modelom u kojem oznaka nije povezana s ishodom.</p>
+<p>U tablici je prvih šest osoba iz istog uzorka prije i nakon prvoga nasumičnog preslagivanja svih 300 oznaka. Ocjena prvog retka ostaje 6, a uz nju sada stoji oznaka „portal”. Za novi račun grupiramo ocjene prema desnom stupcu, pa se mijenjaju skupni zbrojevi, ali ne ukupan zbroj ocjena ni brojnost tiska i portala.</p>
+<div class="cell" data-layout-align="center" data-tbl-pos="H">
+<div id="tbl-s10-permutacija" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center" data-tbl-pos="H">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s10-permutacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Početak istih zapisa prije i nakon jedne permutacije oznaka. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-s10-permutacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Redak</th>
+<th style="text-align: right;">Povjerenje</th>
+<th style="text-align: left;">Prije</th>
+<th style="text-align: left;">Poslije</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">tisak</td>
+<td style="text-align: left;">portal</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">portal</td>
+<td style="text-align: left;">portal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">portal</td>
+<td style="text-align: left;">tisak</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">portal</td>
+<td style="text-align: left;">tisak</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">portal</td>
+<td style="text-align: left;">tisak</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">tisak</td>
+<td style="text-align: left;">portal</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Iz svih 300 redaka nakon toga preslagivanja dobivamo razliku 0,080 boda. To je jedna vrijednost nulte raspodjele. Za sljedeću ponovno preslažemo isti skup oznaka uz iste ocjene.</p>
+<p>Početnu pretpostavku sada možemo imenovati.</p>
 <div id="def-nulta-hipoteza" class="theorem definition">
 <p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Nulta hipoteza</strong> je precizan model postupka koji je proizveo podatke, sastavljen tako da u njemu nema razlike ni veze koju istražujemo.</p>
 </div>
-<p>Alternativna hipoteza opisuje odstupanje koje bi nas zanimalo i namjerno je neodređena, jer obuhvaća sve razlike osim nulte. Te dvije tvrdnje nisu ravnopravne suparnice. Samo nulta hipoteza dovoljno je precizna da se iz nje može izračunati što će se dogoditi, i zbog toga cijeli postupak stoji na njoj.</p>
-<p>Analogija sa suđenjem tu asimetriju objašnjava bolje od bilo koje formule. Sud polazi od pretpostavke nevinosti, a tužiteljstvo iznosi dokaze protiv nje. Presuda kojom optužba nije dokazana nije utvrđenje nevinosti nego izjava da dokazi nisu bili dovoljni. Statistički postupak radi isto, pa neodbacivanje nulte hipoteze nikada ne znači da je ona istinita.</p>
-<p>Analogija ima i granicu koju vrijedi navesti odmah. Sud presuđuje o jednom događaju, a test opisuje ponašanje postupka kroz mnogo ponavljanja. Sve što slijedi vrijedi za postupak, a ne za pojedini rezultat, i upravo se to u izvještajima gubi.</p>
-<p>Zbog toga se dio odluka mora donijeti prije podataka. Nulti model treba biti zapisan tako da se iz njega može računati, mjera odstupanja odabrana, a prag uz koji će se rezultat čitati postavljen dok se još ne zna kako će podaci ispasti. Ništa od toga nije tehnička priprema. Postupak čije se komponente biraju nakon pogleda na podatke više nema stopu pogreške koju obećava, jer je obećanje dano za postupak koji se ponavlja jednak, a ne za onaj koji se dotjeruje. Koliko se tim putem može doći dokazuje poglavlje o krizi i obnovi.</p>
-</section>
-<section id="kako-se-gradi-svijet-bez-učinka" class="level2">
-<h2 class="anchored" data-anchor-id="kako-se-gradi-svijet-bez-učinka">Kako se gradi svijet bez učinka</h2>
-<p>Poglavlje radi na istoj simuliranoj populaciji kao poglavlja o uzorkovanju i procjeni. Iz nje je izvučeno 300 osoba koje se primarno informiraju preko portala ili preko tiska, i pitanje glasi razlikuju li se te dvije skupine po povjerenju u medije.</p>
-<p>Prvo dolazi ono što odgovara na postavljeno pitanje. Razlika između sredina iznosi 0,64 boda u korist tiska, uz interval pouzdanosti od 0,17 do 1,11. Test dolazi tek poslije, jer odgovara na uže pitanje, na to je li s podacima uskladiva i nula.</p>
-<p>Nulti model za ovo pitanje ne treba izvoditi računom. Ako izvor vijesti nema nikakve veze s povjerenjem, onda su oznake skupina samo naljepnice koje su jednako mogle biti razdijeljene bilo kako. Promiješamo ih dakle nasumično, izračunamo razliku sredina, i to ponovimo mnogo puta. Dobiveni raspon razlika točno je ono što nulti model dopušta.</p>
+<p>Alternativna hipoteza ovdje obuhvaća odstupanja od nultog modela. Nulti model daje raspodjelu s kojom uspoređujemo opaženi rezultat. Test stoga ne računa koja je od dviju hipoteza vjerojatnija.</p>
+<p>Takvo nasumično premještanje oznaka čini osnovu <strong>permutacijskog testa</strong>.</p>
+<p>Za ovaj postupak nije dovoljna samo jednakost sredina. Skupine s jednakim sredinama mogu imati različite raspršenosti ili oblike raspodjele i tada ne zadovoljavaju naš nulti model. Pretpostavljamo i da su osobe neovisne jedinice opažanja. Izvor vijesti nije nasumično dodijeljen, pa zamjenjivost oznaka ovdje prihvaćamo kao pretpostavku modela. Iz rezultata ne možemo zaključiti da čitanje određenog izvora uzrokuje povjerenje.</p>
+<p>Da bismo usporedili izvorni i premještene rasporede, trebamo isti sažetak za svaki od njih. Taj broj treba pratiti upravo odstupanje koje nas zanima.</p>
 <div id="def-testna-statistika" class="theorem definition">
 <p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Testna statistika</strong> je jedan broj izračunat iz podataka koji sažima odstupanje od nultog modela u obliku usporedivom s odstupanjima koja taj model proizvodi.</p>
 </div>
-<p>Ovdje je ta statistika sama razlika sredina, jer je upravo ona ono o čemu se odlučuje. Sljedeći graf prikazuje što nulti model s njome radi kroz četiri tisuće premještanja, a uz njega stoji razlika koju je dao stvarni raspored oznaka.</p>
+<p>Kao testnu statistiku koristimo razliku sredina. Zanimaju nas oba smjera, pa uspoređujemo apsolutnu opaženu razliku s apsolutnim razlikama nakon premještanja. Ova jednostavna permutacija ispituje opisani model jednake cijele raspodjele, a ne samo jednakost sredina. Slika prikazuje razlike iz četiri tisuće premještanja i razliku iz izvornog rasporeda oznaka.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-nulta-raspodjela" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Histogram permutiranih razlika simetričan je oko nule i proteže se otprilike jedan bod u svakom smjeru, s najvišim stupcima uz samu nulu. Opažena razlika označena je crtom koja leži izvan glavnine tog raspona, u njegovoj desnoj četvrtini.">
+<div id="fig-nulta-raspodjela" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histogram permutiranih razlika simetričan je oko nule i proteže se otprilike jedan bod u svakom smjeru, s najvišim stupcima uz samu nulu. Opažena razlika označena je crtom koja leži izvan glavnine tog raspona, u njegovoj desnoj četvrtini." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-nulta-raspodjela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-logika-testiranja_files/figure-html/fig-nulta-raspodjela-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku."><img src="10-logika-testiranja_files/figure-html/fig-nulta-raspodjela-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Histogram permutiranih razlika simetričan je oko nule i proteže se otprilike jedan bod u svakom smjeru, s najvišim stupcima uz samu nulu. Opažena razlika označena je crtom koja leži izvan glavnine tog raspona, u njegovoj desnoj četvrtini."></a>
+<a href="10-logika-testiranja_files/figure-html/fig-nulta-raspodjela-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora; podaci i postupak opisani su u tekstu."><img src="10-logika-testiranja_files/figure-html/fig-nulta-raspodjela-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Histogram permutiranih razlika simetričan je oko nule i proteže se otprilike jedan bod u svakom smjeru, s najvišim stupcima uz samu nulu. Opažena razlika označena je crtom koja leži izvan glavnine tog raspona, u njegovoj desnoj četvrtini."></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nulta-raspodjela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;1: Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku.
+Slika&nbsp;1: Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora; podaci i postupak opisani su u tekstu.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Nulta raspodjela ima sredinu u nuli i standardnu devijaciju od 0,26 boda. Devedeset pet posto premještanja daje razliku manju od 0,50 boda po apsolutnoj vrijednosti, dakle sve unutar tog raspona nulti model proizvodi bez ikakve pomoći. Opažena razlika od 0,64 boda leži izvan njega.</p>
-<p>Preostaje prebrojati koliko je premještanja dalo odstupanje barem toliko veliko kao opaženo. Taj udio ima ime.</p>
+<p>Nulta raspodjela ima sredinu u nuli i standardnu devijaciju od 0,26 boda. U 95 % premještanja apsolutna razlika ne prelazi 0,50 boda. Opažena razlika od 0,64 boda veća je od te granice.</p>
+<p>Prebrojimo sada premještanja u kojima je apsolutna razlika barem toliko velika kao opažena. Njihov udio koristimo za procjenu p-vrijednosti.</p>
 <div id="def-p-vrijednost" class="theorem definition">
 <p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>P-vrijednost</strong> je udio rezultata koje nulti model proizvodi, a koji su s njime u najmanju ruku jednako neusklađeni kao opaženi rezultat.</p>
 </div>
-<p>U našem uzorku iznosi 0,016. Rečenica koja iz toga slijedi ima oblik koji vrijedi zapamtiti doslovno. Kad izvor vijesti ne bi imao nikakve veze s povjerenjem, razliku ovoliku ili veću vidjeli bismo u otprilike 1,6 % uzoraka. Sve što p-vrijednost kaže stoji u toj rečenici, i svaka tvrdnja koja iz nje izlazi mora biti opravdana posebno.</p>
+<p>U 4 000 preslagivanja nalazimo 64 apsolutnih razlika barem toliko velikih kao opažena. Dodavanjem izvornog rasporeda brojniku i nazivniku račun postaje <span class="math inline">\((64 + 1)/(4\,000 + 1)\)</span>. Sva su preslagivanja valjana jer se brojnost obiju skupina čuva.</p>
+<p>U našem uzorku p-vrijednost iznosi 0,016. To znači da, uz iste opažene ishode i veličine skupina, nulti model daje apsolutnu razliku ovoliku ili veću u otprilike 1,6 % simuliranih rasporeda oznaka. U tumačenju moramo zadržati uvjet da vrijedi nulti model.</p>
+<p>Kad bismo pregledali sva moguća premještanja, izračunali bismo točan udio, uključujući opaženi raspored. Ovdje uzimamo samo konačan broj nasumičnih premještanja. Ako njihov broj označimo s <span class="math inline">\(B\)</span>, a broj apsolutnih razlika barem toliko velikih kao opažena s <span class="math inline">\(b\)</span>, procjenjujemo p-vrijednost kao <span class="math inline">\((b + 1)/(B +
+1)\)</span>. Dodavanje opaženog rasporeda sprječava rezultat nula i daje valjanu procjenu za nasumično uzorkovana premještanja.</p>
 </section>
 <section id="interakcija-simulator-p-vrijednosti" class="level2">
 <h2 class="anchored" data-anchor-id="interakcija-simulator-p-vrijednosti">Interakcija — Simulator p-vrijednosti</h2>
-<p>Sljedeći prikaz radi ono što jedan uzorak ne može. Postupak ponavlja mnogo puta, odvojeno u svijetu u kojem učinka nema i u svijetu u kojem ga ima, i prikazuje kako se p-vrijednosti raspoređuju u jednom i u drugom. Radi preglednosti koristi normalne ishode s poznatom varijabilnošću i obostrani test.</p>
+<p>U početnim postavkama sljedećeg modela dvije skupine imaju po 60 osoba, a pojedinačni ishodi normalnu raspodjelu sa standardnom devijacijom jedan. Pod nulom obje sredine iznose nula. U scenariju s vezom druga je sredina viša za 0,35. Jedna studija uspoređuje dvije uzoračke sredine i dijeli njihovu razliku poznatom standardnom pogreškom <span class="math inline">\(\sqrt{2/60}\)</span>. Simulacija izravno generira tako standardizirani rezultat, što je u ovom modelu jednako generiranju svih pojedinačnih ishoda i računanju iz njih. Digitalni prikaz počinje s 2 000 ponavljanja po scenariju i dopušta promjenu veličine skupina, učinka i broja ponavljanja. Tiskani prikaz zadržava po 60 osoba i razliku 0,35 te koristi 4 000 ponavljanja po scenariju. Svako ponavljanje daje jednu p-vrijednost. Nema izostavljenih rezultata.</p>
+<p>Dosad smo za jedan uzorak premještali oznake i promatrali raspodjelu razlika. Sada promatramo p-vrijednosti iz ponovljenih zamišljenih studija. U prvom scenariju učinka nema, a u drugome postoji. Koristimo normalne ishode s poznatom varijabilnošću i obostrani z-test. Neovisnost skupina znači da se varijance njihovih sredina zbrajaju i kada računamo razliku sredina. Standardna pogreška razlike korijen je toga zbroja. P-vrijednost obostranog testa zbroj je površina u oba repa standardne normalne raspodjele, izvan opaženog apsolutnog z-rezultata. P-vrijednosti ovaj put računamo iz poznate normalne raspodjele, pa korekcija za konačan broj premještanja nije potrebna. Razliku izražavamo u standardnim devijacijama, što ćemo podrobnije objasniti u sljedećem poglavlju.</p>
 <div class="widget-frame" data-naslov="Simulator p-vrijednosti" data-oznaka="Widget 10.1 · interaktivno">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="308" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 307;"><span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a>viewof w10_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">20</span><span class="op">,</span> <span class="dv">300</span>]<span class="op">,</span></span>
-<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Veličina svake skupine"</span>}</span>
-<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ucinak</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.8</span>]<span class="op">,</span></span>
-<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.35</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Stvarna standardizirana razlika"</span>}</span>
-<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>  <span class="dt">prag</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.10</span>]<span class="op">,</span></span>
-<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prag odluke"</span>}</span>
-<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ponavljanja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">4000</span>]<span class="op">,</span></span>
-<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Broj simuliranih uzoraka"</span>}</span>
-<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="424" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 423;"><span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a>viewof w10_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">20</span><span class="op">,</span> <span class="dv">300</span>]<span class="op">,</span></span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Veličina svake skupine"</span>}</span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ucinak</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.8</span>]<span class="op">,</span></span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.35</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Stvarna standardizirana razlika"</span>}</span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a>  <span class="dt">prag</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.10</span>]<span class="op">,</span></span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prag odluke"</span>}</span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ponavljanja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">4000</span>]<span class="op">,</span></span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Broj simuliranih uzoraka"</span>}</span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -997,145 +1104,155 @@ Slika&nbsp;1: Razlike sredina kroz četiri tisuće nasumičnih premještanja ozn
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="333" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 332;"><span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
-<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> <span class="st">"var(--tok-data-4)"</span><span class="op">;</span></span>
-<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svijetla <span class="op">=</span> <span class="st">"var(--tok-data-5)"</span><span class="op">;</span></span>
-<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
-<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
-<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
-<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
-<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
-<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">erf</span>(x) {</span>
-<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> predznak <span class="op">=</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="op">-</span><span class="dv">1</span> <span class="op">:</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x)<span class="op">;</span></span>
-<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> z)<span class="op">;</span></span>
-<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> y <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (((((<span class="fl">1.061405429</span> <span class="op">*</span> t <span class="op">-</span> <span class="fl">1.453152027</span>) <span class="op">*</span> t) <span class="op">+</span></span>
-<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>      <span class="fl">1.421413741</span>) <span class="op">*</span> t <span class="op">-</span> <span class="fl">0.284496736</span>) <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.254829592</span>) <span class="op">*</span></span>
-<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>      t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>z <span class="op">*</span> z)<span class="op">;</span></span>
-<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> predznak <span class="op">*</span> y<span class="op">;</span></span>
-<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalnaF <span class="op">=</span> x <span class="kw">=&gt;</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fu">erf</span>(x <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span>))<span class="op">;</span></span>
-<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1010</span>)<span class="op">;</span></span>
-<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> standardna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pomak <span class="op">=</span> w10_par<span class="op">.</span><span class="at">ucinak</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(w10_par<span class="op">.</span><span class="at">n</span> <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">simuliraj</span>(model<span class="op">,</span> sredinaZ) {</span>
-<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> w10_par<span class="op">.</span><span class="at">ponavljanja</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z <span class="op">=</span> sredinaZ <span class="op">+</span> <span class="fu">standardna</span>()<span class="op">;</span></span>
-<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {</span>
-<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>        model<span class="op">,</span></span>
-<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>        <span class="dt">p</span><span class="op">:</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="fu">normalnaF</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(z)))</span>
-<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>      }<span class="op">;</span></span>
-<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> bezUcinka <span class="op">=</span> <span class="fu">simuliraj</span>(<span class="st">"Nulta hipoteza vrijedi"</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sUcinkom <span class="op">=</span> <span class="fu">simuliraj</span>(<span class="st">"Učinak postoji"</span><span class="op">,</span> pomak)<span class="op">;</span></span>
-<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stopaBez <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(bezUcinka<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span> <span class="op">&lt;=</span> w10_par<span class="op">.</span><span class="at">prag</span>)<span class="op">;</span></span>
-<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stopaS <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(sUcinkom<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span> <span class="op">&lt;=</span> w10_par<span class="op">.</span><span class="at">prag</span>)<span class="op">;</span></span>
-<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> binoviZaOznake <span class="op">=</span> d3<span class="op">.</span><span class="fu">bin</span>()<span class="op">.</span><span class="fu">domain</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>])<span class="op">.</span><span class="fu">thresholds</span>(<span class="dv">20</span>)<span class="op">;</span></span>
-<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najvisiStupac <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(</span>
-<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span><span class="fu">binoviZaOznake</span>(bezUcinka<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span>))<span class="op">,</span></span>
-<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span><span class="fu">binoviZaOznake</span>(sUcinkom<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span>))</span>
-<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
-<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a>    d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">length</span></span>
-<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prag <span class="op">=</span> broj<span class="op">.</span><span class="fu">format</span>(w10_par<span class="op">.</span><span class="at">prag</span>)<span class="op">;</span></span>
-<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
-<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
-<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
-<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
-<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-397"><a href="#cb2-397" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-398"><a href="#cb2-398" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
-<span id="cb2-399"><a href="#cb2-399" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">500</span> <span class="op">:</span> <span class="dv">430</span><span class="op">,</span></span>
-<span id="cb2-400"><a href="#cb2-400" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">66</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
-<span id="cb2-401"><a href="#cb2-401" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
-<span id="cb2-402"><a href="#cb2-402" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
-<span id="cb2-403"><a href="#cb2-403" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb2-404"><a href="#cb2-404" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb2-405"><a href="#cb2-405" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-406"><a href="#cb2-406" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
-<span id="cb2-407"><a href="#cb2-407" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"14px"</span> <span class="op">:</span> <span class="st">"12px"</span></span>
-<span id="cb2-408"><a href="#cb2-408" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-409"><a href="#cb2-409" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
-<span id="cb2-410"><a href="#cb2-410" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"p-vrijednost"</span><span class="op">,</span></span>
-<span id="cb2-411"><a href="#cb2-411" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
-<span id="cb2-412"><a href="#cb2-412" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">5</span> <span class="op">:</span> <span class="kw">undefined</span><span class="op">,</span></span>
-<span id="cb2-413"><a href="#cb2-413" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
-<span id="cb2-414"><a href="#cb2-414" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-415"><a href="#cb2-415" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Broj simuliranih uzoraka"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
-<span id="cb2-416"><a href="#cb2-416" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fy</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
-<span id="cb2-417"><a href="#cb2-417" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-418"><a href="#cb2-418" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(</span>
-<span id="cb2-419"><a href="#cb2-419" aria-hidden="true" tabindex="-1"></a>        bezUcinka<span class="op">,</span></span>
-<span id="cb2-420"><a href="#cb2-420" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">binX</span>(</span>
-<span id="cb2-421"><a href="#cb2-421" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span></span>
-<span id="cb2-422"><a href="#cb2-422" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">x</span><span class="op">:</span> <span class="st">"p"</span><span class="op">,</span> <span class="dt">fy</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> svijetla<span class="op">,</span> <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.5</span>}</span>
-<span id="cb2-423"><a href="#cb2-423" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(</span>
-<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a>        sUcinkom<span class="op">,</span></span>
-<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">binX</span>(</span>
-<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span></span>
-<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">x</span><span class="op">:</span> <span class="st">"p"</span><span class="op">,</span> <span class="dt">fy</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> prigusena<span class="op">,</span> <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.5</span>}</span>
-<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([w10_par<span class="op">.</span><span class="at">prag</span>]<span class="op">,</span> {</span>
-<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
-<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span></span>
-<span id="cb2-435"><a href="#cb2-435" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span></span>
-<span id="cb2-436"><a href="#cb2-436" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
-<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a>          {</span>
-<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a>            <span class="dt">model</span><span class="op">:</span> <span class="st">"Nulta hipoteza vrijedi"</span><span class="op">,</span></span>
-<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> <span class="fl">0.025</span><span class="op">,</span></span>
-<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiStupac <span class="op">*</span> <span class="fl">1.08</span><span class="op">,</span></span>
-<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Nulta hipoteza vrijedi"</span></span>
-<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
-<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>          {</span>
-<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a>            <span class="dt">model</span><span class="op">:</span> <span class="st">"Učinak postoji"</span><span class="op">,</span></span>
-<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> <span class="fl">0.025</span><span class="op">,</span></span>
-<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiStupac <span class="op">*</span> <span class="fl">1.08</span><span class="op">,</span></span>
-<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Učinak postoji"</span></span>
-<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a>          }</span>
-<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
-<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fy</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span></span>
-<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
-<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span></span>
-<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dy</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
-<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
-<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
-<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
-<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
-<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;Prag </span><span class="sc">${</span>prag<span class="sc">}</span><span class="vs"> obuhvaća </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(stopaBez)<span class="sc">}</span><span class="vs"> uz nultu hipotezu i </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(stopaS)<span class="sc">}</span><span class="vs"> uz odabrani učinak.&lt;/p&gt;</span></span>
-<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="449" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 448;"><span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
+<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> <span class="st">"var(--tok-data-4)"</span><span class="op">;</span></span>
+<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svijetla <span class="op">=</span> <span class="st">"var(--tok-data-5)"</span><span class="op">;</span></span>
+<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
+<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
+<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
+<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
+<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
+<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">erf</span>(x) {</span>
+<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> predznak <span class="op">=</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="op">-</span><span class="dv">1</span> <span class="op">:</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x)<span class="op">;</span></span>
+<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> z)<span class="op">;</span></span>
+<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> y <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (((((<span class="fl">1.061405429</span> <span class="op">*</span> t <span class="op">-</span> <span class="fl">1.453152027</span>) <span class="op">*</span> t) <span class="op">+</span></span>
+<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a>      <span class="fl">1.421413741</span>) <span class="op">*</span> t <span class="op">-</span> <span class="fl">0.284496736</span>) <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.254829592</span>) <span class="op">*</span></span>
+<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a>      t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>z <span class="op">*</span> z)<span class="op">;</span></span>
+<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> predznak <span class="op">*</span> y<span class="op">;</span></span>
+<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalnaF <span class="op">=</span> x <span class="kw">=&gt;</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fu">erf</span>(x <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span>))<span class="op">;</span></span>
+<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1010</span>)<span class="op">;</span></span>
+<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">standardna</span>() {</span>
+<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x<span class="op">;</span></span>
+<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y<span class="op">;</span></span>
+<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> radijus<span class="op">;</span></span>
+<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a>    <span class="cf">do</span> {</span>
+<span id="cb2-482"><a href="#cb2-482" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> <span class="fu">rng</span>() <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-483"><a href="#cb2-483" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="fu">rng</span>() <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-484"><a href="#cb2-484" aria-hidden="true" tabindex="-1"></a>      radijus <span class="op">=</span> x <span class="op">*</span> x <span class="op">+</span> y <span class="op">*</span> y<span class="op">;</span></span>
+<span id="cb2-485"><a href="#cb2-485" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">while</span> (<span class="op">!</span>radijus <span class="op">||</span> radijus <span class="op">&gt;</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-486"><a href="#cb2-486" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(radijus) <span class="op">/</span> radijus)<span class="op">;</span></span>
+<span id="cb2-487"><a href="#cb2-487" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-488"><a href="#cb2-488" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pomak <span class="op">=</span> w10_par<span class="op">.</span><span class="at">ucinak</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(w10_par<span class="op">.</span><span class="at">n</span> <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-489"><a href="#cb2-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-490"><a href="#cb2-490" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">simuliraj</span>(model<span class="op">,</span> sredinaZ) {</span>
+<span id="cb2-491"><a href="#cb2-491" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> w10_par<span class="op">.</span><span class="at">ponavljanja</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-492"><a href="#cb2-492" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z <span class="op">=</span> sredinaZ <span class="op">+</span> <span class="fu">standardna</span>()<span class="op">;</span></span>
+<span id="cb2-493"><a href="#cb2-493" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {</span>
+<span id="cb2-494"><a href="#cb2-494" aria-hidden="true" tabindex="-1"></a>        model<span class="op">,</span></span>
+<span id="cb2-495"><a href="#cb2-495" aria-hidden="true" tabindex="-1"></a>        <span class="dt">p</span><span class="op">:</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="fu">normalnaF</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(z)))</span>
+<span id="cb2-496"><a href="#cb2-496" aria-hidden="true" tabindex="-1"></a>      }<span class="op">;</span></span>
+<span id="cb2-497"><a href="#cb2-497" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-498"><a href="#cb2-498" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-499"><a href="#cb2-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-500"><a href="#cb2-500" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> bezUcinka <span class="op">=</span> <span class="fu">simuliraj</span>(<span class="st">"Nulta hipoteza vrijedi"</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-501"><a href="#cb2-501" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sUcinkom <span class="op">=</span> <span class="fu">simuliraj</span>(<span class="st">"Učinak postoji"</span><span class="op">,</span> pomak)<span class="op">;</span></span>
+<span id="cb2-502"><a href="#cb2-502" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stopaBez <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(bezUcinka<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span> <span class="op">&lt;=</span> w10_par<span class="op">.</span><span class="at">prag</span>)<span class="op">;</span></span>
+<span id="cb2-503"><a href="#cb2-503" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stopaS <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(sUcinkom<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span> <span class="op">&lt;=</span> w10_par<span class="op">.</span><span class="at">prag</span>)<span class="op">;</span></span>
+<span id="cb2-504"><a href="#cb2-504" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> binoviZaOznake <span class="op">=</span> d3<span class="op">.</span><span class="fu">bin</span>()<span class="op">.</span><span class="fu">domain</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>])<span class="op">.</span><span class="fu">thresholds</span>(<span class="dv">20</span>)<span class="op">;</span></span>
+<span id="cb2-505"><a href="#cb2-505" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najvisiStupac <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(</span>
+<span id="cb2-506"><a href="#cb2-506" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb2-507"><a href="#cb2-507" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span><span class="fu">binoviZaOznake</span>(bezUcinka<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span>))<span class="op">,</span></span>
+<span id="cb2-508"><a href="#cb2-508" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span><span class="fu">binoviZaOznake</span>(sUcinkom<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">p</span>))</span>
+<span id="cb2-509"><a href="#cb2-509" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb2-510"><a href="#cb2-510" aria-hidden="true" tabindex="-1"></a>    d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">length</span></span>
+<span id="cb2-511"><a href="#cb2-511" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb2-512"><a href="#cb2-512" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prag <span class="op">=</span> broj<span class="op">.</span><span class="fu">format</span>(w10_par<span class="op">.</span><span class="at">prag</span>)<span class="op">;</span></span>
+<span id="cb2-513"><a href="#cb2-513" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb2-514"><a href="#cb2-514" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb2-515"><a href="#cb2-515" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb2-516"><a href="#cb2-516" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb2-517"><a href="#cb2-517" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
+<span id="cb2-518"><a href="#cb2-518" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
+<span id="cb2-519"><a href="#cb2-519" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb2-520"><a href="#cb2-520" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
+<span id="cb2-521"><a href="#cb2-521" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
+<span id="cb2-522"><a href="#cb2-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-523"><a href="#cb2-523" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-524"><a href="#cb2-524" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
+<span id="cb2-525"><a href="#cb2-525" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">500</span> <span class="op">:</span> <span class="dv">430</span><span class="op">,</span></span>
+<span id="cb2-526"><a href="#cb2-526" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">66</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
+<span id="cb2-527"><a href="#cb2-527" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb2-528"><a href="#cb2-528" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
+<span id="cb2-529"><a href="#cb2-529" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb2-530"><a href="#cb2-530" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb2-531"><a href="#cb2-531" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-532"><a href="#cb2-532" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
+<span id="cb2-533"><a href="#cb2-533" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"14px"</span> <span class="op">:</span> <span class="st">"12px"</span></span>
+<span id="cb2-534"><a href="#cb2-534" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-535"><a href="#cb2-535" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb2-536"><a href="#cb2-536" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"p-vrijednost"</span><span class="op">,</span></span>
+<span id="cb2-537"><a href="#cb2-537" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
+<span id="cb2-538"><a href="#cb2-538" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">5</span> <span class="op">:</span> <span class="kw">undefined</span><span class="op">,</span></span>
+<span id="cb2-539"><a href="#cb2-539" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
+<span id="cb2-540"><a href="#cb2-540" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-541"><a href="#cb2-541" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Broj simuliranih uzoraka"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb2-542"><a href="#cb2-542" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fy</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
+<span id="cb2-543"><a href="#cb2-543" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-544"><a href="#cb2-544" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(</span>
+<span id="cb2-545"><a href="#cb2-545" aria-hidden="true" tabindex="-1"></a>        bezUcinka<span class="op">,</span></span>
+<span id="cb2-546"><a href="#cb2-546" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">binX</span>(</span>
+<span id="cb2-547"><a href="#cb2-547" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span></span>
+<span id="cb2-548"><a href="#cb2-548" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">x</span><span class="op">:</span> <span class="st">"p"</span><span class="op">,</span> <span class="dt">fy</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> svijetla<span class="op">,</span> <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.5</span>}</span>
+<span id="cb2-549"><a href="#cb2-549" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-550"><a href="#cb2-550" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb2-551"><a href="#cb2-551" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(</span>
+<span id="cb2-552"><a href="#cb2-552" aria-hidden="true" tabindex="-1"></a>        sUcinkom<span class="op">,</span></span>
+<span id="cb2-553"><a href="#cb2-553" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">binX</span>(</span>
+<span id="cb2-554"><a href="#cb2-554" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span></span>
+<span id="cb2-555"><a href="#cb2-555" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">x</span><span class="op">:</span> <span class="st">"p"</span><span class="op">,</span> <span class="dt">fy</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> prigusena<span class="op">,</span> <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.5</span>}</span>
+<span id="cb2-556"><a href="#cb2-556" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-557"><a href="#cb2-557" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb2-558"><a href="#cb2-558" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([w10_par<span class="op">.</span><span class="at">prag</span>]<span class="op">,</span> {</span>
+<span id="cb2-559"><a href="#cb2-559" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
+<span id="cb2-560"><a href="#cb2-560" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span></span>
+<span id="cb2-561"><a href="#cb2-561" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span></span>
+<span id="cb2-562"><a href="#cb2-562" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-563"><a href="#cb2-563" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
+<span id="cb2-564"><a href="#cb2-564" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb2-565"><a href="#cb2-565" aria-hidden="true" tabindex="-1"></a>          {</span>
+<span id="cb2-566"><a href="#cb2-566" aria-hidden="true" tabindex="-1"></a>            <span class="dt">model</span><span class="op">:</span> <span class="st">"Nulta hipoteza vrijedi"</span><span class="op">,</span></span>
+<span id="cb2-567"><a href="#cb2-567" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> <span class="fl">0.025</span><span class="op">,</span></span>
+<span id="cb2-568"><a href="#cb2-568" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiStupac <span class="op">*</span> <span class="fl">1.08</span><span class="op">,</span></span>
+<span id="cb2-569"><a href="#cb2-569" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Nulta hipoteza vrijedi"</span></span>
+<span id="cb2-570"><a href="#cb2-570" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
+<span id="cb2-571"><a href="#cb2-571" aria-hidden="true" tabindex="-1"></a>          {</span>
+<span id="cb2-572"><a href="#cb2-572" aria-hidden="true" tabindex="-1"></a>            <span class="dt">model</span><span class="op">:</span> <span class="st">"Učinak postoji"</span><span class="op">,</span></span>
+<span id="cb2-573"><a href="#cb2-573" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> <span class="fl">0.025</span><span class="op">,</span></span>
+<span id="cb2-574"><a href="#cb2-574" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiStupac <span class="op">*</span> <span class="fl">1.08</span><span class="op">,</span></span>
+<span id="cb2-575"><a href="#cb2-575" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Učinak postoji"</span></span>
+<span id="cb2-576"><a href="#cb2-576" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb2-577"><a href="#cb2-577" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb2-578"><a href="#cb2-578" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-579"><a href="#cb2-579" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-580"><a href="#cb2-580" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-581"><a href="#cb2-581" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fy</span><span class="op">:</span> <span class="st">"model"</span><span class="op">,</span></span>
+<span id="cb2-582"><a href="#cb2-582" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
+<span id="cb2-583"><a href="#cb2-583" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span></span>
+<span id="cb2-584"><a href="#cb2-584" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dy</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb2-585"><a href="#cb2-585" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-586"><a href="#cb2-586" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
+<span id="cb2-587"><a href="#cb2-587" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-588"><a href="#cb2-588" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb2-589"><a href="#cb2-589" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
+<span id="cb2-590"><a href="#cb2-590" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-591"><a href="#cb2-591" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-592"><a href="#cb2-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-593"><a href="#cb2-593" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
+<span id="cb2-594"><a href="#cb2-594" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
+<span id="cb2-595"><a href="#cb2-595" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;Prag </span><span class="sc">${</span>prag<span class="sc">}</span><span class="vs"> obuhvaća </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(stopaBez)<span class="sc">}</span><span class="vs"> uz nultu hipotezu i </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(stopaS)<span class="sc">}</span><span class="vs"> uz odabrani učinak.&lt;/p&gt;</span></span>
+<span id="cb2-596"><a href="#cb2-596" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb2-597"><a href="#cb2-597" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w10" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1158,46 +1275,52 @@ Slika&nbsp;2: Raspodjele p-vrijednosti pod nultim modelom i pod odabranim stvarn
 <li>Povećajte uzorak bez promjene razlike i usporedite udio rezultata ispod praga.</li>
 <li>Spustite prag s 0,05 na 0,01 i pogledajte obje raspodjele.</li>
 </ol>
-<p>Prvi korak otkriva svojstvo koje iznenađuje gotovo svakoga. Kad učinka nema, p-vrijednosti su ravnomjerno raspoređene po cijelom rasponu od nule do jedinice, pa je vrijednost od 0,03 pod nultim modelom jednako vjerojatna kao vrijednost od 0,53. Prag ne odvaja obično od neobičnog nego odsijeca unaprijed određen udio te ravnomjerne raspodjele, i taj udio je sve što prag jamči.</p>
+<p>Kada vrijedi nulti model ove simulacije, p-vrijednosti su ravnomjerno raspoređene između nule i jedinice. Jednako široki rasponi oko 0,03 i 0,53 zato su jednako vjerojatni. Prag od 0,05 izdvaja donjih pet posto raspodjele. Upravo taj dugoročni udio odbacivanja pod nultim modelom prag ograničava.</p>
 </section>
 <section id="dvije-vrste-pogreške" class="level2">
 <h2 class="anchored" data-anchor-id="dvije-vrste-pogreške">Dvije vrste pogreške</h2>
-<p>Postupak može pogriješiti na dva načina i nijedan se ne može ukloniti. Kad se odbaci nulta hipoteza koja je istinita, radi se o pogrešci prve vrste. Kad se ne odbaci nulta hipoteza koja je lažna, radi se o pogrešci druge vrste.</p>
+<p>Prag je u prethodnom prikazu izdvojio i neke rezultate nastale bez učinka. Ako na temelju njih odbacimo istinitu nultu hipotezu, činimo pogrešku prve vrste. U drugoj simulaciji učinak postoji, ali dio p-vrijednosti ostaje iznad praga. <strong>Pogreška druge vrste</strong> nastaje kada tako ne odbacimo nultu hipotezu iako je lažna. Isti postupak odlučivanja stoga trebamo procijeniti u oba uvjeta.</p>
 <div id="def-pogreska-prve-vrste" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 4</strong></span> <strong>Pogreška prve vrste</strong> je odbacivanje nulte hipoteze koja je istinita, a udio takvih odbacivanja u dugom nizu ponavljanja postupka jednak je odabranom pragu.</p>
+<p><span class="theorem-title"><strong>Definicija 4</strong></span> <strong>Pogreška prve vrste</strong> je odbacivanje nulte hipoteze koja je istinita. Pod pretpostavkama modela postupak ograničava dugoročni udio takvih odbacivanja odabranim pragom.</p>
 </div>
-<p>Ta se tvrdnja obično iznosi kao definicija, a u ovoj se knjizi može izmjeriti, jer je populacija poznata. Postavimo pitanje na koje unaprijed znamo odgovor. Razlikuju li se žene i muškarci po povjerenju u medije? U populaciji ta razlika iznosi 0,018 boda, dakle nule nema samo zato što je populacija konačna. Nulta hipoteza je za to pitanje praktički istinita.</p>
-<p>Provedemo li isti permutacijski postupak na osamsto novih uzoraka od 300 osoba, prag od 0,05 prijeđe ih 5,0 %. Prag je dakle održao obećanje, i to je jedino obećanje koje daje.</p>
+<p>Istraživački tim, primjerice, treba odlučiti hoće li poduprijeti tvrdnju da se skupine razlikuju. Pogreška prve vrste dovela bi do neutemeljene usporedbe skupina. Pogreška druge vrste mogla bi prikriti postojeću razliku i zaustaviti njezino daljnje istraživanje. Posljedice snose i čitatelji i osobe o kojima se zaključuje. Tim zato treba objasniti koju je pogrešku smatrao ozbiljnijom pri izboru praga.</p>
+<p>Stopu pogreške prve vrste možemo provjeriti simulacijom u kojoj nulti model sigurno vrijedi. Iz poznate populacije svaki put uzimamo 300 ishoda, pa im nasumično dodjeljujemo jednako mnogo oznaka A i B. Oznaka je neovisna o ishodu. Tako obje skupine nastaju iz iste pune raspodjele povjerenja.</p>
+<p>Sada jedno vanjsko ponavljanje sadrži cijeli test. Odaberemo novih 300 ishoda, nasumično im dodijelimo po 150 oznaka A i B, a zatim za taj uzorak provedemo 300 unutarnjih permutacija i izračunamo jednu p-vrijednost. Ponavljamo to 800 puta i broj p-vrijednosti ispod 0,05 dijelimo s 800. Drugi scenarij uzima nove uzorke iz podskupa tiska i portala s njihovim postojećim oznakama, u kojem veza postoji. To mijenja i sastav skupina, čije brojnosti nisu unaprijed izjednačene. U oba niza sva su ponavljanja definirana i nijedno nije izostavljeno.</p>
+<p>Na osamsto takvih uzoraka permutacijski postupak odbacuje nultu hipotezu uz prag 0,05 u 4,9 % slučajeva. Zbog konačnog broja premještanja i slučajnog kolebanja među uzorcima udio ne mora biti točno pet posto. Ovdje provjeravamo postupak u uvjetima koji zadovoljavaju njegovu pretpostavku zamjenjivosti.</p>
 <div class="cell" data-layout-align="center">
 <div id="tbl-stope-odbacivanja" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-stope-odbacivanja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;1: Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,05, za dva pitanja s poznatim odgovorom. Osamsto uzoraka po pitanju, u svakome tristo premještanja. Izrada autora.
+Tablica&nbsp;3: Udio uzoraka u kojima permutacijska p-vrijednost ne prelazi prag od 0,05, za dva pitanja s poznatim odgovorom. Osamsto uzoraka po pitanju, u svakome tristo premještanja. Izrada autora.
 </figcaption>
 <div aria-describedby="tbl-stope-odbacivanja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 36%">
-<col style="width: 40%">
-<col style="width: 23%">
+<col style="width: 31%">
+<col style="width: 31%">
+<col style="width: 18%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Pitanje</th>
 <th style="text-align: right;">Stvarna razlika u populaciji</th>
+<th style="text-align: right;">Broj odbacivanja</th>
 <th style="text-align: right;">Udio odbacivanja</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Razlika po spolu</td>
-<td style="text-align: right;">0,02</td>
-<td style="text-align: right;">5,0 %</td>
+<td style="text-align: left;">Nasumično dodijeljena oznaka</td>
+<td style="text-align: right;">0,00</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">4,9 %</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Razlika po izvoru vijesti</td>
 <td style="text-align: right;">0,74</td>
+<td style="text-align: right;">636</td>
 <td style="text-align: right;">79,5 %</td>
 </tr>
 </tbody>
@@ -1207,102 +1330,118 @@ Tablica&nbsp;1: Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,0
 </figure>
 </div>
 </div>
-<p>Drugi redak tablice nosi drugu vrstu pogreške. Razlika po izvoru vijesti u populaciji doista postoji i iznosi 0,74 boda, a postupak je pronalazi u 79,5 % uzoraka. U preostalih 20,5 % istraživač bi zaključio da nema dovoljno dokaza, i pritom bi se pridržavao svih pravila.</p>
+<p>Drugi redak tablice pokazuje što se događa kada razlika postoji. U populaciji razlika prema izvoru vijesti iznosi 0,74 boda. Postupak je otkriva u 79,5 % uzoraka. U preostalih 20,5 % ne bismo imali dovoljno dokaza za odbacivanje nulte hipoteze, iako razlika postoji.</p>
+<p>Na zajedničkoj osi prikazane su raspodjela pod nultim modelom i raspodjela procijenjene razlike kada učinak postoji. Iste granične crte određuju odluku u oba slučaja.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-dvije-pogreske" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Gornji panel prikazuje raspodjelu razlika oko nule s dvjema graničnim crtama koje odsijecaju uske repove. Donji panel prikazuje raspodjelu oko stvarne razlike, čiji lijevi dio prelazi preko desne granične crte i zalazi u područje neodbacivanja.">
+<div id="fig-dvije-pogreske" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Gornji panel prikazuje raspodjelu razlika oko nule s dvjema graničnim crtama koje odsijecaju uske repove. Donji panel prikazuje raspodjelu oko stvarne razlike, čiji lijevi dio prelazi preko desne granične crte i zalazi u područje neodbacivanja." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-dvije-pogreske-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-logika-testiranja_files/figure-html/fig-dvije-pogreske-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;3: Raspodjela procijenjene razlike kad učinka nema i kad postoji, uz isprekidane crte na graničnim vrijednostima postupka."><img src="10-logika-testiranja_files/figure-html/fig-dvije-pogreske-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Gornji panel prikazuje raspodjelu razlika oko nule s dvjema graničnim crtama koje odsijecaju uske repove. Donji panel prikazuje raspodjelu oko stvarne razlike, čiji lijevi dio prelazi preko desne granične crte i zalazi u područje neodbacivanja."></a>
+<a href="10-logika-testiranja_files/figure-html/fig-dvije-pogreske-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;3: Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora; podaci i postupak opisani su u tekstu."><img src="10-logika-testiranja_files/figure-html/fig-dvije-pogreske-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Gornji panel prikazuje raspodjelu razlika oko nule s dvjema graničnim crtama koje odsijecaju uske repove. Donji panel prikazuje raspodjelu oko stvarne razlike, čiji lijevi dio prelazi preko desne granične crte i zalazi u područje neodbacivanja."></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dvije-pogreske-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3: Raspodjela procijenjene razlike kad učinka nema i kad postoji, uz isprekidane crte na graničnim vrijednostima postupka.
+Slika&nbsp;3: Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora; podaci i postupak opisani su u tekstu.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Slika pokazuje zašto se dvije pogreške ne mogu istovremeno smanjivati. Granične crte određene su gornjom raspodjelom, a odsijecaju i donju. Pomaknemo li ih prema van kako bismo rjeđe pogriješili na prvi način, veći dio donje raspodjele ostaje između njih i postupak češće promašuje stvarnu razliku. Jedini način da oba udjela padnu jest razmaknuti dvije raspodjele, a to se postiže većim uzorkom ili preciznijim mjerenjem, dakle odlukama iz dizajna, a ne izborom praga.</p>
-<p>Koliki je uzorak za to potreban i kako se planira unaprijed, tema je sljedećeg poglavlja. Ovdje je dovoljno vidjeti da udio promašaja nije svojstvo testa nego posljedica dizajna, i da se o njemu odlučuje prije prikupljanja podataka.</p>
+<p>Pomaknemo li granične crte prema van, rjeđe odbacujemo istinitu nultu hipotezu. Istodobno veći dio raspodjele s postojećim učinkom ostaje između crta, pa češće propuštamo razliku. Pri istom pragu veći uzorak ili preciznije mjerenje mogu smanjiti pogrešku druge vrste, uz zadržano ograničenje pogreške prve vrste. S više informacija možemo razmotriti i stroži prag, ali trebamo ponovno procijeniti odnos obiju pogrešaka.</p>
+<p>Površine na slici objašnjavaju odnos pogrešaka, ali nisu izmjerene stope iz tablice. Gornja raspodjela prikazuje 4 000 premještanja oznaka iz glavnoga uzorka, a donja 4 000 novih uzoraka iz populacije u kojoj razlika postoji. Snaga postupka ovisi o veličini učinka, varijabilnosti, veličini i nacrtu uzorka, testnoj statistici i pragu odluke.</p>
+<section id="referentna-oznaka-nije-isto-što-i-istina" class="level3">
+<h3 class="anchored" data-anchor-id="referentna-oznaka-nije-isto-što-i-istina">Referentna oznaka nije isto što i istina</h3>
+<p>Stope pogrešaka mogli smo prebrojiti jer smo u simulaciji zadali kako podaci nastaju. Pri procjeni algoritama susrest ćemo srodno, ali drukčije pitanje, slaže li se predviđena kategorija s <strong>referentnom oznakom</strong>, primjerice ručno dodijeljenom kategorijom. Ta oznaka, za razliku od poznate istine simulacije, može biti pogrešna. Ovisi o mjerenju, uputama za označavanje i načinu rješavanja spornih slučajeva.</p>
+<p>Neslaganje s referencom zato može potjecati i od postupka koji ispitujemo i od same reference. U izvještaju navodimo kako su referentne oznake nastale i jesu li neslaganja ponovno pregledana. To će biti posebno važno pri procjeni algoritama. Precizno izračunata stopa neslaganja ne jamči da je referenca točna.</p>
+</section>
 </section>
 <section id="prag-je-konvencija-a-ne-mjera" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="prag-je-konvencija-a-ne-mjera">Prag je konvencija, a ne mjera</h2>
-<p>Prag od 0,05 pojavljuje se u ovom poglavlju kao zadana vrijednost, a postupak ga ničim ne zahtijeva. Widget dopušta da se pomakne na 0,01 ili na 0,10 i ništa se u računu ne buni, jer prag samo određuje koliki udio nultog modela pristajemo odsjeći. Odabir je stvar dogovora struke i posljedica koje pogreška nosi, pa u području u kojem je lažni nalaz skup ima smisla biti stroži nego u području u kojem je propušten nalaz skuplji.</p>
-<p>Iz toga slijedi da razlika između rezultata tik ispod praga i onoga tik iznad nije razlika u dokazu. Vrijednosti 0,048 i 0,052 gotovo su isti broj, a izvještaj koji jednu naziva nalazom, a drugu odsutnošću nalaza uvodi razliku koje u podacima nema. Upravo to je razlog zbog kojeg izjava Američkog statističkog udruženja traži da znanstveni zaključak ne ovisi samo o tome prelazi li p-vrijednost određeni prag <span class="citation" data-cites="wasserstein2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein i Lazar 2016.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Postoji i drugi razlog, koji se rijetko spominje, a lako se izmjeri. Ponovili smo pitanje o izvoru vijesti na osamsto uzoraka iz iste populacije, u kojoj razlika stvarno postoji i uvijek je jednaka. U polovici uzoraka p-vrijednost je bila ispod 0,003, u četvrtini iznad 0,033, a u desetini iznad 0,134. Ista populacija, isti postupak i ista veličina uzorka daju p-vrijednosti raspoređene preko dva reda veličine, pa je u 12,5 % uzoraka rezultat prešao i granicu od 0,10.</p>
-<p>P-vrijednost je dakle i sama statistika koja se mijenja od uzorka do uzorka, i to snažnije od gotovo svake druge veličine u knjizi. Izvještaj koji je navodi na tri decimale sugerira preciznost koju ona nema, a ponovljeno istraživanje s istim dizajnom lako proizvede vrijednost desetostruko drugačiju. Procjena i njezin interval pod ponavljanjem se ponašaju mnogo mirnije, i to je jedan od razloga zbog kojih u izvještaju stoje prvi.</p>
+<p>Rezultat nazivamo statistički značajnim kada mu p-vrijednost ne prelazi unaprijed odabrani prag.</p>
+<p>Koristimo <strong>prag značajnosti</strong> 0,05, ali moguće je odabrati i 0,01 ili 0,10. Izbor određuje dopuštenu dugoročnu stopu odbacivanja istinite nulte hipoteze. Treba ga obrazložiti stručnim običajima i posljedicama pogreške. Stroži prag ima smisla kada je lažni nalaz osobito skup, uz uvažavanje povećanog rizika da propustimo postojeći učinak.</p>
+<p>Rezultati neposredno ispod i iznad praga daju gotovo jednaku količinu dokaza. P-vrijednosti 0,048 i 0,052 ne opravdavaju zaključke da u prvom slučaju učinak postoji, a u drugom ga nema. Zato Američko statističko udruženje traži da znanstveni zaključak ne ovisi samo o prelasku praga <span class="citation" data-cites="wasserstein2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein i Lazar 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Izjava u šest načela objašnjava da p-vrijednost opisuje neusklađenost podataka s određenim modelom. Ne daje vjerojatnost hipoteze, vjerojatnost da je rezultat „nastao slučajno” ni veličinu ili važnost učinka. Za zaključivanje su potrebni potpuno izvještavanje, transparentnost i drugi znanstveni dokazi <span class="citation" data-cites="wasserstein2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein i Lazar 2016.</a>)</span>.</p>
+<p>Kada izvještaj sve svede na oznaku „statistički značajan”, čitatelj lako izgubi veličinu procjene, njezinu nesigurnost i posljedice odluke. Te informacije trebaju ostati vidljive bez obzira na položaj p-vrijednosti u odnosu na prag.</p>
+<p>P-vrijednost može pridonijeti argumentu, ali sama nije dovoljna za znanstveni zaključak. U našem izvještaju zato najprije navodimo procjenu i interval, objašnjavamo pretpostavke i razmatramo posljedice obiju pogrešaka.</p>
+<p>P-vrijednost se mijenja i kada ponavljamo potpuno isti postupak. Na osamsto uzoraka iz naše populacije, uz uvijek jednaku stvarnu razliku, polovica p-vrijednosti bila je ispod 0,007, četvrtina iznad 0,037, a desetina iznad 0,137. Vrijednosti su se protezale preko dva reda veličine. U 12,9 % uzoraka bile su veće od 0,10.</p>
+<p>Navođenje triju decimala ne uklanja tu uzoračku promjenjivost. I procjena i njezin interval mijenjaju se s uzorkom. Stavljamo ih na prvo mjesto jer izravno odgovaraju na pitanje kolika je razlika i koliko smo je precizno procijenili.</p>
 </section>
 <section id="što-p-vrijednost-nije" class="level2">
 <h2 class="anchored" data-anchor-id="što-p-vrijednost-nije">Što p-vrijednost nije</h2>
-<p>Vratimo se pitanju o spolu, gdje odgovor unaprijed znamo. U našem uzorku razlika iznosi 0,15 boda uz interval od -0,30 do 0,60, a p-vrijednost je 0,53. Postupak je ovdje postupio ispravno, jer razlike doista nema.</p>
-<p>Izvještaj koji bi iz toga zaključio da razlike nema rekao bi ipak previše. Interval dopušta razlike do gotovo pola boda u oba smjera, a to je raspon unutar kojeg bi se uredničke odluke razlikovale. Da je razlika u populaciji iznosila trećinu boda, ovaj bi uzorak jednako izgledao. Velika p-vrijednost znači da podaci nisu neusklađeni s nultim modelom, a ne da su s njime posebno usklađeni.</p>
-<p>Najčešća pogreška ide u suprotnom smjeru i tiče se malih p-vrijednosti. Za naše pitanje o izvoru vjerojatnost od 0,016 odnosi se na podatke pod pretpostavljenim modelom, a ne na model pod opaženim podacima. To su dvije različite uvjetne vjerojatnosti, upravo one koje je poglavlje o vjerojatnosti razdvojilo, i njihova zamjena mijenja tvrdnju iz temelja.</p>
-<p>Iz iste zamjene slijede još dvije rečenice koje treba prepoznati. P-vrijednost nije vjerojatnost da je nalaz nastao slučajno, jer se već računa pod pretpostavkom da jest. I nije mjera veličine učinka, jer ovisi o uzorku jednako koliko i o razlici, pa dovoljno velik uzorak proizvodi male vrijednosti i za razlike koje nikoga ne zanimaju.</p>
+<p>U zasebnom uzorku pogledajmo nasumično dodijeljene oznake. Razlika iznosi -0,09 boda, interval ide od -0,54 do 0,36, a p-vrijednost je 0,70. U ovoj simulaciji znamo da nulti model vrijedi jer oznake nastaju neovisno o ishodu.</p>
+<p>Ipak, sam rezultat testa ne dokazuje da razlike nema. Interval obuhvaća vrijednosti u oba smjera, među kojima neke mogu biti sadržajno važne. Velika p-vrijednost govori da podaci ne daju snažan razlog za odbacivanje nultog modela.</p>
+<p>Kod male p-vrijednosti česta je obrnuta pogreška. Vrijednost 0,016 odnosi se na rezultate pod pretpostavljenim modelom. Ne daje vjerojatnost modela nakon što smo vidjeli podatke. To su različite uvjetne vjerojatnosti, kakve smo razdvojili u poglavlju o vjerojatnosti.</p>
+<p>P-vrijednost ne daje ni vjerojatnost da je nalaz „slučajan”. Račun pretpostavlja određeni nulti model i ne utvrđuje uzrok opaženog rezultata. Također ne mjeri veličinu učinka. Uz dovoljno velik uzorak i mala, praktično nevažna razlika može dati malu p-vrijednost.</p>
 </section>
 <section id="drugo-pitanje-i-drugi-račun" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="drugo-pitanje-i-drugi-račun">Drugo pitanje i drugi račun</h2>
-<p>Pitanje koje istraživači zapravo imaju obično glasi koliko je vjerojatno da učinak postoji. Postupak iz ovog poglavlja na njega ne odgovara i nije za njega ni napravljen. Odgovor na to pitanje traži nešto što test nigdje ne traži, a to je izjava o tome što se držalo vjerojatnim prije podataka.</p>
-<p>Bayesovski pristup upravo tu izjavu zahtijeva. Istraživač unaprijed navodi koliko su mu koje vrijednosti učinka vjerojatne, podaci tu raspodjelu mijenjaju, i rezultat je nova raspodjela vjerojatnosti nad mogućim učincima. Iz nje se može očitati vjerojatnost da je učinak veći od nule ili veći od neke granice koja je sadržajno važna, dakle upravo ono što se od p-vrijednosti pogrešno očekuje.</p>
-<p>Cijena je vidljiva i nije skrivena. Početnu raspodjelu netko mora postaviti i obrazložiti, a različiti izbori daju različite zaključke iz istih podataka. Za pristup koji se često predstavlja kao izlaz iz proizvoljnosti to je neugodna osobina, no ona je barem eksplicitna. U testiranju su pretpostavke jednako prisutne, samo se ne moraju izgovoriti.</p>
-<p>Knjiga ostaje na frekvencijskom putu jer je to jezik kojim je napisana golema većina istraživanja koja čitatelj mora znati pročitati. Bayesovski račun ovdje ostaje pogled kroz prozor, s napomenom da odgovara na drugo pitanje i da mu za to treba dodatan ulaz. Poglavlje o regresiji na tu razliku se vraća u zaključnom pogledu unaprijed.</p>
+<p>Ponekad nas zanima koliko je određena veličina učinka vjerojatna nakon uvida u podatke. Test iz ovog poglavlja ne odgovara na to pitanje. On uspoređuje podatke s preciznim nultim modelom i omogućuje procjenu dugoročnog ponašanja unaprijed određenog postupka. Nulti model posebno je koristan kada odsutnost razlike ili zadana referentna vrijednost ima jasno značenje za odluku.</p>
+<p>Bayesovski pristup povezuje početnu raspodjelu vjerojatnosti učinka s modelom koji opisuje podatke pri različitim vrijednostima učinka. Dobivamo ažuriranu raspodjelu vjerojatnosti. Iz nje možemo, uz prihvaćene pretpostavke, procijeniti vjerojatnost da je učinak veći od nule ili neke sadržajno važne granice.</p>
+<p>U oba pristupa trebamo navesti pretpostavke. Bayesovski zaključak ovisi o početnoj raspodjeli i modelu podataka, pa izvještavamo koliko je osjetljiv na te izbore. Frekvencijski zaključak ovisi o modelu uzorkovanja ili dodjele, testnoj statistici i unaprijed zadanom postupku. Pristupi postavljaju različita pitanja i drukčije provjeravaju posljedice svojih pretpostavki.</p>
+<p>U sljedećim poglavljima nastavljamo s frekvencijskim postupcima. Bayesovski pristup ovdje samo ukratko upoznajemo, a ponovno ćemo ga spomenuti uz regresiju. U oba pristupa veličina učinka i njezina nesigurnost ostaju važne za tumačenje rezultata.</p>
 <div class="callout-divljina page-columns page-full">
-<p><strong>Popis od dvadeset pet.</strong> Sedmorica statističara objavila su u recenziranom časopisu popis od dvadeset pet pogrešnih tumačenja p-vrijednosti, intervala pouzdanosti i snage, uz obrazloženje svakoga <span class="citation" data-cites="greenland2016">(<a href="../references.html#ref-greenland2016" role="doc-biblioref">Greenland i sur. 2016.</a>)</span>. Autori u istom radu tvrde da pogrešna tumačenja tih pojmova ostaju raširena unatoč desetljećima upozorenja i da ne postoji tumačenje koje bi istovremeno bilo jednostavno, intuitivno, ispravno i otporno na pogrešku.</p>
-<div class="no-row-height column-margin column-container"></div><p>Iz postojanja takvog popisa slijedi zaključak koji nije o nemaru. Pogreške se ponavljaju jer postupak odgovara na jedno pitanje, a čitatelju treba drugo, pa prijevod između njih mora obaviti netko drugi i najčešće ga nitko ne obavi. Isti rad upozorava i na to da mala p-vrijednost može nastati i kad je nulti model točan, ako je analiza birana prema rezultatima koje daje, čime pomiče krivnju s pojedinačnog čitanja na cijeli postupak istraživanja. Popis dakle ne služi da bi se provjerila tuđa rečenica, nego da bi se prepoznalo koje pitanje analiza uopće može zatvoriti.</p>
+<p><strong>Mala p-vrijednost pred uredničkom odlukom.</strong> Pretpostavimo da redakcija dobije istraživački izvještaj o razlici u povjerenju između dviju skupina čitatelja. Autor navodi malu p-vrijednost i predlaže naslov prema kojem je dokazao svoje objašnjenje razlike. Urednik treba odlučiti što od toga može prenijeti publici. Pitanje nije samo je li broj točno prepisan, nego što je njime provjereno.</p>
+<p>Greenland i suradnici sastavili su pregled dvadeset pet pogrešnih tumačenja p-vrijednosti, intervala i snage upravo kako bi istraživačima i čitateljima pomogli prepoznati takve prijelaze <span class="citation" data-cites="greenland2016">(<a href="../references.html#ref-greenland2016" role="doc-biblioref">Greenland i sur. 2016.</a>)</span>. Među njima je zamjena vjerojatnosti podataka pod pretpostavljenim modelom vjerojatnošću da je sama hipoteza istinita. Mala p-vrijednost ne daje postotak sigurnosti u autorovo objašnjenje <span class="citation" data-cites="greenland2016">(<a href="../references.html#ref-greenland2016" role="doc-biblioref">Greenland i sur. 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Urednik bi zato u našem zamišljenom slučaju najprije trebao potražiti procijenjenu razliku i njezin interval. Zatim treba pročitati kako su čitatelji odabrani, što test uzima kao nulti model i jesu li skupine samo opažene ili je provedena nasumična dodjela. Ako je usporedba opažačka, uvjerljivo odstupanje od nultog modela još ne pokazuje što je uzrokovalo razliku.</p>
+<p>Važan je i put do objavljenog rezultata. Autori pregleda upozoravaju da biranje analiza prema dobivenim p-vrijednostima može proizvesti male vrijednosti čak i kada provjeravana nulta hipoteza vrijedi <span class="citation" data-cites="greenland2016">(<a href="../references.html#ref-greenland2016" role="doc-biblioref">Greenland i sur. 2016.</a>)</span>. Redakcija zato ima razlog zatražiti podatak je li prikazana usporedba bila unaprijed određena i koje su druge analize provedene. To je provjera postupka, a ne pretpostavka da je autor postupao nepošteno.</p>
+<div class="no-row-height column-margin column-container"></div><p>Nakon toga vijest može prenijeti opaženu razliku, njezinu nesigurnost i ograničenje objašnjenja. Ako te informacije nedostaju, urednik može odgoditi snažan naslov. Test je usporedio podatke s određenim modelom, dok predloženi naslov tvrdi nešto o tome zašto se ljudi razlikuju. Između te dvije rečenice mora stajati dokaz koji sama p-vrijednost ne sadrži.</p>
 </div>
-<div class="callout-model">
-<p>Asistent pouzdano provede test i ispiše p-vrijednost, a rijetko sam postavi ono što mu prethodi. Prije poziva treba mu reći koja je jedinica opažanja i što nulti model tvrdi, jer iz tablice ne može zaključiti smiju li se oznake premještati slobodno. Provjeravamo tri stvari u odgovoru. Prva je redoslijed, jer procjena i interval moraju stajati ispred testa. Druga je rečenica kojom tumači p-vrijednost, koju vrlo često napiše kao vjerojatnost hipoteze. Treća je zaključak iz velike p-vrijednosti, koji redovito pretvara u tvrdnju da razlike nema.</p>
-<blockquote class="blockquote">
-<p>Imenuj nulti model i jedinicu premještanja, izgradi nultu raspodjelu simulacijom i usporedi je s opaženom statistikom. Izvijesti procjenu s intervalom prije p-vrijednosti i napiši što bi rezultat značio da je stvarna razlika upola manja.</p>
-</blockquote>
-</div>
-<div class="callout-greska">
-<p>Na pitanje razlikuju li se čitatelji tiska i portala po povjerenju u medije asistent je napisao ovu analizu.</p>
+<div id="ex-10-callout-greska-01" class="callout-greska page-columns page-full">
+<p>Provjerite odlomak o razlici povjerenja između čitatelja tiska i portala u poznatoj simuliranoj populaciji. U uzorku je procjena razlike tisak minus portal 0,64 boda, uz 95 % interval od 0,17 do 1,11 <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Osobe su zasebne jedinice opažanja.</p>
+<div class="no-row-height column-margin column-container"></div><p>Za test se zadaje nulti model jednake pune raspodjele povjerenja, pod kojim su oznake skupina zamjenjive. Asistentov zapis postupka glasi ovako.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>razlika <span class="ot">&lt;-</span> <span class="fu">mean</span>(tisak) <span class="sc">-</span> <span class="fu">mean</span>(portal)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nulte <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">4000</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nulte <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  promijesano <span class="ot">&lt;-</span> <span class="fu">sample</span>(skupina)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(ishod[promijesano <span class="sc">==</span> <span class="st">"tisak"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(ishod[promijesano <span class="sc">==</span> <span class="st">"portal"</span>])</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(nulte) <span class="sc">&gt;=</span> <span class="fu">abs</span>(razlika))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Uz ispis je dodao obrazloženje. Oznake skupina premještene su četiri tisuće puta, a razlika ovoliku ili veću daje 1,6 % premještanja. Budući da je taj udio ispod praga, zaključuje da vjerojatnost da između dviju skupina nema razlike iznosi 1,6 %.</p>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(nulte) <span class="sc">&gt;=</span> <span class="fu">abs</span>(razlika))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>(b <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> (B <span class="sc">+</span> <span class="dv">1</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Od 4.000 premještanja njih 64 daje apsolutnu razliku barem toliko veliku kao opažena. Korigirani račun zato daje 65 / 4.001, približno 0,016 <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. U izvještaju je asistent napisao sljedeće.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-sikic2026" class="csl-entry" role="listitem">
+Šikić, Luka. 2026. <span>„Populacija medijskih navika, generirani nastavni skup“</span>. <a href="https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv">https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv</a>.
+</div></div><blockquote class="blockquote">
+<p>Pod zadanim nultim modelom opažena je razlika neuobičajena. Skupine su promatračke, pa rezultat ne pokazuje uzrok razlike. P-vrijednost 0,016 znači da je vjerojatnost da između skupina nema razlike 1,6 %.</p>
+</blockquote>
+<p>Povežite brojnik 65 s onim što je postupak prebrojio. Zatim uredite posljednju rečenicu, uz jasno imenovan uvjet pod kojim se vjerojatnost računa. Sačuvajte procjenu razlike, njezinu nesigurnost i ograničenje uzročnog tumačenja.</p>
 </div>
 </section>
 <section id="razrađeni-primjer" class="level2">
 <h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Cijeli se postupak može ispisati u nekoliko redaka, i vrijedi ga jednom vidjeti u cjelini. Analiza najprije računa opaženu razliku, zatim gradi nultu raspodjelu premještanjem oznaka, i na kraju prebrojava koliko je premještanja dalo barem toliko veliko odstupanje.</p>
+<p>Usporedbu povjerenja čitatelja tiska i portala sada možemo provesti od opažene razlike do njezina položaja u nultoj raspodjeli. Najprije računamo razliku sredina s izvornim oznakama. Zatim zadržavamo ocjene, premještamo oznake skupina i svaki put računamo istu razliku. Prebrojavanjem odstupanja barem toliko velikih kao opaženo procjenjujemo koliko je naš rezultat neobičan pod nultim modelom.</p>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Prikaži kod</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>razlika <span class="ot">&lt;-</span> <span class="fu">mean</span>(s10_ishod[s10_skupina <span class="sc">==</span> <span class="st">"tisak"</span>]) <span class="sc">-</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(s10_ishod[s10_skupina <span class="sc">==</span> <span class="st">"portal"</span>])</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>nulte <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, {</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  promijesano <span class="ot">&lt;-</span> <span class="fu">sample</span>(s10_skupina)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(s10_ishod[promijesano <span class="sc">==</span> <span class="st">"tisak"</span>]) <span class="sc">-</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(s10_ishod[promijesano <span class="sc">==</span> <span class="st">"portal"</span>])</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>razlika</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">4000</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>nulte <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  promijesano <span class="ot">&lt;-</span> <span class="fu">sample</span>(s10_skupina)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(s10_ishod[promijesano <span class="sc">==</span> <span class="st">"tisak"</span>]) <span class="sc">-</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(s10_ishod[promijesano <span class="sc">==</span> <span class="st">"portal"</span>])</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(nulte) <span class="sc">&gt;=</span> <span class="fu">abs</span>(razlika))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>razlika</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0,640939</code></pre>
 </div>
 <details class="code-fold">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(nulte) <span class="sc">&gt;=</span> <span class="fu">abs</span>(razlika))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(b <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> (B <span class="sc">+</span> <span class="dv">1</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0,01375</code></pre>
+<pre><code>[1] 0,01624594</code></pre>
 </div>
 </div>
-<p>Funkcija <code>sample</code> bez dodatnih argumenata vraća isti niz oznaka u nasumičnom poretku, a <code>replicate</code> ponavlja izraz zadani broj puta i skuplja rezultate. Cijeli nulti model stane u te dvije funkcije, bez ijedne pretpostavke o obliku raspodjele.</p>
-<p>Izvještaj koji iz ovoga slijedi ima tri rečenice i njihov je redoslijed obvezan. Čitatelji tiska imaju u prosjeku 0,64 boda više povjerenja od čitatelja portala, uz interval od 0,17 do 1,11. Razliku ovoliku ili veću nulti model proizvodi u 1,6 % uzoraka. Podaci su promatrački i ljudi svoj izvor biraju sami, pa razlika opisuje dvije skupine, a ne učinak čitanja tiska.</p>
-<p>Posljednja rečenica nije opreznost nego točnost. Test je odgovorio na pitanje o usklađenosti podataka s jednim modelom i ništa više od toga nije ni mogao. Ono što razlika znači, koliko je velika i vrijedi li na nju reagirati, ostaje otvoreno i vodi u sljedeće poglavlje.</p>
+<p>U ovom pozivu <code>sample</code> bez dodatnih argumenata nasumično mijenja poredak oznaka, dok <code>replicate</code> ponavlja račun i sprema razlike. Za razliku od bootstrap izvlačenja osoba, ovdje svako premještanje zadržava iste ocjene i iste veličine skupina. Ne zadajemo parametarski oblik raspodjele, ali i dalje pretpostavljamo neovisne jedinice i zamjenjivost oznaka pod nultim modelom jednake pune raspodjele. Brojimo odstupanja u oba repa jer je test obostran. Jedinicu dodajemo brojniku i nazivniku radi korekcije za konačan broj nasumičnih premještanja.</p>
+<p>U izvještaju povezujemo veličinu razlike s rezultatom testa. Čitatelji tiska imaju u prosjeku 0,64 boda više povjerenja od čitatelja portala, uz interval od 0,17 do 1,11. Nulti model daje apsolutnu razliku ovoliku ili veću u 1,6 % simuliranih rasporeda opaženih oznaka. Te brojke opisuju samo naš simulirani uzorak. U stvarnoj anketi takva bi usporedba pokazivala razliku među skupinama. Za zaključak da čitanje tiska mijenja povjerenje trebali bismo i odgovarajući istraživački nacrt.</p>
+<p>Statistički rezultat još ne opravdava uzročni zaključak. Trebamo procijeniti i koliko je razlika važna za istraživačko pitanje te opravdava li neku odluku.</p>
 </section>
 <section id="sažetak" class="level2 sazetak">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
-<p>Testiranje uspoređuje opaženi rezultat s onim što proizvodi precizno opisan svijet bez učinka, a nulta raspodjela za tu usporedbu gradi se premještanjem oznaka umjesto formulom. P-vrijednost je udio takvih rezultata barem toliko neusklađenih s nultim modelom kao opaženi, i ne kaže ni kolika je vjerojatnost hipoteze ni koliko je učinak važan. Dvije vrste pogreške povezane su tako da pomicanje praga jednu smanjuje, a drugu povećava, pa se obje snižavaju samo boljim dizajnom. Na poznatoj populaciji obje su stope izmjerene, i postupak je uz istinitu nultu hipotezu održao prag od pet posto, ali je stvarnu razliku od 0,74 boda propustio u svakom petom uzorku. Sljedeće poglavlje stavlja veličinu učinka i snagu ispred rituala značajnosti.</p>
+<p>Testom smo opaženi rezultat usporedili s raspodjelom nultog modela, koju smo ovdje izgradili premještanjem oznaka. P-vrijednost opisuje udio odstupanja barem toliko velikih kao opaženo, uz zadržan uvjet da vrijedi taj model, pa ne dobivamo vjerojatnost hipoteze ni važnost učinka. Izbor praga povezuje dvije moguće pogreške jer stroži prag smanjuje stopu prve, ali pri istim podacima povećava stopu druge, dok više informacija može smanjiti drugu pri istom pragu. Simulacijom s nasumičnim oznakama provjerili smo postupak kada nulti model vrijedi, a uz postojeću razliku od 0,74 boda vidjeli smo da je propušta u 20,5 % uzoraka. Ta nas propuštanja vode pitanju kako prije prikupljanja podataka planirati uzorak za učinak koji vrijedi uočiti. U sljedećem poglavlju odgovorit ćemo na njega pomoću veličine učinka i snage.</p>
 </section>
 <section id="pojmovi" class="level2 pojmovi">
 <h2 class="pojmovi anchored" data-anchor-id="pojmovi">Pojmovi</h2>
@@ -1312,13 +1451,13 @@ Slika&nbsp;3: Raspodjela procijenjene razlike kad učinka nema i kad postoji, uz
 <dd>
 <span class="terminology-list__en" lang="en">null hypothesis</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">alternativna hipoteza</span></dt>
+<dt><span class="terminology-list__hr" lang="hr">nulti model</span></dt>
 <dd>
-<span class="terminology-list__en" lang="en">alternative hypothesis</span>
+<span class="terminology-list__en" lang="en">null model</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">permutacijski test</span></dt>
+<dt><span class="terminology-list__hr" lang="hr">obostrani test</span></dt>
 <dd>
-<span class="terminology-list__en" lang="en">permutation test</span>
+<span class="terminology-list__en" lang="en">two-sided test</span>
 </dd>
 <dt><span class="terminology-list__hr" lang="hr">testna statistika</span></dt>
 <dd>
@@ -1336,29 +1475,41 @@ Slika&nbsp;3: Raspodjela procijenjene razlike kad učinka nema i kad postoji, uz
 <dd>
 <span class="terminology-list__en" lang="en">Type II error</span>
 </dd>
+<dt><span class="terminology-list__hr" lang="hr">prag značajnosti</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">significance threshold</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">permutacijski test</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">permutation test</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">referentna oznaka</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">reference label</span>
+</dd>
 </dl>
 </div>
 </section>
 <section id="zadaci" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
-<section id="konceptualni" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="konceptualni">Konceptualni</h3>
+<section id="ex-10-konceptualni-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-10-konceptualni-01">Konceptualni</h3>
 <p>Objasnite u jednom odlomku zašto p-vrijednost nije vjerojatnost nulte hipoteze, tako da napišete dvije rečenice koje se razlikuju samo po tome što je uvjet, a što zaključak. Imenujte podatak koji bi bio potreban da se od prve dođe do druge.</p>
 </section>
-<section id="računski" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="računski">Računski</h3>
-<p>Nulta raspodjela iz ovog poglavlja ima sredinu nula i standardnu devijaciju 0,26 boda. Koristeći pravilo područja iz poglavlja o vjerojatnosti, procijenite koje bi razlike prelazile granicu od dviju standardnih devijacija, i usporedite svoju procjenu s graničnom vrijednošću 0,50 koju poglavlje navodi. Zatim u widgetu poglavlja postavite stvarnu razliku na nulu i opišite koliko uzoraka prelazi prag.</p>
+<section id="ex-10-racunski-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-10-racunski-01">Računski</h3>
+<p>Nulta raspodjela iz ovog poglavlja ima sredinu nula i standardnu devijaciju 0,26 boda. Primijenite pravilo područja iz poglavlja o vjerojatnosti i procijenite granice koje su dvije standardne devijacije udaljene od nule. Prije računa imenujte testnu statistiku i postupak kojim je nulta raspodjela izgrađena, pa procjenu usporedite s graničnom vrijednošću 0,50. Zatim pretpostavite da je isti uzorak prikupljen dobrovoljnom poveznicom na jednom portalu. Pozivajući se na razliku između slučajnosti uzorkovanja i selekcije iz poglavlja o uzorkovanju, odredite koju tvrdnju o populaciji ni mala p-vrijednost ne bi mogla opravdati. <span>Na kraju u HTML widgetu postavite stvarnu razliku na nulu i zabilježite približan udio uzoraka ispod praga.</span> </p>
 </section>
-<section id="kritički" class="level3 zadaci-razina page-columns page-full">
-<h3 class="zadaci-razina anchored" data-anchor-id="kritički">Kritički</h3>
-<p>Prosudite zašto je jednom strukovnom udruženju trebalo objaviti izjavu o pojedinačnom statističkom postupku, a skupini statističara popis od dvadeset pet pogrešnih tumačenja <span class="citation" data-cites="wasserstein2016 greenland2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein i Lazar 2016.</a>; <a href="../references.html#ref-greenland2016" role="doc-biblioref">Greenland i sur. 2016.</a>)</span>. Predajte kratku uredničku bilješku i navedite jedno pravilo izvještavanja koje bi uklonilo najviše pogrešaka odjednom.</p>
+<section id="ex-10-kriticki-01" class="level3 zadaci-razina page-columns page-full">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-10-kriticki-01">Kritički</h3>
+<p>Prosudite zašto je jednom strukovnom udruženju trebalo objaviti izjavu o pojedinačnom statističkom postupku, a skupini statističara popis od dvadeset pet pogrešnih tumačenja <span class="citation" data-cites="wasserstein2016 greenland2016">(<a href="../references.html#ref-wasserstein2016" role="doc-biblioref">Wasserstein i Lazar 2016.</a>; <a href="../references.html#ref-greenland2016" role="doc-biblioref">Greenland i sur. 2016.</a>)</span>. Predajte kratku uredničku bilješku i navedite jedno pravilo izvještavanja koje bi uklonilo najviše pogrešaka odjednom. Dodajte tko u glavnom primjeru snosi posljedice svake vrste pogreške i zašto procijenjena stopa pogreške prema referentnim oznakama ne dokazuje da su te oznake nepogrešive.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-wasserstein2016" class="csl-entry" role="listitem">
-Wasserstein, Ronald L., i Nicole A. Lazar. 2016. <span>„The ASA’s Statement on p-Values: Context, Process, and Purpose“</span>. <em>The American Statistician</em> 70 (2): 129–33.
+Wasserstein, Ronald L., i Nicole A. Lazar. 2016. <span>„The ASA’s Statement on p-Values: Context, Process, and Purpose“</span>. <em>The American Statistician</em> 70 (2): 129–33. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>.
 </div><div id="ref-greenland2016" class="csl-entry" role="listitem">
 Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, i sur. 2016. <span>„Statistical Tests, <span>P</span> Values, Confidence Intervals, and Power: A Guide to Misinterpretations“</span>. <em>European Journal of Epidemiology</em> 31 (4): 337–50. <a href="https://doi.org/10.1007/s10654-016-0149-3">https://doi.org/10.1007/s10654-016-0149-3</a>.
 </div></div></section>
-<section id="revizija-modela" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="revizija-modela">Revizija modela</h3>
+<section id="ex-10-revizija-modela-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-10-revizija-modela-01">Revizija modela</h3>
 <p>Ocijenite analizu iz okvira o pogrešci. Imenujte korake koji su provedeni ispravno, redak koda iz kojeg izlazi izvještajna brojka, rečenicu koja iz nje ne slijedi i njezinu ispravljenu inačicu.</p>
 
 
@@ -1463,23 +1614,21 @@ Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, i sur. 2016. <span>„St
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -1489,9 +1638,275 @@ Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, i sur. 2016. <span>„St
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1777,7 +2192,9 @@ Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, i sur. 2016. <span>„St
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1833,25 +2250,25 @@ Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, i sur. 2016. <span>„St
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -2267,31 +2684,33 @@ Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, i sur. 2016. <span>„St
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3428,7 +3847,7 @@ Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, i sur. 2016. <span>„St
 </script>
 
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MTBfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBuOiBJbnB1dHMucmFuZ2UoXG4gICAgWzIwLCAzMDBdLFxuICAgIHt2YWx1ZTogNjAsIHN0ZXA6IDEwLCBsYWJlbDogXCJWZWxpxI1pbmEgc3Zha2Ugc2t1cGluZVwifVxuICApLFxuICB1Y2luYWs6IElucHV0cy5yYW5nZShcbiAgICBbMCwgMC44XSxcbiAgICB7dmFsdWU6IDAuMzUsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIlN0dmFybmEgc3RhbmRhcmRpemlyYW5hIHJhemxpa2FcIn1cbiAgKSxcbiAgcHJhZzogSW5wdXRzLnJhbmdlKFxuICAgIFswLjAxLCAwLjEwXSxcbiAgICB7dmFsdWU6IDAuMDUsIHN0ZXA6IDAuMDEsIGxhYmVsOiBcIlByYWcgb2RsdWtlXCJ9XG4gICksXG4gIHBvbmF2bGphbmphOiBJbnB1dHMucmFuZ2UoXG4gICAgWzUwMCwgNDAwMF0sXG4gICAge3ZhbHVlOiAyMDAwLCBzdGVwOiA1MDAsIGxhYmVsOiBcIkJyb2ogc2ltdWxpcmFuaWggdXpvcmFrYVwifVxuICApXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICBjb25zdCB0aW50YSA9IFwidmFyKC0tdG9rLWluaylcIjtcbiAgY29uc3QgcHJpZ3VzZW5hID0gXCJ2YXIoLS10b2stZGF0YS00KVwiO1xuICBjb25zdCBzdmlqZXRsYSA9IFwidmFyKC0tdG9rLWRhdGEtNSlcIjtcbiAgY29uc3QgbmFnbGFzYWsgPSBcInZhcigtLXRvay1hY2NlbnQtZGVlcClcIjtcbiAgY29uc3QgbGluaWphID0gXCJ2YXIoLS10b2stcnVsZSlcIjtcbiAgY29uc3Qgc2FucyA9IFwidmFyKC0tdG9rLWZvbnQtc2FucylcIjtcbiAgY29uc3QgYnJvaiA9IG5ldyBJbnRsLk51bWJlckZvcm1hdChcImhyLUhSXCIsIHtcbiAgICBtaW5pbXVtRnJhY3Rpb25EaWdpdHM6IDAsXG4gICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAyXG4gIH0pO1xuICBjb25zdCBwb3N0b3RhayA9IG5ldyBJbnRsLk51bWJlckZvcm1hdChcImhyLUhSXCIsIHtcbiAgICBzdHlsZTogXCJwZXJjZW50XCIsXG4gICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAxXG4gIH0pO1xuXG4gIGZ1bmN0aW9uIGVyZih4KSB7XG4gICAgY29uc3QgcHJlZHpuYWsgPSB4IDwgMCA/IC0xIDogMTtcbiAgICBjb25zdCB6ID0gTWF0aC5hYnMoeCk7XG4gICAgY29uc3QgdCA9IDEgLyAoMSArIDAuMzI3NTkxMSAqIHopO1xuICAgIGNvbnN0IHkgPSAxIC0gKCgoKCgxLjA2MTQwNTQyOSAqIHQgLSAxLjQ1MzE1MjAyNykgKiB0KSArXG4gICAgICAxLjQyMTQxMzc0MSkgKiB0IC0gMC4yODQ0OTY3MzYpICogdCArIDAuMjU0ODI5NTkyKSAqXG4gICAgICB0ICogTWF0aC5leHAoLXogKiB6KTtcbiAgICByZXR1cm4gcHJlZHpuYWsgKiB5O1xuICB9XG5cbiAgY29uc3Qgbm9ybWFsbmFGID0geCA9PiAwLjUgKiAoMSArIGVyZih4IC8gTWF0aC5TUVJUMikpO1xuICBjb25zdCBybmcgPSBkMy5yYW5kb21MY2coMTAxMCk7XG4gIGNvbnN0IHN0YW5kYXJkbmEgPSBkMy5yYW5kb21Ob3JtYWwuc291cmNlKHJuZykoMCwgMSk7XG4gIGNvbnN0IHBvbWFrID0gdzEwX3Bhci51Y2luYWsgKiBNYXRoLnNxcnQodzEwX3Bhci5uIC8gMik7XG5cbiAgZnVuY3Rpb24gc2ltdWxpcmFqKG1vZGVsLCBzcmVkaW5hWikge1xuICAgIHJldHVybiBBcnJheS5mcm9tKHtsZW5ndGg6IHcxMF9wYXIucG9uYXZsamFuamF9LCAoKSA9PiB7XG4gICAgICBjb25zdCB6ID0gc3JlZGluYVogKyBzdGFuZGFyZG5hKCk7XG4gICAgICByZXR1cm4ge1xuICAgICAgICBtb2RlbCxcbiAgICAgICAgcDogMiAqICgxIC0gbm9ybWFsbmFGKE1hdGguYWJzKHopKSlcbiAgICAgIH07XG4gICAgfSk7XG4gIH1cblxuICBjb25zdCBiZXpVY2lua2EgPSBzaW11bGlyYWooXCJOdWx0YSBoaXBvdGV6YSB2cmlqZWRpXCIsIDApO1xuICBjb25zdCBzVWNpbmtvbSA9IHNpbXVsaXJhaihcIlXEjWluYWsgcG9zdG9qaVwiLCBwb21hayk7XG4gIGNvbnN0IHN0b3BhQmV6ID0gZDMubWVhbihiZXpVY2lua2EsIGQgPT4gZC5wIDw9IHcxMF9wYXIucHJhZyk7XG4gIGNvbnN0IHN0b3BhUyA9IGQzLm1lYW4oc1VjaW5rb20sIGQgPT4gZC5wIDw9IHcxMF9wYXIucHJhZyk7XG4gIGNvbnN0IGJpbm92aVphT3puYWtlID0gZDMuYmluKCkuZG9tYWluKFswLCAxXSkudGhyZXNob2xkcygyMCk7XG4gIGNvbnN0IG5hanZpc2lTdHVwYWMgPSBkMy5tYXgoXG4gICAgW1xuICAgICAgLi4uYmlub3ZpWmFPem5ha2UoYmV6VWNpbmthLm1hcChkID0+IGQucCkpLFxuICAgICAgLi4uYmlub3ZpWmFPem5ha2Uoc1VjaW5rb20ubWFwKGQgPT4gZC5wKSlcbiAgICBdLFxuICAgIGQgPT4gZC5sZW5ndGhcbiAgKTtcbiAgY29uc3QgcHJhZyA9IGJyb2ouZm9ybWF0KHcxMF9wYXIucHJhZyk7XG4gIGNvbnN0IGNlbGlqYSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIud2lkZ2V0LWZyYW1lIC5jZWxsXCIpO1xuICBjb25zdCBzdGlsQ2VsaWplID0gY2VsaWphID8gZ2V0Q29tcHV0ZWRTdHlsZShjZWxpamEpIDogbnVsbDtcbiAgY29uc3QgbG9rYWxuYVNpcmluYSA9IGNlbGlqYVxuICAgID8gY2VsaWphLmNsaWVudFdpZHRoIC1cbiAgICAgIHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nTGVmdCkgLVxuICAgICAgcGFyc2VGbG9hdChzdGlsQ2VsaWplLnBhZGRpbmdSaWdodClcbiAgICA6IHdpZHRoO1xuICBjb25zdCBzaXJpbmEgPSBNYXRoLm1heCgyNDAsIE1hdGgubWluKHdpZHRoLCBsb2thbG5hU2lyaW5hKSk7XG4gIGNvbnN0IHVza28gPSBzaXJpbmEgPCA0ODA7XG5cbiAgY29uc3QgZ3JhZiA9IFBsb3QucGxvdCh7XG4gICAgd2lkdGg6IHNpcmluYSxcbiAgICBoZWlnaHQ6IHVza28gPyA1MDAgOiA0MzAsXG4gICAgbWFyZ2luTGVmdDogdXNrbyA/IDY2IDogNjIsXG4gICAgbWFyZ2luUmlnaHQ6IHVza28gPyAxNiA6IDI0LFxuICAgIG1hcmdpbkJvdHRvbTogdXNrbyA/IDU0IDogNDgsXG4gICAgc3R5bGU6IHtcbiAgICAgIGJhY2tncm91bmQ6IFwidHJhbnNwYXJlbnRcIixcbiAgICAgIGNvbG9yOiB0aW50YSxcbiAgICAgIGZvbnRGYW1pbHk6IHNhbnMsXG4gICAgICBmb250U2l6ZTogdXNrbyA/IFwiMTRweFwiIDogXCIxMnB4XCJcbiAgICB9LFxuICAgIHg6IHtcbiAgICAgIGxhYmVsOiBcInAtdnJpamVkbm9zdFwiLFxuICAgICAgZG9tYWluOiBbMCwgMV0sXG4gICAgICB0aWNrczogdXNrbyA/IDUgOiB1bmRlZmluZWQsXG4gICAgICB0aWNrRm9ybWF0OiBkID0+IGJyb2ouZm9ybWF0KGQpXG4gICAgfSxcbiAgICB5OiB7bGFiZWw6IFwiQnJvaiBzaW11bGlyYW5paCB1em9yYWthXCIsIGdyaWQ6IHRydWV9LFxuICAgIGZ5OiB7bGFiZWw6IG51bGwsIGF4aXM6IG51bGx9LFxuICAgIG1hcmtzOiBbXG4gICAgICBQbG90LnJlY3RZKFxuICAgICAgICBiZXpVY2lua2EsXG4gICAgICAgIFBsb3QuYmluWChcbiAgICAgICAgICB7eTogXCJjb3VudFwifSxcbiAgICAgICAgICB7eDogXCJwXCIsIGZ5OiBcIm1vZGVsXCIsIHRocmVzaG9sZHM6IDIwLCBmaWxsOiBzdmlqZXRsYSwgaW5zZXQ6IDAuNX1cbiAgICAgICAgKVxuICAgICAgKSxcbiAgICAgIFBsb3QucmVjdFkoXG4gICAgICAgIHNVY2lua29tLFxuICAgICAgICBQbG90LmJpblgoXG4gICAgICAgICAge3k6IFwiY291bnRcIn0sXG4gICAgICAgICAge3g6IFwicFwiLCBmeTogXCJtb2RlbFwiLCB0aHJlc2hvbGRzOiAyMCwgZmlsbDogcHJpZ3VzZW5hLCBpbnNldDogMC41fVxuICAgICAgICApXG4gICAgICApLFxuICAgICAgUGxvdC5ydWxlWChbdzEwX3Bhci5wcmFnXSwge1xuICAgICAgICBzdHJva2U6IG5hZ2xhc2FrLFxuICAgICAgICBzdHJva2VXaWR0aDogMS41LFxuICAgICAgICBzdHJva2VEYXNoYXJyYXk6IFwiNCwzXCJcbiAgICAgIH0pLFxuICAgICAgUGxvdC50ZXh0KFxuICAgICAgICBbXG4gICAgICAgICAge1xuICAgICAgICAgICAgbW9kZWw6IFwiTnVsdGEgaGlwb3RlemEgdnJpamVkaVwiLFxuICAgICAgICAgICAgeDogMC4wMjUsXG4gICAgICAgICAgICB5OiBuYWp2aXNpU3R1cGFjICogMS4wOCxcbiAgICAgICAgICAgIG96bmFrYTogXCJOdWx0YSBoaXBvdGV6YSB2cmlqZWRpXCJcbiAgICAgICAgICB9LFxuICAgICAgICAgIHtcbiAgICAgICAgICAgIG1vZGVsOiBcIlXEjWluYWsgcG9zdG9qaVwiLFxuICAgICAgICAgICAgeDogMC4wMjUsXG4gICAgICAgICAgICB5OiBuYWp2aXNpU3R1cGFjICogMS4wOCxcbiAgICAgICAgICAgIG96bmFrYTogXCJVxI1pbmFrIHBvc3RvamlcIlxuICAgICAgICAgIH1cbiAgICAgICAgXSxcbiAgICAgICAge1xuICAgICAgICAgIHg6IFwieFwiLFxuICAgICAgICAgIHk6IFwieVwiLFxuICAgICAgICAgIGZ5OiBcIm1vZGVsXCIsXG4gICAgICAgICAgdGV4dDogXCJvem5ha2FcIixcbiAgICAgICAgICB0ZXh0QW5jaG9yOiBcInN0YXJ0XCIsXG4gICAgICAgICAgZHk6IDEwLFxuICAgICAgICAgIGZpbGw6IHRpbnRhLFxuICAgICAgICAgIGZvbnRXZWlnaHQ6IDYwMFxuICAgICAgICB9XG4gICAgICApLFxuICAgICAgUGxvdC5ydWxlWShbMF0sIHtzdHJva2U6IGxpbmlqYX0pXG4gICAgXVxuICB9KTtcblxuICByZXR1cm4gaHRtbGA8ZGl2PlxuICAgICR7Z3JhZn1cbiAgICA8cCBjbGFzcz1cIndpZGdldC1mb290XCIgcm9sZT1cInN0YXR1c1wiIGFyaWEtbGl2ZT1cInBvbGl0ZVwiPlByYWcgJHtwcmFnfSBvYnVodmHEh2EgJHtwb3N0b3Rhay5mb3JtYXQoc3RvcGFCZXopfSB1eiBudWx0dSBoaXBvdGV6dSBpICR7cG9zdG90YWsuZm9ybWF0KHN0b3BhUyl9IHV6IG9kYWJyYW5pIHXEjWluYWsuPC9wPlxuICA8L2Rpdj5gO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd3MTBfcGFyJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MTBfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBuOiBJbnB1dHMucmFuZ2UoXG4gICAgWzIwLCAzMDBdLFxuICAgIHt2YWx1ZTogNjAsIHN0ZXA6IDEwLCBsYWJlbDogXCJWZWxpxI1pbmEgc3Zha2Ugc2t1cGluZVwifVxuICApLFxuICB1Y2luYWs6IElucHV0cy5yYW5nZShcbiAgICBbMCwgMC44XSxcbiAgICB7dmFsdWU6IDAuMzUsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIlN0dmFybmEgc3RhbmRhcmRpemlyYW5hIHJhemxpa2FcIn1cbiAgKSxcbiAgcHJhZzogSW5wdXRzLnJhbmdlKFxuICAgIFswLjAxLCAwLjEwXSxcbiAgICB7dmFsdWU6IDAuMDUsIHN0ZXA6IDAuMDEsIGxhYmVsOiBcIlByYWcgb2RsdWtlXCJ9XG4gICksXG4gIHBvbmF2bGphbmphOiBJbnB1dHMucmFuZ2UoXG4gICAgWzUwMCwgNDAwMF0sXG4gICAge3ZhbHVlOiAyMDAwLCBzdGVwOiA1MDAsIGxhYmVsOiBcIkJyb2ogc2ltdWxpcmFuaWggdXpvcmFrYVwifVxuICApXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICBjb25zdCB0aW50YSA9IFwidmFyKC0tdG9rLWluaylcIjtcbiAgY29uc3QgcHJpZ3VzZW5hID0gXCJ2YXIoLS10b2stZGF0YS00KVwiO1xuICBjb25zdCBzdmlqZXRsYSA9IFwidmFyKC0tdG9rLWRhdGEtNSlcIjtcbiAgY29uc3QgbmFnbGFzYWsgPSBcInZhcigtLXRvay1hY2NlbnQtZGVlcClcIjtcbiAgY29uc3QgbGluaWphID0gXCJ2YXIoLS10b2stcnVsZSlcIjtcbiAgY29uc3Qgc2FucyA9IFwidmFyKC0tdG9rLWZvbnQtc2FucylcIjtcbiAgY29uc3QgYnJvaiA9IG5ldyBJbnRsLk51bWJlckZvcm1hdChcImhyLUhSXCIsIHtcbiAgICBtaW5pbXVtRnJhY3Rpb25EaWdpdHM6IDAsXG4gICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAyXG4gIH0pO1xuICBjb25zdCBwb3N0b3RhayA9IG5ldyBJbnRsLk51bWJlckZvcm1hdChcImhyLUhSXCIsIHtcbiAgICBzdHlsZTogXCJwZXJjZW50XCIsXG4gICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAxXG4gIH0pO1xuXG4gIGZ1bmN0aW9uIGVyZih4KSB7XG4gICAgY29uc3QgcHJlZHpuYWsgPSB4IDwgMCA/IC0xIDogMTtcbiAgICBjb25zdCB6ID0gTWF0aC5hYnMoeCk7XG4gICAgY29uc3QgdCA9IDEgLyAoMSArIDAuMzI3NTkxMSAqIHopO1xuICAgIGNvbnN0IHkgPSAxIC0gKCgoKCgxLjA2MTQwNTQyOSAqIHQgLSAxLjQ1MzE1MjAyNykgKiB0KSArXG4gICAgICAxLjQyMTQxMzc0MSkgKiB0IC0gMC4yODQ0OTY3MzYpICogdCArIDAuMjU0ODI5NTkyKSAqXG4gICAgICB0ICogTWF0aC5leHAoLXogKiB6KTtcbiAgICByZXR1cm4gcHJlZHpuYWsgKiB5O1xuICB9XG5cbiAgY29uc3Qgbm9ybWFsbmFGID0geCA9PiAwLjUgKiAoMSArIGVyZih4IC8gTWF0aC5TUVJUMikpO1xuICBjb25zdCBybmcgPSBkMy5yYW5kb21MY2coMTAxMCk7XG4gIGZ1bmN0aW9uIHN0YW5kYXJkbmEoKSB7XG4gICAgbGV0IHg7XG4gICAgbGV0IHk7XG4gICAgbGV0IHJhZGlqdXM7XG4gICAgZG8ge1xuICAgICAgeCA9IHJuZygpICogMiAtIDE7XG4gICAgICB5ID0gcm5nKCkgKiAyIC0gMTtcbiAgICAgIHJhZGlqdXMgPSB4ICogeCArIHkgKiB5O1xuICAgIH0gd2hpbGUgKCFyYWRpanVzIHx8IHJhZGlqdXMgPiAxKTtcbiAgICByZXR1cm4geCAqIE1hdGguc3FydCgtMiAqIE1hdGgubG9nKHJhZGlqdXMpIC8gcmFkaWp1cyk7XG4gIH1cbiAgY29uc3QgcG9tYWsgPSB3MTBfcGFyLnVjaW5hayAqIE1hdGguc3FydCh3MTBfcGFyLm4gLyAyKTtcblxuICBmdW5jdGlvbiBzaW11bGlyYWoobW9kZWwsIHNyZWRpbmFaKSB7XG4gICAgcmV0dXJuIEFycmF5LmZyb20oe2xlbmd0aDogdzEwX3Bhci5wb25hdmxqYW5qYX0sICgpID0+IHtcbiAgICAgIGNvbnN0IHogPSBzcmVkaW5hWiArIHN0YW5kYXJkbmEoKTtcbiAgICAgIHJldHVybiB7XG4gICAgICAgIG1vZGVsLFxuICAgICAgICBwOiAyICogKDEgLSBub3JtYWxuYUYoTWF0aC5hYnMoeikpKVxuICAgICAgfTtcbiAgICB9KTtcbiAgfVxuXG4gIGNvbnN0IGJlelVjaW5rYSA9IHNpbXVsaXJhaihcIk51bHRhIGhpcG90ZXphIHZyaWplZGlcIiwgMCk7XG4gIGNvbnN0IHNVY2lua29tID0gc2ltdWxpcmFqKFwiVcSNaW5hayBwb3N0b2ppXCIsIHBvbWFrKTtcbiAgY29uc3Qgc3RvcGFCZXogPSBkMy5tZWFuKGJlelVjaW5rYSwgZCA9PiBkLnAgPD0gdzEwX3Bhci5wcmFnKTtcbiAgY29uc3Qgc3RvcGFTID0gZDMubWVhbihzVWNpbmtvbSwgZCA9PiBkLnAgPD0gdzEwX3Bhci5wcmFnKTtcbiAgY29uc3QgYmlub3ZpWmFPem5ha2UgPSBkMy5iaW4oKS5kb21haW4oWzAsIDFdKS50aHJlc2hvbGRzKDIwKTtcbiAgY29uc3QgbmFqdmlzaVN0dXBhYyA9IGQzLm1heChcbiAgICBbXG4gICAgICAuLi5iaW5vdmlaYU96bmFrZShiZXpVY2lua2EubWFwKGQgPT4gZC5wKSksXG4gICAgICAuLi5iaW5vdmlaYU96bmFrZShzVWNpbmtvbS5tYXAoZCA9PiBkLnApKVxuICAgIF0sXG4gICAgZCA9PiBkLmxlbmd0aFxuICApO1xuICBjb25zdCBwcmFnID0gYnJvai5mb3JtYXQodzEwX3Bhci5wcmFnKTtcbiAgY29uc3QgY2VsaWphID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi53aWRnZXQtZnJhbWUgLmNlbGxcIik7XG4gIGNvbnN0IHN0aWxDZWxpamUgPSBjZWxpamEgPyBnZXRDb21wdXRlZFN0eWxlKGNlbGlqYSkgOiBudWxsO1xuICBjb25zdCBsb2thbG5hU2lyaW5hID0gY2VsaWphXG4gICAgPyBjZWxpamEuY2xpZW50V2lkdGggLVxuICAgICAgcGFyc2VGbG9hdChzdGlsQ2VsaWplLnBhZGRpbmdMZWZ0KSAtXG4gICAgICBwYXJzZUZsb2F0KHN0aWxDZWxpamUucGFkZGluZ1JpZ2h0KVxuICAgIDogd2lkdGg7XG4gIGNvbnN0IHNpcmluYSA9IE1hdGgubWF4KDI0MCwgTWF0aC5taW4od2lkdGgsIGxva2FsbmFTaXJpbmEpKTtcbiAgY29uc3QgdXNrbyA9IHNpcmluYSA8IDQ4MDtcblxuICBjb25zdCBncmFmID0gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogc2lyaW5hLFxuICAgIGhlaWdodDogdXNrbyA/IDUwMCA6IDQzMCxcbiAgICBtYXJnaW5MZWZ0OiB1c2tvID8gNjYgOiA2MixcbiAgICBtYXJnaW5SaWdodDogdXNrbyA/IDE2IDogMjQsXG4gICAgbWFyZ2luQm90dG9tOiB1c2tvID8gNTQgOiA0OCxcbiAgICBzdHlsZToge1xuICAgICAgYmFja2dyb3VuZDogXCJ0cmFuc3BhcmVudFwiLFxuICAgICAgY29sb3I6IHRpbnRhLFxuICAgICAgZm9udEZhbWlseTogc2FucyxcbiAgICAgIGZvbnRTaXplOiB1c2tvID8gXCIxNHB4XCIgOiBcIjEycHhcIlxuICAgIH0sXG4gICAgeDoge1xuICAgICAgbGFiZWw6IFwicC12cmlqZWRub3N0XCIsXG4gICAgICBkb21haW46IFswLCAxXSxcbiAgICAgIHRpY2tzOiB1c2tvID8gNSA6IHVuZGVmaW5lZCxcbiAgICAgIHRpY2tGb3JtYXQ6IGQgPT4gYnJvai5mb3JtYXQoZClcbiAgICB9LFxuICAgIHk6IHtsYWJlbDogXCJCcm9qIHNpbXVsaXJhbmloIHV6b3Jha2FcIiwgZ3JpZDogdHJ1ZX0sXG4gICAgZnk6IHtsYWJlbDogbnVsbCwgYXhpczogbnVsbH0sXG4gICAgbWFya3M6IFtcbiAgICAgIFBsb3QucmVjdFkoXG4gICAgICAgIGJlelVjaW5rYSxcbiAgICAgICAgUGxvdC5iaW5YKFxuICAgICAgICAgIHt5OiBcImNvdW50XCJ9LFxuICAgICAgICAgIHt4OiBcInBcIiwgZnk6IFwibW9kZWxcIiwgdGhyZXNob2xkczogMjAsIGZpbGw6IHN2aWpldGxhLCBpbnNldDogMC41fVxuICAgICAgICApXG4gICAgICApLFxuICAgICAgUGxvdC5yZWN0WShcbiAgICAgICAgc1VjaW5rb20sXG4gICAgICAgIFBsb3QuYmluWChcbiAgICAgICAgICB7eTogXCJjb3VudFwifSxcbiAgICAgICAgICB7eDogXCJwXCIsIGZ5OiBcIm1vZGVsXCIsIHRocmVzaG9sZHM6IDIwLCBmaWxsOiBwcmlndXNlbmEsIGluc2V0OiAwLjV9XG4gICAgICAgIClcbiAgICAgICksXG4gICAgICBQbG90LnJ1bGVYKFt3MTBfcGFyLnByYWddLCB7XG4gICAgICAgIHN0cm9rZTogbmFnbGFzYWssXG4gICAgICAgIHN0cm9rZVdpZHRoOiAxLjUsXG4gICAgICAgIHN0cm9rZURhc2hhcnJheTogXCI0LDNcIlxuICAgICAgfSksXG4gICAgICBQbG90LnRleHQoXG4gICAgICAgIFtcbiAgICAgICAgICB7XG4gICAgICAgICAgICBtb2RlbDogXCJOdWx0YSBoaXBvdGV6YSB2cmlqZWRpXCIsXG4gICAgICAgICAgICB4OiAwLjAyNSxcbiAgICAgICAgICAgIHk6IG5hanZpc2lTdHVwYWMgKiAxLjA4LFxuICAgICAgICAgICAgb3puYWthOiBcIk51bHRhIGhpcG90ZXphIHZyaWplZGlcIlxuICAgICAgICAgIH0sXG4gICAgICAgICAge1xuICAgICAgICAgICAgbW9kZWw6IFwiVcSNaW5hayBwb3N0b2ppXCIsXG4gICAgICAgICAgICB4OiAwLjAyNSxcbiAgICAgICAgICAgIHk6IG5hanZpc2lTdHVwYWMgKiAxLjA4LFxuICAgICAgICAgICAgb3puYWthOiBcIlXEjWluYWsgcG9zdG9qaVwiXG4gICAgICAgICAgfVxuICAgICAgICBdLFxuICAgICAgICB7XG4gICAgICAgICAgeDogXCJ4XCIsXG4gICAgICAgICAgeTogXCJ5XCIsXG4gICAgICAgICAgZnk6IFwibW9kZWxcIixcbiAgICAgICAgICB0ZXh0OiBcIm96bmFrYVwiLFxuICAgICAgICAgIHRleHRBbmNob3I6IFwic3RhcnRcIixcbiAgICAgICAgICBkeTogMTAsXG4gICAgICAgICAgZmlsbDogdGludGEsXG4gICAgICAgICAgZm9udFdlaWdodDogNjAwXG4gICAgICAgIH1cbiAgICAgICksXG4gICAgICBQbG90LnJ1bGVZKFswXSwge3N0cm9rZTogbGluaWphfSlcbiAgICBdXG4gIH0pO1xuXG4gIHJldHVybiBodG1sYDxkaXY+XG4gICAgJHtncmFmfVxuICAgIDxwIGNsYXNzPVwid2lkZ2V0LWZvb3RcIiByb2xlPVwic3RhdHVzXCIgYXJpYS1saXZlPVwicG9saXRlXCI+UHJhZyAke3ByYWd9IG9idWh2YcSHYSAke3Bvc3RvdGFrLmZvcm1hdChzdG9wYUJleil9IHV6IG51bHR1IGhpcG90ZXp1IGkgJHtwb3N0b3Rhay5mb3JtYXQoc3RvcGFTKX0gdXogb2RhYnJhbmkgdcSNaW5hay48L3A+XG4gIDwvZGl2PmA7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3cxMF9wYXInKSJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -3919,6 +4338,16 @@ window._ojs.runtime.interpretFromScriptTags();
     <li class="nav-item">
     <a class="nav-link" href="../resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

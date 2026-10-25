@@ -64,6 +64,13 @@ def fold(value: str) -> str:
     return " ".join(value.casefold().split())
 
 
+def visible_reason(entry: dict[str, Any]) -> str:
+    value = entry.get("reader_reason", entry["reason"])
+    if not isinstance(value, str) or not value.strip():
+        fail("terminology reader explanation is empty or invalid")
+    return value
+
+
 def display_sentence(value: object) -> str:
     return re.sub(r"\s+([,.;:!?])", r"\1", str(value).strip())
 
@@ -174,14 +181,16 @@ def validate(base: Path, fixture: str = "") -> dict[str, int | str]:
     if "Nijedan od njih nije prihvaćen sinonim" not in appendix_block:
         fail("superseded forms are not clearly excluded as accepted synonyms")
     for entry in expected_superseded:
-        row_parts = (entry["form"], entry["canonical"], entry["reason"])
+        row_parts = (entry["form"], entry["canonical"], visible_reason(entry))
         if not all(part in appendix_block for part in row_parts):
             fail(f"superseded route is not reader-visible={entry['form']}")
     for entry in registry.get("deliberate_departures", []):
-        if not all(entry[key] in appendix_block for key in ("form", "en", "reason")):
+        row_parts = (entry["form"], entry["en"], visible_reason(entry))
+        if not all(part in appendix_block for part in row_parts):
             fail(f"departure is not reader-visible={entry['form']}")
     for entry in registry.get("meaning_rules", []):
-        if not all(entry[key] in appendix_block for key in ("term", "reserved_for", "forbidden_use", "reason")):
+        row_parts = (entry["term"], entry["reserved_for"], entry["forbidden_use"], visible_reason(entry))
+        if not all(part in appendix_block for part in row_parts):
             fail(f"meaning rule is not reader-visible={entry['term']}")
 
     routes = artifact.get("concept_routes", [])

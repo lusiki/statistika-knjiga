@@ -1,0 +1,37 @@
+% Kratki čitateljski prijelazi za tiskano izdanje.
+\ExplSyntaxOn
+\NewDocumentCommand{\BookPartContains}{mmm}{\str_if_in:nnT{#1}{#2}{#3}}
+\ExplSyntaxOff
+\newcommand{\BookPartIntro}[1]{%
+  \BookPartContains{#1}{DIO I:}{%
+  Prije prvoga računa razjašnjavamo što broj predstavlja i koju tvrdnju
+  može poduprijeti. Pratimo nastanak podataka, mjerenje i dizajn istraživanja,
+  a zatim provjeravamo kako se točan broj može pretvoriti u pogrešan zaključak.
+  }%
+  \BookPartContains{#1}{DIO II:}{%
+  Podatke sada sažimamo sredinama, mjerama raspršenosti i grafovima.
+  Svaki prikaz nešto čuva, a nešto izostavlja. Učimo odabrati sažetak prema
+  pitanju i opisati povezanost bez preuranjenoga uzročnog tumačenja.
+  }%
+  \BookPartContains{#1}{DIO III:}{%
+  Opis uzorka nije još tvrdnja o populaciji. Kroz slučajnost i ponovljeno
+  uzorkovanje pratimo kako se procjene mijenjaju. Iz te promjenjivosti
+  gradimo intervale, uz granice koje određuju odabir i mjerenje.
+  }%
+  \BookPartContains{#1}{DIO IV:}{%
+  Procjeni i intervalu pridružujemo usporedbu s nultim modelom.
+  Proučavamo pogreške odluke, veličinu učinka i planiranje istraživanja,
+  a zatim provjeravamo kako izbor analiza i objavljivanje oblikuju dokaze.
+  }%
+  \BookPartContains{#1}{DIO V:}{%
+  Ista pitanja o procjeni, nesigurnosti i dosegu primjenjujemo na tablice
+  kategorija, usporedbe skupina i regresiju. Modelom povezujemo više
+  obilježja, a pri predviđanju provjeravamo kako model radi na novim podacima i
+  kakve posljedice odluke imaju za ljude.
+  }%
+  \BookPartContains{#1}{ZAVRŠNICA}{%
+  Povezujemo pitanje, podatke, model i izvještaj u jednu provjerljivu cjelinu.
+  Pratimo jedan regresijski primjer i bilježimo odluke koje određuju njegov
+  doseg. Asistent pomaže u radu, dok provjera i odgovornost ostaju naše.
+  }%
+}

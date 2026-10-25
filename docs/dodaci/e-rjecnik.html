@@ -24,26 +24,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,9 +46,9 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -614,7 +595,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -684,6 +665,11 @@ window.Quarto = {
   <a href="../dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -696,8 +682,11 @@ window.Quarto = {
     <h2 id="toc-title">Sadržaj</h2>
    
   <ul>
-  <li><a href="#temeljni-pojmovi" id="toc-temeljni-pojmovi" class="nav-link active" data-scroll-target="#temeljni-pojmovi">Temeljni pojmovi</a></li>
-  <li><a href="#pravilo-uporabe" id="toc-pravilo-uporabe" class="nav-link" data-scroll-target="#pravilo-uporabe">Pravilo uporabe</a></li>
+  <li><a href="#sec-rjecnik-kanonski-pojmovi" id="toc-sec-rjecnik-kanonski-pojmovi" class="nav-link active" data-scroll-target="#sec-rjecnik-kanonski-pojmovi">Kanonski pojmovi</a></li>
+  <li><a href="#sec-terminologija-uputnice" id="toc-sec-terminologija-uputnice" class="nav-link" data-scroll-target="#sec-terminologija-uputnice">Uputnice za druge oblike</a></li>
+  <li><a href="#sec-terminologija-odstupanja" id="toc-sec-terminologija-odstupanja" class="nav-link" data-scroll-target="#sec-terminologija-odstupanja">Namjerna odstupanja</a></li>
+  <li><a href="#sec-terminologija-znacenja" id="toc-sec-terminologija-znacenja" class="nav-link" data-scroll-target="#sec-terminologija-znacenja">Razdvojena značenja</a></li>
+  <li><a href="#sec-terminologija-odgovornost" id="toc-sec-terminologija-odgovornost" class="nav-link" data-scroll-target="#sec-terminologija-odgovornost">Urednička odgovornost</a></li>
   </ul>
 </nav>
     </div>
@@ -747,10 +736,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -805,90 +798,641 @@ window.Quarto = {
 </script>
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — početni dvojezični registar
-  IZVOR:   novo
-  OPSEG:   ~3000 riječi
-  NAPOMENA: Gradi se iz #def- divova preko R/build-concept-graph.R; ovdje se dodaje samo ono što nema vlastitu definiciju u tekstu.
-
-  SADRŽAJ (iz plana):
-  Hrvatsko i englesko nazivlje jedno uz drugo, jer je hrvatsko statističko nazivlje neujednačeno među fakultetima, a studenti čitaju međunarodnu literaturu.
+  GENERATED CANONICAL VIEW
+  Sources: conventions.json#terminology_registry, concept-ledger.json
+           and data/concept-graph.json
+  Regenerate: python scripts/build-terminology-views.py
+  Do not edit generated term, variant, departure, or rationale rows by hand.
 ===================================================================== -->
-<p>Rječnik uparuje hrvatske nazive s engleskim terminima pod kojima će ih čitatelj najčešće pronaći u međunarodnoj literaturi. Kanonske definicije nastat će iz definicijskih blokova u poglavljima nakon ratifikacije kralježnice pojmova. Ovaj početni registar zasad služi snalaženju.</p>
-<section id="temeljni-pojmovi" class="level2">
-<h2 class="anchored" data-anchor-id="temeljni-pojmovi">Temeljni pojmovi</h2>
+<p>Rječnik uparuje hrvatske nazive s engleskim terminima pod kojima će ih čitatelj najčešće pronaći u međunarodnoj literaturi. Najprije je naveden hrvatski naziv. Poveznica uz svaki od 52 formalno definiranih pojmova vodi do njegove definicije u knjizi. Popis nastaje iz istih definicijskih blokova i registara iz kojih nastaje mrežni Pojmovnik.</p>
+<section id="sec-rjecnik-kanonski-pojmovi" class="level2">
+<h2 class="anchored" data-anchor-id="sec-rjecnik-kanonski-pojmovi">Kanonski pojmovi</h2>
 <div class="terminology-list terminology-list--glossary">
+<!-- GENERATED CONCEPT jedinica-analize -->
 <dl>
-<dt><span class="terminology-list__hr" lang="hr">statistika</span></dt>
+<dt><a href="../chapters/01-zasto-statistika.html#def-jedinica-analize" class="terminology-list__hr" lang="hr">Jedinica analize</a></dt>
 <dd>
-<span class="terminology-list__en" lang="en"><em>statistics</em></span> <span class="terminology-list__chapter">Poglavlje · Zašto statistika</span>
+<span class="terminology-list__en" lang="en"><em>unit of analysis</em></span> <span class="terminology-list__chapter">Poglavlje · Zašto statistika</span>
+Jedinica analize je ono o čemu donosimo zaključak, primjerice osoba, kućanstvo, organizacija ili objava.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">operacionalizacija</span></dt>
+</dl>
+<!-- GENERATED CONCEPT simpsonov-paradoks -->
+<dl>
+<dt><a href="../chapters/01-zasto-statistika.html#def-simpsonov-paradoks" class="terminology-list__hr" lang="hr">Simpsonov paradoks</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>Simpson’s paradox</em></span> <span class="terminology-list__chapter">Poglavlje · Zašto statistika</span>
+Simpsonov paradoks je obrazac u kojem se smjer povezanosti u združenim podacima promijeni ili preokrene kada se podaci razdvoje prema relevantnoj trećoj varijabli.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT operacionalizacija -->
+<dl>
+<dt><a href="../chapters/02-mjerenje-i-dizajn.html#def-operacionalizacija" class="terminology-list__hr" lang="hr">Operacionalizacija</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>operationalization</em></span> <span class="terminology-list__chapter">Poglavlje · Mjerenje i istraživački dizajn</span>
+Operacionalizacija je postupak kojim određujemo kako ćemo mjeriti teorijski pojam.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">pristranost</span></dt>
+</dl>
+<!-- GENERATED CONCEPT pouzdanost -->
+<dl>
+<dt><a href="../chapters/02-mjerenje-i-dizajn.html#def-pouzdanost" class="terminology-list__hr" lang="hr">Pouzdanost</a></dt>
 <dd>
-<span class="terminology-list__en" lang="en"><em>bias</em></span> <span class="terminology-list__chapter">Poglavlje · Kako brojke zavode</span>
+<span class="terminology-list__en" lang="en"><em>reliability</em></span> <span class="terminology-list__chapter">Poglavlje · Mjerenje i istraživački dizajn</span>
+Pouzdanost je stupanj u kojem instrument daje dosljedne rezultate pri ponovljenom mjerenju istog stanja u istim uvjetima.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">aritmetička sredina</span></dt>
+</dl>
+<!-- GENERATED CONCEPT valjanost -->
+<dl>
+<dt><a href="../chapters/02-mjerenje-i-dizajn.html#def-valjanost" class="terminology-list__hr" lang="hr">Valjanost</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>validity</em></span> <span class="terminology-list__chapter">Poglavlje · Mjerenje i istraživački dizajn</span>
+Valjanost je stupanj u kojem instrument mjeri upravo onaj pojam o kojem se namjerava zaključivati, a ne neki drugi s kojim je povezan.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT konfundirajuca-varijabla -->
+<dl>
+<dt><a href="../chapters/02-mjerenje-i-dizajn.html#def-konfundirajuca-varijabla" class="terminology-list__hr" lang="hr">Konfundirajuća varijabla</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>confounder</em></span> <span class="terminology-list__chapter">Poglavlje · Mjerenje i istraživački dizajn</span>
+Konfundirajuća varijabla je zajednički uzrok koji prethodi pretpostavljenom uzroku i ishodu te utječe na oboje.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT temeljna-stopa -->
+<dl>
+<dt><a href="../chapters/03-kako-brojke-zavode.html#def-temeljna-stopa" class="terminology-list__hr" lang="hr">Temeljna stopa</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>base rate</em></span> <span class="terminology-list__chapter">Poglavlje · Kako brojke zavode</span>
+Temeljna stopa jest udio ishoda u relevantnoj populaciji prije nego što se uzme u obzir novi signal, test ili model.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT aritmeticka-sredina -->
+<dl>
+<dt><a href="../chapters/04-sazimanje-podataka.html#def-aritmeticka-sredina" class="terminology-list__hr" lang="hr">Aritmetička sredina</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>mean</em></span> <span class="terminology-list__chapter">Poglavlje · Sažimanje podataka</span>
+Aritmetička sredina je zbroj svih izmjerenih vrijednosti podijeljen njihovim brojem.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">standardna devijacija</span></dt>
+</dl>
+<!-- GENERATED CONCEPT medijan -->
+<dl>
+<dt><a href="../chapters/04-sazimanje-podataka.html#def-medijan" class="terminology-list__hr" lang="hr">Medijan</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>median</em></span> <span class="terminology-list__chapter">Poglavlje · Sažimanje podataka</span>
+Medijan je vrijednost koja poredani niz opažanja dijeli na dvije jednako velike polovine.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT standardna-devijacija -->
+<dl>
+<dt><a href="../chapters/04-sazimanje-podataka.html#def-standardna-devijacija" class="terminology-list__hr" lang="hr">Standardna devijacija</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>standard deviation</em></span> <span class="terminology-list__chapter">Poglavlje · Sažimanje podataka</span>
+Standardna devijacija uzorka korijen je varijance.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">korelacija</span></dt>
+</dl>
+<!-- GENERATED CONCEPT standardizirana-vrijednost -->
+<dl>
+<dt><a href="../chapters/04-sazimanje-podataka.html#def-standardizirana-vrijednost" class="terminology-list__hr" lang="hr">Standardizirana vrijednost</a></dt>
 <dd>
-<span class="terminology-list__en" lang="en"><em>correlation</em></span> <span class="terminology-list__chapter">Poglavlje · Povezanost</span>
+<span class="terminology-list__en" lang="en"><em>z-score</em></span> <span class="terminology-list__chapter">Poglavlje · Sažimanje podataka</span>
+Standardizirana vrijednost kaže koliko standardnih devijacija pojedino opažanje leži iznad ili ispod aritmetičke sredine.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">vjerojatnost</span></dt>
+</dl>
+<!-- GENERATED CONCEPT gramatika-grafike -->
+<dl>
+<dt><a href="../chapters/05-vizualizacija.html#def-gramatika-grafike" class="terminology-list__hr" lang="hr">Gramatika grafike</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>grammar of graphics</em></span> <span class="terminology-list__chapter">Poglavlje · Vizualizacija kao argument</span>
+Gramatika grafike opisuje od čega je graf sastavljen.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT pridruzivanje -->
+<dl>
+<dt><a href="../chapters/05-vizualizacija.html#def-pridruzivanje" class="terminology-list__hr" lang="hr">Pridruživanje</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>aesthetic mapping</em></span> <span class="terminology-list__chapter">Poglavlje · Vizualizacija kao argument</span>
+Pridruživanje (aesthetic mapping) je odluka o tome koja se varijabla prikazuje kojim vizualnim obilježjem.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT mala-polja -->
+<dl>
+<dt><a href="../chapters/05-vizualizacija.html#def-mala-polja" class="terminology-list__hr" lang="hr">Mala višestruka polja</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>small multiples</em></span> <span class="terminology-list__chapter">Poglavlje · Vizualizacija kao argument</span>
+Mala višestruka polja (small multiples) niz su prikaza istoga oblika i iste ljestvice, po jedan za svaku skupinu, tako da se razlike među skupinama očitavaju usporedbom položaja između polja.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT kovarijanca -->
+<dl>
+<dt><a href="../chapters/06-povezanost.html#def-kovarijanca" class="terminology-list__hr" lang="hr">Kovarijanca</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>covariance</em></span> <span class="terminology-list__chapter">Poglavlje · Povezanost</span>
+Kovarijanca uzorka je zbroj umnožaka odstupanja dviju varijabli od njihovih sredina, podijeljen brojem opažanja umanjenim za jedan.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT korelacija -->
+<dl>
+<dt><a href="../chapters/06-povezanost.html#def-korelacija" class="terminology-list__hr" lang="hr">Pearsonova korelacija</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>Pearson correlation</em></span> <span class="terminology-list__chapter">Poglavlje · Povezanost</span>
+Pearsonova korelacija uzorka jest zbroj umnožaka uzorački standardiziranih vrijednosti dviju varijabli, podijeljen s <span class="math inline">\(n-1\)</span>.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT ogranicenje-raspona -->
+<dl>
+<dt><a href="../chapters/06-povezanost.html#def-ogranicenje-raspona" class="terminology-list__hr" lang="hr">Ograničenje raspona</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>range restriction</em></span> <span class="terminology-list__chapter">Poglavlje · Povezanost</span>
+Ograničenje raspona (range restriction) nastaje kada promatrani uzorak pokriva samo dio mogućih vrijednosti jedne ili obiju varijabli.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT vjerojatnost -->
+<dl>
+<dt><a href="../chapters/07-vjerojatnost.html#def-vjerojatnost" class="terminology-list__hr" lang="hr">Vjerojatnost</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>probability</em></span> <span class="terminology-list__chapter">Poglavlje · Vjerojatnost koliko treba</span>
+Vjerojatnost je broj od nule do jedinice koji događaju pridružuje razinu neizvjesnosti unutar jasno opisanoga modela, pri čemu veći broj označuje veće izglede za taj događaj.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">distribucija uzorkovanja</span></dt>
+</dl>
+<!-- GENERATED CONCEPT neovisnost -->
+<dl>
+<dt><a href="../chapters/07-vjerojatnost.html#def-neovisnost" class="terminology-list__hr" lang="hr">Neovisnost</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>independence</em></span> <span class="terminology-list__chapter">Poglavlje · Vjerojatnost koliko treba</span>
+Neovisnost dvaju događaja znači da saznanje o tome je li se jedan dogodio ne mijenja vjerojatnost drugoga.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT uvjetna-vjerojatnost -->
+<dl>
+<dt><a href="../chapters/07-vjerojatnost.html#def-uvjetna-vjerojatnost" class="terminology-list__hr" lang="hr">Uvjetna vjerojatnost</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>conditional probability</em></span> <span class="terminology-list__chapter">Poglavlje · Vjerojatnost koliko treba</span>
+Uvjetna vjerojatnost je vjerojatnost događaja izračunata unutar skupine u kojoj je neki drugi događaj već nastupio.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT binomna-raspodjela -->
+<dl>
+<dt><a href="../chapters/07-vjerojatnost.html#def-binomna-raspodjela" class="terminology-list__hr" lang="hr">Binomna raspodjela</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>binomial distribution</em></span> <span class="terminology-list__chapter">Poglavlje · Vjerojatnost koliko treba</span>
+Binomna raspodjela opisuje broj uspjeha u zadanom broju pokušaja kad svaki pokušaj ima samo dva ishoda, jednaku vjerojatnost uspjeha i nikakvu vezu s ostalim pokušajima.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT normalna-raspodjela -->
+<dl>
+<dt><a href="../chapters/07-vjerojatnost.html#def-normalna-raspodjela" class="terminology-list__hr" lang="hr">Normalna raspodjela</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>normal distribution</em></span> <span class="terminology-list__chapter">Poglavlje · Vjerojatnost koliko treba</span>
+Normalna raspodjela je simetrična zvonasta raspodjela koju u cijelosti određuju njezino središte i njezina standardna devijacija.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT pogreska-uzorkovanja -->
+<dl>
+<dt><a href="../chapters/08-uzorkovanje.html#def-pogreska-uzorkovanja" class="terminology-list__hr" lang="hr">Pogreška uzorkovanja</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>sampling error</em></span> <span class="terminology-list__chapter">Poglavlje · Uzorkovanje</span>
+Pogreška uzorkovanja je razlika između vrijednosti izračunate na uzorku i vrijednosti koju ima cijela populacija, a nastaje zato što je izmjeren dio umjesto cjeline.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT distribucija-uzorkovanja -->
+<dl>
+<dt><a href="../chapters/08-uzorkovanje.html#def-distribucija-uzorkovanja" class="terminology-list__hr" lang="hr">Distribucija uzorkovanja</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>sampling distribution</em></span> <span class="terminology-list__chapter">Poglavlje · Uzorkovanje</span>
+Distribucija uzorkovanja je raspodjela vrijednosti koje bi neka statistika poprimila kroz mnogo ponovljenih uzoraka iste veličine iz iste populacije.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">standardna pogreška</span></dt>
+</dl>
+<!-- GENERATED CONCEPT standardna-pogreska -->
+<dl>
+<dt><a href="../chapters/08-uzorkovanje.html#def-standardna-pogreska" class="terminology-list__hr" lang="hr">Standardna pogreška</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>standard error</em></span> <span class="terminology-list__chapter">Poglavlje · Uzorkovanje</span>
+Standardna pogreška je standardna devijacija distribucije uzorkovanja, pa opisuje koliko bi tipično varirala procjena kroz ponovljene uzorke.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">interval pouzdanosti</span></dt>
+</dl>
+<!-- GENERATED CONCEPT interval-pouzdanosti -->
+<dl>
+<dt><a href="../chapters/09-procjena.html#def-interval-pouzdanosti" class="terminology-list__hr" lang="hr">Interval pouzdanosti</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>confidence interval</em></span> <span class="terminology-list__chapter">Poglavlje · Procjena</span>
+Interval pouzdanosti je raspon oko procjene, izračunat postupkom koji kroz ponovljena uzorkovanja obuhvaća nepoznati parametar u unaprijed određenom udjelu slučajeva.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">p-vrijednost</span></dt>
+</dl>
+<!-- GENERATED CONCEPT nulta-hipoteza -->
+<dl>
+<dt><a href="../chapters/10-logika-testiranja.html#def-nulta-hipoteza" class="terminology-list__hr" lang="hr">Nulta hipoteza</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>null hypothesis</em></span> <span class="terminology-list__chapter">Poglavlje · Logika testiranja</span>
+Nulta hipoteza je precizan model postupka koji je proizveo podatke, sastavljen tako da u njemu nema razlike ni veze koju istražujemo.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT testna-statistika -->
+<dl>
+<dt><a href="../chapters/10-logika-testiranja.html#def-testna-statistika" class="terminology-list__hr" lang="hr">Testna statistika</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>test statistic</em></span> <span class="terminology-list__chapter">Poglavlje · Logika testiranja</span>
+Testna statistika je jedan broj izračunat iz podataka koji sažima odstupanje od nultog modela u obliku usporedivom s odstupanjima koja taj model proizvodi.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT p-vrijednost -->
+<dl>
+<dt><a href="../chapters/10-logika-testiranja.html#def-p-vrijednost" class="terminology-list__hr" lang="hr">P-vrijednost</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>p-value</em></span> <span class="terminology-list__chapter">Poglavlje · Logika testiranja</span>
+P-vrijednost je udio rezultata koje nulti model proizvodi, a koji su s njime u najmanju ruku jednako neusklađeni kao opaženi rezultat.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">veličina učinka</span></dt>
+</dl>
+<!-- GENERATED CONCEPT pogreska-prve-vrste -->
+<dl>
+<dt><a href="../chapters/10-logika-testiranja.html#def-pogreska-prve-vrste" class="terminology-list__hr" lang="hr">Pogreška prve vrste</a></dt>
 <dd>
-<span class="terminology-list__en" lang="en"><em>effect size</em></span> <span class="terminology-list__chapter">Poglavlje · Veličina učinka i snaga</span>
+<span class="terminology-list__en" lang="en"><em>Type I error</em></span> <span class="terminology-list__chapter">Poglavlje · Logika testiranja</span>
+Pogreška prve vrste je odbacivanje nulte hipoteze koja je istinita.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">predregistracija</span></dt>
+</dl>
+<!-- GENERATED CONCEPT standardizirana-razlika -->
+<dl>
+<dt><a href="../chapters/11-velicina-ucinka-i-snaga.html#def-standardizirana-razlika" class="terminology-list__hr" lang="hr">Standardizirana razlika</a></dt>
 <dd>
-<span class="terminology-list__en" lang="en"><em>preregistration</em></span> <span class="terminology-list__chapter">Poglavlje · Kriza i obnova</span>
+<span class="terminology-list__en" lang="en"><em>Cohen’s d</em></span> <span class="terminology-list__chapter">Poglavlje · Veličina učinka i snaga</span>
+Standardizirana razlika je razlika dviju sredina podijeljena združenom standardnom devijacijom skupina, pa se izražava u standardnim devijacijama umjesto u izvornim jedinicama.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">kontingencijska tablica</span></dt>
+</dl>
+<!-- GENERATED CONCEPT statisticka-snaga -->
+<dl>
+<dt><a href="../chapters/11-velicina-ucinka-i-snaga.html#def-statisticka-snaga" class="terminology-list__hr" lang="hr">Statistička snaga</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>statistical power</em></span> <span class="terminology-list__chapter">Poglavlje · Veličina učinka i snaga</span>
+Statistička snaga je vjerojatnost da postupak odbaci nultu hipotezu kad je ona lažna, dakle udio ponavljanja u kojima bi učinak zadane veličine bio otkriven.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT najmanji-vazan-ucinak -->
+<dl>
+<dt><a href="../chapters/11-velicina-ucinka-i-snaga.html#def-najmanji-vazan-ucinak" class="terminology-list__hr" lang="hr">Najmanji važan učinak</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>smallest effect size of interest</em></span> <span class="terminology-list__chapter">Poglavlje · Veličina učinka i snaga</span>
+Najmanji važan učinak je najmanja razlika koja bi promijenila zaključak, odluku ili postupanje, određena sadržajno i prije prikupljanja podataka.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT analiticka-fleksibilnost -->
+<dl>
+<dt><a href="../chapters/12-kriza-i-obnova.html#def-analiticka-fleksibilnost" class="terminology-list__hr" lang="hr">Analitička fleksibilnost</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>analytical flexibility</em></span> <span class="terminology-list__chapter">Poglavlje · Kriza i obnova</span>
+Analitička fleksibilnost je prostor više obranjivih odluka duž cijeloga puta podataka, od prikupljanja, uključivanja i spajanja do rekodiranja, postupanja s nedostajućim vrijednostima i izbora analize.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT reproducibilnost -->
+<dl>
+<dt><a href="../chapters/12-kriza-i-obnova.html#def-reproducibilnost" class="terminology-list__hr" lang="hr">Reproducibilnost</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>reproducibility</em></span> <span class="terminology-list__chapter">Poglavlje · Kriza i obnova</span>
+Reproducibilnost je mogućnost da druga osoba iz istih podataka, materijala i opisanoga postupka ponovno dobije iste rezultate i utvrdi gdje su nastali.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT kontingencijska-tablica -->
+<dl>
+<dt><a href="../chapters/13-kategoricki-podaci.html#def-kontingencijska-tablica" class="terminology-list__hr" lang="hr">Kontingencijska tablica</a></dt>
 <dd>
 <span class="terminology-list__en" lang="en"><em>contingency table</em></span> <span class="terminology-list__chapter">Poglavlje · Kategorički podaci</span>
+Kontingencijska tablica je tablica frekvencija u kojoj svaka ćelija sadrži broj jedinica koje istovremeno pripadaju jednoj kategoriji retka i jednoj kategoriji stupca.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">rezidual</span></dt>
+</dl>
+<!-- GENERATED CONCEPT ocekivana-frekvencija -->
+<dl>
+<dt><a href="../chapters/13-kategoricki-podaci.html#def-ocekivana-frekvencija" class="terminology-list__hr" lang="hr">Očekivana frekvencija</a></dt>
 <dd>
-<span class="terminology-list__en" lang="en"><em>residual</em></span> <span class="terminology-list__chapter">Poglavlje · Regresija, opći okvir</span>
+<span class="terminology-list__en" lang="en"><em>expected frequency</em></span> <span class="terminology-list__chapter">Poglavlje · Kategorički podaci</span>
+Očekivana frekvencija ćelije je umnožak zbroja njezina retka i zbroja njezina stupca podijeljen ukupnim brojem jedinica, dakle broj koji bi se u toj ćeliji nalazio kad bi dvije varijable bile nezavisne uz nepromijenjene rubne zbrojeve.
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">preprilagodba</span></dt>
+</dl>
+<!-- GENERATED CONCEPT hi-kvadrat-statistika -->
+<dl>
+<dt><a href="../chapters/13-kategoricki-podaci.html#def-hi-kvadrat-statistika" class="terminology-list__hr" lang="hr">Hi-kvadrat statistika</a></dt>
 <dd>
-<span class="terminology-list__en" lang="en"><em>overfitting</em></span> <span class="terminology-list__chapter">Poglavlje · Statistika u doba algoritama</span>
+<span class="terminology-list__en" lang="en"><em>chi-squared statistic</em></span> <span class="terminology-list__chapter">Poglavlje · Kategorički podaci</span>
+Hi-kvadrat statistika je zbroj kvadriranih odstupanja opaženih od očekivanih frekvencija, pri čemu je svako odstupanje podijeljeno očekivanom frekvencijom svoje ćelije.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT standardizirani-rezidual -->
+<dl>
+<dt><a href="../chapters/13-kategoricki-podaci.html#def-standardizirani-rezidual" class="terminology-list__hr" lang="hr">Prilagođeni standardizirani rezidual</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>adjusted standardized residual</em></span> <span class="terminology-list__chapter">Poglavlje · Kategorički podaci</span>
+Prilagođeni standardizirani rezidual ćelije je razlika opažene i očekivane frekvencije podijeljena procijenjenom standardnom devijacijom te razlike, koja uzima u obzir rubne udjele retka i stupca.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT cramerovo-v -->
+<dl>
+<dt><a href="../chapters/13-kategoricki-podaci.html#def-cramerovo-v" class="terminology-list__hr" lang="hr">Cramérovo V</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>Cramér’s V</em></span> <span class="terminology-list__chapter">Poglavlje · Kategorički podaci</span>
+Cramérovo V je korijen hi-kvadrat statistike podijeljene umnoškom veličine uzorka i manje dimenzije tablice umanjene za jedan.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT jedinica-neovisnosti -->
+<dl>
+<dt><a href="../chapters/14-dvije-grupe.html#def-jedinica-neovisnosti" class="terminology-list__hr" lang="hr">Jedinica neovisnosti</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>unit of independence</em></span> <span class="terminology-list__chapter">Poglavlje · Uspoređivanje dviju grupa</span>
+Jedinica neovisnosti je entitet koji se u istraživanju mogao pojaviti ili izostati neovisno o ostalima, pa njegove vrijednosti nisu unaprijed vezane uz vrijednosti bilo koje druge jedinice u istom skupu.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT referentna-skupina -->
+<dl>
+<dt><a href="../chapters/14-dvije-grupe.html#def-referentna-skupina" class="terminology-list__hr" lang="hr">Referentna skupina</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>reference category</em></span> <span class="terminology-list__chapter">Poglavlje · Uspoređivanje dviju grupa</span>
+Referentna skupina je kategorija prema kojoj se izražavaju sve ostale kategorije istog prediktora, pa njezina sredina postaje polazna vrijednost modela, a koeficijenti ostalih kategorija odstupanja od nje.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT stopa-obiteljske-pogreske -->
+<dl>
+<dt><a href="../chapters/15-vise-grupa.html#def-stopa-obiteljske-pogreske" class="terminology-list__hr" lang="hr">Stopa obiteljske pogreške</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>familywise error rate</em></span> <span class="terminology-list__chapter">Poglavlje · Uspoređivanje više grupa</span>
+Stopa obiteljske pogreške je vjerojatnost da će barem jedan test u unaprijed određenom skupu testova dati lažno pozitivan rezultat, odnosno pogrešno odbaciti barem jednu istinitu nultu hipotezu.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT eta-kvadrat -->
+<dl>
+<dt><a href="../chapters/15-vise-grupa.html#def-eta-kvadrat" class="terminology-list__hr" lang="hr">Eta-kvadrat</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>eta squared</em></span> <span class="terminology-list__chapter">Poglavlje · Uspoređivanje više grupa</span>
+Eta-kvadrat je udio ukupne varijabilnosti ishoda koji otpada na razlike među skupnim sredinama.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT f-statistika -->
+<dl>
+<dt><a href="../chapters/15-vise-grupa.html#def-f-statistika" class="terminology-list__hr" lang="hr">F-statistika</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>F-statistic</em></span> <span class="terminology-list__chapter">Poglavlje · Uspoređivanje više grupa</span>
+F-statistika je omjer prosječne raspršenosti među skupnim sredinama i prosječne raspršenosti opažanja oko njihovih skupnih sredina.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT rezidual -->
+<dl>
+<dt><a href="../chapters/16-regresija.html#def-rezidual" class="terminology-list__hr" lang="hr">Rezidual</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>residual</em></span> <span class="terminology-list__chapter">Poglavlje · Regresija — opći okvir</span>
+Rezidual je razlika između opažene vrijednosti ishoda kod pojedine jedinice i vrijednosti koju za nju predviđa model, dakle onaj dio ishoda koji model nije objasnio.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT metoda-najmanjih-kvadrata -->
+<dl>
+<dt><a href="../chapters/16-regresija.html#def-metoda-najmanjih-kvadrata" class="terminology-list__hr" lang="hr">Metoda najmanjih kvadrata</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>least squares</em></span> <span class="terminology-list__chapter">Poglavlje · Regresija — opći okvir</span>
+Metoda najmanjih kvadrata bira koeficijente modela tako da zbroj kvadriranih reziduala bude najmanji mogući za zadane podatke.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT visestruka-regresija -->
+<dl>
+<dt><a href="../chapters/16-regresija.html#def-visestruka-regresija" class="terminology-list__hr" lang="hr">Višestruka regresija</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>multiple regression</em></span> <span class="terminology-list__chapter">Poglavlje · Regresija — opći okvir</span>
+Višestruka regresija procjenjuje modelnu povezanost svakog prediktora s ishodom pri zadanim jednakim vrijednostima svih ostalih prediktora u modelu.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT koeficijent-determinacije -->
+<dl>
+<dt><a href="../chapters/16-regresija.html#def-koeficijent-determinacije" class="terminology-list__hr" lang="hr">Koeficijent determinacije</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>R-squared</em></span> <span class="terminology-list__chapter">Poglavlje · Regresija — opći okvir</span>
+Koeficijent determinacije je udio ukupne varijabilnosti ishoda u promatranom skupu podataka koji je model objasnio, izračunat kao jedan minus omjer zbroja kvadrata reziduala i zbroja kvadrata odstupanja od zajedničke sredine.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT zabiljezeni-referentni-ishod -->
+<dl>
+<dt><a href="../chapters/17-doba-algoritama.html#def-zabiljezeni-referentni-ishod" class="terminology-list__hr" lang="hr">Zabilježeni referentni ishod</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>recorded reference outcome</em></span> <span class="terminology-list__chapter">Poglavlje · Statistika u doba algoritama</span>
+Zabilježeni referentni ishod jest ishod ili oznaka zapisana određenim postupkom mjerenja, prema kojoj se vrednuje klasifikator, ali koja može sadržavati pogrešku.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT klasifikacijski-prag -->
+<dl>
+<dt><a href="../chapters/17-doba-algoritama.html#def-klasifikacijski-prag" class="terminology-list__hr" lang="hr">Klasifikacijski prag</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>classification threshold</em></span> <span class="terminology-list__chapter">Poglavlje · Statistika u doba algoritama</span>
+Klasifikacijski prag jest unaprijed određena vrijednost koja predviđenu vjerojatnost pretvara u kategoričku odluku; njegovim se pomicanjem mijenja odnos vrsta pogrešaka.
+</dd>
+</dl>
+<!-- GENERATED CONCEPT paket-dokaza -->
+<dl>
+<dt><a href="../chapters/18-vase-prvo-istrazivanje.html#def-paket-dokaza" class="terminology-list__hr" lang="hr">Paket dokaza</a></dt>
+<dd>
+<span class="terminology-list__en" lang="en"><em>evidence package</em></span> <span class="terminology-list__chapter">Poglavlje · Vaše prvo istraživanje</span>
+Paket dokaza je provjerljiva cjelina koja povezuje putovnicu skupa podataka, zapis izvora i verzije, dnevnik transformacija, analizu, provjeru osjetljivosti, granicu tvrdnje, zapis o uporabi asistenta i objavu.
 </dd>
 </dl>
 </div>
+<!-- BEGIN GENERATED TERMINOLOGY ROUTES -->
 </section>
-<section id="pravilo-uporabe" class="level2">
-<h2 class="anchored" data-anchor-id="pravilo-uporabe">Pravilo uporabe</h2>
-<p>Hrvatski naziv vodi u prozi, a engleski se pojavljuje u bloku pojmova i pri prvom susretu samo kada je potreban za čitanje literature. Jedan pojam ima jedno kanonsko ime kroz cijelu knjigu. Sinonimi se mogu navesti kao uputnice, ali ne smiju stvarati dvije definicije iste ideje.</p>
-
+<section id="sec-terminologija-uputnice" class="level2">
+<h2 class="anchored" data-anchor-id="sec-terminologija-uputnice">Uputnice za druge oblike</h2>
+<p>Oblici u sljedećoj tablici služe prepoznavanju nazivlja koje se može susresti u drugoj literaturi. Nijedan od njih nije prihvaćen sinonim kanonskoga oblika u ovoj knjizi i ne rabi se kao zamjenjiv naziv.</p>
+<div id="tbl-terminologija-uputnice" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-terminologija-uputnice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Uputnice prema kanonskim oblicima u knjizi. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-terminologija-uputnice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Oblik koji možete susresti</th>
+<th>Kanonski oblik u knjizi</th>
+<th>Dopuštena iznimka</th>
+<th>Razlog</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>skup za treniranje</td>
+<td>skup za učenje</td>
+<td>nema</td>
+<td>Naziv skup za učenje označuje podatke na kojima se model prilagođava, odvojeno od podataka za izbor postupka i završno ispitivanje.</td>
+</tr>
+<tr class="even">
+<td>skup za testiranje</td>
+<td>skup za ispitivanje</td>
+<td>nema</td>
+<td>Skup za ispitivanje čuvamo za završnu procjenu modela, nakon izbora postupka.</td>
+</tr>
+<tr class="odd">
+<td>predikcija</td>
+<td>predviđanje</td>
+<td>sustav predikcije</td>
+<td>Za pojedinačno predviđanje i njegov rezultat rabimo hrvatski naziv. Izraz sustav predikcije zadržavamo samo kao naziv vrste sustava.</td>
+</tr>
+<tr class="even">
+<td>predikcijski model</td>
+<td>model za predviđanje</td>
+<td>nema</td>
+<td>Naziv model za predviđanje slijedi isti izbor riječi kao naziv predviđanje.</td>
+</tr>
+<tr class="odd">
+<td>curenje podataka</td>
+<td>curenje informacija</td>
+<td>nema</td>
+<td>Naziv curenje informacija odnosi se na podatke koji nedopušteno utječu na učenje ili provjeru modela. Razlikujemo ga od otkrivanja zaštićenih podataka.</td>
+</tr>
+<tr class="even">
+<td>curenje cilja</td>
+<td>curenje informacija</td>
+<td>nema</td>
+<td>Vremensku granicu objašnjavamo u opisu postupka, uz zajednički naziv curenje informacija.</td>
+</tr>
+<tr class="odd">
+<td>težina uzorka</td>
+<td>težina uzorkovanja</td>
+<td>nema</td>
+<td>Težina se odnosi na način uzorkovanja i doprinos jedinice procjeni.</td>
+</tr>
+<tr class="even">
+<td>ponderiranje</td>
+<td>procjena s težinama</td>
+<td>nema</td>
+<td>Nazivi procjena s težinama i težina uzorkovanja pokazuju kako pojedine jedinice pridonose procjeni.</td>
+</tr>
+<tr class="odd">
+<td>neponderirana procjena</td>
+<td>procjena bez težina</td>
+<td>nema</td>
+<td>Naziv izravno pokazuje da pri procjeni ne primjenjujemo težine.</td>
+</tr>
+<tr class="even">
+<td>standardizirani rezidual</td>
+<td>prilagođeni standardizirani rezidual</td>
+<td>nema</td>
+<td>Pridjev prilagođeni razlikuje ovu veličinu od Pearsonova reziduala, koji se računa drukčije.</td>
+</tr>
+<tr class="odd">
+<td>matrica zabune</td>
+<td>tablica zabune</td>
+<td>nema</td>
+<td>Naziv tablica povezuje ovaj prikaz s kontingencijskim tablicama i njihovim uvjetnim nazivnicima.</td>
+</tr>
+<tr class="even">
+<td>istina</td>
+<td>zabilježeni referentni ishod</td>
+<td>nema</td>
+<td>Referentna oznaka služi usporedbi s predviđanjem, ali i sama može biti pogrešna.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-terminologija-odstupanja" class="level2">
+<h2 class="anchored" data-anchor-id="sec-terminologija-odstupanja">Namjerna odstupanja</h2>
+<p>Tri su oblika odabrana namjerno. Razlog uz svaki oblik objašnjava zašto knjiga ne preuzima drugu moguću hrvatsku konvenciju.</p>
+<div id="tbl-terminologija-odstupanja" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-terminologija-odstupanja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Namjerna odstupanja od drugih mogućih hrvatskih oblika. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-terminologija-odstupanja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Oblik u knjizi</th>
+<th>Engleski termin</th>
+<th>Razlog</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tablica zabune</td>
+<td><em>confusion matrix</em></td>
+<td>Isti prikaz već smo upoznali kao kontingencijsku tablicu, pa zadržavamo naziv tablica.</td>
+</tr>
+<tr class="even">
+<td>kolider</td>
+<td><em>collider</em></td>
+<td>Naziv zadržava vezu s engleskim terminom i upotrebljava se uz medijator i konfundirajuću varijablu u opisima uzročnih odnosa.</td>
+</tr>
+<tr class="odd">
+<td>izgledi</td>
+<td><em>odds</em></td>
+<td>Naziv izgledi omogućuje da i izvedeni naziv omjer izgleda povežemo s engleskim izrazom.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-terminologija-znacenja" class="level2">
+<h2 class="anchored" data-anchor-id="sec-terminologija-znacenja">Razdvojena značenja</h2>
+<p>Ista riječ može upućivati na različite statističke ideje. Ova pravila čuvaju granicu značenja ondje gdje bi kratki oblik spojio nespojive veličine ili postupke.</p>
+<div id="tbl-terminologija-znacenja" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-terminologija-znacenja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Granice značenja za sporne oblike. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-terminologija-znacenja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pojam</th>
+<th>Značenje u knjizi</th>
+<th>Ne rabiti za</th>
+<th>Razlog</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>osjetljivost</td>
+<td>otpornost zaključka na obranjivu drukčiju odluku u analizi</td>
+<td>stopa točno prepoznatih pozitivnih slučajeva iz tablice zabune</td>
+<td>Provjera osjetljivosti zaključka i stopa prepoznavanja pozitivnih slučajeva različiti su pojmovi.</td>
+</tr>
+<tr class="even">
+<td>kalibrirana nesigurnost</td>
+<td>vjerojatnosno značenje kalibracije u poglavlju 7, uz kalibraciju stope pogreške prve vrste u poglavlju 13</td>
+<td>samostalan pojam kalibracija bez svojega predmeta</td>
+<td>Vjerojatnosti i stope pogreške testa različiti su predmeti provjere. Uz kalibraciju zato uvijek navodimo što se provjerava.</td>
+</tr>
+<tr class="odd">
+<td>predviđanje</td>
+<td>čin predviđanja i njegov rezultat</td>
+<td>zamjena oblikom predikcija izvan ratificirane sintagme sustav predikcije</td>
+<td>Predviđanje označuje radnju i rezultat. Izraz sustav predikcije ostaje naziv vrste sustava, uključujući jezični model.</td>
+</tr>
+<tr class="even">
+<td>zabilježeni referentni ishod</td>
+<td>objekt prema kojem se klasifikator vrednuje u poglavlju 17, uz referentnu oznaku koju sadi poglavlje 10</td>
+<td>istina ili ground truth</td>
+<td>Referentna oznaka može sadržavati pogrešku, pa je ne poistovjećujemo s poznatom istinom.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-terminologija-odgovornost" class="level2">
+<h2 class="anchored" data-anchor-id="sec-terminologija-odgovornost">Urednička odgovornost</h2>
+<p>Za kanonsko nazivlje odgovara Luka Šikić. Neovisna terminološka recenzija nije pribavljena i knjiga je ne tvrdi.</p>
+<!-- END GENERATED TERMINOLOGY ROUTES -->
 
 
 </section>
@@ -990,23 +1534,21 @@ window.Quarto = {
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -1016,9 +1558,275 @@ window.Quarto = {
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1304,7 +2112,9 @@ window.Quarto = {
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1360,25 +2170,25 @@ window.Quarto = {
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -1794,31 +2604,33 @@ window.Quarto = {
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3435,6 +4247,16 @@ window.Quarto = {
     <li class="nav-item">
     <a class="nav-link" href="../resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

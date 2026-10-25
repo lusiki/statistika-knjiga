@@ -86,10 +86,8 @@ Each chapter follows a fixed skeleton, mapped onto the existing callout system.
    counterpart in print.
 4. Statistika u divljini. A box dissecting a genuine published claim, poll,
    headline or chart.
-5. Pitajte model. A recurring box in two beats. First, how to use an assistant
-   for this chapter's task, what to ask, what to verify, where models typically
-   fail. Second, a planted error exercise, a short AI produced analysis
-   containing one realistic mistake the reader must find.
+5. Nađite grešku. Short analytical work with inspectable evidence and one
+   realistic mistake to find, check, and repair against the chapter's reasoning.
 6. Razrađeni primjer. One complete analysis, narrated, code folded beneath the
    prose.
 7. Sažetak i pojmovi. Closing summary, key terms in Croatian and English, and
@@ -350,7 +348,7 @@ flagship widgets are built.
 Faza 4. New wave, chapters 3, 12, 17 and 18, the literacy chapter, the open
 science chapter, the algorithms chapter and the capstone, written fresh.
 
-Faza 5. Cross cutting passes, the divljina and AI boxes seeded through every
+Faza 5. Cross cutting passes, the divljina and error-finding boxes seeded through every
 chapter, exercises, glossary, decision tree, then review cycles through the
 bookwright skills, regeneration of the machine readable exports through the
 existing build script so that any reader's assistant answers from the book's own

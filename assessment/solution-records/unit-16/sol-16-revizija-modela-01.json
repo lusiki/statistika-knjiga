@@ -8,20 +8,20 @@
     "anchor": "ex-16-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:669999f13cffd114f594767382c691a06467bc57503d3776bc697f1dfa7cf634",
+  "prompt_fingerprint": "sha256:491e46996638d9addf781b20706557abeff326fcf01fc4e1ffbec8f092799cc0",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "training-set-fit-treated-as-unseen-data-validation",
-      "statement": "Ispis R-kvadrata i RMSE-a iz istih redaka na kojima je model procijenjen može se tumačiti kao dokaz pouzdana predviđanja novih korisnika.",
+      "statement": "Pogreška na skupu za učenje manja je od dva boda, pa je time zadani kriterij za nove korisnike zadovoljen.",
       "why_wrong": "Koeficijenti su odabrani da smanje pogrešku upravo na tim ishodima. Trening-RMSE i trening-R-kvadrat zato su mjere pristajanja, u očekivanju optimistične za nove jedinice, i ne zamjenjuju odvojenu prediktivnu provjeru."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Auditirati redak po redak: potvrditi da su formula i vremenski dostupni prediktori dopušteni, označiti da `pogreska` uspoređuje ishod `uzorak` s `fitted(model)` iz istoga uzorka te utvrditi što oba broja mogu i ne mogu poduprijeti.",
-      "expected_evidence": "Sintaksa i in-sample računi mogu biti točni. Fatalna je uporaba istih redaka za procjenu i ocjenu. R-kvadrat i RMSE izgledaju dobro jer najmanji kvadrati upravo na tim redcima smanjuju SSE, a dodavanje prediktora ne može pogoršati taj minimum."
+      "expected_evidence": "Oba izračuna valjano opisuju pristajanje istim 200 zapisima. `data = uzorak` određuje podatke za procjenu koeficijenata, a `fitted(model)` vraća prilagođene vrijednosti upravo za te retke. Nula redaka neovisne provjere ulazi u račun. Dostupnost prediktora prije ishoda čuva vremensku granicu, ali ne stvara provjeru novih korisnika. Još treba izdvojiti nove podatke iz ciljanih uvjeta primjene, zaključati model i izračunati istu mjeru pogreške, uz procjenu njezine nesigurnosti.\n\nJedna moguća zamjena glasi ovako.\n\nNa skupu za učenje korijen srednje kvadratne pogreške manji je od dva boda. O uspješnosti kod novih korisnika odlučit ćemo tek nakon provjere zaključanog modela na odvojenim podacima i usporedbe te pogreške s unaprijed zadanim kriterijem.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -52,7 +52,7 @@
         },
         {
           "component_id": "locate-error-line",
-          "required_claim": "Pogreška se vidi u retku `pogreska <- ... fitted(model)`, jer se opaženi ishodi `uzorak` uspoređuju s predviđanjima modela procijenjenoga na `uzorak`.",
+          "required_claim": "Redak s `fitted(model)` otkriva da je pogreška izračunana na skupu za učenje. Taj je račun valjan, a pogreška je u naknadnom zaključku o novim korisnicima.",
           "required_evidence": "Nema argumenta `newdata` ni prethodno izdvojena skupa; i R-kvadrat je iz istoga prilagođavanja."
         },
         {
@@ -69,19 +69,29 @@
           "component_id": "distinguish-from-future-leakage",
           "required_claim": "Pogreška nije curenje iz budućnosti jer su svi prediktori po zadanoj vremenskoj granici dostupni prije ishoda; riječ je o pogrešnoj validaciji.",
           "required_evidence": "Audit razlikuje trenutak mjerenja prediktora od identiteta redaka za ocjenu."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Na skupu za učenje korijen srednje kvadratne pogreške manji je od dva boda. O uspješnosti kod novih korisnika odlučit ćemo tek nakon provjere zaključanog modela na odvojenim podacima i usporedbe te pogreške s unaprijed zadanim kriterijem.",
+          "required_evidence": "Oba izračuna valjano opisuju pristajanje istim 200 zapisima. `data = uzorak` određuje podatke za procjenu koeficijenata, a `fitted(model)` vraća prilagođene vrijednosti upravo za te retke. Nula redaka neovisne provjere ulazi u račun. Dostupnost prediktora prije ishoda čuva vremensku granicu, ali ne stvara provjeru novih korisnika. Još treba izdvojiti nove podatke iz ciljanih uvjeta primjene, zaključati model i izračunati istu mjeru pogreške, uz procjenu njezine nesigurnosti."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "Oba broja rabe istih n trening-redaka i nula odvojenih redaka. Algebra daje RMSE = sqrt(SSE/n) i R-kvadrat = 1 − SSE/SST na skupu za učenje; smanjenje SSE-a zato istodobno smanjuje trening-RMSE i povećava trening-R-kvadrat.",
-      "tolerance_or_acceptance_rule": "Traži se točan odnos dviju mjera prema istom SSE-u, nula odvojenih redaka i zaključak ograničen na pristajanje. Ne prihvatiti izmišljene vrijednosti izlaza jer konkretni objekt `uzorak` nije dio prompta.",
-      "independent_method": "Iz definicija dviju mjera izvesti njihov zajednički rezidualni zbroj kvadrata i neovisno provjeriti iz koda da su redci za procjenu i ocjenu identični; zatim usporediti s odvojenom simulacijom poglavlja u kojoj bogati model ima manji trening-RMSE 1,647113, ali veći provjerni RMSE 2,061988.",
+      "expected_result": "Obje prijavljene veličine pripadaju istih 200 redaka skupa za učenje. R-kvadrat je 1 − SSE/SST na tom skupu, a pogreška je sqrt(SSE/200) iz istih reziduala. Nula redaka odvojene provjere ulazi u račun.",
+      "tolerance_or_acceptance_rule": "Treba povezati oba pokazatelja s istih 200 redaka i utvrditi odsutnost odvojene provjere. Brojke se prihvaćaju zaokružene na dvije decimale iz ispisa.",
+      "independent_method": "Na prvih 200 zapisa data/populacija-medija.csv prilagoditi navedeni linearni model. Zasebno iz rezidualnog zbroja kvadrata izračunati R-kvadrat i korijen srednje kvadratne pogreške.",
       "evidence_reference": "chapters/16-regresija.qmd#ex-16-revizija-modela-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-misses-training-validation",
@@ -118,8 +128,8 @@
     }
   ],
   "instructor_notes": [
-    "Jedina fatalna pogreška jest ocjena na skupu za učenje. Izbor prediktora, sintaksa i vremenska dostupnost nisu posađeni nedostaci.",
-    "Prihvatiti odvojeni testni skup ili pravilno ugniježđenu unakrsnu provjeru kao popravak u prozi; ne ocjenjuje se kod."
+    "Pogreška je zaključak o novim korisnicima na temelju mjera pristajanja skupu za učenje. Sam račun tih mjera i vremenska dostupnost prediktora ispravni su.",
+    "Uzorak je sada izričito određen kao prvih 200 simuliranih zapisa. Ne tražiti kod od studenta; ocjenjuju se retci, značenje mjera i predložena neovisna provjera."
   ],
   "visibility_contract": "D06-two-layer-v1",
   "human_responsibility": {

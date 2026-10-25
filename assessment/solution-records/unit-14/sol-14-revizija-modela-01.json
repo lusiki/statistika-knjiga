@@ -8,7 +8,7 @@
     "anchor": "ex-14-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:611f91ae1d4b6acc98ec8ad8b7c58a27e0a4ee152df5f5caddfb2b18d90a079a",
+  "prompt_fingerprint": "sha256:e3398891ffb29bbaa51c27b0baa4955adecc482a29bc48f6a3dd9f160cd02767",
   "answer_components": {
     "planted_error": {
       "applicable": true,
@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Proći redom referentnu skupinu, jedinicu neovisnosti, vrstu ishoda, postupanje s varijancama i doseg populacije, a zatim jedinu zaključnu tvrdnju usporediti s cijelim intervalom podskupine.",
-      "expected_evidence": "Referentne su društvene mreže; promjena reference mijenja odsječak i predznak koeficijenta, ali ne skupne sredine ni veličinu razlike. Osoba je jedinica, ishod je brojčana ljestvica, Welch dopušta nejednake varijance, a samoodabrane skupine ne podupiru uzročnost. Jedina pogreška ostaje dokazivanje odsutnosti iz intervala preko nule."
+      "expected_evidence": "Ispravno su određene jedinica neovisnosti, referentna skupina i činjenica da Welchov postupak ne traži jednake varijance. U podskupini od 55 osoba razlika je 0,77 boda uz interval od −0,34 do 1,88. U njemu su, primjerice, i −0,20 i 1,00 boda, pa obuhvaćanje nule ne dokazuje jednakost skupina. Druge dvije vrijednosti iz intervala jednako su prihvatljive. Za procjenu praktične važnosti treba unaprijed obrazložena važna razlika, a za uži interval prikladno planirani dodatni podaci.\n\nJedna moguća zamjena glasi ovako.\n\nU simuliranom poduzorku procijenjeno povjerenje u TV skupini veće je za 0,77 boda, uz 95 % interval od −0,34 do 1,88. Procjena je neprecizna i dopušta razlike u oba smjera, pa ne možemo tvrditi da su sredine jednake.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,6 +64,11 @@
           "component_id": "replace-single-error",
           "required_claim": "U dobnoj podskupini interval obuhvaća nulu, pa podaci ne razlučuju razliku dovoljno precizno; ne dokazuju da veze nema.",
           "required_evidence": "Interval [−0,335616; 1,876157] uključuje i nulu i pozitivne razlike, uključujući poznatu simuliranu populacijsku razliku od približno 0,90 boda."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "U simuliranom poduzorku procijenjeno povjerenje u TV skupini veće je za 0,77 boda, uz 95 % interval od −0,34 do 1,88. Procjena je neprecizna i dopušta razlike u oba smjera, pa ne možemo tvrditi da su sredine jednake.",
+          "required_evidence": "Ispravno su određene jedinica neovisnosti, referentna skupina i činjenica da Welchov postupak ne traži jednake varijance. U podskupini od 55 osoba razlika je 0,77 boda uz interval od −0,34 do 1,88. U njemu su, primjerice, i −0,20 i 1,00 boda, pa obuhvaćanje nule ne dokazuje jednakost skupina. Druge dvije vrijednosti iz intervala jednako su prihvatljive. Za procjenu praktične važnosti treba unaprijed obrazložena važna razlika, a za uži interval prikladno planirani dodatni podaci."
         }
       ]
     },
@@ -71,12 +76,17 @@
       "applicable": true,
       "not_applicable_reason": null,
       "expected_result": "Referentna sredina društvenih mreža iznosi 4,514285714286, koeficijent TV minus društvene mreže 1,185714285714, a podskupina od 30 do 49 godina daje razliku 0,770270270270 i Welchov interval [−0,335616307975; 1,876156848515].",
-      "tolerance_or_acceptance_rule": "Prihvatiti brojke unutar 0,000001. Promjena reference mora ostaviti skupne sredine i apsolutnu razliku nepromijenjenima, a zaključak o podskupini mora biti jezik nepreciznosti, ne dokaz odsutnosti.",
+      "tolerance_or_acceptance_rule": "Za čitateljski odgovor prihvatiti 0,77 te −0,34 do 1,88 na dvije decimale. Neovisna provjera punih vrijednosti koristi toleranciju 0,000001. Dvije nenulte vrijednosti moraju biti unutar intervala, a zaključak ne smije dokazivati jednakost.",
       "independent_method": "Iz fiksnoga uzorka zasebno obnoviti skupne sredine i njihov koeficijent, algebarski promijeniti referencu, zatim za dobnu podskupinu ručno sastaviti Welchovu standardnu pogrešku, stupnjeve slobode i interval.",
       "evidence_reference": "chapters/14-dvije-grupe.qmd#ex-14-revizija-modela-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-absence-or-causal-claim",

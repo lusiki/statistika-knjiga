@@ -8,7 +8,7 @@
     "anchor": "ex-09-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:0e7bb2abbfe09335927a58110c0b0aba88b7e246e240f08a5a28a82c0cd31a5a",
+  "prompt_fingerprint": "sha256:a95e328d1dd77e8e2753c261d3bb60bfe339c6ac44466e71ae71cd220b211924",
   "answer_components": {
     "planted_error": {
       "applicable": true,
@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Najprije povezati svaki od četiriju poziva s operacijom koju stvarno provodi i potvrditi da je račun koherentan za neovisne jedinice. Zatim izdvojiti rečenicu koja mijenja frekventističko značenje razine pouzdanosti.",
-      "expected_evidence": "replicate ponavlja cijeli postupak 4000 puta; sample izvlači s vraćanjem na punoj veličini; median računa istu statistiku u svakom uzorku; quantile uzima središnji percentilni raspon. Jedina greška ostaje rečenica o vjerojatnosti fiksnoga parametra."
+      "expected_evidence": "Uzorački medijan od 173,5 minuta i bootstrap granice od 155 do 194 minute ostaju valjani rezultati prikazanog postupka. Ispravni su uzorkovanje s vraćanjem, veličina ponovljenog uzorka i račun medijana. Pogrešno je razinu pouzdanosti dodijeliti fiksnom parametru u već opaženom intervalu. Novi uzorak promijenio bi procjenu, bootstrap raspodjelu i granice, dok populacijski medijan ostaje isti. Nominalna razina ne jamči točnu pokrivenost u svakom malom uzorku.\n\nJedna moguća zamjena glasi ovako.\n\nProcijenjeni medijan iznosi 173,5 minuta, uz približni 95 % percentilni bootstrap interval od 155 do 194 minute. Razina od 95 % odnosi se na ciljanu dugoročnu pokrivenost postupka kroz nova uzorkovanja, uz primjeren uzorak i valjanu bootstrap aproksimaciju; ne znači 95 % vjerojatnosti za položaj fiksnog medijana u ovom intervalu.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -78,19 +78,29 @@
           "component_id": "write-frequentist-replacement",
           "required_claim": "Postupak koji proizvodi interval razine 95 % u dugom nizu usporedivih ponovljenih uzoraka obuhvaća fiksni parametar približno u 95 % slučajeva, pod njegovim uvjetima.",
           "required_evidence": "Zamjena zadržava razinu 95 %, ali je veže uz ponovljeni postupak i ne dodaje novu tvrdnju o podacima."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Procijenjeni medijan iznosi 173,5 minuta, uz približni 95 % percentilni bootstrap interval od 155 do 194 minute. Razina od 95 % odnosi se na ciljanu dugoročnu pokrivenost postupka kroz nova uzorkovanja, uz primjeren uzorak i valjanu bootstrap aproksimaciju; ne znači 95 % vjerojatnosti za položaj fiksnog medijana u ovom intervalu.",
+          "required_evidence": "Uzorački medijan od 173,5 minuta i bootstrap granice od 155 do 194 minute ostaju valjani rezultati prikazanog postupka. Ispravni su uzorkovanje s vraćanjem, veličina ponovljenog uzorka i račun medijana. Pogrešno je razinu pouzdanosti dodijeliti fiksnom parametru u već opaženom intervalu. Novi uzorak promijenio bi procjenu, bootstrap raspodjelu i granice, dok populacijski medijan ostaje isti. Nominalna razina ne jamči točnu pokrivenost u svakom malom uzorku."
         }
       ]
     },
     "numerical_check": {
-      "applicable": false,
-      "not_applicable_reason": "Revizija traži čitanje četiriju poziva i ispravak interpretacije bez novoga brojčanog izračuna.",
-      "expected_result": null,
-      "tolerance_or_acceptance_rule": null,
-      "independent_method": null,
-      "evidence_reference": null
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Uzorački medijan 173,5 minuta; 95 % percentilni bootstrap interval od 155 do 194 minute.",
+      "tolerance_or_acceptance_rule": "Prihvatiti prikazane granice i nominalnu razinu uz ogradu o aproksimaciji; ne traži se ponovno uzorkovanje od čitatelja.",
+      "independent_method": "Uz sjeme 505 ponovno izdvojiti šezdeset zapisa i 4.000 uzoraka indeksa s vraćanjem te izračunati medijane i percentile.",
+      "evidence_reference": "scripts/check-error-exercises.R"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-fails-to-remove-fixed-parameter-probability",

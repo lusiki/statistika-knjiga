@@ -15,6 +15,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 RECORD_ROOT = ROOT / "assessment/solution-records"
 OUTPUT = ROOT / "rjesenja.qmd"
+PRINT_OUTPUT = ROOT / "assessment/print-checks.md"
 UNIT_ORDER = [f"{number:02d}" for number in range(19)]
 TASK_ORDER = [
     "callout_greska",
@@ -42,13 +43,6 @@ PROSE_OVERRIDES = {
         "ima najviše 26 jer je luksemburška vrijednost označena dvotočkom, dok "
         "hrvatskih 2,1 uz status u ostaje uključeno."
     ),
-    ("sol-09-racunski-01", "numerical.expected_result"): (
-        "Za A širina iznosi 0,619806421393 uz 3 promašaja. Za B širina iznosi "
-        "0,814602725259 uz 0 promašaja. Za C širina iznosi 0,309903210697 uz 1 "
-        "promašaj. Analitička datoteka ima 50000 redaka; portal ima 15101 redak "
-        "od ukupno 50000, zbroj povjerenja 72101, udio 15101/50000 = 0,30202 i "
-        "prosjek 72101/15101 = 4,7745844646."
-    ),
     ("sol-14-racunski-01", "numerical.expected_result"): (
         "Za televiziju vrijedi 58098/10827 = 5,366029371017, a za društvene "
         "mreže 54432/13378 = 4,068769621767. Televizija minus društvene mreže "
@@ -60,11 +54,6 @@ PROSE_OVERRIDES = {
         "mreže 54432/13378 = 4,068769621767. Populacijska razlika televizije i "
         "društvenih mreža iznosi 1,297259749250 boda. Sud o važnosti ovisi o "
         "unaprijed zapisanu pragu, a ne o naknadnom prilagođavanju praga rezultatu."
-    ),
-    ("sol-16-callout-greska-01", "numerical.expected_result"): (
-        "Obje prijavljene veličine pripadaju istih n redaka skupa za učenje. "
-        "R-kvadrat je 1 − SSE/SST na tom skupu, a `pogreska` je sqrt(SSE/n) iz "
-        "istih reziduala. Nula redaka odvojene provjere ulazi u račun."
     ),
     ("sol-16-kriticki-01", "instructor_notes.0"): (
         "Ne zahtijevati račun apsolutne vjerojatnosti jer izvadak namjerno ne "
@@ -185,6 +174,16 @@ def public_projection(record: dict[str, Any]) -> list[str]:
     record_id = record["record_id"]
     lines: list[str] = []
 
+    study = record.get("self_study")
+    if study:
+        lines.extend([
+            "<details>", "<summary>Naznaka za početak</summary>", "",
+            study["hint"], "", "</details>", "",
+            "<details>", "<summary>Primjer odgovora i objašnjenje</summary>", "",
+            study["worked_answer"], "", study["why_adequate"], "", "</details>", "",
+            "<details>", "<summary>Detaljna provjera</summary>", "",
+        ])
+
     planted = answer["planted_error"]
     if planted["applicable"]:
         lines.extend([
@@ -203,7 +202,10 @@ def public_projection(record: dict[str, Any]) -> list[str]:
             "",
             reader_text(diagnostic["procedure"], record_id, "diagnostic.procedure"),
             "",
-            reader_text(diagnostic["expected_evidence"], record_id, "diagnostic.expected_evidence"),
+            "\n\n".join(
+                reader_text(paragraph, record_id, "diagnostic.expected_evidence")
+                for paragraph in diagnostic["expected_evidence"].split("\n\n")
+            ),
             "",
         ])
 
@@ -254,7 +256,42 @@ def public_projection(record: dict[str, Any]) -> list[str]:
             reason = reader_text(response["why_insufficient"], record_id, f"nonanswers.{index}.reason")
             lines.append(f"| {table_cell(reply)} | {table_cell(reason)} |")
         lines.append("")
+    if study:
+        lines.extend(["</details>", ""])
     return lines
+
+
+def render_print(root: Path = ROOT) -> str:
+    """Selected offline checks, using only explicitly public record fields."""
+    records = [record for _, record in read_records(root) if record.get("self_study")]
+    lines = [
+        "# Provjere za samostalan rad {#samostalne-provjere .unnumbered}", "",
+        "Ovdje je barem jedna provjera iz svakoga od osamnaest poglavlja,",
+        "uz dodatne odabrane računske provjere. Najprije pokušajte",
+        "riješiti zadatak. Ako zastanete, pročitajte samo njegovu naznaku.",
+        "Objašnjenja su odvojena i počinju na novoj stranici. Usporedite postupak",
+        "i granice svojega zaključka s primjerom, a zatim odgovorite ponovno bez",
+        "gledanja. Drukčije sročen odgovor može biti jednako dobar.", "",
+        "## Naznake {#samostalne-naznake .unnumbered}", "",
+    ]
+    for record in records:
+        label = f"Poglavlje {int(record['unit_id'])} — {TASK_LABELS[record['task_class']]}"
+        lines.extend([f"### {label} {{.unnumbered}}", "", record["self_study"]["hint"], ""])
+    lines.extend(["\\newpage", "", "## Objašnjenja {#samostalna-objasnjenja .unnumbered}", ""])
+    for index, record in enumerate(records):
+        if index:
+            lines.extend(["\\newpage", ""])
+        label = f"Poglavlje {int(record['unit_id'])} — {TASK_LABELS[record['task_class']]}"
+        study = record["self_study"]
+        lines.extend([f"### {label} {{.unnumbered}}", "", study["worked_answer"], "",
+                      study["why_adequate"], ""])
+        alternatives = record["answer_components"]["plausible_non_answers"]
+        if alternatives["applicable"] and alternatives["responses"]:
+            response = alternatives["responses"][0]
+            lines.extend(["Česta stranputica je sljedeći odgovor.", "",
+                          "> " + reader_text(response["response"], record["record_id"], "nonanswers.0.response"),
+                          "", reader_text(response["why_insufficient"], record["record_id"], "nonanswers.0.reason"), ""])
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def protected_projection(record: dict[str, Any]) -> list[str]:
@@ -314,17 +351,16 @@ def render(root: Path = ROOT) -> str:
     lines = [
         "---",
         'title: "Provjere rješenja"',
-        'subtitle: "Sažete javne provjere i zaštićeni kolegijski kriteriji iz jednoga izvora"',
+        'subtitle: "Naznake, obrazloženja i primjeri odgovora"',
         "---",
         "",
         f"<!-- GENERATED: scripts/build-solution-routes.py records-sha256={record_state(records, root)} -->",
         "",
-        "Ova je stranica odvojena od zadataka u glavnom slijedu knjige. Javna i",
-        "tiskana inačica daju sažetu provjeru za samostalan rad. Nastavni profil",
-        "`kolegij` uz istu provjeru prikazuje pune kriterije, prihvatljive alternative",
-        "i bilješke nastavniku. Svaki prikaz nastaje iz odgovarajućega kanonskog",
-        "zapisa u `assessment/solution-records`; ova stranica nije drugi izvor",
-        "odgovora i nije dio javnoga AI izvoza.",
+        "Ova je stranica odvojena od zadataka u glavnom slijedu knjige. Uz",
+        "odabrane zadatke prvo otvorite naznaku, pokušajte ponovno pa tek onda",
+        "pročitajte primjer odgovora i objašnjenje. Detaljna provjera pokazuje",
+        "potrebne sastavnice i objašnjava zašto neki uvjerljivi odgovori nisu",
+        "dovoljni. Tiskana knjiga donosi odabrane provjere prije literature.",
         "",
         "Provjeru otvorite tek nakon vlastitoga pokušaja. Brojčani trag i dalje",
         "treba usporediti s imenovanim izvorom, a odgovornost za zaključak ostaje",
@@ -355,13 +391,17 @@ def main() -> int:
     args = parser.parse_args()
     try:
         expected = render(ROOT)
+        expected_print = render_print(ROOT)
         if args.check:
             actual = OUTPUT.read_text(encoding="utf-8")
             if actual != expected:
                 raise ValueError("rjesenja.qmd ne odgovara kanonskim zapisima; pokrenite generator")
+            if not PRINT_OUTPUT.exists() or PRINT_OUTPUT.read_text(encoding="utf-8") != expected_print:
+                raise ValueError("assessment/print-checks.md ne odgovara kanonskim zapisima")
             print("SOLUTION_ROUTES_GENERATED_OK records=95 units=19 public=95 protected=95 drift=0")
             return 0
         OUTPUT.write_text(expected, encoding="utf-8", newline="\n")
+        PRINT_OUTPUT.write_text(expected_print, encoding="utf-8", newline="\n")
         print("SOLUTION_ROUTES_WRITE_OK records=95 units=19 output=rjesenja.qmd")
         return 0
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:

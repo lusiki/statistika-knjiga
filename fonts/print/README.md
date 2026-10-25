@@ -1,20 +1,20 @@
-# fonts/print/
+# Pisma za tiskani PDF
 
-Statičke instance pisama za PDF (xelatex ne voli varijabilne fontove).
+Ove statičke instance dio su izvora knjige. `tex/theme.tex` ih učitava po nazivu
+datoteke iz ovoga direktorija, pa PDF ima ista pisma na svakom stroju i ne može
+neopaženo pasti na Latin Modern.
 
-Prazno je dok tipografija nije odabrana. Do tada `tex/theme.tex` ne poziva
-`\setmainfont`, pa se PDF gradi s Latin Modernom na svakom stroju bez ijednog
-preuzimanja.
+| Obitelj | Uloga | Izvor |
+|---|---|---|
+| Literata | proza | <https://github.com/google/fonts/tree/main/ofl/literata> |
+| Newsreader | naslovi | <https://github.com/google/fonts/tree/main/ofl/newsreader> |
+| Public Sans | potpisi i pomoćni tekst | <https://github.com/google/fonts/tree/main/ofl/publicsans> |
+| JetBrains Mono | kod i brojevi | <https://github.com/google/fonts/tree/main/ofl/jetbrainsmono> |
 
-Kad pisma budu odabrana:
+Sve su obitelji dostupne pod licencijom SIL Open Font License 1.1. Tekst licence
+za svaku obitelj stoji uz instance (`OFL-*.txt`). Izvorni varijabilni fontovi
+pretvoreni su pomoću `fontTools.varLib.instancer`: Literata na `opsz=11`,
+Newsreader na `opsz=36`, a rezovi prema nazivima datoteka na `wght=300`, `400`
+ili `700`. Public Sans i JetBrains Mono imaju samo os `wght`.
 
-1. Stavite statičke `.ttf` instance ovamo (Regular, Italic, SemiBold/Bold,
-   BoldItalic za serif; Regular, Italic, Bold za sans; Regular, Bold za mono).
-2. Otključajte blok `\setmainfont` / `\setsansfont` / `\setmonofont` u
-   `tex/theme.tex` i upišite imena datoteka.
-3. Uskladite `design-tokens.yml` i `styles/_tokens.scss`, pa pokrenite
-   `Rscript scripts/check-tokens.R`.
-
-`.gitignore` prati **samo** ovaj poddirektorij (`fonts/*` je ignoriran,
-`!fonts/print/` je iznimka), jer su ove datoteke ulaz u build, a ne
-regenerabilan otpad.
+Prije pakiranja PDF-a provjerite da su sva četiri registra ugrađena u PDF.

@@ -8,20 +8,20 @@
     "anchor": "ex-12-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:0d094d1d5fb6f1c802afa20e6b9ca6f04c0dd4a7a8c13a0dddd318e0fe95f4e9",
+  "prompt_fingerprint": "sha256:87a9c792efd0500cdcbc80d24fdef6a9e1d9369c483b54bfa488fc8155023fd5",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "preregistration-treated-as-validity-guarantee",
-      "statement": "Budući da je analiza predregistrirana, njezin je zaključak nužno valjan.",
+      "statement": "Predregistracija je dovoljan razlog da prihvatimo zaključak bez usporedbe provedene analize s planom.",
       "why_wrong": "Predregistracija vremenski odvaja planirane odluke od odluka potaknutih rezultatima i olakšava provjeru odstupanja, ali sama ne jamči valjanost mjerenja, uzorka, modela, ciljane tvrdnje ni prijenosa na drugi kontekst. Zaključak se i dalje mora prosuditi prema dizajnu, podacima, analizi, intervalima i granici tvrdnje."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Odvojeno provjeriti slažu li se rukopis, registrirani plan, kriteriji uključivanja, primarna analiza i izvedeni zapis, a zatim pitati koju vrstu valjanosti svaki od tih tragova uopće može poduprijeti.",
-      "expected_evidence": "Plan može potvrditi da su glavni ishod i analiza određeni prije uvida u podatke, ali ne može sam dokazati da ishod valjano mjeri konstrukt, da je model prikladan ili da se zaključak prenosi izvan 17 provedenih laboratorijskih postupaka."
+      "procedure": "Usporediti dostupnost plana s onim što urednički zapis kaže o provjeri njegove provedbe. Odabrati konkretan ishod ili pravilo uključivanja za usporedbu.",
+      "expected_evidence": "Valjani su podatak o unaprijed određenoj analizi i procjena od 0,03 boda uz interval od −0,11 do 0,16. Pogreška je zaključak da predregistracija zamjenjuje provjeru provedbe. Možemo, primjerice, usporediti popis uključenih laboratorija i razloge isključenja s pravilima u planu ili provjeriti je li prikazani ishod doista primarni. Registrirani izvještaj daje i uvid u prethodno recenzirani protokol, ali ne jamči da je svaka kasnija odluka valjana. Nema osnove unaprijed tvrditi da su autori odstupili od plana.\n\nJedna moguća zamjena glasi ovako.\n\nPredregistracija nam omogućuje usporediti provedenu analizu s unaprijed određenim postupkom. Prije prihvaćanja zaključka provjerit ćemo njihovo slaganje, mjerenje i pretpostavke analize; samu registraciju nećemo smatrati potvrdom tih provjera.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,6 +64,11 @@
           "component_id": "state-bounded-correction",
           "required_claim": "Predregistracija povećava provjerljivost, dok zaključak ovoga RRR-a ostaje ograničen na uključene laboratorije i usporedive provedene postupke.",
           "required_evidence": "Sirova i standardizirana sinteza blizu su nule, ali analiza ne pokriva svaku populaciju, kontekst ili operacionalizaciju facijalne povratne sprege."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Predregistracija nam omogućuje usporediti provedenu analizu s unaprijed određenim postupkom. Prije prihvaćanja zaključka provjerit ćemo njihovo slaganje, mjerenje i pretpostavke analize; samu registraciju nećemo smatrati potvrdom tih provjera.",
+          "required_evidence": "Valjani su podatak o unaprijed određenoj analizi i procjena od 0,03 boda uz interval od −0,11 do 0,16. Pogreška je zaključak da predregistracija zamjenjuje provjeru provedbe. Možemo, primjerice, usporediti popis uključenih laboratorija i razloge isključenja s pravilima u planu ili provjeriti je li prikazani ishod doista primarni. Registrirani izvještaj daje i uvid u prethodno recenzirani protokol, ali ne jamči da je svaka kasnija odluka valjana. Nema osnove unaprijed tvrditi da su autori odstupili od plana."
         }
       ]
     },
@@ -76,7 +81,12 @@
       "evidence_reference": "notes/reports/p3-evidence12-rrr-lab-effects.csv; notes/reports/p3-evidence12-2026-08-13.md; chapters/12-kriza-i-obnova.qmd#ex-12-callout-greska-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-validity-guarantee",

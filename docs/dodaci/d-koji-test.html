@@ -24,26 +24,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,9 +46,12 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -154,35 +138,6 @@ div.csl-indent {
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
 
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -614,7 +569,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -684,6 +639,11 @@ window.Quarto = {
   <a href="../dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -696,8 +656,12 @@ window.Quarto = {
     <h2 id="toc-title">Sadržaj</h2>
    
   <ul>
-  <li><a href="#put-od-pitanja-do-modela" id="toc-put-od-pitanja-do-modela" class="nav-link active" data-scroll-target="#put-od-pitanja-do-modela">Put od pitanja do modela</a></li>
-  <li><a href="#provjere-nakon-odabira" id="toc-provjere-nakon-odabira" class="nav-link" data-scroll-target="#provjere-nakon-odabira">Provjere nakon odabira</a></li>
+  <li><a href="#redoslijed-odluka" id="toc-redoslijed-odluka" class="nav-link active" data-scroll-target="#redoslijed-odluka">Redoslijed odluka</a></li>
+  <li><a href="#stablo-odluke-i-oporavka" id="toc-stablo-odluke-i-oporavka" class="nav-link" data-scroll-target="#stablo-odluke-i-oporavka">Stablo odluke i oporavka</a></li>
+  <li><a href="#pravilo-ovisnosti" id="toc-pravilo-ovisnosti" class="nav-link" data-scroll-target="#pravilo-ovisnosti">Pravilo ovisnosti</a></li>
+  <li><a href="#podržane-početne-rute" id="toc-podržane-početne-rute" class="nav-link" data-scroll-target="#podržane-početne-rute">Podržane početne rute</a></li>
+  <li><a href="#kad-knjiga-nema-postupak" id="toc-kad-knjiga-nema-postupak" class="nav-link" data-scroll-target="#kad-knjiga-nema-postupak">Kad knjiga nema postupak</a></li>
+  <li><a href="#provjera-nakon-izbora" id="toc-provjera-nakon-izbora" class="nav-link" data-scroll-target="#provjera-nakon-izbora">Provjera nakon izbora</a></li>
   </ul>
 </nav>
     </div>
@@ -747,10 +711,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -804,64 +772,275 @@ window.Quarto = {
 }());
 </script>
 
-<!-- =====================================================================
-  STATUS:  djelomični nacrt — tekstualna odluka prije završnog stabla
-  IZVOR:   novo
-  OPSEG:   ~1500 riječi
-  NAPOMENA: Vizualni element, ne proza. Radi se kao SVG s PNG blizancem za tisak (scripts/svg-to-png.R).
-
-  SADRŽAJ (iz plana):
-  Stablo odlučivanja na jednom dvolistu, od vrste podataka i pitanja do poglavlja i postupka, plus sažeti pregled formula.
-===================================================================== -->
-<p>Odabir postupka počinje istraživačkim pitanjem, dizajnom i vrstom ishoda. Stablo ne može popraviti loše mjerenje ni stvoriti neovisna opažanja. Ono samo povezuje dobro postavljeno pitanje s poglavljem i početnim modelom.</p>
-<section id="put-od-pitanja-do-modela" class="level2">
-<h2 class="anchored" data-anchor-id="put-od-pitanja-do-modela">Put od pitanja do modela</h2>
-<p>Za opis jedne brojčane varijable koristimo raspodjelu, mjeru središta i raspršenosti. Za dvije brojčane varijable polazimo od raspršenog dijagrama i korelacije, a prema potrebi prelazimo na regresiju. Za kategoričke varijable polazimo od frekvencija, udjela i kontingencijske tablice.</p>
-<p>Brojčani ishod i dvije neovisne skupine vode prema Welchovu t-testu ili linearnom modelu s binarnim prediktorom. Iste jedinice mjerene dvaput vode prema uparenom postupku. Više skupina vodi prema ANOVA-i kao linearnom modelu s kategoričkim prediktorom.</p>
+<p>Odabir postupka ne počinje nazivom testa ni vrstom jedne varijable. Počinje istraživačkim pitanjem, jedinicom koju svaki redak predstavlja i veličinom koju želimo procijeniti. Tek zatim gledamo vrstu ishoda, raspored skupina ili prediktora, pretpostavke postupka i doseg tvrdnje. Ovaj dodatak pomaže odabrati početni postupak, ali odluku treba obrazložiti.</p>
+<p>Stablo ne može popraviti loše mjerenje, izostavljenu populaciju ili pogrešno spojene retke. Ne može ni stvoriti neovisna opažanja. Ako pitanje i dizajn nisu jasno zapisani, ispravan je korak zaustaviti izbor postupka i vratiti se <a href="../chapters/02-mjerenje-i-dizajn.html#doseg-zaključka">mjerenju i nacrtu</a>.</p>
+<section id="redoslijed-odluka" class="level2">
+<h2 class="anchored" data-anchor-id="redoslijed-odluka">Redoslijed odluka</h2>
+<p>Promjenu postupka lakše razumijemo kada zadržimo temu i promijenimo samo jedno obilježje pitanja ili nacrta. U sljedećim usporedbama naziv metode slijedi iz razloga za promjenu.</p>
+<div id="tbl-d-promjena-pitanja" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d-promjena-pitanja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Promjena pitanja ili nacrta i razlog promjene analize. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-d-promjena-pitanja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Početni izbor postupka prema pitanju i dizajnu. Izrada autora.</caption>
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Pitanje, ishod i dizajn</th>
-<th>Početni postupak</th>
+<th>Što se promijenilo</th>
+<th>Posljedica za analizu</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Opis raspodjele brojčanog ishoda u jednom uzorku</td>
-<td>sažeci i graf</td>
+<td>Umjesto različitih osoba iste osobe mjerimo dvaput</td>
+<td>Najprije računamo promjenu unutar osobe. Upareni postupak čuva vezu mjerenja, dok je analiza kao dviju neovisnih skupina gubi.</td>
 </tr>
 <tr class="even">
-<td>Povezanost dviju brojčanih varijabli u opažajnom dizajnu</td>
-<td>korelacija i regresija</td>
+<td>Umjesto izvora koji bira određena dobna skupina pitamo tko čini publiku jednog izvora</td>
+<td>U tablici dobi po retcima i izvora po stupcima prelazimo s nazivnika retka na nazivnik stupca. Podaci ostaju isti, a postotak odgovara drugom pitanju.</td>
 </tr>
 <tr class="odd">
-<td>Razlika brojčanog ishoda između dviju neovisnih skupina</td>
-<td>Welchov t-test</td>
+<td>Umjesto povezanosti dviju kategorija provjeravamo jednu raspodjelu prema zadanim udjelima</td>
+<td>Test prilagodbe računa očekivanja iz vanjske reference. Test nezavisnosti računa ih iz rubnih zbrojeva dviju varijabli.</td>
 </tr>
 <tr class="even">
-<td>Promjena brojčanog ishoda na istim uparenim jedinicama</td>
-<td>upareni t-test</td>
-</tr>
-<tr class="odd">
-<td>Razlika brojčanog ishoda između više neovisnih skupina</td>
-<td>ANOVA</td>
-</tr>
-<tr class="even">
-<td>Povezanost kategoričkih varijabli u tablici frekvencija</td>
-<td>hi-kvadrat ili Fisherov test</td>
+<td>Umjesto opisa poznatih opažanja želimo predvidjeti novi slučaj</td>
+<td>Pogrešku provjeravamo na podacima koji nisu sudjelovali u prilagodbi ni odabiru modela. Dobro pristajanje poznatim podacima nije ta provjera.</td>
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
+<p>U stablu i brzom pregledu slijedimo istih šest odluka istim redom. Vrsta ishoda jest važna, ali sama nikada ne određuje postupak.</p>
+<div id="tbl-d-redoslijed" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d-redoslijed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Redoslijed odluka prije početnoga postupka. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-d-redoslijed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Korak</th>
+<th>Odluka koju treba zapisati</th>
+<th>Provjera prije nastavka</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pitanje</td>
+<td>opis, povezanost, razlika, predviđanje ili učinak</td>
+<td>ista analiza ne služi svim tim tvrdnjama</td>
+</tr>
+<tr class="even">
+<td>Ishod</td>
+<td>brojčana vrijednost, kategorija ili udio</td>
+<td>oznaka i jedinica mjere imaju sadržajno značenje</td>
+</tr>
+<tr class="odd">
+<td>Dizajn i ovisnost</td>
+<td>neovisne jedinice, dva uparena mjerenja ili složenija veza</td>
+<td>redak nije automatski jedinica neovisnosti</td>
+</tr>
+<tr class="even">
+<td>Procjenjivana veličina</td>
+<td>sredina, razlika, udio, povezanost, koeficijent ili pogreška predviđanja</td>
+<td>veličina se ne mijenja nakon pogleda na rezultat</td>
+</tr>
+<tr class="odd">
+<td>Pretpostavke</td>
+<td>uvjeti uzorkovanja, neovisnosti, raspodjele i nesigurnosti</td>
+<td>zamjenski postupak ne popravlja pogrešan dizajn</td>
+</tr>
+<tr class="even">
+<td>Tvrdnja</td>
+<td>opisna, populacijska, prediktivna ili uzročna</td>
+<td>zaključak ne prelazi ono što nacrt dopušta</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </section>
-<section id="provjere-nakon-odabira" class="level2">
-<h2 class="anchored" data-anchor-id="provjere-nakon-odabira">Provjere nakon odabira</h2>
-<p>Nakon izbora pregledavamo neovisnost, oblik raspodjele, reziduale, veličinu uzorka i očekivane frekvencije. Izvještavamo procjenu, interval i veličinu učinka prije odluke o testu. Ako pretpostavka ne pristaje, mijenjamo pitanje, model ili način izvještavanja uz sadržajno obrazloženje.</p>
-
+<section id="stablo-odluke-i-oporavka" class="level2">
+<h2 class="anchored" data-anchor-id="stablo-odluke-i-oporavka">Stablo odluke i oporavka</h2>
+<p>Stablo prikazuje dvije vrste završetka. Tanka crta vodi do postupka koji se poučava u knjizi, dok debela crta zaustavljanja znači da treba sačuvati pitanje i strukturu podataka, ali metodu potražiti izvan ove knjige. Posebna uparena ruta vrijedi samo kada svaka jedinica nosi točno dva pravilno spojena brojčana mjerenja.</p>
+<div id="fig-d-stablo" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Okomito stablo sa šest odluka. Nakon pitanja i vrste ishoda provjerava se ovisnost. Točno dva uparena brojčana mjerenja vode u upareni postupak iz poglavlja 14. Ponovljena, grupirana, longitudinalna, vremenska i mrežno povezana opažanja vode na debelu crtu Stani i izvan knjige. Neovisne jedinice nastavljaju prema opisivanju, povezanosti, usporedbi skupina, kategoričkim tablicama, procjeni iz uzorka ili čitanju objavljenoga binarnog rezultata. Posljednja dva koraka provjeravaju pretpostavke i dopuštenu tvrdnju.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d-stablo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="../images/infographics/koji-test-kada.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Stablo vodi od pitanja i jedinice preko ishoda i ovisnosti do početnoga postupka ili izričitoga zaustavljanja."><img src="../images/infographics/koji-test-kada.svg" class="img-fluid figure-img" alt="Okomito stablo sa šest odluka. Nakon pitanja i vrste ishoda provjerava se ovisnost. Točno dva uparena brojčana mjerenja vode u upareni postupak iz poglavlja 14. Ponovljena, grupirana, longitudinalna, vremenska i mrežno povezana opažanja vode na debelu crtu Stani i izvan knjige. Neovisne jedinice nastavljaju prema opisivanju, povezanosti, usporedbi skupina, kategoričkim tablicama, procjeni iz uzorka ili čitanju objavljenoga binarnog rezultata. Posljednja dva koraka provjeravaju pretpostavke i dopuštenu tvrdnju."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d-stablo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;1: Stablo vodi od pitanja i jedinice preko ishoda i ovisnosti do početnoga postupka ili izričitoga zaustavljanja.
+</figcaption>
+</figure>
+</div>
+<p>Rute na donjoj polovini stabla nisu ravnopravne kratice do p-vrijednosti. Opis raspodjele može biti potpun odgovor bez testa. Usporedba skupina traži procjenu razlike i interval prije oznake postupka. Kategorička tablica prvo traži nazivnike i očekivane frekvencije. Svaka inferencijska ruta na kraju se vraća na <a href="../chapters/10-logika-testiranja.html#prag-je-konvencija-a-ne-mjera">logiku testiranja</a> i <a href="../chapters/11-velicina-ucinka-i-snaga.html#razlika-koja-nešto-znači">sadržajnu veličinu</a>.</p>
+</section>
+<section id="pravilo-ovisnosti" class="level2">
+<h2 class="anchored" data-anchor-id="pravilo-ovisnosti">Pravilo ovisnosti</h2>
+<p>Jedinicu neovisnosti treba moći imenovati jednom rečenicom. Kada svaka osoba, škola, organizacija, mjesto ili druga jedinica pridonosi jednim retkom koji nije povezan s ostalima, možemo nastaviti prema rutama za neovisne jedinice. Kada ista jedinica nosi točno dva pravilno spojena brojčana mjerenja, knjiga podupire usporedbu razlika unutar parova u <a href="../chapters/14-dvije-grupe.html#ista-razlika-dva-dizajna">poglavlju o dvjema grupama</a>.</p>
+<p>Svaki širi oblik ovisnosti zaustavlja običnu inferenciju neovisnih redaka. To vrijedi kada ista osoba ima više od dva mjerenja, kada se opažanja prate kroz više vremena, kada ljudi dijele kućanstvo, razred, školu, organizaciju ili mjesto, kada redoslijed kroz vrijeme povezuje susjedna opažanja te kada su jedinice povezane mrežnim vezama. Welchov postupak, ANOVA, rangiranje i obična regresija ne uklanjaju tu ovisnost.</p>
+<p>Isto pravilo vrijedi za složeni anketni nacrt. Poglavlje o <a href="../chapters/08-uzorkovanje.html#nacrt-uzorka-i-pristranost-odabira">nacrtu uzorka</a> uči prepoznati težine, slojeve, skupine, učinak nacrta i efektivnu veličinu uzorka, ali ne izvodi varijancu složenoga nacrta. Za populacijsku nesigurnost u takvim podacima treba postupak koji poznaje cijeli nacrt, a takav se postupak u ovoj knjizi ne poučava.</p>
+</section>
+<section id="podržane-početne-rute" class="level2">
+<h2 class="anchored" data-anchor-id="podržane-početne-rute">Podržane početne rute</h2>
+<p>Brzi pregled imenuje početni postupak, rezultat koji treba izvući i granicu koju izvještaj mora sačuvati. Svi redci pretpostavljaju valjano mjerenje i ispravno određenu jedinicu.</p>
+<div id="tbl-d-podrzane-rute" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d-podrzane-rute-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Početne rute koje knjiga podupire te njihovi rezultati i granice. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-d-podrzane-rute-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pitanje i dizajn</th>
+<th>Početni postupak u knjizi</th>
+<th>Što izvijestiti</th>
+<th>Granica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Opis jedne brojčane varijable</td>
+<td><a href="../chapters/04-sazimanje-podataka.html#mjere-središta">raspodjela, središte i raspršenost</a> uz <a href="../chapters/05-vizualizacija.html#prikaz-prema-tvrdnji">prikaz prema tvrdnji</a></td>
+<td>jedinica, nazivnik, oblik i obranjivi sažeci</td>
+<td>opis uzorka nije automatski opis populacije</td>
+</tr>
+<tr class="even">
+<td>Povezanost dviju brojčanih varijabli na neovisnim jedinicama</td>
+<td><a href="../chapters/06-povezanost.html#zajedničko-kretanje">raspršeni dijagram i korelacija</a>, zatim regresija kada pitanje traži uvjetni prosjek</td>
+<td>smjer, veličina, interval, populacija i neobična opažanja</td>
+<td>povezanost nije uzrok</td>
+</tr>
+<tr class="odd">
+<td>Razlika brojčanoga ishoda između dviju neovisnih skupina</td>
+<td><a href="../chapters/14-dvije-grupe.html#pretpostavke-i-njihove-granice">Welchov t-test</a></td>
+<td>razlika sredina s intervalom, referentna skupina i standardizirana razlika</td>
+<td>pripadnost skupini sama ne daje uzročno značenje</td>
+</tr>
+<tr class="even">
+<td>Promjena brojčanoga ishoda na istim jedinicama izmjerenima točno dvaput</td>
+<td><a href="../chapters/14-dvije-grupe.html#ista-razlika-dva-dizajna">upareni t-test</a></td>
+<td>sredina i interval razlika unutar parova</td>
+<td>parovi moraju dolaziti iz dizajna, a ne iz naknadnog slaganja</td>
+</tr>
+<tr class="odd">
+<td>Razlika brojčanoga ishoda između više neovisnih skupina</td>
+<td><a href="../chapters/15-vise-grupa.html#granice-pretpostavki">ANOVA kao linearni model</a> uz unaprijed planirane ili zaštićene usporedbe</td>
+<td>ukupna procjena razlika, veličina učinka i intervali imenovanih usporedbi</td>
+<td>ukupni test ne govori koja se skupina razlikuje</td>
+</tr>
+<tr class="even">
+<td>Povezanost dviju kategoričkih varijabli na neovisnim jedinicama</td>
+<td><a href="../chapters/13-kategoricki-podaci.html#očekivano-pod-nezavisnošću">kontingencijska tablica i hi-kvadrat</a>, a u maloj tablici s tankom aproksimacijom <a href="../chapters/13-kategoricki-podaci.html#kad-je-aproksimacija-tanka">Fisherov egzaktni test</a></td>
+<td>uvjetni nazivnici, očekivane frekvencije, odstupanja i Cramérovo V</td>
+<td>nema jednoga mehaničkog praga koji zamjenjuje pregled tablice</td>
+</tr>
+<tr class="odd">
+<td>Procjena sredine ili udjela populacije iz uzorka</td>
+<td><a href="../chapters/08-uzorkovanje.html#populacija-uzorak-i-pogreška-uzorkovanja">nacrt uzorka</a> i <a href="../chapters/09-procjena.html#od-točke-prema-rasponu">interval procjene</a></td>
+<td>procjena, interval, ciljna populacija, odabir i odaziv</td>
+<td>interval slučajnog uzorkovanja ne pokriva sve pristranosti</td>
+</tr>
+<tr class="even">
+<td>Brojčani ishod s više prediktora na neovisnim jedinicama</td>
+<td><a href="../chapters/16-regresija.html#pravac-kao-tvrdnja-o-prosjeku">linearna regresija</a></td>
+<td>koeficijenti s intervalima, referentne vrijednosti, pristajanje i dijagnostika</td>
+<td>prilagodba nije uzročna identifikacija</td>
+</tr>
+<tr class="odd">
+<td>Čitanje objavljenoga rezultata za binarni ishod</td>
+<td><a href="../chapters/16-regresija.html#granica-prema-uzroku">ishod, referentna skupina, omjer izgleda i interval</a>, bez prilagodbe modela</td>
+<td>što je uspoređeno, mjera, interval, prilagodbe i populacija</td>
+<td>knjiga ne prilagođava ni dijagnosticira logistički model</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="kad-knjiga-nema-postupak" class="level2">
+<h2 class="anchored" data-anchor-id="kad-knjiga-nema-postupak">Kad knjiga nema postupak</h2>
+<p>Zaustavljanje nije odustajanje od analize. Ono sprečava da se uredan ispis dobije iz pogrešne jedinice ili tvrdnje. Prije izlaska iz knjige treba zapisati istraživačko pitanje, ishod, jedinicu, način povezivanja redaka, vrijeme mjerenja, ciljnu populaciju i procjenjivanu veličinu. S tim zapisom čitatelj se obraća nastavniku, statističkom metodologu ili provjerenom izvoru za upravo taj nacrt prije nego što odabere softver ili postupak.</p>
+<div id="tbl-d-izvan-knjige" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-d-izvan-knjige-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;4: Obrasci za koje knjiga nudi prepoznavanje i čitanje, ali ne i postupak procjene. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-d-izvan-knjige-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Znak da treba stati</th>
+<th>Što knjiga ipak pomaže pročitati</th>
+<th>Ruta izvan knjige</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Više mjerenja iste jedinice, longitudinalno praćenje ili drugi ponovljeni redci</td>
+<td>jedinicu i vezu među redcima</td>
+<td>tražiti postupak koji čuva sva ponavljanja i njihovu vremensku strukturu</td>
+</tr>
+<tr class="even">
+<td>Učenici u razredima, članovi kućanstava, ustanove u mjestima ili druga grupirana i ugniježđena opažanja</td>
+<td>razinu na kojoj nastaje varijacija</td>
+<td>tražiti postupak koji u nesigurnosti čuva grupiranje i sve razine nacrta</td>
+</tr>
+<tr class="odd">
+<td>Vremenski niz ili opažanja čiji redoslijed povezuje susjedne vrijednosti</td>
+<td>ishod, razmak mjerenja i cilj predviđanja ili opisa</td>
+<td>tražiti postupak koji izričito čuva vremensku ovisnost</td>
+</tr>
+<tr class="even">
+<td>Osobe, organizacije ili sadržaji povezani mrežnim vezama</td>
+<td>čvor, vezu i granicu promatrane mreže</td>
+<td>tražiti postupak koji mrežne veze ne tretira kao neovisne retke</td>
+</tr>
+<tr class="odd">
+<td>Anketna procjena s težinama, slojevima ili skupinama za koju treba standardna pogreška</td>
+<td><a href="../chapters/08-uzorkovanje.html#nacrt-uzorka-i-pristranost-odabira">učinak nacrta i efektivnu veličinu uzorka</a></td>
+<td>tražiti postupak i dokumentaciju koji koriste puni anketni nacrt</td>
+</tr>
+<tr class="even">
+<td>Procjenjivanje modela za binarni ishod</td>
+<td><a href="../chapters/16-regresija.html#granica-prema-uzroku">čitanje omjera izgleda i intervala</a></td>
+<td>za prilagodbu i dijagnostiku modela tražiti metodu izvan opsega knjige</td>
+</tr>
+<tr class="odd">
+<td>Procjena uzročnoga učinka iz opažajnih podataka</td>
+<td><a href="../chapters/02-mjerenje-i-dizajn.html#doseg-zaključka">dizajn i doseg zaključka</a> te <a href="../chapters/16-regresija.html#granica-prema-uzroku">granica prilagodbe</a></td>
+<td>tražiti nacrt i identifikacijsku strategiju prije izbora procjenitelja</td>
+</tr>
+<tr class="even">
+<td>Računska sinteza rezultata više studija</td>
+<td><a href="../chapters/12-kriza-i-obnova.html#cijeli-zapis-u-forest-plotu">čitanje replikacijskih procjena i forest plota</a></td>
+<td>za meta-analitičku procjenu i njezine pretpostavke tražiti metodu izvan opsega knjige</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="provjera-nakon-izbora" class="level2">
+<h2 class="anchored" data-anchor-id="provjera-nakon-izbora">Provjera nakon izbora</h2>
+<p>Naziv postupka ne zatvara analizu. Treba pregledati jedinice, nedostajuće vrijednosti, raspodjele, reziduale, očekivane frekvencije, skupne varijance i način uzorkovanja ondje gdje su primjenjivi. Procjena, interval i sadržajna veličina dolaze prije odluke o testu, a svaka osjetljivost mora odgovoriti na imenovanu sumnju, ne samo ponuditi drukčiju p-vrijednost.</p>
+<p>Posljednja provjera vraća nas pitanju. Opisna ruta dopušta opis podataka koje imamo. Populacijska ruta traži nacrt uzorka i nesigurnost koja mu odgovara. Prediktivna ruta traži podatke odvojene od procjene i istu vremensku granicu u učenju i primjeni. Uzročna rečenica traži dizajn i pretpostavke koje sam naziv testa ne može dati. Ako nijedna ruta u ovom dodatku ne čuva tu razliku, metoda se ne bira iz knjige.</p>
 
 
 </section>
@@ -963,23 +1142,21 @@ window.Quarto = {
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -989,9 +1166,275 @@ window.Quarto = {
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1277,7 +1720,9 @@ window.Quarto = {
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1333,25 +1778,25 @@ window.Quarto = {
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -1767,31 +2212,33 @@ window.Quarto = {
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3410,10 +3857,52 @@ window.Quarto = {
 <p>Resursi</p>
 </a>
   </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../errata.html">
+<p>Ispravci</p>
+</a>
+  </li>  
 </ul>
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

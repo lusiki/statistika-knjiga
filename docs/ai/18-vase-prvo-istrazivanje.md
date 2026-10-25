@@ -4,37 +4,64 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/18-vase-prvo-istrazivanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 39 min | bez widgeta | simulirana anketa i ParlaSent 1.0 | cijela knjiga |
+Tim ima tri tjedna za završni projekt, zanimljivu temu i datoteku koju još
+treba pripremiti. Jedan član želi odmah procijeniti model, drugi prvo
+provjeriti mjerenje, a treći predlaže da posao ubrzaju slanjem datoteke javnom
+asistentu.
 
-**Vinjeta.**
-Istraživački tim na završnom praktičnom projektu kolegija ima rok od tri tjedna,
-temu koja ga zanima i datoteku koja još nije spremna za analizu. Jedan član
-predlaže da odmah prilagode model, drugi da najprije poprave mjerenje, a treći
-da cijelu datoteku pošalju javnom asistentu i uštede vikend.
+Prije toga trebaju razjasniti što predstavlja redak, odakle podaci dolaze i
+koje pitanje žele postaviti. Trebaju provjeriti i sadrži li datoteka
+informacije po kojima se ljudi mogu prepoznati.
 
-Sve tri ideje imaju svoju logiku i nijedna ne odgovara na pitanje koje dolazi
-prvo. Nije poznato koja je jedinica analize, odakle su podaci došli, koja je
-tvrdnja postavljena prije gledanja ishoda i koje varijable opisuju ljude koji
-se mogu prepoznati.
+Kako provesti prvo istraživanje tako da druga osoba može pratiti odluke i
+provjeriti zaključak?
 
-Kako dovesti prvo istraživanje do kraja tako da svaki zaključak može provjeriti
-netko tko nije bio u sobi?
+Pred završnim projektom više nije dovoljno prepoznati dobar ili loš tuđi
+zaključak. Sada trebamo sastaviti vlastiti postupak tako da ga druga osoba
+može pratiti. Pitanje, mjerenje, priprema podataka, graf i model moraju se
+odnositi na istu istraživačku namjeru. Te odluke povezujemo u jednom istraživanju i ostavljamo zapis koji omogućuje
+provjeru rezultata.
+
+Vraćamo se skupu `anketa_mreze`, simuliranoj anketi koju poznajemo iz
+sažimanja, vizualizacije i povezanosti (Šikić, 2026). Svaki redak predstavlja
+jednu zamišljenu osobu s dobi, dnevnim minutama na društvenim mrežama i
+povjerenjem u tamošnji sadržaj. To je zaseban skup od populacije iz koje smo
+izvlačili uzorke u inferencijalnim poglavljima. Istražit ćemo jesu li duže
+dnevno korištenje mreža i veće povjerenje povezani te kako se procjena mijenja
+kada uvažimo dob. Time vježbamo istraživanje odnosa, bez tvrdnje da smo
+prikupili dokaze o stvarnim korisnicima ili uzroku njihova povjerenja.
+
+Za svaki poznati postupak sada trebamo objasniti zašto ga koristimo. Odredit ćemo pitanje i
+granicu nacrta, pregledati zapise i dokumentirati pripremu, a zatim opisati
+raspodjele i nacrtati odnos. Regresijsku procjenu s intervalom usporedit ćemo
+s opravdanom alternativom. Razlike među rezultatima vratit će nas na odluke o
+tome što model uspoređuje. Iz tog ćemo rada sastaviti izvještaj koji se može
+razumjeti bez otvaranja računalnog zapisa, uz sačuvan trag za ponavljanje
+računa.
+
+Postupak ćemo potom provjeriti na stvarnim parlamentarnim rečenicama iz
+ParlaSenta, gdje ćemo umjesto osobnih odgovora pratiti izbor tekstova i
+nastanak oznaka (Mochtak, 2023; Mochtak, 2024). Promjena podataka
+zahtijeva novo pitanje, ne samo ponavljanje prethodnog modela.
+
+U oba primjera odlučivat ćemo što povjeriti asistentu, kako provjeriti
+njegov rad i što smijemo dijeliti. Na kraju treba biti jasno kako smo od
+pitanja i podataka došli do zaključka i za koje odluke odgovaramo.
+Zato rad počinjemo od pitanja koje zaista možemo istražiti.
 
 ## Pitanje prije podataka
 
-Praktični rad počinje odabirom teme, a tema nije pitanje. Zanimanje za medijske
-navike, za angažman na društvenim mrežama ili za usporedbu dvaju formata
-naslova opisuje područje, dok istraživačko pitanje mora imenovati populaciju,
-jedinicu analize, mjere i usporedbu koja se izvodi.
+Tema određuje područje interesa, a pitanje određuje što ćemo istražiti.
+Medijske navike, angažman na mrežama ili formati naslova tek su početak. Za
+istraživačko pitanje trebamo imenovati populaciju, jedinicu, mjere i
+usporedbu.
 
-Tri smjera daju okvir za ono što se u jednom semestru može izvesti. Razlikuju
-se po tome odakle podaci dolaze i koliko dizajn dopušta zaključivanju.
+U tablici su tri moguća smjera semestralnog rada. Razlikuju se prema izvoru
+podataka i zaključcima koje nacrt dopušta.
 
 | Smjer rada | Odakle podaci | Što dizajn dopušta |
 |---|---|---|
@@ -44,113 +71,130 @@ se po tome odakle podaci dolaze i koliko dizajn dopušta zaključivanju.
 
 : Tri izvediva smjera prvog istraživanja, prema izvoru podataka i granici zaključka. Izrada autora.
 
-Odabir smjera unaprijed određuje koje rečenice smijemo napisati na kraju i to
-je odluka koju kasnija analiza ne može popraviti. Prva dva
-smjera opisuju svijet kakav zatječemo, a trećim ga dodirujemo nasumičnom
-dodjelom uvjeta. Uzročni doseg takve usporedbe ovisi i o očuvanoj dodjeli,
-usporedivom mjerenju, pridržavanju uvjeta, osipanju te izostanku relevantnoga
-prelijevanja među skupinama.
+Prva dva smjera promatraju postojeće podatke, a treći nasumično dodjeljuje
+uvjete. Kasnija analiza ne može promijeniti njihov dokazni doseg. I kod
+randomizacije uzročni zaključak ovisi o očuvanoj dodjeli, mjerenju,
+pridržavanju uvjeta, osipanju i mogućem utjecaju jedne skupine na drugu.
 
-Za vođeni primjer rabimo simuliranu inačicu prvog smjera i pitanje blisko
-komunikologiji, sociologiji i psihologiji. Zanima nas jesu li ljudi koji
-provode više vremena na društvenim mrežama skloniji vjerovati sadržaju koji
-ondje vide. Jedinica analize je osoba, ishod je izjavljeno povjerenje na
-ljestvici od jedan do deset, a prediktor je procijenjeno dnevno vrijeme u
-minutama.
+U vođenoj analizi skupa `anketa_mreze` ishod je povjerenje u sadržaj na
+društvenim mrežama na ljestvici od jedan do deset, a prediktor dnevno
+vrijeme uporabe u minutama (Šikić, 2026). Dob ćemo uključiti kako bismo
+usporedili osobe jednakih godina. Time naše pitanje o vezi vremena i
+povjerenja dobiva određene varijable i usporedbu koju možemo izračunati.
 
-Prije bilo čega drugoga zapisujemo i kojoj vrsti pitanje pripada. Opis pita što
-je prisutno u podacima, povezanost što varira zajedno, generalizacija na koga se
-rezultat smije prenijeti, predviđanje koliko dobro pravilo djeluje na novim
-opažanjima, uzročnost što bi intervencija promijenila, a odluka koju radnju
-poduzeti i tko snosi pogreške. Naše pitanje traži povezanost. Ne postaje
-uzročno, prediktivno ni populacijski šire zato što kasnije upotrebljavamo
-regresiju.
+Naše pitanje odnosi se na povezanost. Razlikujemo ga od opisa podataka,
+prijenosa na populaciju, predviđanja novih opažanja, procjene uzroka i odluke
+o postupanju. Regresija koju ćemo koristiti ne proširuje automatski pitanje na
+te druge ciljeve.
 
-Uz pitanje odmah zapisujemo i što će na kraju biti predano, jer rad planiramo
-polazeći od onoga što na kraju predajemo. Nastaju izvještaj koji se čita bez pristupa
-podacima, skripta koja iz podataka proizvodi svaku tablicu i svaki graf, sami podaci ako ih smijemo
-dijeliti, kratko usmeno izlaganje i osvrt na ono što bismo napravili drukčije.
-Posljednja dva dijela nisu formalnost, jer izlaganje otkriva koje rečenice ne
-možemo obraniti naglas.
+Već na početku dogovaramo što će drugoj osobi trebati da razumije i provjeri
+naš rad. Samostalan izvještaj treba prenijeti pitanje i zaključak, a ponovljiv
+zapis postupka pokazati kako je nastala svaka tablica i graf. Uz njih predajemo
+podatke koje smijemo dijeliti, kratko izlaganje i osvrt. Zapis može biti
+skripta ili dokumentirana povijest rada s izvozom iz alata bez koda. Izlaganjem
+ćemo dodatno provjeriti možemo li rezultat objasniti vlastitim riječima.
 
 **Paket dokaza** je provjerljiva cjelina koja povezuje putovnicu skupa podataka,
 zapis izvora i verzije, dnevnik transformacija, analizu, provjeru
 osjetljivosti, granicu tvrdnje, zapis o uporabi asistenta i objavu.
 
-Projekt zato ne završava jednom datotekom. [Putovnica skupa
-podataka]
-govori što je skup i odakle dolazi, a [dnevnik
-transformacija]
-pokazuje kako je nastala tablica koju analiziramo. [Trag
-odluka]
-razdvaja unaprijed zadanu [potvrđujuću
-analizu]
-od naknadne [istraživačke
-analize]{.pojam def="Analiza potaknuta obrascem opaženim u podacima i tako označena u izvještaju." en="exploratory analysis" ch="18"}.
+Svaki dio te cjeline odgovara na određeno pitanje. Najprije nas [putovnica
+skupa podataka]{.pojam def="Zapis o podrijetlu, verziji, jedinici, obuhvatu,
+pravima i nedostajućim vrijednostima skupa." en="dataset passport" ch="18"}
+vraća izvoru, verziji i obuhvatu podataka kako bismo znali od čega je
+istraživanje počelo. Put od tog izvornika do redaka koje analiziramo čuva
+[dnevnik transformacija]{.pojam def="Redom bilježi svaku provjerljivu promjenu
+od izvornika do analitičke tablice." en="transformation log" ch="18"}. U njemu
+možemo slijediti svaku promjenu i ponoviti pripremu tablice.
 
-Paket još mora sadržavati jednu [provjeru
-osjetljivosti]
-i granicu tvrdnje.
-Tek tada nastaje [reproducibilan tijek
-rada]
-iz kojega se može napisati [pošten
-izvještaj]{.pojam def="Izvještaj koji uz procjenu i interval imenuje jedinice, dosegnutu populaciju i određeno ograničenje koje bi promijenilo zaključak." en="honest report" ch="18"}.
-Minimizacija podataka
-i [objava uporabe
-asistenta]
-nisu bezvremena pravna pravila, nego dijelovi politike kolegija koja se
-primjenjuje na ovaj projekt.
+Razloge zbog kojih smo odabrali upravo te korake povezuje [trag odluka]{.pojam
+def="Povezuje istraživačko pitanje s odabirima dizajna, pripreme, modela i
+izvještavanja." en="decision trail" ch="18"}. Važan je i trenutak u kojem je
+odluka donesena. Za [potvrđujuću analizu]{.pojam def="Analiza čiji su pitanje,
+glavne odluke i način postupanja zapisani prije gledanja ishoda."
+en="confirmatory analysis" ch="18"} pitanje i glavne postupke zapisujemo prije
+uvida u ishode. U izvještaju zato možemo odvojiti unaprijed planirane odluke
+od onoga što su nam tek podaci sugerirali. Kada nas opaženi obrazac potakne na
+novo pitanje, provodimo [istraživačku analizu]{.pojam def="Analiza potaknuta
+obrascem opaženim u podacima i tako označena u izvještaju." en="exploratory
+analysis" ch="18"} i jasno je tako označujemo.
+
+Da bismo vidjeli ovisi li zaključak o pojedinoj odluci, dodajemo [provjeru
+osjetljivosti]{.pojam def="Usporedbu primarne analize s jednom obranjivom
+alternativom po procjeni, intervalu, zaključku i dosegnutoj populaciji."
+en="sensitivity analysis" ch="18"}. Primarnu analizu uspoređujemo s obranjivom
+alternativom i bilježimo što se promijenilo u procjeni, intervalu i tumačenju.
+Uz te rezultate navodimo i [granicu tvrdnje]{.pojam def="Izričit zapis
+dimenzija koje podaci i dizajn podupiru te onih koje ostaju nedostupne."
+en="claim boundary" ch="18"}, kako čitatelj ne bi morao nagađati što podaci i
+nacrt podupiru, a što ostaje nedostupno.
+
+Kada druga osoba može od istoga izvora ponoviti promjene i dobiti naše
+rezultate, ostvarili smo [reproducibilan tijek rada]{.pojam def="Tijek u kojem
+druga osoba može od istoga izvora ponoviti transformacije i rezultate."
+en="reproducible workflow" ch="18"}. Time joj otvaramo račun za provjeru, ali
+još trebamo objasniti njegovo značenje. To čini [pošten izvještaj]{.pojam
+def="Izvještaj koji uz procjenu i interval imenuje jedinice, dosegnutu
+populaciju i određeno ograničenje koje bi promijenilo zaključak." en="honest
+report" ch="18"}, u kojem uz procjenu i interval navodimo jedinice, dosegnutu
+populaciju i ograničenje koje bi moglo promijeniti zaključak.
+
+Provjerljivost rada traži i dogovor o podacima i pomoći koju ćemo koristiti. U
+projektu zato primjenjujemo [minimizaciju podataka]{.pojam def="Datirano
+pravilo kolegija da se rabi samo najmanji opseg podataka potreban za opravdanu
+svrhu." en="data minimization" ch="18"}, prema kojoj koristimo najmanji opseg
+podataka potreban za opravdanu svrhu. Da bi bilo jasno tko je pomogao u kojem
+koraku i kako je njegov rad provjeren, prilažemo i [objavu uporabe
+asistenta]{.pojam def="Datirani zapis o sustavu, vremenu, zadatku, provjeri i
+zadržanom rezultatu rada s asistentom." en="AI-use disclosure" ch="18"}. To su
+dijelovi datirane politike kolegija, a ne opća pravna tumačenja.
 
 ## Dizajn određuje granicu zaključka
 
-Presječna anketa mjeri sve u jednom trenutku, pa vrijeme i povjerenje zatječe
-zajedno i ne može reći što je čemu prethodilo. Ista brojka bila bi u skladu s
-tvrdnjom da izloženost gradi povjerenje i s tvrdnjom da povjerenje vodi većoj
-izloženosti, a i s tvrdnjom da oboje ovisi o nečem trećem.
+Presječna anketa mjeri vrijeme uporabe i povjerenje u istom trenutku. Ne
+pokazuje što je prethodilo. Ista povezanost mogla bi nastati zato što uporaba
+povećava povjerenje, zato što povjerenje povećava uporabu ili zato što obje
+varijable ovise o trećoj.
 
-Uzorak dodatno određuje o kome uopće govorimo. Anketa provedena među kolegama s
-istog studija opisuje samo njih, a ne mlade ljude, ne studente i ne populaciju.
-Poglavlje o uzorkovanju pokazuje zašto ta granica ne ovisi o broju ispitanika,
-pa ni tisuću prikupljenih odgovora iz iste dvorane ne proširuje zaključak izvan
-te dvorane.
+Način uključivanja ispitanika određuje na koga se rezultat može odnositi.
+Prigodna anketa među kolegama sa studija nema sama po sebi osnovu za zaključak
+o svim studentima ili mladima. Veći broj odgovora iz istog ograničenog kruga
+ne rješava selekciju.
 
-Mjere biramo prije prikupljanja i o njima ovisi više nego o modelu. Dnevno
-vrijeme na mrežama možemo pitati izravno, tražiti iz zaslonskog izvještaja
-uređaja ili procijeniti iz broja otvaranja aplikacije i te tri mjere ne daju
-iste brojke. Samoprocjenu je lako prikupiti, ali bez zasebne provjere ne znamo
-kolika je njezina pogreška ni ovisi li o stvarnom vremenu uporabe. Poglavlje o
-mjerenju i dizajnu objašnjava zašto se takva nepoznanica prenosi u svaki
-kasniji rezultat, pa način mjerenja mora stajati u izvještaju uz svaku brojku
-koja iz njega nastaje.
+Mjere biramo prije prikupljanja. Dnevnu uporabu možemo mjeriti samoprocjenom,
+očitati iz izvještaja uređaja ili približno opisati brojem otvaranja
+aplikacije. Te mjere nisu jednake. Samoprocjenu je lako prikupiti, ali bez
+provjere ne znamo veličinu ni obrazac njezine pogreške. U izvještaju zato
+jasno opisujemo način mjerenja.
 
-Veličinu uzorka planiramo polazeći od potrebne preciznosti, a zatim provjeravamo
-možemo li toliko ljudi uključiti. Poglavlje o veličini učinka i
-snazi pokazuje kako se iz željene širine intervala dobiva broj jedinica i taj
-račun radimo prije prikupljanja. Ako račun pokaže da je potreban uzorak izvan
-dosega, to je nalaz koji mijenja pitanje i bolje ga je imati na početku nego u
-raspravi na kraju.
+Veličinu uzorka planiramo prema željenoj preciznosti i pretpostavkama o
+podacima. Potom provjeravamo izvedivost. Ako traženi broj nije dostupan,
+prilagodimo plan ili doseg pitanja prije prikupljanja.
 
-Plan analize pišemo prije nego što vidimo ishod i u njemu razdvajamo dvije
-vrste odluka. Potvrđujuće odluke donesene su unaprijed i obuhvaćaju glavno
-pitanje, glavni model i način postupanja s nedostajućim odgovorima.
-Istraživačke odluke nastaju iz onoga što u podacima zateknemo i one su
-dopuštene sve dok se u izvještaju tako i imenuju.
+U jednostavnom hipotetskom planu za srednju ocjenu povjerenja pretpostavimo
+standardnu devijaciju od 2 boda i ciljnu marginu od 0,5 boda za 95-postotni
+interval. Normalna aproksimacija daje
+$n \approx (1,96 \times 2 / 0,5)^2 = 61,47$,
+pa početni plan traži najmanje 62 potpuna odgovora. Taj račun pretpostavlja
+neovisni slučajni uzorak i zadanu standardnu devijaciju. Neodaziv i
+prigodni odabir traže zasebnu procjenu.
 
-Poglavlje o krizi i obnovi opisuje što se događa kada ta razlika nestane, jer
-isti skup podataka može sadržavati i drugi način analize koji daje zanimljiviji
-rezultat. Zapisan plan ne sprječava
-nikoga da pogleda i drugo, nego sprječava da se drugo poslije predstavi kao
-prvo.
+U planu unaprijed zapisujemo glavno pitanje, model i postupanje s nedostajućim
+odgovorima. Naknadne odluke također su dopuštene, ali ih u izvještaju
+označujemo kao istraživačke.
+
+Možemo isprobati i analizu koju nismo planirali. Zapis nam omogućuje da je
+jasno razlikujemo od prvotnog postupka, kako smo naučili u poglavlju o krizi i
+obnovi.
 
 ## Podaci i zapis odluka
 
-Podatke pribavljamo ili prikupljamo i u oba slučaja nastaje zapis koji putuje
-uz njih. Bilježimo odakle su došli, pod kojom licencom, kada su preuzeti ili
-prikupljeni i po kojem su postupku ljudi ušli u uzorak. Bez tog zapisa nijedan
-kasniji broj ne može se provjeriti, jer se ne zna ni na koga se odnosi.
+Uz podatke bilježimo izvor, verziju, licencu, datum preuzimanja ili
+prikupljanja i način uključivanja jedinica. Taj zapis omogućuje provjeru
+podrijetla i obuhvata rezultata.
 
-Prije modela zaključavamo analitičku tablicu. Za simuliranu studiju zapis je
-kratak, ali nijedno polje nije preskočeno.
+Prije procjene modela spremamo konačnu analitičku tablicu i opis njezina
+nastanka. Za naš simulirani primjer zapis izgleda ovako.
 
 | Odluka | Provedba u glavnoj studiji | Na što bi drukčija odluka utjecala |
 |---|---|---|
@@ -164,20 +208,16 @@ kratak, ali nijedno polje nije preskočeno.
 
 : Revizija konstrukcije analitičke tablice prije gledanja procjene. Izrada autora.
 
-Izvornu datoteku ne mijenjamo nikada. Svaki popravak, svako preimenovanje i
-svako isključivanje događa se u koraku koji se može ponovno izvesti nad
-netaknutim izvornikom, pa se rezultat u svakom trenutku može vratiti na
-početak. Datoteka u koju se ručno upisivalo prestala je biti podatak i postala
-je tvrdnja bez izvora.
+Izvornu datoteku čuvamo neizmijenjenu. Popravke, preimenovanja i isključenja
+provodimo u odvojenim, dokumentiranim koracima koje možemo ponoviti. Tako se
+svaka vrijednost može pratiti do izvora.
 
-Osjetljive varijable prepoznajemo na početku, a ne kad ustreba. Ime, kontakt,
-točna adresa, otvoreni odgovori u kojima se netko opisuje i kombinacije
-obilježja po kojima se pojedinac može prepoznati u maloj skupini traže odluku o
-tome hoće li uopće ući u analizu. Poglavlje o mjerenju i dizajnu obrazlaže zašto
-minimizacija nije formalnost, a Dodatak F daje pravila koja knjiga primjenjuje.
+Na početku pregledavamo imena, kontakte, adrese, otvorene odgovore i
+kombinacije obilježja koje mogu otkriti osobu. Odlučujemo jesu li potrebni i
+kako ih smijemo koristiti. Pravila ovog projekta povezana su s poglavljem o
+mjerenju i Dodatkom F.
 
-Čišćenje je zatim niz odluka od kojih svaka mora imati razlog koji netko drugi
-može pregledati.
+Pri čišćenju za svaku promjenu zapisujemo razlog.
 
 1. Provjeravamo nedostajuće vrijednosti i bilježimo koliko ih je i gdje su.
 2. Tražimo nemoguće vrijednosti, dakle dob od dvjesto godina ili udio veći od
@@ -187,238 +227,282 @@ može pregledati.
 4. Za svako isključeno opažanje zapisujemo razlog prije nego što smo vidjeli
    kako to isključenje mijenja rezultat.
 
-Naša simulirana anketa obuhvaća `r s18$n` ispitanika, nema nijednu nedostajuću
-vrijednost i sve vrijednosti leže unutar mogućih raspona, pri čemu se dnevno
-vrijeme kreće od `r hr_broj(s18$minute_min, 0)` do
-`r hr_broj(s18$minute_max, 0)` minuta. Stvarna datoteka može biti manje uredna,
-pa korak provjere ostaje dio analize i onda kad ništa ne pronađe.
+Vraćamo se na istih 300 zapisa iz opisnih poglavlja, bez novog izvlačenja.
+Generator određuje četiri dobne skupine i unutar njih zasebno stvara minute
+i povjerenje. Ne mijenjamo zapise pri povratku na istraživačko pitanje.
+Provjera pripreme zato uspoređuje izvorne vrijednosti s dopuštenim rasponima
+i potvrđuje da je u analizu ušlo svih 300 osoba (Šikić, 2026).
 
-Nedostajući odgovori u stvarnom radu traže odluku koja se donosi prije nego što
-se vidi kako utječe na rezultat. Isključivanje svakog ispitanika koji je
-preskočio jedno pitanje smanjuje uzorak i može mijenjati njegov sastav, pa
-nasumičnost preskakanja ne smijemo pretpostaviti bez dokaza. Najskromniji
-pošten postupak jest izvijestiti koliko odgovora nedostaje po varijabli,
-provesti glavnu analizu na potpunim odgovorima i navesti da je to učinjeno.
-Takav postupak ne uklanja pristranost nedostajanja i može promijeniti skup koji
-analiza opisuje, pa tu granicu prenosimo u zaključak.
+Simulirana anketa ima `r s18$n` ispitanika, bez nedostajućih vrijednosti. Svi
+su odgovori u dopuštenim rasponima. Dnevno vrijeme ide od `r hr_broj(s18$minute_min, 0)` do
+`r hr_broj(s18$minute_max, 0)` minuta. Provjeru bilježimo i kada ne pronađemo problem.
+
+Za nedostajuće odgovore unaprijed određujemo postupak. Brisanje svih
+nepotpunih redaka smanjuje uzorak i može promijeniti njegov sastav. Ne
+pretpostavljamo da odgovori nedostaju slučajno. Ako analiziramo samo potpune
+retke, prikazujemo koliko vrijednosti nedostaje po varijabli i navodimo tu
+odluku. Takva analiza može ostati pristrana i opisivati uži skup, što treba
+prenijeti u zaključak.
 
 ## Opis i graf prije modela
 
-Prvi rezultat svakog izvještaja opisuje tko je u uzorku, jer bez toga čitatelj
-ne može procijeniti nijednu kasniju brojku. Prosječna dob je
-`r hr_broj(s18$dob_prosjek, 1)` godina, prosječno dnevno vrijeme
-`r hr_broj(s18$minute_prosjek, 1)` minuta uz medijan od
-`r hr_broj(s18$minute_medijan, 0)`, a prosječno povjerenje
-`r hr_broj(s18$povjerenje_prosjek, 2)` boda uz standardnu devijaciju
-`r hr_broj(s18$povjerenje_sd, 2)`.
+Nakon provjere zapisa najprije opisujemo sastav simuliranog uzorka te
+raspodjele vremena i povjerenja. Taj će nam pregled pomoći protumačiti odnos
+vremena i povjerenja prije nego što ga sažmemo jednim koeficijentom.
+Primjerice, za minute zbrajamo svih 300 odgovora i dobivamo
+`r hr_broj(sum(anketa_mreze$minute_dnevno), 0)`. Dijeljenjem s 300 nastaje sredina,
+dok medijan dobivamo iz 150. i 151. vrijednosti nakon poredanja. U tablici
+po dobi ponavljamo isti postupak unutar svake skupine, koristeći njezin
+broj osoba kao nazivnik.
 
-Razlika između prosjeka i medijana vremena nije sitnica nego nalaz. U ovoj je
-simuliranoj anketi raspodjela desno asimetrična, pa prosjek povlači manjina
-ispitanika s vrlo visokim vrijednostima. Poglavlje o sažimanju podataka na tome
-inzistira i posljedica za ovaj izvještaj jest da uz prosjek stoji i medijan.
+Prosječna dob iznosi `r hr_broj(s18$dob_prosjek, 1)` godina. Dnevno vrijeme ima prosjek
+`r hr_broj(s18$minute_prosjek, 1)` minuta i medijan `r hr_broj(s18$minute_medijan, 0)`. Prosječno povjerenje iznosi
+`r hr_broj(s18$povjerenje_prosjek, 2)` boda, uz standardnu devijaciju `r hr_broj(s18$povjerenje_sd, 2)`.
+
+Prosjek vremena veći je od medijana jer je raspodjela desno asimetrična.
+Manjina visokih vrijednosti podiže prosjek. Zato prikazujemo obje mjere.
 
 *Slika. Opis simuliranog uzorka po dobnim skupinama, s prosječnim dnevnim vremenom i prosječnim povjerenjem. Izrada autora.*
 
-Tablica po skupinama nosi više informacija od bilo kojeg zbirnog prosjeka.
-S porastom dobi dnevno vrijeme pada s
-`r hr_broj(s18$minute_najmladi, 1)` minuta u najmlađoj skupini na
-`r hr_broj(s18$minute_najstariji, 1)` u najstarijoj, a povjerenje s
-`r hr_broj(s18$povjerenje_najmladi, 2)` na
-`r hr_broj(s18$povjerenje_najstariji, 2)` boda. Tu činjenicu zapisujemo prije
-nego što smo izračunali ijednu povezanost.
+Po dobnim skupinama vidi se dodatni obrazac. Dnevno vrijeme pada s `r hr_broj(s18$minute_najmladi, 1)`
+minuta među najmlađima na `r hr_broj(s18$minute_najstariji, 1)` među najstarijima. Povjerenje pada s
+`r hr_broj(s18$povjerenje_najmladi, 2)` na `r hr_broj(s18$povjerenje_najstariji, 2)` boda. Obje mjere povezane su s dobi.
 
-Graf ne služi ukrasu izvještaja nego ranoj provjeri znakova problema koje bi
-model inače mogao sakriti. Gledamo ima li odnos oblik koji pravac može opisati,
-postoje li opažanja koja sama povlače nagib i mijenja li se raspršenost duž
-raspona. Pretpostavke višestrukoga modela time nisu iscrpljene.
+Grafom provjeravamo oblik odnosa, utjecaj krajnjih opažanja i promjene
+raspršenosti. Time započinjemo dijagnostiku, ali još nismo provjerili sve
+pretpostavke višestrukog modela.
 
-*Slika. Dnevno vrijeme na mrežama i izjavljeno povjerenje u simuliranom uzorku, s pravcem najmanjih kvadrata i točkama razdvojenima po dobnoj skupini.*
+*Slika. Dnevno vrijeme na mrežama i izjavljeno povjerenje u simuliranom uzorku, s pravcem najmanjih kvadrata i točkama razdvojenima po dobnoj skupini. Izrada autora; podaci i postupak opisani su u tekstu.*
 
-Pravac blago raste. Da smo stali ovdje, izvijestili bismo o pozitivnoj
-povezanosti. Oznake po dobnim skupinama pokazuju odakle taj rast dolazi, jer skupine zauzimaju različite
-dijelove grafa, mlađi desno i visoko, stariji lijevo i nisko. Unutar pojedine
-skupine oblak nema uzlazan oblik, a povezanost mjerena zasebno po skupinama
-kreće se od `r hr_broj(s18$veza_min, 2)` do `r hr_broj(s18$veza_max, 2)`.
+Zbirni pravac blago raste. Dobne oznake pokazuju da su mlađi uglavnom desno i
+više, a stariji lijevo i niže. Unutar dobnih skupina nema istog uzlaznog
+obrasca. Zasebne korelacije kreću se od `r hr_broj(s18$veza_min, 2)` do `r hr_broj(s18$veza_max, 2)`.
 
-Poglavlje o povezanosti isti je obrazac pokazalo na koeficijentu korelacije, a
-poglavlje o regresiji na nagibu. Ovdje smo ga vidjeli prije nego što je bilo
-koji od tih brojeva izračunat i to je razlog zbog kojeg graf ide ispred modela
-a ne iza njega.
+Sličan smo odnos unutar skupina i ukupno vidjeli u poglavljima o povezanosti i
+regresiji. Ovdje ga graf otkriva prije modela i pomaže nam odabrati smislenu
+usporedbu.
+
+Zasebni paneli omogućuju da zbirni obrazac usporedimo s odnosom unutar
+svake skupine. Koristimo iste osi, a naslov svakog panela daje broj osoba
+i Pearsonovu korelaciju. Pravac je procijenjen zasebno u svakom panelu.
+
+*Slika. Odnos vremena i povjerenja unutar dobnih skupina istoga simuliranog uzorka. Izrada autora.*
 
 ## Model i promjena procjene
 
-Model postavljamo prema pitanju, ne prema onome što je dostupno. Ishod je
-povjerenje, prediktor je dnevno vrijeme, a dob uključujemo jer je sadržajno
-opravdano očekivati da bude povezana i s vremenom i s povjerenjem.
+Na grafu smo vidjeli zašto zbirni odnos vremena i povjerenja treba usporediti s
+odnosom pri jednakoj dobi. U primarnom modelu zato zadržavamo ranije
+postavljeno pitanje, s povjerenjem kao ishodom i dnevnim vremenom kao glavnim
+prediktorom. Dob uključujemo prema unaprijed obrazloženoj pretpostavci da je
+povezana s objema mjerama. Tako ćemo moći odvojeno pročitati zbirnu i dobno
+prilagođenu procjenu.
 
-Funkcija `rbind` slaže dva reda jedan ispod drugoga, a `confint` uz svaku
-procjenu vraća granice intervala pouzdanosti iz poglavlja o procjeni. Ispis
-namjerno ne sadrži p-vrijednosti, jer procjena i njezin raspon dolaze prvi.
+Prije sažetka nagiba možemo pogledati predviđanja za tri postojeća retka
+simulirane ankete. Predviđanja obaju modela dobivamo uvrštavanjem istih
+minuta, a u primarnom modelu i dobi. To nisu novi odgovori ispitanika.
+
+*Slika. Ista opažanja u zbirnom i dobno prilagođenom modelu. Izrada autora.*
+
+Primarni model trećoj osobi pridružuje
+`r hr_broj(fitted(m18_uz_dob)[3], 2)` umjesto opaženih
+`r anketa_mreze$povjerenje[3]` bodova. Opaženo minus predviđeno daje rezidual
+`r hr_broj(resid(m18_uz_dob)[3], 2)`. Taj rezidual i preostalih 299
+reziduala ulaze u račun prilagodbe i nesigurnosti koeficijenata.
+Interval za nagib po minuti nastaje dodavanjem i oduzimanjem standardne
+pogreške `r hr_broj(summary(m18_uz_dob)$coefficients["minute_dnevno", "Std. Error"], 4)`
+pomnožene kritičnom t-vrijednošću uz `r df.residual(m18_uz_dob)` stupnjeva
+slobode. Množitelj t čitamo kao u poglavlju o dvjema grupama. On određuje
+granicu središnjih 95 % referentne raspodjele pri tim stupnjevima slobode.
+Taj račun pretpostavlja prikladan linearni model i zajedničku
+rezidualnu varijancu. Njime ne provjeravamo te pretpostavke.
+
+Prvi model uključuje dob, a drugi pokazuje kako se procjena mijenja kada je
+izostavimo. Poziv `rbind` spaja njihove rezultate u dva retka, dok
+`confint` daje granice intervala. Taj ispis izražava razliku po jednoj
+dodatnoj minuti. U sljedećoj tablici i procjenu i obje granice množimo s
+trideset kako bismo ih čitali za pola sata više dnevnog vremena, bez promjene
+samih modela.
 
 *Slika. Procijenjena razlika u povjerenju uz trideset minuta više dnevnog vremena, u dvama modelima, s 95 % intervalima pouzdanosti. Izrada autora.*
 
-Primarna analiza procjenjuje povezanost nakon linearne, aditivne prilagodbe za
-dob. To nije uparivanje ljudi ni nasumična dodjela. Procijenjena razlika uz
-trideset minuta više dnevnog vremena iznosi
-`r hr_broj(s18$uz_dob_30, 2)` boda, uz 95 % interval od
-`r hr_broj(s18$uz_dob_30_donja, 2)` do
-`r hr_broj(s18$uz_dob_30_gornja, 2)`. Interval obuhvaća male razlike u oba
-smjera, pa ne dokazuje odsutnost povezanosti.
+Primarna analiza uspoređuje modelom predviđeno povjerenje pri jednakoj dobi, uz
+linearnu i aditivnu prilagodbu. Kao što smo vidjeli u regresiji, takav zapis ne
+uparuje ljude niti nasumično dodjeljuje uporabu mreža. Uz trideset minuta više
+dnevnog vremena procijenjena razlika iznosi `r hr_broj(s18$uz_dob_30, 2)` boda, uz 95 %
+interval od `r hr_broj(s18$uz_dob_30_donja, 2)` do `r hr_broj(s18$uz_dob_30_gornja, 2)`. Interval dopušta male razlike u
+oba smjera.
 
-Provjera osjetljivosti izostavlja dob. Tada procjena iznosi
-`r hr_broj(s18$zbirni_30, 2)` boda, uz 95 % interval od
-`r hr_broj(s18$zbirni_30_donja, 2)` do
-`r hr_broj(s18$zbirni_30_gornja, 2)`, koji nulu ne obuhvaća. Obje analize
-opisuju istih 300 simuliranih ljudi, ali ne podupiru istu sadržajnu rečenicu.
-Alternativa pokazuje koliko zaključak ovisi o unaprijed obrazloženoj odluci da
-se dob zadrži u modelu; nije izabrana zato što daje poželjniji rezultat.
+Za provjeru osjetljivosti izostavljamo dob i vraćamo se zbirnoj usporedbi, u
+kojoj se s vremenom na mrežama može mijenjati i dobni sastav. Procjena tada
+iznosi `r hr_broj(s18$zbirni_30, 2)` boda, uz 95 % interval od `r hr_broj(s18$zbirni_30_donja, 2)` do
+`r hr_broj(s18$zbirni_30_gornja, 2)`, bez nule. Isti podaci o 300 osoba daju drukčiju usporedbu.
+Alternativa pokazuje važnost uključivanja dobi za tumačenje. Nismo je odabrali
+da zamijeni primarnu analizu poželjnijim rezultatom.
 
-Glavna studija ostaje objasnidbena. Pita kako se procjena povezanosti mijenja
-kad se povezanost procijeni uz linearnu, aditivnu prilagodbu za dob, a ne koliko
-dobro pravilo predviđa novoga ispitanika. Zato joj ne trebaju skupovi za učenje i ispitivanje,
-klasifikacijski pragovi ni pogreške po podskupinama. Njihovo izostavljanje nije
-zaborav nego granica pitanja. Prediktivni alat ne može proširiti presječni
-dizajn u uzročnu tvrdnju.
+Ovdje opisujemo povezanost uz prilagodbu za dob. Ne provjeravamo predviđanje
+novih osoba, pa ne uvodimo skupove za učenje i ispitivanje ni klasifikacijske
+pragove. Presječni nacrt također ne daje uzročno značenje prilagođenom
+koeficijentu.
+
+Izostavljanje dobi ispituje njezinu važnost, ali ne provjerava je li linearni
+dobni član prikladan. Zato dodajemo drugu, ciljanu provjeru. Dob zamjenjujemo
+dobnim skupinama koje koristi generator. Svaka skupina dobiva vlastiti
+odsječak, a nagib uz minute ostaje zajednički. Ta provjera koristi poznato
+pravilo nastavnih podataka; u stvarnom istraživanju takvo pravilo ne bismo
+znali unaprijed.
+
+Sljedeća tablica zadržava iste osobe i pokazuje promjenu procjene pri
+zamjeni linearnoga dobnog člana skupinama. Oba intervala i dalje počivaju
+na modelu sa zajedničkom rezidualnom varijancom.
+
+*Slika. Provjera oblika prilagodbe za dob. Razlike i intervali odnose se na 30 minuta više dnevno. Izrada autora.*
+
+Reziduale obaju modela također uspoređujemo. Sustavno zakrivljenje ili
+promjena raspršenosti upozorili bi da sama zamjena dobnog člana nije
+dovoljna. Prikaz je dijagnostička provjera, a ne dokaz da su pretpostavke
+ispunjene.
+
+*Slika. Reziduali dviju prilagodbi za dob. Izrada autora.*
+
+Koeficijent $R^2$ iz ranije tablice izračunat je kao
+$1-\sum_i(y_i-\hat y_i)^2/\sum_i(y_i-\bar y)^2$. Brojnik je zbroj kvadrata
+reziduala, a nazivnik zbroj kvadrata odstupanja od ukupne sredine. On
+opisuje prilagodbu ovim podacima, ne uzročni udio ni uspjeh predviđanja
+novih osoba. Ovaj završni primjer namjerno prati jedan regresijski model
+i njegovu dokumentaciju; ne pokušava primijeniti svaki postupak iz knjige.
+
+U dijagramima ostataka kose usporedne trake nastaju zato što povjerenje ima
+cjelobrojne vrijednosti od jedan do deset. Za svaku od njih ostatak je ta vrijednost
+umanjena za predviđanje. Dobne skupine bolje prate poznato pravilo nastanka
+ovih simuliranih podataka; razlika dviju procjena za minute pokazuje koliko
+linearna prilagodba dobi može ostaviti dio skupnog obrasca u tom koeficijentu.
+Ni jedan model time nije postao uzročna analiza.
 
 ## Zaključak koji uzorak podnosi
 
-Zaključak pišemo tako da svaka rečenica ima pokriće u broju koji smo ispisali.
-Među simuliranim ispitanicima zbirni model povezuje trideset minuta više
-dnevnog vremena s `r hr_broj(s18$zbirni_30, 2)` boda višim povjerenjem, uz
-95 % interval od `r hr_broj(s18$zbirni_30_donja, 2)` do
-`r hr_broj(s18$zbirni_30_gornja, 2)`. Nakon linearne prilagodbe za dob
-procijenjena razlika iznosi `r hr_broj(s18$uz_dob_30, 2)` boda, uz 95 % interval od
-`r hr_broj(s18$uz_dob_30_donja, 2)` do
-`r hr_broj(s18$uz_dob_30_gornja, 2)`.
+Zaključak povezuje oba računa. U zbirnom modelu trideset minuta više dnevne
+uporabe povezano je s `r hr_broj(s18$zbirni_30, 2)` boda višim povjerenjem, uz 95 % interval od
+`r hr_broj(s18$zbirni_30_donja, 2)` do `r hr_broj(s18$zbirni_30_gornja, 2)`. Uz linearnu prilagodbu za dob razlika iznosi `r hr_broj(s18$uz_dob_30, 2)`
+boda, uz interval od `r hr_broj(s18$uz_dob_30_donja, 2)` do `r hr_broj(s18$uz_dob_30_gornja, 2)`.
 
-Nesigurnost navodimo uz procjenu, a ne u zasebnom odlomku o ograničenjima.
-Interval prilagođene procjene isključuje razlike veličine zbirne procjene u oba
-smjera, ali mali učinak bilo kojeg predznaka ostaje uskladiv s podacima.
-Zaključak o odsutnosti povezanosti zato je jači od onoga što uzorak od
-`r s18$n` ljudi može ponuditi.
+Istu linearnu procjenu drugdje prikazujemo na tri decimale,
+`r hr_broj(s18$uz_dob_30, 3)`. Razlika između prikaza −0,01 i −0,008 posljedica
+je zaokruživanja iste vrijednosti, a ne novog računa.
 
-Izbjegavamo i suprotnu pogrešku, koja se lako pomiješa s opreznošću. Nizanje
-uvjetnih izraza o tome kako bi možda moglo postojati nešto što bi eventualno
-upućivalo na nekakvu vezu ne čini izvještaj poštenijim nego neodređenijim.
-Jasna tvrdnja sa svojim rasponom nosi više informacija od svakog omekšavanja.
+Nesigurnost navodimo uz brojku. Prilagođeni interval isključuje razlike
+veličine zbirne procjene u oba smjera, ali dopušta male pozitivne i negativne
+vrijednosti. Uzorak od `r s18$n` osoba zato ne dokazuje potpunu odsutnost
+povezanosti.
 
-Procjena blizu nule pritom nije neuspjeh projekta. Studija koja je intervalom
-isključila velike učinke odgovorila je na svoje pitanje, a studija čiji je
-interval preširok da bi ih isključio pokazala je granice vlastite preciznosti i to
-treba napisati. Poglavlje o logici testiranja i poglavlje o veličini učinka
-razdvajaju ta dva slučaja i razlika među njima vidi se u širini intervala, ne u
-p-vrijednosti.
+Ograničenje treba napisati jasno. Umjesto niza riječi „možda” i „eventualno”,
+navodimo procjenu, interval i pretpostavku o kojoj zaključak ovisi.
 
-Simulirana anketa ima prednost koju stvarno istraživanje nema. Znamo po kojem je
-pravilu nastala. Izravne veze između vremena i povjerenja u tom pravilu nema,
-a obje mjere ovise o dobi. Zaključak koji zadržava male učinke oba predznaka
-stoga je uskladiv s poznatim generatorom. Zaključak samo iz neprilagođene
-procjene bio bi pogrešan.
+Procjena blizu nule može biti koristan rezultat. Uzak interval može isključiti
+razlike veće od unaprijed opravdanoga sadržajnog praga, dok širok
+može pokazati da preciznost za tu odluku nije dovoljna. U ovome primjeru
+takav prag nismo zadali, pa blizinu nule ne proglašavamo sadržajnom nevažnošću. Ta dva
+ishoda razlikujemo prema veličinama koje interval dopušta.
 
-Ta prednost istodobno pokazuje što u stvarnom radu nedostaje. Nikakva analiza
-nije mogla utvrditi da veze nema, jer je i najbolji model dao samo raspon
-vrijednosti koje su s podacima uskladive. Znanje o generatoru došlo je izvana, a
-u istraživanju tu ulogu preuzimaju dizajn, teorija i ranija mjerenja i to je
-razlog zbog kojeg se o njima raspravlja koliko i o rezultatu.
+U simulaciji znamo da generator nema izravnu vezu vremena i povjerenja. Obje
+mjere ovise o dobi. Prilagođeni interval uskladiv je s tim pravilom. Zbirni
+odnos postoji, ali njegovo tumačenje kao izravne veze zanemarilo bi dob.
 
-Izvještaj slijedi redoslijed koji čitatelju omogućuje da u svakom trenutku
-prekine i zna gdje je stao. Najprije iznosimo pitanje i njegovu vrstu, zatim
-opis uzorka i postupka prikupljanja, mjere i njihovu operacionalizaciju, opis
-podataka te analizu s procjenama i intervalima, a na kraju tumačenje s granicom
-generalizacije.
-Svaka tablica i svaki graf nose oznake, jedinice i izvor. Broj ispitanika stoji
-uz svaku brojku koja se na njih odnosi, a ne samo u odjeljku o uzorku. Nijedan
-graf nema skraćenu os bez izričite napomene, jer poglavlje o vizualizaciji
-pokazuje da je skraćivanje osi tvrdnja o podacima.
+Znanje o generatoru dobili smo izvan samog računa. Model je dao raspon
+uskladivih vrijednosti, bez dokaza da je koeficijent točno nula. U stvarnom
+radu zato uz rezultat trebamo nacrt, teoriju i prethodna mjerenja.
 
-Uz izvještaj predajemo ono što je potrebno da netko drugi ponovi račun, dakle
-podatke ako ih smijemo dijeliti, opis njihova podrijetla, skriptu koja iz njih
-proizvodi svaku tablicu i svaki graf te bilješku o uporabi asistenta. Provjera
-je jednostavna, jer skripta mora proći u čistoj sesiji na tuđem računalu.
+Izvještaj počinjemo pitanjem i njegovom vrstom. Opisujemo uzorak, prikupljanje
+i mjere, zatim podatke i analizu s procjenama i intervalima. Završavamo
+tumačenjem i granicama prijenosa. Tablice i grafovi trebaju jasne oznake,
+jedinice, izvore i broj opažanja na koji se odnose. Skraćenu os izričito
+označujemo.
 
-Usmeno izlaganje traži drukčiji izbor od pisanog rada. U petnaest minuta stane
-pitanje, način prikupljanja, jedan graf, jedna procjena s rasponom i jedna
-rečenica o tome što studija ne može reći, dok tablica koeficijenata i opis
-čišćenja ostaju u izvještaju. Sadržaj koji se ne može objasniti bez čitanja
-teksta sa zaslona obično nije razumljiv ni u pisanom obliku.
+Uz izvještaj predajemo dopuštene podatke, njihovo podrijetlo, ponovljiv
+postupak za tablice i grafove te zapis o asistentu. Reprodukciju provjeravamo
+u čistoj R sesiji ili novom projektu alata bez koda, po mogućnosti na drugom
+računalu.
 
-Na kraju pišemo kratak osvrt na ono što bismo napravili drukčije. Nije riječ o
-uljudnosti prema nastavniku nego o najkorisnijem dijelu prvog istraživanja, jer
-se odluke koje su se pokazale skupima pamte samo ako se zapišu. Na tom se
-popisu mogu naći mjera koja je izabrana prebrzo i uzorak o kojem se
-razmišljalo prekasno.
+Za petnaestominutno izlaganje izdvajamo pitanje, način prikupljanja, jedan
+važan graf, procjenu s intervalom i glavno ograničenje. Detaljne koeficijente
+i čišćenje ostavljamo u izvještaju. Cilj je da publika razumije rezultat i bez
+čitanja cijelog rada.
 
-## Omeđeni empirijski prijenos
+Na kraju zapisujemo što bismo promijenili u sljedećem istraživanju. Korisno je
+imenovati konkretnu odluku, primjerice prebrzo odabranu mjeru ili prekasno
+planiran uzorak, i objasniti kako bismo je drukčije riješili.
 
-Poznata istina simulirane studije bila je nastavna prednost. Sada isti
-redoslijed pitanja, dizajna i granice tvrdnje prenosimo na stvarne podatke, bez
-nove metode. Uzimamo hrvatski dio paketa ParlaSent 1.0, koji smo već rabili u
-poglavlju o algoritmima za reviziju oznaka (Mochtak, 2023; Mochtak, 2024). Jedinica
-je označena rečenica. Pitanje je što ovaj pripremljeni paket dopušta reći o
-zabilježenim oznakama i njihovu putu nastanka.
+## Provjera na stvarnim podacima
 
-| Polje putovnice | Zapis za prijenos |
+Simulacija nam je dopustila da zaključak usporedimo s poznatim pravilom
+nastanka podataka. Kako ćemo provjeriti vlastiti postupak kada to pravilo
+nemamo? Vraćamo se stvarnim rečenicama iz hrvatskog dijela ParlaSenta 1.0
+(Mochtak, 2023; Mochtak, 2024). Svaki redak predstavlja jednu
+parlamentarnu rečenicu s oznakom tona, pa trebamo drukčije pitanje od
+prethodnog odnosa vremena i povjerenja. Provjerit ćemo kako su rečenice
+odabrane i označene, opisati raspodjelu oznaka i odrediti što iz njih možemo
+zaključiti.
+
+| Polje putovnice | Opis podataka |
 |---|---|
 | izvor i verzija | ParlaSent 1.0, hrvatski izvadak pripremljen 18. kolovoza 2026. |
 | prava | CC BY-SA 4.0; atribucija, oznaka promjena i obveza dijeljenja pod istim uvjetima putuju uz izvedenu datoteku |
 | jedinica | jedna odabrana i označena parlamentarna rečenica |
-| obuhvat | `r s18_prijenos$n` redaka iz `r s18_prijenos$dokumenti` dokumenata; nije uzorak svih parlamentarnih rečenica, govornika ni stavova |
-| put oznake | `r s18_prijenos$dva_kodera` redaka ima dva koderska glasa i usklađenje, a `r s18_prijenos$jedan_koder` jedan uvježbani koderski zapis |
-| razdvajanje | `r s18_prijenos$ucenje` redaka za učenje, `r s18_prijenos$provjera` za provjeru i `r s18_prijenos$ispitivanje` za ispitivanje; preklopljeni dokumenti uklonjeni su s ulazne strane prije razdvajanja |
+| obuhvat | `r hr_broj(s18_prijenos$n, 0)` redaka iz `r hr_broj(s18_prijenos$dokumenti, 0)` dokumenata; nije uzorak svih parlamentarnih rečenica, govornika ni stavova |
+| put oznake | `r hr_broj(s18_prijenos$dva_kodera, 0)` redaka ima dva koderska glasa i usklađenje, a `r hr_broj(s18_prijenos$jedan_koder, 0)` jedan uvježbani koderski zapis |
+| razdvajanje | `r hr_broj(s18_prijenos$ucenje, 0)` redaka za učenje, `r hr_broj(s18_prijenos$provjera, 0)` za provjeru i `r hr_broj(s18_prijenos$ispitivanje, 0)` za ispitivanje; preklopljeni dokumenti uklonjeni su s ulaznih podataka prije razdvajanja |
 | nedostajanje | nedostupni drugi koder, usklađenje i izvorna podjela u ispitnim redcima nose izričit marker, a ne prazninu ili nulu |
 | provjerljivi put | `data/parlament_oznake.csv`, `data/parlament_tekst/PUTOVNICA.md` i `data/parlament-oznake.LICENCA.md` vode do izvora; ista CSV datoteka služi radu u R-u i bez koda te pripremi tiskanog izdanja |
 
-: Putovnica omeđenoga empirijskog prijenosa. Izrada autora prema Mochtak, 2023 i mochtakparlasent2024.
+: Podaci i njihovo podrijetlo u primjeru s ParlaSentom. Izrada autora prema Mochtak, 2023 i mochtakparlasent2024.
 
-Dnevnik transformacija ne skriva populacijske odluke. Odabire samo retke s
-oznakom države `HR`, uklanja 25 redaka za učenje iz 20 dokumenata prisutnih i u
-izvornoj ispitnoj datoteci, preostale dokumente deterministički razdvaja na
-učenje i provjeru te zadržava svih 1.336 izvornih ispitnih redaka. Ne spaja
-govornike, stranke, mandate ni datume, pa paket ne može odgovoriti na pitanja o
-tim jedinicama. U tablici ostaju rečenica, izvorni ključevi, zabilježena oznaka
-i put njezina nastanka.
+Dnevnik bilježi izbor redaka `HR`, uklanjanje 25 redaka iz 20 dokumenata
+koji se pojavljuju i u ispitnom dijelu te ponovljivu podjelu preostalih
+dokumenata. Zadržano je svih 1.336 izvornih ispitnih redaka. Paket ne spaja
+podatke o govornicima, strankama, mandatima ili datumima. Sadrži rečenice,
+izvorne ključeve, oznake i njihov nastanak, pa zaključke ograničavamo na te
+podatke.
 
-Primarni opis broji `r s18_prijenos$negativno` negativnih,
-`r s18_prijenos$neutralno` neutralnih i `r s18_prijenos$pozitivno` pozitivnih
-zabilježenih oznaka. Nazivnik je uvijek svih `r s18_prijenos$n` redaka u
-pripremljenom paketu. To nisu procjene raspoloženja parlamenta. Selekcija
-rečenica i postupak označivanja određuju što je ušlo u brojnik i nazivnik.
+Za ovaj opis ponovno koristimo svih 2.698 pripremljenih rečenica, a ne
+samo 272 iz usporedbe pragova u prethodnom poglavlju o algoritmima. Svaka oznaka `Negative` povećava
+brojač negativnih za jedan, neovisno o podjeli za učenje ili provjeru.
+Podjela prema putu oznake poslije razdvaja ta ista brojanja prema tome je
+li oznaku dao jedan koder ili dva kodera uz usklađenje.
 
-Provjera osjetljivosti razdvaja dva puta nastanka oznake. U dijelu s dvama
-koderima i usklađenjem negativnu oznaku ima
-`r hr_broj(100 * s18_prijenos$dva_kodera_negativno / s18_prijenos$dva_kodera, 1)` %
-redaka, a u dijelu s jednim uvježbanim koderom
-`r hr_broj(100 * s18_prijenos$jedan_koder_negativno / s18_prijenos$jedan_koder, 1)` %.
-Razlika mijenja granicu zaključka. Zbirni udio ne smijemo čitati kao da je
-nastao jednim mjernim postupkom. Ne možemo je pripisati broju kodera, jer se
-dva dijela razlikuju i po izvornim datotekama, dokumentima i selekciji.
+Brojimo `r hr_broj(s18_prijenos$negativno, 0)` negativnih, `r hr_broj(s18_prijenos$neutralno, 0)` neutralnih i `r hr_broj(s18_prijenos$pozitivno, 0)` pozitivnih
+oznaka. Nazivnik je svih `r hr_broj(s18_prijenos$n, 0)` redaka paketa. Ti brojevi opisuju odabrane
+i označene rečenice. Ne procjenjuju raspoloženje parlamenta.
 
-Prijenos zatim primjenjuje reviziju iz poglavlja o algoritmima samo ondje gdje ima
-dokaza. Podrijetlo, put oznake i prelazak istih dokumenata među skupovima mogu
-se provjeriti.
-Pogreške klasifikatora po podskupinama, pomak njegove izvedbe i teret odabranog
-praga ne mogu se provjeriti jer paket ne sadrži zaključan klasifikator, njegove
-vjerojatnosti, obranjive podskupne varijable ni odluke iz postavljenoga
-sustava. To nije praznina koju treba ispuniti pretpostavkom. Kad bi se iz
-oznake gradila odluka o ljudskom pregledu, novi paket dokaza morao bi unaprijed
-imenovati prag i posljedice lažno pozitivnih i lažno negativnih odluka,
-provoditi nadzor na novim i nepregledanim rečenicama te otvoriti vidljiv put
-prigovora i ispravka. Asistent može provjeriti brojnosti i dosljednost zapisa,
-ali ne bira legitimni cilj ni prihvatljiv teret pogreške.
+Kao provjeru osjetljivosti razdvajamo načine označavanja. U dijelu s dva
+kodera i usklađenjem negativno je `r hr_broj(s18_prijenos$dva_kodera_negativno, 0)` od `r hr_broj(s18_prijenos$dva_kodera, 0)` redaka, odnosno `r hr_broj(100 * s18_prijenos$dva_kodera_negativno / s18_prijenos$dva_kodera, 1)` % redaka. U dijelu s jednim
+uvježbanim koderom negativno je `r hr_broj(s18_prijenos$jedan_koder_negativno, 0)` od `r hr_broj(s18_prijenos$jedan_koder, 0)` redaka, odnosno `r hr_broj(100 * s18_prijenos$jedan_koder_negativno / s18_prijenos$jedan_koder, 1)` %. Zbirni udio zato ne dolazi iz
+jednog mjernog postupka. Razliku ne možemo pripisati broju kodera jer se
+dijelovi razlikuju i prema dokumentima i odabiru.
 
-Granica empirijske tvrdnje zato je skromna. Paket opisuje zabilježene oznake,
-njihove nazivnike i dva puta nastanka unutar odabranih redaka. Ne generalizira
-na sav parlamentarni govor, ne vrednuje predviđanje na novim rečenicama, ne
-utvrđuje uzrok tona i ne opravdava institucionalnu odluku. Upravo ta
-razgraničenja, zajedno s putovnicom, dnevnikom, provjerom osjetljivosti i
-sljedećim zapisom uporabe asistenta, čine njegov paket dokaza provjerljivim u
-digitalnom i tiskanom izdanju te računalno ponovljivim u R-u i putem bez koda.
+Ovo je opis konačnog odabranog paketa. Nismo zadali model slučajnog odabira
+neovisnih rečenica, pa uz te postotke ne prikazujemo binomne intervale niti
+procijenjenu uzoračku nesigurnost za širu populaciju.
 
-Za empirijski prijenos asistent je dobio samo javno objavljene zbirne
-brojnosti i polja putovnice, a ne pojedinačne parlamentarne rečenice. Zapis se
-objavljuje uz putovnicu i dnevnik transformacija.
+Možemo provjeriti podrijetlo, nastanak oznaka i prelazak dokumenata među
+skupovima. Ne možemo ocijeniti pogreške klasifikatora, njegove podskupine,
+promjene izvedbe ni posljedice praga jer nemamo takav model, predviđanja i
+odluke iz primjene. Za budući red ljudskog pregleda trebali bismo unaprijed
+odrediti prag, posljedice pogreške, nadzor novih i izostavljenih rečenica te
+prigovor i ispravak. Asistent može provjeriti brojnosti i dosljednost, ali ne
+određuje opravdani cilj ili prihvatljive posljedice.
 
-| Polje objave | Zapis za empirijski prijenos |
+Zaključak se ograničava na oznake, njihove nazivnike i dva načina nastanka
+unutar odabranog paketa. Ne prenosi se na sav parlamentarni govor i ne
+provjerava novi klasifikator, uzrok tona ni institucionalnu odluku. Uz
+putovnicu, dnevnik, alternativnu analizu i zapis o asistentu druga osoba može
+pregledati dokaze i ponoviti račun u R-u ili alatu bez koda.
+
+U ovom empirijskom primjeru asistentu su dane samo javne zbirne brojnosti i
+polja putovnice. Pojedinačne rečenice nisu poslane. Zapis uporabe prilažemo
+putovnici i dnevniku. Podatkovnom trakom označujemo koje okruženje smije primiti podatke s obzirom
+na njihovu osjetljivost. Prvo procjenjujemo podatke,
+a zatim biramo alat koji ih smije primiti.
+
+| Polje objave | Zapis za primjer s ParlaSentom |
 |---|---|
 | sustav, inačica i datum | Codex, GPT-5, 19. kolovoza 2026. |
 | delegirani zadatak | provjera zbrojeva po oznaci i putu označivanja te nacrt granice tvrdnje |
@@ -428,35 +512,68 @@ objavljuje uz putovnicu i dnevnik transformacija.
 | što je ostalo neprovjereno | valjanost oznake, uzvodna selekcija rečenica i prijenos izvan pripremljenoga paketa |
 | odgovorna osoba i mjesto objave | autor koji potpisuje paket; zapis uz putovnicu, dnevnik i izvještaj |
 
-: Objava uporabe asistenta u omeđenom empirijskom prijenosu. Izrada autora.
+: Objava uporabe asistenta u primjeru s ParlaSentom. Izrada autora.
 
-Granica toga opisa vodi prema općenitijem pitanju što pošten izvještaj treba
-staviti u prvi plan.
+U oba primjera završni izvještaj treba jasno pokazati što je procijenjeno i
+pod kojim uvjetima.
 
 **Statistika u divljini.**
-**Izvještaj s procjenom u prvom planu.** Cumming je predložio da se rezultati
-izvještavaju veličinom učinka i intervalom umjesto odlukom o pragu. Taj je
-pristup nazvao novom statistikom (Cumming, 2014). Uz statističku promjenu
-prijedlog mijenja i ono što se u izvještaju stavlja u prvi plan.
+**Izvještaj s procjenom u prvom planu.** Na kraju našega
+nastavnog istraživanja trebamo napisati sažetak koji
+čitatelj može razumjeti bez otvaranja računalnog ispisa.
+Mogli bismo ga svesti na rečenicu da je zbirna veza bila
+značajna, a nakon prilagodbe za dob više nije. Time bismo
+izostavili ono što smo istraživanjem doznali o veličini
+razlike i usporedbi koju pojedini model provodi.
 
-Ono što se u prihvaćanju te preporuke često izgubi jest da interval ne rješava
-pitanje na koje test nije odgovarao. Naša primarna procjena ima 95 % interval oko
-nule i isključuje razlike veličine zbirne procjene u oba smjera, ali o smjeru i
-uzroku ne govori ništa više nego test. Takav izvještaj čitatelju
-daje materijal za prosudbu, dok samu prosudbu i dalje mora napisati autor.
+Cummingov prijedlog nove statistike stavlja procjenu
+učinka, njezin interval i povezivanje dokaza u središte
+izvještavanja (Cumming, 2014). Primijenimo taj prijedlog
+na naš simulirani skup, bez tvrdnje da smo otkrili
+ponašanje stvarnih korisnika (Šikić, 2026).
+Za dodatnih pola sata dnevnog korištenja mreža zbirni
+model procjenjuje razliku od `r hr_broj(s18$zbirni_30, 2)`
+boda povjerenja. Nakon prilagodbe za dob procjena je
+`r hr_broj(s18$uz_dob_30, 3)` boda, uz 95 %
+interval od `r hr_broj(s18$uz_dob_30_donja, 3)` do
+`r hr_broj(s18$uz_dob_30_gornja, 3)` boda.
+
+Drugi račun uspoređuje osobe jednake dobi pod
+pretpostavkama modela. Njegov interval obuhvaća nulu,
+ali je dovoljno uzak da isključi razlike veličine
+zbirne procjene u oba smjera. Zato ne pišemo samo da
+„nema veze”. Možemo reći da prilagođeni rezultat ne
+podupire tako veliku razliku, dok male razlike u oba
+smjera ostaju spojive s podacima i modelom.
+
+To mijenja i odgovor koji bismo dali zamišljenom
+naručitelju zainteresiranom za povjerenje. Iz ove
+analize ne slijedi da bi skraćivanje vremena na
+mrežama promijenilo povjerenje. Za takvu odluku
+nedostaje uzročno opravdanje, a naš skup povrh toga
+služi nastavi. Cummingova preporuka pomaže prikazati
+ono što smo procijenili; interval ne može nadoknaditi
+ograničenje podataka i nacrta.
+
+Završni izvještaj zato povezuje veličinu u razumljivim
+jedinicama, nesigurnost, usporedbu i granicu primjene.
+Čitatelj može vidjeti zašto smo promijenili početno
+tumačenje, a sljedeći istraživač što bi još trebalo
+provjeriti. To je više informacija od završne oznake
+značajnosti, čak i kada konačna odluka ostaje otvorena.
 
 ## Rad s asistentom
 
-Asistent je u ovom projektu koristan na svakom koraku i na svakom koraku
-odgovornost ostaje na osobi koja predaje rad. Ovdje primjenjujemo šest koraka.
-Dodatak F daje njihovu opću granicu za cijelu knjigu.
+Račun i neke provjere možemo delegirati, ali za predani rad odgovara autor.
+Koristimo sljedećih šest koraka, povezanih s pravilima u [Dodatku
+F](../dodaci/f-ai-protokol.qmd#sec-protokol-asistenta).
 
 1. Specificiramo pitanje, vrstu tvrdnje, jedinicu, granicu podataka,
    dopušten zaključak i provjerljivi izlaz.
 2. Delegiramo samo omeđeni račun, nacrt koda ili kritiku za koju su ulaz i
    očekivani oblik izlaza poznati.
-3. Reproduciramo svaki račun u čistoj lokalnoj sesiji, od učitavanja
-   dopuštenih podataka do posljednje tablice.
+3. Reproduciramo svaki račun u čistoj lokalnoj sesiji ili novom projektu alata
+   bez koda, od učitavanja dopuštenih podataka do posljednje tablice.
 4. Osporavamo rezultat jednom obranjivom alternativom i uspoređujemo procjenu,
    interval, sadržajni zaključak i dosegnutu populaciju.
 5. Dokumentiramo što je asistent vratio, što je provjereno, kako je
@@ -464,9 +581,8 @@ Dodatak F daje njihovu opću granicu za cijelu knjigu.
 6. Objavljujemo sustav, inačicu, datum, zadatak, podatkovnu traku, zadržani
    rezultat i odgovornu osobu, sve prema pravilima kolegija ili časopisa.
 
-Objava uporabe ima sadržaj koji se može provjeriti, a ne samo rečenicu da je
-alat korišten. Potvrda provjere sažima tu objavu tako da je netko može pročitati
-bez koda, neovisno o tome slijedi li R ili put bez koda.
+Zapis uporabe treba pokazati što je alat napravio i kako smo to provjerili.
+Potvrda u nastavku čitljiva je i bez koda, neovisno o korištenom alatu.
 
 | Polje potvrde | Zapis za ovaj projekt |
 |---|---|
@@ -474,63 +590,68 @@ bez koda, neovisno o tome slijedi li R ili put bez koda.
 | što je vraćeno | kod za dva modela i nacrt zaključka |
 | što je provjereno | broj redaka, procjene, intervali, podrijetlo podataka i granica tvrdnje |
 | kako je provjereno | čista lokalna sesija, usporedba s tablicom i otvaranje svakoga navedenog izvora |
-| uloga asistenta | instrument za omeđeni račun i pogrešiv analitičar za nacrt; predmet istraživanja samo kad se proučava postavljeni sustav |
+| uloga asistenta | pomaže u računu i nacrtu uz ljudsku provjeru; predmet je istraživanja samo kada proučavamo sam sustav |
 | što je ostalo neprovjereno | valjanost mjere izvan generatora i prijenos na ljude izvan simuliranoga skupa |
 | odgovorna osoba | osoba koja potpisuje pitanje, provjeru i objavljenu tvrdnju |
 
 : Čitljiva potvrda provjere rada s asistentom. Izrada autora.
 
-Zasebna objava uporabe dodaje ime sustava, inačicu ili izričit zapis da nije
-dostupna, datum, podatkovnu traku i točan dio posla u kojem je rezultat zadržan.
+Dodajemo ime sustava, dostupnu inačicu ili napomenu da nije poznata, datum,
+podatkovnu traku i dio rezultata koji smo zadržali.
 
-Politika kolegija, inačica 1.0 od 4. kolovoza 2026., razlikuje tri podatkovne
-trake. U javne alate ulaze samo objavljeni podaci s provjerenim pravima uporabe,
-simulirani i sintetički skupovi te nastavni agregati. Pseudonimizirani radni
-podaci smiju u ugovorno zaštićeni alat samo uz pisani sporazum koji isključuje
-učenje na ulazu i određuje zadržavanje. Posebne kategorije osobnih podataka i
-podaci čiji vlastiti uvjeti pristupa to ne dopuštaju ne ulaze ni u tu traku.
-Ograničeni podaci ostaju u institucionalno odobrenom lokalnom alatu iz kojega
-podaci ne izlaze i pod vlastitim uvjetima pristupa. Zadatak koji uključuje osobne,
-identifikacijske, ograničene ili neraspodjeljive podatke zato mora ponuditi
-sigurnu simuliranu ili agregiranu alternativu.
+Alat biramo prema osjetljivosti podataka i dopuštenim uvjetima uporabe.
+Kao primjer služi politika kolegija uz ovaj udžbenik, inačica 1.0 od
+4. kolovoza 2026. Puni uvjeti nalaze se u [Dodatku
+F](../dodaci/f-ai-protokol.qmd#sec-politika-kolegija).
 
-To je datirana i oprezna politika ovoga kolegija, a ne propis Hrvatskoga
-katoličkog sveučilišta ni pravni zaključak. Ni tvrdnja da je uklanjanje imena
-uvijek dovoljno ni tvrdnja da nikada nije dovoljno ne slijedi iz te politike.
-Empirijski dokaz o mogućnosti ponovne identifikacije tražio bi zaseban izvor i
-zasebnu procjenu; ovdje ga ne izmišljamo.
+U tom primjeru javni alati primaju dopuštene javne, simulirane ili zbirne
+podatke. Za dopuštene pseudonimizirane radne podatke traži se ugovorno
+zaštićen alat, a ograničeni podaci ostaju u institucionalno odobrenom
+lokalnom okruženju. Prije vlastitoga rada provjeravamo pravila svojega
+zadatka i ustanove.
 
-**Pitajte model.**
-Asistent može predložiti analizu, napisati kod, pronaći nedosljednost i
-kritizirati zaključak. Prije toga dobiva vrstu pitanja, dizajn, jedinicu,
-sigurnu strukturu podataka i granicu tvrdnje, a ne automatski cijelu datoteku.
-Njegov kratki analitički sažetak ocjenjujemo istim standardom kojim smo
-napisali svoj.
+Ta datirana politika nije propis Hrvatskoga katoličkog sveučilišta ni
+pravno tumačenje. Uklanjanje imena samo po sebi ne potvrđuje da osobu nije
+moguće prepoznati.
 
-> Radimo s presječnom simuliranom anketom od 300 osoba. Ishod je povjerenje od
-> 1 do 10, prediktor je dnevno vrijeme u minutama, a dob je unaprijed
-> obrazložena prilagodba. Napiši kratak završni analitički sažetak s
-> prilagođenom procjenom za 30 minuta, njezinim 95 % intervalom, sadržajnim
-> zaključkom i jednim određenim ograničenjem koje bi moglo promijeniti procjenu.
-> Ne traži pojedinačne odgovore i ne širi tvrdnju izvan povezanosti u ovom
-> simuliranom skupu.
+Prije predaje provjerimo kako asistent povezuje rezultate s pitanjem
+istraživanja. Završni odlomak treba ostati provjerljiv prema istom paketu
+podataka, odluka i izračuna.
 
 **Nađite grešku.**
-Asistent je vratio traženi kratki sažetak.
+Prije predaje završnog izvještaja usporedite asistentov sažetak s
+rezultatima dvaju modela na istih 300 simuliranih osoba. Oba procjenjuju
+razliku u povjerenju povezanu s trideset minuta više dnevnog vremena na
+društvenim mrežama. Prilagodba za dob bila je unaprijed određena kao
+primarna analiza (Šikić, 2026).
 
-> U simuliranom uzorku, nakon linearne prilagodbe za dob, trideset minuta više dnevnog vremena
-> povezano je s procijenjenom razlikom od `r hr_broj(s18$uz_dob_30, 2)` boda u
-> povjerenju. Zaključak ovisi o linearnoj, aditivnoj prilagodbi za dob; drukčiji
-> oblik dobnoga odnosa mogao bi promijeniti procjenu. 95 % interval od
+| Analiza | Procjena u bodovima | 95 % interval |
+|---|---:|---:|
+| Bez dobi | 0,25 | od 0,09 do 0,40 |
+| Uz linearnu prilagodbu za dob | −0,01 | od −0,19 do 0,17 |
+
+: Rezultati za završnu provjeru izvještaja. Izrada autora prema sikicanketa2026.
+
+Asistent je vratio sljedeći sažetak.
+
+> U simuliranom uzorku, nakon linearne prilagodbe za dob, trideset
+> minuta više dnevnog vremena povezano je s procijenjenom razlikom od
+> `r hr_broj(s18$uz_dob_30, 2)` boda u povjerenju. Zaključak ovisi o
+> linearnoj, aditivnoj prilagodbi za dob; drukčiji oblik dobnoga odnosa
+> mogao bi promijeniti procjenu. 95 % interval od
 > `r hr_broj(s18$uz_dob_30_donja, 2)` do
-> `r hr_broj(s18$uz_dob_30_gornja, 2)` obuhvaća nulu, pa u ovom skupu nema
-> povezanosti vremena i povjerenja.
+> `r hr_broj(s18$uz_dob_30_gornja, 2)` obuhvaća nulu, pa u ovom skupu
+> nema povezanosti vremena i povjerenja.
+
+Pripremite konačan odlomak koji možete potpisati. Zadržite točne brojke
+i ograničenje oblika modela, objasnite što usporedba dviju analiza
+pokazuje i zamijenite nepoduprtu tvrdnju. Dodajte jednu provjeru koju
+biste proveli prije predaje, uz objašnjenje zašto je tražite.
 
 ## Završna revizija paketa dokaza
 
-Paket je potpun tek kad se može čitati kroz svih šest dimenzija tvrdnje. Nije
-cilj da svaka dimenzija dobije pozitivan odgovor, nego da nedostupne tvrdnje
-ostanu vidljivo nedostupne.
+U završnoj provjeri razlikujemo svih šest vrsta tvrdnji. Za svaku navodimo
+postoji li opravdanje ili ostaje izvan dosega projekta.
 
 | Dimenzija | Što završni paket podupire ili omeđuje |
 |---|---|
@@ -543,68 +664,69 @@ ostanu vidljivo nedostupne.
 
 : Šest dimenzija tvrdnje u završnom paketu dokaza. Izrada autora.
 
-Prije predaje na isti paket primjenjujemo i šest revizijskih pitanja.
+Zatim odgovaramo na šest revizijskih pitanja.
 
 | Revizijsko pitanje | Gdje je odgovor |
 |---|---|
-| Što predstavlja jedan redak ili jedno opažanje? | osoba u glavnoj studiji; odabrana rečenica u prijenosu |
-| Tko ili što nije moglo ući u ove podatke? | stvarni ljudi i simulirane jedinice izvan zadanoga skupa te rečenice izvan odabira i bez hrvatske oznake |
-| Koja je ciljana količina i vrsta tvrdnje? | dobno prilagođena razlika u povjerenju povezana s 30 minuta više dnevnog vremena; opis oznaka i puta mjerenja unutar paketa |
-| Koji su izvori nesigurnosti obuhvaćeni, a koji ostaju izvan izračuna? | interval kvantificira uzoračku varijaciju pod pretpostavljenim linearnim modelom; oblik modela, mjerenje, selekcija, kodiranje i odluka ostaju zasebni |
-| Koja bi razumna alternativna odluka mogla bitno promijeniti odgovor? | izostavljanje dobi; odvojeno čitanje dvaju putova nastanka oznake |
-| Na koga može utjecati pogrešan zaključak ili odluka? | na ljude o kojima bi se neopravdano generaliziralo te na autore rečenica koje bi se slale u ljudski pregled |
+| Koja je jedinica? | osoba u glavnoj studiji; odabrana rečenica u ParlaSentu |
+| Tko ili što nedostaje? | stvarni ljudi i simulirane jedinice izvan zadanoga skupa te rečenice izvan odabira i bez hrvatske oznake |
+| Koji je cilj tvrdnje? | dobno prilagođena razlika u povjerenju povezana s 30 minuta više dnevnog vremena; opis oznaka i puta mjerenja unutar paketa |
+| Gdje je neizvjesnost? | interval kvantificira uzoračku varijaciju pod pretpostavljenim linearnim modelom; oblik modela, mjerenje, selekcija, kodiranje i odluka ostaju zasebni |
+| Koje drugo objašnjenje ostaje? | izostavljanje dobi; odvojeno čitanje dvaju putova nastanka oznake |
+| Tko snosi posljedice? | na ljude o kojima bi se neopravdano generaliziralo te na autore rečenica koje bi se slale u ljudski pregled |
 
 : Šest revizijskih pitanja prije predaje. Izrada autora.
 
-Sedam niti knjige sada imaju po jedno mjesto u paketu. Jedinicu analize,
-selekciju i odsutnost bilježimo u putovnici, analitičkoj tablici te pravilima
-prihvatljivosti i isključenja. Nazivnik stoji uz svaki udio i stopu, a
-nesigurnost uz procjenu i zapis onoga što interval ne obuhvaća. Posljedice
-pogreške vežemo uz budući prag i prigovor, podrijetlo uz izvor, verziju i
-dnevnik, a komunikaciju uz vlastiti izvještaj i reviziju asistentova nacrta.
-Nijedna nit ne dobiva novo kratko zasebno predavanje. Sve dobivaju
-provjerljivi zapis.
+U putovnici i analitičkoj tablici navodimo jedinicu, način odabira i
+izostavljene podatke. Uz udjele navodimo nazivnike,
+a uz procjene nesigurnost i njezina ograničenja. Posljedice pogreške
+povezujemo s odlukom i prigovorom, podrijetlo s izvorom i dnevnikom, a
+tumačenje s izvještajem i provjerom asistentova nacrta.
 
-Istim zapisom pratimo devet faza životnoga ciklusa, od pitanja preko
-pribavljanja, validacije, pripreme, istraživanja, modeliranja, vrednovanja i
-komunikacije do nadzora. Nadzor nije dodatak nakon objave. Za
-glavnu nastavnu studiju bilježimo da nema postavljenoga sustava, a za mogući
-red pregleda unaprijed navodimo koje bi nove rečenice, pogreške i prigovore
-trebalo opažati.
+Dokumentacija omogućuje drugoj osobi da prati istraživanje od početnog pitanja
+i pripreme podataka do analize i izvještaja. Naša studija ne uključuje sustav
+koji donosi odluke u praksi. Kada bismo uveli sustav za odabir rečenica za
+pregled, trebali bismo unaprijed odrediti kako ćemo pratiti nove tekstove,
+pogreške i prigovore.
 
-Četiri aktivnosti pritom ne odgovaraju na isto pitanje.
+Sljedeća tablica razlikuje četiri aktivnosti i pitanja na koja odgovaraju.
 
 | Aktivnost | Pitanje koje postavlja ovaj paket |
 |---|---|
 | statistika | što dizajn, procjena i interval opravdavaju vjerovati? |
 | znanost o podacima | može li se od izvora i verzije ponoviti svaka transformacija i tablica? |
 | strojno učenje | postoji li zaključan obrazac provjeren na doista novim opažanjima? Ovdje ne postoji |
-| sustav umjetne inteligencije | postoji li postavljena odluka s nadzorom, povratnom spregom i posljedicama? Ovdje je samo omeđena buduća obveza |
+| sustav umjetne inteligencije | kako bismo pratili odluke, pogreške i posljedice nakon primjene? Ovdje takav sustav još ne postoji |
 
 : Granice četiriju aktivnosti u završnom paketu. Izrada autora.
 
-Time se četiri obećanja knjige pretvaraju u radnju. Možemo rastaviti tuđu
-tvrdnju kroz šest pitanja; pošteno opisati i prikazati vlastite podatke; čitati
-i skromno reproducirati procjenu, interval i model; te delegirati račun
-asistentu uz provjeru, alternativu, podrijetlo, objavu i zadržanu ljudsku
-odgovornost. Završnica ne dokazuje da sada poznajemo svaki postupak. Dokazuje da
-znamo gdje statistička tvrdnja počinje, dokle seže i koji joj dokaz mora
-putovati u susret.
+U završnom projektu koristimo četiri vještine razvijene kroz knjigu.
+Provjeravamo tuđu tvrdnju, opisujemo i prikazujemo vlastite podatke, tumačimo
+i reproduciramo procjene te surađujemo s asistentom uz provjeru. Ne trebamo
+poznavati svaki statistički postupak. Trebamo znati što rezultat znači, koje
+su mu granice i kako ga druga osoba može provjeriti.
+
+Prije dijeljenja paketa s parlamentarnim rečenicama primjenjujemo pravila
+zaštite osoba iz poglavlja o mjerenju i dizajnu. Javna dostupnost zapisa ne
+uklanja mogućnost identifikacije ni štetu od povezivanja s drugim podacima.
+Provjeravamo svrhu dijeljenja, nužnost pojedinih obilježja i prikladnost alata
+za osjetljivost podataka. Pravila kolegija dodatni su uvjet u nastavi;
+odgovornost prema osobama o kojima podaci govore ostaje na nama.
 
 ## Sažetak
 
-Prvo istraživanje završava paketom dokaza koji netko drugi može proći bez
-razgovora s autorom ili asistentom. Vrsta pitanja i dizajn određuju granicu
-koju kasnija analiza ne može pomaknuti. Analitička tablica čuva odluke o
-jedinici, prihvatljivosti, transformacijama, isključenjima i nedostajanju, a
-opis i graf prethode modelu. Primarna procjena i obranjiva alternativa pokazuju
-da sadržajna granica zaključka može ovisiti o odluci koja je statistički
-razumna, pa se ne uspoređuju samo prema pragu. Simulirana studija daje poznatu
-istinu izvana; empirijski prijenos vraća nepoznatu istinu, stvarnu selekciju i
-put oznake. Asistent ubrzava račun i kritiku, ali potvrda provjere, datirana
-politika, objava uporabe i odgovornost ostaju ljudske. Na kraju knjige ne ostaje
-popis postupaka, nego navika da svaka tvrdnja putuje sa svojim podrijetlom,
-nesigurnošću, granicom i posljedicama.
+Prvo istraživanje završavamo izvještajem i dokumentima koji drugoj osobi
+omogućuju da od našeg pitanja ponovno dođe do rezultata. Pitanje i nacrt
+određuju doseg zaključka, pa prije modela provjeravamo jesmo li analitičku
+tablicu, opis i grafove oblikovali tako da možemo odgovoriti na postavljeno
+pitanje. Primarnu analizu zatim uspoređujemo s
+opravdanom alternativom po procjeni, intervalu i značenju, kao što smo učinili
+pri uključivanju i izostavljanju dobi. Simulacija nam je omogućila provjeru
+poznatog pravila, a stvarni podaci pokazali su kako izbor rečenica i nastanak
+oznaka ograničavaju njihovo tumačenje. Asistent može ubrzati dio posla, dok
+provjera, objava uporabe i odgovornost ostaju na autoru. Uz svaku tvrdnju zato
+ostavljamo podrijetlo, nesigurnost i granicu dokaza kako bi čitatelj mogao
+prosuditi i rezultat i put kojim smo do njega došli.
 
 ## Pojmovi
 
@@ -612,7 +734,7 @@ paket dokaza (*evidence package*), putovnica skupa podataka (*dataset
 passport*), dnevnik transformacija (*transformation log*), trag odluka
 (*decision trail*), potvrđujuća analiza (*confirmatory analysis*),
 istraživačka analiza (*exploratory analysis*), provjera osjetljivosti
-(*sensitivity check*), granica tvrdnje (*claim boundary*), reproducibilan tijek
+(*sensitivity analysis*), granica tvrdnje (*claim boundary*), reproducibilan tijek
 rada (*reproducible workflow*), pošten izvještaj (*honest report*), minimizacija
 podataka (*data minimization*), objava uporabe asistenta (*AI-use disclosure*)
 
@@ -621,11 +743,12 @@ podataka (*data minimization*), objava uporabe asistenta (*AI-use disclosure*)
 ### Konceptualni
 
 Vratite se temama zavaravajućih brojki, uzorkovanja, krize i obnove te
-statistike u doba algoritama. Za empirijski prijenos iz ovoga poglavlja
-odgovorite na šest revizijskih pitanja tako da u odgovoru upotrijebite barem po
-jedan dokaz o zavaravajućem nazivniku, selekciji, analitičkoj fleksibilnosti i
-teretu odluke. Zatim napišite jednu tvrdnju koju paket podupire i jednu koju ne
-podupire. Zadatak se ne može riješiti samo modelom iz ovoga poglavlja.
+statistike u doba algoritama. Za primjer s hrvatskim rečenicama iz ParlaSenta
+odgovorite na šest revizijskih pitanja. U odgovorima pokažite kako nazivnik,
+izbor rečenica, analitičke odluke i posljedice pogreške ograničavaju zaključak.
+Zatim napišite jednu tvrdnju koju prikazani podaci podupiru i jednu koju ne
+podupiru. Sam regresijski model iz ovoga poglavlja nije dovoljan za te
+odgovore.
 
 ### Računski
 
@@ -634,7 +757,7 @@ vremenu i razliku u prosječnom povjerenju između najmlađe i najstarije skupin
 Zatim iz neprilagođenoga nagiba u provjeri osjetljivosti od
 `r hr_broj(s18$nagib_zbirni, 4)` boda po minuti izračunajte koliko bi razlike u
 povjerenju taj model pripisao dobivenoj razlici u vremenu. Usporedite taj broj
-sa opaženom razlikom u povjerenju među skupinama i predajte oba rezultata s
+s opaženom razlikom u povjerenju među skupinama i predajte oba rezultata s
 jednom rečenicom o tome zašto račun ne zamjenjuje primarnu analizu uz dob.
 
 ### Kritički

@@ -71,7 +71,7 @@
   padding: 1.75rem 0 2rem;
   margin: 0 0 3.5rem;
 
-  &::before { content: "Vinjeta"; color: $tok-ink-mute; }
+  &::before { content: none; }
 
   p {
     font-family: $tok-font-display;
@@ -104,6 +104,28 @@
   a { color: $tok-accent; text-decoration-color: rgba($tok-accent, 0.6); }
   a:hover { color: $tok-accent-wash; }
   code { background: transparent; color: $tok-accent-wash; }
+
+  // Nested tables keep the callout's width, including on narrow screens.
+  .quarto-float {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-inline: 0;
+  }
+
+  .quarto-float-tbl > .quarto-float-caption {
+    color: $tok-paper-soft;
+    margin-inline: 0;
+  }
+
+  .table-scrollable th:first-child,
+  .table-scrollable td:first-child {
+    background: $tok-ink;
+  }
+
+  @media (max-width: 600px) {
+    table { min-width: 34rem; }
+  }
 }
 
 // Naslov slučaja postaje sam navod: displejni kurziv na bijelom.

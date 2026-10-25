@@ -4,132 +4,183 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 21 min | Hvatač intervala | simulirana populacija | pogl. 8 |
+Koliki je učinak i koliko smo ga precizno procijenili? Cumming predlaže da ta
+pitanja budu u središtu statističkog zaključivanja (Cumming, 2014). Procjena i
+interval opisuju veličinu učinka i nesigurnost procjene.
 
-**Vinjeta.**
-Cumming je zagovarao izvještavanje procjena i intervala kao središte
-statističkog zaključivanja, umjesto oslanjanja na samu odluku o značajnosti
-(Cumming, 2014). Pomak mijenja pitanje koje postavljamo podacima. Umjesto
-binarnog prolaza pitamo koliki je učinak i koliko je procjena precizna.
+Kako iz jednoga uzorka procijeniti koliko bi se rezultat mogao mijenjati?
 
-Poglavlje o uzorkovanju pokazalo je zašto takvo pitanje uopće ima smisla. Naša
-procjena samo je jedan ishod iz raspodjele mogućih ishoda, a širina te
-raspodjele poznata je u simulaciji jer smo uzorkovanje ponovili tri tisuće puta.
+U simulacijama uzorkovanja mogli smo iznova odabirati ljude iz poznate
+populacije i pratiti kako se mijenjaju uzoračke sredine. Istraživač obično nema tu
+mogućnost. Pred njim je jedan skup odgovora, a treba navesti koliko bi se
+njegova procjena mogla promijeniti s drugim sudionicima. Standardna pogreška
+iz prethodnog poglavlja daje nam polazište za takav opis nesigurnosti.
 
-Istraživač koji objavljuje rezultat nema tri tisuće uzoraka. Ima jedan, i iz
-njega mora reći koliko je siguran.
+Nastavljamo s populacijom `populacija_medija`, iz koje ćemo sada uzeti uzorak
+za procjenu prosječnog povjerenja u medije (Šikić, 2026). Svako opažanje
+pripada jednoj računalno stvorenoj osobi i sadrži njezinu ocjenu povjerenja.
+Populaciju poznajemo samo zato što je riječ o nastavi. Pri izgradnji pojedine
+procjene koristit ćemo uzorak, a poznatu populacijsku vrijednost zatim
+iskoristiti za provjeru postupka.
 
-Kako iz jednoga opaženog uzorka pošteno govoriti o vrijednosti koja ostaje
-nepoznata?
+Oko procjene ćemo konstruirati interval i pratiti što se događa kroz
+ponovljena uzorkovanja. Pitanje je koliko često tako izrađen raspon obuhvaća
+ciljnu vrijednost. To će nam omogućiti da pouzdanost vežemo uz postupak, a
+širinu intervala uz preciznost. Usporedit ćemo što se mijenja kada tražimo
+višu pouzdanost i što dobivamo prikupljanjem više podataka. Posebno ćemo
+odvojiti nesigurnost procijenjenog prosjeka od razlika među pojedinačnim
+odgovorima.
+
+Za procjenu medijana dnevnog praćenja medija poslužit će nam drugi, manji
+uzorak iz iste simulirane populacije (Šikić, 2026). Njegove ćemo zapise ponovno
+izvlačiti, dopuštajući da ista osoba bude odabrana više puta. Taj postupak,
+bootstrap, omogućit će nam procijeniti promjenjivost i kada ne polazimo od
+gotove formule za odabranu mjeru. Razmotrit ćemo koliko takva provjera ovisi o
+uzorku kojim raspolažemo.
+
+Uz procjenu u izvještaju navodimo raspon njezine nesigurnosti i objašnjavamo
+što bi precizniji odgovor zahtijevao. Interval pritom neće ukloniti
+ograničenja mjerenja ili odabira ljudi koja smo upoznali ranije.
 
 ## Od točke prema rasponu
 
-Uzorak od `r hr_broj(s9$n, 0)` osoba iz naše populacije daje prosječno
-povjerenje u medije od `r hr_broj(s9$sredina, 2)`. Ta jedna vrijednost naziva se
-**točkasta procjena** (*point estimate*) i najbolji je sažeti pogodak koji
-trenutačno imamo. Njezina je slabost u tome što ne nosi nikakav trag vlastite
-nesigurnosti. Ista brojka mogla je nastati iz uzorka od dvadeset ljudi i iz
-uzorka od dvadeset tisuća, a te dvije situacije ne zaslužuju jednako povjerenje.
+Iz iste simulirane populacije medijskih navika uzimamo novi uzorak od `r hr_broj(s9$n, 0)` osoba (Šikić, 2026). Za svaku osobu koristimo povjerenje u
+medije na ljestvici od jedan do deset. Prosjek uzorka iznosi `r hr_broj(s9$sredina, 2)`. Tu vrijednost zovemo **točkasta procjena** (*point
+estimate*). Ona sažima rezultat, ali ne govori koliko je nesiguran. Isti
+prosjek možemo dobiti na dvadeset i na dvadeset tisuća ljudi, iako bi se pri
+ponovnom uzorkovanju te procjene mogle znatno različito mijenjati.
 
-Sve što nedostaje već je izračunato u prethodnom poglavlju. Standardna pogreška
-mjeri koliko bi procjena tipično varirala kroz ponovljena uzorkovanja, a za naš
-uzorak iznosi `r hr_broj(s9$se, 3)`. Uz nju procjena prestaje biti gola brojka i
-postaje brojka s poznatom skalom vlastitog kolebanja.
+Za opis te promjenjivosti služi standardna pogreška, koju smo upoznali u
+prethodnom poglavlju. Ona procjenjuje koliko bi se rezultat tipično mijenjao
+kroz ponovljena uzorkovanja. U našem uzorku iznosi `r hr_broj(s9$se, 3)`.
 
-Prije nego što rasponu damo ime, vratimo se poznatoj populaciji. Deset tisuća
-puta izvukli smo po dvjesto osoba. Oko svake dobivene sredine povukli smo
-raspon od 1,96 njezinih standardnih pogrešaka na svaku stranu i provjerili
-siječe li fiksnu populacijsku vrijednost. Cilj je obuhvaćen u
-`r paste0(hr_broj(s9$pokrivenost, 1), " %")` raspona, a promašen u
-`r hr_broj(s9$promasaji, 0)` od `r hr_broj(s9$ponavljanja, 0)` ponavljanja.
-Pojedini raspon može promašiti, ali postupak kroz ponavljanja pokazuje stabilan
-udio pogodaka.
+Račun intervala možemo pratiti od zbroja ocjena do njegovih granica. Zbroj svih
+ocjena u uzorku iznosi `r sum(s9_x)`, pa dijeljenjem s 200 dobivamo
+`r hr_broj(s9$sredina, 3)`. Uzoračka standardna devijacija
+`r hr_broj(s9$sd, 3)` podijeljena korijenom iz 200 daje standardnu
+pogrešku `r hr_broj(s9$se, 3)`. Umnožak te pogreške s 1,96 iznosi
+`r hr_broj(1.96 * s9$se, 3)`, što oduzimamo od sredine i dodajemo joj.
+Dobivene granice uspoređujemo s jednom fiksnom populacijskom sredinom,
+`r hr_broj(s9$mu, 3)`.
 
-Središnji granični teorem kazuje i kakav oblik to kolebanje ima. Raspodjela
-uzoračkih sredina približno je normalna, a za normalnu raspodjelu znamo koliki
-udio vrijednosti pada unutar zadanog broja standardnih devijacija od središta,
-što je pravilo koje je poglavlje o vjerojatnosti već postavilo. Približno 95 %
-vrijednosti leži unutar 1,96 standardnih devijacija.
+Provjerimo što iz toga možemo zaključiti u simulaciji s poznatom populacijom.
+Deset tisuća puta izvukli smo po dvjesto različitih osoba bez vraćanja,
+svaki put iz cijele populacije. Ponovno računamo i sredinu i standardnu
+pogrešku, pa se obje granice mijenjaju. Oko svake uzoračke sredine
+označili smo raspon od 1,96 njezinih standardnih pogrešaka na svaku stranu.
+Populacijska vrijednost nalazi se u `r paste0(hr_broj(s9$pokrivenost, 1), " %")` raspona. Izvan raspona ostaje u
+`r hr_broj(s9$promasaji, 0)` od `r hr_broj(s9$ponavljanja, 0)` ponavljanja. Vidimo da pojedini raspon može promašiti
+cilj, ali i da možemo pratiti koliko ga često postupak obuhvaća.
+Nijedan od 10 000 intervala nije izostavljen. Broj onih kojima donja
+granica nije iznad cilja, a gornja nije ispod njega, dijelimo s 10 000.
+Dobiveni udio nazivamo obuhvatom intervala.
 
-Odatle slijedi konstrukcija koja se čini gotovo previše jednostavnom da bi
-radila. Ako je naša sredina u 95 % slučajeva unutar 1,96 standardnih pogrešaka
-od populacijske vrijednosti, tada je i populacijska vrijednost u 95 % slučajeva
-unutar te iste udaljenosti od naše sredine. Razmak oko procjene dug 1,96
-standardnih pogrešaka na svaku stranu zato će hvatati cilj u 95 % ponavljanja.
+Središnji granični teorem pomaže objasniti taj rezultat. Pod njegovim uvjetima
+raspodjela uzoračkih sredina približno je normalna. U normalnoj raspodjeli oko
+95 % vrijednosti nalazi se unutar 1,96 standardnih devijacija od središta. Za
+raspodjelu procjena tu udaljenost mjerimo standardnom pogreškom.
 
-Slovo $z^{*}$ označava koliko standardnih pogrešaka širimo na svaku stranu.
-Bira ga željena razina, pa je za 95 % jednako 1,96.
+Ako je uzoračka sredina dovoljno blizu populacijskoj vrijednosti, i
+populacijska vrijednost jednako je blizu uzoračkoj sredini. Zato raspon od
+1,96 standardnih pogrešaka na svaku stranu od procjene obuhvaća populacijsku
+vrijednost u približno 95 % ponavljanja, kada vrijede pretpostavke postupka.
+
+Oznaka $z^{*}$ govori koliko standardnih pogrešaka odmjeravamo na svaku stranu
+od procjene. Za razinu pouzdanosti od 95 % ona iznosi 1,96.
+
+Normalne kritične vrijednosti za obostrane intervale iznose 1,645 za
+90 %, 1,960 za 95 % i 2,576 za 99 %. Koristimo ih kada je raspodjela
+procjenitelja približno normalna i standardna pogreška dovoljno dobro
+poznata. Za ovdje prikazane jednostavne sredine potrebna su neovisna
+opažanja iz odgovarajuće populacije, konačna varijanca i uzorak bez
+dominantnih krajnjih vrijednosti. Pri malim uzorcima i procjeni raspršenosti
+iz istih podataka prikladan t-postupak upoznat ćemo uz usporedbu skupina.
 
 $$
 \bar{x} \pm z^{*} \cdot SE_{\bar{x}}
 $$
 
-Za naš uzorak taj račun daje raspon od `r hr_broj(s9$donja, 2)` do
-`r hr_broj(s9$gornja, 2)`, a prava populacijska vrijednost iznosi
-`r hr_broj(s9$mu, 2)` i nalazi se unutra.
+U našem uzorku dobivamo raspon od `r hr_broj(s9$donja, 2)` do `r hr_broj(s9$gornja, 2)`. Poznata populacijska
+vrijednost iznosi `r hr_broj(s9$mu, 2)` i ovaj je raspon obuhvaća.
 
 **Interval pouzdanosti** je raspon oko procjene, izračunat postupkom koji kroz
 ponovljena uzorkovanja obuhvaća nepoznati parametar u unaprijed određenom udjelu
 slučajeva.
 
-Vrijedi obratiti pozornost na to gdje u toj definiciji stoji obećanje. Ono ne
-stoji uz raspon nego uz postupak, i upravo se ta razlika u praksi najčešće gubi.
+Razina pouzdanosti opisuje koliko često postupak obuhvaća cilj kada se
+uzorkovanje ponavlja. Tu razliku trebamo zadržati i kada tumačimo samo jedan
+izračunati interval.
 
-Polovica ukupne širine toga raspona jest **margina pogreške**. Poglavlje o tome
-kako brojke zavode ostavilo ju je kao dug kada je uz anketni postotak prikazalo
-znak ±, a sada je vidljivo što taj znak sažima. U ovom postupku margina iznosi
-$z^{*} \cdot SE$ i pokriva promjenjivost koju bi ponovljeno uzorkovanje
-proizvelo pod pretpostavkama postupka. Ne pokriva pristran okvir, neodgovor,
-formulaciju pitanja ni pogrešku mjerenja. Zato manja margina znači uži raspon
-uzoračke neizvjesnosti, a ne općenito bolju anketu.
+Ovdje pouzdanost opisuje postupak intervalne procjene. Nije isto što i
+pouzdanost mjerenja iz poglavlja o mjerenju. Obuhvat intervala označuje
+koliko intervala sadrži cilj, a obuhvat okvira uzorkovanja govori tko je
+uopće mogao biti odabran.
+
+U simetričnom intervalu udaljenost od procjene do bilo koje granice jest
+**margina pogreške**. Ona je polovica ukupne širine i broj uz znak ± koji
+smo susreli uz anketne rezultate. U ovom postupku iznosi $z^{*}\cdot SE$.
+Asimetričan interval može imati različite udaljenosti od procjene do
+donje i gornje granice, pa ih treba navesti odvojeno. Opisuje promjenjivost zbog uzorkovanja pod pretpostavkama postupka. Ne
+uključuje pristran okvir uzorkovanja, neodgovor, formulaciju pitanja ni
+pogrešku mjerenja. Manja margina zato sama po sebi ne znači da je anketa
+kvalitetnija.
 
 ## Obećanje razine pouzdanosti
 
-Simulirani postupak radi približno onako kako obećava, i vrijedi zadržati riječ
-približno. Broj pogodaka u konačnom nizu nije unaprijed propisan. Zamjena
-nepoznate populacijske raspršenosti onom izmjerenom u uzorku
-unosi vlastitu nesigurnost, koja je pri dvjesto osoba mala, a pri dvadeset osoba
-ne bi bila. Ispravak koji to nadoknađuje širi interval za mali uzorak i knjiga
-ga uvodi u poglavlju o usporedbi dviju grupa, gdje ga postupak prvi put stvarno
-treba.
+Za provjeru granice postupka vratimo se izrazito asimetričnoj raspodjeli
+spremnosti na plaćanje iz prethodnog poglavlja. Iz nje smo
+`r hr_broj(length(s9_asimetricni_obuhvat), 0)` puta izvukli po 20 osoba i svaki
+put izračunali isti interval za sredinu. Poznatu populacijsku sredinu
+obuhvatilo je `r hr_broj(sum(s9_asimetricni_obuhvat), 0)` intervala, odnosno
+`r hr_broj(100 * mean(s9_asimetricni_obuhvat), 1)` % (Šikić, 2026). U malom
+uzorku iz takve raspodjele normalno približenje i procjena standardne
+pogreške nisu dovoljno pouzdani da bi postupak postigao zadanu razinu od 95 %.
 
-Ono što se u brojci od `r paste0(hr_broj(s9$pokrivenost, 1), " %")` ne vidi jest
-sudbina pojedinačnog intervala. Svaki od tih deset tisuća raspona ili sadrži
-pravu vrijednost ili je ne sadrži, i nakon što je izračunat, u njemu nema
-ničega slučajnog. Slučajan je bio uzorak koji ga je proizveo. Populacijska
-sredina fiksan je broj i ne kreće se, pa rečenica o vjerojatnosti da se ona
-nalazi unutar zadanih granica opisuje nešto što nema promjenjivosti koju bi ta
-vjerojatnost mjerila.
+U prethodnoj simulaciji povjerenja, s po dvjesto osoba, dobili smo obuhvat
+blizak zadanoj razini, ali podudaranje nije savršeno. Dobiveni obuhvat približan je iz dvaju razloga. U konačnom broju simulacija
+udio pogodaka slučajno se mijenja. Osim toga, nepoznatu populacijsku
+raspršenost procjenjujemo iz uzorka, što donosi dodatnu nesigurnost. Pri
+dvjesto osoba ona je mala, a pri dvadeset može biti važna. U poglavlju o
+dvjema grupama uvest ćemo postupak koji zbog toga širi interval u malim
+uzorcima.
 
-Analogija koja to drži na okupu jest bacanje obruča na fiksni kolac. Obruč je
-interval, kolac je parametar, a razina pouzdanosti opisuje koliko često obruč
-pada oko kolca kroz mnogo bacanja. Nakon jednoga bacanja obruč je pao ili nije,
-a mi ga gledamo zatvorenih očiju. Postotak opisuje ruku koja baca, ne ovaj
-pojedini obruč.
+Obuhvat od `r paste0(hr_broj(s9$pokrivenost, 1), " %")` ne govori koji su pojedinačni intervali pogodili cilj.
+Svaki izračunati interval ili sadrži populacijsku vrijednost ili je ne sadrži.
+U frekventističkom postupku parametar je fiksan, a slučajan je uzorak iz
+kojega računamo granice. Zato razinu pouzdanosti ne tumačimo kao vjerojatnost
+da fiksni parametar leži unutar upravo opaženih granica.
 
-Zbog te razlike korisno je znati što čitatelj objavljenog intervala smije reći.
-Vrijednosti unutar granica uskladive su s podacima, a one izvan njih slabo su
-uskladive pod pretpostavkama postupka. Širina također pokazuje ispunjava li
-raspon unaprijed zadani cilj preciznosti, primjerice marginu manju od deset
-minuta. Interval za jedan parametar ipak ne govori može li se razlučiti razlika
-ili promjena, jer za to treba procijeniti samu razliku i njezinu nesigurnost.
-Ne pripisujemo mu ni vjerojatnost da parametar leži unutra niti očekivanje da
-će se ponovljeno istraživanje smjestiti unutar istih granica, jer bi ono imalo
-vlastiti uzorak i vlastiti interval.
+Možemo to zamisliti kao bacanje obruča na kolac. Kolac stoji na istom mjestu,
+a obruči padaju na različita mjesta. Razina pouzdanosti opisuje koliko često
+obruč obuhvati kolac kroz mnogo bacanja. Nakon pojedinoga bacanja pogodak je
+već određen, čak i ako ga ne možemo vidjeti.
+
+Iz objavljenog intervala možemo čitati koje su vrijednosti uskladive s
+podacima pod pretpostavkama postupka. Njegova širina pokazuje i jesmo li
+postigli željenu preciznost, primjerice marginu manju od deset minuta. Za
+pitanje o razlici ili promjeni trebamo interval za samu razliku. Interval
+jednog parametra to ne rješava. Ne govori ni gdje će pasti rezultat sljedećeg
+istraživanja, koje će imati vlastiti uzorak i vlastiti interval.
 
 ## Interakcija — Hvatač intervala
 
-Prebrojavanje iz prethodnog odjeljka dalo je jednu brojku i sakrilo postupak koji
-je do nje doveo. Widget taj postupak vraća na vidjelo, jer prikazuje same
-intervale, jedan ispod drugoga, oko iste nepomične ciljne crte. Veličina uzorka i
-razina pouzdanosti mijenjaju se odvojeno, pa se vidi da prva mijenja širinu
-intervala, a druga mijenja i širinu i učestalost promašaja.
+Za prikaz intervala prelazimo na zaseban normalni model sa sredinom
+nula i poznatom standardnom devijacijom jedan. Pojedinačno opažanje sada
+je umjetno generirani broj, bez jedinice povjerenja. Iz svakog skupa od
+40 neovisnih brojeva računamo sredinu i oko nje raspon
+$1,96/\sqrt{40}$ na svaku stranu. Tiskani prikaz ponavlja to 50 puta.
+Ovdje je standardna pogreška poznata iz modela, za razliku od prethodnog
+računa u kojem smo je procjenjivali iz uzorka.
+
+Na slici su intervali iz ponovljenih uzoraka poredani jedan ispod drugoga.
+Okomita crta označuje populacijsku vrijednost. Intervali koji je sijeku
+obuhvaćaju cilj. U tablici zatim uspoređujemo veličinu uzorka i razinu
+pouzdanosti. Obje utječu na širinu, a razina pouzdanosti određuje i dugoročnu
+učestalost obuhvata.
 
 *Slika. Intervali iz ponovljenih simuliranih uzoraka oko fiksne populacijske sredine. Istaknuti intervali promašuju okomitu ciljnu crtu.*
 
@@ -142,278 +193,299 @@ intervala, a druga mijenja i širinu i učestalost promašaja.
 
 ### Tiskane postavke za vježbu
 
-Čitatelj tiskanoga izdanja iste dvije usporedbe može provesti bez widgeta.
-Sljedeće tri postavke nastale su iz normalne populacije sa sredinom nula i
-standardnom devijacijom jedan. Svaka sadrži pedeset intervala iz fiksnoga
-simulacijskog niza. Postavke A i B razlikuju se samo po razini pouzdanosti, a A
+Tri prikazane postavke koriste normalnu populaciju sa sredinom nula i
+standardnom devijacijom jedan. Svaka sadrži pedeset intervala iz istoga
+zadanog simulacijskog niza. A i B razlikuju se samo po razini pouzdanosti, a A
 i C samo po veličini uzorka.
 
 *Slika. Tri fiksne postavke za usporedbu širine i promašaja intervala u tiskanom izdanju. Izrada autora.*
 
-Isti sintetički podaci dostupni su kao pojedinačni zapisi i kao sažetak po
-primarnom izvoru vijesti. Sljedeća tablica prikazuje sažetak bez novoga
-računanja i bez zaokruživanja pohranjenih vrijednosti. Ona priprema kasniju
-provjeru istih rezultata iz pojedinačnih zapisa. Budući da je populacija
-sintetička, tablica provjerava postupak i ne iznosi empirijsku tvrdnju o
-stvarnim stanovnicima.
+Za zasebnu računsku provjeru na kraju poglavlja trebat će nam i sažetak cijele
+poznate sintetičke populacije po glavnom izvoru vijesti. Sljedeća tablica
+čuva točne cjelobrojne brojnosti i zbroj za portal, dok su udio i prosjek
+zaokruženi na pet decimala. Iz tih ćemo brojeva provjeriti dva dijeljenja.
+Provjera ne potvrđuje kako su pojedinačni zapisi zbrojeni; taj je dodatni
+korak moguć u dobrovoljnoj mrežnoj vježbi. Podaci služe vježbi i ne opisuju stvarne stanovnike.
 
 *Slika. Brojnici, nazivnici i agregatne vrijednosti za portal u sintetičkoj populaciji. Izrada autora prema javnom agregatnom prikazu sintetičkih podataka.*
 
 ## Preciznost nasuprot pouzdanosti
 
-Dva pomaka koja widget dopušta imaju vrlo različite učinke i lako ih je pobrkati
-jer oba mijenjaju širinu. Veći uzorak sužava interval time što smanjuje
-standardnu pogrešku, pa uz jednako obećanje o obuhvatu dobivamo precizniji
-odgovor. Prosječna širina intervala pri uzorku od pedeset osoba iznosi
-`r hr_broj(s9$sirine[["50"]], 2)` boda, pri dvjesto
-`r hr_broj(s9$sirine[["200"]], 2)`, a pri osamsto
-`r hr_broj(s9$sirine[["800"]], 2)`.
+Za sljedeću usporedbu širina vraćamo se ocjenama povjerenja iz medijske
+populacije. Za svaku veličinu 50, 200 i 800 izvlačimo 400 novih uzoraka,
+računamo njihove intervale istim postupkom sa standardnom pogreškom iz
+uzorka i prosječimo 400 širina. Usporedba razina 90 %, 95 % i 99 % potom
+zadržava jedan isti početni uzorak od 200 osoba i mijenja samo množitelj.
 
-Viša razina pouzdanosti također širi interval, ali ništa ne dobiva na
-preciznosti. Na istom našem uzorku raspon od 90 % širok je
-`r hr_broj(s9$razine[["90"]], 2)` boda, onaj od 95 %
-`r hr_broj(s9$razine[["95"]], 2)`, a onaj od 99 %
-`r hr_broj(s9$razine[["99"]], 2)`. Podaci se nisu promijenili, promijenio se
-zahtjev. Interval koji obuhvaća cilj u 100 % slučajeva postoji i proteže se od
-minus do plus beskonačno, čime savršena pouzdanost postaje savršeno beskorisna.
+Dvije usporedbe iz prikaza sada možemo razdvojiti i brojčano. Veći uzorak
+smanjuje standardnu pogrešku i sužava interval pri istoj razini
+pouzdanosti. Prosječna širina intervala pri pedeset osoba iznosi `r hr_broj(s9$sirine[["50"]], 2)`
+boda, pri dvjesto `r hr_broj(s9$sirine[["200"]], 2)`, a pri osamsto `r hr_broj(s9$sirine[["800"]], 2)`. S više podataka dobivamo
+precizniju procjenu.
 
-**Preciznost** je zato svojstvo koje se plaća podacima, a **pouzdanost** je
-svojstvo koje se bira i plaća širinom. U ovoj knjizi 95 % služi kao uobičajena
-nastavna postavka, a ne kao prirodna granica. Uz svaki interval zato navodimo
-razinu na kojoj je izračunat.
+Povećanje razine pouzdanosti djeluje drukčije. Na istim podacima tražimo češći
+obuhvat, pa raspon mora biti širi. U našem uzorku interval od 90 % širok je
+`r hr_broj(s9$razine[["90"]], 2)` boda, interval od 95 % `r hr_broj(s9$razine[["95"]], 2)`, a interval od 99 % `r hr_broj(s9$razine[["99"]], 2)`. Time
+nismo dobili precizniju procjenu, nego postavili viši zahtjev za obuhvat.
 
-Širok interval ne znači loše obavljen posao. Češće znači mali uzorak ili
-podatke koji su stvarno raspršeni, i tada je široki raspon iskren opis stanja, a
-ne priznanje nesposobnosti. Suprotan je slučaj mnogo opasniji. Uzak interval
-oko procjene iz pristranog uzorka izgleda kao preciznost, a jest sigurnost u
-pogrešnu vrijednost, jer interval mjeri samo ono što bi se mijenjalo kroz
-ponavljanja istoga postupka.
+**Preciznost** opisuje širinu procjene, a **pouzdanost** odabranu dugoročnu
+učestalost obuhvata. Za isti postupak i razinu pouzdanosti više podataka
+obično daje uži interval. Za iste podatke viša razina pouzdanosti daje širi
+interval. U knjizi najčešće koristimo 95 %, no to je uobičajen izbor koji
+treba navesti uz rezultat.
 
-Iz širine slijedi i način na koji se intervali čitaju kada ih je više na istoj
-slici, što je najčešći oblik u kojem ih društveni znanstvenik susreće. Grafovi
-koji uz svaku skupinu crtaju raspon umjesto samog stupca odmah pokazuju koje su
-procjene oslonjene na malo ljudi, a koje na mnogo, i time govore više od
-tablice prosjeka. Iskušenje je da se iz njih očita i zaključak o razlici.
+Širok interval može biti primjeren opis maloga uzorka ili jako raspršenih
+podataka. Uzak interval također treba provjeriti. Ako je uzorak pristran,
+interval može biti uzak oko pogrešne vrijednosti jer ne obuhvaća pristranost
+postupka odabira.
 
-Nepreklapanje usporedivih intervala može biti snažan dokaz da jednakost nije
-dobro uskladiva s podacima pod pretpostavkama postupka. Iz preklapanja ipak ne
-slijedi da razlike nema, a ni jedan ni drugi obrazac ne daje vjerojatnost da je
-razlika „stvarna”. Ovisnost procjena i istraživački nacrt dodatno određuju kako
-se takva slika čita. Pošten odgovor zato traži interval za samu razliku, a ne
-dva intervala jedan pokraj drugoga. Taj postupak knjiga uvodi u poglavlju o
-usporedbi dviju grupa.
+Na grafu s više skupina intervali pokazuju koliko su njihove procjene
+precizne. Širina ovisi i o broju opažanja i o njihovoj raspršenosti. Takav
+graf govori više od prikaza samih prosjeka, ali za tumačenje razlika među
+skupinama treba još jedan korak.
 
-Postoji i druga zamjena koja se često javlja u istom odlomku. Interval
-pouzdanosti govori gdje je prosjek, a ne gdje su ljudi. Za naš uzorak od
-dvjesto osoba raspon oko sredine dug je
-`r hr_broj(s9$gornja - s9$donja, 2)` boda. Ako su pojedinačne ocjene približno
-normalno raspoređene, sredina plus ili minus 1,96 uzoračkih standardnih
-devijacija daje opisni raspon po normalnom pravilu širok približno
-`r hr_broj(2 * s9$normalni_poluraspon, 1)` boda, u kojem bi pod tim modelom
-ležalo oko 95 % ocjena. Za izrazito asimetrične, ograničene ili diskretne
-raspodjele takav opisni obuhvat ne slijedi. Taj prikaz nije interval predviđanja
-za novu osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti
-niti određuje iz koje bi populacije buduća osoba došla. Interval za sredinu
-odnosi se na parametar i sužava se s većim uzorkom, dok opisni raspon prikazuje
-raspršenost pojedinačnih ocjena.
+Nepreklapanje usporedivih intervala može upućivati na razliku, ali preklapanje
+ne dokazuje jednakost. Tumačenje ovisi i o nacrtu istraživanja te o tome jesu
+li procjene povezane. Najizravnije je izračunati interval za samu razliku. To
+ćemo učiniti u poglavlju o dvjema grupama. Ni iz takve usporedbe ne dobivamo
+vjerojatnost da je razlika „stvarna”.
 
-*Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi.*
+Treba razlikovati i nesigurnost prosjeka od raspršenosti pojedinačnih
+vrijednosti. Interval za sredinu u našem uzorku od dvjesto osoba širok je
+`r hr_broj(s9$gornja - s9$donja, 2)` boda. Ako su ocjene približno normalno raspoređene, raspon sredine
+plus ili minus 1,96 uzoračkih standardnih devijacija opisivao bi oko 95 %
+pojedinačnih ocjena. Taj je raspon širok približno `r hr_broj(2 * s9$normalni_poluraspon, 1)` boda. Normalno
+pravilo ne daje takav obuhvat za izrazito asimetrične, ograničene ili
+diskretne raspodjele. Taj opisni raspon nije ni interval predviđanja za novu
+osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti niti
+određuje populaciju buduće osobe. Veći uzorak sužava interval za sredinu, ali
+ne uklanja razlike među ljudima.
+
+*Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora; podaci i postupak opisani su u tekstu.*
 
 ## Bootstrap kao vlastiti izum
 
-Sve dosad počiva na jednoj formuli za standardnu pogrešku, a upotrebljiv
-zatvoren račun nije jednako dostupan za svaku mjeru. Za sredinu je jednostavan,
-za udio također, dok za medijan, razliku percentila ili omjer može biti
-nepraktičan ili tražiti dodatne pretpostavke. Odgovor za slučaj kada takav račun
-nemamo može se smisliti bez ijedne nove ideje, uz uvjet da se prethodno
-poglavlje shvatilo ozbiljno.
+Za sredinu imamo jednostavnu formulu standardne pogreške. Za medijan, razliku
+percentila ili omjer račun može biti složeniji ili zahtijevati dodatne
+pretpostavke. Tada nam može pomoći ponovno uzorkovanje opaženih podataka.
 
-Standardna pogreška bila je definirana kroz ponovljene uzorke iz populacije.
-Kad bismo populaciji imali pristup, izvukli bismo tisuću uzoraka, izračunali
-tisuću medijana i pogledali koliko se razilaze. Populaciji pristupa nemamo,
-imamo samo uzorak. Njegova empirijska raspodjela može privremeno glumiti
-populaciju samo ako opažene jedinice razumno predstavljaju ciljnu populaciju.
-U jednostavnom bootstrapu redaka pretpostavljamo i da su jedinice neovisne i
-međusobno zamjenjive na razini na kojoj su bile uzorkovane. Uparena,
-grupirana ili ponovljena opažanja zato se ne rastavljaju na proizvoljne retke,
-nego se ponovno uzorkuju cijeli parovi, skupine ili osobe. Pod tim uvjetima
-uzorci jednake veličine iz opaženih podataka oponašaju promjene sastava koje
-bismo vidjeli pri novom uzorkovanju iz populacije.
+Kad bismo mogli uzimati nove uzorke iz populacije, izračunali bismo medijan u
+svakome i promatrali koliko se mijenja. Budući da imamo samo jedan uzorak,
+pokušavamo ponoviti taj postupak izvlačenjem iz njegovih vrijednosti. Uzorak
+pritom mora razumno predstavljati ciljnu populaciju. Jednostavno ponovno
+uzorkovanje redaka pretpostavlja neovisne i međusobno zamjenjive jedinice na
+razini uzorkovanja. Ako su podaci upareni, grupirani ili ponovljeni, čuvamo tu
+strukturu i izvlačimo cijele parove, skupine ili osobe. Pod tim uvjetima novi
+uzorci iste veličine približno oponašaju promjene koje bi nastale ponovnim
+uzorkovanjem iz populacije.
 
-Izvlačenje mora biti s vraćanjem, i to nije tehnički detalj. Izvlačenjem bez
-vraćanja iz uzorka od šezdeset osoba dobili bismo šezdeset istih osoba u drugom
-poretku, pa bi svaki takav uzorak dao identičan medijan i raspodjela ne bi
-imala nikakvu širinu. Vraćanjem opažanja u posudu dopuštamo da neka uđu
-dvaput, a neka nijednom, i upravo ta promjena sastava oponaša promjenu sastava
-koja nastaje pri izvlačenju iz populacije. Postupak nosi ime **bootstrap** i
-uveden je kao način procjene nesigurnosti kada teorijski račun nije pri ruci
-(Efron, 1979).
+Izvlačimo **s vraćanjem**. Bez vraćanja bismo iz uzorka od šezdeset osoba
+dobili istih šezdeset osoba u drugom redoslijedu, pa bi medijan uvijek bio
+jednak. S vraćanjem neke osobe ulaze više puta, a neke izostanu. Zbog promjene
+sastava mijenja se i procjena. Taj postupak zovemo **bootstrap**. Uveden je za
+procjenu nesigurnosti kada teorijski račun nije lako dostupan (Efron, 1979).
 
-Uzmimo uzorak od `r hr_broj(s9$mali_n, 0)` osoba i pitajmo se koliko iznosi
-medijan dnevnih minuta praćenja medija. U uzorku on iznosi
-`r hr_broj(s9$medijan_uzorak, 1)` minuta. Četiri tisuće bootstrap uzoraka daju
-središnji percentilni raspon od `r hr_broj(s9$boot_donja, 1)` do
-`r hr_broj(s9$boot_gornja, 1)` minuta. Poznata populacijska vrijednost od
-`r hr_broj(s9$medijan_pop, 1)` minuta u ovom se jednom slučaju nalazi unutar
-granica. Slika zato pokazuje konstrukciju raspona iz jednoga uzorka, a ne
-njegovu dugoročnu pokrivenost.
+Percentilni bootstrap interval uzima odabrane percentile ponovljenih
+procjena. Njegova je primjena najjednostavnija kada bootstrap raspodjela
+dobro oponaša raspršenost procjenitelja, bez izražene pristranosti ili
+asimetrije. Postoje i drugi bootstrap intervali koji korigiraju pomak ili
+asimetriju; ovdje učimo samo najjednostavniji percentilni postupak. Ni taj postupak ne jamči točno zadanu razinu obuhvata.
+Mali ili diskretni uzorci, pristranost procjenitelja i vrlo asimetrične
+raspodjele mogu oslabiti približenje. Ponavljanje odabira iz postojećih
+redaka ne dodaje ljude koji su sustavno izostali iz početnog uzorka.
 
-*Slika. Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću.*
+Sada uzimamo novi početni uzorak od 60 osoba iz iste medijske populacije.
+To nije podskup prethodnih 200 osoba, a pratimo dnevne minute umjesto
+povjerenja. U lijevoj polovici tablice vidimo prvih osam zapisa toga
+uzorka, a u desnoj prvih osam izvlačenja iz prvoga bootstrap uzorka.
+Broj retka desno upućuje na zapis u cijelom početnom uzorku od 60 osoba.
+Ponavljanje broja retka znači ponovljen odabir iste osobe, ne novu osobu.
 
-Histogram ima vidljiv stubast oblik jer medijan maloga, zaokruženog uzorka može
-poprimiti samo ograničen skup vrijednosti. Ta diskretnost nije računalna
-pogreška, ali granice percentilnog raspona čini grubima. Veći broj bootstrap
-ponavljanja smanjuje slučajno kolebanje izračunanih percentila, no ne dodaje
-nove vrijednosti u siromašan početni uzorak i ne uklanja grube granice ni
-nestabilnost koje je mali uzorak već zadao.
+*Slika. Početak izvornog uzorka i prvoga ponovnog uzorka. Svaki puni uzorak ima 60 zapisa. Izrada autora.*
 
-Bootstrap ne pretpostavlja imenovani oblik populacijske raspodjele, ali nije
-bez pretpostavki. Shema se mora prilagoditi statistici i dizajnu. Kod
-korelacije ponovno uzorkujemo cijele parove vrijednosti, kod razlike između
-neovisnih skupina svaku skupinu zasebno, a kod ovisnih podataka cijele neovisne
-jedinice. Postupak također ne može obnoviti rijetke ili krajnje vrijednosti koje
-početni uzorak nije zabilježio. Procjene repova, poput vrlo visokog percentila,
-zato su osobito osjetljive na mali uzorak i raspodjele s teškim repovima, dok
-je medijan manje ovisan o repovima, ali pri mnogo vezanih vrijednosti i dalje
-daje grube granice. Ako uzorak ne predstavlja ciljnu populaciju, bootstrap
-precizno ponavlja isti problem umjesto da ga ukloni.
+Prvo ponovno izvlačenje uzima redak `r s9_prvi_i[1]`, pa prenosi njegovih
+`r s9_mali$minute_medija[s9_prvi_i[1]]` minuta. Nakon svih 60 izvlačenja
+imamo `r length(unique(s9_prvi_i))` različitih osoba, a medijan cijeloga
+ponovnog uzorka iznosi `r hr_broj(s9_boot_medijan[1], 1)` minuta. Taj jedan
+broj ulazi u sljedeći histogram. Postupak 4 000 puta počinje od istoga
+početnog uzorka, svaki put s novim izvlačenjem s vraćanjem. Sva su
+ponavljanja definirana. Poredamo 4 000 medijana i uzmemo percentile 2,5 i
+97,5, ostavljajući približno 100 vrijednosti sa svake strane.
+
+U uzorku od `r hr_broj(s9$mali_n, 0)` osoba medijan dnevnog praćenja medija iznosi `r hr_broj(s9$medijan_uzorak, 1)`
+minuta. Iz četiri tisuće bootstrap uzoraka dobivamo središnji percentilni
+raspon od `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta. On obuhvaća poznati populacijski
+medijan od `r hr_broj(s9$medijan_pop, 1)` minuta. Na slici vidimo kako nastaje raspon iz jednoga
+uzorka. Za provjeru dugoročnog obuhvata trebali bismo ponavljati cijeli
+postupak s novim početnim uzorcima.
+
+*Slika. Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću. Izrada autora; podaci i postupak opisani su u tekstu.*
+
+Histogram je stubast jer medijan maloga, zaokruženog uzorka može poprimiti
+samo ograničen broj vrijednosti. Zato su i granice percentilnog raspona grube.
+Više bootstrap ponavljanja smanjuje računalno kolebanje percentila, ali ne
+nadoknađuje vrijednosti koje nedostaju u početnom uzorku.
+
+Bootstrap ne zahtijeva da unaprijed imenujemo oblik populacijske raspodjele,
+no način izvlačenja mora odgovarati statistici i nacrtu istraživanja. Za
+korelaciju izvlačimo cijele parove vrijednosti. Za razliku neovisnih skupina
+uzorkujemo svaku skupinu zasebno. Kod ovisnih podataka izvlačimo cijele
+neovisne jedinice. Postupak ne može dodati rijetke ili krajnje vrijednosti
+kojih u uzorku nema. Zato su vrlo visoki percentili posebno osjetljivi na male
+uzorke i teške repove. Medijan manje ovisi o repovima, ali mnogo jednakih
+vrijednosti može dati grube granice. Bootstrap također ne uklanja
+nereprezentativnost početnog uzorka.
 
 ### Kodirani udio i dvije nesigurnosti
 
-Kada je podatak nastao kodiranjem teksta, procijenjeni udio nosi najmanje dva
-odvojena izvora nesigurnosti. **Uzoračka nesigurnost** dolazi od toga koji su
-tekstovi ušli u korpus ili uzorak. **Nesigurnost kodiranja** dolazi od pravila
-po kojem je tekst svrstan, rubnih slučajeva i odluka kodera ili klasifikatora.
-Mjerenje može dodati još jedan izvor ako kodirana kategorija samo približno
-predstavlja pojam koji istraživanje želi zahvatiti.
+U poglavlju o povezanosti promjena pravila kodiranja promijenila je oznake
+istih naslova. Ponovno izvlačenje tih naslova ne bi samo po sebi provjerilo
+to pravilo. Kod udjela dobivenog kodiranjem teksta zato razlikujemo barem dva izvora
+nesigurnosti. **Uzoračka nesigurnost** odnosi se na odabir tekstova.
+**Nesigurnost kodiranja** odnosi se na pravila razvrstavanja, rubne slučajeve
+i odluke kodera ili klasifikatora. Ako kodirana kategorija samo približno
+odgovara istraživačkom pojmu, trebamo razmotriti i nesigurnost mjerenja.
 
-Bootstrap redaka s već dodijeljenim oznakama mijenja sastav opaženih tekstova i
-zato može prikazati uzoračku komponentu pod pretpostavkom da je jedinica
-ponovnog uzorkovanja ispravna. Ne mijenja pravilo kodiranja i ne provjerava
-jesu li oznake valjane. Kada bi se rubni tekstovi razvrstali drugim obranjivim
-pravilom, procijenjeni udio mogao bi se pomaknuti iako bi bootstrap interval za
-svaku od dviju inačica bio uzak. Pošten izvještaj zato uz procjenu i interval
-navodi jedinicu teksta, ciljnu populaciju tekstova, postupak odabira i pravilo
-kodiranja te izrijekom kaže koju je nesigurnost račun obuhvatio, a koju nije.
+Bootstrap redaka s gotovim oznakama mijenja sastav tekstova, ali zadržava
+njihove oznake. Uz ispravno odabranu jedinicu ponovnog uzorkovanja opisuje
+uzoračku nesigurnost. Ne provjerava valjanost kodiranja. Drugo opravdano
+pravilo moglo bi promijeniti oznake rubnih tekstova i pomaknuti procijenjeni
+udio, čak i kada oba izračuna daju uske intervale. U izvještaju zato navodimo
+jedinicu teksta, ciljnu populaciju, način odabira i pravilo kodiranja te
+objašnjavamo koju nesigurnost interval uključuje.
 
 **Statistika u divljini.**
-**Šest tvrdnji o jednom intervalu.** Istraživači su studentima i aktivnim
-znanstvenicima predočili interval iz zamišljenoga istraživanja i uz njega šest
-tvrdnji o njegovu značenju, među kojima nijedna nije bila točna (Hoekstra, 2014).
-Velik dio ispitanika u svim skupinama, uključujući iskusne istraživače,
-prihvatio je barem neke od njih (Hoekstra, 2014).
+**Šest tvrdnji o jednom intervalu.** Istraživač može uredno
+izračunati interval, a ipak pogrešno objasniti što iz njega slijedi.
+Hoekstra i suradnici to su provjerili zadatkom u kojem su studenti
+i istraživači prosuđivali šest tumačenja intervala iz zamišljenog
+istraživanja. Sve su tvrdnje bile netočne, ali su ih obje skupine
+u prosjeku prihvatile više od tri (Hoekstra, 2014). Pogreška se
+dogodila pri čitanju rezultata, nakon što je račun već bio zadan.
 
-Tvrdnje nisu bile besmislene. Upravo ih uvjerljivost čini poučnima. Sve su govorile o
-vjerojatnosti da se prava vrijednost nalazi unutar granica, ili o tome koliko
-je vjerojatno da bi se ponovljeno istraživanje unutar njih smjestilo. Postupak
-koji smo izgradili takva obećanja ne daje, jer se njegov postotak odnosi na
-udio intervala koje bi ponovljeno uzorkovanje proizvelo. Nalaz ne pokazuje da
-su intervali loš alat nego da je rečenica kojom ih opisujemo teža od računa
-koji ih proizvodi.
+Razmotrimo vlastiti zamišljeni primjer. Studentska anketa treba
+procijeniti prosječno vrijeme putovanja na fakultet. U izvještaju
+stoji 95-postotni interval od 30 do 40 minuta. Autor bi mogao
+napisati da se unutar njega nalazi vrijeme putovanja 95 % studenata.
+Time bi raspon nesigurnosti procijenjenog prosjeka pretvorio u opis
+razlika među ljudima. Podaci o pojedinačnim putovanjima mogli bi
+biti mnogo raspršeniji.
 
-**Pitajte model.**
-Asistent može bootstrapirati mnoge statistike, ali ispravan kod ne jamči
-ispravan plan ponovnog uzorkovanja. Provjeravamo predstavlja li početni uzorak
-ciljnu populaciju i koja je stvarno neovisna jedinica. Zatim gledamo uzorkuje li
-s vraćanjem na punoj veličini uzorka i čuva li parove, skupine ili ponovljena
-opažanja. Broj ponavljanja također mora biti dovoljan da računalno kolebanje
-granica bude malo. Ključna pogreška koju ovdje provjeravamo nije u kodu nego u
-zaključnoj rečenici, gdje se već izračunatom intervalu pripiše vjerojatnost.
+Drugo bi iskušenje bilo napisati da je nakon ovog računa
+vjerojatnost položaja prave sredine između granica jednaka 95 %.
+U frekvencijskom postupku koji smo učili razina pouzdanosti pripada
+postupku ponovljenog uzorkovanja. Ako njegove pretpostavke vrijede,
+približno taj udio tako dobivenih intervala obuhvaćao bi pravu
+sredinu. Ne raspoređujemo vjerojatnost nepoznate sredine unutar
+ovoga već izračunatog intervala.
 
-> Izračunaj točkastu procjenu i bootstrap interval. Uzorkuj s vraćanjem na
-> punoj veličini uzorka, sačuvaj strukturu podataka i interpretiraj razinu
-> pouzdanosti kao svojstvo ponovljenog postupka.
+Za čitatelja studentskog izvještaja ta razlika ima praktičnu
+posljedicu. Interval prosjeka može pomoći da procijeni tipično
+opterećenje putovanjem, ali ne govori koliko studenata putuje
+izrazito dugo. Za odluku o pomoći tim studentima trebala bi
+raspodjela pojedinačnih vremena i prag koji za tu odluku ima smisla.
+
+Autor zato treba imenovati veličinu koju procjenjuje i objasniti
+koju nesigurnost interval opisuje. U našem primjeru to je
+nesigurnost procjene prosječnog vremena pod uvjetima odabranog
+postupka. Prije pisanja zaključka zato provjeravamo nismo li raspon nesigurnosti
+prosjeka zamijenili rasponom pojedinačnih putovanja ili pouzdanost postupka
+vjerojatnošću da je nepoznati prosjek unutar dobivenih granica.
 
 **Nađite grešku.**
-Za vektor `minute` s jednom vrijednošću po neovisno uzorkovanoj osobi asistent
-je vratio kratak račun za bootstrap medijana.
+Vraćamo se uzorku od šezdeset osoba iz simuliranoga grada. Želimo
+procijeniti populacijski medijan dnevnog vremena uz medije. Vektor
+`minute` sadrži njihove pojedinačne vrijednosti, a osobe su uzorkovane
+neovisno. Asistent je vratio račun percentilnog bootstrap intervala.
 
-Objasnio je da `replicate` ponavlja postupak, `sample` na punoj veličini uzorka
-i s vraćanjem mijenja njegov sastav, `median` u svakom ponavljanju računa istu
-mjeru, a `quantile` uzima središnjih 95 % dobivenih vrijednosti. Zatim je
-zaključio da postoji devedesetpetpostotna vjerojatnost da se fiksna
-populacijska vrijednost nalazi unutar upravo ovog opaženog intervala.
+Izračunani medijan uzorka iznosi `r hr_broj(median(s9_mali$minute_medija), 1)`
+minuta, a granice intervala
+`r hr_broj(quantile(s9_boot_medijan, .025), 0)` i
+`r hr_broj(quantile(s9_boot_medijan, .975), 0)` minuta. To su rezultati
+nastavne simulacije (Šikić, 2026). Uz njih stoji asistentovo objašnjenje.
+
+> U svakom ponavljanju uzorkujemo s vraćanjem isti broj osoba i računamo
+> medijan. Granice izdvajaju središnjih 95 % bootstrap medijana.
+> Zato postoji 95 % vjerojatnosti da je fiksni populacijski medijan
+> između upravo dobivenih granica.
+
+Napišite zamjensko objašnjenje za čitatelja izvještaja. Zadržite
+procjenu, granice i opis ponavljanja, a razinu od 95 % povežite s onim
+čemu ona pripada. Navedite što bi se mijenjalo kad bismo uzeli novi
+uzorak iz iste populacije.
 
 ## Razrađeni primjer
 
-Naručitelja istraživanja zanima koliko vremena dnevno stanovnici grada provode
-uz medije. Procjena mu je uporabiva samo ako njezina margina nije veća od deset
-minuta, a na raspolaganju je uzorak od šezdeset ljudi.
+Zamislimo naručitelja koji želi procijeniti koliko vremena dnevno odrasli
+stanovnici grada provode uz medije i koji traži marginu ne veću od deset
+minuta. Za vježbu tog zadatka koristimo već uvedeni uzorak od šezdeset osoba iz
+simuliranoga grada. Trebamo povezati izbor mjere s njegovim pitanjem, a zatim
+provjeriti daje li uzorak traženu preciznost.
 
-Prvi izbor nije statistički nego opisni. Dnevne minute imaju rep prema velikim
-vrijednostima, a poglavlje o sažimanju podataka pokazalo je da prosjek takav
-rep povlači za sobom, dok medijan ostaje kod tipičnog ispitanika. Za pitanje o
-tome koliko vremena uz medije provodi uobičajena osoba medijan je pošteniji
-odgovor. Cijena tog izbora vidi se tek sada, jer za sredinu imamo jednostavan
-račun standardne pogreške, dok bi račun za medijan tražio dodatne pretpostavke.
-Upravo zato ovaj primjer i postoji.
+Najprije biramo mjeru koja odgovara pitanju. Dnevne minute imaju dug rep prema
+velikim vrijednostima, koji povlači prosjek prema gore. Za opis uobičajene
+osobe zato biramo medijan. Budući da za njegovu standardnu pogrešku nemamo
+jednako jednostavan račun kao za sredinu, nesigurnost ćemo procijeniti
+bootstrapom.
 
-Cijeli bootstrap stane u istu petlju koju je poglavlje o uzorkovanju već
-pokazalo, uz jednu izmjenu. Umjesto iz populacije, izvlačimo iz uzorka, i to s
-vraćanjem.
+Postupak je sličan simulaciji iz prethodnog poglavlja. Ovaj put izvlačimo iz
+opaženog uzorka, s vraćanjem, i u svakom ponavljanju računamo medijan.
 
-Poziv `sample` uz argument `replace` izvlači s vraćanjem i jedini je novi
-element u odnosu na prethodno poglavlje, dok `quantile` odsijeca zadani udio
-raspodjele s obje strane. Blok proizvodi upravo one tri brojke koje je odjeljak
-o bootstrapu već naveo, jer je riječ o istoj analizi ispisanoj u cijelosti.
+Poziv `sample` uz argument `replace` mijenja sastav ponovnog
+uzorka tako što dopušta višekratni izbor iste osobe. Nakon računanja medijana u
+svakom ponavljanju, funkcija `quantile` određuje granice odsijecanjem
+zadanog udjela raspodjele sa svake strane. Tako kod povezuje ponovno izvlačenje
+s trima već prikazanim vrijednostima, medijanom uzorka i granicama njegova
+bootstrap raspona.
 
-Odgovor najprije imenuje populaciju i jedinicu, a tek zatim broj. Za ciljnu
-populaciju odraslih stanovnika simuliranoga grada, gdje je jedinica jedna
-osoba, medijan dnevnog praćenja medija procjenjujemo na
-`r hr_broj(s9$medijan_uzorak, 1)` minuta. Percentilni bootstrap raspon od 95 %
-proteže se od `r hr_broj(s9$boot_donja, 1)` do
-`r hr_broj(s9$boot_gornja, 1)` minuta i opisuje uzoračku promjenjivost medijana
-pod navedenim uvjetima. Raspon je širok gotovo
-`r hr_broj(s9$boot_gornja - s9$boot_donja, 0)` minuta, pa njegova margina
-iznosi približno
-`r hr_broj((s9$boot_gornja - s9$boot_donja) / 2, 0)` minuta. Time unaprijed
-zadani cilj od najviše deset minuta nije ispunjen. Poštena je odluka izvijestiti
-o stvarnoj širini ili prikupiti dovoljno informacija za precizniju procjenu, a
-ne iz ovoga raspona zaključivati o promjeni. Kada odabrane osobe ne bi
-predstavljale ciljnu populaciju, populacijska bi se tvrdnja povukla i ostao bi
-samo opis uzorka, jer bootstrap tu pogrešku ne uključuje.
+Za odrasle stanovnike simuliranoga grada procjenjujemo medijan dnevnog
+praćenja medija na `r hr_broj(s9$medijan_uzorak, 1)` minuta. Jedinica je jedna osoba. Percentilni
+bootstrap raspon od 95 % ide od `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta i pod navedenim
+uvjetima opisuje uzoračku promjenjivost medijana. Ukupna širina iznosi
+`r hr_broj(s9$boot_gornja - s9$boot_donja, 0)` minuta. Udaljenost od procjene
+do donje granice iznosi `r hr_broj(s9$medijan_uzorak - s9$boot_donja, 1)`,
+a do gornje `r hr_broj(s9$boot_gornja - s9$medijan_uzorak, 1)` minuta.
+Veća od tih udaljenosti prelazi traženih deset minuta. Trebamo izvijestiti o toj
+nepreciznosti ili prikupiti dodatne informacije. Iz raspona ne zaključujemo o
+promjeni. Kada uzorak ne bi predstavljao ciljnu populaciju, rezultat bismo
+ograničili na opis uzorka.
 
-Budući da populaciju poznajemo, možemo napraviti i ono što stvarno istraživanje
-ne može. Prava vrijednost iznosi `r hr_broj(s9$medijan_pop, 1)` minuta i nalazi
-se unutar granica. Taj jedan pogodak ne potvrđuje niti opovrgava percentilni
-bootstrap. Deset tisuća ponavljanja iz ranijeg odjeljka provjerava drugi
-postupak, normalni interval za sredinu. Pokrivenost raspona za medijan trebalo bi
-provjeriti ponavljanjem cijeloga lanca, od novog uzorka od šezdeset osoba do
-novoga bootstrap raspona u svakom ponavljanju, pa zatim prebrojiti koliko takvih
-raspona obuhvaća populacijski medijan. Takva provjera ovdje nije provedena, pa
-primjer pokazuje konstrukciju i ograničenja raspona, a ne dokazuje njegovu
-nominalnu pokrivenost.
+U simulaciji znamo da populacijski medijan iznosi `r hr_broj(s9$medijan_pop, 1)` minuta i da je
+unutar dobivenih granica. Jedan pogodak ipak ne provjerava pouzdanost
+postupka. Ranijih deset tisuća ponavljanja odnosilo se na normalni interval za
+sredinu. Za provjeru bootstrap raspona medijana morali bismo svaki put izvući
+novi uzorak od šezdeset osoba, iz njega izračunati novi bootstrap raspon i
+prebrojiti obuhvate populacijskog medijana. To ovdje nismo učinili, pa prikaz
+ne dokazuje zadanu razinu obuhvata.
 
-Redoslijed kojim su tri brojke ispisane isti je onaj kojim se rezultat i
-izvještava. Najprije dolazi procjena, jer je ona odgovor na postavljeno pitanje.
-Zatim dolazi raspon, jer bez njega procjena tvrdi više nego što zna. Tek na
-kraju dolazi ograda, koja ovdje kaže da su podaci simulirani, da je mjera
-medijan, a ne prosjek, i da šezdeset ljudi nije mnogo. Ista tri koraka vrijede
-za nalaz čija je populacija stvarna, s tom razlikom da se ondje srednji korak
-mora izvesti bez izravne provjere prema poznatom parametru u istom istraživanju,
-i upravo zato mora biti izveden pažljivo.
+U izvještaju najprije navodimo procjenu, njezin raspon nesigurnosti i
+ograničenja. Ovdje trebamo reći da su
+podaci simulirani, da procjenjujemo medijan i da raspolažemo sa šezdeset
+osoba. Isti oblik izvještaja koristimo u stvarnom istraživanju, iako ondje
+obično ne znamo parametar s kojim bismo usporedili rezultat.
 
-## Granica Dijela III — Od procjene do tvrdnje
+## Od procjene do tvrdnje
 
-Šest revizijskih pitanja povezuje vjerojatnost, uzorkovanje i procjenu. Ona
-sprječavaju da uzak raspon postane dopuštenje za širu tvrdnju od one koju
-podaci i postupak mogu nositi. Na razrađenom primjeru odgovori izgledaju ovako.
+Procjenu i širinu raspona već smo izračunali, ali naručitelju trebamo objasniti
+i na koga se rezultat odnosi. Šest pitanja u tablici povezuje naš račun s
+odabirom osoba, mjerenjem minuta i zahtjevom za preciznošću. Tako vidimo koje
+bi ograničenje moglo promijeniti konačnu rečenicu.
 
-| Pitanje revizije | Primjena na bootstrap medijana |
+| Revizijsko pitanje | Primjena na bootstrap medijana |
 |---|---|
-| Što predstavlja jedan redak ili jedno opažanje? | jednu generiranu odraslu osobu s jednim zapisom dnevnih minuta |
-| Tko ili što nije moglo ući u ove podatke? | uzorak je slučajno izvučen iz poznate sintetičke populacije, pa ne predstavlja stvarni grad ni osobe izvan te populacije |
-| Koja je ciljana količina i vrsta tvrdnje? | populacijski medijan dnevnih minuta, opisan procjenom i rasponom uzoračke nesigurnosti |
-| Koji su izvori nesigurnosti obuhvaćeni, a koji ostaju izvan izračuna? | bootstrap mijenja sastav uzorka pod zadanom jedinicom, ali ne provjerava pokrivenost ovoga postupka, mjerenje minuta ni doseg na stvarne stanovnike |
-| Koja bi razumna alternativna odluka mogla bitno promijeniti odgovor? | prosjek bi odgovarao na drugo pitanje i jače bi pratio desni rep, a veći uzorak mogao bi dati uži raspon za isti medijan |
-| Na koga može utjecati pogrešan zaključak ili odluka? | u ovoj sintetičkoj vježbi nitko stvaran, a u analognoj odluci naručitelj i stanovnici mogli bi dobiti neopravdano preciznu tvrdnju |
+| Koja je jedinica? | jedna generirana odrasla osoba s jednim zapisom dnevnih minuta |
+| Tko ili što nedostaje? | uzorak je slučajno izvučen iz poznate sintetičke populacije, pa ne predstavlja stvarni grad ni osobe izvan te populacije |
+| Koji je cilj tvrdnje? | populacijski medijan dnevnih minuta, opisan procjenom i rasponom uzoračke nesigurnosti |
+| Gdje je neizvjesnost? | promjene sastava uzorka; ne provjerava dugoročni obuhvat, mjerenje minuta ni prijenos na stvarne stanovnike |
+| Koje drugo objašnjenje ostaje? | u stvarnoj anketi slab obuhvat, neodgovor ili pogrešno mjerenje mogli bi objasniti pomak procjene; bootstrap takve izvore pogreške ne uklanja |
+| Tko snosi posljedice? | ovdje nema stvarnih sudionika; u stvarnom projektu pretjerana preciznost mogla bi zavesti naručitelja i stanovnike |
 
 : Šest revizijskih pitanja primijenjenih na procjenu iz simulirane populacije. Izrada autora.
 
-Odgovori određuju rečenicu koja se smije prenijeti. Oni ne pretvaraju
-sintetičku populaciju u empirijski dokaz, a izostavljenu mjernu nesigurnost ili
-nesigurnost kodiranja ne skrivaju unutar uzoračkoga raspona. Karta tvrdnji zato
-razdvaja šest mogućih dosega iste analize.
+Ti odgovori ograničavaju zaključak na ono što smo doista procijenili.
+Sintetički podaci nisu empirijski dokaz, a uzorački interval ne uključuje
+automatski nesigurnost mjerenja ili kodiranja. Karta tvrdnji u nastavku
+pokazuje šest različitih dosega analize.
 
 | Dimenzija tvrdnje | Što ovaj dokaz dopušta |
 |---|---|
@@ -426,17 +498,15 @@ razdvaja šest mogućih dosega iste analize.
 
 : Šest dimenzija tvrdnje na granici Dijela III. Izrada autora.
 
-Samoprovjera na granici dijela obuhvaća četiri povezana pitanja. Zašto pedeset
-intervala u widgetu ne mora sadržavati točno pet posto promašaja? Zašto
-bootstrap redaka s gotovim oznakama ne uključuje nesigurnost kodiranja? Koje
-elemente mora sadržavati poštena rečenica o procjeni i što mora doći prije
-brojke? Zašto
-podjela već sastavljenih podataka na skupove za učenje i provjeru ne zamjenjuje
-vjerojatnosni uzorak za populacijsku generalizaciju?
+Na kraju ovoga dijela provjerite možete li odgovoriti na četiri pitanja. Zašto
+među pedeset simuliranih intervala ne mora biti točno pet posto promašaja?
+Zašto bootstrap gotovih oznaka ne uključuje nesigurnost kodiranja? Što trebamo
+navesti uz procjenu i zašto najprije imenujemo populaciju? Zašto povećanje
+prigodnog uzorka ne uklanja razliku između ljudi koji su u njega mogli ući
+i ciljne populacije?
 
-Kratki račun provjere čini delegirani bootstrap čitljivim i bez pisanja koda.
-Svako polje povezuje zahtjev, izlaz i odgovornost s dokazom koji je vidljiv u
-ovom poglavlju.
+Tablica provjere pokazuje što smo tražili od asistenta, što je vratio i kako
+smo provjerili rezultat. Možemo je pročitati i bez pisanja koda.
 
 | Polje računa | Bootstrap medijana |
 |---|---|
@@ -445,31 +515,29 @@ ovom poglavlju.
 | Što je provjereno | puna veličina ponovnog uzorka, izvlačenje s vraćanjem, ista statistika u svakom ponavljanju i redoslijed izvještavanja |
 | Kako je provjereno | čitanjem poziva `sample`, `median`, `replicate` i `quantile` te usporedbom ispisa s brojkama u prozi |
 | Uloga AI-ja | instrument i pogrešiv analitičar |
-| Što je ostalo neprovjereno | dugoročna pokrivenost percentilnoga postupka za medijan, reprezentativnost u stvarnom istraživanju i valjanost mjerenja minuta |
+| Što je ostalo neprovjereno | dugoročni obuhvat percentilnoga postupka za medijan, reprezentativnost u stvarnom istraživanju i valjanost mjerenja minuta |
 | Odgovorna osoba | osoba koja odabire procjenjivanu količinu, provjerava račun i potpisuje zaključak |
 
 : Čitljiv račun provjere za procjenu iz Dijela III. Izrada autora.
 
 ## Sažetak
 
-Procjena počinje jednom vrijednošću, ali ne završava njome. Interval pouzdanosti
-uzima standardnu pogrešku i oblik koji je dao središnji granični teorem te oko
-procjene gradi raspon čije obećanje pripada postupku, a ne pojedinačnom rasponu
-koji imamo pred sobom. Preciznost se kupuje podacima, a pouzdanost se bira i
-plaća širinom, pa uz svaki raspon mora stajati razina na kojoj je izračunat.
-Bootstrap istu ideju oslobađa formule tako što uzorku dopušta da privremeno
-glumi populaciju kada uzorak i jedinica ponovnog uzorkovanja odgovaraju ciljnom
-načinu uzorkovanja. Time otvara mjere za koje jednostavan račun ne postoji, ali
-ne popravlja premalen ili nereprezentativan uzorak niti pogrešno odabranu
-jedinicu ponovnog uzorkovanja. Kodirani udio nosi i nesigurnost kodiranja i
-nesigurnost mjerenja, koje bootstrap već zadanih oznaka ne obuhvaća. Poštena
-rečenica zato imenuje populaciju i jedinicu, navodi procjenu, mjernu jedinicu i
-raspon te završava konkretnim ograničenjem koje bi moglo promijeniti zaključak.
-Sljedeće poglavlje uzima isti aparat i mijenja mu pitanje, jer umjesto raspona
-usklađenog s podacima traži koliko su podaci neobični pod jednom određenom
-pretpostavkom.
+Točkasta procjena postaje informativnija kada uz nju prikažemo interval i
+objasnimo koju nesigurnost on obuhvaća. Razina pouzdanosti opisuje dugoročni
+obuhvat postupka, pa viša razina na istim podacima širi interval, dok ga veći
+uzorak obično sužava. Kada nemamo jednostavnu formulu, bootstrapom ponovno
+izvlačimo iz opaženoga uzorka i procjenjujemo uzoračku promjenjivost, čuvajući
+jedinicu i strukturu nacrta. Time ne popravljamo premalen ili pristran uzorak,
+a pri ponovnom izvlačenju gotovih oznaka teksta ne uključujemo nesigurnost
+kodiranja ili mjerenja. U izvještaju zato povezujemo ciljnu populaciju i
+jedinicu s procjenom, mjernom jedinicom, intervalom i ograničenjima. U
+poglavlju o testiranju toj procjeni pridružujemo drugo pitanje, koliko bi
+opaženi rezultat bio neobičan pod određenom pretpostavkom.
 
 ## Pojmovi
+
+točkasta procjena (*point estimate*), kritična vrijednost (*critical value*),
+obuhvat intervala (*coverage*),
 
 procjena (*estimate*), interval pouzdanosti (*confidence interval*), razina
 pouzdanosti (*confidence level*), margina pogreške (*margin of error*),
@@ -478,6 +546,8 @@ preciznost (*precision*), bootstrap (*bootstrap*), percentilni raspon
 nesigurnost kodiranja (*coding uncertainty*)
 
 ## Zadaci
+
+Nakon vlastitog pokušaja otvorite naznake i provjere rješenja.
 
 ### Konceptualni
 
@@ -489,26 +559,38 @@ obuhvaća nesigurnost pravila kodiranja. Predajte jedan odlomak.
 
 ### Računski
 
+Najprije razlikujte točkastu procjenu, standardnu pogrešku i marginu pogreške.
+U ranijem uzorku od 200 osoba prosjek povjerenja iznosi 4,815, a standardna
+devijacija zaokruženo 2,093 boda. Iz tih vrijednosti izračunajte standardnu
+pogrešku, marginu $1,96 \cdot SE$ i obje granice približnoga 95-postotnog
+intervala. Jednom rečenicom protumačite čemu pripada razina od 95 %.
+
+Za ručnu demonstraciju bootstrapa uzmite prvih pet već prikazanih vrijednosti
+dnevnih minuta, 83, 82, 134, 139 i 164. Zadajemo ponovno izvlačenje redaka
+1, 1, 2, 4 i 5. Zapišite dobivene vrijednosti i usporedite njihov medijan s
+medijanom početnih pet vrijednosti. Objasnite zašto jedno takvo izvlačenje
+još ne daje interval pouzdanosti.
+
 Iz tiskane tablice s trima postavkama izračunajte širinu svakog intervala kao
-$2z^*/\sqrt{n}$ i usporedite rezultat s objavljenom širinom i brojem promašaja.
-Objasnite što se mijenja između postavki A i B, a što između A i C. Zatim u
-alatu iz Dodatka A ili B otvorite analitičku datoteku
-`data/populacija-medija.csv`, zabilježite ukupan broj redaka pa izdvojite retke
-za koje je `izvor_vijesti_sifra` jednak 1. Reproducirajte broj izdvojenih
-redaka, ukupan nazivnik, zbroj `povjerenje_medijima`, udio portala i prosječno
-povjerenje među korisnicima portala. Usporedite svih pet rezultata s
-agregatnom tablicom u ovom poglavlju i s datotekom
-`data/populacija-medija-agregat.csv`.
-Predajte račun za tri postavke, pet reproduciranih vrijednosti i jednu rečenicu
-o slaganju analitičkog i agregatnog prikaza. Ocjenjuje se rezultat i provjera,
-ne pisanje koda.
+$2z^*/\sqrt{n}$ i usporedite rezultat s objavljenom širinom. Broj promašaja
+očitajte iz tablice; on se ne dobiva iz formule za širinu.
+Objasnite što se mijenja između postavki A i B, a što između A i C.
+Iz tiskane agregatne tablice zatim podijelite broj korisnika portala ukupnim
+brojem osoba, a zbroj njihova povjerenja brojem korisnika portala.
+Usporedite udio i prosjek s objavljenim vrijednostima. Predajte tri računa
+širine, dva dijeljenja i objašnjenje granice provjere. Iz agregata možemo
+provjeriti račun, ali ne potvrditi kako su pojedinačni zapisi zbrojeni.
+
+Za dobrovoljnu provjeru pojedinačnih zapisa mrežni dodaci A i B pokazuju
+kako otvoriti `data/populacija-medija.csv` i usporediti isti podskup s
+agregatom. Ta provjera nije uvjet tiskanoga zadatka.
 
 ### Kritički
 
-Vratite se prikazu **Istraživač margine pogreške** u poglavlju o tome kako
+Vratite se prikazu Istraživač margine pogreške u poglavlju o tome kako
 brojke zavode. Usporedite stanje s uzorkom od 1000 osoba bez pristranosti i
 stanje s jednakim uzorkom te pristranošću od šest postotnih bodova. Oba
-pokazuju procjenu od 52 %. Primijenite ondje uvedeni protokol čitanja ankete i
+pokazuju procjenu od 52 %. Primijenite karticu za čitanje ankete iz poglavlja o mjerenju i
 sadašnje znanje o intervalima. Objasnite zašto ista uska margina pogreške ne
 može obuhvatiti pristranost odabira, navedite koji je izvor nesigurnosti unutar,
 a koji izvan intervala te napišite ispravljenu tvrdnju za pristrano stanje.
@@ -516,8 +598,8 @@ Predajte usporedbu dvaju stanja i ispravljenu tvrdnju.
 
 ### Revizija modela
 
-Pročitajte modelov račun iz okvira o pogrešci. Za svaki od poziva `replicate`,
+Pročitajte račun iz okvira o pogrešci. Za svaki od poziva `replicate`,
 `sample`, `median` i `quantile` jednom rečenicom povežite redak koda s pojmom
 koji provodi. Zatim izdvojite jedinu pogrešnu rečenicu i napišite
-frekventistički ispravnu zamjenu koja zadržava razinu od 95 % i ne uvodi nove
-tvrdnje o podacima. Kod ne treba prepisivati ni mijenjati.
+frekventistički ispravnu zamjenu koja zadržava razinu od 95 %, procjenu i
+granice intervala. Kod ne treba prepisivati ni mijenjati.

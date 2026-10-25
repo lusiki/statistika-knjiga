@@ -24,61 +24,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -98,9 +44,9 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -187,35 +133,6 @@ div.csl-indent {
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
 
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles/styles.css">
 </head>
@@ -488,9 +405,46 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Sadržaj</h2>
+   
+  <ul>
+  <li><a href="#sec-podaci-stanje" id="toc-sec-podaci-stanje" class="nav-link active" data-scroll-target="#sec-podaci-stanje">Stanje kataloga</a></li>
+  <li><a href="#sec-podaci-provjera" id="toc-sec-podaci-provjera" class="nav-link" data-scroll-target="#sec-podaci-provjera">Provjerljivi redci generiranih skupova</a>
+  <ul class="collapse">
+  <li><a href="#provjera-podaci-anketa-mreze" id="toc-provjera-podaci-anketa-mreze" class="nav-link" data-scroll-target="#provjera-podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup — provjera retka</a></li>
+  <li><a href="#provjera-podaci-populacija-medija" id="toc-provjera-podaci-populacija-medija" class="nav-link" data-scroll-target="#provjera-podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup — provjera retka</a></li>
+  </ul></li>
+  <li><a href="#sec-dzs-dvije-mjere" id="toc-sec-dzs-dvije-mjere" class="nav-link" data-scroll-target="#sec-dzs-dvije-mjere">Dvije DZS-ove mjere nisu jedna serija</a></li>
+  <li><a href="#sec-podaci-svi" id="toc-sec-podaci-svi" class="nav-link" data-scroll-target="#sec-podaci-svi">Svi paketi</a>
+  <ul class="collapse">
+  <li><a href="#podaci-anketa-mreze" id="toc-podaci-anketa-mreze" class="nav-link" data-scroll-target="#podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup</a></li>
+  <li><a href="#podaci-populacija-medija" id="toc-podaci-populacija-medija" class="nav-link" data-scroll-target="#podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup</a></li>
+  <li><a href="#podaci-ucbadmissions" id="toc-podaci-ucbadmissions" class="nav-link" data-scroll-target="#podaci-ucbadmissions">UCBAdmissions, zamrznuti orijentir iz R-ove distribucije</a></li>
+  <li><a href="#podaci-anscombe" id="toc-podaci-anscombe" class="nav-link" data-scroll-target="#podaci-anscombe">Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije</a></li>
+  <li><a href="#podaci-dzs-turizam" id="toc-podaci-dzs-turizam" class="nav-link" data-scroll-target="#podaci-dzs-turizam">DZS turizam, omeđeni izvadak</a></li>
+  <li><a href="#podaci-dzs-drugi-domen" id="toc-podaci-dzs-drugi-domen" class="nav-link" data-scroll-target="#podaci-dzs-drugi-domen">Drugi DZS domen</a></li>
+  <li><a href="#podaci-dip-2024" id="toc-podaci-dip-2024" class="nav-link" data-scroll-target="#podaci-dip-2024">DIP, izbori za Hrvatski sabor 2024.</a></li>
+  <li><a href="#podaci-digikat-akteri" id="toc-podaci-digikat-akteri" class="nav-link" data-scroll-target="#podaci-digikat-akteri">DigiKat agregat aktera</a></li>
+  <li><a href="#podaci-determ-korpus" id="toc-podaci-determ-korpus" class="nav-link" data-scroll-target="#podaci-determ-korpus">Determ, puni korpus</a></li>
+  <li><a href="#podaci-eurostat-drustvo" id="toc-podaci-eurostat-drustvo" class="nav-link" data-scroll-target="#podaci-eurostat-drustvo">Eurostat, društveni pokazatelji</a></li>
+  <li><a href="#podaci-ess-r11-hr" id="toc-podaci-ess-r11-hr" class="nav-link" data-scroll-target="#podaci-ess-r11-hr">European Social Survey, Round 11, Hrvatska</a></li>
+  <li><a href="#podaci-vdem-v16" id="toc-podaci-vdem-v16" class="nav-link" data-scroll-target="#podaci-vdem-v16">V-Dem Dataset v16</a></li>
+  <li><a href="#podaci-covidistress-ii" id="toc-podaci-covidistress-ii" class="nav-link" data-scroll-target="#podaci-covidistress-ii">COVIDiSTRESS II</a></li>
+  <li><a href="#podaci-wdi" id="toc-podaci-wdi" class="nav-link" data-scroll-target="#podaci-wdi">World Development Indicators</a></li>
+  <li><a href="#podaci-parlamint-hr" id="toc-podaci-parlamint-hr" class="nav-link" data-scroll-target="#podaci-parlamint-hr">ParlaMint-HR 5.0</a></li>
+  <li><a href="#podaci-parlasent" id="toc-podaci-parlasent" class="nav-link" data-scroll-target="#podaci-parlasent">ParlaSent 1.0</a></li>
+  <li><a href="#podaci-gfi-fina" id="toc-podaci-gfi-fina" class="nav-link" data-scroll-target="#podaci-gfi-fina">GFI/FINA</a></li>
+  <li><a href="#podaci-digikat-mediji" id="toc-podaci-digikat-mediji" class="nav-link" data-scroll-target="#podaci-digikat-mediji">DigiKat, agregat digitalnoga medijskog prostora</a></li>
+  <li><a href="#podaci-rdp-potpore" id="toc-podaci-rdp-potpore" class="nav-link" data-scroll-target="#podaci-rdp-potpore">Registar državnih potpora, agregati koncentracije</a></li>
+  <li><a href="#podaci-bdp-dugi-niz" id="toc-podaci-bdp-dugi-niz" class="nav-link" data-scroll-target="#podaci-bdp-dugi-niz">BDP po stanovniku, dugi niz i pet procjena</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -500,7 +454,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -535,10 +489,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -592,36 +550,1239 @@ window.Quarto = {
 }());
 </script>
 
-<!-- =====================================================================
-  Pregled skupova podataka koje knjiga koristi. Održava se zajedno s
-  Dodatkom C (dodaci/c-katalog-podataka.qmd), koji nosi puni katalog s
-  licencama i opisom varijabli, i s R/fetch-podaci.R, koji ih dohvaća.
-
-  Privremeno stanje prikazano je kao namjerna prazna stranica dok se svaki
-  skup ne provjeri; ne vraćati prijašnji prazan obrazac.
-===================================================================== -->
-<p>Svaki skup podataka koji se pojavljuje u knjizi javno je dostupan, imenovan i citiran. Nijedna vježba ne počiva na podacima koje čitatelj ne može sam preuzeti i provjeriti. Puni katalog s licencama i opisom varijabli je Dodatak C.</p>
-<p>Jezgru čine Europsko društveno istraživanje u hrvatskim valovima, Državni zavod za statistiku i Eurostat.</p>
-<section id="popis" class="level2">
-<h2 class="anchored" data-anchor-id="popis">Popis</h2>
-<div class="empty-state">
-<div class="empty-state-title">
-<p>Katalog je u pripremi</p>
+<!-- Generira scripts/build-appendix-c-views.R iz data/katalog.yml. -->
+<p>Ovdje su sažeti podaci o skupovima koji se koriste ili razmatraju za knjigu. Svaki zapis vodi do podrobnijega opisa u Dodatku C. Oba se prikaza grade iz istog kataloga <code>data/katalog.yml</code>, koji bilježi odabir skupa za uporabu, način pristupa, datoteke i granice zaključivanja.</p>
+<section id="sec-podaci-stanje" class="level2">
+<h2 class="anchored" data-anchor-id="sec-podaci-stanje">Stanje kataloga</h2>
+<p>Katalog sadrži 20 paketa. Među njima je 9 u traci <code>bundled</code>, 2 u traci <code>portal-mediated</code> i 9 u traci <code>external-only</code>. Promovirano ih je 6. Promocija je zasebna odluka; sama dostupnost datoteke ne mijenja status.</p>
+<div id="tbl-podaci-paketi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-paketi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Sažeti popis paketa iz kanonskoga kataloga.
+</figcaption>
+<div aria-describedby="tbl-podaci-paketi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Skup</th>
+<th>Način pristupa</th>
+<th>Status</th>
+<th>Pitanje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-EXISTING</code></td>
+<td>Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-EXISTING</code></td>
+<td>Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-ucbadmissions">UCBAdmissions, zamrznuti orijentir iz R-ove distribucije</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Kako zbirna stopa upisa može obrnuti predznak razlike po odjelima?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-anscombe">Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Zašto četiri skupa s istim sažetcima izgledaju posve različito?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-dzs-turizam">DZS turizam, omeđeni izvadak</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-DZS</code></td>
+<td>Kako se dolasci i noćenja mijenjaju kroz godinu i po županijama?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-dzs-drugi-domen">Drugi DZS domen</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Nije određeno jer domena i tablice nisu odabrane.</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-dip-2024">DIP, izbori za Hrvatski sabor 2024.</a></td>
+<td><code>portal-mediated</code></td>
+<td>nije promoviran</td>
+<td>Kako se izlaznost mijenja po izbornim jedinicama i što joj je nazivnik?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-digikat-akteri">DigiKat agregat aktera</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-determ-korpus">Determ, puni korpus</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Što se može i što se ne može reproducirati iz ograničenoga komercijalnog izvora?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-eurostat-drustvo">Eurostat, društveni pokazatelji</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-EUROSTAT</code></td>
+<td>Kako se isti pokazatelj razlikuje među zemljama u istoj godini?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-ess-r11-hr">European Social Survey, Round 11, Hrvatska</a></td>
+<td><code>portal-mediated</code></td>
+<td>nije promoviran</td>
+<td>Među hrvatskim ispitanicima u službenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje između neponderirane procjene i procjene s anweight, te koje pogreške odabira ili mjerenja ponder ne može ukloniti?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-vdem-v16">V-Dem Dataset v16</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Kako se latentni pojam poput demokracije pretvara u broj s nesigurnošću?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-covidistress-ii">COVIDiSTRESS II</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Zašto vrlo velik dobrovoljni uzorak ne popravlja samoodabir?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-wdi">World Development Indicators</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Nije određeno jer pokazatelj nije odabran.</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-parlamint-hr">ParlaMint-HR 5.0</a></td>
+<td><code>bundled</code></td>
+<td>nije promoviran</td>
+<td>Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-parlasent">ParlaSent 1.0</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-TEXT</code></td>
+<td>Kako se ljudska oznaka pretvara u zabilježeni referentni ishod, i koliko je pogrešiva?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-gfi-fina">GFI/FINA</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Što se smije tvrditi iz izvora koji čitatelj ne može otvoriti?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-digikat-mediji">DigiKat, agregat digitalnoga medijskog prostora</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-DIGIKAT</code></td>
+<td>Kako se objavljivanje i vidljivost razlikuju među platformama i među izvorima?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-rdp-potpore">Registar državnih potpora, agregati koncentracije</a></td>
+<td><code>bundled</code></td>
+<td>nije promoviran</td>
+<td>Koliko je koncentrirana dodjela državnih potpora i koliko ju je snimka registra uopće zabilježila?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-bdp-dugi-niz">BDP po stanovniku, dugi niz i pet procjena</a></td>
+<td><code>bundled</code></td>
+<td>nije promoviran</td>
+<td>Koliko se razlikuju objavljene procjene iste veličine i što se dobiva kad ih se spoji u jedan niz?</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>Popis će biti objavljen kada svaki skup dobije provjeren izvor, licencu i poveznicu za preuzimanje. Do tada se ovdje ne prikazuje prazan obrazac koji bi mogao izgledati kao gotov katalog.</p>
+</figure>
 </div>
 </section>
-<section id="kako-se-podaci-dohvaćaju" class="level2">
-<h2 class="anchored" data-anchor-id="kako-se-podaci-dohvaćaju">Kako se podaci dohvaćaju</h2>
-<p>Skripta <code>R/fetch-podaci.R</code> dohvaća sve skupove iz javnih izvora i sprema ih u <code>data/</code>. Pokreće se ručno, ne pri svakom renderu, jer izvori mijenjaju adrese sporije nego što se knjiga gradi.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/fetch-podaci.R</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="sec-podaci-provjera" class="level2">
+<h2 class="anchored" data-anchor-id="sec-podaci-provjera">Provjerljivi redci generiranih skupova</h2>
+<p>Agregatne datoteke dvaju generiranih nastavnih skupova omogućuju provjeru bez analitičkoga softvera. Vrijednosti ispod prepisuju se kao znakovni zapisi iz datoteka koje katalog izrijekom proglašava agregatnim prikazima.</p>
+<section id="provjera-podaci-anketa-mreze" class="level3">
+<h3 class="anchored" data-anchor-id="provjera-podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup — provjera retka</h3>
+<p>Udio u <a href="#tbl-podaci-anketa-mreze-udjeli" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-anketa-mreze-udjeli</span></a> uvijek nosi vlastiti brojnik i nazivnik. Prosjek u <a href="#tbl-podaci-anketa-mreze-prosjeci" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-anketa-mreze-prosjeci</span></a> uvijek stoji uz cjelobrojni zbroj iz iste skupine.</p>
+<div id="tbl-podaci-anketa-mreze-udjeli" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-anketa-mreze-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Udio s brojnikom i nazivnikom.
+</figcaption>
+<div aria-describedby="tbl-podaci-anketa-mreze-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Udio</th>
+<th>Brojnik / nazivnik = točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>18 do 24</td>
+<td><code>udio</code></td>
+<td><code>90</code> / <code>300</code> = <code>0.3</code></td>
+</tr>
+<tr class="even">
+<td>25 do 34</td>
+<td><code>udio</code></td>
+<td><code>84</code> / <code>300</code> = <code>0.28</code></td>
+</tr>
+<tr class="odd">
+<td>35 do 44</td>
+<td><code>udio</code></td>
+<td><code>66</code> / <code>300</code> = <code>0.22</code></td>
+</tr>
+<tr class="even">
+<td>45 i više</td>
+<td><code>udio</code></td>
+<td><code>60</code> / <code>300</code> = <code>0.2</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-podaci-anketa-mreze-prosjeci" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-anketa-mreze-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Prosjek s pripadajućim cjelobrojnim zbrojem.
+</figcaption>
+<div aria-describedby="tbl-podaci-anketa-mreze-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Prosjek</th>
+<th>Cjelobrojni zbroj i točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>18 do 24</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>7339</code>; prosjek <code>81.54444444444445</code></td>
+</tr>
+<tr class="even">
+<td>25 do 34</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>4567</code>; prosjek <code>54.36904761904762</code></td>
+</tr>
+<tr class="odd">
+<td>35 do 44</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>2139</code>; prosjek <code>32.40909090909091</code></td>
+</tr>
+<tr class="even">
+<td>45 i više</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>974</code>; prosjek <code>16.233333333333334</code></td>
+</tr>
+<tr class="odd">
+<td>18 do 24</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>574</code>; prosjek <code>6.377777777777778</code></td>
+</tr>
+<tr class="even">
+<td>25 do 34</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>467</code>; prosjek <code>5.559523809523809</code></td>
+</tr>
+<tr class="odd">
+<td>35 do 44</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>323</code>; prosjek <code>4.893939393939394</code></td>
+</tr>
+<tr class="even">
+<td>45 i više</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>270</code>; prosjek <code>4.5</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </section>
-<section id="pravila" class="level2">
-<h2 class="anchored" data-anchor-id="pravila">Pravila</h2>
-<p>Podaci koji opisuju ljude ne ulaze u razgovor s AI asistentom. To vrijedi i za podatke prikupljene u studentskim projektima, koliko god djelovali bezazleno. Postupak je opisan u Dodatku F.</p>
+<section id="provjera-podaci-populacija-medija" class="level3">
+<h3 class="anchored" data-anchor-id="provjera-podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup — provjera retka</h3>
+<p>Udio u <a href="#tbl-podaci-populacija-medija-udjeli" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-populacija-medija-udjeli</span></a> uvijek nosi vlastiti brojnik i nazivnik. Prosjek u <a href="#tbl-podaci-populacija-medija-prosjeci" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-populacija-medija-prosjeci</span></a> uvijek stoji uz cjelobrojni zbroj iz iste skupine.</p>
+<div id="tbl-podaci-populacija-medija-udjeli" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-populacija-medija-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;4: Udio s brojnikom i nazivnikom.
+</figcaption>
+<div aria-describedby="tbl-podaci-populacija-medija-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Udio</th>
+<th>Brojnik / nazivnik = točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>portal</td>
+<td><code>udio</code></td>
+<td><code>15101</code> / <code>50000</code> = <code>0.30202</code></td>
+</tr>
+<tr class="even">
+<td>društvene mreže</td>
+<td><code>udio</code></td>
+<td><code>13378</code> / <code>50000</code> = <code>0.26756</code></td>
+</tr>
+<tr class="odd">
+<td>TV</td>
+<td><code>udio</code></td>
+<td><code>10827</code> / <code>50000</code> = <code>0.21654</code></td>
+</tr>
+<tr class="even">
+<td>radio</td>
+<td><code>udio</code></td>
+<td><code>5839</code> / <code>50000</code> = <code>0.11678</code></td>
+</tr>
+<tr class="odd">
+<td>tisak</td>
+<td><code>udio</code></td>
+<td><code>4855</code> / <code>50000</code> = <code>0.0971</code></td>
+</tr>
+<tr class="even">
+<td>portal</td>
+<td><code>udio_platio</code></td>
+<td><code>3514</code> / <code>15101</code> = <code>0.2326998212038938</code></td>
+</tr>
+<tr class="odd">
+<td>društvene mreže</td>
+<td><code>udio_platio</code></td>
+<td><code>2841</code> / <code>13378</code> = <code>0.212363582000299</code></td>
+</tr>
+<tr class="even">
+<td>TV</td>
+<td><code>udio_platio</code></td>
+<td><code>2773</code> / <code>10827</code> = <code>0.2561189618546227</code></td>
+</tr>
+<tr class="odd">
+<td>radio</td>
+<td><code>udio_platio</code></td>
+<td><code>1528</code> / <code>5839</code> = <code>0.26168864531597874</code></td>
+</tr>
+<tr class="even">
+<td>tisak</td>
+<td><code>udio_platio</code></td>
+<td><code>1289</code> / <code>4855</code> = <code>0.2654994850669413</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-podaci-populacija-medija-prosjeci" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-populacija-medija-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;5: Prosjek s pripadajućim cjelobrojnim zbrojem.
+</figcaption>
+<div aria-describedby="tbl-podaci-populacija-medija-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Prosjek</th>
+<th>Cjelobrojni zbroj i točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>portal</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>72101</code>; prosjek <code>4.774584464604993</code></td>
+</tr>
+<tr class="even">
+<td>društvene mreže</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>54432</code>; prosjek <code>4.06876962176708</code></td>
+</tr>
+<tr class="odd">
+<td>TV</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>58098</code>; prosjek <code>5.366029371016902</code></td>
+</tr>
+<tr class="even">
+<td>radio</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>32614</code>; prosjek <code>5.585545470114746</code></td>
+</tr>
+<tr class="odd">
+<td>tisak</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>26791</code>; prosjek <code>5.518228630278064</code></td>
+</tr>
+<tr class="even">
+<td>portal</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>2589478</code>; prosjek <code>171.47725316204225</code></td>
+</tr>
+<tr class="odd">
+<td>društvene mreže</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>2217273</code>; prosjek <code>165.74024517865152</code></td>
+</tr>
+<tr class="even">
+<td>TV</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>1978691</code>; prosjek <code>182.75524152581508</code></td>
+</tr>
+<tr class="odd">
+<td>radio</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>1058774</code>; prosjek <code>181.32796711765712</code></td>
+</tr>
+<tr class="even">
+<td>tisak</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>882321</code>; prosjek <code>181.73450051493305</code></td>
+</tr>
+<tr class="odd">
+<td>portal</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>88920</code>; prosjek <code>5.888351764783789</code></td>
+</tr>
+<tr class="even">
+<td>društvene mreže</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>74065</code>; prosjek <code>5.536328300194349</code></td>
+</tr>
+<tr class="odd">
+<td>TV</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>71225</code>; prosjek <code>6.578461254271728</code></td>
+</tr>
+<tr class="even">
+<td>radio</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>39563</code>; prosjek <code>6.775646514814181</code></td>
+</tr>
+<tr class="odd">
+<td>tisak</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>32560</code>; prosjek <code>6.70648815653965</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-dzs-dvije-mjere" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dzs-dvije-mjere">Dvije DZS-ove mjere nisu jedna serija</h2>
+<p>Tablice BS_TU11 i BS_TU12 bilježe administrativne eVisitor dolaske, dok je T03 uzoračka anketa o procijenjenim putovanjima stanovnika. Dolazak nije osoba, a putovanje nije dolazak; te se brojke ne zbrajaju i ne prikazuju kao usporedive serije.</p>
+<p>Administrativne provjere u <a href="#tbl-podaci-dzs" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-dzs</span></a> imaju najveći ostatak točno <code>0</code>. Sve tri anketne razgradnje, koje obuhvaćaju odredište, trajanje i dobnu skupinu, imaju najveći ostatak točno <code>1</code>, jer su objavljene ćelije zasebno zaokružene procjene.</p>
+<div id="tbl-podaci-dzs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-dzs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;6: Usklađenja dviju različitih DZS-ovih mjera.
+</figcaption>
+<div aria-describedby="tbl-podaci-dzs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Provjera</th>
+<th>Vrsta mjere</th>
+<th>Rezultat usklađenja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mjeseci-u-objavljenu-godinu</td>
+<td>administrativno prebrojavanje</td>
+<td>126 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="even">
+<td>domaći-i-strani-u-ukupno</td>
+<td>administrativno prebrojavanje</td>
+<td>42 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="odd">
+<td>županije-u-državni-redak</td>
+<td>administrativno prebrojavanje</td>
+<td>6 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-ukupno</td>
+<td>administrativno prebrojavanje</td>
+<td>2 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="odd">
+<td>županije-2025-u-nacionalni-domaći</td>
+<td>administrativno prebrojavanje</td>
+<td>2 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-strani</td>
+<td>administrativno prebrojavanje</td>
+<td>2 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="odd">
+<td>anketa-odrediste</td>
+<td>anketna procjena</td>
+<td>72 usporedbi; tolerancija 1; najveći ostatak 1</td>
+</tr>
+<tr class="even">
+<td>anketa-trajanje</td>
+<td>anketna procjena</td>
+<td>72 usporedbi; tolerancija 1; najveći ostatak 1</td>
+</tr>
+<tr class="odd">
+<td>anketa-dobne-skupine</td>
+<td>anketna procjena</td>
+<td>54 usporedbi; tolerancija 1; najveći ostatak 1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-podaci-dzs-datoteke" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-dzs-datoteke-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;7: Datoteke uključene u DZS-ova usklađenja.
+</figcaption>
+<div aria-describedby="tbl-podaci-dzs-datoteke-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Provjera</th>
+<th>Datoteke</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mjeseci-u-objavljenu-godinu</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-mjesecno.csv</code></td>
+</tr>
+<tr class="even">
+<td>domaći-i-strani-u-ukupno</td>
+<td><code>data/dzs-turizam-godisnje.csv</code></td>
+</tr>
+<tr class="odd">
+<td>županije-u-državni-redak</td>
+<td><code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-ukupno</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="odd">
+<td>županije-2025-u-nacionalni-domaći</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-strani</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="odd">
+<td>anketa-odrediste</td>
+<td><code>data/dzs-putovanja-stanovnistva-2024.csv</code></td>
+</tr>
+<tr class="even">
+<td>anketa-trajanje</td>
+<td><code>data/dzs-putovanja-stanovnistva-2024.csv</code></td>
+</tr>
+<tr class="odd">
+<td>anketa-dobne-skupine</td>
+<td><code>data/dzs-putovanja-stanovnistva-2024.csv</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-podaci-svi" class="level2">
+<h2 class="anchored" data-anchor-id="sec-podaci-svi">Svi paketi</h2>
+<section id="podaci-anketa-mreze" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>anketa_mreze</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-EXISTING</code>; traka <code>bundled</code>; jedinica je jedan ispitanik.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/anketa-mreze.csv"><code>data/anketa-mreze.csv</code></a>, <a href="data/anketa-mreze-agregat.csv"><code>data/anketa-mreze-agregat.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-anketa-mreze">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-populacija-medija" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>populacija_medija</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-EXISTING</code>; traka <code>bundled</code>; jedinica je jedna osoba u generiranoj populaciji.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/populacija-medija.csv"><code>data/populacija-medija.csv</code></a>, <a href="data/populacija-medija-agregat.csv"><code>data/populacija-medija-agregat.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-populacija-medija">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-ucbadmissions" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-ucbadmissions">UCBAdmissions, zamrznuti orijentir iz R-ove distribucije</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>ucbadmissions</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako zbirna stopa upisa može obrnuti predznak razlike po odjelima?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna prijava, agregirana po odjelu, spolu i ishodu.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-ucbadmissions">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-anscombe" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-anscombe">Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>anscombe</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Zašto četiri skupa s istim sažetcima izgledaju posve različito?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan konstruirani par vrijednosti.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-anscombe">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-dzs-turizam" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-dzs-turizam">DZS turizam, omeđeni izvadak</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>dzs_turizam</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se dolasci i noćenja mijenjaju kroz godinu i po županijama?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-DZS</code>; traka <code>bundled</code>; jedinica je jedan objavljeni redak službene tablice. U mjesečnoj i godišnjoj datoteci to je zabilježeni DOLAZAK, ne osoba; u anketnoj datoteci procijenjeno PUTOVANJE stanovnika, ne osoba.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/dzs-turizam-mjesecno.csv"><code>data/dzs-turizam-mjesecno.csv</code></a>, <a href="data/dzs-turizam-godisnje.csv"><code>data/dzs-turizam-godisnje.csv</code></a>, <a href="data/dzs-turizam-zupanije-2025.csv"><code>data/dzs-turizam-zupanije-2025.csv</code></a>, <a href="data/dzs-putovanja-stanovnistva-2024.csv"><code>data/dzs-putovanja-stanovnistva-2024.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-dzs-turizam">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-dzs-drugi-domen" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-dzs-drugi-domen">Drugi DZS domen</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>dzs_drugi_domen</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Nije određeno jer domena i tablice nisu odabrane.</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je neodabrana.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-dzs-drugi-domen">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-dip-2024" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-dip-2024">DIP, izbori za Hrvatski sabor 2024.</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>dip_2024</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se izlaznost mijenja po izbornim jedinicama i što joj je nazivnik?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>portal-mediated</code>; jedinica je jedna izborna jedinica I.-XII. u službenoj tablici odaziva; XII. jedinica za važeći i nevažeći listić koristi zbroj šest objavljenih manjinskih redaka.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-dip-2024">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-digikat-akteri" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-digikat-akteri">DigiKat agregat aktera</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>digikat_akteri</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan akter po platformi na određeni datum.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-digikat-akteri">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-determ-korpus" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-determ-korpus">Determ, puni korpus</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>determ_korpus</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Što se može i što se ne može reproducirati iz ograničenoga komercijalnog izvora?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna objava.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-determ-korpus">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-eurostat-drustvo" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-eurostat-drustvo">Eurostat, društveni pokazatelji</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>eurostat_drustvo</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se isti pokazatelj razlikuje među zemljama u istoj godini?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-EUROSTAT</code>; traka <code>bundled</code>; jedinica je jedna država članica EU-a za jedan pokazatelj u jednoj, zajedničkoj referentnoj godini. Redak je državni agregat, a ne osoba.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/eurostat-drustvo-2025.csv"><code>data/eurostat-drustvo-2025.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-eurostat-drustvo">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-ess-r11-hr" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-ess-r11-hr">European Social Survey, Round 11, Hrvatska</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>ess_r11_hr</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Među hrvatskim ispitanicima u službenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje između neponderirane procjene i procjene s anweight, te koje pogreške odabira ili mjerenja ponder ne može ukloniti?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>portal-mediated</code>; jedinica je jedan ispitanik ESS Round 11 iz Hrvatske, s izvornim nacrtnim varijablama.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-ess-r11-hr">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-vdem-v16" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-vdem-v16">V-Dem Dataset v16</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>vdem_v16</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se latentni pojam poput demokracije pretvara u broj s nesigurnošću?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna zemlja u jednoj godini.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-vdem-v16">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-covidistress-ii" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-covidistress-ii">COVIDiSTRESS II</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>covidistress_ii</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Zašto vrlo velik dobrovoljni uzorak ne popravlja samoodabir?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan dobrovoljni sudionik.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-covidistress-ii">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-wdi" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-wdi">World Development Indicators</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>wdi</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Nije određeno jer pokazatelj nije odabran.</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna zemlja u jednoj godini.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-wdi">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-parlamint-hr" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-parlamint-hr">ParlaMint-HR 5.0</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>parlamint_hr</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>bundled</code>; jedinica je jedan govor s metapodacima govornika.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-parlamint-hr">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-parlasent" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-parlasent">ParlaSent 1.0</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>parlasent</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se ljudska oznaka pretvara u zabilježeni referentni ishod, i koliko je pogrešiva?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-TEXT</code>; traka <code>bundled</code>; jedinica je jedna označena rečenica.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/parlament_oznake.csv"><code>data/parlament_oznake.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-parlasent">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-gfi-fina" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-gfi-fina">GFI/FINA</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>gfi_fina</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Što se smije tvrditi iz izvora koji čitatelj ne može otvoriti?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan poslovni subjekt.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-gfi-fina">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-digikat-mediji" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-digikat-mediji">DigiKat, agregat digitalnoga medijskog prostora</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>digikat_mediji</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se objavljivanje i vidljivost razlikuju među platformama i među izvorima?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-DIGIKAT</code>; traka <code>bundled</code>; jedinica je jedna ćelija agregata, ne jedna objava. U platformskim datotekama to je platforma u godini ili u mjesecu; u datoteci izvora jedan izvor kroz cijeli raspon korpusa. Pojedinačna objava nije u ovim datotekama i ne može se iz njih obnoviti.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/digikat-platforme-godisnje.csv"><code>data/digikat-platforme-godisnje.csv</code></a>, <a href="data/digikat-platforme-mjesecno.csv"><code>data/digikat-platforme-mjesecno.csv</code></a>, <a href="data/digikat-izvori.csv"><code>data/digikat-izvori.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-digikat-mediji">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-rdp-potpore" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-rdp-potpore">Registar državnih potpora, agregati koncentracije</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>rdp_potpore</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Koliko je koncentrirana dodjela državnih potpora i koliko ju je snimka registra uopće zabilježila?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>bundled</code>; jedinica je jedna agregatna ćelija. Ovisno o datoteci to je skupina primatelja, godina, razred veličine, vrsta potpore ili jedan naslovni pokazatelj. Pojedinačna dodjela i pojedinačni primatelj nisu u ovim datotekama i nijedan OIB se ne pojavljuje.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-rdp-potpore">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-bdp-dugi-niz" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-bdp-dugi-niz">BDP po stanovniku, dugi niz i pet procjena</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>bdp_dugi_niz</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Koliko se razlikuju objavljene procjene iste veličine i što se dobiva kad ih se spoji u jedan niz?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>bundled</code>; jedinica je jedna godina. U datoteci izvora to je godina s pet odvojenih procjena, u spojenoj datoteci godina jednoga ulančanog niza, a u datoteci razdoblja jedno imenovano razdoblje.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-bdp-dugi-niz">Puni zapis u Dodatku C</a>.</p>
 
 
-
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -721,23 +1882,21 @@ window.Quarto = {
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -747,9 +1906,275 @@ window.Quarto = {
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1035,7 +2460,9 @@ window.Quarto = {
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1091,25 +2518,25 @@ window.Quarto = {
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -1525,31 +2952,33 @@ window.Quarto = {
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3154,6 +4583,16 @@ window.Quarto = {
     <li class="nav-item">
     <a class="nav-link" href="./resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

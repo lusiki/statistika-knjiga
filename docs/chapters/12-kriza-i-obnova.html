@@ -100,9 +100,12 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -651,7 +654,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -721,6 +724,11 @@ window.Quarto = {
   <a href="../dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -733,19 +741,22 @@ window.Quarto = {
     <h2 id="toc-title">Sadržaj</h2>
    
   <ul>
-  <li><a href="#putovi-koji-ostaju-nevidljivi" id="toc-putovi-koji-ostaju-nevidljivi" class="nav-link active" data-scroll-target="#putovi-koji-ostaju-nevidljivi">Putovi koji ostaju nevidljivi</a></li>
-  <li><a href="#reforma-kao-promjena-postupka" id="toc-reforma-kao-promjena-postupka" class="nav-link" data-scroll-target="#reforma-kao-promjena-postupka">Reforma kao promjena postupka</a></li>
-  <li><a href="#asistent-u-dvostrukoj-ulozi" id="toc-asistent-u-dvostrukoj-ulozi" class="nav-link" data-scroll-target="#asistent-u-dvostrukoj-ulozi">Asistent u dvostrukoj ulozi</a></li>
+  <li><a href="#od-jedne-tvrdnje-do-provjerljivoga-pitanja" id="toc-od-jedne-tvrdnje-do-provjerljivoga-pitanja" class="nav-link active" data-scroll-target="#od-jedne-tvrdnje-do-provjerljivoga-pitanja">Od jedne tvrdnje do provjerljivoga pitanja</a></li>
+  <li><a href="#analitička-fleksibilnost-prije-modela" id="toc-analitička-fleksibilnost-prije-modela" class="nav-link" data-scroll-target="#analitička-fleksibilnost-prije-modela">Analitička fleksibilnost prije modela</a></li>
+  <li><a href="#replikacija-kao-kumulativno-mjerenje" id="toc-replikacija-kao-kumulativno-mjerenje" class="nav-link" data-scroll-target="#replikacija-kao-kumulativno-mjerenje">Replikacija kao kumulativno mjerenje</a></li>
+  <li><a href="#cijeli-zapis-u-forest-plotu" id="toc-cijeli-zapis-u-forest-plotu" class="nav-link" data-scroll-target="#cijeli-zapis-u-forest-plotu">Cijeli zapis u forest plotu</a></li>
+  <li><a href="#reforma-redoslijeda-i-vidljivosti" id="toc-reforma-redoslijeda-i-vidljivosti" class="nav-link" data-scroll-target="#reforma-redoslijeda-i-vidljivosti">Reforma redoslijeda i vidljivosti</a></li>
   <li><a href="#interakcija-pješčanik-p-hakiranja" id="toc-interakcija-pješčanik-p-hakiranja" class="nav-link" data-scroll-target="#interakcija-pješčanik-p-hakiranja">Interakcija — Pješčanik p-hakiranja</a></li>
   <li><a href="#razrađeni-primjer" id="toc-razrađeni-primjer" class="nav-link" data-scroll-target="#razrađeni-primjer">Razrađeni primjer</a></li>
+  <li><a href="#od-testa-do-provjerljivog-zaključka" id="toc-od-testa-do-provjerljivog-zaključka" class="nav-link" data-scroll-target="#od-testa-do-provjerljivog-zaključka">Od testa do provjerljivog zaključka</a></li>
   <li><a href="#sažetak" id="toc-sažetak" class="nav-link" data-scroll-target="#sažetak">Sažetak</a></li>
   <li><a href="#pojmovi" id="toc-pojmovi" class="nav-link" data-scroll-target="#pojmovi">Pojmovi</a></li>
   <li><a href="#zadaci" id="toc-zadaci" class="nav-link" data-scroll-target="#zadaci">Zadaci</a>
   <ul class="collapse">
-  <li><a href="#konceptualni" id="toc-konceptualni" class="nav-link" data-scroll-target="#konceptualni">Konceptualni</a></li>
-  <li><a href="#računski" id="toc-računski" class="nav-link" data-scroll-target="#računski">Računski</a></li>
-  <li><a href="#kritički" id="toc-kritički" class="nav-link" data-scroll-target="#kritički">Kritički</a></li>
-  <li><a href="#revizija-modela" id="toc-revizija-modela" class="nav-link" data-scroll-target="#revizija-modela">Revizija modela</a></li>
+  <li><a href="#ex-12-konceptualni-01" id="toc-ex-12-konceptualni-01" class="nav-link" data-scroll-target="#ex-12-konceptualni-01">Konceptualni</a></li>
+  <li><a href="#ex-12-racunski-01" id="toc-ex-12-racunski-01" class="nav-link" data-scroll-target="#ex-12-racunski-01">Računski</a></li>
+  <li><a href="#ex-12-kriticki-01" id="toc-ex-12-kriticki-01" class="nav-link" data-scroll-target="#ex-12-kriticki-01">Kritički</a></li>
+  <li><a href="#ex-12-revizija-modela-01" id="toc-ex-12-revizija-modela-01" class="nav-link" data-scroll-target="#ex-12-revizija-modela-01">Revizija modela</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -797,10 +808,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -854,87 +869,155 @@ window.Quarto = {
 }());
 </script>
 
-<!-- =====================================================================
-  STATUS:  djelomični nacrt — prošireni argument i widget dovršeni
-  IZVOR:   novo poglavlje
-  OPSEG:   ~5000 riječi
-  WIDGET:  w12 · Pješčanik p-hakiranja
-  FAZA:    4 (plan proizvodnje, notes/struktura-knjige.md)
-  NAPOMENA: Drugi stup suvremenog identiteta knjige. Jedan od četiri prva widgeta.
-
-  SADRŽAJ (iz plana):
-  Kriza replikacije ispričana kao priča, p-hakiranje i vrt razgranatih staza, pristranost objavljivanja, preregistracija i registrirani izvještaji, otvoreni podaci i materijali, kako čitati objavljenu studiju skeptično ali pošteno, te dvostruka uloga AI-ja, kao pogona izmišljenih radova i kao alata za provjeru reproducibilnosti u velikom obimu. Završava time što reforma znači za studenta.
-
-  Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
-  Kostur se ne mijenja bez zapisa u STYLE.md.
-===================================================================== -->
-<div class="chapter-meta">
-<table class="caption-top table">
+<div class="callout-vinjeta page-columns page-full">
+<p>U poznatom pokusu sudionici su ocjenjivali stripove držeći olovku zubima ili usnama. Razlika je protumačena kao potpora tvrdnji da položaj mišića lica može utjecati na doživljaj zabave <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Izvorna studija izvijestila je razliku od 0,82 boda na ljestvici od 0 do 9. Gotovo tri desetljeća poslije 17 laboratorija ponovilo je postupak prema zajedničkom protokolu. Plan i analitički kod pripremili su prije uvida u podatke <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Replikacije su obuhvatile 1.894 sudionika <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Objedinjena sirova razlika iznosila je 0,03 boda, uz 95-postotni interval od −0,11 do 0,16 <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Rezultat je bio mnogo bliži nuli od izvornoga. Odnosi se na ponovljeni postupak i ne rješava svako pitanje o utjecaju izraza lica na osjećaje.</p>
+<p>Iz tih rezultata možemo procijeniti razliku među eksperimentalnim uvjetima u provedenim replikacijama i preispitati koliko vjerujemo izvornoj veličini učinka. Ne možemo objasniti zašto su se izvorni i novi nalazi razlikovali niti pouzdano predvidjeti rezultat nekog budućeg postupka.</p>
+<p>Kako je došlo do tako različitih procjena? Što trebamo znati o istraživačkim odlukama da bismo mogli procijeniti nalaz i njegovu replikaciju?</p>
+</div>
+<p>Procjenu i njezin interval sada znamo čitati uz veličinu učinka, snagu i pogreške testiranja. Ipak, pred izvornim nalazom i njegovom replikacijom ostaje novo pitanje. Vidimo li sve što je istraživač mogao analizirati ili samo rezultat koji je na kraju odabran za objavu? Ni statistički ispravan račun ne govori zašto je istraživač za objavu odabrao upravo taj rezultat.</p>
+<p>Pokus iz vinjete pratit ćemo kroz objavljene rezultate laboratorija koji su ponovili postupak <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. U tablicama s kojima radimo jedan redak predstavlja laboratorijski sažetak, a ne pojedinog sudionika. Uspoređivat ćemo razlike u ocjenama zabavnosti između uvjeta držanja olovke, njihove intervale i brojnosti skupina. To su sažeci stvarnog istraživanja. Od njih ćemo jasno odvojiti nastavne simulacije u kojima sami određujemo koliko se analiza iskušava.</p>
+<div class="no-row-height column-margin column-container"></div><p>Mijenjanje ishoda, podskupina ili trenutka zaustavljanja utječe na mogućnost lažnog nalaza, što možemo provjeriti simulacijom. Pritom razlikujemo namjerno traženje poželjnog rezultata od odluka koje ovise o viđenim podacima čak i kada istraživač provede samo jednu analizu. Izbor se nastavlja među studijama koje postaju dostupne čitateljima. Zato pogreške pojedinog testa razmatramo zajedno s postupkom kojim je od više mogućih nalaza odabrana objavljena tvrdnja.</p>
+<p>Obnovu istraživačke prakse zato povezujemo s dostupnošću plana, podataka i analitičkih odluka. Pri čitanju laboratorijskih procjena oslanjamo se na intervale i veličine učinka iz prethodnih poglavlja, a u razrađenom primjeru uspoređujemo sirovu i standardiziranu sintezu. Pritom od jednoga novog rezultata ne očekujemo presudu cijeloj teoriji. Trebamo znati što je točno ponovljeno, koliko su procjene precizne i koje razlike u postupku još treba istražiti. Na toj osnovi procjenjujemo nalaz i predlažemo sljedeću provjeru, uz dovoljno jasan zapis da je druga osoba može ponoviti.</p>
+<section id="od-jedne-tvrdnje-do-provjerljivoga-pitanja" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="od-jedne-tvrdnje-do-provjerljivoga-pitanja">Od jedne tvrdnje do provjerljivoga pitanja</h2>
+<p>Istraživanje uključuje mnogo odluka prije završne tablice. Određujemo tko može sudjelovati, kako provodimo zadatak, što mjerimo, kako postupamo s nepotpunim odgovorima i koju usporedbu smatramo glavnom. Čitatelj treba znati koje smo odluke donijeli unaprijed, a koje nakon pregleda podataka. Inače ne može procijeniti koliko je rezultat utjecao na izbor analize.</p>
+<p><span class="pojam" data-def="Prilagođavanje ili selektivno izvještavanje analiza dok se ne dobije poželjan rezultat." data-en="p-hacking" data-ch="12">P-hakiranje</span> nastaje kada istraživač iskušava ishode, podskupine, pravila isključivanja ili trenutke zaustavljanja kako bi dobio poželjan nalaz, pa prikaže samo odabrani postupak. Simmons i suradnici pokazali su da takva neprikazana fleksibilnost povećava udio lažno pozitivnih zaključaka <span class="citation" data-cites="simmons2011">(<a href="../references.html#ref-simmons2011" role="doc-biblioref">Simmons i sur. 2011.</a>)</span>. Uobičajena p-vrijednost vrijedi za unaprijed određen postupak. Nakon pretraživanja ne opisuje stopu pogreške cijelog procesa odabira.</p>
+<div class="no-row-height column-margin column-container"></div><p><span class="pojam" data-def="Skup analiza koje bi bile odabrane ovisno o obrascima u podacima, čak i kada istraživač provede samo jednu." data-en="garden of forking paths" data-ch="12">Vrt račvajućih putova</span> može nastati i bez svjesnog traženja poželjnog nalaza. Istraživač provede jednu analizu, ali bi odabrao drugu da su podaci izgledali drukčije. Odluka je zato ovisila o podacima čak i ako ostale mogućnosti nisu izračunate <span class="citation" data-cites="gelman2013">(<a href="../references.html#ref-gelman2013" role="doc-biblioref">Gelman i Loken 2013.</a>)</span>. P-hakiranje opisuje namjerno ponašanje, a račvajući putovi obilježje postupka koje treba prepoznati i dokumentirati.</p>
+<p>Izbor ne završava analizom unutar jedne studije. <span class="pojam" data-def="Selekcija istraživačkih rezultata pri kojoj vjerojatnost javne vidljivosti ovisi o njihovu smjeru, jasnoći ili poželjnosti." data-en="publication bias" data-ch="12">Publikacijska pristranost</span> nastaje pri odabiru onoga što postaje dostupno čitateljima. Čak i korektno provedene studije mogu dati iskrivljenu sliku ako objavljivanje ovisi o rezultatu. Open Science Collaboration pokazao je važnost sustavnog proučavanja replikabilnosti većeg skupa nalaza <span class="citation" data-cites="osc2015">(<a href="../references.html#ref-osc2015" role="doc-biblioref">Open Science Collaboration 2015.</a>)</span>. Za razumijevanje literature trebamo razmotriti i pokušaje koji su ostali neobjavljeni.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-osc2015" class="csl-entry" role="listitem">
+Open Science Collaboration. 2015. <span>„Estimating the Reproducibility of Psychological Science“</span>. <em>Science</em> 349 (6251): aac4716. <a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a>.
+</div></div></section>
+<section id="analitička-fleksibilnost-prije-modela" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="analitička-fleksibilnost-prije-modela">Analitička fleksibilnost prije modela</h2>
+<p>Analitičke odluke počinju mnogo prije izbora testa. Obuhvaćaju prikupljanje i spajanje podataka, uključivanje jedinica, rekodiranje i obradu nedostajućih vrijednosti. Već smo vidjeli da izbor sredine ili medijana, grupiranja i raspona osi mijenja prikaz podataka. Dvije analize s istom završnom formulom zato mogu opisivati različite ljude i odgovarati na različita pitanja.</p>
+<div id="def-analiticka-fleksibilnost" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Analitička fleksibilnost</strong> je prostor više obranjivih odluka duž cijeloga puta podataka, od prikupljanja, uključivanja i spajanja do rekodiranja, postupanja s nedostajućim vrijednostima i izbora analize.</p>
+</div>
+<p>U registriranom replikacijskom izvještaju (RRR) laboratoriji su unaprijed dogovorili kriterije uključivanja, računanje ocjene i glavnu sirovu razliku među skupinama. Plan i kod pripremili su prije stvarnih podataka <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Lokalne prilagodbe i dalje su bile moguće, ali trebalo ih je zabilježiti i usporediti s planom. Tako čitatelj može provjeriti kada je odluka donesena i što je promijenila.</p>
+<div class="no-row-height column-margin column-container"></div><div id="def-reproducibilnost" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Reproducibilnost</strong> je mogućnost da druga osoba iz istih podataka, materijala i opisanoga postupka ponovno dobije iste rezultate i utvrdi gdje su nastali.</p>
+</div>
+<p>Pri reproduciranju ponovno izvodimo račun iz istih podataka i materijala. <span class="pojam" data-def="Nova studija koja istu ciljnu tvrdnju provjerava novim podacima i dovoljno usporedivim postupkom." data-en="replication" data-ch="12">Replikacija</span> jest nova studija koja istu ciljnu tvrdnju provjerava novim podacima i dovoljno usporedivim postupkom. Reproduciranjem možemo ponoviti i račun temeljen na lošem mjerenju. Replikacija pak može dati drukčiji rezultat zbog uzoračke promjenjivosti ili konteksta. Obje provjere pomažu, ali nijedna sama ne jamči valjan zaključak.</p>
+</section>
+<section id="replikacija-kao-kumulativno-mjerenje" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="replikacija-kao-kumulativno-mjerenje">Replikacija kao kumulativno mjerenje</h2>
+<p>Da bismo procijenili što smo naučili iz replikacije, trebamo usporediti rezultate laboratorija na istoj ljestvici. Služimo se podacima iz objavljenog izvještaja, u kojem svaki laboratorij daje procjenu razlike između dvaju načina držanja olovke i njezin interval <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Jedinica te usporedbe zato je laboratorij, a ne odgovor pojedinog sudionika.</p>
+<div class="no-row-height column-margin column-container"></div><p>Svaki od 17 laboratorija daje procjenu i interval na istoj ljestvici <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Devet procjena bilo je pozitivno, ali nijedan interval nije bio u cijelosti iznad nule <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Samo dva intervala obuhvatila su izvornu razliku od 0,82 boda <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Podjela na devet „uspješnih” i osam „neuspješnih” replikacija zanemarila bi veličinu i nesigurnost tih procjena.</p>
+<p>Objedinjena procjena sažima prosječnu razliku u replikacijama provedenima prema zajedničkom protokolu. Vrijednost 0,03 uz interval od −0,11 do 0,16 uskladiva je s malim razlikama u oba smjera <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Interval ne obuhvaća vrijednosti blizu izvornih 0,82 boda. To ograničava povjerenje u prijenos izvorne veličine na ovaj postupak, ali ne isključuje svaki mali učinak ni druge načine mjerenja facijalne povratne sprege <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Najprije zato čitamo istraživačko pitanje i nacrt, zatim pojedinačne procjene i intervale, pa objedinjeni rezultat. Razlike među laboratorijima mogu potjecati od uzorkovanja, lokalnog konteksta, mjerenja ili provedbe. Iz ovog slučaja ne možemo utvrditi njihove uzroke. Možemo opisati rezultate i oprezno ih prenijeti na usporedive postupke.</p>
+</section>
+<section id="cijeli-zapis-u-forest-plotu" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="cijeli-zapis-u-forest-plotu">Cijeli zapis u forest plotu</h2>
+<p>Procjene i intervale svih laboratorija lakše ćemo usporediti ako ih vidimo zajedno. Na prikazu <span class="pojam" data-def="Prikaz procjena i njihovih intervala iz više studija, uz odvojenu objedinjenu procjenu i jasno označenu referentnu vrijednost." data-en="forest plot" data-ch="12">forest plot</span> svaki redak predstavlja jedan laboratorij. Točka označuje procijenjenu razliku, a vodoravna crta njezin 95-postotni interval. Puna okomita crta označuje nulu, odnosno jednake prosječne ocjene. Isprekidana crta na 0,82 prikazuje izvornu procjenu za usporedbu <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Ona nije dodatni laboratorij i ne ulazi u objedinjavanje.</p>
+<div class="no-row-height column-margin column-container"></div><p>Oznaka <code>smile</code> u izvornim podacima znači držanje olovke zubima, a <code>pout</code> držanje usnama <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Pozitivna razlika <code>smile − pout</code> znači da je skupina s olovkom među zubima dala višu prosječnu ocjenu stripovima.</p>
+<p>Pogledajmo prvo kako nastaje jedna točka. Tablica izdvaja prve tri laboratorijske usporedbe iz provjerenog izvornog poretka. Brojnosti su u osobama, a sredine na ljestvici ocjene stripova od 0 do 9 <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s12-od-skupina-do-razlike" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s12-od-skupina-do-razlike-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Skupne sredine prije laboratorijske razlike. Izrada autora iz lokalne rekonstrukcije prema <span class="citation" data-cites="wagenmakers2016"><span class="nocase">Wagenmakers i sur.</span> (<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref">2016.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s12-od-skupina-do-razlike-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th>Vrijeme čitanja</th>
-<th>Widget</th>
-<th>Podaci</th>
-<th>Preduvjet</th>
+<th style="text-align: left;">Laboratorij</th>
+<th style="text-align: right;">n zubi</th>
+<th style="text-align: right;">n usne</th>
+<th style="text-align: left;">Sredina zubi</th>
+<th style="text-align: left;">Sredina usne</th>
+<th style="text-align: left;">Razlika</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>6 min</td>
-<td>Pješčanik p-hakiranja</td>
-<td>simulacija</td>
-<td>pogl. 10, 11</td>
+<td style="text-align: left;">Albohn</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: left;">4,20</td>
+<td style="text-align: left;">4,06</td>
+<td style="text-align: left;">0,14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Allard</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: left;">5,05</td>
+<td style="text-align: left;">4,89</td>
+<td style="text-align: left;">0,16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Benning</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: left;">4,69</td>
+<td style="text-align: left;">4,70</td>
+<td style="text-align: left;">-0,02</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="callout-vinjeta page-columns page-full">
-<p>Velika suradnja istraživača pokušala je ponoviti niz objavljenih psiholoških studija prema zajedničkom protokolu. Replikacijski rezultati u cjelini bili su slabiji od slike koju je ostavljala izvorna literatura <span class="citation" data-cites="osc2015">(<a href="../references.html#ref-osc2015" role="doc-biblioref">Open Science Collaboration 2015.</a>)</span>. Rasprava koja je slijedila nije se mogla svesti na podjelu između dobrih i loših istraživača.</p>
-<div class="no-row-height column-margin column-container"></div><p>Objavljivanje je dugo nagrađivalo nov, jasan i statistički značajan rezultat. Istraživači su istodobno donosili mnogo odluka o uzorku, ishodima, podskupinama i modelima. Čak i bez svjesne prevare, fleksibilan put kroz podatke mogao je završiti pričom koja izgleda unaprijed planirana <span class="citation" data-cites="simmons2011 gelman2013">(<a href="../references.html#ref-simmons2011" role="doc-biblioref">Simmons i sur. 2011.</a>; <a href="../references.html#ref-gelman2013" role="doc-biblioref">Gelman i Loken 2013.</a>)</span>.</p>
-<p>Kako znanstveni sustav može učiniti vlastite rezultate provjerljivijima bez pretvaranja skepticizma u cinizam?</p>
 </div>
-<section id="putovi-koji-ostaju-nevidljivi" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="putovi-koji-ostaju-nevidljivi">Putovi koji ostaju nevidljivi</h2>
-<p>P-hakiranje obuhvaća prilagođavanje analize sve dok se ne pojavi poželjan rezultat. Može uključivati promjenu ishoda, pravila isključivanja, trenutka zaustavljanja ili skupa kontrolnih varijabli. Svaka odluka može imati razumno obrazloženje, ali njihova kombinacija mijenja vjerojatnost konačnog nalaza <span class="citation" data-cites="simmons2011">(<a href="../references.html#ref-simmons2011" role="doc-biblioref">Simmons i sur. 2011.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Vrt račvajućih putova širi problem. Istraživač ne mora isprobati deset analiza i sakriti devet. Podaci mogu usmjeriti jednu odabranu analizu kroz niz odluka koje bi bile drukčije da su podaci izgledali drukčije <span class="citation" data-cites="gelman2013">(<a href="../references.html#ref-gelman2013" role="doc-biblioref">Gelman i Loken 2013.</a>)</span>. Konačni tekst pokazuje samo put kojim se prošlo, ne sve putove koji su bili mogući.</p>
-<p>Publikacijska pristranost zatim djeluje na razini literature. Rezultati koji izgledaju jasni i novi lakše postaju vidljivi, dok neodređeni i neuspjeli pokušaji ostaju u ladicama. Metaanaliza tada može precizno sažeti odabrani dio istraživačkog zapisa i dati varljiv osjećaj stabilnosti.</p>
+</figure>
+</div>
+</div>
+<p>U prvom laboratoriju od 4,201 oduzimamo 4,062 i dobivamo približno 0,139 boda <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Razlika postaje položaj točke. Raspršenost ocjena i broj osoba u objema skupinama određuju njezinu standardnu pogrešku i interval. Za račun čuvamo nezaokružene sažetke. Razlika dviju prikazanih zaokruženih sredina zato može odstupati od zaokružene razlike.</p>
+<div class="no-row-height column-margin column-container"></div><p>Metaanaliza je objedinjavanje usporedivih rezultata više istraživanja. Ovdje odgovara na drugo pitanje, kolika je prosječna razlika kroz laboratorije. Njihove procjene množimo težinama i zbrajamo. Težine ovise o nesigurnosti pojedine procjene i procijenjenoj varijabilnosti među laboratorijima, pa svaki sudionik i svaki laboratorij nemaju automatski jednaku težinu. U razrađenom primjeru pokazat ćemo kako model slučajnih učinaka određuje te težine. U našoj rekonstrukciji sirove sinteze prvi laboratorij nosi 6,3 % ukupne težine <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Svih 17 težina zbraja se na 100 %, a izvorni pokus iz 1988. nije među njima <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Slika povezuje tako dobivene procjene i intervale.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-rrr-forest" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="Forest plot sa sedamnaest laboratorijskih procjena i njihovim intervalima. Svi intervali sijeku nulu. Objedinjena procjena blizu je nule, dok je izvorna procjena 0,82 desno od većine intervala." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-rrr-forest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="12-kriza-i-obnova_files/figure-html/fig-rrr-forest-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Procjene sirove razlike smile − pout i 95-postotni intervali u 17 laboratorija. Objedinjena procjena RRR-a iznosi 0,03 [−0,11; 0,16], a isprekidana crta označuje izvornu procjenu 0,82, koja ne ulazi u sintezu. Izrada autora iz lokalne rekonstrukcije službenoga arhiva prema @wagenmakers2016."><img src="12-kriza-i-obnova_files/figure-html/fig-rrr-forest-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Forest plot sa sedamnaest laboratorijskih procjena i njihovim intervalima. Svi intervali sijeku nulu. Objedinjena procjena blizu je nule, dok je izvorna procjena 0,82 desno od većine intervala."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rrr-forest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;1: Procjene sirove razlike smile − pout i 95-postotni intervali u 17 laboratorija. Objedinjena procjena RRR-a iznosi 0,03 [−0,11; 0,16], a isprekidana crta označuje izvornu procjenu 0,82, koja ne ulazi u sintezu. Izrada autora iz lokalne rekonstrukcije službenoga arhiva prema <span class="citation" data-cites="wagenmakers2016"><span class="nocase">Wagenmakers i sur.</span> (<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref">2016.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div></figure>
+</div>
+</div>
+</div>
+<p>Točke se nalaze oko nule i svi je intervali presijecaju <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Objedinjena procjena ima uži interval jer koristi informacije iz više laboratorija. I dalje se odnosi na laboratorije i postupak uključene u ovaj RRR. Značenje prikaza možemo čitati iz položaja, duljine crta i oznake objedinjene procjene i u crno-bijelom tisku.</p>
+<div class="no-row-height column-margin column-container"></div><p>Razlike smo dosad izrazili u bodovima ocjene stripova. Iz prethodnog poglavlja znamo da ih možemo izraziti i u jedinicama standardne devijacije, pa želimo provjeriti ovisi li tumačenje o tom izboru. Provjera <span class="pojam" data-def="Provjera mijenja li se sadržajni zaključak kada se primarna analiza usporedi s jednom unaprijed obranjivom alternativom." data-en="sensitivity analysis" data-ch="12">osjetljivosti</span> uspoređuje sirovu razliku s Cohenovim <em>d</em>. U našoj standardiziranoj rekonstrukciji iz objavljenih laboratorijskih sažetaka procjena iznosi 0,01, uz interval od -0,08 do 0,10. Objavljena sirova procjena iznosila je 0,03, uz interval od −0,11 do 0,16 <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Razlikujemo objavljeni rezultat od vlastitoga preračuna. Obje analize koriste iste laboratorije, ali standardizacija mijenja ciljanu veličinu i relativni doprinos laboratorija. Sadržajni zaključak ostaje sličan. Procjene su blizu nule i intervali obuhvaćaju male vrijednosti u oba smjera. Ovom usporedbom provjeravamo ovisi li zaključak o izboru mjerila.</p>
 </section>
-<section id="reforma-kao-promjena-postupka" class="level2">
-<h2 class="anchored" data-anchor-id="reforma-kao-promjena-postupka">Reforma kao promjena postupka</h2>
-<p>Predregistracija vremenski odvaja plan od ishoda. Ona ne jamči dobar plan ni istinito mjerenje, ali čitatelju pokazuje koje su odluke donesene prije gledanja podataka. Registrirani izvještaj ide dalje jer se pitanje i metoda vrednuju prije nego što je rezultat poznat.</p>
-<p>Otvoreni podaci, materijali i kod omogućuju provjeru i ponavljanje. Otvorenost ne uklanja etičke i privatnosne granice. Podaci o ljudima ne postaju sigurni samim objavljivanjem, pa transparentnost mora uključiti razloge zbog kojih neki materijali ne mogu biti javni.</p>
-<p>Replikacija nije glasanje o tome je li izvorni autor bio u pravu. Rezultati se mogu razlikovati zbog uzoračke varijacije, konteksta, mjerenja ili stvarne heterogenosti učinka. Obnova zato traži kumulativno čitanje procjena i uvjeta, a ne zamjenu jednog spektakularnog nalaza drugim.</p>
-</section>
-<section id="asistent-u-dvostrukoj-ulozi" class="level2">
-<h2 class="anchored" data-anchor-id="asistent-u-dvostrukoj-ulozi">Asistent u dvostrukoj ulozi</h2>
-<p>Generativni modeli mogu ubrzati izradu koda, provjeru tablica i usporedbu izvještaja s analizom. Isti kapacitet može proizvoditi uvjerljive izvore koji ne postoje, sintetičke rukopise i velik broj varijanti iste tvrdnje. Brzina pojačava i provjeru i proizvodnju šuma.</p>
-<p>Disciplina rada s asistentom zato mora ostaviti trag. Čuvamo ulazne podatke, upit, kod, verziju alata i ručnu provjeru. Model ne dobiva osjetljive ispitanikove podatke, a njegov tekst ne postaje izvor. Izvor ostaje publikacija, skup podataka ili reproducibilan postupak koji se može otvoriti bez modela.</p>
+<section id="reforma-redoslijeda-i-vidljivosti" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="reforma-redoslijeda-i-vidljivosti">Reforma redoslijeda i vidljivosti</h2>
+<p><span class="pojam" data-def="Vremenski označeno bilježenje istraživačkoga pitanja, ishoda i glavne analize prije uvida u podatke koji mogu utjecati na te odluke." data-en="preregistration" data-ch="12">Predregistracija</span> jest vremenski označen zapis pitanja, ishoda i glavne analize prije uvida u podatke koji bi mogli utjecati na te odluke. Omogućuje razlikovanje planiranih analiza od onih potaknutih podacima. Neočekivane obrasce možemo istraživati, ali ih trebamo označiti kao naknadne, istraživačke analize. Potvrđujuća (konfirmatorna) analiza provjerava unaprijed određenu tvrdnju. Istraživačka (eksploratorna) analiza traži obrasce i oblikuje nova pitanja. U ovom RRR-u unaprijed su pripremljeni i kod i ogledni prikazi. Dobiveni rezultat zato možemo usporediti s postupkom koji je bio vidljiv prije podataka <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p><span class="pojam" data-def="Format u kojem se istraživačko pitanje i metoda vrednuju prije nego što je glavni rezultat poznat, a konačni se rad ponovno procjenjuje nakon provedbe." data-en="registered report" data-ch="12">Registrirani izvještaj</span> mijenja redoslijed uredničke procjene. Urednik i recenzenti razmatraju pitanje i metodu prije nego što znaju je li nalaz velik, nov ili značajan <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. U ovom slučaju povezani su službeni članak, projekt, plan, kod i podaci. To je omogućilo neovisnu provjeru laboratorijskih procjena <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>.</p>
+<p>Otvaranje istraživanja mora poštovati privatnost sudionika i uvjete korištenja materijala. U knjigu smo zato uključili samo izvedene, neidentificirajuće zapise na razini laboratorija. Nismo preuzeli sudioničke retke, službeni kod, plan ni izdavačev graf. Navodimo što je dostupno ovdje, a što se može provjeriti u službenom izvoru.</p>
+<p>Tvrdnje razlikujemo prema tome opisuju li, povezuju, uopćavaju, predviđaju, objašnjavaju uzrok ili podupiru odluku. Ovaj RRR omogućuje opis i usporedbu eksperimentalnih uvjeta, ograničen prijenos na provedene postupke te procjenu težine izvornog nalaza. Ne daje alat za predviđanje ni objašnjenje uzroka razlike između izvornog i replikacijskog rezultata.</p>
+<p>Prije prihvaćanja zaključka provjeravamo jedinicu opažanja, izostavljene jedinice, ciljanu veličinu i vrstu tvrdnje. Pitamo koju nesigurnost interval uključuje, mijenja li razumna alternativa zaključak i tko snosi posljedice pogreške. Reformirani postupci trebaju te odgovore učiniti dostupnima za provjeru. Ne jamče da će svaki odgovor biti dobar.</p>
 </section>
 <section id="interakcija-pješčanik-p-hakiranja" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="interakcija-pješčanik-p-hakiranja">Interakcija — Pješčanik p-hakiranja</h2>
-<p>Pješčanik omogućuje biranje ishoda, podskupina i trenutka zaustavljanja na podacima bez stvarnog učinka. Čitatelj promatra kako rast broja odluka povećava priliku za privlačan rezultat i kako korekcija za cijeli postupak mijenja sliku. Radi preglednosti svaki je analitički put u simulaciji neovisan. Stvarni putovi često dijele podatke, ali idealizacija izdvaja cijenu njihova broja.</p>
+<p>Sljedeći prikaz pokazuje što se događa kada, uz odsutnost učinka, povećavamo broj analitičkih putova. Više ishoda, podskupina ili trenutaka provjere daje više prilika za rezultat ispod praga. Usporedba s korigiranim pragom pokazuje kako uzeti u obzir cijelu obitelj analiza.</p>
+<p>Ovdje ne generiramo odgovore sudionika ni ponovno analiziramo podatke laboratorija. Generiramo same p-vrijednosti. Pod idealiziranim nultim modelom svaki put daje neovisan broj jednoliko raspoređen između nule i jedinice. Jedno zamišljeno istraživanje s tri puta moglo bi dati 0,21, 0,03 i 0,54. To je namjerno sastavljen primjer. Ako prijavimo najmanji broj, 0,03 prolazi prag 0,05 iako u modelu učinka nema. Za unaprijed zadana tri puta korigirani prag bio bi <span class="math inline">\(0,05/3\)</span>, koji taj broj ne prolazi.</p>
+<p>Prikaz provodi isti odabir najmanje vrijednosti za 1, 12 i 48 putova. Za svaki broj putova generiramo 5 000 cijelih istraživanja. Na svakom pragu brojimo istraživanja čija je najmanja p-vrijednost ispod ili na pragu i dijelimo s 5 000. Svi rezultati su definirani i ulaze u račun. Visina krivulje zato prikazuje rizik barem jednoga lažnog nalaza po istraživanju, a ne postotak pogrešnih testova među svim provedenim testovima.</p>
+<p>Simulacija pretpostavlja neovisne putove, pravilno kalibrirane p-vrijednosti pod nultim modelom i unaprijed određen skup analiza. Stvarne analize često koriste iste podatke, pa krivulja može izgledati drukčije. Korekcija za poznati skup analiza ne rješava skrivene odluke ni neprijavljeno prilagođavanje postupka podacima.</p>
 <div class="widget-frame" data-naslov="Pješčanik p-hakiranja" data-oznaka="Widget 12.1 · interaktivno">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="109" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 108;"><span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>viewof w12_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ishodi</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">12</span>]<span class="op">,</span></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Broj mogućih ishoda"</span>}</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>  <span class="dt">podskupine</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Podskupinske inačice po ishodu"</span>}</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>  <span class="dt">provjere</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Trenuci provjere podataka"</span>}</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ponavljanja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">3000</span>]<span class="op">,</span></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Simulirana istraživanja"</span>}</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="399" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 398;"><span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a>viewof w12_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ishodi</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">12</span>]<span class="op">,</span></span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Broj mogućih ishoda"</span>}</span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a>  <span class="dt">podskupine</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Podskupinske inačice po ishodu"</span>}</span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a>  <span class="dt">provjere</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span></span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Trenuci provjere podataka"</span>}</span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ponavljanja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">3000</span>]<span class="op">,</span></span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Simulirana istraživanja"</span>}</span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -945,109 +1028,109 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="134" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 133;"><span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> krivulja <span class="op">=</span> <span class="st">"var(--tok-data-2)"</span><span class="op">;</span></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korekcija <span class="op">=</span> <span class="st">"var(--tok-data-4)"</span><span class="op">;</span></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">4</span></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> brojPutova <span class="op">=</span></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>    w12_par<span class="op">.</span><span class="at">ishodi</span> <span class="op">*</span> w12_par<span class="op">.</span><span class="at">podskupine</span> <span class="op">*</span> w12_par<span class="op">.</span><span class="at">provjere</span><span class="op">;</span></span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1212</span>)<span class="op">;</span></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najmanje <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> w12_par<span class="op">.</span><span class="at">ponavljanja</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> najmanja <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> brojPutova<span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) {</span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>      najmanja <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(najmanja<span class="op">,</span> <span class="fu">rng</span>())<span class="op">;</span></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> najmanja<span class="op">;</span></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pragovi <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">0</span><span class="op">,</span> <span class="fl">0.1001</span><span class="op">,</span> <span class="fl">0.002</span>)<span class="op">;</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cdf <span class="op">=</span> pragovi<span class="op">.</span><span class="fu">map</span>(prag <span class="kw">=&gt;</span> ({</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>    prag<span class="op">,</span></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>    <span class="dt">udio</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">mean</span>(najmanje<span class="op">,</span> p <span class="kw">=&gt;</span> p <span class="op">&lt;=</span> prag)</span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nominalniPrag <span class="op">=</span> <span class="fl">0.05</span><span class="op">;</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korigiraniPrag <span class="op">=</span> nominalniPrag <span class="op">/</span> brojPutova<span class="op">;</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nominalniUdio <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(najmanje<span class="op">,</span> p <span class="kw">=&gt;</span> p <span class="op">&lt;=</span> nominalniPrag)<span class="op">;</span></span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korigiraniUdio <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(najmanje<span class="op">,</span> p <span class="kw">=&gt;</span> p <span class="op">&lt;=</span> korigiraniPrag)<span class="op">;</span></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vrloUsko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">260</span><span class="op">;</span></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">430</span> <span class="op">:</span> <span class="dv">350</span><span class="op">,</span></span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">66</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"14px"</span> <span class="op">:</span> <span class="st">"12px"</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Prag za najmanju p-vrijednost"</span><span class="op">,</span></span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.1</span>]<span class="op">,</span></span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> vrloUsko <span class="op">?</span> <span class="dv">3</span> <span class="op">:</span> usko <span class="op">?</span> <span class="dv">5</span> <span class="op">:</span> <span class="kw">undefined</span><span class="op">,</span></span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Udio istraživanja"</span><span class="op">,</span></span>
-<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> postotak<span class="op">.</span><span class="fu">format</span>(d)</span>
-<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">lineY</span>(cdf<span class="op">,</span> {</span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"prag"</span><span class="op">,</span></span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span></span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> krivulja<span class="op">,</span></span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span></span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([nominalniPrag]<span class="op">,</span> {</span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span></span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([korigiraniPrag]<span class="op">,</span> {</span>
-<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> korekcija<span class="op">,</span></span>
-<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span></span>
-<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span></span>
-<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(</span>
-<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>        [{<span class="dt">prag</span><span class="op">:</span> nominalniPrag<span class="op">,</span> <span class="dt">udio</span><span class="op">:</span> nominalniUdio}]<span class="op">,</span></span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>        {<span class="dt">x</span><span class="op">:</span> <span class="st">"prag"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> naglasak<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">4.5</span>}</span>
-<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(</span>
-<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>        [{<span class="dt">prag</span><span class="op">:</span> korigiraniPrag<span class="op">,</span> <span class="dt">udio</span><span class="op">:</span> korigiraniUdio}]<span class="op">,</span></span>
-<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>        {<span class="dt">x</span><span class="op">:</span> <span class="st">"prag"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> korekcija<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">4.5</span>}</span>
-<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
-<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
-<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
-<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;</span><span class="sc">${</span>brojPutova<span class="sc">}</span><span class="vs"> putova daje </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(nominalniUdio)<span class="sc">}</span><span class="vs"> ispod 0,05 i </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(korigiraniUdio)<span class="sc">}</span><span class="vs"> ispod korigiranog praga </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(korigiraniPrag)<span class="sc">}</span><span class="vs">.&lt;/p&gt;</span></span>
-<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="424" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 423;"><span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
+<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> krivulja <span class="op">=</span> <span class="st">"var(--tok-data-2)"</span><span class="op">;</span></span>
+<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korekcija <span class="op">=</span> <span class="st">"var(--tok-data-4)"</span><span class="op">;</span></span>
+<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
+<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
+<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
+<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">4</span></span>
+<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-435"><a href="#cb2-435" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-436"><a href="#cb2-436" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
+<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> brojPutova <span class="op">=</span></span>
+<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a>    w12_par<span class="op">.</span><span class="at">ishodi</span> <span class="op">*</span> w12_par<span class="op">.</span><span class="at">podskupine</span> <span class="op">*</span> w12_par<span class="op">.</span><span class="at">provjere</span><span class="op">;</span></span>
+<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1212</span>)<span class="op">;</span></span>
+<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najmanje <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> w12_par<span class="op">.</span><span class="at">ponavljanja</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> najmanja <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> brojPutova<span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) {</span>
+<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a>      najmanja <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(najmanja<span class="op">,</span> <span class="fu">rng</span>())<span class="op">;</span></span>
+<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> najmanja<span class="op">;</span></span>
+<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pragovi <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">0</span><span class="op">,</span> <span class="fl">0.1001</span><span class="op">,</span> <span class="fl">0.002</span>)<span class="op">;</span></span>
+<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cdf <span class="op">=</span> pragovi<span class="op">.</span><span class="fu">map</span>(prag <span class="kw">=&gt;</span> ({</span>
+<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a>    prag<span class="op">,</span></span>
+<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>    <span class="dt">udio</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">mean</span>(najmanje<span class="op">,</span> p <span class="kw">=&gt;</span> p <span class="op">&lt;=</span> prag)</span>
+<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nominalniPrag <span class="op">=</span> <span class="fl">0.05</span><span class="op">;</span></span>
+<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korigiraniPrag <span class="op">=</span> nominalniPrag <span class="op">/</span> brojPutova<span class="op">;</span></span>
+<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nominalniUdio <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(najmanje<span class="op">,</span> p <span class="kw">=&gt;</span> p <span class="op">&lt;=</span> nominalniPrag)<span class="op">;</span></span>
+<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korigiraniUdio <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(najmanje<span class="op">,</span> p <span class="kw">=&gt;</span> p <span class="op">&lt;=</span> korigiraniPrag)<span class="op">;</span></span>
+<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
+<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
+<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
+<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
+<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vrloUsko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">260</span><span class="op">;</span></span>
+<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
+<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">430</span> <span class="op">:</span> <span class="dv">350</span><span class="op">,</span></span>
+<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">66</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
+<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
+<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
+<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"14px"</span> <span class="op">:</span> <span class="st">"12px"</span></span>
+<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-482"><a href="#cb2-482" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb2-483"><a href="#cb2-483" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Prag za najmanju p-vrijednost"</span><span class="op">,</span></span>
+<span id="cb2-484"><a href="#cb2-484" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.1</span>]<span class="op">,</span></span>
+<span id="cb2-485"><a href="#cb2-485" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> vrloUsko <span class="op">?</span> <span class="dv">3</span> <span class="op">:</span> usko <span class="op">?</span> <span class="dv">5</span> <span class="op">:</span> <span class="kw">undefined</span><span class="op">,</span></span>
+<span id="cb2-486"><a href="#cb2-486" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
+<span id="cb2-487"><a href="#cb2-487" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-488"><a href="#cb2-488" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb2-489"><a href="#cb2-489" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Udio istraživanja"</span><span class="op">,</span></span>
+<span id="cb2-490"><a href="#cb2-490" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
+<span id="cb2-491"><a href="#cb2-491" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-492"><a href="#cb2-492" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> postotak<span class="op">.</span><span class="fu">format</span>(d)</span>
+<span id="cb2-493"><a href="#cb2-493" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-494"><a href="#cb2-494" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-495"><a href="#cb2-495" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">lineY</span>(cdf<span class="op">,</span> {</span>
+<span id="cb2-496"><a href="#cb2-496" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"prag"</span><span class="op">,</span></span>
+<span id="cb2-497"><a href="#cb2-497" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span></span>
+<span id="cb2-498"><a href="#cb2-498" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> krivulja<span class="op">,</span></span>
+<span id="cb2-499"><a href="#cb2-499" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span></span>
+<span id="cb2-500"><a href="#cb2-500" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-501"><a href="#cb2-501" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([nominalniPrag]<span class="op">,</span> {</span>
+<span id="cb2-502"><a href="#cb2-502" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
+<span id="cb2-503"><a href="#cb2-503" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span></span>
+<span id="cb2-504"><a href="#cb2-504" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-505"><a href="#cb2-505" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([korigiraniPrag]<span class="op">,</span> {</span>
+<span id="cb2-506"><a href="#cb2-506" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> korekcija<span class="op">,</span></span>
+<span id="cb2-507"><a href="#cb2-507" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span></span>
+<span id="cb2-508"><a href="#cb2-508" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span></span>
+<span id="cb2-509"><a href="#cb2-509" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-510"><a href="#cb2-510" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(</span>
+<span id="cb2-511"><a href="#cb2-511" aria-hidden="true" tabindex="-1"></a>        [{<span class="dt">prag</span><span class="op">:</span> nominalniPrag<span class="op">,</span> <span class="dt">udio</span><span class="op">:</span> nominalniUdio}]<span class="op">,</span></span>
+<span id="cb2-512"><a href="#cb2-512" aria-hidden="true" tabindex="-1"></a>        {<span class="dt">x</span><span class="op">:</span> <span class="st">"prag"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> naglasak<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">4.5</span>}</span>
+<span id="cb2-513"><a href="#cb2-513" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb2-514"><a href="#cb2-514" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(</span>
+<span id="cb2-515"><a href="#cb2-515" aria-hidden="true" tabindex="-1"></a>        [{<span class="dt">prag</span><span class="op">:</span> korigiraniPrag<span class="op">,</span> <span class="dt">udio</span><span class="op">:</span> korigiraniUdio}]<span class="op">,</span></span>
+<span id="cb2-516"><a href="#cb2-516" aria-hidden="true" tabindex="-1"></a>        {<span class="dt">x</span><span class="op">:</span> <span class="st">"prag"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> korekcija<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">4.5</span>}</span>
+<span id="cb2-517"><a href="#cb2-517" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb2-518"><a href="#cb2-518" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
+<span id="cb2-519"><a href="#cb2-519" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-520"><a href="#cb2-520" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-521"><a href="#cb2-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-522"><a href="#cb2-522" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
+<span id="cb2-523"><a href="#cb2-523" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
+<span id="cb2-524"><a href="#cb2-524" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;</span><span class="sc">${</span>brojPutova<span class="sc">}</span><span class="vs"> putova daje </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(nominalniUdio)<span class="sc">}</span><span class="vs"> ispod 0,05 i </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(korigiraniUdio)<span class="sc">}</span><span class="vs"> ispod korigiranog praga </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(korigiraniPrag)<span class="sc">}</span><span class="vs">.&lt;/p&gt;</span></span>
+<span id="cb2-525"><a href="#cb2-525" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb2-526"><a href="#cb2-526" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w12" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1057,12 +1140,13 @@ window.Quarto = {
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-w12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;1: Udio simuliranih istraživanja s barem jednim rezultatom ispod odabranog praga nakon pretraživanja više neovisnih analitičkih putova.
+Slika&nbsp;2: Udio simuliranih istraživanja s barem jednim rezultatom ispod odabranog praga nakon pretraživanja više neovisnih analitičkih putova.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>Ako unaprijed određeni broj putova označimo s <span class="math inline">\(m\)</span>, prag <span class="math inline">\(0{,}05/m\)</span> dijeli dopušteni ukupni rizik među njima. Svaka analiza mora zadovoljiti stroži prag. To je Bonferronijeva korekcija. Razinu 0,05 dijelimo brojem usporedbi u unaprijed određenoj obitelji. O obitelji testova više ćemo govoriti u poglavlju Više grupa. Takva korekcija ograničava rizik lažnih nalaza u unaprijed određenom skupu analiza, ali ne uklanja sve probleme analitičke fleksibilnosti.</p>
 <p><strong>Što isprobati.</strong></p>
 <ol type="1">
 <li>Provedite jednu unaprijed određenu analizu.</li>
@@ -1070,63 +1154,147 @@ Slika&nbsp;1: Udio simuliranih istraživanja s barem jednim rezultatom ispod oda
 <li>Dodajte podskupinske inačice i trenutke provjere bez promjene broja ishoda.</li>
 <li>Usporedite nominalni prag 0,05 s pragom korigiranim za sve putove.</li>
 </ol>
-<p>Najmanja p-vrijednost nije sažetak jedne unaprijed određene analize kada je nastala pretraživanjem. Zaključak tada mora opisati cijeli skup mogućnosti ili koristiti postupak koji njihov broj uzima u obzir.</p>
+<p>Kada odaberemo najmanju p-vrijednost nakon pretraživanja, trebamo opisati kako smo do nje došli. Tumačenje mora uzeti u obzir cijeli postupak odabira i moguće analize.</p>
 <div class="callout-divljina page-columns page-full">
-<p><strong>Replikacija kao zajedničko mjerenje.</strong> Open Science Collaboration koristio je zajednički postupak za procjenu reproducibilnosti niza psiholoških nalaza <span class="citation" data-cites="osc2015">(<a href="../references.html#ref-osc2015" role="doc-biblioref">Open Science Collaboration 2015.</a>)</span>. Rezultat nije jednostavna stopa istine jer se izvorne i replikacijske studije razlikuju u preciznosti, kontekstu i mogućim učincima.</p>
-<div class="no-row-height column-margin column-container"></div><p>Vrijednost projekta leži i u tome što je privatni problem pojedinačnih sumnji pretvorio u podatke o sustavu. Čitatelj može procjenjivati obrasce bez pretpostavke da svaki neuspjeh ima isti uzrok.</p>
+<p><strong>Sedamnaest procjena nije referendum.</strong> Nakon ponavljanja pokusa s olovkom i procjenom duhovitosti crteža trebalo je odlučiti što zajednički rezultati govore o izvornom nalazu. U izvještaju Wagenmakersa i suradnika devet je laboratorija dalo pozitivnu, a osam negativnu točkastu procjenu <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Kad bismo prebrojili samo predznake, mogli bismo zaključiti da su dokazi gotovo ravnomjerno podijeljeni.</p>
+<div class="no-row-height column-margin column-container"></div><p>Takvo prebrojavanje svakoj procjeni daje ulogu glasa za ili protiv. Mala razlika neposredno iznad nule tada vrijedi jednako kao velika, precizno procijenjena razlika. Nestaju i veličina i nesigurnost nalaza, upravo informacije zbog kojih je ponavljanje više laboratorija korisno.</p>
+<p>U ovom slučaju nijedan laboratorijski interval nije bio u cijelosti iznad nule, a samo su dva obuhvaćala izvornu razliku od 0,82 boda <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Objedinjena procjena iznosila je 0,03 boda, uz 95-postotni interval od −0,11 do 0,16 <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Te brojke govore nešto određenije od raspodjele pozitivnih i negativnih predznaka. Pod uvjetima zajedničkog postupka ne podupiru ponavljanje izvorno velike razlike, a ostavljaju nesigurnost oko malih razlika u oba smjera.</p>
+<div class="no-row-height column-margin column-container"></div><p>Za istraživača koji odlučuje na čemu graditi sljedeći pokus to znači da treba promijeniti očekivanje o veličini nalaza. Nije opravdano jednostavno preuzeti izvornu procjenu kao pouzdanu polaznu vrijednost. Jednako tako, ovaj izvještaj ne daje konačan odgovor o svim načinima na koje izraz lica može biti povezan s doživljajem. Rezultat pripada određenoj manipulaciji, mjerenju i protokolu.</p>
+<p>Pojedinačne procjene zato čitamo uz objedinjenu, a razlike među laboratorijima ne pretvaramo u objašnjenja bez dodatnih dokaza. Uži zajednički interval nije prognoza točne vrijednosti sljedeće replikacije. Korist ponavljanja ovdje je u tome što sužava raspon uvjerljivih tvrdnji. Umjesto pitanja koliko je laboratorija glasovalo za učinak, možemo pitati koliko velik učinak njihov zajednički rad još dopušta.</p>
 </div>
-<div class="callout-model">
-<p>Asistent može usporediti registrirani plan, kod i rukopis te označiti neslaganja. Ne smije izmišljati nedostajuće datoteke ni procjenjivati reproducibilnost samo prema tonu teksta. Svaki nalaz mora imati put do retka koda, tablice ili dokumenta.</p>
+<p>Unaprijed vidljiv plan omogućuje nam provjeru istraživačkih odluka. U sljedećem obrazloženju procijenimo što na temelju samog postojanja takva plana možemo zaključiti o valjanosti nalaza.</p>
+<div id="ex-12-callout-greska-01" class="callout-greska page-columns page-full">
+<p>Za bilješku o ponavljanju pokusa s izrazom lica asistent je izdvojio sljedeće podatke. RRR je unaprijed odredio glavni ishod, pravila uključivanja i primarnu analizu <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Objedinjena razlika u ocjenama stripova iznosi 0,03 boda, uz 95-postotni interval od −0,11 do 0,16 <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Urednički zapis navodi da su plan i završni izvještaj dostupni, ali ih urednik još nije usporedio. To je zamišljena situacija pregleda ovoga rada, a ne tvrdnja o propustu njegovih autora. Asistent predlaže bilješku.</p>
 <blockquote class="blockquote">
-<p>Usporedi istraživački plan, analitički kod i izvještaj. Navedi svako odstupanje s točnim mjestom u dokumentima i odvoji potvrđene razlike od informacija koje nedostaju.</p>
+<p>Glavni ishod i analiza određeni su prije uvida u rezultate. Objedinjena procjena blizu je nule, uz interval koji dopušta male razlike u oba smjera. Predregistracija je zato dovoljan razlog da prihvatimo zaključak bez usporedbe provedene analize s planom.</p>
 </blockquote>
-</div>
-<div class="callout-greska">
-<p>Studija je predregistrirala ishod, pravilo isključivanja i model prije prikupljanja podataka. Kod i anonimizirani materijali dostupni su za provjeru. Zbog predregistracije rezultat mora biti istinit.</p>
+<p>Napišite uredniku što iz bilješke može zadržati, a koji korak pregleda još treba obaviti. Predložite jednu konkretnu usporedbu plana i završnog izvještaja te napišite zamjenu posljednje rečenice. Ne pretpostavljajte da provjera mora otkriti odstupanje.</p>
 </div>
 </section>
 <section id="razrađeni-primjer" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Simuliramo podatke bez stvarne grupne razlike, ali s više mogućih ishoda. Analitičar koji prijavi samo najmanju p-vrijednost prikazuje rezultat jedne odabrane analize, dok je stvarni postupak uključivao mnogo prilika <span class="citation" data-cites="simmons2011">(<a href="../references.html#ref-simmons2011" role="doc-biblioref">Simmons i sur. 2011.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><div class="cell page-columns page-full" data-layout-align="center">
-<div id="tbl-vise-analiza" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<p>Dosadašnji zaključak počiva na razlici izraženoj u bodovima ocjene stripova. Provjerit ćemo ostaje li sadržajno sličan kada iste laboratorijske rezultate izrazimo standardiziranom razlikom. Prije te usporedbe trebamo potvrditi da obje analize polaze od istih provjerenih zapisa. Službeni arhiv sadrži sudioničke zapise iz 17 laboratorija, koje knjiga ne redistribuira <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Iz njih je neovisnom provjerom izvedena tablica grupnih sažetaka, procjena i intervala. Redci se zbrajaju na 1.894 sudionika i odgovaraju objavljenim sažetcima, uz jedno odstupanje u zaokruživanju standardne devijacije koje ne koristimo u tvrdnjama knjige <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Tablicu možemo provjeriti bez pisanja koda. Svaki redak predstavlja laboratorij, a <code>n</code> broj uključenih sudionika. Interval pripada sirovoj razlici prosječnih ocjena između skupina koje su olovku držale zubima (<code>smile</code>) i usnama (<code>pout</code>).</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-rrr-laboratoriji" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-vise-analiza-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;1: Najmanja p-vrijednost među simuliranim ishodima bez učinka. Izrada autora prema <span class="citation" data-cites="simmons2011">Simmons i sur. (<a href="../references.html#ref-simmons2011" role="doc-biblioref">2011.</a>)</span>.
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rrr-laboratoriji-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Sirove laboratorijske procjene iz RRR-a. Izrada autora iz lokalne rekonstrukcije službenoga arhiva prema <span class="citation" data-cites="wagenmakers2016"><span class="nocase">Wagenmakers i sur.</span> (<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref">2016.</a>)</span>.
 </figcaption>
-<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-vise-analiza-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-rrr-laboratoriji-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">ishod</th>
-<th style="text-align: right;">p</th>
+<th style="text-align: left;">Laboratorij</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">Razlika</th>
+<th style="text-align: right;">95-postotni interval</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">0,004</td>
+<td style="text-align: left;">Albohn</td>
+<td style="text-align: right;">139</td>
+<td style="text-align: right;">0,14</td>
+<td style="text-align: right;">[-0,40; 0,67]</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">0,007</td>
+<td style="text-align: left;">Allard</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">0,16</td>
+<td style="text-align: right;">[-0,43; 0,75]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">0,089</td>
+<td style="text-align: left;">Benning</td>
+<td style="text-align: right;">115</td>
+<td style="text-align: right;">-0,02</td>
+<td style="text-align: right;">[-0,52; 0,49]</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">0,094</td>
+<td style="text-align: left;">Bulnes</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">0,12</td>
+<td style="text-align: right;">[-0,43; 0,67]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">0,112</td>
+<td style="text-align: left;">Capaldi</td>
+<td style="text-align: right;">117</td>
+<td style="text-align: right;">-0,11</td>
+<td style="text-align: right;">[-0,69; 0,46]</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0,179</td>
+<td style="text-align: left;">Chasten</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">-0,05</td>
+<td style="text-align: right;">[-0,65; 0,54]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Holmes</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">0,20</td>
+<td style="text-align: right;">[-0,35; 0,75]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Koch</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">-0,19</td>
+<td style="text-align: right;">[-0,73; 0,35]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Korb</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">0,02</td>
+<td style="text-align: right;">[-0,65; 0,69]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lynott</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">0,37</td>
+<td style="text-align: right;">[-0,19; 0,92]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oosterwijk</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">-0,24</td>
+<td style="text-align: right;">[-0,76; 0,28]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Özdoğru</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">-0,58</td>
+<td style="text-align: right;">[-1,41; 0,26]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pacheco-Unguetti</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">-0,13</td>
+<td style="text-align: right;">[-0,76; 0,49]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Talarico</td>
+<td style="text-align: right;">112</td>
+<td style="text-align: right;">0,02</td>
+<td style="text-align: right;">[-0,51; 0,56]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Wagenmakers</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">0,15</td>
+<td style="text-align: right;">[-0,27; 0,57]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wayand</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">-0,20</td>
+<td style="text-align: right;">[-0,74; 0,34]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Zeelenberg</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">0,35</td>
+<td style="text-align: right;">[-0,18; 0,88]</td>
 </tr>
 </tbody>
 </table>
@@ -1135,17 +1303,168 @@ Tablica&nbsp;1: Najmanja p-vrijednost među simuliranim ishodima bez učinka. Iz
 </figure>
 </div>
 </div>
-<p>Tablica je jedna realizacija simulacije i ne mora svaki put sadržavati privlačan rezultat. Upravo je to poanta. Kada se cijeli postupak ponavlja, neki će nizovi ponuditi malu p-vrijednost bez učinka. Predregistracija, izvještavanje svih ishoda i korekcija za višestrukost čine tu priliku vidljivom.</p>
-<p>Reforma ne traži da prestanemo istraživati neočekivane obrasce. Traži da razlikujemo potvrđujuću analizu od naknadnog istraživanja i da novu hipotezu predstavimo kao početak sljedeće provjere.</p>
+<p>Pri standardizaciji svaku laboratorijsku razliku dijelimo združenom standardnom devijacijom dviju skupina u tom laboratoriju. U prvom laboratoriju 0,139 boda tako postaje <span class="math inline">\(d = 0,087\)</span>. Mijenjaju se mjerna jedinica, standardna pogreška i težina, a sudionici i smjer oduzimanja ostaju isti. Nijedan od 17 laboratorija ne isključujemo.</p>
+<p>Za objedinjavanje koristimo model slučajnih učinaka. Težina laboratorija prije normalizacije iznosi <span class="math inline">\(w_i=1/(SE_i^2+\tau^2)\)</span>, gdje <span class="math inline">\(SE_i\)</span> opisuje nesigurnost njegove razlike, a <span class="math inline">\(\tau^2\)</span> procijenjenu varijancu razlika među laboratorijima. Postupak REML procjenjuje tu drugu varijancu iz svih laboratorijskih sažetaka. Veći laboratorij zato ne mora dobiti težinu razmjernu samo broju sudionika. Objavljena sirova analiza i naša standardizirana rekonstrukcija imaju različite jedinice i težine.</p>
+<p>Sljedeća tablica prikazuje obje rekonstrukcije iz istih 17 laboratorija. Intervali su normalni Waldovi intervali. Procjeni dodajemo i od nje oduzimamo <span class="math inline">\(1,96\sqrt{1/\sum_i w_i}\)</span>. Taj račun tretira procijenjenu među-laboratorijsku varijancu kao zadanu, pa ne obuhvaća svu njezinu nesigurnost. U ovome poglavlju učimo čitati sintezu; procjena REML-a nije zadatak za ručno računanje.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-rrr-sinteza" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rrr-sinteza-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Autorska rekonstrukcija dviju sinteza iz laboratorijskih sažetaka prema <span class="citation" data-cites="wagenmakers2016"><span class="nocase">Wagenmakers i sur.</span> (<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref">2016.</a>)</span>. Standardizirani redak nije zasebno objavljeni nalaz.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-rrr-sinteza-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mjera</th>
+<th style="text-align: left;">Procjena</th>
+<th style="text-align: left;">Donja granica</th>
+<th style="text-align: left;">Gornja granica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sirova razlika</td>
+<td style="text-align: left;">0,027</td>
+<td style="text-align: left;">-0,108</td>
+<td style="text-align: left;">0,161</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standardizirana razlika</td>
+<td style="text-align: left;">0,014</td>
+<td style="text-align: left;">-0,076</td>
+<td style="text-align: left;">0,104</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Sirova procjena iznosi 0,03, uz interval od -0,11 do 0,16. Standardizirana rekonstrukcija iznosi 0,01, uz interval od -0,08 do 0,10. U laboratorijskoj tablici ima 9 pozitivnih procjena, 0 intervala u cijelosti iznad nule i 2 intervala koja obuhvaćaju 0,82. Ta brojanja služe opisu, a ne glasovanju o nalazu.</p>
+<p>Prema zajedničkom protokolu prosječna razlika u replikacijama bila je blizu nule i mnogo manja od izvornih 0,82 boda <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Sirovi i standardizirani interval iz naše rekonstrukcije obuhvaćaju male razlike u oba smjera. Rezultat ne objašnjava zašto se procjene razlikuju, ne obuhvaća svaki način mjerenja facijalne povratne sprege i ne dokazuje da je predregistracija uzrokovala dobiveni nalaz.</p>
+<div class="no-row-height column-margin column-container"></div><p>Takav zaključak povezuje opaženi rezultat s provedenim postupkom. Pri odluci o težini izvornog nalaza uzimamo u obzir obje analize, uz navedene granice prijenosa.</p>
+</section>
+<section id="od-testa-do-provjerljivog-zaključka" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="od-testa-do-provjerljivog-zaključka">Od testa do provjerljivog zaključka</h2>
+<p>Sada možemo zajedno razmotriti nulti model, veličinu učinka, interval, posljedice pogreške i način odabira analize. Dokumentirani postupak omogućuje provjeru tih dijelova. I dalje trebamo posebno opravdati uzročni zaključak, predviđanje ili prijenos na drugo okruženje.</p>
+<p>U tablici su odgovori na šest pitanja za višelaboratorijski RRR i njegove dvije analize <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Povezuju rezultat s jedinicom, postupkom i dopuštenim zaključkom.</p>
+<div class="no-row-height column-margin column-container"></div><div id="tbl-revizijska-pitanja-dio-iv" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-revizijska-pitanja-dio-iv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;4: Šest revizijskih pitanja primijenjenih na provjereni RRR. Izrada autora prema <span class="citation" data-cites="wagenmakers2016"><span class="nocase">Wagenmakers i sur.</span> (<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref">2016.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-revizijska-pitanja-dio-iv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Revizijsko pitanje</th>
+<th>Primjena na provjereni zapis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Koja je jedinica?</td>
+<td>zapis za jedan laboratorij sa sažetkom razlike između eksperimentalnih uvjeta i njezine nesigurnosti</td>
+</tr>
+<tr class="even">
+<td>Tko ili što nedostaje?</td>
+<td>ljudi izvan uključenih uzoraka, drugi laboratoriji i drukčije operacionalizacije facijalne povratne sprege</td>
+</tr>
+<tr class="odd">
+<td>Koji je cilj tvrdnje?</td>
+<td>prosječna razlika ocjena između uvjeta u zajedničkom postupku, opisana sirovom i standardiziranom sintezom</td>
+</tr>
+<tr class="even">
+<td>Gdje je neizvjesnost?</td>
+<td>preciznost laboratorijskih i objedinjenih procjena; ne obuhvaćaju sve probleme mjerenja, odabira i provedbe</td>
+</tr>
+<tr class="odd">
+<td>Koje drugo objašnjenje ostaje?</td>
+<td>standardizacija mijenja ciljanu veličinu i doprinos laboratorija, pa rezultate uspoređujemo sadržajno</td>
+</tr>
+<tr class="even">
+<td>Tko snosi posljedice?</td>
+<td>istraživači, urednici i čitatelji koji procjenjuju koliko vjerovati izvornom nalazu</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Karta tvrdnji u nastavku pokazuje što iz ove analize možemo prenijeti i gdje su granice pojedine tvrdnje.</p>
+<div id="tbl-mapa-tvrdnji-dio-iv" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mapa-tvrdnji-dio-iv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;5: Šest dimenzija tvrdnje na granici Dijela IV. Izrada autora prema <span class="citation" data-cites="wagenmakers2016"><span class="nocase">Wagenmakers i sur.</span> (<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref">2016.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-mapa-tvrdnji-dio-iv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimenzija tvrdnje</th>
+<th>Što ovaj dokaz dopušta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>opis</td>
+<td>opisuje laboratorijske procjene, intervale i dvije objedinjene analitičke grane</td>
+</tr>
+<tr class="even">
+<td>povezanost</td>
+<td>povezuje prosječnu ocjenu s eksperimentalnim uvjetom u provedenom postupku</td>
+</tr>
+<tr class="odd">
+<td>generalizacija</td>
+<td>oprezno prenosi zaključak na usporedive provedene postupke, ne na svaku populaciju ili operacionalizaciju</td>
+</tr>
+<tr class="even">
+<td>predviđanje</td>
+<td>nije poduprto jer analiza ne gradi ni provjerava pravilo za novi laboratorij ili novoga sudionika</td>
+</tr>
+<tr class="odd">
+<td>uzročnost</td>
+<td>ne podupire uzročno objašnjenje razlike između izvorne i replikacijskih procjena</td>
+</tr>
+<tr class="even">
+<td>odluka</td>
+<td>podupire opreznije odmjeravanje težine izvorne procjene uz obje grane i njihove intervale</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Na kraju dijela provjerite četiri povezane teme. Zašto p-vrijednost ne daje vjerojatnost nulte hipoteze, a nalaz blizu nule ne dokazuje njezinu istinitost? Kako čitamo učinak i interval te zašto opaženi učinak nije neovisan ulaz za naknadnu provjeru snage? Kako pretraživanje analiza mijenja tumačenje najmanje p-vrijednosti? Koji dokumenti omogućuju provjeru rezultata i gdje bi zaključak prekoračio doseg nacrta?</p>
+<p>U idućim analizama uvijek ćemo navesti ciljanu tvrdnju, primarni postupak, jednu razumnu alternativu, podrijetlo podataka i ograničenja. Počinjemo kategoričkim tablicama. Prije hi-kvadrat testa trebamo utvrditi koga smo prebrojili, što predstavlja ćelija, koji je nazivnik svakog postotka i kakvu razliku smatramo sadržajno važnom.</p>
 </section>
 <section id="sažetak" class="level2 sazetak">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
-<p>Kriza reproducibilnosti nastaje iz spoja uzoračke varijacije, analitičke fleksibilnosti i poticaja koji nagrađuju jasan pozitivan nalaz. Predregistracija, registrirani izvještaji i otvoreni materijali povećavaju vidljivost postupka, ali ne jamče istinu. Replikacija procjenjuje stabilnost nalaza kroz nove podatke i uvjete. Asistent može pomoći u provjeri samo kada njegov rad ostaje reproducibilan, provjerljiv i odvojen od izvora.</p>
+<p>Nalaz možemo procijeniti tek kada uz završni račun vidimo kako su podaci prikupljeni, pripremljeni i analizirani te kako je rezultat odabran za objavu. P-hakiranje i račvajući putovi upozoravaju na različite oblike ovisnosti analize o podacima, zbog kojih je važan zapis trenutka i razloga odluke. Reproduciranjem provjeravamo račun na istom materijalu, a replikacijom prikupljamo nove podatke za usporedbu. U višelaboratorijskom primjeru čitanje procjena i intervala dalo je više od brojanja predznaka, a sirova i standardizirana analiza poduprle su sličan, ograničen zaključak o razlici blizu nule. Predregistracija, registrirani izvještaji i otvoreni materijali čine takvu provjeru dostupnijom, iako sami ne jamče dobro mjerenje ni valjan zaključak. U sljedećim analizama zato ćemo uz metodu pratiti i odluke koje su nas do nje dovele.</p>
 </section>
 <section id="pojmovi" class="level2 pojmovi">
 <h2 class="pojmovi anchored" data-anchor-id="pojmovi">Pojmovi</h2>
 <div class="terminology-list">
 <dl>
+<dt><span class="terminology-list__hr" lang="hr">potvrđujuća analiza</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">confirmatory analysis</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">istraživačka analiza</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">exploratory analysis</span>
+</dd>
 <dt><span class="terminology-list__hr" lang="hr">p-hakiranje</span></dt>
 <dd>
 <span class="terminology-list__en" lang="en">p-hacking</span>
@@ -1158,6 +1477,26 @@ Tablica&nbsp;1: Najmanja p-vrijednost među simuliranim ishodima bez učinka. Iz
 <dd>
 <span class="terminology-list__en" lang="en">publication bias</span>
 </dd>
+<dt><span class="terminology-list__hr" lang="hr">analitička fleksibilnost</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">analytical flexibility</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">reproducibilnost</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">reproducibility</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">replikacija</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">replication</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">forest plot</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">forest plot</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">provjera osjetljivosti</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">sensitivity analysis</span>
+</dd>
 <dt><span class="terminology-list__hr" lang="hr">predregistracija</span></dt>
 <dd>
 <span class="terminology-list__en" lang="en">preregistration</span>
@@ -1166,40 +1505,32 @@ Tablica&nbsp;1: Najmanja p-vrijednost među simuliranim ishodima bez učinka. Iz
 <dd>
 <span class="terminology-list__en" lang="en">registered report</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">replikacija</span></dt>
-<dd>
-<span class="terminology-list__en" lang="en">replication</span>
-</dd>
-<dt><span class="terminology-list__hr" lang="hr">otvorena znanost</span></dt>
-<dd>
-<span class="terminology-list__en" lang="en">open science</span>
-</dd>
 </dl>
 </div>
 </section>
 <section id="zadaci" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
-<section id="konceptualni" class="level3 zadaci-razina page-columns page-full">
-<h3 class="zadaci-razina anchored" data-anchor-id="konceptualni">Konceptualni</h3>
-<p>Razlikujte p-hakiranje od vrta račvajućih putova. Predajte dva kratka scenarija koja pokazuju razliku <span class="citation" data-cites="simmons2011 gelman2013">(<a href="../references.html#ref-simmons2011" role="doc-biblioref">Simmons i sur. 2011.</a>; <a href="../references.html#ref-gelman2013" role="doc-biblioref">Gelman i Loken 2013.</a>)</span>.</p>
+<section id="ex-12-konceptualni-01" class="level3 zadaci-razina page-columns page-full">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-12-konceptualni-01">Konceptualni</h3>
+<p>Istraživač je nakon pregleda podataka iskušao pet pravila isključivanja i objavio jedino ono koje je dalo poželjan rezultat. Druga je istraživačica prije analize odlučila „upotrijebit ću medijan ako je raspodjela jako asimetrična, a sredinu inače” i zatim provela samo odabranu granu. Objasnite koji primjer prikazuje p-hakiranje, a koji vrt račvajućih putova. Za svaki navedite koji bi trag postupka čitatelju omogućio provjeru i pokažite gdje se u primjeru nalazi analitička fleksibilnost <span class="citation" data-cites="simmons2011 gelman2013">(<a href="../references.html#ref-simmons2011" role="doc-biblioref">Simmons i sur. 2011.</a>; <a href="../references.html#ref-gelman2013" role="doc-biblioref">Gelman i Loken 2013.</a>)</span>. Na kraju jednom rečenicom razlikujte reproducibilnost takve provjere od replikacije koja bi prikupila nove podatke.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-simmons2011" class="csl-entry" role="listitem">
-Simmons, Joseph P., Leif D. Nelson, i Uri Simonsohn. 2011. <span>„False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant“</span>. <em>Psychological Science</em> 22 (11): 1359–66.
+Simmons, Joseph P., Leif D. Nelson, i Uri Simonsohn. 2011. <span>„False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant“</span>. <em>Psychological Science</em> 22 (11): 1359–66. <a href="https://doi.org/10.1177/0956797611417632">https://doi.org/10.1177/0956797611417632</a>.
 </div><div id="ref-gelman2013" class="csl-entry" role="listitem">
-Gelman, Andrew, i Eric Loken. 2013. <span>„The Garden of Forking Paths: Why Multiple Comparisons Can Be a Problem, Even When There Is No <span>‚Fishing Expedition‘</span> or <span>‚p-Hacking‘</span> and the Research Hypothesis Was Posited Ahead of Time“</span>. Manuscript.
+Gelman, Andrew, i Eric Loken. 2013. <span>„The Garden of Forking Paths: Why Multiple Comparisons Can Be a Problem, Even When There Is No <span>‚Fishing Expedition‘</span> or <span>‚p-Hacking‘</span> and the Research Hypothesis Was Posited Ahead of Time“</span>. <a href="https://sites.stat.columbia.edu/gelman/research/unpublished/forking.pdf">https://sites.stat.columbia.edu/gelman/research/unpublished/forking.pdf</a>.
 </div></div></section>
-<section id="računski" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="računski">Računski</h3>
-<p>Ponovite simulaciju <code>sim_putovi</code> mnogo puta i predajte raspodjelu najmanjih p-vrijednosti.</p>
-</section>
-<section id="kritički" class="level3 zadaci-razina page-columns page-full">
-<h3 class="zadaci-razina anchored" data-anchor-id="kritički">Kritički</h3>
-<p>Prosudite što veliki replikacijski projekt može reći o literaturi, a što ne može o svakoj pojedinačnoj studiji <span class="citation" data-cites="osc2015">(<a href="../references.html#ref-osc2015" role="doc-biblioref">Open Science Collaboration 2015.</a>)</span>. Predajte dva odlomka.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-osc2015" class="csl-entry" role="listitem">
-Open Science Collaboration. 2015. <span>„Estimating the Reproducibility of Psychological Science“</span>. <em>Science</em> 349 (6251): aac4716.
+<section id="ex-12-racunski-01" class="level3 zadaci-razina page-columns page-full">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-12-racunski-01">Računski</h3>
+<p>Koristite samo tiskanu tablicu laboratorijskih procjena, bez pisanja koda. Prebrojite koliko je od 17 točkastih procjena veće od nule i izračunajte taj udio u postocima <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Zatim prebrojite koliko je 95-postotnih intervala u cijelosti iznad nule i koliko ih obuhvaća izvornu procjenu 0,82 <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Napišite dvije rečenice koje objašnjavaju zašto prvi udio nije stopa „uspjelih replikacija”.</p>
+<div class="no-row-height column-margin column-container"></div></section>
+<section id="ex-12-kriticki-01" class="level3 zadaci-razina page-columns page-full">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-12-kriticki-01">Kritički</h3>
+<p>Vratite se definiciji intervala iz poglavlja Procjena i logici nultoga modela iz poglavlja Logika testiranja. Forest plot temelji se na objavljenoj replikaciji <span class="citation" data-cites="wagenmakers2016">(<a href="../references.html#ref-wagenmakers2016" role="doc-biblioref"><span class="nocase">Wagenmakers i sur.</span> 2016.</a>)</span>. Zamislite sljedeći pogrešan komentar. „Niti jedan laboratorij nije dobio značajan rezultat, pa je dokazano da učinak ne postoji.” Revidirajte tu tvrdnju u tri rečenice. Uključite objedinjenu procjenu s intervalom, objasnite što nula u prikazu znači, usporedite primarnu analizu sa standardiziranom granom provjere osjetljivosti te navedite jednu populacijsku ili kontekstualnu granicu koju forest plot ne uklanja. Dodajte jednu rečenicu o tome kako bi publikacijska pristranost promijenila tumačenje sinteze kada nevidljive studije ovise o rezultatu.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-wagenmakers2016" class="csl-entry" role="listitem">
+<span class="nocase">Wagenmakers, E.-J., T. Beek, L. Dijkhoff, Q. F. Gronau, i sur.</span> 2016. <span>„Registered Replication Report: Strack, Martin, &amp; Stepper (1988)“</span>. <em>Perspectives on Psychological Science</em> 11 (6): 917–28. <a href="https://doi.org/10.1177/1745691616674458">https://doi.org/10.1177/1745691616674458</a>.
 </div></div></section>
-<section id="revizija-modela" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="revizija-modela">Revizija modela</h3>
-<p>Ocijenite modelsku analizu iz okvira. Imenujte dvije dobre prakse, jednu pretjeranu tvrdnju i ograničenje koje ostaje nakon predregistracije.</p>
+<section id="ex-12-revizija-modela-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-12-revizija-modela-01">Revizija modela</h3>
+<p>Revidirajte analizu iz okvira o pogrešci. Predajte zapis s četiri polja. U prvome prepišite provjerene brojke, u drugome označite jedinu pogrešnu tvrdnju, u trećemu napišite ispravljeni zaključak, a u četvrtome navedite koji biste dokument ili redak postupka provjerili prije prihvaćanja analize i objasnite koju dodatnu vidljivost daje registrirani izvještaj. Ne traži se novi kod.</p>
 
 
 
@@ -1303,23 +1634,21 @@ Open Science Collaboration. 2015. <span>„Estimating the Reproducibility of Psy
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -1329,9 +1658,275 @@ Open Science Collaboration. 2015. <span>„Estimating the Reproducibility of Psy
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1617,7 +2212,9 @@ Open Science Collaboration. 2015. <span>„Estimating the Reproducibility of Psy
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1673,25 +2270,25 @@ Open Science Collaboration. 2015. <span>„Estimating the Reproducibility of Psy
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -2107,31 +2704,33 @@ Open Science Collaboration. 2015. <span>„Estimating the Reproducibility of Psy
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3761,10 +4360,52 @@ window._ojs.runtime.interpretFromScriptTags();
 <p>Resursi</p>
 </a>
   </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../errata.html">
+<p>Ispravci</p>
+</a>
+  </li>  
 </ul>
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

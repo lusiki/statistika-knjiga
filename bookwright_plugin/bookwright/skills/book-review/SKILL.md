@@ -16,7 +16,7 @@ vote. The chapter is Croatian; critics judge their assigned lens.
 3. `critic-pedagogy` — beginner comprehension, sequencing and exercises
 4. `critic-evidence` — bibliography integrity and empirical support
 5. `critic-style` — manuscript qualities a linter cannot judge
-6. `critic-structure` — vignette, definitions, figures, AI boxes and exercises
+6. `critic-structure` — vignette, definitions, figures, error-finding box and exercises
 
 Use the host-neutral prompts under `<plugin-root>/agents/`. For Codex, prefer
 the corresponding read-only project agents `critic_methods`,

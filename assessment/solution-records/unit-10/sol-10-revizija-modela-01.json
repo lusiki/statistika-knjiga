@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Povezati svaki red koda s njegovim statističkim korakom, izdvojiti red koji proizvodi p-vrijednost i zatim provjeriti odgovara li izvještajna rečenica smjeru uvjetovanja toga računa.",
-      "expected_evidence": "sample premješta oznake, replicate gradi 4000 nultih razlika, sum(abs(nulte) >= abs(razlika)) daje b = 64, a (b + 1)/(B + 1) daje 65/4001. Jedina pogrešna rečenica iz toga rezultata izvodi P(H0 | podaci)."
+      "expected_evidence": "Prebrojane su 64 ekstremne permutacije među 4.000, a korekcija dodaje jedan i brojniku i nazivniku, pa je p = 65/4.001, približno 0,016. Valjani ostaju procjena od 0,64 boda, interval od 0,17 do 1,11 i ograničenje na promatračke skupine. Račun polazi od nultog modela i pita o rezultatima, a ne izračunava vjerojatnost istinitosti toga modela nakon podataka. Takva bi druga vjerojatnost tražila dodatne pretpostavke i modele.\n\nJedna moguća zamjena glasi ovako.\n\nAko vrijedi zadani nulti model i zamjenjivost oznaka, vjerojatnost razlike barem toliko ekstremne kao opažena procijenjena je na približno 1,6 %. To nije vjerojatnost da među skupinama nema razlike, niti dokaz uzroka opažene razlike.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,6 +64,11 @@
           "component_id": "write-corrected-sentence",
           "required_claim": "Ako vrijedi navedeni nulti model, razlika ovolika ili veća po apsolutnoj vrijednosti pojavljuje se uz korigiranu p-vrijednost približno 0,016.",
           "required_evidence": "Ispravak zadržava smjer P(rezultat | nulti model), korigiranu brojku i promatračku granicu bez izmjene koda."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Ako vrijedi zadani nulti model i zamjenjivost oznaka, vjerojatnost razlike barem toliko ekstremne kao opažena procijenjena je na približno 1,6 %. To nije vjerojatnost da među skupinama nema razlike, niti dokaz uzroka opažene razlike.",
+          "required_evidence": "Prebrojane su 64 ekstremne permutacije među 4.000, a korekcija dodaje jedan i brojniku i nazivniku, pa je p = 65/4.001, približno 0,016. Valjani ostaju procjena od 0,64 boda, interval od 0,17 do 1,11 i ograničenje na promatračke skupine. Račun polazi od nultog modela i pita o rezultatima, a ne izračunava vjerojatnost istinitosti toga modela nakon podataka. Takva bi druga vjerojatnost tražila dodatne pretpostavke i modele."
         }
       ]
     },
@@ -76,7 +81,12 @@
       "evidence_reference": "chapters/10-logika-testiranja.qmd#s10-vrijednosti; chapters/10-logika-testiranja.qmd#ex-10-callout-greska-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-keeps-reversed-conditional",

@@ -100,9 +100,9 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -654,7 +654,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -724,6 +724,11 @@ window.Quarto = {
   <a href="../dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -736,7 +741,14 @@ window.Quarto = {
     <h2 id="toc-title">Sadržaj</h2>
    
   <ul>
-  <li><a href="#mjere-središta" id="toc-mjere-središta" class="nav-link active" data-scroll-target="#mjere-središta">Mjere središta</a></li>
+  <li><a href="#od-izvora-do-sažetka" id="toc-od-izvora-do-sažetka" class="nav-link active" data-scroll-target="#od-izvora-do-sažetka">Od izvora do sažetka</a>
+  <ul class="collapse">
+  <li><a href="#tri-tablice-tri-jedinice" id="toc-tri-tablice-tri-jedinice" class="nav-link" data-scroll-target="#tri-tablice-tri-jedinice">Tri tablice, tri jedinice</a></li>
+  <li><a href="#ključ-prije-sažetka" id="toc-ključ-prije-sažetka" class="nav-link" data-scroll-target="#ključ-prije-sažetka">Ključ prije sažetka</a></li>
+  <li><a href="#kada-nula-znači-da-mjera-nije-dostupna" id="toc-kada-nula-znači-da-mjera-nije-dostupna" class="nav-link" data-scroll-target="#kada-nula-znači-da-mjera-nije-dostupna">Kada nula znači da mjera nije dostupna</a></li>
+  <li><a href="#nazivnik-je-dio-tvrdnje" id="toc-nazivnik-je-dio-tvrdnje" class="nav-link" data-scroll-target="#nazivnik-je-dio-tvrdnje">Nazivnik je dio tvrdnje</a></li>
+  <li><a href="#mjere-središta" id="toc-mjere-središta" class="nav-link" data-scroll-target="#mjere-središta">Mjere središta</a></li>
+  </ul></li>
   <li><a href="#mjere-raspršenosti" id="toc-mjere-raspršenosti" class="nav-link" data-scroll-target="#mjere-raspršenosti">Mjere raspršenosti</a></li>
   <li><a href="#standardna-devijacija-i-kvartili" id="toc-standardna-devijacija-i-kvartili" class="nav-link" data-scroll-target="#standardna-devijacija-i-kvartili">Standardna devijacija i kvartili</a></li>
   <li><a href="#oblik-raspodjele-i-položaj-opažanja" id="toc-oblik-raspodjele-i-položaj-opažanja" class="nav-link" data-scroll-target="#oblik-raspodjele-i-položaj-opažanja">Oblik raspodjele i položaj opažanja</a></li>
@@ -746,10 +758,10 @@ window.Quarto = {
   <li><a href="#pojmovi" id="toc-pojmovi" class="nav-link" data-scroll-target="#pojmovi">Pojmovi</a></li>
   <li><a href="#zadaci" id="toc-zadaci" class="nav-link" data-scroll-target="#zadaci">Zadaci</a>
   <ul class="collapse">
-  <li><a href="#konceptualni" id="toc-konceptualni" class="nav-link" data-scroll-target="#konceptualni">Konceptualni</a></li>
-  <li><a href="#računski" id="toc-računski" class="nav-link" data-scroll-target="#računski">Računski</a></li>
-  <li><a href="#kritički" id="toc-kritički" class="nav-link" data-scroll-target="#kritički">Kritički</a></li>
-  <li><a href="#revizija-modela" id="toc-revizija-modela" class="nav-link" data-scroll-target="#revizija-modela">Revizija modela</a></li>
+  <li><a href="#ex-04-konceptualni-01" id="toc-ex-04-konceptualni-01" class="nav-link" data-scroll-target="#ex-04-konceptualni-01">Konceptualni</a></li>
+  <li><a href="#ex-04-racunski-01" id="toc-ex-04-racunski-01" class="nav-link" data-scroll-target="#ex-04-racunski-01">Računski</a></li>
+  <li><a href="#ex-04-kriticki-01" id="toc-ex-04-kriticki-01" class="nav-link" data-scroll-target="#ex-04-kriticki-01">Kritički</a></li>
+  <li><a href="#ex-04-revizija-modela-01" id="toc-ex-04-revizija-modela-01" class="nav-link" data-scroll-target="#ex-04-revizija-modela-01">Revizija modela</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -801,10 +813,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -872,101 +888,336 @@ window.Quarto = {
   1. Notacijska odluka poglavlja. Uzorak nosi latinicu (x, s, n), populacija
      grčka slova (mu, sigma), a N je rezerviran za veličinu populacije. Zapisano
      u concept-ledger.json; poglavlje o uzorkovanju to nasljeđuje.
-  2. Okvir „Statistika u divljini" još se drži Tukeyjeva argumenta jer u
-     references.bib nema objavljene domaće tvrdnje o prosjeku. Prirodan
-     kandidat je DZS-ovo izdanje o prosječnoj i medijalnoj plaći. Zamijeniti
-     kada unos postoji u bibliografiji.
-  3. Pedagoški slijed dijela o mjerama raspršenosti naslijeđen je od Navarra
-     (navarro2019). Proza je izvorna, ali licenčna napomena u references.bib
-     ostaje na snazi.
+  2. Okvir „Statistika u divljini" koristi provjerene DigiKatove agregate i
+     izričito čuva jedinicu, nazivnik i granicu generalizacije.
+  3. Kandidati povezani s Navarrom pregledani su i uklonjeni u P1B-NAVARRO.
+     Definicija skraćene sredine i objašnjenje umanjenog djelitelja izgrađeni
+     su iznova, a slijed raspršenosti sada prati vlastiti par sredina i
+     standardna devijacija nasuprot medijanu i interkvartilnom rasponu. Trag
+     provjere čuva notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
 ===================================================================== -->
-<div class="chapter-meta">
-<table class="caption-top table">
+<div class="callout-vinjeta page-columns page-full">
+<p>DigiKat je istraživački projekt iz kojega koristimo podatke o internetskim objavama s katoličkim pojmovima. U odabrani korpus, odnosno skup tekstova za analizu, ulaze praćene objave koje sadrže najmanje dva različita pojma s projektnog popisa <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Pred nama su tri zbirne tablice. Dvije prikazuju objave po platformama, mjesečno i godišnje, a treća po internetskim domenama <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Zamislimo urednika koji iz njih želi saznati koliko objava ima tipičan izvor.</p>
+<div class="no-row-height column-margin column-container"></div><p>Prije tumačenja treba provjeriti što je zapravo uspoređeno. Redak u prvim dvjema tablicama predstavlja platformu u određenom razdoblju, a u trećoj domenu tijekom cijelog obuhvata. Mjesečnu i godišnju tablicu povezujemo prema dvama poljima. Neke nule angažmana označuju nedostupnu metriku. Uz to tablica domena obuhvaća 551.712 objava, a platformske 710.307. Pogrešan spoj ili nazivnik zato može promijeniti odgovor i uz točnu aritmetiku.</p>
+<p>Kako provjeriti tablicu prije računanja sažetaka?</p>
+</div>
+<p>Što bismo uredniku odgovorili o tipičnom izvoru kada bismo smjeli pokazati samo jedan broj? Prosjek broja objava čini se prirodnim izborom, ali možda prikriva da najveći dio objava dolazi iz malog dijela izvora. Prije izračuna trebamo riješiti još jedno pitanje. Moramo biti sigurni da zbrajamo usporedive zapise i da odsutno mjerenje nismo zamijenili izmjerenom nulom.</p>
+<p>Dosadašnja pitanja o jedinici, nazivniku i podrijetlu podataka sada primjenjujemo pri pripremi vlastite analize. Polazimo od stvarnih zbirnih tablica projekta DigiKat <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. U njima redak predstavlja platformu u određenom razdoblju ili internetsku domenu tijekom obuhvata datoteke. Broj objava, doseg i interakcije različite su veličine, a njihova dostupnost nije jednaka. Provjerit ćemo koji se zapisi mogu spojiti, što pritom mora ostati nepromijenjeno i koje vrijednosti možemo uključiti u sažetak.</p>
+<div class="no-row-height column-margin column-container"></div><p>Ponašanje pojedinih mjera zatim ćemo istražiti na skupu <code>anketa_mreze</code>, zasebnoj simuliranoj anketi u kojoj jedan redak predstavlja zamišljenu osobu s dobi, dnevnim minutama na društvenim mrežama i ocjenom povjerenja u tamošnji sadržaj <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Taj skup nije uzorak iz ranije uvedene populacije medijskih navika. Na njemu možemo usporediti različite opise istih odgovora, bez predstavljanja tih odgovora kao nalaza o stvarnim korisnicima.</p>
+<p>Sredina i medijan opisuju središte raspodjele, a mjere raspršenosti razlike među opažanjima. Njihovu prikladnost provjeravamo prema obliku podataka i reakciji na pomicanje krajnjih vrijednosti. Standardizacijom opisujemo položaj opažanja u odnosu na ostala. Na kraju se vraćamo DigiKatovim domenama i sastavljamo brojčani opis s jasno navedenim značenjem i granicom svake mjere.</p>
+<section id="od-izvora-do-sažetka" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="od-izvora-do-sažetka">Od izvora do sažetka</h2>
+<p>Za vlastitu analizu trebamo <span class="pojam" data-def="Tablica čiji svaki red predstavlja unaprijed imenovanu jedinicu analize i nosi samo provjerene varijable potrebne za pitanje." data-en="analysis table" data-ch="4">analitičku tablicu</span>. Pri njezinoj izradi određujemo što predstavlja redak, kojim ključem povezujemo zapise i kako tumačimo kodove. Bilježimo filtre i pravila za nedostajuće vrijednosti kako bi druga osoba mogla ponoviti postupak.</p>
+<section id="tri-tablice-tri-jedinice" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="tri-tablice-tri-jedinice">Tri tablice, tri jedinice</h3>
+<p>DigiKatov izbor tekstova određuje i granicu našeg zaključka. Tablice opisuju objave obuhvaćene pravilima projekta, a ne slučajan uzorak hrvatskih medija, publike ili korisnika <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Raspolažemo već izračunatim zbrojevima, bez pojedinačnih objava. Prije računanja zato provjeravamo predstavljaju li retci različitih datoteka usporedive jedinice.</p>
+<div class="no-row-height column-margin column-container"></div><div class="table-keep-words page-columns page-full">
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s4-jedinice" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s4-jedinice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Tri pogleda u paketu DigiKat imaju različite jedinice i ključeve. Izvor: DigiKat, agregatni izvadak, CC BY 4.0 <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s4-jedinice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 50%">
+<col style="width: 26%">
+<col style="width: 9%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Vrijeme čitanja</th>
-<th>Widget</th>
-<th>Podaci</th>
-<th>Preduvjet</th>
+<th style="text-align: left;">Datoteka</th>
+<th style="text-align: left;">Što predstavlja redak</th>
+<th style="text-align: left;">Ključ</th>
+<th style="text-align: right;">Redaka</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>21 min</td>
-<td>Oblikovanje distribucije</td>
-<td>simulirana anketa</td>
-<td>pogl. 1 do 3</td>
+<td style="text-align: left;">mjesečna</td>
+<td style="text-align: left;">platforma u mjesecu</td>
+<td style="text-align: left;">mjesec + platforma</td>
+<td style="text-align: right;">438</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">godišnja</td>
+<td style="text-align: left;">platforma u godini</td>
+<td style="text-align: left;">godina + platforma</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">izvori</td>
+<td style="text-align: left;">imenovana domena kroz cijeli raspon</td>
+<td style="text-align: left;">izvor</td>
+<td style="text-align: right;">3 604</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="callout-vinjeta page-columns page-full">
-<p>Tukey je istraživačku analizu podataka postavio kao postupak u kojem sažetak otvara pitanja umjesto da ih zatvara <span class="citation" data-cites="tukey1977">(<a href="../references.html#ref-tukey1977" role="doc-biblioref">Tukey 1977.</a>)</span>. Isti prosjek može pripadati zbijenoj skupini sličnih opažanja ili raspodjeli u kojoj se većina nalazi daleko od nekoliko ekstremnih vrijednosti. Broj je u oba slučaja pravilno izračunat, ali iskustvo tipičnog opažanja nije isto.</p>
-<div class="no-row-height column-margin column-container"></div><p>U društvenim podacima takva razlika mijenja zaključak. Prosječno vrijeme, prihod ili broj dijeljenja može snažno povući mala skupina iznimnih slučajeva. Medijan će ostati stabilniji, ali će zauzvrat zanemariti koliko su ti slučajevi daleko od sredine.</p>
-<p>Koji sažetak čuva ono što je važno u raspodjeli, a što pritom skriva?</p>
 </div>
-<section id="mjere-središta" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="mjere-središta">Mjere središta</h2>
-<p>Ostatak poglavlja radi na simuliranoj anketi o korištenju društvenih mreža sa 300 ispitanika, koja bilježi dob, dnevno vrijeme korištenja u minutama i povjerenje u sadržaj na ljestvici od 1 do 10. Uzorak je proizveden kodom uz fiksno sjeme i ne opisuje nijednu stvarnu populaciju. Koristan je zato što ima oblik koji mjere medijskog angažmana redovito imaju, pa se na njemu vidi kako se sažeci ponašaju kada raspodjela nije simetrična.</p>
-<p>Prosjek raspoređuje ukupno izmjereno vrijeme ravnomjerno na sve ispitanike. Ako svakome pripišemo jednak dio zajedničkog zbroja, svaki dobiva upravo aritmetičku sredinu. Zapis te operacije koristi <span class="math inline">\(n\)</span> za broj opažanja u uzorku i <span class="math inline">\(x_i\)</span> za vrijednost izmjerenu kod pojedinog ispitanika, a crta nad slovom kaže da je riječ o sredini tih vrijednosti.</p>
+</figure>
+</div>
+</div>
+</div>
+<p>Datoteka domena nema zajednički ključ s platformskim tablicama pa je analiziramo zasebno. Ona pokazuje raspored objava među domenama. Mjesečne i godišnje podatke o platformama možemo povezati parom <code>godina + platforma</code>. Izostavljanjem jednog dijela ključa spojili bismo zapise koji ne pripadaju istoj jedinici.</p>
+<p>U mjesečnoj tablici, primjerice, jedan redak bilježi 11.701 obuhvaćenu objavu na webu u siječnju 2021. <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. U tablici domena redak za <code>hkm.hr</code> bilježi 56.500 objava kroz cijeli obuhvaćeni raspon <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Prvi broj opisuje platformu i mjesec, a drugi jednu domenu kroz više godina. Nijedan ne broji jedinstvene čitatelje.</p>
+<div class="no-row-height column-margin column-container"></div></section>
+<section id="ključ-prije-sažetka" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="ključ-prije-sažetka">Ključ prije sažetka</h3>
+<p>Mjesečna tablica ima 438 redaka, svaki s jedinstvenim ključem <code>mjesec + platforma</code>. Iz godišnje joj tablice pridružujemo godišnji nazivnik i oznaku potpunosti. Nakon ispravnog spajanja broj redaka i ukupan broj objava moraju ostati isti. Ako spojimo samo po godini, svaki mjesečni redak dobit će par sa svim platformama te godine i pojavit će se više puta.</p>
+<p>Za dva mjesečna zapisa weba vidimo što je spoj dodao. Mjesec i njegov broj objava dolaze iz mjesečne datoteke, a ukupni godišnji nazivnik iz godišnje. Tražimo podudaranje i godine i platforme. Oba mjesečna zapisa tako dobivaju isti godišnji nazivnik, bez ponovnog brojanja njihovih objava.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s4-dva-spojena-retka" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s4-dva-spojena-retka-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Dva mjesečna retka nakon pridruživanja godišnjeg nazivnika. Izrada autora prema <span class="citation" data-cites="digikat2026"><span class="nocase">Šikić i sur.</span> (<a href="../references.html#ref-digikat2026" role="doc-biblioref">2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s4-dva-spojena-retka-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mjesec</th>
+<th style="text-align: left;">Platforma</th>
+<th style="text-align: left;">Mjesečne objave</th>
+<th style="text-align: left;">Godišnji nazivnik</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2021-01</td>
+<td style="text-align: left;">web</td>
+<td style="text-align: left;">11 701</td>
+<td style="text-align: left;">90 388</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-02</td>
+<td style="text-align: left;">web</td>
+<td style="text-align: left;">6 619</td>
+<td style="text-align: left;">90 388</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>U sljedećoj tablici uspoređujemo broj redaka, jedinstvene mjesečne ključeve i zbroj objava prije i nakon ispravnog spajanja.</p>
+<div class="table-keep-words page-columns page-full">
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s4-audit-spoja" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s4-audit-spoja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Kontrola retka, ključa i zbroja prije i nakon ispravnog spajanja DigiKatovih agregata. Izvor: DigiKat <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s4-audit-spoja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 8%">
+<col style="width: 37%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Postupak</th>
+<th style="text-align: right;">Redaka</th>
+<th style="text-align: right;">Jedinstvenih mjesečnih ključeva</th>
+<th style="text-align: right;">Zbroj objava</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mjesečna datoteka prije spajanja</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">710 307</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ispravno: godina + platforma</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">710 307</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Provjeravamo i pojedine ćelije, jer jednak ukupan zbroj ne jamči njihovo slaganje. Mjesečni i godišnji izvadak razlikuju se u 17 od 49 kombinacija platforme i godine, a odstupanja se u ukupnom zbroju poništavaju. Zato ne zamjenjujemo mjesečne vrijednosti godišnjima i ne gradimo neprekinut trend. Za daljnju analizu koristimo potpunu 2025. godinu, uz isključenje 2024. zbog praznine i promjene metode. U 2024. nedostaju mjesečni retci od veljače do svibnja, siječanj je djelomičan, a lipanj označuje promjenu metode i obuhvata <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div></section>
+<section id="kada-nula-znači-da-mjera-nije-dostupna" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="kada-nula-znači-da-mjera-nije-dostupna">Kada nula znači da mjera nije dostupna</h3>
+<p>U podacima za 2025. svih devet platformi ima zabilježen broj objava. Za tri od njih nema usporedivog podatka o dosegu i interakcijama. Ondje zapisana nula, uz oznaku <code>metrika_dostupna = ne</code>, znači da mjerenje nije dostupno. Izvorni stupac čuvamo, a za analizu izrađujemo novi u kojem te nule označujemo kao nedostajuće vrijednosti.</p>
+<p>Primjerice, u mjesečnom retku za <code>reddit</code> izvorno je uz interakcije zapisana nula, ali oznaka dostupnosti glasi <code>ne</code>. Analitički zapis zato čuva broj objava, a interakcije pretvara u oznaku nedostajanja. Redak ne brišemo niti njegovu nulu uključujemo u prosjek interakcija.</p>
+<p>To se odnosi na platforme <code>reddit</code>, <code>forum</code> i <code>comment</code>, koje zajedno imaju 7 648 objava. Metapodaci potvrđuju da metrika nedostaje zbog načina mjerenja. Broj objava zato možemo sažeti za svih devet platformi, a angažman samo za šest s dostupnom metrikom. Učinak sužavanja skupa provjeravamo na broju objava, koji poznajemo za sve platforme. Doseg i interakcije nedostajućih platformi ne možemo tako usporediti.</p>
+<div class="table-keep-words page-columns page-full">
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s4-osjetljivost" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s4-osjetljivost-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;4: Osjetljivost medijana broja objava na nepotrebno izbacivanje platformi kojima nedostaje druga metrika. Presjek je potpuna 2025. godina; angažman i doseg ne uspoređuju se. Izvor: DigiKat <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s4-osjetljivost-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Pravilo</th>
+<th style="text-align: right;">Platformi</th>
+<th style="text-align: right;">Medijan objava</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sve platforme za broj objava</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2 724,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Samo platforme s metrikom angažmana</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">14 807,5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Medijan, središnja vrijednost u poredanom nizu, mijenja se s 2 724,0 na 14 807,5 objava. Usporedili smo svih devet vrsta platformi sa šest koje imaju metriku angažmana. Promijenio se skup na koji se rezultat odnosi. O dosegu i interakcijama preostalih triju platformi i dalje nemamo podatke.</p>
+<p>Za ručnu provjeru poredani brojevi objava po platformama u 2025. iznose 231, 1.641, 1.779, 2.122, 2.724, 4.228, 26.891, 44.502 i 152.048 <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Izbacivanjem platformi bez metrike angažmana uklanjamo vrijednosti 1.641, 1.779 i 4.228 <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div></section>
+<section id="nazivnik-je-dio-tvrdnje" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="nazivnik-je-dio-tvrdnje">Nazivnik je dio tvrdnje</h3>
+<p>Za udio trebamo znati i ukupnu količinu. Ako riječi brojimo prema razmacima, ne razlikujući velika i mala slova, <em>Analysis</em> se u naslovu <em>Exploratory Data Analysis</em> pojavljuje jednom među trima riječima <span class="citation" data-cites="tukey1977">(<a href="../references.html#ref-tukey1977" role="doc-biblioref">Tukey 1977.</a>)</span>. U naslovu <em>Statistical Power Analysis for the Behavioral Sciences</em> također se pojavljuje jednom, ali među sedam riječi <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>. Učestalost je ista, dok se udjeli razlikuju zbog duljine naslova.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-tukey1977" class="csl-entry" role="listitem">
+Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Addison-Wesley.
+</div><div id="ref-cohen1988" class="csl-entry" role="listitem">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2. izd. Lawrence Erlbaum Associates.
+</div></div><p>Tablica imenovanih domena ima 3 604 redaka i ukupno 551 712 objava. Za udjele objava među tim domenama zato koristimo nazivnik 551.712. Nazivnik 710.307 iz platformskih tablica odnosi se na drugi obuhvat.</p>
+<p>Ponašanje sredine i drugih mjera lakše ćemo pratiti na tablici pojedinačnih odgovora. Zato prelazimo na skup <code>anketa_mreze</code>, simuliranu anketu s 300 ispitanika <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Jedan redak predstavlja jednu zamišljenu osobu. Za nju su zadani dob, dnevne minute na društvenim mrežama i povjerenje u tamošnji sadržaj na ljestvici od 1 do 10 <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>. To je zaseban skup, a ne uzorak iz ranije uvedene populacije medijskih navika.</p>
+<div class="no-row-height column-margin column-container"></div><p>Generator je zadao četiri dobne skupine s 90, 84, 66 i 60 osoba. Unutar svake dob je slučajno odabrana iz njezina raspona, a minute nastaju zasebnim izvlačenjem pozitivnih, desno asimetričnih vrijednosti. Tipična vrijednost minuta niža je u starijim skupinama. Zaokruživanjem zadržavamo barem jednu minutu. Povjerenju također zadajemo niže prosjeke u starijim skupinama, uz slučajna odstupanja i granice ljestvice od 1 do 10 <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>.</p>
+<p>Nekoliko pojedinačnih zapisa omogućuje da prije prosjeka vidimo što se zbraja. Oznaka ispitanika služi razlikovanju redaka; dnevne minute i ocjena povjerenja dvije su odvojene varijable <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><div class="table-keep-words page-columns page-full">
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s4-primjer-ankete" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s4-primjer-ankete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;5: Tri zapisa iz zasebne simulirane ankete o društvenim mrežama. Izrada autora prema <span class="citation" data-cites="sikicanketa2026">Šikić (<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s4-primjer-ankete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ispitanik</th>
+<th style="text-align: right;">Dob</th>
+<th style="text-align: right;">Minute dnevno</th>
+<th style="text-align: right;">Povjerenje (1–10)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">I001</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I002</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I003</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Na istoj ćemo anketi poslije usporediti grafove, izračunati povezanost i sastaviti završno istraživanje. Vrijednosti su stvorene tako da većina osoba provodi kraće vrijeme na mrežama, a manji dio znatno dulje <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Takav oblik omogućuje da vidimo zašto sredina i medijan daju različite opise. Ne predstavlja nalaz o stvarnim medijskim navikama.</p>
+<div class="no-row-height column-margin column-container"></div><p><strong>Dnevnik transformacija</strong> bilježi što smo promijenili između izvora i analize, prema kojem pravilu i s kakvim učinkom na broj redaka ili rezultat. Ovdje u njega pripadaju ključ spajanja, isključeno razdoblje i razlikovanje nedostupne metrike od nule. <strong>Osjetljivost na odluku o podacima</strong> znači da provjerimo mijenja li se zaključak uz drugu opravdanu odluku, primjerice uz drukčiji obuhvat dostupnih platformi.</p>
+<p><strong>Poštena rečenica izvještaja</strong> imenuje jedinicu, obuhvat, mjeru i granicu zaključka. Rečenica o medijanu objava po domeni zato mora reći odnosi li se na sve domene ili samo one s dostupnom metrikom. Uz uzoračku procjenu dodaje se odgovarajući opis nesigurnosti. Precizan broj bez tih podataka ostavlja čitatelju da sam izmisli doseg tvrdnje.</p>
+</section>
+<section id="mjere-središta" class="level3">
+<h3 class="anchored" data-anchor-id="mjere-središta">Mjere središta</h3>
+<p>Prosjek dobivamo kada ukupno vrijeme ravnomjerno rasporedimo među ispitanicima. U formuli <span class="math inline">\(n\)</span> označuje broj opažanja, a <span class="math inline">\(x_i\)</span> vrijednost za pojedinog ispitanika. Crta iznad slova označuje aritmetičku sredinu tih vrijednosti.</p>
 <p><span class="math display">\[
 \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
 \]</span></p>
 <div id="def-aritmeticka-sredina" class="theorem definition">
 <p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Aritmetička sredina</strong> je zbroj svih izmjerenih vrijednosti podijeljen njihovim brojem.</p>
 </div>
-<p>Sredina našeg uzorka iznosi 50,1 minuta dnevno. Brojka zvuči kao opis tipičnog ispitanika, a nije, jer više vremena od nje provodi samo 40 % ljudi u uzorku. Sredina koristi svaku vrijednost i zato je najinformativnija mjera središta, ali ta joj osjetljivost istodobno dopušta da je nekoliko krajnjih slučajeva odvuče iznad gotovo svih opažanja.</p>
-<p>Kompromis između pune sredine i mjere koja krajnosti ignorira nudi <strong>skraćena sredina</strong> (<em>trimmed mean</em>), koja odbacuje zadani postotak najmanjih i najvećih vrijednosti pa prosjek računa iz ostatka. Uz odbacivanje po 5 % sa svake strane naš prosjek pada na 46,1 minuta, a uz 10 % na 44,1. Navarro upozorava da se ta mjera u objavljenim istraživanjima pojavljuje iznenađujuće rijetko iako je u mnogim situacijama primjerenija od obične sredine <span class="citation" data-cites="navarro2019">(<a href="../references.html#ref-navarro2019" role="doc-biblioref">Navarro 2019.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Skraćivanje dovedeno do kraja daje medijan. Ono što medijan čini drukčijim nije samo otpornost, nego pitanje na koje odgovara. Sredina je vrijednost koja minimizira zbroj kvadriranih odstupanja i zato velikim odstupanjima daje veliku težinu, dok medijan minimizira zbroj apsolutnih odstupanja i sva odstupanja tretira jednako.</p>
+<p>Zbroj minuta svih 300 osoba iznosi 15 019. Dijeljenjem toga zbroja s 300 dobivamo 50,06 minuta. Tri prikazana retka samo su početak toga zbrajanja. Nijedan od 300 odgovora ovdje ne nedostaje.</p>
+<p>Sredina iznosi 50,1 minuta dnevno, ali samo 40 % ljudi provodi više vremena od toga. Ukupno smo vrijeme ravnomjerno podijelili među svim ispitanicima, pa su i rijetke velike vrijednosti podigle dobiveni broj. Ako nas zanima osoba u sredini poretka, trebamo drukčiji sažetak. Do njega ćemo doći promatrajući što se događa kada krajnjim vrijednostima postupno smanjujemo utjecaj.</p>
+<p>Utjecaj krajnjih vrijednosti možemo ublažiti <strong>skraćenom sredinom</strong> (<em>trimmed mean</em>). Poredamo opažanja, uklonimo unaprijed zadan jednak udio s oba kraja i izračunamo sredinu ostatka. U našem uzorku po 5 % znači 15 najmanjih i 15 najvećih vrijednosti, pa novi zbroj dijelimo s 270. Uz po 10 % ostaje 240 vrijednosti. Nakon uklanjanja po 5 % s oba kraja ovdje dobivamo 46,1 minuta, a uz po 10 % dobivamo 44,1.</p>
+<p>Nastavimo li uklanjati vrijednosti s oba kraja, približavamo se medijanu, središtu poredanog niza. Različit odnos prema krajnjim vrijednostima možemo izraziti i računom odstupanja. Zbroj kvadriranih odstupanja najmanji je kada ih računamo od sredine. Kvadriranjem velika odstupanja dobivaju veću težinu. Medijan pak daje najmanji zbroj apsolutnih odstupanja, bez njihova kvadriranja. Zato te dvije mjere ne moraju odabrati istu vrijednost kao središte podataka.</p>
 <div id="def-medijan" class="theorem definition">
 <p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Medijan</strong> je vrijednost koja poredani niz opažanja dijeli na dvije jednako velike polovine.</p>
 </div>
-<p>Medijan našeg uzorka iznosi 39 minuta i time za sredinom zaostaje 11,1 minuta. Razlika između dviju mjera time postaje brza dijagnostika oblika, jer sredina veća od medijana upućuje na rep prema većim vrijednostima. Mod opisuje najčešću vrijednost i za neprekinuto vrijeme korištenja nije koristan, ali za povjerenje mjereno cijelim brojevima jest, gdje najčešći odgovor iznosi 5. Za kategorije poput dobne skupine mod je jedina mjera središta koja ima značenje, jer prosjek kategorija ne postoji.</p>
+<p>U poredanih 300 odgovora središnja su mjesta 150 i 151. Na njima su 39 i 39 minuta. Njihov prosjek daje medijan. Dakle, mijenjamo redoslijed istih zapisa, a ne osobe koje opisujemo.</p>
+<p>Medijan je 39 minuta, što je 11,1 minuta manje od sredine. Takav razmak potiče nas da pogledamo graf. Može nastati zbog repa prema velikim vrijednostima, ali i zbog mješavine skupina ili složenijeg oblika raspodjele. Još jedna mjera središta, mod, označuje najčešću vrijednost. Za kontinuirano vrijeme korištenja ovdje nam malo koristi, dok za cjelobrojne odgovore o povjerenju iznosi 5. Kod kategorija mod pokazuje koja je najčešća, bez računanja prosjeka kategorijskih oznaka.</p>
 </section>
-<section id="mjere-raspršenosti" class="level2 page-columns page-full">
+</section>
+<section id="mjere-raspršenosti" class="level2">
 <h2 class="anchored" data-anchor-id="mjere-raspršenosti">Mjere raspršenosti</h2>
-<p>Znati gdje se opažanja grupiraju tek je pola opisa. Dva medijska portala mogu imati jednak prosječan broj komentara po članku, a na prvome svaki članak dobiva između 45 i 55 komentara dok na drugome neki prolaze bez ijednoga, a poneki skupe 200. Prosjek ne razlikuje te dvije situacije, a čitatelju su potpuno različite.</p>
-<p>Najjednostavniji odgovor je raspon, razlika između najveće i najmanje izmjerene vrijednosti. U našem uzorku vrijeme korištenja ide od 3 do 248 minuta, pa raspon iznosi 245 minuta. Ta brojka ima istu slabost kao sredina, samo izraženiju, jer ovisi isključivo o dva najekstremnija opažanja i sve ostale zanemaruje.</p>
-<p>Sadržajnija mjera polazi od udaljenosti pojedinog opažanja od sredine. Tu udaljenost nazivamo odstupanjem, a njezinu veličinu bez obzira na smjer daje apsolutna vrijednost. Prosječno apsolutno odstupanje zato ima izravno čitljivo značenje, jer kaže koliko se tipičan ispitanik razlikuje od sredine.</p>
+<p>Uz središte trebamo opisati koliko se vrijednosti razlikuju. Zamislimo dva portala s istim prosjekom komentara po članku. Na prvom svaki članak ima između 45 i 55 komentara. Na drugom neki nemaju nijedan, a poneki imaju 200. Prosjek ne pokazuje tu razliku u raspodjeli.</p>
+<p>Raspon je razlika najveće i najmanje vrijednosti. Vrijeme u našem uzorku kreće se od 3 do 248 minuta, uz raspon od 245 minuta. Raspon ovisi samo o dvama krajnjim opažanjima, pa ne govori kako su raspoređena ostala.</p>
+<p>Za potpuniji opis razmatramo odstupanje svake vrijednosti od sredine. Njegova apsolutna vrijednost daje udaljenost bez obzira na smjer. Prosjek tih udaljenosti, prosječno apsolutno odstupanje, govori koliko se opažanja u prosjeku udaljavaju od sredine.</p>
 <p><span class="math display">\[
 \text{PAO} = \frac{1}{n} \sum_{i=1}^{n} |x_i - \bar{x}|
 \]</span></p>
-<p>Za naše podatke ta mjera iznosi 29,4 minuta. Statistika je ipak krenula drugim putem, jer apsolutna vrijednost nije diferencijabilna u nuli i otežava izvođenje svega što na raspršenosti počiva. Kvadriranje odstupanja daje matematički ugodniju veličinu po cijeni izgubljene neposrednosti, a rezultat te zamjene je varijanca.</p>
-<div id="def-varijanca" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>Varijanca</strong> je prosjek kvadriranih odstupanja opažanja od aritmetičke sredine, uz djelitelj umanjen za jedan.</p>
-</div>
+<p>Ovdje prosječno apsolutno odstupanje iznosi 29,4 minuta. Umjesto apsolutnih odstupanja mnogi postupci koriste kvadrirana jer ih je lakše povezati s kasnijim modelima. Tako dolazimo do varijance, koju je nešto teže izravno protumačiti.</p>
 <p><span class="math display">\[
 s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
 \]</span></p>
-<p>Umanjeni djelitelj u tom izrazu nije sitnica i naziva se Besselovom korekcijom. Slijedi iz toga što odstupanja mjerimo od sredine izračunane iz istih tih podataka. Sredina uzorka po definiciji leži najbliže vlastitim opažanjima, bliže nego što bi im ležala prava sredina populacije, pa su odstupanja od nje sustavno premala. Dijeljenje s <span class="math inline">\(n\)</span> zato bi dalo procjenu koja u prosjeku podcjenjuje raspršenost u populaciji, a umanjeni djelitelj tu pristranost uklanja.</p>
-<p>Razlika između uzorka i populacije od ovog mjesta ulazi i u zapis. Statistike izračunane iz uzorka nose latinična slova, pa je sredina uzorka <span class="math inline">\(\bar{x}\)</span> a njegova varijanca <span class="math inline">\(s^2\)</span>. Nepoznate vrijednosti koje opisuju populaciju nose grčka slova, pa je populacijska sredina <span class="math inline">\(\mu\)</span> a populacijska varijanca <span class="math inline">\(\sigma^2\)</span>. Broj opažanja u uzorku ostaje <span class="math inline">\(n\)</span>, a slovo <span class="math inline">\(N\)</span> knjiga zadržava za veličinu populacije.</p>
-<p>Navarro otvoreno kaže da je upravo ovaj korak jedno od najtežih mjesta uvodnog kolegija <span class="citation" data-cites="navarro2019">(<a href="../references.html#ref-navarro2019" role="doc-biblioref">Navarro 2019.</a>)</span>. Puni se argument ne može izvesti prije nego što postoji pojam raspodjele uzorkovanja, pa procjena koja u prosjeku pogađa pravu vrijednost ovdje ostaje tvrdnja, a ne pokazana činjenica. Poglavlje o uzorkovanju vraća se na nju i pokazuje je simulacijom.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-navarro2019" class="csl-entry" role="listitem">
-Navarro, Danielle. 2019. <em>Learning Statistics with R</em>. <a href="https://learningstatisticswithr.com/">https://learningstatisticswithr.com/</a>.
-</div></div><p>Varijanca našeg uzorka iznosi 1 533,3. Broj je velik i gotovo neupotrebljiv u izvještaju, jer kvadriranje nosi i mjernu jedinicu, pa je rezultat izražen u kvadriranim minutama. Kvadriranje istodobno objašnjava zašto je varijanca osjetljiva na krajnje slučajeve, budući da odstupanje dvostruko veće od drugoga u zbroj ulazi četverostruko.</p>
+<p>Za varijancu uzorka zbroj kvadriranih odstupanja dijelimo s <span class="math inline">\(n-1\)</span>. To je Besselova korekcija. Povezana je s time što smo sredinu procijenili iz istog uzorka. U poglavlju o uzorkovanju simulacijom ćemo vidjeti zašto takvo dijeljenje uklanja dugoročnu pristranost procjene.</p>
+<p>Uzoračke veličine zapisujemo latiničnim slovima. Sredina je <span class="math inline">\(\bar{x}\)</span>, a varijanca <span class="math inline">\(s^2\)</span>. Populacijsku sredinu označujemo grčkim slovom <span class="math inline">\(\mu\)</span>, a populacijsku varijancu oznakom <span class="math inline">\(\sigma^2\)</span>. Veličina uzorka je <span class="math inline">\(n\)</span>, dok <span class="math inline">\(N\)</span> označuje veličinu populacije.</p>
+<p>U toj ćemo simulaciji mnogo puta izvući uzorak iz iste poznate populacije i usporediti što se dugoročno događa s djeliteljima <span class="math inline">\(n\)</span> i <span class="math inline">\(n-1\)</span>.</p>
+<p>Prva osoba ima 69 minuta. Odstupanje od sredine iznosi 18,94, a njegov kvadrat 358,60. Takav kvadrat računamo za svaku osobu, zbrajamo svih 300 vrijednosti i dijelimo s 299. Kvadrat računamo iz nezaokruženog odstupanja, a ne iz njegova prikaza na dvije decimale.</p>
+<p>Varijanca iznosi 1 533,3 kvadriranih minuta. Kvadrira se i mjerna jedinica, zbog čega broj nije lako tumačiti u izvještaju. Kvadriranje također povećava utjecaj krajnjih vrijednosti. Dvostruko veće odstupanje pridonosi zbroju četverostruko više.</p>
 </section>
 <section id="standardna-devijacija-i-kvartili" class="level2">
 <h2 class="anchored" data-anchor-id="standardna-devijacija-i-kvartili">Standardna devijacija i kvartili</h2>
-<p>Korijen varijance vraća mjeru u jedinice u kojima su podaci izmjereni i time je čini čitljivom.</p>
+<p>Vađenjem korijena iz varijance vraćamo se na izvornu mjernu jedinicu, ovdje minute.</p>
 <div id="def-standardna-devijacija" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 4</strong></span> <strong>Standardna devijacija</strong> je korijen varijance, pa raspršenost izražava u istim jedinicama kao izmjerene vrijednosti.</p>
+<p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>Standardna devijacija</strong> uzorka korijen je varijance. Varijancu računamo dijeljenjem zbroja kvadriranih odstupanja od sredine s <span class="math inline">\(n-1\)</span>, a korijen vraća raspršenost u jedinice izvornih vrijednosti.</p>
 </div>
 <p><span class="math display">\[
 s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
 \]</span></p>
-<p>Standardna devijacija našeg uzorka iznosi 39,2 minuta, dakle nešto više od prosječnog apsolutnog odstupanja od 29,4 minuta. Taj je odnos pravilo, ne slučajnost, jer kvadriranje pojačava velika odstupanja pa ih standardna devijacija nosi teže. Zbog toga se standardna devijacija čita kao tipična udaljenost od sredine samo približno.</p>
-<p>Za približno normalnu raspodjelu vrijedi korisno pravilo palca po kojem oko 68 % opažanja leži unutar jedne standardne devijacije od sredine, oko 95 % unutar dviju i oko 99,7 % unutar triju. Naši podaci pokazuju što se dogodi kada se pravilo primijeni bez provjere pretpostavke. Unutar jedne standardne devijacije nalazi se 79,3 % ispitanika, a ne 68 %, a raspon dviju devijacija proteže se od minus 28,3 do 128,4 minuta. Negativno trajanje ne postoji, pa donja granica sama pokazuje da pretpostavka ne stoji.</p>
-<p>Zanimljiviji je drugi dio provjere. Unutar dviju standardnih devijacija nalazi se 95,0 % ispitanika, što se s pravilom poklapa gotovo točno. Jedna brojka koja izađe kako smo očekivali ne potvrđuje pretpostavku na kojoj očekivanje počiva, a upravo takva poklapanja najčešće zaustave provjeru prerano.</p>
-<p>Kada sredina i standardna devijacija zataje, opis se prenosi na položaje u poredanom nizu. <strong>Percentil</strong> je vrijednost ispod koje leži zadani postotak opažanja, pa je medijan pedeseti percentil. Prvi i treći kvartil odsijecaju donjih i gornjih 25 %, a razlika između njih opisuje širinu središnje polovine raspodjele.</p>
+<p>Standardna devijacija ovdje iznosi 39,2 minuta i veća je od prosječnog apsolutnog odstupanja od 29,4 minuta. Kvadriranje daje veću težinu velikim odstupanjima. Zato standardnu devijaciju možemo samo približno opisati kao tipičnu udaljenost od sredine.</p>
+<p>Za normalnu raspodjelu, koju ćemo razraditi u poglavlju o vjerojatnosti, postoji korisno pravilo. U približno normalnoj raspodjeli oko 68 % opažanja nalazi se unutar jedne standardne devijacije od sredine, oko 95 % unutar dviju, a oko 99,7 % unutar triju. U našem je uzorku unutar jedne devijacije 79,3 % ispitanika. Raspon dviju devijacija ide od minus 28,3 do 128,4 minuta. Budući da trajanje ne može biti negativno, taj raspon upozorava da trebamo provjeriti odgovara li normalno pravilo podacima. Sam po sebi ipak ne određuje oblik raspodjele.</p>
+<p>Unutar dviju devijacija ovdje se nalazi 95,0 % ispitanika, gotovo kao prema normalnom pravilu. Jedno takvo podudaranje ne potvrđuje da je cijela raspodjela približno normalna. Za to treba pregledati podatke.</p>
+<p>Ako želimo opis raspršenosti koji manje ovisi o krajnjim vrijednostima, možemo se, kao kod medijana, osloniti na položaje u poredanom nizu. <strong>Percentil</strong> je vrijednost ispod koje se nalazi zadani postotak opažanja, pa je medijan pedeseti percentil. Prvi kvartil odvaja donjih 25 %, a treći gornjih 25 %. Njihova razlika obuhvaća raspon središnje polovine podataka.</p>
 <div class="table-keep-words">
 <div class="cell" data-layout-align="center">
 <div id="tbl-percentili" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-percentili-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;1: Percentili dnevnog vremena korištenja u simuliranoj anketi. Izrada autora.
+Tablica&nbsp;6: Percentili dnevnog vremena korištenja u simuliranoj anketi. Izrada autora.
 </figcaption>
 <div aria-describedby="tbl-percentili-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -1014,50 +1265,72 @@ Tablica&nbsp;1: Percentili dnevnog vremena korištenja u simuliranoj anketi. Izr
 </div>
 </div>
 </div>
-<p>Interkvartilni raspon našeg uzorka iznosi 46,2 minuta i proteže se od 22,0 do 68,2 minuta. Ta mjera ne reagira na to koliko je krajnje opažanje daleko, nego samo na to koliko ih je, pa se s medijanom uparuje jednako prirodno kao standardna devijacija sa sredinom. Izvještaj koji navodi medijan uz standardnu devijaciju miješa dva različita opisa iste raspodjele.</p>
+<p>Taj interkvartilni raspon ovdje iznosi 46,2 minuta, od 22,0 do 68,2 minuta. Pomicanje opažanja koje već leži daleko izvan središnje polovine obično ga ne mijenja. Promjena poretka oko kvartila ipak može utjecati na rezultat. Interkvartilni raspon često navodimo uz medijan, a standardnu devijaciju uz sredinu. Druge kombinacije mogu biti korisne ako objasnimo čemu služe.</p>
 </section>
-<section id="oblik-raspodjele-i-položaj-opažanja" class="level2">
+<section id="oblik-raspodjele-i-položaj-opažanja" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="oblik-raspodjele-i-položaj-opažanja">Oblik raspodjele i položaj opažanja</h2>
-<p>Središte i raspršenost ne kazuju je li raspodjela simetrična. Kada lijeva i desna strana izgledaju kao zrcalne slike, sredina i medijan padaju na isto mjesto. Dugi rep prema većim vrijednostima povlači sredinu za sobom i ostavlja medijan gdje je bio, pa razlika između njih mjeri koliko je raspodjela nagnuta.</p>
-<div id="def-asimetrija" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 5</strong></span> <strong>Asimetrija</strong> je mjera nesimetričnosti raspodjele, pozitivna kada je rep raspodjele okrenut prema većim vrijednostima.</p>
-</div>
-<p>Formalna mjera polazi od standardiziranih odstupanja i diže ih na treću potenciju. Neparna potencija čuva predznak, pa velika pozitivna odstupanja zbroj vuku prema pozitivnome, a velika negativna prema negativnome.</p>
+<p>Graf nam pokazuje i oblik raspodjele. U simetričnoj raspodjeli dvije strane približno su zrcalne i sredina je često blizu medijana. Dugi rep prema većim vrijednostima može povući sredinu naviše. Njihov razmak ipak nije dovoljan opis oblika. <span class="pojam" data-def="Mjera nesimetričnosti raspodjele, pozitivna kada je rep okrenut prema većim vrijednostima." data-en="skewness" data-ch="4">Asimetrija</span> uzima u obzir cijelu raspodjelu.</p>
+<p>Dugi rep koji smo naslutili iz razmaka sredine i medijana želimo opisati i brojem koji razlikuje dvije strane raspodjele. Zato odstupanja najprije izražavamo u standardnim devijacijama, a zatim ih dižemo na treću potenciju. Neparna potencija čuva njihov predznak. Velika pozitivna odstupanja tako vuku zbroj prema pozitivnome, a velika negativna prema negativnome.</p>
 <p><span class="math display">\[
 \text{asimetrija} = \frac{1}{n} \sum_{i=1}^{n}
   \left( \frac{x_i - \bar{x}}{s} \right)^3
 \]</span></p>
-<p>Asimetrija našeg uzorka iznosi 1,61. Takav oblik u podacima o medijskoj uporabi nije iznimka nego očekivanje, i to iz strukturnog razloga. Vrijeme, dijeljenja i pratitelji imaju prirodnu donju granicu na nuli a nikakvu gornju, pa se većina opažanja skuplja pri dnu dok pojedinci mogu otići vrlo visoko. Isti izraz s eksponentom četiri mjeri zaobljenost (<em>kurtosis</em>) i opisuje težinu repova, a naš višak nad vrijednošću očekivanom za normalnu raspodjelu iznosi 3,36, što znači da krajnjih slučajeva ima više nego što bi zvonasta krivulja predvidjela.</p>
-<p>Kada raspodjela ima takav oblik, promjena ljestvice često pomaže više od promjene mjere. Logaritam sabija velike vrijednosti i razmake pretvara u omjere, pa razlika između 10 i 20 minuta postaje jednako velika kao razlika između 60 i 120.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-oblik-raspodjele" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Lijevi panel pokazuje raspodjelu s izraženim repom prema većim vrijednostima, u kojoj sredina leži znatno desno od medijana. Desni panel prikazuje logaritmirane vrijednosti, gdje je raspodjela približno simetrična a sredina i medijan gotovo se poklapaju." data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
+<p>Asimetrija simuliranog uzorka iznosi 1,61 i proizlazi iz načina generiranja podataka. Ne govori o stvarnoj medijskoj uporabi. Ako u izrazu upotrijebimo četvrtu potenciju, dobivamo koeficijent zaobljenosti (<em>kurtosis</em>). Njegov višak nad referentnom normalnom vrijednošću ovdje je 3,36. On pomaže pri pregledu repova raspodjele, ali ne objašnjava njihov uzrok ni broj krajnjih slučajeva. Ovdje koristimo prosjek trećih odnosno četvrtih potencija odstupanja standardiziranih uzoračkom standardnom devijacijom, bez korekcije za mali uzorak. Od četvrtog momenta oduzimamo tri. Drugi programski postupci mogu koristiti drukčiju korekciju, pa uz usporedbu vrijednosti treba provjeriti i definiciju.</p>
+
+<div class="no-row-height column-margin column-container"><div id="podsjetnik-logaritamska-skala" class="">
+<p><strong>Podsjetnik.</strong> <a href="../dodaci/g-numericki-podsjetnik.html#sec-ag-logaritamska-skala">Logaritamska skala</a></p>
+</div></div><p>Za strogo pozitivne vrijednosti možemo razmotriti logaritamsku ljestvicu. Ona sabija velike vrijednosti i jednake omjere prikazuje jednakim razmacima. Omjeri 20 prema 10 i 120 prema 60 zato imaju isti razmak. Nulu ne možemo logaritmirati. Dodavanje jedinice svim vrijednostima mijenja analizu i traži obrazloženje.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-oblik-raspodjele" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" alt="Lijevi panel pokazuje raspodjelu s izraženim repom prema većim vrijednostima, u kojoj sredina leži znatno desno od medijana. Desni panel prikazuje logaritmirane vrijednosti, gdje je raspodjela približno simetrična a sredina i medijan gotovo se poklapaju." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-oblik-raspodjele-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="04-sazimanje-podataka_files/figure-html/fig-oblik-raspodjele-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom."><img src="04-sazimanje-podataka_files/figure-html/fig-oblik-raspodjele-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Lijevi panel pokazuje raspodjelu s izraženim repom prema većim vrijednostima, u kojoj sredina leži znatno desno od medijana. Desni panel prikazuje logaritmirane vrijednosti, gdje je raspodjela približno simetrična a sredina i medijan gotovo se poklapaju."></a>
+<a href="04-sazimanje-podataka_files/figure-html/fig-oblik-raspodjele-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom. Logaritamska ljestvica sažima dugi desni rep. Izrada autora prema @sikicanketa2026."><img src="04-sazimanje-podataka_files/figure-html/fig-oblik-raspodjele-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Lijevi panel pokazuje raspodjelu s izraženim repom prema većim vrijednostima, u kojoj sredina leži znatno desno od medijana. Desni panel prikazuje logaritmirane vrijednosti, gdje je raspodjela približno simetrična a sredina i medijan gotovo se poklapaju."></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-oblik-raspodjele-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;1: Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom.
+Slika&nbsp;1: Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom. Logaritamska ljestvica sažima dugi desni rep. Izrada autora prema <span class="citation" data-cites="sikicanketa2026">Šikić (<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">2026.</a>)</span>.
 </figcaption>
-</figure>
+<div class="no-row-height column-margin column-container"></div></figure>
 </div>
 </div>
 </div>
-<p>Na logaritamskoj ljestvici asimetrija pada na -0,44, a sredina i medijan gotovo se poklapaju na 3,61 i 3,66. Transformacija time nije popravila podatke, nego je promijenila pitanje. Rezultati na toj ljestvici govore o razmjernim razlikama, pa svaka tvrdnja izvedena iz njih mora reći da je razlika višekratnik, a ne broj minuta.</p>
-<p>Oblik odlučuje i o tome kada je pojedino opažanje neobično. Dnevnih 100 minuta znači jedno u skupini koja se u prosjeku zadržava 15 minuta, a nešto posve drugo u skupini koja se zadržava 80. Položaj postaje čitljiv kada udaljenost od sredine izrazimo u standardnim devijacijama.</p>
+<p>Isti se odgovor sada zapisuje na drugoj ljestvici. Prvih 69 minuta postaje <span class="math inline">\(\ln(69) =
+4,23\)</span>. Sve su minute pozitivne, pa transformiramo svih 300 odgovora bez izostavljanja. To nisu nove osobe ni ponovljena mjerenja.</p>
+<p>Nakon logaritmiranja asimetrija iznosi -0,44, a sredina i medijan bliski su, 3,61 i 3,66. Sada, međutim, tumačimo drugu ljestvicu. Eksponenciranjem razlike logaritama dobivamo omjer izvornih vrijednosti. Rezultat govori o višekratniku, a ne o razlici minuta.</p>
+<p>Uz oblik raspodjele zanima nas i položaj pojedine osobe u njoj. Dnevnih 100 minuta može biti mnogo u skupini s prosjekom od 15 minuta, a manje neobično u skupini s prosjekom od 80. Da bismo opisali položaj, udaljenost od sredine izražavamo brojem standardnih devijacija.</p>
 <div id="def-standardizirana-vrijednost" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 6</strong></span> <strong>Standardizirana vrijednost</strong> kaže koliko standardnih devijacija pojedino opažanje leži iznad ili ispod aritmetičke sredine.</p>
+<p><span class="theorem-title"><strong>Definicija 4</strong></span> <strong>Standardizirana vrijednost</strong> kaže koliko standardnih devijacija pojedino opažanje leži iznad ili ispod aritmetičke sredine.</p>
 </div>
 <p><span class="math display">\[
 z_i = \frac{x_i - \bar{x}}{s}
-\]</span></p>
-<p>Standardizirana varijabla uvijek ima sredinu nula i standardnu devijaciju jedan, pa vrijednosti izmjerene u minutama i vrijednosti izmjerene na ljestvici povjerenja od 1 do 10 postaju usporedive. Prevođenje na zajednički jezik položaja ipak ne uklanjava oblik raspodjele. U desno nagnutim podacima ostaje nemoguće da neko opažanje bude tri standardne devijacije ispod sredine, dok ih iznad nje može biti pet.</p>
-<p>Odluka koja se lako preskoči jest odluka o skupini prema kojoj se položaj mjeri. Standardizacija u cijelom uzorku i standardizacija unutar dobne skupine odgovaraju na različita pitanja, a njihovi se odgovori mogu razlikovati i u predznaku.</p>
-<div class="cell" data-layout-align="center">
+\]</span> <!--
+
+položaja ipak ne uklanjava oblik raspodjele. U desno nagnutim podacima ostaje
+nemoguće da neko opažanje bude tri standardne devijacije ispod sredine, dok ih
+iznad nje može biti pet.
+
+
+Standardizirana varijabla ima sredinu nula i standardnu devijaciju jedan, pa
+položaji vrijednosti izmjerenih u minutama i na ljestvici povjerenja postaju
+usporedivi u odnosu na vlastite referentne raspodjele. Time sami konstrukti ne
+postaju zamjenjivi. Standardizacija ne uklanja oblik raspodjele ni ograničenja
+izvorne ljestvice, pa se krajnji položaj uvijek tumači uz prikaz podataka.
+
+Odluka koja se lako preskoči jest odluka o skupini prema kojoj se položaj mjeri.
+Standardizacija u cijelom uzorku i standardizacija unutar dobne skupine
+odgovaraju na različita pitanja, a njihovi se odgovori mogu razlikovati i u
+predznaku.
+
+--></p>
+<p>Standardizirana varijabla ima sredinu nula i standardnu devijaciju jedan. Tako možemo usporediti relativni položaj osobe prema vremenu korištenja i prema povjerenju, svako unutar njegove raspodjele. Time vrijeme i povjerenje ne postaju isti pojam. Standardizacija također ne mijenja oblik raspodjele ni ograničenja ljestvice, pa uz krajnje vrijednosti i dalje gledamo graf.</p>
+<p>Moramo navesti i referentnu skupinu. Položaj u cijelom uzorku može se razlikovati od položaja unutar dobne skupine, čak i po predznaku. Za najstariju skupinu sredina iznosi 16,2333 minute, a standardna devijacija 9,4750 minuta; račun koristi nezaokružene vrijednosti <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-sikicanketa2026" class="csl-entry" role="listitem">
+Šikić, Luka. 2026. <span>„Anketa o društvenim mrežama, generirani nastavni skup“</span>. <a href="https://lusiki.github.io/statistika-knjiga/data/anketa-mreze.csv">https://lusiki.github.io/statistika-knjiga/data/anketa-mreze.csv</a>.
+</div></div><div class="cell" data-layout-align="center">
 <div id="tbl-standardizacija" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-standardizacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;2: Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora.
+Tablica&nbsp;7: Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora.
 </figcaption>
 <div aria-describedby="tbl-standardizacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -1096,29 +1369,29 @@ Tablica&nbsp;2: Tri ispitanika iz najstarije skupine, standardizirani u cijelom 
 </figure>
 </div>
 </div>
-<p>Ispitanici u tablici provode manje vremena od prosjeka cijelog uzorka i unutar svoje dobne skupine pripadaju najintenzivnijim korisnicima. Obje su tvrdnje istinite i opisuju isti podatak, pa izvještaj mora reći prema čemu je položaj mjeren. Kada referentna skupina ostane neimenovana, čitatelj joj pridaje onu koja mu je bliža i zaključak se tiho mijenja.</p>
+<p>Osobe iz tablice provode manje vremena od prosjeka cijelog uzorka, a u svojoj su dobnoj skupini među najintenzivnijim korisnicima. Obje tvrdnje mogu biti točne jer koriste različite referentne skupine. U izvještaju zato navodimo prema kojoj je skupini položaj izračunat.</p>
 </section>
 <section id="interakcija-oblikovanje-distribucije" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="interakcija-oblikovanje-distribucije">Interakcija — Oblikovanje distribucije</h2>
-<p>Oblikovatelj raspodjele pomiče jedno krajnje opažanje i širi preostalih devet oko njihova zajedničkog središta. Sredina, medijan i dvije mjere raspršenosti mijenjaju se pred čitateljem. Tako postaje vidljivo koje mjere slušaju svaku vrijednost, a koje prvenstveno čuvaju redoslijed.</p>
+<p>Tri raspodjele prikazuju utjecaj krajnjeg opažanja i raspršenosti ostalih vrijednosti. Usporedba sredine, medijana i mjera raspršenosti pokazuje koje mjere jače reagiraju na pojedinu vrijednost, a koje više ovise o poretku.</p>
 <div class="widget-frame" data-naslov="Oblikovanje distribucije" data-oznaka="Widget 04.1 · interaktivno">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="451" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 450;"><span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a>viewof w04_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a>  <span class="dt">krajnja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">11</span><span class="op">,</span> <span class="dv">70</span>]<span class="op">,</span></span>
-<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">70</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Vrijednost krajnjeg opažanja"</span>}</span>
-<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a>  <span class="dt">faktor</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">,</span></span>
-<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a>      <span class="dt">step</span><span class="op">:</span> <span class="fl">0.25</span><span class="op">,</span></span>
-<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Faktor raspršenosti preostalih opažanja"</span></span>
-<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="874" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 873;"><span id="cb1-874"><a href="#cb1-874" aria-hidden="true" tabindex="-1"></a>viewof w04_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-875"><a href="#cb1-875" aria-hidden="true" tabindex="-1"></a>  <span class="dt">krajnja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-876"><a href="#cb1-876" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">11</span><span class="op">,</span> <span class="dv">70</span>]<span class="op">,</span></span>
+<span id="cb1-877"><a href="#cb1-877" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">70</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Vrijednost krajnjeg opažanja"</span>}</span>
+<span id="cb1-878"><a href="#cb1-878" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-879"><a href="#cb1-879" aria-hidden="true" tabindex="-1"></a>  <span class="dt">faktor</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-880"><a href="#cb1-880" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">,</span></span>
+<span id="cb1-881"><a href="#cb1-881" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb1-882"><a href="#cb1-882" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb1-883"><a href="#cb1-883" aria-hidden="true" tabindex="-1"></a>      <span class="dt">step</span><span class="op">:</span> <span class="fl">0.25</span><span class="op">,</span></span>
+<span id="cb1-884"><a href="#cb1-884" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Faktor raspršenosti preostalih opažanja"</span></span>
+<span id="cb1-885"><a href="#cb1-885" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-886"><a href="#cb1-886" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-887"><a href="#cb1-887" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -1129,19 +1402,19 @@ Tablica&nbsp;2: Tri ispitanika iz najstarije skupine, standardizirani u cijelom 
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="469" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 468;"><span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a>w04_tema <span class="op">=</span> Generators<span class="op">.</span><span class="fu">observe</span>(obavijesti <span class="kw">=&gt;</span> {</span>
-<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> revizija <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> osvjezi <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="fu">obavijesti</span>(<span class="op">++</span>revizija)<span class="op">;</span></span>
-<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> promatrac <span class="op">=</span> <span class="kw">new</span> <span class="bu">MutationObserver</span>(osvjezi)<span class="op">;</span></span>
-<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postavke <span class="op">=</span> {</span>
-<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attributes</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attributeFilter</span><span class="op">:</span> [<span class="st">"class"</span><span class="op">,</span> <span class="st">"data-bs-theme"</span>]</span>
-<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>  promatrac<span class="op">.</span><span class="fu">observe</span>(<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span><span class="op">,</span> postavke)<span class="op">;</span></span>
-<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a>  promatrac<span class="op">.</span><span class="fu">observe</span>(<span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">,</span> postavke)<span class="op">;</span></span>
-<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osvjezi</span>()<span class="op">;</span></span>
-<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> () <span class="kw">=&gt;</span> promatrac<span class="op">.</span><span class="fu">disconnect</span>()<span class="op">;</span></span>
-<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="892" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 891;"><span id="cb2-892"><a href="#cb2-892" aria-hidden="true" tabindex="-1"></a>w04_tema <span class="op">=</span> Generators<span class="op">.</span><span class="fu">observe</span>(obavijesti <span class="kw">=&gt;</span> {</span>
+<span id="cb2-893"><a href="#cb2-893" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> revizija <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-894"><a href="#cb2-894" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> osvjezi <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="fu">obavijesti</span>(<span class="op">++</span>revizija)<span class="op">;</span></span>
+<span id="cb2-895"><a href="#cb2-895" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> promatrac <span class="op">=</span> <span class="kw">new</span> <span class="bu">MutationObserver</span>(osvjezi)<span class="op">;</span></span>
+<span id="cb2-896"><a href="#cb2-896" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postavke <span class="op">=</span> {</span>
+<span id="cb2-897"><a href="#cb2-897" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attributes</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-898"><a href="#cb2-898" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attributeFilter</span><span class="op">:</span> [<span class="st">"class"</span><span class="op">,</span> <span class="st">"data-bs-theme"</span>]</span>
+<span id="cb2-899"><a href="#cb2-899" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-900"><a href="#cb2-900" aria-hidden="true" tabindex="-1"></a>  promatrac<span class="op">.</span><span class="fu">observe</span>(<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span><span class="op">,</span> postavke)<span class="op">;</span></span>
+<span id="cb2-901"><a href="#cb2-901" aria-hidden="true" tabindex="-1"></a>  promatrac<span class="op">.</span><span class="fu">observe</span>(<span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">,</span> postavke)<span class="op">;</span></span>
+<span id="cb2-902"><a href="#cb2-902" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osvjezi</span>()<span class="op">;</span></span>
+<span id="cb2-903"><a href="#cb2-903" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> () <span class="kw">=&gt;</span> promatrac<span class="op">.</span><span class="fu">disconnect</span>()<span class="op">;</span></span>
+<span id="cb2-904"><a href="#cb2-904" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
@@ -1152,145 +1425,145 @@ Tablica&nbsp;2: Tri ispitanika iz najstarije skupine, standardizirani u cijelom 
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="489" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 488;"><span id="cb3-489"><a href="#cb3-489" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb3-490"><a href="#cb3-490" aria-hidden="true" tabindex="-1"></a>  w04_tema<span class="op">;</span></span>
-<span id="cb3-491"><a href="#cb3-491" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> css <span class="op">=</span> <span class="fu">getComputedStyle</span>(<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span>)<span class="op">;</span></span>
-<span id="cb3-492"><a href="#cb3-492" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tocke <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-1"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
-<span id="cb3-493"><a href="#cb3-493" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredinaBoja <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-2"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
-<span id="cb3-494"><a href="#cb3-494" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> medijanBoja <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-4"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
-<span id="cb3-495"><a href="#cb3-495" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-ink-mute"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
-<span id="cb3-496"><a href="#cb3-496" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-rule"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
-<span id="cb3-497"><a href="#cb3-497" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-font-sans"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
-<span id="cb3-498"><a href="#cb3-498" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb3-499"><a href="#cb3-499" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb3-500"><a href="#cb3-500" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb3-501"><a href="#cb3-501" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb3-502"><a href="#cb3-502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-503"><a href="#cb3-503" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> odstupanja <span class="op">=</span> [<span class="op">-</span><span class="dv">3</span><span class="op">,</span> <span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">;</span></span>
-<span id="cb3-504"><a href="#cb3-504" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vrijednosti <span class="op">=</span> [</span>
-<span id="cb3-505"><a href="#cb3-505" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>odstupanja<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> <span class="dv">11</span> <span class="op">+</span> d <span class="op">*</span> w04_par<span class="op">.</span><span class="at">faktor</span>)<span class="op">,</span></span>
-<span id="cb3-506"><a href="#cb3-506" aria-hidden="true" tabindex="-1"></a>    w04_par<span class="op">.</span><span class="at">krajnja</span></span>
-<span id="cb3-507"><a href="#cb3-507" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">;</span></span>
-<span id="cb3-508"><a href="#cb3-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-509"><a href="#cb3-509" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredina <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(vrijednosti)<span class="op">;</span></span>
-<span id="cb3-510"><a href="#cb3-510" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> medijan <span class="op">=</span> d3<span class="op">.</span><span class="fu">median</span>(vrijednosti)<span class="op">;</span></span>
-<span id="cb3-511"><a href="#cb3-511" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sd <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(</span>
-<span id="cb3-512"><a href="#cb3-512" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">sum</span>(vrijednosti<span class="op">,</span> d <span class="kw">=&gt;</span> (d <span class="op">-</span> sredina) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span></span>
-<span id="cb3-513"><a href="#cb3-513" aria-hidden="true" tabindex="-1"></a>      (vrijednosti<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb3-514"><a href="#cb3-514" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb3-515"><a href="#cb3-515" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> iqr <span class="op">=</span></span>
-<span id="cb3-516"><a href="#cb3-516" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">quantileSorted</span>(vrijednosti<span class="op">,</span> <span class="fl">0.75</span>) <span class="op">-</span></span>
-<span id="cb3-517"><a href="#cb3-517" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">quantileSorted</span>(vrijednosti<span class="op">,</span> <span class="fl">0.25</span>)<span class="op">;</span></span>
-<span id="cb3-518"><a href="#cb3-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-519"><a href="#cb3-519" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> brojPonavljanja <span class="op">=</span> <span class="kw">new</span> <span class="bu">Map</span>()<span class="op">;</span></span>
-<span id="cb3-520"><a href="#cb3-520" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> slozene <span class="op">=</span> vrijednosti<span class="op">.</span><span class="fu">map</span>(vrijednost <span class="kw">=&gt;</span> {</span>
-<span id="cb3-521"><a href="#cb3-521" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> kljuc <span class="op">=</span> vrijednost<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>)<span class="op">;</span></span>
-<span id="cb3-522"><a href="#cb3-522" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> red <span class="op">=</span> (brojPonavljanja<span class="op">.</span><span class="fu">get</span>(kljuc) <span class="op">||</span> <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb3-523"><a href="#cb3-523" aria-hidden="true" tabindex="-1"></a>    brojPonavljanja<span class="op">.</span><span class="fu">set</span>(kljuc<span class="op">,</span> red)<span class="op">;</span></span>
-<span id="cb3-524"><a href="#cb3-524" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {vrijednost<span class="op">,</span> red}<span class="op">;</span></span>
-<span id="cb3-525"><a href="#cb3-525" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb3-526"><a href="#cb3-526" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najvisiRed <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(slozene<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">red</span>)<span class="op">;</span></span>
-<span id="cb3-527"><a href="#cb3-527" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb3-528"><a href="#cb3-528" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb3-529"><a href="#cb3-529" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb3-530"><a href="#cb3-530" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb3-531"><a href="#cb3-531" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
-<span id="cb3-532"><a href="#cb3-532" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
-<span id="cb3-533"><a href="#cb3-533" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb3-534"><a href="#cb3-534" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
-<span id="cb3-535"><a href="#cb3-535" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
-<span id="cb3-536"><a href="#cb3-536" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sazetakRasprsenosti <span class="op">=</span> usko</span>
-<span id="cb3-537"><a href="#cb3-537" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> [</span>
-<span id="cb3-538"><a href="#cb3-538" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb3-539"><a href="#cb3-539" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb3-540"><a href="#cb3-540" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">2.4</span><span class="op">,</span></span>
-<span id="cb3-541"><a href="#cb3-541" aria-hidden="true" tabindex="-1"></a>          <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`standardna devijacija </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(sd)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb3-542"><a href="#cb3-542" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
-<span id="cb3-543"><a href="#cb3-543" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb3-544"><a href="#cb3-544" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb3-545"><a href="#cb3-545" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">1.8</span><span class="op">,</span></span>
-<span id="cb3-546"><a href="#cb3-546" aria-hidden="true" tabindex="-1"></a>          <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`interkvartilni raspon </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(iqr)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb3-547"><a href="#cb3-547" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb3-548"><a href="#cb3-548" aria-hidden="true" tabindex="-1"></a>      ]</span>
-<span id="cb3-549"><a href="#cb3-549" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> [{</span>
-<span id="cb3-550"><a href="#cb3-550" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb3-551"><a href="#cb3-551" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">1.7</span><span class="op">,</span></span>
-<span id="cb3-552"><a href="#cb3-552" aria-hidden="true" tabindex="-1"></a>        <span class="dt">oznaka</span><span class="op">:</span></span>
-<span id="cb3-553"><a href="#cb3-553" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`standardna devijacija </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(sd)<span class="sc">}</span><span class="vs"> · `</span> <span class="op">+</span></span>
-<span id="cb3-554"><a href="#cb3-554" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`interkvartilni raspon </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(iqr)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb3-555"><a href="#cb3-555" aria-hidden="true" tabindex="-1"></a>      }]<span class="op">;</span></span>
-<span id="cb3-556"><a href="#cb3-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-557"><a href="#cb3-557" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb3-558"><a href="#cb3-558" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
-<span id="cb3-559"><a href="#cb3-559" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">370</span> <span class="op">:</span> <span class="dv">310</span><span class="op">,</span></span>
-<span id="cb3-560"><a href="#cb3-560" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">40</span> <span class="op">:</span> <span class="dv">34</span><span class="op">,</span></span>
-<span id="cb3-561"><a href="#cb3-561" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">28</span><span class="op">,</span></span>
-<span id="cb3-562"><a href="#cb3-562" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginTop</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">82</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
-<span id="cb3-563"><a href="#cb3-563" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
-<span id="cb3-564"><a href="#cb3-564" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb3-565"><a href="#cb3-565" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb3-566"><a href="#cb3-566" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
-<span id="cb3-567"><a href="#cb3-567" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"12px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
-<span id="cb3-568"><a href="#cb3-568" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb3-569"><a href="#cb3-569" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
-<span id="cb3-570"><a href="#cb3-570" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="st">"Sredina"</span><span class="op">,</span> <span class="st">"Medijan"</span>]<span class="op">,</span></span>
-<span id="cb3-571"><a href="#cb3-571" aria-hidden="true" tabindex="-1"></a>      <span class="dt">range</span><span class="op">:</span> [sredinaBoja<span class="op">,</span> medijanBoja]<span class="op">,</span></span>
-<span id="cb3-572"><a href="#cb3-572" aria-hidden="true" tabindex="-1"></a>      <span class="dt">legend</span><span class="op">:</span> <span class="kw">false</span></span>
-<span id="cb3-573"><a href="#cb3-573" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb3-574"><a href="#cb3-574" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Vrijednost"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">75</span>]<span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
-<span id="cb3-575"><a href="#cb3-575" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> najvisiRed <span class="op">+</span> (usko <span class="op">?</span> <span class="fl">2.8</span> <span class="op">:</span> <span class="fl">2.1</span>)]}<span class="op">,</span></span>
-<span id="cb3-576"><a href="#cb3-576" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb3-577"><a href="#cb3-577" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})<span class="op">,</span></span>
-<span id="cb3-578"><a href="#cb3-578" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(slozene<span class="op">,</span> {</span>
-<span id="cb3-579"><a href="#cb3-579" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijednost"</span><span class="op">,</span></span>
-<span id="cb3-580"><a href="#cb3-580" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span></span>
-<span id="cb3-581"><a href="#cb3-581" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span></span>
-<span id="cb3-582"><a href="#cb3-582" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tocke</span>
-<span id="cb3-583"><a href="#cb3-583" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb3-584"><a href="#cb3-584" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([sredina]<span class="op">,</span> {</span>
-<span id="cb3-585"><a href="#cb3-585" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> sredinaBoja<span class="op">,</span></span>
-<span id="cb3-586"><a href="#cb3-586" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span></span>
-<span id="cb3-587"><a href="#cb3-587" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb3-588"><a href="#cb3-588" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([medijan]<span class="op">,</span> {</span>
-<span id="cb3-589"><a href="#cb3-589" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> medijanBoja<span class="op">,</span></span>
-<span id="cb3-590"><a href="#cb3-590" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb3-591"><a href="#cb3-591" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,4"</span></span>
-<span id="cb3-592"><a href="#cb3-592" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb3-593"><a href="#cb3-593" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
-<span id="cb3-594"><a href="#cb3-594" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb3-595"><a href="#cb3-595" aria-hidden="true" tabindex="-1"></a>          {</span>
-<span id="cb3-596"><a href="#cb3-596" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> sredina<span class="op">,</span></span>
-<span id="cb3-597"><a href="#cb3-597" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">0.8</span><span class="op">,</span></span>
-<span id="cb3-598"><a href="#cb3-598" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`sredina </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(sredina)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
-<span id="cb3-599"><a href="#cb3-599" aria-hidden="true" tabindex="-1"></a>            <span class="dt">vrsta</span><span class="op">:</span> <span class="st">"Sredina"</span></span>
-<span id="cb3-600"><a href="#cb3-600" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
-<span id="cb3-601"><a href="#cb3-601" aria-hidden="true" tabindex="-1"></a>          {</span>
-<span id="cb3-602"><a href="#cb3-602" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> medijan<span class="op">,</span></span>
-<span id="cb3-603"><a href="#cb3-603" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">0.3</span><span class="op">,</span></span>
-<span id="cb3-604"><a href="#cb3-604" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`medijan </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(medijan)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
-<span id="cb3-605"><a href="#cb3-605" aria-hidden="true" tabindex="-1"></a>            <span class="dt">vrsta</span><span class="op">:</span> <span class="st">"Medijan"</span></span>
-<span id="cb3-606"><a href="#cb3-606" aria-hidden="true" tabindex="-1"></a>          }</span>
-<span id="cb3-607"><a href="#cb3-607" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
-<span id="cb3-608"><a href="#cb3-608" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb3-609"><a href="#cb3-609" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb3-610"><a href="#cb3-610" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb3-611"><a href="#cb3-611" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
-<span id="cb3-612"><a href="#cb3-612" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> <span class="st">"vrsta"</span></span>
-<span id="cb3-613"><a href="#cb3-613" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb3-614"><a href="#cb3-614" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb3-615"><a href="#cb3-615" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
-<span id="cb3-616"><a href="#cb3-616" aria-hidden="true" tabindex="-1"></a>        sazetakRasprsenosti<span class="op">,</span></span>
-<span id="cb3-617"><a href="#cb3-617" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb3-618"><a href="#cb3-618" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb3-619"><a href="#cb3-619" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb3-620"><a href="#cb3-620" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
-<span id="cb3-621"><a href="#cb3-621" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span></span>
-<span id="cb3-622"><a href="#cb3-622" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> prigusena</span>
-<span id="cb3-623"><a href="#cb3-623" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb3-624"><a href="#cb3-624" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb3-625"><a href="#cb3-625" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb3-626"><a href="#cb3-626" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb3-627"><a href="#cb3-627" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="912" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 911;"><span id="cb3-912"><a href="#cb3-912" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-913"><a href="#cb3-913" aria-hidden="true" tabindex="-1"></a>  w04_tema<span class="op">;</span></span>
+<span id="cb3-914"><a href="#cb3-914" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> css <span class="op">=</span> <span class="fu">getComputedStyle</span>(<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span>)<span class="op">;</span></span>
+<span id="cb3-915"><a href="#cb3-915" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tocke <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-1"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-916"><a href="#cb3-916" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredinaBoja <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-2"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-917"><a href="#cb3-917" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> medijanBoja <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-4"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-918"><a href="#cb3-918" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-ink-mute"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-919"><a href="#cb3-919" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-rule"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-920"><a href="#cb3-920" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-font-sans"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb3-921"><a href="#cb3-921" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb3-922"><a href="#cb3-922" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb3-923"><a href="#cb3-923" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb3-924"><a href="#cb3-924" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-925"><a href="#cb3-925" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-926"><a href="#cb3-926" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> odstupanja <span class="op">=</span> [<span class="op">-</span><span class="dv">3</span><span class="op">,</span> <span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">;</span></span>
+<span id="cb3-927"><a href="#cb3-927" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vrijednosti <span class="op">=</span> [</span>
+<span id="cb3-928"><a href="#cb3-928" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>odstupanja<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> <span class="dv">11</span> <span class="op">+</span> d <span class="op">*</span> w04_par<span class="op">.</span><span class="at">faktor</span>)<span class="op">,</span></span>
+<span id="cb3-929"><a href="#cb3-929" aria-hidden="true" tabindex="-1"></a>    w04_par<span class="op">.</span><span class="at">krajnja</span></span>
+<span id="cb3-930"><a href="#cb3-930" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">;</span></span>
+<span id="cb3-931"><a href="#cb3-931" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-932"><a href="#cb3-932" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredina <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(vrijednosti)<span class="op">;</span></span>
+<span id="cb3-933"><a href="#cb3-933" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> medijan <span class="op">=</span> d3<span class="op">.</span><span class="fu">median</span>(vrijednosti)<span class="op">;</span></span>
+<span id="cb3-934"><a href="#cb3-934" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sd <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(</span>
+<span id="cb3-935"><a href="#cb3-935" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">sum</span>(vrijednosti<span class="op">,</span> d <span class="kw">=&gt;</span> (d <span class="op">-</span> sredina) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span></span>
+<span id="cb3-936"><a href="#cb3-936" aria-hidden="true" tabindex="-1"></a>      (vrijednosti<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb3-937"><a href="#cb3-937" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb3-938"><a href="#cb3-938" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> iqr <span class="op">=</span></span>
+<span id="cb3-939"><a href="#cb3-939" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">quantileSorted</span>(vrijednosti<span class="op">,</span> <span class="fl">0.75</span>) <span class="op">-</span></span>
+<span id="cb3-940"><a href="#cb3-940" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">quantileSorted</span>(vrijednosti<span class="op">,</span> <span class="fl">0.25</span>)<span class="op">;</span></span>
+<span id="cb3-941"><a href="#cb3-941" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-942"><a href="#cb3-942" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> brojPonavljanja <span class="op">=</span> <span class="kw">new</span> <span class="bu">Map</span>()<span class="op">;</span></span>
+<span id="cb3-943"><a href="#cb3-943" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> slozene <span class="op">=</span> vrijednosti<span class="op">.</span><span class="fu">map</span>(vrijednost <span class="kw">=&gt;</span> {</span>
+<span id="cb3-944"><a href="#cb3-944" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> kljuc <span class="op">=</span> vrijednost<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb3-945"><a href="#cb3-945" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> red <span class="op">=</span> (brojPonavljanja<span class="op">.</span><span class="fu">get</span>(kljuc) <span class="op">||</span> <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-946"><a href="#cb3-946" aria-hidden="true" tabindex="-1"></a>    brojPonavljanja<span class="op">.</span><span class="fu">set</span>(kljuc<span class="op">,</span> red)<span class="op">;</span></span>
+<span id="cb3-947"><a href="#cb3-947" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {vrijednost<span class="op">,</span> red}<span class="op">;</span></span>
+<span id="cb3-948"><a href="#cb3-948" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-949"><a href="#cb3-949" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najvisiRed <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(slozene<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">red</span>)<span class="op">;</span></span>
+<span id="cb3-950"><a href="#cb3-950" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb3-951"><a href="#cb3-951" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb3-952"><a href="#cb3-952" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb3-953"><a href="#cb3-953" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb3-954"><a href="#cb3-954" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
+<span id="cb3-955"><a href="#cb3-955" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
+<span id="cb3-956"><a href="#cb3-956" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb3-957"><a href="#cb3-957" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
+<span id="cb3-958"><a href="#cb3-958" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
+<span id="cb3-959"><a href="#cb3-959" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sazetakRasprsenosti <span class="op">=</span> usko</span>
+<span id="cb3-960"><a href="#cb3-960" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> [</span>
+<span id="cb3-961"><a href="#cb3-961" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb3-962"><a href="#cb3-962" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb3-963"><a href="#cb3-963" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">2.4</span><span class="op">,</span></span>
+<span id="cb3-964"><a href="#cb3-964" aria-hidden="true" tabindex="-1"></a>          <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`standardna devijacija </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(sd)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb3-965"><a href="#cb3-965" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb3-966"><a href="#cb3-966" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb3-967"><a href="#cb3-967" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb3-968"><a href="#cb3-968" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">1.8</span><span class="op">,</span></span>
+<span id="cb3-969"><a href="#cb3-969" aria-hidden="true" tabindex="-1"></a>          <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`interkvartilni raspon </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(iqr)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb3-970"><a href="#cb3-970" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-971"><a href="#cb3-971" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb3-972"><a href="#cb3-972" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> [{</span>
+<span id="cb3-973"><a href="#cb3-973" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb3-974"><a href="#cb3-974" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">1.7</span><span class="op">,</span></span>
+<span id="cb3-975"><a href="#cb3-975" aria-hidden="true" tabindex="-1"></a>        <span class="dt">oznaka</span><span class="op">:</span></span>
+<span id="cb3-976"><a href="#cb3-976" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`standardna devijacija </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(sd)<span class="sc">}</span><span class="vs"> · `</span> <span class="op">+</span></span>
+<span id="cb3-977"><a href="#cb3-977" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`interkvartilni raspon </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(iqr)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb3-978"><a href="#cb3-978" aria-hidden="true" tabindex="-1"></a>      }]<span class="op">;</span></span>
+<span id="cb3-979"><a href="#cb3-979" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-980"><a href="#cb3-980" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-981"><a href="#cb3-981" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
+<span id="cb3-982"><a href="#cb3-982" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">370</span> <span class="op">:</span> <span class="dv">310</span><span class="op">,</span></span>
+<span id="cb3-983"><a href="#cb3-983" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">40</span> <span class="op">:</span> <span class="dv">34</span><span class="op">,</span></span>
+<span id="cb3-984"><a href="#cb3-984" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">28</span><span class="op">,</span></span>
+<span id="cb3-985"><a href="#cb3-985" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginTop</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">82</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
+<span id="cb3-986"><a href="#cb3-986" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
+<span id="cb3-987"><a href="#cb3-987" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb3-988"><a href="#cb3-988" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb3-989"><a href="#cb3-989" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
+<span id="cb3-990"><a href="#cb3-990" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"12px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
+<span id="cb3-991"><a href="#cb3-991" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb3-992"><a href="#cb3-992" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb3-993"><a href="#cb3-993" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="st">"Sredina"</span><span class="op">,</span> <span class="st">"Medijan"</span>]<span class="op">,</span></span>
+<span id="cb3-994"><a href="#cb3-994" aria-hidden="true" tabindex="-1"></a>      <span class="dt">range</span><span class="op">:</span> [sredinaBoja<span class="op">,</span> medijanBoja]<span class="op">,</span></span>
+<span id="cb3-995"><a href="#cb3-995" aria-hidden="true" tabindex="-1"></a>      <span class="dt">legend</span><span class="op">:</span> <span class="kw">false</span></span>
+<span id="cb3-996"><a href="#cb3-996" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb3-997"><a href="#cb3-997" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Vrijednost"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">75</span>]<span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb3-998"><a href="#cb3-998" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> najvisiRed <span class="op">+</span> (usko <span class="op">?</span> <span class="fl">2.8</span> <span class="op">:</span> <span class="fl">2.1</span>)]}<span class="op">,</span></span>
+<span id="cb3-999"><a href="#cb3-999" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-1000"><a href="#cb3-1000" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})<span class="op">,</span></span>
+<span id="cb3-1001"><a href="#cb3-1001" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(slozene<span class="op">,</span> {</span>
+<span id="cb3-1002"><a href="#cb3-1002" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijednost"</span><span class="op">,</span></span>
+<span id="cb3-1003"><a href="#cb3-1003" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span></span>
+<span id="cb3-1004"><a href="#cb3-1004" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span></span>
+<span id="cb3-1005"><a href="#cb3-1005" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tocke</span>
+<span id="cb3-1006"><a href="#cb3-1006" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb3-1007"><a href="#cb3-1007" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([sredina]<span class="op">,</span> {</span>
+<span id="cb3-1008"><a href="#cb3-1008" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> sredinaBoja<span class="op">,</span></span>
+<span id="cb3-1009"><a href="#cb3-1009" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span></span>
+<span id="cb3-1010"><a href="#cb3-1010" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb3-1011"><a href="#cb3-1011" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([medijan]<span class="op">,</span> {</span>
+<span id="cb3-1012"><a href="#cb3-1012" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> medijanBoja<span class="op">,</span></span>
+<span id="cb3-1013"><a href="#cb3-1013" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb3-1014"><a href="#cb3-1014" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,4"</span></span>
+<span id="cb3-1015"><a href="#cb3-1015" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb3-1016"><a href="#cb3-1016" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
+<span id="cb3-1017"><a href="#cb3-1017" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb3-1018"><a href="#cb3-1018" aria-hidden="true" tabindex="-1"></a>          {</span>
+<span id="cb3-1019"><a href="#cb3-1019" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> sredina<span class="op">,</span></span>
+<span id="cb3-1020"><a href="#cb3-1020" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">0.8</span><span class="op">,</span></span>
+<span id="cb3-1021"><a href="#cb3-1021" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`sredina </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(sredina)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb3-1022"><a href="#cb3-1022" aria-hidden="true" tabindex="-1"></a>            <span class="dt">vrsta</span><span class="op">:</span> <span class="st">"Sredina"</span></span>
+<span id="cb3-1023"><a href="#cb3-1023" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
+<span id="cb3-1024"><a href="#cb3-1024" aria-hidden="true" tabindex="-1"></a>          {</span>
+<span id="cb3-1025"><a href="#cb3-1025" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> medijan<span class="op">,</span></span>
+<span id="cb3-1026"><a href="#cb3-1026" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> najvisiRed <span class="op">+</span> <span class="fl">0.3</span><span class="op">,</span></span>
+<span id="cb3-1027"><a href="#cb3-1027" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="vs">`medijan </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(medijan)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb3-1028"><a href="#cb3-1028" aria-hidden="true" tabindex="-1"></a>            <span class="dt">vrsta</span><span class="op">:</span> <span class="st">"Medijan"</span></span>
+<span id="cb3-1029"><a href="#cb3-1029" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb3-1030"><a href="#cb3-1030" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb3-1031"><a href="#cb3-1031" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb3-1032"><a href="#cb3-1032" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb3-1033"><a href="#cb3-1033" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb3-1034"><a href="#cb3-1034" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
+<span id="cb3-1035"><a href="#cb3-1035" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> <span class="st">"vrsta"</span></span>
+<span id="cb3-1036"><a href="#cb3-1036" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-1037"><a href="#cb3-1037" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb3-1038"><a href="#cb3-1038" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
+<span id="cb3-1039"><a href="#cb3-1039" aria-hidden="true" tabindex="-1"></a>        sazetakRasprsenosti<span class="op">,</span></span>
+<span id="cb3-1040"><a href="#cb3-1040" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb3-1041"><a href="#cb3-1041" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb3-1042"><a href="#cb3-1042" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb3-1043"><a href="#cb3-1043" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
+<span id="cb3-1044"><a href="#cb3-1044" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span></span>
+<span id="cb3-1045"><a href="#cb3-1045" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> prigusena</span>
+<span id="cb3-1046"><a href="#cb3-1046" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-1047"><a href="#cb3-1047" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-1048"><a href="#cb3-1048" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb3-1049"><a href="#cb3-1049" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-1050"><a href="#cb3-1050" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w04" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1312,99 +1585,49 @@ Slika&nbsp;2: Reakcija mjera središta i raspršenosti na oblik konstruirane ras
 <li>Vratite ga na 70 i provjerite koja se mjera središta više pomaknula.</li>
 <li>Postavite krajnje opažanje na 11 pa povećajte faktor raspršenosti i usporedite dvije raspodjele iste sredine.</li>
 </ol>
-<div class="callout-divljina page-columns page-full">
-<p><strong>Prosjek kao početak pregleda.</strong> Tukey je zagovarao istraživački pristup u kojem se podaci pregledavaju iz više kutova prije konačnog modeliranja <span class="citation" data-cites="tukey1977">(<a href="../references.html#ref-tukey1977" role="doc-biblioref">Tukey 1977.</a>)</span>. Izvještaj koji navodi samo prosjek uklanja upravo oblik koji bi mogao objasniti zašto taj prosjek nije tipičan.</p>
-<div class="no-row-height column-margin column-container"></div><p>Odgovorna tablica zato uparuje mjeru središta s mjerom raspršenosti i brojem opažanja. Graf zatim pokazuje asimetriju, praznine i krajnje slučajeve koje tri sažetka ne mogu nositi.</p>
-</div>
-<div class="callout-model">
-<p>Asistent lako izradi tablicu sažetaka i pritom obično pretpostavi simetriju koju nije provjerio. Vrijedi zatražiti broj valjanih opažanja, postupanje s nedostajućim vrijednostima i medijan uz svaku sredinu, a zatim provjeriti je li za nagnutu raspodjelu ponudio mjeru koja opisuje tipično opažanje. Dvije provjere hvataju većinu grešaka. Zbroj opažanja po skupinama mora dati ukupan broj, a granica raspona izvedena iz sredine i standardne devijacije ne smije pasti izvan mogućih vrijednosti mjere.</p>
-<blockquote class="blockquote">
-<p>Sažmi svaku skupinu brojem opažanja, prikladnom mjerom središta i prikladnom mjerom raspršenosti. Obrazloži izbor nakon pregleda oblika raspodjele i prikaži koliko vrijednosti nedostaje.</p>
-</blockquote>
-</div>
-<div class="callout-greska">
-<p>Prosječno dnevno korištenje u uzorku iznosi 50,1 minuta uz standardnu devijaciju od 39,2 minuta. Tipičan ispitanik dakle provodi oko 50 minuta dnevno na društvenim mrežama, a polovina uzorka nalazi se iznad te vrijednosti. Raspršenost je znatna, pa razlike među dobnim skupinama treba dodatno ispitati.</p>
-</div>
-</section>
-<section id="razrađeni-primjer" class="level2">
-<h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Zadatak je opisati koliko se vremena u anketi provodi na društvenim mrežama i razlikuju li se dobne skupine. Prvi je korak odluka o mjerama, a oblik raspodjele tu odluku već je donio. Zbirna raspodjela nagnuta je prema većim vrijednostima, pa uz sredinu treba stajati medijan, a uz standardnu devijaciju interkvartilni raspon.</p>
-<div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>s4_po_skupini <span class="ot">&lt;-</span> anketa_mreze <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">opazanja =</span> <span class="fu">n</span>(),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina =</span> <span class="fu">mean</span>(minute_dnevno),</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">medijan =</span> <span class="fu">median</span>(minute_dnevno),</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(minute_dnevno),</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">iqr =</span> <span class="fu">IQR</span>(minute_dnevno),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<p>Blok dijeli uzorak po dobnoj skupini i za svaku ponavlja isti niz mjera. Znak <code>|&gt;</code> vodi podatke iz jednog koraka u sljedeći, <code>group_by</code> određuje po čemu se uzorak dijeli, a <code>summarise</code> svakoj skupini vraća jedan red. Taj se obrazac vraća u svakom kasnijem poglavlju koje sažima podatke po skupinama.</p>
+<p>Uz graf su u tablici navedene vrijednosti za sva tri stanja i njihovi sažeci. Na njima se račun može provjeriti ručno.</p>
 <div class="table-keep-words">
 <div class="cell" data-layout-align="center">
-<div id="tbl-sazeci-po-skupini" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<div id="tbl-w04-preseti" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sazeci-po-skupini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;3: Dnevno vrijeme korištenja prema dobnoj skupini u simuliranoj anketi. Izrada autora.
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-w04-preseti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;8: Točne vrijednosti i sažeci triju prikazanih raspodjela. Izrada autora.
 </figcaption>
-<div aria-describedby="tbl-sazeci-po-skupini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-w04-preseti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 26%">
-<col style="width: 26%">
+<col style="width: 24%">
+<col style="width: 52%">
+<col style="width: 11%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Dobna skupina</th>
-<th style="text-align: right;">Opažanja</th>
+<th style="text-align: left;">Stanje</th>
+<th style="text-align: left;">Vrijednosti</th>
 <th style="text-align: right;">Sredina</th>
 <th style="text-align: right;">Medijan</th>
-<th style="text-align: right;">Standardna devijacija</th>
-<th style="text-align: right;">Interkvartilni raspon</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">18 do 24</td>
-<td style="text-align: right;">90</td>
-<td style="text-align: right;">81,5</td>
-<td style="text-align: right;">68,5</td>
-<td style="text-align: right;">44,6</td>
-<td style="text-align: right;">46,2</td>
+<td style="text-align: left;">Zbijena</td>
+<td style="text-align: left;">8, 9, 10, 10, 11, 11, 12, 12, 13, 14</td>
+<td style="text-align: right;">11,0</td>
+<td style="text-align: right;">11,0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">25 do 34</td>
-<td style="text-align: right;">84</td>
-<td style="text-align: right;">54,4</td>
-<td style="text-align: right;">46,0</td>
-<td style="text-align: right;">29,0</td>
-<td style="text-align: right;">41,8</td>
+<td style="text-align: left;">Krajnje opažanje</td>
+<td style="text-align: left;">8, 9, 10, 10, 11, 12, 12, 13, 14, 70</td>
+<td style="text-align: right;">16,9</td>
+<td style="text-align: right;">11,5</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">35 do 44</td>
-<td style="text-align: right;">66</td>
-<td style="text-align: right;">32,4</td>
-<td style="text-align: right;">26,0</td>
-<td style="text-align: right;">20,3</td>
-<td style="text-align: right;">26,2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">45 i više</td>
-<td style="text-align: right;">60</td>
-<td style="text-align: right;">16,2</td>
-<td style="text-align: right;">15,0</td>
-<td style="text-align: right;">9,5</td>
-<td style="text-align: right;">15,5</td>
+<td style="text-align: left;">Raširena</td>
+<td style="text-align: left;">2, 5, 8, 8, 11, 11, 14, 14, 17, 20</td>
+<td style="text-align: right;">11,0</td>
+<td style="text-align: right;">11,0</td>
 </tr>
 </tbody>
 </table>
@@ -1414,18 +1637,158 @@ Tablica&nbsp;3: Dnevno vrijeme korištenja prema dobnoj skupini u simuliranoj an
 </div>
 </div>
 </div>
-<p>Tablica pokazuje uređen pad kroz dobne skupine, od 68 minuta u najmlađoj do 15 minuta u najstarijoj po medijanu. Zbirna sredina od 50,1 minuta ne opisuje nijednu od tih skupina, jer leži između njih i istodobno je povučena repom najintenzivnijih korisnika. Sažetak cijelog uzorka ovdje opisuje mješavinu, a ne populaciju.</p>
-<p>Raspršenost pada zajedno sa središtem, i to je nalaz sam za sebe. Standardna devijacija u najmlađoj skupini iznosi 44,6 minuta, a u najstarijoj 9,5, pa se skupine ne razlikuju samo po tome koliko koriste mreže nego i po tome koliko su međusobno slične. Skupina s najvišim medijanom ujedno je najmanje homogena.</p>
-<p>Ono što tablica ne može pokazati jest odakle raspršenost dolazi. Interkvartilni raspon u najmlađoj skupini iznosi 46,2 minuta, dok standardna devijacija govori o širini koja uključuje i krajnje slučajeve. Razlika između tih dviju brojki mjeri koliko opis skupine ovisi o nekolicini najintenzivnijih korisnika, a odgovor na pitanje jesu li ti korisnici pogreška mjerenja, legitimna manjina ili sam predmet istraživanja ne daje nijedan sažetak.</p>
+<div class="callout-divljina page-columns page-full">
+<p><strong>Prosječan izvor i tipična domena.</strong> Urednik iz uvodnog primjera želi opisati koliko se katolička tematika pojavljuje u izvorima koje DigiKat prati. Za naslov razmatra rečenicu da prosječan izvor ima 153 objave. U toj zamišljenoj uredničkoj odluci koristimo stvarnu tablicu domena, ali ne opisujemo naslov koji je netko doista objavio.</p>
+<p>Sredina tablice iznosi 153,1 objave, dok je medijan 4 <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Razlika nije posljedica pogrešnog računa. Kada bi svaka domena nosila jednak dio svih objava, dobila bi vrijednost sredine. Kada domene poredamo prema broju objava i pogledamo sredinu toga niza, dobivamo medijan. Urednik treba odlučiti koju od tih dviju slika želi prenijeti čitatelju.</p>
+<div class="no-row-height column-margin column-container"></div><p>Raspored objava objašnjava zašto je odluka važna. Prvih deset domena ima 148 748 od ukupno 551.712 objava, odnosno 26,96 % <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Ako naslov treba približiti tipičnu domenu, sama sredina mogla bi stvoriti dojam da je mnogo objava uobičajeno za većinu izvora. Ako istraživanje zanima gdje se objave koncentriraju, samo medijan ne bi pokazao ulogu najvećih domena.</p>
+<p>Urednik zato može uz opis tipične domene prikazati koliko objava nose najveći izvori. Te se informacije dopunjuju. Pritom treba zadržati ograničenje da opisujemo 3.604 imenovane domene uključene prema pravilima DigiKatova korpusa, a ne sve hrvatske medije <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Broj objava također nije broj čitatelja. Iz ovih sažetaka ne zaključujemo koji izvor ima najveći utjecaj ili doseg.</p>
+<div class="no-row-height column-margin column-container"></div><p>Izbor mjere tako mijenja priču koju ista tablica podržava. Za pitanje o tipičnom izvoru tražimo njegov položaj u raspodjeli. Za pitanje o koncentraciji trebamo pogledati koliko ukupnog broja objava pripada malom dijelu izvora. Riječ prosjek ne može sama obaviti oba posla.</p>
+</div>
+<p>Prije računanja sažetaka trebamo provjeriti što jedan redak predstavlja nakon povezivanja tablica. Sljedeći zapis omogućuje takav pregled.</p>
+<div id="ex-04-callout-greska-01" class="callout-greska page-columns page-full">
+<p>Prije sažimanja objava po platformi pregledajte zapis spajanja DigiKatovih tablica <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Redak mjesečne tablice predstavlja platformu u mjesecu, a redak godišnje platformu u godini. U mjesečnoj je tablici jedinstvena kombinacija <code>mjesec + platforma</code>; u godišnjoj se ista godina pojavljuje uz više platformi.</p>
+<div class="no-row-height column-margin column-container"></div><p>Asistent je spojio mjesečnu i godišnju tablicu te priložio provjeru. Zbroj se odnosi na broj objava iz mjesečne tablice.</p>
+<table class="caption-top table">
+<caption>Provjera ulazne i spojene tablice. Izrada autora prema <span class="citation" data-cites="digikat2026"><span class="nocase">Šikić i sur.</span> (<a href="../references.html#ref-digikat2026" role="doc-biblioref">2026.</a>)</span>.</caption>
+<thead>
+<tr class="header">
+<th>Provjera</th>
+<th style="text-align: right;">Prije spajanja</th>
+<th style="text-align: right;">Nakon spajanja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Broj redaka</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">3 571</td>
+</tr>
+<tr class="even">
+<td>Različite kombinacije mjeseca i platforme</td>
+<td style="text-align: right;">438</td>
+<td style="text-align: right;">438</td>
+</tr>
+<tr class="odd">
+<td>Zbroj objava</td>
+<td style="text-align: right;">710.307</td>
+<td style="text-align: right;">5 959 081</td>
+</tr>
+</tbody>
+</table>
+<div class="no-row-height column-margin column-container"></div><blockquote class="blockquote">
+<p>Sve početne kombinacije mjeseca i platforme ostale su u rezultatu. Zbroj objava točno odgovara dobivenim redcima. Spoj je zato valjan i tablicu možemo sažeti po platformi.</p>
+</blockquote>
+<p>Odlučite može li tablica u sljedeći korak analize. Pokažite koji podatak podupire vašu odluku, navedite potpuni ključ spajanja i zapišite broj redaka te zbroj objava koje treba dobiti nakon popravka. Zadržite ono što je u asistentovoj provjeri doista točno.</p>
+</div>
+</section>
+<section id="razrađeni-primjer" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
+<p>Na simuliranim minutama vidjeli smo zašto uz sredinu trebamo i druge opise raspodjele. Sada se vraćamo urednikovu pitanju o tipičnom izvoru u DigiKatovu izvatku. Redak predstavlja domenu tijekom cijelog obuhvaćenog razdoblja, a ključ je <code>izvor</code>. Datoteka već sadržava samo internetske domene zapisane malim slovima, bez stranica, kanala i osobnih računa. Najprije provjeravamo jedinstvenost domena i ukupan broj objava, a zatim biramo sažetke za opis ovog korpusa. Ne procjenjujemo stanje u cijelom hrvatskom medijskom prostoru.</p>
+<p>Sljedeći programski račun služi dodatnoj provjeri. Objekt <code>s4_izvori</code> sadržava retke datoteke <code>data/digikat-izvori.csv</code>, a funkcije za sažimanje pripadaju paketu dplyr. Priprema podataka opisana je u mrežnom R praktikumu. Račun i bez pokretanja koda možemo pratiti prema brojčanim provjerama u tekstu.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Prikaži kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>s4_rezultat <span class="ot">&lt;-</span> s4_izvori <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">izvori =</span> <span class="fu">n</span>(),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">jedinstveni_izvori =</span> <span class="fu">n_distinct</span>(izvor),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina =</span> <span class="fu">mean</span>(objave),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">medijan =</span> <span class="fu">median</span>(objave),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">prvih_deset =</span> <span class="fu">sum</span>(<span class="fu">sort</span>(objave, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">objave =</span> <span class="fu">sum</span>(objave)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(s4_rezultat<span class="sc">$</span>izvori <span class="sc">==</span> s4_rezultat<span class="sc">$</span>jedinstveni_izvori,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>          s4_rezultat<span class="sc">$</span>objave <span class="sc">==</span> <span class="dv">551712</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Ako se domena ponovi ili zbroj odstupi od 551.712, zaustavljamo račun i provjeravamo razlog. Nakon uspješne provjere možemo sažeti 3.604 različite domene. Sredina i medijan opisuju različite aspekte raspodjele, a udio objava prvih deset domena računamo prema ukupnom broju objava u datoteci.</p>
+<div class="table-keep-words page-columns page-full">
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s4-digikat-sazetak" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s4-digikat-sazetak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;9: Provjereni sažetak objava po imenovanoj domeni. Izvor: DigiKat, datoteka izvora, CC BY 4.0 <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"><div id="ref-digikat2026" class="csl-entry" role="listitem">
+<span class="nocase">Šikić, Luka i sur.</span> 2026. <span>„Prikaz i analiza katoličke tematike u digitalnom medijskom prostoru“</span>. Hrvatsko katoličko sveučilište. <a href="https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8">https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8</a>.
+</div></div><div aria-describedby="tbl-s4-digikat-sazetak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Provjera</th>
+<th style="text-align: right;">Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Jedinstvene domene</td>
+<td style="text-align: right;">3 604</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Objave u datoteci</td>
+<td style="text-align: right;">551 712</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sredina objava po domeni</td>
+<td style="text-align: right;">153,1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Medijan objava po domeni</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Prvih deset domena</td>
+<td style="text-align: right;">148 748 / 551 712 = 26,96 %</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Sredina je više od 38 puta veća od medijana. To nije formalna mjera asimetrije, ali uz koncentraciju objava u prvih deset domena pokazuje zašto treba pregledati raspodjelu. Prosjek ne predstavlja tipičnu domenu. Doseg i interakcije izostavljamo jer njihove nule u ovoj datoteci ne možemo pouzdano protumačiti.</p>
+<p>Rezultat možemo opisati ovako. U DigiKatovu filtriranom korpusu od 3.604 imenovane domene medijan je četiri objave po domeni. Prvih deset domena ima 26,96 % od 551.712 objava. Opis vrijedi za domene uključene prema pravilima korpusa i ne prenosimo ga na ostale hrvatske medije, objave ili publiku.</p>
 </section>
 <section id="sažetak" class="level2 sazetak">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
-<p>Sažetak je odluka o tome koji dio raspodjele čuvamo u malom broju vrijednosti. Mjera središta bez raspršenosti ostavlja pola priče neispričanom, a obje zajedno još ne pokazuju oblik, pa nagnuta raspodjela svaku od njih čini podložnom pogrešnom čitanju. Standardizacija opisuje položaj i time uvodi pitanje prema kojoj se skupini položaj mjeri, dok transformacija ljestvice mijenja jedinicu tvrdnje. Razlika između uzorka i populacije ovdje je ušla u zapis i čeka poglavlje o uzorkovanju da je opravda. Sljedeće poglavlje podatke vraća u prostor i pokazuje kako graf postaje dio argumenta.</p>
+<p>Sažetak može odgovoriti na naše pitanje tek kada znamo što predstavlja svaki redak, jesu li zapisi ispravno spojeni, kako su označene nedostajuće vrijednosti i koji nazivnik koristimo. Pogrešan spoj može umnožiti zapise, a isključivanje redaka mijenja skup koji opisujemo, pa ni točan račun ne može nadomjestiti te provjere. Na provjerenoj tablici biramo mjere središta i raspršenosti prema obliku raspodjele. Standardizacijom opisujemo relativni položaj opažanja, a transformacijom mijenjamo ljestvicu. Uz odabrane mjere zato zadržavamo jedinicu i obuhvat, kao i ono što se jednim brojem ne može opisati. U poglavlju o vizualizaciji graf će nam pomoći vidjeti upravo te pojedinosti.</p>
 </section>
 <section id="pojmovi" class="level2 pojmovi">
 <h2 class="pojmovi anchored" data-anchor-id="pojmovi">Pojmovi</h2>
 <div class="terminology-list">
 <dl>
+<dt><span class="terminology-list__hr" lang="hr">analitička tablica</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">analysis table</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">spajanje</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">join</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">nedostajuća vrijednost</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">missing value</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">osjetljivost na odluku o podacima</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">data-decision sensitivity</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">nazivnik</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">denominator</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">dnevnik transformacija</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">transformation log</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">poštena rečenica izvještaja</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">honest reporting sentence</span>
+</dd>
 <dt><span class="terminology-list__hr" lang="hr">aritmetička sredina</span></dt>
 <dd>
 <span class="terminology-list__en" lang="en">mean</span>
@@ -1469,26 +1832,101 @@ Tablica&nbsp;3: Dnevno vrijeme korištenja prema dobnoj skupini u simuliranoj an
 </dl>
 </div>
 </section>
-<section id="zadaci" class="level2 page-columns page-full">
+<section id="zadaci" class="level2">
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
-<section id="konceptualni" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="konceptualni">Konceptualni</h3>
-<p>Predvidite kako će se sredina, medijan, standardna devijacija i interkvartilni raspon promijeniti kada jedno najveće opažanje dodatno poraste. Predajte obrazloženje bez računanja, s izričitim razlikovanjem mjera koje reagiraju na veličinu odstupanja od onih koje reagiraju samo na njegovo postojanje.</p>
+<p>Nakon vlastitog pokušaja otvorite <a href="../rjesenja.html#sol-04-konceptualni-01">naznake i provjere rješenja</a>.</p>
+<section id="ex-04-konceptualni-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-04-konceptualni-01">Konceptualni</h3>
+<p>Mjesečna datoteka ima ključ <code>mjesec + platforma</code>, a godišnja <code>godina + platforma</code>. Objasnite zašto spoj samo po godini može zadržati sva popunjena polja, a ipak promijeniti jedinicu retka. Uz pomoć kontrolne tablice objasnite što provjeravaju broj redaka, broj jedinstvenih mjesečnih ključeva i zbroj objava. Zatim navedite koju od te tri provjere nijedna druga ne može zamijeniti.</p>
 </section>
-<section id="računski" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="računski">Računski</h3>
-<p>Upotrijebite interakciju poglavlja. Pri početnim postavkama pročitajte s prikaza svih deset vrijednosti, ručno izračunajte sredinu i medijan i usporedite ih s brojkama koje prikaz ispisuje. Zatim krajnje opažanje spustite na najmanju dopuštenu vrijednost i oba izračuna ponovite. Predajte četiri broja i dvije rečenice o tome koja se mjera promijenila više i zašto joj je promjena veća.</p>
-<p>S prikaza oblika raspodjele potom pročitajte položaj sredine i medijana u izvornim jedinicama i na logaritamskoj ljestvici te u jednoj rečenici objasnite zašto se razlika među njima mijenja. Postupak za isti izračun nad cijelim skupom podataka nalazi se u praktikumu.</p>
+<section id="ex-04-racunski-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-04-racunski-01">Računski</h3>
+<p>Iz <a href="#tbl-w04-preseti">tablice zadanih vrijednosti</a> uzmite stanja <em>Zbijena</em> i <em>Krajnje opažanje</em>. Iz svih deset vrijednosti ručno izračunajte sredine i medijane te ih usporedite s posljednjim dvama stupcima. U dvije rečenice objasnite zašto se sredina promijenila više od medijana. Za stanje <em>Zbijena</em> izračunajte i uzoračku standardnu devijaciju, koristeći djelitelj devet. U tablici raspršenosti usporedite promjene SD-a i IQR-a nakon zamjene krajnjeg opažanja. Koja se mjera više promijenila i zašto? Ako je standardizirana vrijednost neke osobe <span class="math inline">\(z=1,5\)</span>, opišite njezin položaj prema sredini bez pretvaranja te vrijednosti u postotak osoba.</p>
+<p>Za drugu provjeru koristimo agregate simulirane ankete, bez dodatnog zaokruživanja. U svakom su retku uz prosjek navedeni brojnik, nazivnik i cjelobrojni zbroj.</p>
+<div class="table-keep-words">
+<div class="cell" data-layout-align="center">
+<div id="tbl-s4-agregat-zadatak" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s4-agregat-zadatak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;10: Kontrolni agregat simulirane ankete za ručnu i tiskanu provjeru. Izvor: data/anketa-mreze-agregat.csv, CC BY 4.0.
+</figcaption>
+<div aria-describedby="tbl-s4-agregat-zadatak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 21%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Šifra</th>
+<th style="text-align: left;">Dobna skupina</th>
+<th style="text-align: right;">Broj</th>
+<th style="text-align: right;">Ukupno</th>
+<th style="text-align: right;">Zbroj minuta</th>
+<th style="text-align: right;">Prosjek minuta</th>
+<th style="text-align: right;">Udio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">18 do 24</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">7 339</td>
+<td style="text-align: right;">81,5444</td>
+<td style="text-align: right;">30 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">25 do 34</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">4 567</td>
+<td style="text-align: right;">54,3690</td>
+<td style="text-align: right;">28 %</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">35 do 44</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">2 139</td>
+<td style="text-align: right;">32,4091</td>
+<td style="text-align: right;">22 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">45 i više</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">974</td>
+<td style="text-align: right;">16,2333</td>
+<td style="text-align: right;">20 %</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Za šifru 1 provjerite <code>7339 / 90</code> i <code>90 / 300</code>. Zatim zbrojite četiri brojnika i četiri zbroja minuta. Ako koristite datoteku <code>data/anketa-mreze.csv</code>, izdvojite šifru 1 i iz tih redaka ponovno izračunajte prvi redak zbirne tablice. Nije potrebno pisati kod. Tablica sadržava i sve vrijednosti potrebne za ručnu provjeru.</p>
 </section>
-<section id="kritički" class="level3 zadaci-razina page-columns page-full">
-<h3 class="zadaci-razina anchored" data-anchor-id="kritički">Kritički</h3>
-<p>Objasnite zašto istraživačka analiza ne završava jednom mjerom središta <span class="citation" data-cites="tukey1977">(<a href="../references.html#ref-tukey1977" role="doc-biblioref">Tukey 1977.</a>)</span>. Predajte popis triju dodatnih provjera u punim rečenicama, uz navod što bi svaka od njih otkrila na podacima iz ovog poglavlja.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-tukey1977" class="csl-entry" role="listitem">
-Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Addison-Wesley.
-</div></div></section>
-<section id="revizija-modela" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="revizija-modela">Revizija modela</h3>
-<p>Ocijenite modelsku analizu iz okvira. Imenujte jedan opravdan izbor, jednu neopravdanu tvrdnju i izračun kojim biste je provjerili u tri koraka.</p>
+<section id="ex-04-kriticki-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-04-kriticki-01">Kritički</h3>
+<p>Urednik objavljuje naslov „Prosječan izvor ima 153 objave”. Na temelju DigiKatova razrađenog primjera napišite tri rečenice. Prva objašnjava što medijan mijenja u čitanju naslova, druga imenuje 551.712 kao nazivnik udjela prvih deset domena, a treća je poštena rečenica s jedinicom, obuhvatom i granicom generalizacije. Ne dodajte tvrdnju o hrvatskim medijima, dosegu ili interakcijama.</p>
+</section>
+<section id="ex-04-revizija-modela-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-04-revizija-modela-01">Revizija modela</h3>
+<p>Provjerite modelsku analizu iz okvira. Najprije potvrdite zbroj u tablici koju je model proizveo. Zatim usporedite 3.571 redak s 438 jedinstvenih ključeva i navedite koji dio ključa nedostaje. Napišite ukupan broj objava koji bi dao ispravan spoj. Završite objašnjenjem zašto točan zbroj ne potvrđuje ispravno spajanje.</p>
 
 
 
@@ -1592,23 +2030,21 @@ Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Addison-Wesley.
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -1618,9 +2054,275 @@ Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Addison-Wesley.
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1906,7 +2608,9 @@ Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Addison-Wesley.
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1962,25 +2666,25 @@ Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Addison-Wesley.
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -2396,31 +3100,33 @@ Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Addison-Wesley.
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -4048,6 +4754,16 @@ window._ojs.runtime.interpretFromScriptTags();
     <li class="nav-item">
     <a class="nav-link" href="../resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

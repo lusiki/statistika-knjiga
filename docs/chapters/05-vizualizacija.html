@@ -100,9 +100,9 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -654,7 +654,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="../chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -724,6 +724,11 @@ window.Quarto = {
   <a href="../dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -749,10 +754,10 @@ window.Quarto = {
   <li><a href="#pojmovi" id="toc-pojmovi" class="nav-link" data-scroll-target="#pojmovi">Pojmovi</a></li>
   <li><a href="#zadaci" id="toc-zadaci" class="nav-link" data-scroll-target="#zadaci">Zadaci</a>
   <ul class="collapse">
-  <li><a href="#konceptualni" id="toc-konceptualni" class="nav-link" data-scroll-target="#konceptualni">Konceptualni</a></li>
-  <li><a href="#računski" id="toc-računski" class="nav-link" data-scroll-target="#računski">Računski</a></li>
-  <li><a href="#kritički" id="toc-kritički" class="nav-link" data-scroll-target="#kritički">Kritički</a></li>
-  <li><a href="#revizija-modela" id="toc-revizija-modela" class="nav-link" data-scroll-target="#revizija-modela">Revizija modela</a></li>
+  <li><a href="#ex-05-konceptualni-01" id="toc-ex-05-konceptualni-01" class="nav-link" data-scroll-target="#ex-05-konceptualni-01">Konceptualni</a></li>
+  <li><a href="#ex-05-racunski-01" id="toc-ex-05-racunski-01" class="nav-link" data-scroll-target="#ex-05-racunski-01">Računski</a></li>
+  <li><a href="#ex-05-kriticki-01" id="toc-ex-05-kriticki-01" class="nav-link" data-scroll-target="#ex-05-kriticki-01">Kritički</a></li>
+  <li><a href="#ex-05-revizija-modela-01" id="toc-ex-05-revizija-modela-01" class="nav-link" data-scroll-target="#ex-05-revizija-modela-01">Revizija modela</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -804,10 +809,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -869,12 +878,12 @@ window.Quarto = {
   FAZA:    3 (plan proizvodnje, notes/struktura-knjige.md)
   NAPOMENA: Mehanika paketa ggplot2 pripada Dodatku A, ne ovom poglavlju.
   Iznimka je jedina dopuštena anatomija poziva u razrađenom primjeru (STYLE.md
-  H10). Ona uči citanje poziva jednom, kako bi kasnija poglavlja kod mogla
-  pokazati bez podučavanja. Ljestvica izlaganja koda je u
+  H10). Ona jednom uvodi čitanje poziva kako bi kasnija poglavlja mogla
+  prikazivati kod bez podučavanja. Ljestvica izlaganja koda je u
   notes/struktura-knjige.md.
 
   SADRŽAJ (iz plana):
-  Anscombeov kvartet, gramatika grafike kao ideja a ne kao sučelje, izbor grafa prema tvrdnji, mali višekratnici, poštene skale, pristupačnost.
+  Anscombeov kvartet, gramatika grafike kao ideja a ne kao sučelje, izbor grafa prema tvrdnji, mala višestruka polja, poštene skale, pristupačnost prikaza.
 
   PODRIJETLO (runda 3, notes/plan-prijenosa.md):
   1. Preneseni su konceptualni dijelovi tjedna 6, i to odjeljci 1, 3, 8, 9, 10,
@@ -889,83 +898,70 @@ window.Quarto = {
      ovisnost gradnje koju .github/workflows/publish.yml ne instalira. Sve
      usporedbe u ovom poglavlju izvedene su poljima (facet), pa im dijeljena
      ljestvica dolazi ugrađena.
-  3. Nastavni skup tjedna 6 (1000 simuliranih članaka) knjiga nema. Svi su
+  4. Nastavni skup tjedna 6 (1000 simuliranih članaka) knjiga nema. Svi su
      primjeri preračunati na `anketa_mreze` i na ugrađeni `anscombe`.
-  4. Dva duga iz plana su podmirena. Cleveland i McGill dobili su unos
+  5. Dva duga iz plana su podmirena. Cleveland i McGill dobili su unos
      cleveland1984, Wilkinson unos wilkinson2005, oba provjerena preko
      Crossrefa.
-  5. Okvir divljine više ne nosi Anscombea, jer ga nose vinjeta i razrađeni
+  6. Okvir divljine više ne nosi Anscombea, jer ga nose vinjeta i razrađeni
      primjer. Sada rastavlja pop-verziju nalaza o grafičkoj percepciji.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
 ===================================================================== -->
-<div class="chapter-meta">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Vrijeme čitanja</th>
-<th>Widget</th>
-<th>Podaci</th>
-<th>Preduvjet</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>22 min</td>
-<td>Isti podaci, četiri grafa</td>
-<td>Anscombeov kvartet, simulirana anketa</td>
-<td>pogl. 4</td>
-</tr>
-</tbody>
-</table>
-</div>
 <div class="callout-vinjeta page-columns page-full">
-<p>Anscombe je sastavio četiri skupa podataka s gotovo jednakim uobičajenim brojčanim sažecima, uključujući isti linearni odnos, ali s posve različitim grafičkim oblicima <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>. Jedan je pokazivao približno linearan obrazac, drugi zakrivljenost, treći utjecajnu točku, a četvrti gotovo okomiti oblak s jednim izdvojenim opažanjem.</p>
-<div class="no-row-height column-margin column-container"></div><p>Tablica sažetaka nije sadržavala računsku pogrešku. Upravo je zato primjer bio uvjerljiv. Četiri različite priče stale su u iste brojke jer sažeci nisu mogli sačuvati položaj svakog opažanja.</p>
-<p>Kada graf razjašnjava podatke, a kada ih pretvara u argument koji prikriva vlastite odluke?</p>
+<p>Anscombe je sastavio četiri skupa s gotovo jednakim uobičajenim brojčanim sažecima i jednakim prilagođenim pravcem, ali vrlo različitim grafovima <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>. U jednom se vidjela približno linearna veza, u drugom zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz jedno izdvojeno opažanje.</p>
+<div class="no-row-height column-margin column-container"></div><p>Svi su sažeci bili ispravno izračunati. Ipak, nisu sačuvali raspored pojedinačnih opažanja, pa su četiri različita oblika opisali gotovo istim brojevima.</p>
+<p>Što graf otkriva o podacima, a što izborom prikaza možemo sakriti?</p>
 </div>
+<p>U poglavlju o sažimanju birali smo mjeru prema obliku raspodjele i pitanju koje nas zanima. Pred grafom nas čeka slična odluka. Prikaz prosjeka može olakšati usporedbu skupina, ali sakriti razlike među osobama; prikaz svih opažanja čuva te razlike, no može otežati čitanje. Želimo naučiti odabrati prikaz iz kojega se tražena usporedba doista može vidjeti.</p>
+<p>Anscombeovim ćemo se skupovima iz vinjete vraćati kao provjeri onoga što brojčani sažetak izostavlja <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>. To su namjerno konstruirani parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav par, bez stvarne osobe ili društvene pojave iza njega. Zato ih koristimo za ispitivanje prikaza, a ne za sadržajni zaključak o nekoj populaciji. Usporedbom tablica i grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove sažetke.</p>
+<div class="no-row-height column-margin column-container"></div><p>Poznatu simuliranu anketu <code>anketa_mreze</code> iskoristit ćemo za prikaz dnevnih minuta na društvenim mrežama po dobnim skupinama <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Uz nju ćemo čitati i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o njihovu obuhvatu <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Primjeri se mijenjaju jer nas zanima ista odluka u različitim situacijama. Prije čitanja oznake trebamo znati predstavlja li ona osobu, skupinski sažetak ili zbroj objava.</p>
+<p>Izbor prikaza obrazlažemo tako da čitatelj može provjeriti graf i bez programa kojim je nacrtan. Ljestvica, oznake i opis trebaju pokazati obrazac koji podaci podupiru te upozoriti na ono što je sažeto ili izostavljeno.</p>
 <section id="gramatika-grafike" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="gramatika-grafike">Gramatika grafike</h2>
-<p>Graf nije slika dodana nakon analize. On bira što će se uspoređivati položajem, duljinom, površinom ili bojom, pa je izbor prikaza ujedno izbor načina na koji će čitatelj vidjeti razliku. Dobra vizualizacija zato počinje tvrdnjom. Raspodjela jedne brojčane varijable traži prikaz koji čuva oblik, usporedba kategorija zajedničku početnu točku, a odnos dviju brojčanih varijabli sačuvana pojedinačna opažanja. Graf koji ne odgovara pitanju može biti uredan i potpuno neinformativan.</p>
-<p>Uobičajeni popis vrsta grafova, u kojem stupčani dijagram stoji uz kružni i raspršeni, pritom skriva jednu važnu činjenicu. Vrsta grafa nije osnovna jedinica. Svaki je prikaz skup odvojenih odluka koje se u praksi tako često pojavljuju zajedno da je njihova kombinacija dobila ime.</p>
+<p>Grafom odlučujemo što ćemo uspoređivati položajem, duljinom, površinom ili bojom. Izbor zato počinje pitanjem. Za raspodjelu jedne brojčane varijable trebamo vidjeti oblik, za usporedbu kategorija zajedničku osnovicu, a za odnos dviju brojčanih varijabli pojedinačna opažanja. Uredan graf neće pomoći ako skriva ono što trebamo usporediti.</p>
+<p>Nazivi poput stupčanog ili raspršenog dijagrama označuju uobičajene kombinacije odluka. Svaki graf možemo rastaviti na te odluke i zasebno ih provjeriti.</p>
 <div id="def-gramatika-grafike" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Gramatika grafike</strong> je opis prikaza kao skupa zasebnih odluka o tome što jedna oznaka predstavlja, koja je varijabla pridružena kojem vizualnom kanalu, što je izračunato prije crtanja i kako se vrijednost pretvara u vizualnu veličinu.</p>
+<p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Gramatika grafike</strong> opisuje od čega je graf sastavljen. Određuje što predstavlja oznaka, koja joj je varijabla pridružena, koji je račun prethodio crtanju i kako se vrijednosti prenose u vizualne veličine.</p>
 </div>
-<p>Razlaganje na odluke svaku od njih izlaže zasebnoj provjeri. Ideju je kao sustav postavio Wilkinson <span class="citation" data-cites="wilkinson2005">(<a href="../references.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson 2005.</a>)</span>, a paket ggplot2 postao je njezina najraširenija izvedba <span class="citation" data-cites="wickham2016">(<a href="../references.html#ref-wickham2016" role="doc-biblioref">Wickham 2016.</a>)</span>. Sama gramatika ne pripada nijednom programu i primjenjuje se pred tiskanom grafikom, bez pisanja koda.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-wilkinson2005" class="csl-entry" role="listitem">
-Wilkinson, Leland. 2005. <em>The Grammar of Graphics</em>. 2. izd. Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.1007/0-387-28695-0</a>.
-</div><div id="ref-wickham2016" class="csl-entry" role="listitem">
-Wickham, Hadley. 2016. <em>ggplot2: Elegant Graphics for Data Analysis</em>. 2. izd. Springer.
-</div></div><p>Najprije treba znati što predstavlja jedna oznaka na grafu. Točka može stajati za ispitanika, državu, godinu ili stranku, a prikazi tu jedinicu mijenjaju bez najave. Kada agregat zamijeni pojedinca, mijenja se i pitanje na koje graf odgovara, što je ista opasnost koju opisuje poglavlje o mjerenju i dizajnu.</p>
-<p>Sljedeći korak pridružuje varijable vizualnim kanalima, položaju na dvjema osima, boji, veličini i obliku.</p>
+<p>Wilkinson je tu ideju razradio u sustav <span class="citation" data-cites="wilkinson2005">(<a href="../references.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson 2005.</a>)</span>, a ggplot2 jedna je od njegovih poznatih programskih izvedbi <span class="citation" data-cites="wickham2016">(<a href="../references.html#ref-wickham2016" role="doc-biblioref">Wickham 2016.</a>)</span>. Istim se načinom razmišljanja možemo služiti pri čitanju tiskanog grafa, bez programiranja.</p>
+<div class="no-row-height column-margin column-container"></div><p>Najprije provjeravamo jedinicu. Točka može predstavljati ispitanika, državu, godinu ili stranku. Ako umjesto pojedinaca prikažemo skupinske prosjeke, graf odgovara na drugo pitanje. Zato promjenu jedinice treba jasno navesti.</p>
+<p><strong>Geometrija</strong> određuje oblik oznake, primjerice točku, stupac ili liniju. Varijable zatim povezujemo s položajem na osima, bojom, veličinom ili oblikom oznake.</p>
 <div id="def-pridruzivanje" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Pridruživanje</strong> (<em>aesthetic mapping</em>) je odluka koja varijabla ulazi u koji vizualni kanal, čime se određuje koja usporedba čitatelju postaje neposredno dostupna.</p>
+<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Pridruživanje</strong> (<em>aesthetic mapping</em>) je odluka o tome koja se varijabla prikazuje kojim vizualnim obilježjem. Time određujemo što će čitatelj moći neposredno usporediti.</p>
 </div>
-<p>Pridruživanje je tvrdnja o tome što zaslužuje usporedbu. Kada skupinu nosi boja, graf poziva na neposrednu usporedbu skupina. Kada je skupina razdvojena u zasebna polja, graf traži da se obrazac čita unutar svake od njih. Podaci ostaju isti, argument se mijenja, a obmane nije bilo.</p>
-<p>Najtiša odluka dolazi prije crtanja. Graf redovito nešto izračuna prije nego što postavi prvu oznaku. Stupac visine prosjeka odbacio je raspodjelu, okvir s brkovima izgubio je informaciju o broju vrhova, a izglađena linija dodala je model koji nitko nije zatražio. Poglavlje o sažimanju pokazalo je koji sažetak što gubi, a gramatika tome dodaje da je i sam graf redovito sažetak, samo neoznačen. Anscombeov kvartet poseban je slučaj upravo tog pravila <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Ljestvica je pravilo kojim vrijednost postaje vizualna veličina. Raspon osi, njezin prekid, logaritamska transformacija i položaj sredine u ljestvici boja mijenjaju koliko promjena zauzima prostora, a podatke pritom ne mijenjaju. Koordinatni sustav zatvara popis i najčešće služi kao opomena, jer polarne koordinate duljinu pretvaraju u kut i time istu usporedbu čine težom.</p>
-<p>Iz tih odluka slijedi postupak za čitanje tuđega grafa. Što predstavlja jedna oznaka, što je pridruženo kojem kanalu, što je izračunato prije crtanja i što dopušta ljestvica jesu pitanja koja se pred novinskom grafikom postavljaju bez ikakva programa. Knjiga taj postupak dalje koristi pri svakom rastavljanju objavljene tvrdnje.</p>
+<p>Ako skupine razlikujemo bojom u istom polju, lako ih uspoređujemo na zajedničkim osima. Ako ih rasporedimo u zasebna polja, lakše pratimo obrazac svake skupine. Podaci se ne mijenjaju, ali naglašavamo različite usporedbe.</p>
+<p>Treba provjeriti i što je izračunato prije crtanja. Stupac koji prikazuje prosjek skriva raspodjelu. Okvir s brkovima ne pokazuje broj njezinih vrhova, a izglađena linija dodaje procijenjeni model. Graf zato može biti sažetak koji gubi dio podataka, baš kao brojčana mjera. Anscombeovi skupovi pokazuju zašto treba pogledati što je sažimanjem izostavljeno <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p><strong>Ljestvica</strong> određuje kako se broj pretvara u vizualnu veličinu. Raspon osi, prekid, logaritamska transformacija ili sredina ljestvice boja mijenjaju prostor koji razlika zauzima. <strong>Koordinatni sustav</strong> određuje kako su položaji raspoređeni. Polarne koordinate, primjerice, uvode kut i mogu otežati usporedbu koju bismo na ravnoj osi lakše očitali.</p>
+<p>Pri čitanju grafa zato tražimo jedinicu oznake, pridružene varijable, prethodni račun i pravilo ljestvice. Ta pitanja možemo postaviti svakom grafu, bez pristupa programu u kojem je izrađen.</p>
+<p>Na sljedećem prikazu jedan stupac predstavlja dobnu skupinu iz simulirane ankete <code>anketa_mreze</code> <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Vodoravni položaj označuje skupinu, a okomiti položaj vrha prosječne dnevne minute, izračunate prije crtanja. Stupac zato sažima više osoba i ne pokazuje raspodjelu njihovih odgovora. Lijevo os počinje od nule, a desno je skraćena. Uspoređujemo iste prosjeke, ali promjena ljestvice mijenja dojam njihovih razlika.</p>
+<div class="no-row-height column-margin column-container"></div><div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-skraceni-raspon" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Dva stupčasta prikaza istih četiriju prosjeka, lijevo s osi od nule i umjerenim razlikama, desno sa skraćenom osi na kojoj razlike izgledaju dramatično.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-skraceni-raspon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="05-vizualizacija_files/figure-html/fig-skraceni-raspon-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Isti prosjeci na dvjema osima. Lijevi prikaz počinje od nule, desni od 15 minuta, ispod najmanjeg prosjeka. Dvije kose crte označuju prekid desne osi. Vrijednosti su jednake u oba prikaza. Izrada autora."><img src="05-vizualizacija_files/figure-html/fig-skraceni-raspon-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Dva stupčasta prikaza istih četiriju prosjeka, lijevo s osi od nule i umjerenim razlikama, desno sa skraćenom osi na kojoj razlike izgledaju dramatično."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-skraceni-raspon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;1: Isti prosjeci na dvjema osima. Lijevi prikaz počinje od nule, desni od 15 minuta, ispod najmanjeg prosjeka. Dvije kose crte označuju prekid desne osi. Vrijednosti su jednake u oba prikaza. Izrada autora.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="što-oko-može-očitati" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="što-oko-može-očitati">Što oko može očitati</h2>
-<p>Gramatika kaže da oznaka nosi usporedbu, ali ne kaže koliko dobro. To pitanje nije stvar ukusa i ima izmjeren odgovor. Cleveland i McGill zadavali su sudionicima parove vrijednosti prikazane različitim kanalima i mjerili koliko im omjer promaši <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Iz tih pokusa slijedi poredak elementarnih zadataka po pogrešci koju proizvode, u kojem je očitavanje položaja na zajedničkoj osi najtočnije, zatim slijede položaj na odvojenim osima s usklađenom ljestvicom, duljina, nagib, površina, te na kraju obujam, zakrivljenost i zasićenost boje <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Poredak nije popis zabrana nego pravilo raspodjele. Kanal na vrhu poretka dodjeljuje se veličini koja nosi zaključak, a kanali s dna sekundarnim razlikama, gdje je gruba procjena dovoljna. Kružni dijagram udio kodira kutom, a kut leži nisko u poretku, pa isti podaci u stupcima na zajedničkoj osi proizvode točnije očitanje <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Kada nekoliko udjela treba samo prepoznati, a ne rangirati, ta razlika prestaje biti važna.</p>
-<p>Iz istog poretka slijedi i zašto trodimenzionalni prikaz ravnih podataka pogoršava očitanje. Perspektiva duljinu pretvara u obujam, a obujam se u pokusima nalazi među najlošije očitanim kanalima <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Ukras se dodaje kanalu koji nosi zaključak, i to je ista obitelj postupaka kojoj pripada skraćena os iz poglavlja o zavaravanju brojkama.</p>
-<div class="no-row-height column-margin column-container"></div><p>Tufte je isti problem postavio kao pitanje raspodjele tinte na stranici, gdje se svaki element grafa mjeri time nosi li podatak ili ne nosi <span class="citation" data-cites="tufte2001">(<a href="../references.html#ref-tufte2001" role="doc-biblioref">Tufte 2001.</a>)</span>. Sjena ispod stupca, rešetka u pozadini, obrub oko svake oznake i preljev boje troše prostor i pažnju, a ne dodaju nijednu vrijednost, pa ih Tufte skupno naziva grafičkim otpadom. Njegovo je pravilo da se takav element ukloni i da se provjeri je li se išta izgubilo, jer ako nije, nije ni trebao biti ondje.</p>
-<p>Postoji i oštriji oblik istog mjerenja. Tufte uspoređuje veličinu učinka koji graf pokazuje s veličinom učinka koji u podacima postoji, a omjer tih dviju veličina naziva faktorom laži <span class="citation" data-cites="tufte2001">(<a href="../references.html#ref-tufte2001" role="doc-biblioref">Tufte 2001.</a>)</span>. Pošten graf ima taj omjer blizu jedinice. Kada ga skraćena os, površina umjesto duljine ili perspektiva podignu, graf tvrdi više nego što podaci nose, i to bez ijedne netočne brojke. Vrijednost te mjere nije u tome što se često računa nego u tome što obmanu premješta iz područja ukusa u područje provjere.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-tufte2001" class="csl-entry" role="listitem">
-Tufte, Edward R. 2001. <em>The Visual Display of Quantitative Information</em>. 2. izd. Graphics Press.
-</div></div></section>
+<p>Grafička percepcija jest način na koji iz položaja, duljina i drugih oznaka očitavamo podatke. Neke vizualne usporedbe čitamo točnije od drugih. Cleveland i McGill pokusima su potvrdili prednost položaja pred duljinom i kutom <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Povezali su te rezultate s ranijim istraživanjima i predložili širi poredak kanala. Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na istovjetnim, ali neporavnatim osima, pa duljina, kut, nagib i površina. Obujam, zakrivljenost i zasićenost boje nalaze se pri dnu <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Cijeli taj poredak nije provjeren jednim pokusom, nego je prijedlog oslonjen na više izvora.</p>
+<div class="no-row-height column-margin column-container"></div><p>Za usporedbu koja određuje zaključak zato biramo kanal koji se lakše očitava. Boja ili površina mogu poslužiti za razlike kod kojih je dovoljna gruba procjena. Udjele ćemo točnije usporediti stupcima na zajedničkoj osi nego kutovima kružnog dijagrama <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Ako trebamo samo prepoznati nekoliko izrazito različitih udjela, ta prednost može biti manje važna.</p>
+<p>Trodimenzionalna perspektiva može otežati usporedbu ravnih podataka jer duljinu kombinira s površinom i prividnim obujmom, slabijim kanalima u predloženom poretku <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Zato prije dodavanja treće dimenzije provjeravamo donosi li novu informaciju ili samo mijenja dojam.</p>
+<div class="no-row-height column-margin column-container"></div><p>Tufte predlaže da za svaki grafički element pitamo koju informaciju prenosi <span class="citation" data-cites="tufte2001">(<a href="../references.html#ref-tufte2001" role="doc-biblioref">Tufte 2001.</a>)</span>. Sjene, obrubi i preljevi mogu odvlačiti pozornost bez korisnog dodatka. Rešetka, razdjelna crta ili oznaka, s druge strane, mogu olakšati čitanje. Uklanjanjem elementa možemo provjeriti otežava li njegov izostanak usporedbu ili snalaženje na grafu.</p>
+<p>Tufteov faktor laži uspoređuje relativnu promjenu prikazanu geometrijom s relativnom promjenom u podacima <span class="citation" data-cites="tufte2001">(<a href="../references.html#ref-tufte2001" role="doc-biblioref">Tufte 2001.</a>)</span>. Kada duljina ili površina izravno predstavlja količinu, omjer blizu jedan pokazuje razmjerno kodiranje. Ne potvrđuje da je cijeli graf pošten. Skraćena os, perspektiva ili zamjena duljine površinom mogu povećati dojam i uz točne brojčane oznake. Ta mjera služi određenim geometrijskim usporedbama, a ne općem ocjenjivanju svih grafova.</p>
+<div class="no-row-height column-margin column-container"></div></section>
 <section id="prikaz-prema-tvrdnji" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="prikaz-prema-tvrdnji">Prikaz prema tvrdnji</h2>
-<p>Pitanje kojim graf počinje nije koji je prikaz lijep nego koju tvrdnju treba provjeriti. Broj i vrsta varijabli tu odluku gotovo određuju, pa je vrijedi imati pri ruci.</p>
+<p>Prednost zajedničke osi pomaže nam izabrati način usporedbe, ali još trebamo odlučiti koje podatke graf mora sačuvati. Za oblik raspodjele trebamo drukčiji prikaz nego za usporedbu skupinskih prosjeka. Sljedeća tablica povezuje ta pitanja s brojem i vrstom varijabli te pokazuje što pojedini izbor izostavlja.</p>
 <div id="tbl-izbor-prikaza" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-izbor-prikaza-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -994,12 +990,12 @@ Tablica&nbsp;1: Prikaz prema vrsti podataka i prema onome što svaki izbor žrtv
 <tr class="even">
 <td>jedna kategorijalna varijabla</td>
 <td>stupci na zajedničkoj osi</td>
-<td>čuva učestalost, ne kaže ništa o raspršenosti unutar kategorije</td>
+<td>čuva učestalosti kategorija, izostavlja pojedinačne zapise i njihova druga obilježja</td>
 </tr>
 <tr class="odd">
 <td>brojčana po skupinama</td>
-<td>okvir s brkovima, violina</td>
-<td>čuva položaj i raspon, odbacuje broj vrhova i pojedinačna opažanja</td>
+<td>okvir s brkovima</td>
+<td>čuva medijan, kvartile i izdvojena opažanja, odbacuje broj vrhova i položaj većine opažanja</td>
 </tr>
 <tr class="even">
 <td>dvije brojčane varijable</td>
@@ -1016,118 +1012,271 @@ Tablica&nbsp;1: Prikaz prema vrsti podataka i prema onome što svaki izbor žrtv
 </div>
 </figure>
 </div>
-<p>Desni stupac tablice nosi cijeli argument. Svaki prikaz nešto sačuva i nešto odbaci, pa se izbor donosi prema tome što tvrdnja treba, a ne prema tome što izgleda uredno. Okvir s brkovima izračunava medijan i kvartile prije crtanja, pa raspodjela s dva vrha i raspodjela s jednim mogu proizvesti isti okvir. Histogram ne računa ništa osim razreda, pa taj oblik čuva, ali skupine uspoređuje teže.</p>
-<p>Posljednji redak tablice krije odluku koja se rijetko izriče. Kada se dvije kategorijalne varijable prikazuju stupcima, stupci se mogu poredati jedan uz drugi ili složiti jedan na drugi, a treća mogućnost svaki stupac rastegne na punu visinu i time prikaže udjele. Prvi izbor čuva apsolutne brojeve i omogućuje usporedbu veličine skupina. Treći ih odbacuje i pokazuje samo sastav, zbog čega skupina od dvadeset ispitanika izgleda jednako pouzdano kao skupina od dvjesto. Nijedan izbor nije pogrešan, ali izvještaj koji tvrdi da je neka skupina brojnija, a prikazuje udjele, tvrdi nešto što njegov graf ne pokazuje.</p>
-<p>Složeni stupac uz to skriva zamku koju je lako previdjeti. Samo najdonji segment u nizu počinje od zajedničke crte, dok svi ostali počinju ondje gdje je prethodni završio. Duljina im ostaje točna, ali položaj im je pomaknut za vrijednost koja se mijenja od stupca do stupca, pa se usporedba srednjih segmenata svodi na očitavanje duljine bez zajedničke početne točke, što je prema poretku iz prethodnog odjeljka osjetno teži zadatak <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Kada usporedba jednog segmenta nosi zaključak, on dobiva vlastiti prikaz.</p>
-<div class="no-row-height column-margin column-container"></div><p>Ono što je odbačeno vidi se tek kada se vrati na graf. Simulirana anketa <code>anketa_mreze</code> sadrži 300 ispitanika s dnevnim vremenom korištenja društvenih mreža, i nije mjerenje nego nastavni skup proizveden kodom. Kada se uz okvire nacrtaju i opažanja iz kojih su izračunati, razlika između sažetka i podatka prestaje biti apstraktna.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-okvir-gubi" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Četiri okvira s brkovima po dobnim skupinama, sa svim pojedinačnim opažanjima razasutim preko njih; gornji rep je u svakoj skupini gušći nego što kutija sugerira." data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-okvir-gubi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="05-vizualizacija_files/figure-html/fig-okvir-gubi-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Okvir s brkovima i opažanja iz kojih je nastao. Kutija stoji na kvartilima, a točke pokazuju raspored koji kvartili ne mogu prenijeti."><img src="05-vizualizacija_files/figure-html/fig-okvir-gubi-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Četiri okvira s brkovima po dobnim skupinama, sa svim pojedinačnim opažanjima razasutim preko njih; gornji rep je u svakoj skupini gušći nego što kutija sugerira."></a>
+<p>Svaki prikaz zadržava dio informacija i izostavlja ostale. Okvir s brkovima sažima medijan i kvartile, pa može izgledati jednako za raspodjelu s jednim ili dvama vrhovima. Histogram raspoređuje opažanja u razrede i prikazuje njihove učestalosti, zbog čega lakše otkriva oblik. Više skupina, međutim, može biti teže usporediti histogramima.</p>
+<p>Za dvije kategorijalne varijable možemo izabrati stupce jedan uz drugi, složene stupce ili stupce jednake ukupne visine koji prikazuju udjele. Usporedni stupci pokazuju apsolutne brojeve. Stupci udjela pokazuju sastav, ali skrivaju razliku između skupine od dvadeset i skupine od dvjesto osoba. Tvrdnju da je skupina brojnija zato ne možemo opravdati samo grafom udjela.</p>
+<p>Kod složenih stupaca samo najdonji segment ima zajedničku osnovicu. Ostali počinju na različitim visinama, ovisno o prethodnim segmentima. Njihove su duljine točne, ali ih je teže usporediti bez zajedničkog početka <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Ako zaključak ovisi o jednom takvom segmentu, korisno ga je prikazati zasebno.</p>
+<div class="no-row-height column-margin column-container"></div><p>I riječi možemo uspoređivati kao kategorije, ali tek nakon što odredimo što ćemo smatrati istom riječju. U šest odabranih naslova o vizualizaciji ukupno je 36 riječi i 28 različitih oblika <span class="citation" data-cites="anscombe1973 cleveland1984 tufte2001 wilkinson2005 wickham2016 matejka2017">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>; <a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>; <a href="../references.html#ref-tufte2001" role="doc-biblioref">Tufte 2001.</a>; <a href="../references.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson 2005.</a>; <a href="../references.html#ref-wickham2016" role="doc-biblioref">Wickham 2016.</a>; <a href="../references.html#ref-matejka2017" role="doc-biblioref">Matejka i Fitzmaurice 2017.</a>)</span>. Do tih brojeva dolazimo tako da sva slova pretvorimo u mala i uklonimo interpunkciju. Riječi ne svodimo na zajednički korijen, pa su <code>graphs</code>, <code>graphical</code> i <code>graphics</code> različite jedinice. Stupci će zato uspoređivati učestalost točnih oblika koje smo tako odredili.</p>
+<p>Primjer pretvorbe daje naslov <em>The Grammar of Graphics</em> <span class="citation" data-cites="wilkinson2005">(<a href="../references.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson 2005.</a>)</span>. Nakon pretvorbe u mala slova i razdvajanja dobivamo četiri zapisa, <code>the</code>, <code>grammar</code>, <code>of</code> i <code>graphics</code>. Svaki dodaje jedan svome brojaču. Kad tako obradimo svih šest odabranih naslova, brojimo pojavljivanja riječi, a ne broj knjiga. U Wickhamovu naslovu o paketu ggplot2 uklanjamo dvotočku, ali zadržavamo <code>ggplot2</code> kao jedan oblik <span class="citation" data-cites="wickham2016">(<a href="../references.html#ref-wickham2016" role="doc-biblioref">Wickham 2016.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Graf izdvaja šest oblika koji se ponavljaju. Zadnji redak pokazuje učestalost svakog od preostala dvadeset dva oblika zasebno, a ne njihov zajednički zbroj.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-ucestalost-rijeci" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" alt="Vodoravni stupci pokazuju da se oblici the i of pojavljuju po tri puta, analysis, graphical, graphics i graphs po dva puta, a svaki od 22 preostala oblika jednom.">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-ucestalost-rijeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="05-vizualizacija_files/figure-html/fig-ucestalost-rijeci-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;2: Učestalost točnih oblika u šest namjerno odabranih bibliografskih naslova. Izrada autora prema objavljenim naslovima [@anscombe1973; @cleveland1984; @tufte2001; @wilkinson2005; @wickham2016; @matejka2017]."><img src="05-vizualizacija_files/figure-html/fig-ucestalost-rijeci-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Vodoravni stupci pokazuju da se oblici the i of pojavljuju po tri puta, analysis, graphical, graphics i graphs po dva puta, a svaki od 22 preostala oblika jednom."></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-okvir-gubi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;1: Okvir s brkovima i opažanja iz kojih je nastao. Kutija stoji na kvartilima, a točke pokazuju raspored koji kvartili ne mogu prenijeti.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ucestalost-rijeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;2: Učestalost točnih oblika u šest namjerno odabranih bibliografskih naslova. Izrada autora prema objavljenim naslovima <span class="citation" data-cites="anscombe1973 cleveland1984 tufte2001 wilkinson2005 wickham2016 matejka2017">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>; <a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>; <a href="../references.html#ref-tufte2001" role="doc-biblioref">Tufte 2001.</a>; <a href="../references.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson 2005.</a>; <a href="../references.html#ref-wickham2016" role="doc-biblioref">Wickham 2016.</a>; <a href="../references.html#ref-matejka2017" role="doc-biblioref">Matejka i Fitzmaurice 2017.</a>)</span>.
 </figcaption>
-</figure>
+<div class="no-row-height column-margin column-container"><div id="ref-tufte2001" class="csl-entry" role="listitem">
+Tufte, Edward R. 2001. <em>The Visual Display of Quantitative Information</em>. 2. izd. Graphics Press.
+</div><div id="ref-wilkinson2005" class="csl-entry" role="listitem">
+Wilkinson, Leland. 2005. <em>The Grammar of Graphics</em>. 2. izd. Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.1007/0-387-28695-0</a>.
+</div><div id="ref-wickham2016" class="csl-entry" role="listitem">
+Wickham, Hadley. 2016. <em>ggplot2: Elegant Graphics for Data Analysis</em>. 2. izd. Springer. <a href="https://doi.org/10.1007/978-3-319-24277-4">https://doi.org/10.1007/978-3-319-24277-4</a>.
+</div><div id="ref-matejka2017" class="csl-entry" role="listitem">
+Matejka, Justin, i George Fitzmaurice. 2017. <span>„Same Stats, Different Graphs“</span>. <em>Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems</em>, 1290–94. <a href="https://doi.org/10.1145/3025453.3025912">https://doi.org/10.1145/3025453.3025912</a>.
+</div></div></figure>
 </div>
 </div>
 </div>
-<p>Kutija sažima svaku skupinu u pet brojeva. U najmlađoj skupini polovina ispitanika leži između 53 i 99 minuta, a u najstarijoj između 9 i 24. Točke iza kutije pokazuju što je taj sažetak potrošio, jer se iz njih vidi koliko je opažanja stisnuto uz donji rub i koliko rijetko rep doseže svoje najveće vrijednosti. Kutija bi bila ista i da su opažanja unutar nje raspoređena posve drukčije, što je isti nalaz koji poglavlje o sažimanju podataka izvodi brojčano.</p>
+<p>Rezultat opisuje samo odabranih šest naslova. Ne predstavlja svu literaturu o vizualizaciji ili znanstveno pisanje. Pri tumačenju zato navodimo jedinicu, obradu teksta, nazivnik i obuhvat. Iste ćemo odluke ponovno razmotriti kada tekst postane ulaz algoritma.</p>
 </section>
 <section id="dvije-varijable-u-istom-prostoru" class="level2">
 <h2 class="anchored" data-anchor-id="dvije-varijable-u-istom-prostoru">Dvije varijable u istom prostoru</h2>
-<p>Kada obje varijable nose brojeve, raspršeni dijagram jedini je prikaz koji ne mora ništa izračunati. Svaka točka je jedno opažanje na svojem mjestu, pa se iz oblaka čita smjer veze, njezina zakrivljenost, postojanje podskupina i položaj opažanja koja odudaraju. Zbog toga je to prikaz s najvećom informacijskom gustoćom u knjizi i prikaz kojim počinje svaka provjera odnosa.</p>
-<p>Njegova slabost je vlastiti uspjeh. Kada opažanja ima mnogo, točke se preklapaju, a gustoća prestaje biti vidljiva, jer sto opažanja na istom mjestu izgleda kao jedno. Uobičajeni popravak je djelomična prozirnost oznake, čime preklopljena područja postaju tamnija, pa gustoća opet nosi značenje. Drugi je popravak lagano razmicanje oznaka, koje se koristi kada je jedna varijabla zapravo diskretna, a treći prelazak na prikaz koji gustoću računa izravno.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-rasprseni" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dva raspršena dijagrama istih podataka o dobi i dnevnim minutama; oba pokazuju pad vremena s dobi, ali desni prozirnim oznakama otkriva zbijenost u donjem desnom dijelu." data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rasprseni-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="05-vizualizacija_files/figure-html/fig-rasprseni-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;2: Dob i dnevno vrijeme korištenja u simuliranoj anketi. Lijevo su neprozirne oznake, desno prozirne, a razlika je u tome što se vidi gdje je opažanja mnogo."><img src="05-vizualizacija_files/figure-html/fig-rasprseni-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Dva raspršena dijagrama istih podataka o dobi i dnevnim minutama; oba pokazuju pad vremena s dobi, ali desni prozirnim oznakama otkriva zbijenost u donjem desnom dijelu."></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rasprseni-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;2: Dob i dnevno vrijeme korištenja u simuliranoj anketi. Lijevo su neprozirne oznake, desno prozirne, a razlika je u tome što se vidi gdje je opažanja mnogo.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Oba polja sadrže istih 300 opažanja i oba pokazuju da vrijeme korištenja opada s dobi. Desno polje uz to pokazuje gdje ih je mnogo, a gdje malo, i time odgovara na pitanje koliko je obrazac tipičan, a ne samo postoji li. Prozirnost ovdje nije ukras nego pridruživanje gustoće tami oznake, dakle odluka gramatike kao i svaka druga.</p>
-<p>Na raspršeni se dijagram redovito dodaje izglađena linija koja kroz oblak provlači procijenjeni prosječni odnos. Ta linija nije podatak nego model, i to je najvažnija stvar koju o njoj treba znati. Ona pretpostavlja oblik veze, zaglađuje ono što joj ne odgovara i ostaje uvjerljiva i onda kada oblak ispod nje nema nikakav stabilan obrazac. Poglavlje o regresiji pokazuje kako se takva linija dobiva i pod kojim je uvjetima opravdana, a do tada vrijedi pravilo da se linija čita zajedno s oblakom iz kojega je izvučena, nikada umjesto njega.</p>
+<p>Stupcima smo uspoređivali količine po kategorijama. Kada želimo sačuvati odnos dviju brojčanih varijabli za svaku jedinicu, trebamo drugi raspored oznaka. Raspršeni dijagram može prikazati svako opažanje kao točku. Iz rasporeda čitamo smjer i zakrivljenost veze, podskupine i izdvojena opažanja. Zato njime počinjemo provjeru odnosa.</p>
+<p>Ako se mnoge točke preklapaju, ne vidimo koliko opažanja stoji na istom mjestu. Djelomično prozirne točke mogu pokazati gušća područja tamnijima. Kod diskretnih vrijednosti pomaže blago razmicanje točaka, a za vrlo mnogo opažanja možemo izravno prikazati procijenjenu gustoću.</p>
+<p>Izglađena linija na raspršenom dijagramu procijenjeni je model odnosa. Nije dodatno opažanje. Njezin oblik ovisi o postupku procjene i može djelovati uvjerljivo čak i kad podaci ne podupiru stabilan obrazac. Uvijek je zato čitamo uz oblak točaka. U poglavlju o regresiji razradit ćemo kako se takve linije dobivaju i provjeravaju.</p>
 </section>
-<section id="poštena-ljestvica" class="level2">
+<section id="poštena-ljestvica" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="poštena-ljestvica">Poštena ljestvica</h2>
-<p>Ljestvica je mjesto na kojem se najlakše pogriješi i najlakše prevari, jer je mijenja jedan broj, a mijenja se cijeli dojam. Prosjeci dnevnih minuta po dobnim skupinama razlikuju se za 65 minuta, što je 80 % najvećeg među njima. Koliko će ta razlika zauzeti prostora ne ovisi o podacima nego o rasponu osi.</p>
+<p>Vraćamo se simuliranoj anketi <code>anketa_mreze</code> iz poglavlja o sažimanju. Prikazujemo prosječne dnevne minute na društvenim mrežama po dobnim skupinama <span class="citation" data-cites="sikicanketa2026">(<a href="../references.html#ref-sikicanketa2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Raspon osi može znatno promijeniti dojam. Prosjeci se ovdje razlikuju za 65,3 minuta, odnosno 80,1 % najvećeg prosjeka. Ta je razlika stalna, ali njezina veličina na stranici ovisi o osi.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-sikicanketa2026" class="csl-entry" role="listitem">
+Šikić, Luka. 2026. <span>„Anketa o društvenim mrežama, generirani nastavni skup“</span>. <a href="https://lusiki.github.io/statistika-knjiga/data/anketa-mreze.csv">https://lusiki.github.io/statistika-knjiga/data/anketa-mreze.csv</a>.
+</div></div><div class="table-keep-words">
 <div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-skraceni-raspon" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dva stupčasta prikaza istih četiriju prosjeka, lijevo s osi od nule i umjerenim razlikama, desno s odsječenom osi na kojoj razlike izgledaju dramatično." data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-skraceni-raspon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="05-vizualizacija_files/figure-html/fig-skraceni-raspon-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;3: Isti prosjeci na dvjema osima. Lijevi prikaz počinje od nule, desni od najmanje vrijednosti, a razlika među skupinama nije se promijenila."><img src="05-vizualizacija_files/figure-html/fig-skraceni-raspon-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Dva stupčasta prikaza istih četiriju prosjeka, lijevo s osi od nule i umjerenim razlikama, desno s odsječenom osi na kojoj razlike izgledaju dramatično."></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-skraceni-raspon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;3: Isti prosjeci na dvjema osima. Lijevi prikaz počinje od nule, desni od najmanje vrijednosti, a razlika među skupinama nije se promijenila.
+<div id="tbl-s5-skupine" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s5-skupine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Broj ispitanika, prosjek i medijan dnevnih minuta u četirima dobnim skupinama simuliranoga nastavnog skupa <code>anketa_mreze</code>. Izrada autora.
 </figcaption>
+<div aria-describedby="tbl-s5-skupine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dobna skupina</th>
+<th style="text-align: right;">Broj ispitanika</th>
+<th style="text-align: right;">Prosjek</th>
+<th style="text-align: right;">Medijan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">18 do 24</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">81,5</td>
+<td style="text-align: right;">68,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25 do 34</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">54,4</td>
+<td style="text-align: right;">46,0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">35 do 44</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">32,4</td>
+<td style="text-align: right;">26,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">45 i više</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">16,2</td>
+<td style="text-align: right;">15,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </figure>
 </div>
 </div>
 </div>
-<p>Desni prikaz nije izmislio nijedan broj. Sve četiri vrijednosti stoje ondje gdje i lijevo, a promijenio se samo raspon koji im je dodijeljen. Kod stupaca je to ozbiljna pogreška, jer duljina stupca nosi značenje, pa odsječena os duljinu pretvara u veličinu koja više ne odgovara vrijednosti. Kod linijskog grafa i raspršenog dijagrama, gdje značenje nosi položaj a ne duljina, raspon smije slijediti podatke, uz obavezu da os bude označena tako da čitatelj vidi odakle počinje.</p>
-<p>Odatle slijedi pravilo koje vrijedi i za tuđi i za vlastiti graf. Odsječena os dopuštena je kada je razlika koju treba vidjeti manja od šuma na osi od nule, a uvjet je da odsjecanje bude vidljivo. Sakriveno odsjecanje čitatelju oduzima podatak koji mu treba da bi prosudio tvrdnju, a to je isti postupak koji poglavlje o zavaravanju brojkama opisuje kao odabir prikaza prema željenom zaključku.</p>
-<p>Ista logika vrijedi za logaritamsku ljestvicu, koja dugi desni rep raspodjele stišće i time pokazuje strukturu koja se na izvornoj ljestvici zbila u jedan stupac. Ona ne krivotvori ništa, ali mijenja što znači jednaki razmak, pa graf koji je koristi mora to reći u oznaci osi. Poglavlje o sažimanju podataka istu je pretvorbu uvelo brojčano, i graf od nje ne traži ništa novo.</p>
+<p><a href="#tbl-s5-skupine">Tablica skupinskih sažetaka</a> čuva vrijednosti za račun, a <a href="#fig-skraceni-raspon">usporedba dviju osi</a> pokazuje koliko dojam o istoj razlici ovisi o početku osi.</p>
+<p>Oba prikaza koriste iste četiri vrijednosti. Desni im dodjeljuje uži raspon osi. Kod stupaca duljina predstavlja vrijednost, pa odsijecanje nule narušava tu razmjernost. U linijskom ili raspršenom grafu uspoređujemo položaje, zbog čega os može pratiti raspon podataka ako je jasno označena.</p>
+<p>Stupce zato crtamo od nule. Oznaka skraćene osi otkriva zahvat, ali ne vraća ispravan odnos duljina. Za linije i točke uži raspon može pomoći čitanju, uz jasno vidljiv početak i ljestvicu osi.</p>
+<p>Za sljedeći prikaz vraćamo se DigiKatovoj tablici internetskih domena. Svaki redak sadrži ukupan broj objava jedne domene u odabranom korpusu. Tablica ima 3 604 domene i 551 712 objava <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Medijan je 4 objave po domeni, a najveći broj 56 500. Na linearnoj bi osi većina domena bila stisnuta uz početak. <a href="#fig-digikat-log">Logaritamska os</a> omogućuje da se bolje vide i manje vrijednosti jer jednak prostor dodjeljuje jednakim omjerima.</p>
+<div class="no-row-height column-margin column-container"></div><div class="cell page-columns page-full" data-layout-align="center">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-digikat-log" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" alt="Histogram 3 604 imenovane domene na logaritamskoj vodoravnoj osi; većina domena ima malen broj objava, a rijetke domene protežu raspodjelu do 56.500 objava.">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-digikat-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="05-vizualizacija_files/figure-html/fig-digikat-log-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;3: Raspodjela broja objava među 3 604 imenovane domene na logaritamskoj osi. Izrada autora prema DigiKatu [@digikat2026]."><img src="05-vizualizacija_files/figure-html/fig-digikat-log-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Histogram 3 604 imenovane domene na logaritamskoj vodoravnoj osi; većina domena ima malen broj objava, a rijetke domene protežu raspodjelu do 56.500 objava."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-digikat-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3: Raspodjela broja objava među 3 604 imenovane domene na logaritamskoj osi. Izrada autora prema DigiKatu <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div></figure>
+</div>
+</div>
+</div>
+<p>Na logaritamskoj osi pomak od 10 do 100 jednak je pomaku od 100 do 1.000. Uspoređujemo omjere, dok apsolutne razlike nisu jednako velike. Promjena osi ne mijenja zapise, ali mijenja vizualni oblik raspodjele, pa je treba označiti. I dalje opisujemo samo domene u ovom korpusu, bez zaključivanja o svim hrvatskim medijima, korisnicima ili pojedinačnim objavama.</p>
 </section>
 <section id="mala-višestruka-polja" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="mala-višestruka-polja">Mala višestruka polja</h2>
-<p>Kada skupina ima više od tri ili četiri, boja prestaje raditi. Krivulje se preklapaju, legenda traži stalno vraćanje pogleda, a čitatelj usporedbu provodi po sjećanju. Alternativa je da se isti graf ponovi za svaku skupinu.</p>
+<p>Kada je na grafu mnogo skupina, linije se mogu preklapati i tražiti stalno provjeravanje legende. Tada isti oblik grafa možemo ponoviti u zasebnom polju za svaku skupinu.</p>
 <div id="def-mala-polja" class="theorem definition">
 <p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>Mala višestruka polja</strong> (<em>small multiples</em>) niz su prikaza istoga oblika i iste ljestvice, po jedan za svaku skupinu, tako da se razlike među skupinama očitavaju usporedbom položaja između polja.</p>
 </div>
-<p>Zajednička ljestvica je uvjet bez kojega postupak gubi smisao. Kada svako polje dobije vlastiti raspon, panel s malim razlikama izgleda jednako dramatično kao panel s velikima, pa se usporedba koja je bila svrha prikaza više ne može provesti. Slobodne osi imaju svoje mjesto tamo gdje se uspoređuje oblik, a ne razina, ali to je iznimka koja se izriče, a ne zadana postavka.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-mala-polja" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Pet histograma u nizu na istoj osi; prvi prikazuje sve ispitanike, a preostala četiri dobne skupine s vrhom koji se pomiče prema manjim vrijednostima kako dob raste." data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-mala-polja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="05-vizualizacija_files/figure-html/fig-mala-polja-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Slika&nbsp;4: Ista raspodjela u zbirnom polju i u četirima skupinskim poljima uz zajedničku os. Zbirni oblik nastaje preklapanjem raspodjela različitih položaja."><img src="05-vizualizacija_files/figure-html/fig-mala-polja-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Pet histograma u nizu na istoj osi; prvi prikazuje sve ispitanike, a preostala četiri dobne skupine s vrhom koji se pomiče prema manjim vrijednostima kako dob raste."></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mala-polja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;4: Ista raspodjela u zbirnom polju i u četirima skupinskim poljima uz zajedničku os. Zbirni oblik nastaje preklapanjem raspodjela različitih položaja.
+<p>Za usporedbu razina polja trebaju zajedničku ljestvicu. Ako svako ima svoj raspon, male i velike razlike mogu izgledati jednako. Različite osi mogu biti prikladne za usporedbu oblika, ali tu odluku treba jasno navesti.</p>
+<p>U DigiKatovu mjesečnom izvatku za 2024. nedostaju retci od veljače do svibnja. Siječanj je djelomičan, a lipanj donosi promjenu metode i obuhvata <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Prazninu ne pretvaramo u nule niti linijom spajamo siječanj i lipanj. U tablici zadržavamo svih 12 mjeseci kako bi nedostajanje bilo vidljivo.</p>
+<div class="no-row-height column-margin column-container"></div><div class="table-keep-words page-columns page-full">
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s5-digikat-2024" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s5-digikat-2024-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Broj objava i udio weba u mjesečnom zbroju platformskoga izvatka za 2024. Duga crta označuje mjesec bez retka, ne nulu. Izrada autora prema DigiKatu <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.
 </figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s5-digikat-2024-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mjesec</th>
+<th style="text-align: right;">Objave</th>
+<th style="text-align: right;">Udio weba</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">01. 2024.</td>
+<td style="text-align: right;">1 911</td>
+<td style="text-align: right;">73,5 %</td>
+<td style="text-align: left;">djelomičan mjesec</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">02. 2024.</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;">nema retka</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">03. 2024.</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;">nema retka</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">04. 2024.</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;">nema retka</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">05. 2024.</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;">nema retka</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">06. 2024.</td>
+<td style="text-align: right;">8 477</td>
+<td style="text-align: right;">77,7 %</td>
+<td style="text-align: left;">lom metode</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">07. 2024.</td>
+<td style="text-align: right;">17 291</td>
+<td style="text-align: right;">73,7 %</td>
+<td style="text-align: left;">nakon promjene obuhvata</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">08. 2024.</td>
+<td style="text-align: right;">17 194</td>
+<td style="text-align: right;">71,6 %</td>
+<td style="text-align: left;">nakon promjene obuhvata</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">09. 2024.</td>
+<td style="text-align: right;">8 458</td>
+<td style="text-align: right;">71,7 %</td>
+<td style="text-align: left;">nakon promjene obuhvata</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10. 2024.</td>
+<td style="text-align: right;">17 725</td>
+<td style="text-align: right;">77,3 %</td>
+<td style="text-align: left;">nakon promjene obuhvata</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11. 2024.</td>
+<td style="text-align: right;">19 771</td>
+<td style="text-align: right;">67,9 %</td>
+<td style="text-align: left;">nakon promjene obuhvata</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12. 2024.</td>
+<td style="text-align: right;">23 404</td>
+<td style="text-align: right;">66,9 %</td>
+<td style="text-align: left;">nakon promjene obuhvata</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </figure>
 </div>
 </div>
 </div>
-<p>Gornji prikaz ima jedan vrh i dugi rep. Donji pokazuje da taj oblik nije svojstvo nijedne skupine nego posljedica njihova zbrajanja, jer se vrh pomiče prema manjim vrijednostima kako dob raste. Zbirna raspodjela postoji, uredno je izračunata i ne opisuje nijednog stvarnog ispitanika osobito dobro.</p>
-<p>To je vizualni oblik pojave koju je Simpson opisao brojčano na tablicama frekvencija <span class="citation" data-cites="simpson1951">(<a href="../references.html#ref-simpson1951" role="doc-biblioref">Simpson 1951.</a>)</span>, i razlog zbog kojeg poglavlje o povezanosti tom pitanju vraća s koeficijentom u ruci. Prikaz koji skupine zbraja nije pogrešan, nego odgovara na drugo pitanje od prikaza koji ih razdvaja. Nevolja nastaje kada se odgovor na prvo pitanje objavi kao odgovor na drugo.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-simpson1951" class="csl-entry" role="listitem">
-Simpson, E. H. 1951. <span>„The Interpretation of Interaction in Contingency Tables“</span>. <em>Journal of the Royal Statistical Society, Series B</em> 13 (2): 238–41.
-</div></div></section>
+<p>Brojem objava opisujemo mjesečnu količinu, a udjelom weba njezin sastav. Nazivnik u <a href="#tbl-s5-digikat-2024">mjesečnoj tablici</a> zbroj je svih platformi tog mjeseca. Ne koristimo 551.712 iz datoteke domena jer ona ima drugu jedinicu i nema zajednički ključ. U <a href="#fig-mala-polja">malim višestrukim poljima</a> prikazujemo broj objava za četiri platforme s najviše objava u dostupnim mjesecima 2024. i za objedinjeni ostatak. Sva polja imaju istu logaritamsku os.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-mala-polja" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" alt="Pet malih prikaza na zajedničkoj logaritamskoj osi. Svaki ima odvojenu točku u siječnju, prazninu od veljače do svibnja, odvojenu lipanjsku točku te liniju od srpnja do prosinca; isprekidana okomita crta označuje lipanjski lom metode.">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-mala-polja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="05-vizualizacija_files/figure-html/fig-mala-polja-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Slika&nbsp;4: Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka; isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026]."><img src="05-vizualizacija_files/figure-html/fig-mala-polja-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Pet malih prikaza na zajedničkoj logaritamskoj osi. Svaki ima odvojenu točku u siječnju, prazninu od veljače do svibnja, odvojenu lipanjsku točku te liniju od srpnja do prosinca; isprekidana okomita crta označuje lipanjski lom metode."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mala-polja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;4: Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka; isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"><div id="ref-digikat2026" class="csl-entry" role="listitem">
+<span class="nocase">Šikić, Luka i sur.</span> 2026. <span>„Prikaz i analiza katoličke tematike u digitalnom medijskom prostoru“</span>. Hrvatsko katoličko sveučilište. <a href="https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8">https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8</a>.
+</div></div></figure>
+</div>
+</div>
+</div>
+<p>Linije ostavljaju četveromjesečnu prazninu, a lipanjska točka odvojena je od kasnijeg niza. Zbog nepotpunog siječnja i promjene metode ne zaključujemo o trendu, rastu ili učinku promjene nakon lipnja. Možemo usporediti dostupne brojeve uz vidljiva ograničenja zapisa.</p>
+</section>
 <section id="graf-pred-čitateljem" class="level2">
 <h2 class="anchored" data-anchor-id="graf-pred-čitateljem">Graf pred čitateljem</h2>
-<p>Graf mora raditi u tri okolnosti koje autor pri crtanju obično ne vidi. Netko ga čita u crno-bijelom tisku, netko preko čitača zaslona, a netko razlikuje boje drukčije od autora.</p>
-<p>Prva obveza je da boja nikada ne bude jedini nosač značenja. Kada se skupine razlikuju samo tinkturom, uklanjanje boje uklanja podatak, pa graf koji je u digitalnom izdanju čitljiv u tiskanom prestaje biti graf. Rješenje je da kanal koji nosi razliku bude udvostručen, dakle da uz boju stoji i oblik oznake, vrsta linije ili izravna oznaka uz krivulju. Paleta ove knjige zbog istog je razloga poredana po svjetlini, a ne po tonu, pa u tisku daje razlučive sive razine.</p>
-<p>Druga obveza je opis. Svaki graf u knjizi nosi alternativni tekst koji kaže što se na njemu vidi, a ne kako je nastao. Dobar opis imenuje varijable, smjer i najizrazitiju osobinu obrasca, i piše se tako da čitatelj koji sliku ne vidi dobije isti nalaz, a ne popis elemenata. Opis koji glasi „graf prikazuje odnos dviju varijabli” nije ispunio obvezu, jer ne prenosi ništa što naslov već ne kaže.</p>
-<p>Treća obveza je izravno označavanje. Legenda traži da čitatelj pamti par boje i imena dok pogled putuje između legende i grafa, a oznaka postavljena uz krivulju taj put uklanja. Isto vrijedi za redoslijed kategorija, koji abecedni poredak gotovo nikada ne pogađa. Kategorije poredane po veličini čitaju se bez napora, a poredane po abecedi traže da čitatelj sam obavi rangiranje koje je graf mogao obaviti umjesto njega.</p>
-<p>Tri obveze vrijede za graf koji sami crtamo. Pred tuđim grafom iste odluke postaju pitanja, i tada gramatika iz prvog odjeljka radi kao popis provjere. Vrijedi ga provesti do kraja na primjeru koji je već pred nama, dakle na desnom polju s odsječenom osi.</p>
-<p>Prvo pitanje glasi što predstavlja jedna oznaka. Ondje jedan stupac stoji za jednu dobnu skupinu, dakle za agregat, a ne za ispitanika, pa se iz njega ne smije zaključivati ništa o pojedincu. Drugo pitanje traži pridruživanja, a ona su dva, jer kategorija određuje vodoravni položaj, a prosjek duljinu stupca. Boja i širina ne nose ništa, što je uredno, budući da bi svaka razlika u njima sugerirala razliku koje u podacima nema.</p>
-<p>Treće pitanje je najtiše i ovdje najvažnije. Prije crtanja izračunata je aritmetička sredina po skupini, čime su odbačene sve raspodjele, a s njima i dugi desni rep koji je histogram pokazao. Stupac visok 82 minuta postoji, ali ne postoji ispitanik kojemu ta vrijednost pripada, jer je medijan iste skupine 68 minuta. Četvrto pitanje odnosi se na ljestvicu i otkriva ono zbog čega je prikaz uopće sporan, dakle da os ne počinje od nule i da to nije označeno.</p>
-<p>Iz četiri odgovora slijedi presuda koja je preciznija od dojma. Prikaz nije netočan, nego kombinira odbačenu raspodjelu s neoznačenim odsjecanjem, pa duljina stupca ne odgovara ni vrijednosti ni tipičnom ispitaniku. Isti se popis primjenjuje na novinsku grafiku, na sliku iz izvještaja i na graf koji je proizveo asistent, i traži manje vremena nego čitanje teksta koji uz njega stoji.</p>
+<p>Zajednička ljestvica omogućuje usporedbu samo ako čitatelj može razaznati oznake i njihov smisao. Pri izradi grafa zato treba predvidjeti crno-bijeli tisak, čitače zaslona i različite sposobnosti razlikovanja boja.</p>
+<p>Razliku među skupinama zato uz boju označujemo oblikom točke, vrstom linije ili izravnim nazivom. Tako značenje ostaje čitljivo i bez boje. Paleta knjige koristi i razlike u svjetlini kako bi se kategorije mogle razlikovati u sivim tonovima.</p>
+<p>Alternativni tekst treba prenijeti nalaz osobi koja ne vidi graf. Navodimo varijable, smjer veze i najizraženije obilježje obrasca. Opis da graf prikazuje odnos dviju varijabli nije dovoljan jer ne govori kakav je taj odnos.</p>
+<p>Pristupačnost prikaza znači da podatke može pročitati i osoba kojoj boja ili sitan tekst nisu dostupni. Izravnim oznakama uz podatke smanjujemo potrebu za traženjem naziva u legendi. Pomaže i smislen redoslijed kategorija. Kada želimo usporediti veličine, poredak po vrijednosti olakšava čitanje više od abecednog.</p>
+<p>Iste odluke provjeravamo i pri čitanju grafa. Primijenimo ih na desno polje u <a href="#fig-skraceni-raspon" class="quarto-xref">Slika&nbsp;<span>1</span></a>.</p>
+<p>Jedan stupac predstavlja dobnu skupinu. Ne prikazuje pojedinog ispitanika, pa iz njega ne zaključujemo o pojedincu. Skupina određuje vodoravni položaj, a prosjek duljinu stupca. Boja i širina su jednake jer ne prikazuju dodatnu varijablu.</p>
+<p>Prije crtanja izračunat je prosjek svake skupine, čime je skriven oblik raspodjele i njezin dugi desni rep. Stupac od 81,5 minuta prikazuje prosjek, dok medijan iste skupine iznosi 68,5 minuta. Os uz to ne počinje od nule, što je u nastavnom primjeru označeno.</p>
+<p>Prosjek skriva raspodjelu, a skraćena os prikazuje neprimjerene odnose duljina. Brojevi su točni, ali graf može navesti na pretjeran dojam razlike i pogrešno shvaćanje tipičnog ispitanika. Oznaka zahvata omogućuje da problem uočimo, ali ga ne uklanja.</p>
+<p>Histogram grupira brojčane vrijednosti u razrede. Visina stupca ovdje broji opažanja u razredu jednake širine, a drukčija širina razreda može promijeniti dojam o obliku. Krivulja gustoće zaglađuje raspodjelu, pa njezina visina nije broj osoba. Kutijasti prikaz čuva medijan i srednjih 50 % opažanja između prvoga i trećega kvartila. U sljedećem prikazu brkovi sežu do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije; udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.</p>
+<p>Sažimanje u dvije sredine skriva razlike među pojedincima. To nije isto što i nesigurnost procjene populacijske sredine. Za nju trebamo znati kako su opažanja odabrana, što ćemo razraditi uz uzorkovanje i procjenu.</p>
 </section>
 <section id="interakcija-isti-podaci-četiri-grafa" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="interakcija-isti-podaci-četiri-grafa">Interakcija — Isti podaci, četiri grafa</h2>
-<p>Interakcija prikazuje iste simulirane podatke četirima geometrijama. Promjena grafa ne mijenja opažanja, ali mijenja usporedbu koja postaje laka ili teška. Čitatelj tako bira prikaz prema tvrdnji, a ne prema dojmu atraktivnosti.</p>
+<p>Za ovu ilustraciju stvaramo zaseban skup od 72 opažanja, po 36 u dvjema skupinama. U svakoj ravnomjerno rasporedimo vrijednosti <span class="math inline">\(x\)</span> od 1 do 10. Polazište ishoda je <span class="math inline">\(1,5 + 0,55x\)</span>, skupini B dodajemo 0,8, a svakoj točki neovisno normalno odstupanje sa sredinom nula i standardnom devijacijom 0,85. Na primjer, pri <span class="math inline">\(x=1\)</span> polazište je 2,05 za A i 2,85 za B, prije slučajnog odstupanja. Varijable nemaju stvarnu mjernu jedinicu. Četiri grafa preoblikuju istih 72 zapisa i ne generiraju nove ishode.</p>
+<p>Isti simulirani podaci prikazani su na četiri načina. Svaki graf olakšava jednu usporedbu i skriva dio drugih informacija. Raspršeni dijagram čuva odnos dviju varijabli, dok prikaz sredina sažima razliku među skupinama. Izbor ovisi o pitanju na koje želimo odgovoriti.</p>
 <div class="widget-frame" data-naslov="Isti podaci, četiri grafa" data-oznaka="Widget 05.1 · interaktivno">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="531" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 530;"><span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a>viewof w05_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a>  <span class="dt">prikaz</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Raspršeni dijagram"</span><span class="op">,</span> <span class="st">"Histogram ishoda"</span><span class="op">,</span> <span class="st">"Raspodjela po skupinama"</span><span class="op">,</span> <span class="st">"Sredine skupina"</span>]<span class="op">,</span></span>
-<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="st">"Raspršeni dijagram"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prikaz"</span>}</span>
-<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="753" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 752;"><span id="cb1-753"><a href="#cb1-753" aria-hidden="true" tabindex="-1"></a>viewof w05_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-754"><a href="#cb1-754" aria-hidden="true" tabindex="-1"></a>  <span class="dt">prikaz</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb1-755"><a href="#cb1-755" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Raspršeni dijagram"</span><span class="op">,</span> <span class="st">"Histogram ishoda"</span><span class="op">,</span> <span class="st">"Raspodjela po skupinama"</span><span class="op">,</span> <span class="st">"Sredine skupina"</span>]<span class="op">,</span></span>
+<span id="cb1-756"><a href="#cb1-756" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="st">"Raspršeni dijagram"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prikaz"</span>}</span>
+<span id="cb1-757"><a href="#cb1-757" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-758"><a href="#cb1-758" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -1138,17 +1287,27 @@ Simpson, E. H. 1951. <span>„The Interpretation of Interaction in Contingency T
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="541" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 540;"><span id="cb2-541"><a href="#cb2-541" aria-hidden="true" tabindex="-1"></a>w05_podaci <span class="op">=</span> {</span>
-<span id="cb2-542"><a href="#cb2-542" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">505</span>)<span class="op">;</span></span>
-<span id="cb2-543"><a href="#cb2-543" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="fl">0.85</span>)<span class="op">;</span></span>
-<span id="cb2-544"><a href="#cb2-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-545"><a href="#cb2-545" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">72</span>}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-546"><a href="#cb2-546" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> skupina <span class="op">=</span> i <span class="op">&lt;</span> <span class="dv">36</span> <span class="op">?</span> <span class="st">"Skupina A"</span> <span class="op">:</span> <span class="st">"Skupina B"</span><span class="op">;</span></span>
-<span id="cb2-547"><a href="#cb2-547" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">36</span>) <span class="op">*</span> <span class="dv">9</span> <span class="op">/</span> <span class="dv">35</span><span class="op">;</span></span>
-<span id="cb2-548"><a href="#cb2-548" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> pomak <span class="op">=</span> skupina <span class="op">===</span> <span class="st">"Skupina B"</span> <span class="op">?</span> <span class="fl">0.8</span> <span class="op">:</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-549"><a href="#cb2-549" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">red</span><span class="op">:</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> skupina<span class="op">,</span> x<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.55</span> <span class="op">*</span> x <span class="op">+</span> pomak <span class="op">+</span> <span class="fu">normalna</span>()}<span class="op">;</span></span>
-<span id="cb2-550"><a href="#cb2-550" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-551"><a href="#cb2-551" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="763" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 762;"><span id="cb2-763"><a href="#cb2-763" aria-hidden="true" tabindex="-1"></a>w05_podaci <span class="op">=</span> {</span>
+<span id="cb2-764"><a href="#cb2-764" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">505</span>)<span class="op">;</span></span>
+<span id="cb2-765"><a href="#cb2-765" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalna <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-766"><a href="#cb2-766" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x<span class="op">;</span></span>
+<span id="cb2-767"><a href="#cb2-767" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y<span class="op">;</span></span>
+<span id="cb2-768"><a href="#cb2-768" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> radijus<span class="op">;</span></span>
+<span id="cb2-769"><a href="#cb2-769" aria-hidden="true" tabindex="-1"></a>    <span class="cf">do</span> {</span>
+<span id="cb2-770"><a href="#cb2-770" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> <span class="fu">rng</span>() <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-771"><a href="#cb2-771" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="fu">rng</span>() <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-772"><a href="#cb2-772" aria-hidden="true" tabindex="-1"></a>      radijus <span class="op">=</span> x <span class="op">*</span> x <span class="op">+</span> y <span class="op">*</span> y<span class="op">;</span></span>
+<span id="cb2-773"><a href="#cb2-773" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">while</span> (<span class="op">!</span>radijus <span class="op">||</span> radijus <span class="op">&gt;</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-774"><a href="#cb2-774" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.85</span> <span class="op">*</span> x <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(radijus) <span class="op">/</span> radijus)<span class="op">;</span></span>
+<span id="cb2-775"><a href="#cb2-775" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-776"><a href="#cb2-776" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-777"><a href="#cb2-777" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">72</span>}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-778"><a href="#cb2-778" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> skupina <span class="op">=</span> i <span class="op">&lt;</span> <span class="dv">36</span> <span class="op">?</span> <span class="st">"Skupina A"</span> <span class="op">:</span> <span class="st">"Skupina B"</span><span class="op">;</span></span>
+<span id="cb2-779"><a href="#cb2-779" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">36</span>) <span class="op">*</span> <span class="dv">9</span> <span class="op">/</span> <span class="dv">35</span><span class="op">;</span></span>
+<span id="cb2-780"><a href="#cb2-780" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> pomak <span class="op">=</span> skupina <span class="op">===</span> <span class="st">"Skupina B"</span> <span class="op">?</span> <span class="fl">0.8</span> <span class="op">:</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-781"><a href="#cb2-781" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">red</span><span class="op">:</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> skupina<span class="op">,</span> x<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.55</span> <span class="op">*</span> x <span class="op">+</span> pomak <span class="op">+</span> <span class="fu">normalna</span>()}<span class="op">;</span></span>
+<span id="cb2-782"><a href="#cb2-782" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-783"><a href="#cb2-783" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
@@ -1159,118 +1318,137 @@ Simpson, E. H. 1951. <span>„The Interpretation of Interaction in Contingency T
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="559" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 558;"><span id="cb3-559"><a href="#cb3-559" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb3-560"><a href="#cb3-560" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
-<span id="cb3-561"><a href="#cb3-561" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> <span class="st">"var(--tok-ink-mute)"</span><span class="op">;</span></span>
-<span id="cb3-562"><a href="#cb3-562" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svijetla <span class="op">=</span> <span class="st">"var(--tok-data-5)"</span><span class="op">;</span></span>
-<span id="cb3-563"><a href="#cb3-563" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> izbor <span class="op">=</span> w05_par<span class="op">.</span><span class="at">prikaz</span><span class="op">;</span></span>
-<span id="cb3-564"><a href="#cb3-564" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb3-565"><a href="#cb3-565" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb3-566"><a href="#cb3-566" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb3-567"><a href="#cb3-567" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb3-568"><a href="#cb3-568" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
-<span id="cb3-569"><a href="#cb3-569" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
-<span id="cb3-570"><a href="#cb3-570" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb3-571"><a href="#cb3-571" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
-<span id="cb3-572"><a href="#cb3-572" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
-<span id="cb3-573"><a href="#cb3-573" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredine <span class="op">=</span> d3<span class="op">.</span><span class="fu">rollups</span>(</span>
-<span id="cb3-574"><a href="#cb3-574" aria-hidden="true" tabindex="-1"></a>    w05_podaci<span class="op">,</span></span>
-<span id="cb3-575"><a href="#cb3-575" aria-hidden="true" tabindex="-1"></a>    v <span class="kw">=&gt;</span> d3<span class="op">.</span><span class="fu">mean</span>(v<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">,</span></span>
-<span id="cb3-576"><a href="#cb3-576" aria-hidden="true" tabindex="-1"></a>    d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">skupina</span></span>
-<span id="cb3-577"><a href="#cb3-577" aria-hidden="true" tabindex="-1"></a>  )<span class="op">.</span><span class="fu">map</span>(([skupina<span class="op">,</span> y]) <span class="kw">=&gt;</span> ({skupina<span class="op">,</span> y}))<span class="op">;</span></span>
-<span id="cb3-578"><a href="#cb3-578" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-579"><a href="#cb3-579" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> marks<span class="op">;</span></span>
-<span id="cb3-580"><a href="#cb3-580" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> x<span class="op">;</span></span>
-<span id="cb3-581"><a href="#cb3-581" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> y<span class="op">;</span></span>
-<span id="cb3-582"><a href="#cb3-582" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> symbol<span class="op">;</span></span>
-<span id="cb3-583"><a href="#cb3-583" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-584"><a href="#cb3-584" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (izbor <span class="op">===</span> <span class="st">"Raspršeni dijagram"</span>) {</span>
-<span id="cb3-585"><a href="#cb3-585" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
-<span id="cb3-586"><a href="#cb3-586" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(w05_podaci<span class="op">,</span> {</span>
-<span id="cb3-587"><a href="#cb3-587" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb3-588"><a href="#cb3-588" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb3-589"><a href="#cb3-589" aria-hidden="true" tabindex="-1"></a>        <span class="dt">symbol</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
-<span id="cb3-590"><a href="#cb3-590" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb3-591"><a href="#cb3-591" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="fl">3.5</span><span class="op">,</span></span>
-<span id="cb3-592"><a href="#cb3-592" aria-hidden="true" tabindex="-1"></a>        <span class="dt">opacity</span><span class="op">:</span> <span class="fl">0.72</span></span>
-<span id="cb3-593"><a href="#cb3-593" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb3-594"><a href="#cb3-594" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})</span>
-<span id="cb3-595"><a href="#cb3-595" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
-<span id="cb3-596"><a href="#cb3-596" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Vrijednost x"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
-<span id="cb3-597"><a href="#cb3-597" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Ishod"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
-<span id="cb3-598"><a href="#cb3-598" aria-hidden="true" tabindex="-1"></a>    symbol <span class="op">=</span> {<span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">;</span></span>
-<span id="cb3-599"><a href="#cb3-599" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (izbor <span class="op">===</span> <span class="st">"Histogram ishoda"</span>) {</span>
-<span id="cb3-600"><a href="#cb3-600" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
-<span id="cb3-601"><a href="#cb3-601" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(</span>
-<span id="cb3-602"><a href="#cb3-602" aria-hidden="true" tabindex="-1"></a>        w05_podaci<span class="op">,</span></span>
-<span id="cb3-603"><a href="#cb3-603" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">binX</span>(</span>
-<span id="cb3-604"><a href="#cb3-604" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span></span>
-<span id="cb3-605"><a href="#cb3-605" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">x</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> prigusena<span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.6</span>}</span>
-<span id="cb3-606"><a href="#cb3-606" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-607"><a href="#cb3-607" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb3-608"><a href="#cb3-608" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> tinta})</span>
-<span id="cb3-609"><a href="#cb3-609" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
-<span id="cb3-610"><a href="#cb3-610" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Ishod"</span>}<span class="op">;</span></span>
-<span id="cb3-611"><a href="#cb3-611" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Broj opažanja"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
-<span id="cb3-612"><a href="#cb3-612" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (izbor <span class="op">===</span> <span class="st">"Raspodjela po skupinama"</span>) {</span>
-<span id="cb3-613"><a href="#cb3-613" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
-<span id="cb3-614"><a href="#cb3-614" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">boxY</span>(w05_podaci<span class="op">,</span> {</span>
-<span id="cb3-615"><a href="#cb3-615" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
-<span id="cb3-616"><a href="#cb3-616" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb3-617"><a href="#cb3-617" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> svijetla<span class="op">,</span></span>
-<span id="cb3-618"><a href="#cb3-618" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta</span>
-<span id="cb3-619"><a href="#cb3-619" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb3-620"><a href="#cb3-620" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})</span>
-<span id="cb3-621"><a href="#cb3-621" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
-<span id="cb3-622"><a href="#cb3-622" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">;</span></span>
-<span id="cb3-623"><a href="#cb3-623" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Ishod"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
-<span id="cb3-624"><a href="#cb3-624" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb3-625"><a href="#cb3-625" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
-<span id="cb3-626"><a href="#cb3-626" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">barY</span>(sredine<span class="op">,</span> {</span>
-<span id="cb3-627"><a href="#cb3-627" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
-<span id="cb3-628"><a href="#cb3-628" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb3-629"><a href="#cb3-629" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> prigusena<span class="op">,</span></span>
-<span id="cb3-630"><a href="#cb3-630" aria-hidden="true" tabindex="-1"></a>        <span class="dt">insetLeft</span><span class="op">:</span> <span class="dv">22</span><span class="op">,</span></span>
-<span id="cb3-631"><a href="#cb3-631" aria-hidden="true" tabindex="-1"></a>        <span class="dt">insetRight</span><span class="op">:</span> <span class="dv">22</span></span>
-<span id="cb3-632"><a href="#cb3-632" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb3-633"><a href="#cb3-633" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(sredine<span class="op">,</span> {</span>
-<span id="cb3-634"><a href="#cb3-634" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
-<span id="cb3-635"><a href="#cb3-635" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb3-636"><a href="#cb3-636" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span><span class="op">.</span><span class="fu">toLocaleString</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb3-637"><a href="#cb3-637" aria-hidden="true" tabindex="-1"></a>          <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb3-638"><a href="#cb3-638" aria-hidden="true" tabindex="-1"></a>          <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb3-639"><a href="#cb3-639" aria-hidden="true" tabindex="-1"></a>        })<span class="op">,</span></span>
-<span id="cb3-640"><a href="#cb3-640" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dy</span><span class="op">:</span> <span class="op">-</span><span class="dv">10</span><span class="op">,</span></span>
-<span id="cb3-641"><a href="#cb3-641" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta</span>
-<span id="cb3-642"><a href="#cb3-642" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb3-643"><a href="#cb3-643" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> tinta})</span>
-<span id="cb3-644"><a href="#cb3-644" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
-<span id="cb3-645"><a href="#cb3-645" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">;</span></span>
-<span id="cb3-646"><a href="#cb3-646" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Aritmetička sredina ishoda"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">zero</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
-<span id="cb3-647"><a href="#cb3-647" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-648"><a href="#cb3-648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-649"><a href="#cb3-649" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb3-650"><a href="#cb3-650" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
-<span id="cb3-651"><a href="#cb3-651" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">420</span> <span class="op">:</span> <span class="dv">360</span><span class="op">,</span></span>
-<span id="cb3-652"><a href="#cb3-652" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
-<span id="cb3-653"><a href="#cb3-653" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">52</span> <span class="op">:</span> <span class="dv">56</span><span class="op">,</span></span>
-<span id="cb3-654"><a href="#cb3-654" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb3-655"><a href="#cb3-655" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb3-656"><a href="#cb3-656" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb3-657"><a href="#cb3-657" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"var(--tok-font-mono)"</span><span class="op">,</span></span>
-<span id="cb3-658"><a href="#cb3-658" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"12px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
-<span id="cb3-659"><a href="#cb3-659" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb3-660"><a href="#cb3-660" aria-hidden="true" tabindex="-1"></a>    x<span class="op">,</span></span>
-<span id="cb3-661"><a href="#cb3-661" aria-hidden="true" tabindex="-1"></a>    y<span class="op">,</span></span>
-<span id="cb3-662"><a href="#cb3-662" aria-hidden="true" tabindex="-1"></a>    symbol<span class="op">,</span></span>
-<span id="cb3-663"><a href="#cb3-663" aria-hidden="true" tabindex="-1"></a>    marks</span>
-<span id="cb3-664"><a href="#cb3-664" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb3-665"><a href="#cb3-665" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="788" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 787;"><span id="cb3-788"><a href="#cb3-788" aria-hidden="true" tabindex="-1"></a>w05_opisi <span class="op">=</span> ({</span>
+<span id="cb3-789"><a href="#cb3-789" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Raspršeni dijagram"</span><span class="op">:</span> <span class="st">"Svih 72 opažanja zadržavaju vlastite vrijednosti x i ishoda, a oblik oznake razlikuje dvije skupine. Vidi se pozitivan odnos varijabli i nešto viši položaj skupine B."</span><span class="op">,</span></span>
+<span id="cb3-790"><a href="#cb3-790" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Histogram ishoda"</span><span class="op">:</span> <span class="st">"Ishodi su prebrojeni u razrede pa se vidi njihov ukupni raspored. Nestaju vrijednost x i pripadnost skupini svakoga opažanja."</span><span class="op">,</span></span>
+<span id="cb3-791"><a href="#cb3-791" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Raspodjela po skupinama"</span><span class="op">:</span> <span class="st">"Dva okvira čuvaju medijan, kvartile i izdvojena opažanja po skupini. Nestaju odnos s vrijednošću x i točan položaj većine pojedinačnih opažanja."</span><span class="op">,</span></span>
+<span id="cb3-792"><a href="#cb3-792" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Sredine skupina"</span><span class="op">:</span> <span class="st">"Dva stupca čuvaju samo aritmetičku sredinu svake skupine, pri čemu je sredina skupine B viša. Nestaju raspodjela, raspršenost, odnos s vrijednošću x i pojedinačna opažanja."</span></span>
+<span id="cb3-793"><a href="#cb3-793" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Prikaži kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="801" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 800;"><span id="cb4-801"><a href="#cb4-801" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-802"><a href="#cb4-802" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
+<span id="cb4-803"><a href="#cb4-803" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> <span class="st">"var(--tok-ink-mute)"</span><span class="op">;</span></span>
+<span id="cb4-804"><a href="#cb4-804" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svijetla <span class="op">=</span> <span class="st">"var(--tok-data-5)"</span><span class="op">;</span></span>
+<span id="cb4-805"><a href="#cb4-805" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> izbor <span class="op">=</span> w05_par<span class="op">.</span><span class="at">prikaz</span><span class="op">;</span></span>
+<span id="cb4-806"><a href="#cb4-806" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb4-807"><a href="#cb4-807" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb4-808"><a href="#cb4-808" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb4-809"><a href="#cb4-809" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb4-810"><a href="#cb4-810" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
+<span id="cb4-811"><a href="#cb4-811" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
+<span id="cb4-812"><a href="#cb4-812" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb4-813"><a href="#cb4-813" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
+<span id="cb4-814"><a href="#cb4-814" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
+<span id="cb4-815"><a href="#cb4-815" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredine <span class="op">=</span> d3<span class="op">.</span><span class="fu">rollups</span>(</span>
+<span id="cb4-816"><a href="#cb4-816" aria-hidden="true" tabindex="-1"></a>    w05_podaci<span class="op">,</span></span>
+<span id="cb4-817"><a href="#cb4-817" aria-hidden="true" tabindex="-1"></a>    v <span class="kw">=&gt;</span> d3<span class="op">.</span><span class="fu">mean</span>(v<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">,</span></span>
+<span id="cb4-818"><a href="#cb4-818" aria-hidden="true" tabindex="-1"></a>    d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">skupina</span></span>
+<span id="cb4-819"><a href="#cb4-819" aria-hidden="true" tabindex="-1"></a>  )<span class="op">.</span><span class="fu">map</span>(([skupina<span class="op">,</span> y]) <span class="kw">=&gt;</span> ({skupina<span class="op">,</span> y}))<span class="op">;</span></span>
+<span id="cb4-820"><a href="#cb4-820" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-821"><a href="#cb4-821" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> marks<span class="op">;</span></span>
+<span id="cb4-822"><a href="#cb4-822" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> x<span class="op">;</span></span>
+<span id="cb4-823"><a href="#cb4-823" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> y<span class="op">;</span></span>
+<span id="cb4-824"><a href="#cb4-824" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> symbol<span class="op">;</span></span>
+<span id="cb4-825"><a href="#cb4-825" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-826"><a href="#cb4-826" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (izbor <span class="op">===</span> <span class="st">"Raspršeni dijagram"</span>) {</span>
+<span id="cb4-827"><a href="#cb4-827" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
+<span id="cb4-828"><a href="#cb4-828" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(w05_podaci<span class="op">,</span> {</span>
+<span id="cb4-829"><a href="#cb4-829" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb4-830"><a href="#cb4-830" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb4-831"><a href="#cb4-831" aria-hidden="true" tabindex="-1"></a>        <span class="dt">symbol</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
+<span id="cb4-832"><a href="#cb4-832" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb4-833"><a href="#cb4-833" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="fl">3.5</span><span class="op">,</span></span>
+<span id="cb4-834"><a href="#cb4-834" aria-hidden="true" tabindex="-1"></a>        <span class="dt">opacity</span><span class="op">:</span> <span class="fl">0.72</span></span>
+<span id="cb4-835"><a href="#cb4-835" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb4-836"><a href="#cb4-836" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})</span>
+<span id="cb4-837"><a href="#cb4-837" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
+<span id="cb4-838"><a href="#cb4-838" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Vrijednost x"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
+<span id="cb4-839"><a href="#cb4-839" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Ishod"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
+<span id="cb4-840"><a href="#cb4-840" aria-hidden="true" tabindex="-1"></a>    symbol <span class="op">=</span> {<span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">;</span></span>
+<span id="cb4-841"><a href="#cb4-841" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (izbor <span class="op">===</span> <span class="st">"Histogram ishoda"</span>) {</span>
+<span id="cb4-842"><a href="#cb4-842" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
+<span id="cb4-843"><a href="#cb4-843" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(</span>
+<span id="cb4-844"><a href="#cb4-844" aria-hidden="true" tabindex="-1"></a>        w05_podaci<span class="op">,</span></span>
+<span id="cb4-845"><a href="#cb4-845" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">binX</span>(</span>
+<span id="cb4-846"><a href="#cb4-846" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span></span>
+<span id="cb4-847"><a href="#cb4-847" aria-hidden="true" tabindex="-1"></a>          {<span class="dt">x</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> prigusena<span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.6</span>}</span>
+<span id="cb4-848"><a href="#cb4-848" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-849"><a href="#cb4-849" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb4-850"><a href="#cb4-850" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> tinta})</span>
+<span id="cb4-851"><a href="#cb4-851" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
+<span id="cb4-852"><a href="#cb4-852" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Ishod"</span>}<span class="op">;</span></span>
+<span id="cb4-853"><a href="#cb4-853" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Broj opažanja"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
+<span id="cb4-854"><a href="#cb4-854" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (izbor <span class="op">===</span> <span class="st">"Raspodjela po skupinama"</span>) {</span>
+<span id="cb4-855"><a href="#cb4-855" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
+<span id="cb4-856"><a href="#cb4-856" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">boxY</span>(w05_podaci<span class="op">,</span> {</span>
+<span id="cb4-857"><a href="#cb4-857" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
+<span id="cb4-858"><a href="#cb4-858" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb4-859"><a href="#cb4-859" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> svijetla<span class="op">,</span></span>
+<span id="cb4-860"><a href="#cb4-860" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta</span>
+<span id="cb4-861"><a href="#cb4-861" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb4-862"><a href="#cb4-862" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})</span>
+<span id="cb4-863"><a href="#cb4-863" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
+<span id="cb4-864"><a href="#cb4-864" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">;</span></span>
+<span id="cb4-865"><a href="#cb4-865" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Ishod"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
+<span id="cb4-866"><a href="#cb4-866" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb4-867"><a href="#cb4-867" aria-hidden="true" tabindex="-1"></a>    marks <span class="op">=</span> [</span>
+<span id="cb4-868"><a href="#cb4-868" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">barY</span>(sredine<span class="op">,</span> {</span>
+<span id="cb4-869"><a href="#cb4-869" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
+<span id="cb4-870"><a href="#cb4-870" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb4-871"><a href="#cb4-871" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> prigusena<span class="op">,</span></span>
+<span id="cb4-872"><a href="#cb4-872" aria-hidden="true" tabindex="-1"></a>        <span class="dt">insetLeft</span><span class="op">:</span> <span class="dv">22</span><span class="op">,</span></span>
+<span id="cb4-873"><a href="#cb4-873" aria-hidden="true" tabindex="-1"></a>        <span class="dt">insetRight</span><span class="op">:</span> <span class="dv">22</span></span>
+<span id="cb4-874"><a href="#cb4-874" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb4-875"><a href="#cb4-875" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(sredine<span class="op">,</span> {</span>
+<span id="cb4-876"><a href="#cb4-876" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"skupina"</span><span class="op">,</span></span>
+<span id="cb4-877"><a href="#cb4-877" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb4-878"><a href="#cb4-878" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span><span class="op">.</span><span class="fu">toLocaleString</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb4-879"><a href="#cb4-879" aria-hidden="true" tabindex="-1"></a>          <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb4-880"><a href="#cb4-880" aria-hidden="true" tabindex="-1"></a>          <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb4-881"><a href="#cb4-881" aria-hidden="true" tabindex="-1"></a>        })<span class="op">,</span></span>
+<span id="cb4-882"><a href="#cb4-882" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dy</span><span class="op">:</span> <span class="op">-</span><span class="dv">10</span><span class="op">,</span></span>
+<span id="cb4-883"><a href="#cb4-883" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta</span>
+<span id="cb4-884"><a href="#cb4-884" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb4-885"><a href="#cb4-885" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> tinta})</span>
+<span id="cb4-886"><a href="#cb4-886" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
+<span id="cb4-887"><a href="#cb4-887" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">;</span></span>
+<span id="cb4-888"><a href="#cb4-888" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Aritmetička sredina ishoda"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">zero</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">;</span></span>
+<span id="cb4-889"><a href="#cb4-889" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-890"><a href="#cb4-890" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-891"><a href="#cb4-891" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-892"><a href="#cb4-892" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
+<span id="cb4-893"><a href="#cb4-893" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">420</span> <span class="op">:</span> <span class="dv">360</span><span class="op">,</span></span>
+<span id="cb4-894"><a href="#cb4-894" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
+<span id="cb4-895"><a href="#cb4-895" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">52</span> <span class="op">:</span> <span class="dv">56</span><span class="op">,</span></span>
+<span id="cb4-896"><a href="#cb4-896" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb4-897"><a href="#cb4-897" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb4-898"><a href="#cb4-898" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb4-899"><a href="#cb4-899" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"var(--tok-font-mono)"</span><span class="op">,</span></span>
+<span id="cb4-900"><a href="#cb4-900" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"12px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
+<span id="cb4-901"><a href="#cb4-901" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb4-902"><a href="#cb4-902" aria-hidden="true" tabindex="-1"></a>    x<span class="op">,</span></span>
+<span id="cb4-903"><a href="#cb4-903" aria-hidden="true" tabindex="-1"></a>    y<span class="op">,</span></span>
+<span id="cb4-904"><a href="#cb4-904" aria-hidden="true" tabindex="-1"></a>    symbol<span class="op">,</span></span>
+<span id="cb4-905"><a href="#cb4-905" aria-hidden="true" tabindex="-1"></a>    marks</span>
+<span id="cb4-906"><a href="#cb4-906" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb4-907"><a href="#cb4-907" aria-hidden="true" tabindex="-1"></a>  graf<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"role"</span><span class="op">,</span> <span class="st">"img"</span>)<span class="op">;</span></span>
+<span id="cb4-908"><a href="#cb4-908" aria-hidden="true" tabindex="-1"></a>  graf<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"aria-label"</span><span class="op">,</span> w05_opisi[izbor])<span class="op">;</span></span>
+<span id="cb4-909"><a href="#cb4-909" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> graf<span class="op">;</span></span>
+<span id="cb4-910"><a href="#cb4-910" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w05" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-w05-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="ojs-cell-3" data-nodetype="expression">
+<div id="ojs-cell-4" data-nodetype="expression">
 
 </div>
 </div>
@@ -1278,6 +1456,20 @@ Simpson, E. H. 1951. <span>„The Interpretation of Interaction in Contingency T
 Slika&nbsp;5: Isti simulirani podaci prikazani odabranom geometrijom. Izbor prikaza mijenja vidljivu usporedbu, ne opažanja.
 </figcaption>
 </figure>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Prikaži kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="915" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 914;"><span id="cb5-915"><a href="#cb5-915" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-916"><a href="#cb5-916" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> opis <span class="op">=</span> w05_opisi[w05_par<span class="op">.</span><span class="at">prikaz</span>]<span class="op">;</span></span>
+<span id="cb5-917"><a href="#cb5-917" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p class="widget-foot" role="status" aria-live="polite"&gt;</span><span class="sc">${</span>opis<span class="sc">}</span><span class="vs">&lt;/p&gt;`</span><span class="op">;</span></span>
+<span id="cb5-918"><a href="#cb5-918" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
 </div>
 </div>
 </div>
@@ -1289,47 +1481,112 @@ Slika&nbsp;5: Isti simulirani podaci prikazani odabranom geometrijom. Izbor prik
 <li>Odaberite graf za tvrdnju o razlikama među tipičnim ishodima i obrazložite izbor.</li>
 </ol>
 <div class="callout-divljina page-columns page-full">
-<p><strong>Kružni dijagram nikada.</strong> Zabrana kruži uredništvima i priručnicima kao utvrđena činjenica, a redovito se poziva na jedan izvor. Cleveland i McGill doista su izmjerili da sudionici točnije očitavaju položaj na zajedničkoj osi nego kut, i taj nalaz stoji <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Iz njega slijedi da udio koji nosi zaključak ne treba kodirati kutom.</p>
-<div class="no-row-height column-margin column-container"></div><p>Ne slijedi zabrana. Pokusi su mjerili točnost očitavanja omjera dviju istaknutih vrijednosti, a ne razumijevanje prikaza u kontekstu, pamćenje ni brzinu prepoznavanja <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Prikaz u kojem treba vidjeti da jedna kategorija drži otprilike polovinu, a ne rangirati sedam bliskih udjela, ne pada pod izmjereni nedostatak. Kratki oblik tvrdnje sadrži pravi nalaz i izgubljen uvjet pod kojim vrijedi, što je najčešći način na koji izmjeren rezultat postane pravilo.</p>
+<p><strong>Kružni dijagram pred konkretnim zadatkom.</strong> Pretpostavimo da kulturna ustanova priprema prikaz posjećenosti svojih programa. Treba pokazati koji programi okupljaju sličan udio publike, a koji se jasno izdvajaju. Netko predlaže kružni dijagram jer svaki program zauzima dio ukupne posjećenosti. Drugi ga odbacuje pozivajući se na pravilo da se takvi grafovi nikada ne koriste. Prije izbora valja razjasniti što čitatelj treba moći usporediti.</p>
+<p>Cleveland i McGill istraživali su upravo točnost očitavanja grafičkih prikaza. U njihovim su pokusima sudionici procjenjivali omjer dviju istaknutih vrijednosti. Položaj na zajedničkoj osi omogućavao je preciznije usporedbe od kuta <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Nalaz daje razlog za izbor prikaza, ali taj je razlog vezan uz određeni zadatak.</p>
+<div class="no-row-height column-margin column-container"></div><p>U našem zamišljenom izvještaju osobito nas zanimaju programi s bliskim udjelima. Na kružnici bismo uspoređivali slične kutove u različitim položajima. Na poredanim stupcima s istom početnom osi možemo usporediti njihove završetke, a uz oznake pročitati i točne udjele. Takav izbor olakšava upravo usporedbu zbog koje pripremamo izvještaj. Iz samoga grafa ipak ne saznajemo zašto neki program privlači više ljudi ni zaslužuje li zato više sredstava.</p>
+<p>Kad bi nam namjera bila samo pokazati da jedan program zauzima približno polovinu cjeline, zahtjev za preciznošću bio bi drukčiji. Clevelandov i McGillov pokus ne predstavlja ispitivanje svake moguće uporabe, pamćenja ili razumijevanja grafa u stvarnom izvještaju <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Zato iz njega ne izvodimo zabranu koja bi zamijenila prosudbu o publici i svrsi prikaza.</p>
+<div class="no-row-height column-margin column-container"></div><p>Ustanova može izabrati stupce i objasniti zašto ih bira. Pritom treba imenovati broji li posjete ili različite posjetitelje, jer dobar oblik grafa ne popravlja nejasnu jedinicu. Prikladan graf prepoznajemo po usporedbi koju čini čitljivom, a ne po tome pripada li unaprijed odobrenoj vrsti.</p>
 </div>
-<div class="callout-model">
-<p>Asistent može predložiti geometriju i napisati alt-tekst, ali treba dobiti pitanje koje graf mora odgovoriti. Nakon izrade provjeravamo zajedničke osi, nazive jedinica, redoslijed kategorija i nosi li boja značenje koje nestaje u tisku.</p>
-<p>Dva promašaja ponavljaju se dovoljno često da ih vrijedi tražiti unaprijed. Asistent rado dodaje izglađenu liniju kroz raspršeni dijagram, čime u prikaz uvodi model koji nitko nije zatražio i koji poglavlje o regresiji tek uvodi. I rado veže boju uz kategoriju bez drugoga nosača razlike, pa graf koji je na zaslonu čitljiv u tisku ostaje bez jednog stupca podataka.</p>
+<div id="ex-05-callout-greska-01" class="callout-greska">
+<p>Za izvještaj treba usporediti udjele triju kategorija. U ovoj konstruiranoj vježbi kategorijama A, B i C pripada 30 %, 40 % i 30 % iste cjeline. Asistent je iz tih podataka nacrtao sljedeći prijedlog. Pregledajte odnos između oznaka, visina i izgleda stupaca.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-greska-vizualizacija" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Stupci A, B i C prikazuju 30, 40 i 30 posto. Os počinje na nuli. Treći je stupac širi od prvih dvaju.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-greska-vizualizacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="05-vizualizacija_files/figure-html/fig-greska-vizualizacija-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Slika&nbsp;6: Prijedlog prikaza triju udjela za urednički pregled. Konstruirana nastavna vježba, izrada autora."><img src="05-vizualizacija_files/figure-html/fig-greska-vizualizacija-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Stupci A, B i C prikazuju 30, 40 i 30 posto. Os počinje na nuli. Treći je stupac širi od prvih dvaju."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-greska-vizualizacija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;6: Prijedlog prikaza triju udjela za urednički pregled. Konstruirana nastavna vježba, izrada autora.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Odluka o širini vidi se i u dijelu poziva kojim je prijedlog izrađen.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(udjeli, <span class="fu">aes</span>(kategorija, udio)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="dv">100</span> <span class="sc">*</span> udio, <span class="st">" %"</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="dv">100</span> <span class="sc">*</span> x, <span class="st">" %"</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
-<p>Predloži najjednostavniji graf za ovu tvrdnju. Obrazloži koja usporedba nosi zaključak, navedi potrebnu ljestvicu i napiši alt-tekst bez tumačenja koje podaci ne podupiru.</p>
+<p>Os počinje od nule, sve kategorije imaju oznaku i vrijednosti su prikazane. Šira treća kategorija samo popravlja optičku ravnotežu i ne mijenja dojam o odnosu udjela.</p>
 </blockquote>
-</div>
-<div class="callout-greska">
-<p>Za usporedbu udjela triju kategorija asistent je predložio ovaj poziv.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(udjeli, <span class="fu">aes</span>(kategorija, udio)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> udio), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Os počinje od nule, kategorije su označene, a vrijednosti stoje uz stupce. Šira treća kategorija, prema obrazloženju, samo popravlja optičku ravnotežu prikaza.</p>
+<p>Usporedite posebno A i C. Pripremite uputu osobi koja uređuje graf, s jednom potrebnom izmjenom i dvjema odlukama koje treba zadržati. Objasnite na kojem dijelu prikaza temeljite izmjenu. Ne trebate pisati kod.</p>
 </div>
 </section>
 <section id="razrađeni-primjer" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Zadatak je provjeriti koliko brojčani sažetak sam po sebi jamči o strukturi podataka. Anscombeovi su skupovi za to izabrani zato što su im sažeci gotovo jednaki po konstrukciji <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>, pa ostaje samo pitanje što prikaz dodaje. Podaci <code>anscombe</code> ugrađeni su u R i reproduciraju objavljeni kvartet.</p>
-<div class="no-row-height column-margin column-container"></div><p>Prije crtanja vrijedi vidjeti koliko je sličnost bliska. Aritmetičke sredine ishoda u četirima skupovima iznose 7,50, 7,50, 7,50 i 7,50, a standardne devijacije 2,03, 2,03, 2,03 i 2,03. Tablica sastavljena od tih osam brojeva ne bi imala što reći, jer se skupovi po njoj ne razlikuju.</p>
+<p>Za odgovor na pitanje iz vinjete trebamo usporedbu koja čuva pojedinačna opažanja. Anscombeov kvartet već smo upoznali kao četiri konstruirana skupa s gotovo jednakim sažecima <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>. Sada ćemo njihove točke rasporediti u mala višestruka polja i provjeriti što zajedničke osi otkrivaju. R-ovi ugrađeni podaci <code>anscombe</code> reproduciraju taj objavljeni primjer.</p>
+<div class="no-row-height column-margin column-container"></div><p>U svakom od četiriju skupova ima 11 parova. Prva tri para iz prvih dvaju skupova pokazuju da ista vrijednost <span class="math inline">\(x\)</span> može biti povezana s drukčijim <span class="math inline">\(y\)</span>.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-s5-anscombe-parovi" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s5-anscombe-parovi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;4: Prva tri para u dvama Anscombeovim skupovima iz ugrađenoga skupa u R-u prema <span class="citation" data-cites="anscombe1973">Anscombe (<a href="../references.html#ref-anscombe1973" role="doc-biblioref">1973.</a>)</span>.
+</figcaption>
+<div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s5-anscombe-parovi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Redak</th>
+<th style="text-align: right;">x I</th>
+<th style="text-align: right;">y I</th>
+<th style="text-align: right;">x II</th>
+<th style="text-align: right;">y II</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8,04</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">9,14</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6,95</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8,14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">7,58</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8,74</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>U prvom retku oba skupa imaju <span class="math inline">\(x=10\)</span>, ali ishode 8,04 i 9,14. Za sredinu prvoga skupa zbrajamo svih 11 ishoda, dobivamo 82,51 i dijelimo s 11. Isti račun ponavljamo za ostala tri skupa, a grafovima zadržavamo svaki izvorni par.</p>
+<p>Kod u ovom primjeru koristi pakete ggplot2, dplyr i tibble, učitane u pripremi knjige. Njihova je priprema opisana u mrežnom R praktikumu. Najprije provjeravamo sažetke. Zaokružene na dvije decimale, sve četiri sredine ishoda iznose 7,50, a standardne devijacije 2,03. Iz tih se vrijednosti razlike u obliku ne mogu prepoznati.</p>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>anscombe_dugo <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup I"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x1, <span class="at">y =</span> anscombe<span class="sc">$</span>y1),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup II"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x2, <span class="at">y =</span> anscombe<span class="sc">$</span>y2),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup III"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x3, <span class="at">y =</span> anscombe<span class="sc">$</span>y3),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup IV"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x4, <span class="at">y =</span> anscombe<span class="sc">$</span>y4)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>p_anscombe <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(anscombe_dugo, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> skup, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>anscombe_dugo <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup I"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x1, <span class="at">y =</span> anscombe<span class="sc">$</span>y1),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup II"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x2, <span class="at">y =</span> anscombe<span class="sc">$</span>y2),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup III"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x3, <span class="at">y =</span> anscombe<span class="sc">$</span>y3),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">skup =</span> <span class="st">"Skup IV"</span>, <span class="at">x =</span> anscombe<span class="sc">$</span>x4, <span class="at">y =</span> anscombe<span class="sc">$</span>y4)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>p_anscombe <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(anscombe_dugo, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> skup, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>Prvi blok slaže četiri skupa u jednu tablicu s jednim opažanjem u svakom redu. Drugi ispisuje odluke gramatike u redoslijedu u kojem smo ih izgradili. Poziv <code>aes</code> pridružuje varijable osima, <code>geom_point</code> bira oznaku, <code>geom_smooth</code> dodaje izračun koji nastaje prije crtanja, a <code>facet_wrap</code> razdvaja skupove u ponovljena polja. Dodani pravac je onaj najmanjih kvadrata, u izvornom radu jednak u sva četiri skupa <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>, a poglavlje o regresiji pokazuje kako se dobiva. Nakon ovog imenovanja svaki se graf u knjizi može pročitati bez novoga objašnjenja, jer se iste četiri odluke vraćaju u svakom pozivu.</p>
-<div class="no-row-height column-margin column-container"></div><div id="fig-anscombe" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<p>U prvom dijelu postupka svaki par vrijednosti dobiva vlastiti redak, kako bi u drugome mogao postati jedna točka. Poziv <code>aes</code> određuje koja vrijednost ide na koju os, a <code>geom_point</code> crta te točke. Da bismo usporedili oblik podataka s njihovim linearnim sažetkom, <code>geom_smooth</code> dodaje procijenjeni odnos, dok <code>facet_wrap</code> odvaja skupove u zasebna polja. Upisom <code>p_anscombe</code> prikazujemo pohranjeni graf. Dodani pravci gotovo se podudaraju, kao u izvornom primjeru <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>. U kasnijim je primjerima dovoljno prepoznati koju od tih odluka pojedini naziv provodi.</p>
+<div class="no-row-height column-margin column-container"></div><p>Uz gotovo jednake sažetke četiriju skupova <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>, graf koristi jednake osi i gotovo podudarne pravce. Tako razlike među poljima proizlaze iz rasporeda opažanja.</p>
+<div id="fig-anscombe" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-anscombe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="figure-theme-light">
@@ -1337,7 +1594,7 @@ Slika&nbsp;5: Isti simulirani podaci prikazani odabranom geometrijom. Izbor prik
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="05-vizualizacija_files/figure-html/unnamed-chunk-4-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Slika&nbsp;6: Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora prema @anscombe1973."><img src="05-vizualizacija_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:4.3in" alt="Četiri raspršena dijagrama pokazuju linearnu vezu, zakrivljenost i dvije vrste utjecajnih opažanja."></a></p>
+<p><a href="05-vizualizacija_files/figure-html/unnamed-chunk-6-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;7: Anscombeov kvartet s gotovo jednakim sažecima i različitim oblicima. Izrada autora prema @anscombe1973."><img src="05-vizualizacija_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Četiri raspršena dijagrama imaju gotovo jednake sažetke. Polje I pokazuje približno linearan oblak, polje II zakrivljenost, polje III gotovo linearan niz s jednim utjecajnim opažanjem, a polje IV gotovo okomiti oblak čiji pravac određuje jedna vodoravno izdvojena točka."></a></p>
 </figure>
 </div>
 </div>
@@ -1348,7 +1605,7 @@ Slika&nbsp;5: Isti simulirani podaci prikazani odabranom geometrijom. Izbor prik
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="05-vizualizacija_files/figure-html/unnamed-chunk-5-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Slika&nbsp;6: Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora prema @anscombe1973."><img src="05-vizualizacija_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:4.3in" alt="Četiri raspršena dijagrama pokazuju linearnu vezu, zakrivljenost i dvije vrste utjecajnih opažanja."></a></p>
+<p><a href="05-vizualizacija_files/figure-html/unnamed-chunk-7-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Slika&nbsp;7: Anscombeov kvartet s gotovo jednakim sažecima i različitim oblicima. Izrada autora prema @anscombe1973."><img src="05-vizualizacija_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:4.3in" alt="Četiri raspršena dijagrama imaju gotovo jednake sažetke. Polje I pokazuje približno linearan oblak, polje II zakrivljenost, polje III gotovo linearan niz s jednim utjecajnim opažanjem, a polje IV gotovo okomiti oblak čiji pravac određuje jedna vodoravno izdvojena točka."></a></p>
 </figure>
 </div>
 </div>
@@ -1356,15 +1613,17 @@ Slika&nbsp;5: Isti simulirani podaci prikazani odabranom geometrijom. Izbor prik
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anscombe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;6: Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora prema <span class="citation" data-cites="anscombe1973">Anscombe (<a href="../references.html#ref-anscombe1973" role="doc-biblioref">1973.</a>)</span>.
+Slika&nbsp;7: Anscombeov kvartet s gotovo jednakim sažecima i različitim oblicima. Izrada autora prema <span class="citation" data-cites="anscombe1973">Anscombe (<a href="../references.html#ref-anscombe1973" role="doc-biblioref">1973.</a>)</span>.
 </figcaption>
-<div class="no-row-height column-margin column-container"></div></figure>
+<div class="no-row-height column-margin column-container"><div id="ref-anscombe1973" class="csl-entry" role="listitem">
+Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The American Statistician</em> 27 (1): 17–21. <a href="https://doi.org/10.1080/00031305.1973.10478966">https://doi.org/10.1080/00031305.1973.10478966</a>.
+</div></div></figure>
 </div>
-<p>Prvi skup približno odgovara linearnoj priči. Drugi traži zakrivljeni opis. Treći i četvrti pokazuju koliko jedno opažanje može određivati pravac. Zaključak zato ne glasi da je korelacija beskorisna. Glasi da se brojčani sažetak čita uz prikaz strukture iz koje je nastao.</p>
+<p>Prvi skup približno prati pravac, a drugi zakrivljenu vezu. U trećem i četvrtom izdvojeno opažanje snažno utječe na pravac. Brojčani sažetak zato čitamo zajedno s oblikom podataka koje sažima.</p>
 </section>
 <section id="sažetak" class="level2 sazetak page-columns page-full">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
-<p>Graf je skup odluka o tome što jedna oznaka predstavlja, koja varijabla ulazi u koji kanal, što je izračunato prije crtanja i kako se vrijednost pretvara u vizualnu veličinu. Te se odluke provjeravaju pojedinačno, a njihov redoslijed nije stvar ukusa, jer je izmjereno da kanali nose usporedbu različito točno <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>. Svaki prikaz nešto čuva i nešto odbaci, pa se bira prema tvrdnji koju treba provjeriti, a ne prema izgledu. Raspon osi, razdvajanje u mala polja i oslanjanje na boju mijenjaju što će čitatelj vidjeti bez ijedne promjene u podacima, što graf čini argumentom koji podliježe istoj provjeri kao brojka. Sljedeće poglavlje uzima jedan od tih prikaza, raspršeni dijagram, sažima ga u jedan koeficijent i pita što je pritom izgubljeno.</p>
+<p>Graf počinje od usporedbe koju želimo omogućiti, pa jedinicu oznake, varijable, prethodni račun i ljestvicu biramo zajedno. Tim izborom dio podataka pokazujemo, a dio sažimamo ili izostavljamo, kao što su gotovo jednaki Anscombeovi sažeci skrivali različite oblike. Položaj i drugi vizualni kanali ne omogućuju jednako precizno očitanje <span class="citation" data-cites="cleveland1984">(<a href="../references.html#ref-cleveland1984" role="doc-biblioref">Cleveland i McGill 1984.</a>)</span>, pa zajedničke osi, prikladno razdvajanje skupina i oznake uz boju pomažu da tražena usporedba ostane čitljiva. Kada prikazujemo riječi, isto obrazloženje obuhvaća pravilo brojanja i izbor tekstova. U poglavlju o povezanosti krenut ćemo od raspršenog dijagrama i provjeriti koliko njegova oblika možemo sažeti jednim koeficijentom.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-cleveland1984" class="csl-entry" role="listitem">
 Cleveland, William S., i Robert McGill. 1984. <span>„Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods“</span>. <em>Journal of the American Statistical Association</em> 79 (387): 531–54. <a href="https://doi.org/10.1080/01621459.1984.10478080">https://doi.org/10.1080/01621459.1984.10478080</a>.
 </div></div></section>
@@ -1392,17 +1651,33 @@ Cleveland, William S., i Robert McGill. 1984. <span>„Graphical Perception: The
 <dd>
 <span class="terminology-list__en" lang="en">graphical perception</span>
 </dd>
+<dt><span class="terminology-list__hr" lang="hr">prikaz učestalosti riječi</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">word-frequency plot</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">logaritamska ljestvica</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">logarithmic scale</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">skraćena os</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">truncated axis</span>
+</dd>
 <dt><span class="terminology-list__hr" lang="hr">mala višestruka polja</span></dt>
 <dd>
 <span class="terminology-list__en" lang="en">small multiples</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">pristupačnost</span></dt>
+<dt><span class="terminology-list__hr" lang="hr">pristupačnost prikaza</span></dt>
 <dd>
-<span class="terminology-list__en" lang="en">accessibility</span>
+<span class="terminology-list__en" lang="en">visualization accessibility</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">alt-tekst</span></dt>
+<dt><span class="terminology-list__hr" lang="hr">alternativni tekst</span></dt>
 <dd>
 <span class="terminology-list__en" lang="en">alternative text</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">Anscombeov kvartet</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">Anscombe’s quartet</span>
 </dd>
 <dt><span class="terminology-list__hr" lang="hr">utjecajno opažanje</span></dt>
 <dd>
@@ -1411,25 +1686,23 @@ Cleveland, William S., i Robert McGill. 1984. <span>„Graphical Perception: The
 </dl>
 </div>
 </section>
-<section id="zadaci" class="level2 page-columns page-full">
+<section id="zadaci" class="level2">
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
-<section id="konceptualni" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="konceptualni">Konceptualni</h3>
-<p>Odaberite graf za raspodjelu jedne varijable, usporedbu kategorija i odnos dviju brojčanih varijabli. Za svaki izbor navedite što prikaz odbacuje. Predajte tri izbora s obrazloženjem.</p>
+<section id="ex-05-konceptualni-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-05-konceptualni-01">Konceptualni</h3>
+<p>Odaberite prikaz za raspodjelu jedne varijable, usporedbu kategorija i odnos dviju brojčanih varijabli. Za svaki obrazložite izbor i navedite što izostavlja. Za jedan graf napišite alternativni tekst koji prenosi nalaz te provjerite je li nalaz razumljiv i bez boje.</p>
 </section>
-<section id="računski" class="level3 zadaci-razina page-columns page-full">
-<h3 class="zadaci-razina anchored" data-anchor-id="računski">Računski</h3>
-<p>Upotrijebite interakciju poglavlja. Za svaki od četiriju prikaza zapišite što čuva, što izračunava prije crtanja i koju usporedbu olakšava, a zatim iste odluke pročitajte s Anscombeovih prikaza iz razrađenog primjera <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>. Predajte tablicu s četirima redovima i jednom rečenicom obrazloženja u svakom. Postupak za ponavljanje izračuna nad cijelim skupom nalazi se u praktikumu.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-anscombe1973" class="csl-entry" role="listitem">
-Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The American Statistician</em> 27 (1): 17–21.
-</div></div></section>
-<section id="kritički" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="kritički">Kritički</h3>
-<p>Pronađite objavljeni graf sa skraćenom osi i prosudite je li odsjecanje opravdano. Odredite koliko bi razlika zauzela prostora na osi od nule, je li prekid vidljivo označen i mijenja li se zaključak teksta uz graf. Predajte odlomak s presudom i s uvjetom pod kojim bi presuda bila suprotna.</p>
+<section id="ex-05-racunski-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-05-racunski-01">Računski</h3>
+<p>Iz <a href="#tbl-s5-skupine">tablice skupinskih sažetaka</a> uzmite najveći i najmanji prosjek dnevnih minuta. Izračunajte njihovu razliku, a zatim je podijelite s većim prosjekom i pretvorite u postotak. Usporedite dobiveni postotak s <a href="#fig-skraceni-raspon">dvama prikazima osi</a> i objasnite zašto se brojčana razlika nije promijenila, premda se promijenio vizualni dojam. Predajte račun, postotak i dvije rečenice prosudbe. Svi potrebni podaci nalaze se u tablici.</p>
 </section>
-<section id="revizija-modela" class="level3 zadaci-razina">
-<h3 class="zadaci-razina anchored" data-anchor-id="revizija-modela">Revizija modela</h3>
-<p>Ocijenite prijedlog modela iz okvira. Imenujte odluke gramatike koje su ispravno odgovorene, jednu koja obmanjuje, redak koda u kojem ta odluka stoji i način njezina popravka.</p>
+<section id="ex-05-kriticki-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-05-kriticki-01">Kritički</h3>
+<p>Pronađite objavljeni graf sa skraćenom osi i prosudite je li odsjecanje opravdano. Odredite koliki bi udio visine osi zauzela razlika kada bi donja granica bila nula, a gornja ostala ista, je li prekid vidljivo označen i mijenja li se zaključak teksta uz graf. Predajte odlomak s presudom i s uvjetom pod kojim bi presuda bila suprotna.</p>
+</section>
+<section id="ex-05-revizija-modela-01" class="level3 zadaci-razina">
+<h3 class="zadaci-razina anchored" data-anchor-id="ex-05-revizija-modela-01">Revizija modela</h3>
+<p>Provjerite prijedlog grafa iz okvira o pogrešci. Navedite ispravne grafičke odluke i izdvojite onu koja obmanjuje. Opišite što treba promijeniti da udio ponovno bude prikazan samo duljinom stupca. Nije potrebno pisati ili popravljati kod.</p>
 
 
 
@@ -1533,23 +1806,21 @@ Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -1559,9 +1830,275 @@ Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1847,7 +2384,9 @@ Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1903,25 +2442,25 @@ Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -2337,31 +2876,33 @@ Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3498,7 +4039,7 @@ Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The
 </script>
 
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MDVfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBwcmlrYXo6IElucHV0cy5zZWxlY3QoXG4gICAgW1wiUmFzcHLFoWVuaSBkaWphZ3JhbVwiLCBcIkhpc3RvZ3JhbSBpc2hvZGFcIiwgXCJSYXNwb2RqZWxhIHBvIHNrdXBpbmFtYVwiLCBcIlNyZWRpbmUgc2t1cGluYVwiXSxcbiAgICB7dmFsdWU6IFwiUmFzcHLFoWVuaSBkaWphZ3JhbVwiLCBsYWJlbDogXCJQcmlrYXpcIn1cbiAgKVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IncwNV9wb2RhY2kgPSB7XG4gIGNvbnN0IHJuZyA9IGQzLnJhbmRvbUxjZyg1MDUpO1xuICBjb25zdCBub3JtYWxuYSA9IGQzLnJhbmRvbU5vcm1hbC5zb3VyY2Uocm5nKSgwLCAwLjg1KTtcblxuICByZXR1cm4gQXJyYXkuZnJvbSh7bGVuZ3RoOiA3Mn0sIChfLCBpKSA9PiB7XG4gICAgY29uc3Qgc2t1cGluYSA9IGkgPCAzNiA/IFwiU2t1cGluYSBBXCIgOiBcIlNrdXBpbmEgQlwiO1xuICAgIGNvbnN0IHggPSAxICsgKGkgJSAzNikgKiA5IC8gMzU7XG4gICAgY29uc3QgcG9tYWsgPSBza3VwaW5hID09PSBcIlNrdXBpbmEgQlwiID8gMC44IDogMDtcbiAgICByZXR1cm4ge3JlZDogaSArIDEsIHNrdXBpbmEsIHgsIHk6IDEuNSArIDAuNTUgKiB4ICsgcG9tYWsgKyBub3JtYWxuYSgpfTtcbiAgfSk7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ7XG4gIGNvbnN0IHRpbnRhID0gXCJ2YXIoLS10b2staW5rKVwiO1xuICBjb25zdCBwcmlndXNlbmEgPSBcInZhcigtLXRvay1pbmstbXV0ZSlcIjtcbiAgY29uc3Qgc3ZpamV0bGEgPSBcInZhcigtLXRvay1kYXRhLTUpXCI7XG4gIGNvbnN0IGl6Ym9yID0gdzA1X3Bhci5wcmlrYXo7XG4gIGNvbnN0IGNlbGlqYSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIud2lkZ2V0LWZyYW1lIC5jZWxsXCIpO1xuICBjb25zdCBzdGlsQ2VsaWplID0gY2VsaWphID8gZ2V0Q29tcHV0ZWRTdHlsZShjZWxpamEpIDogbnVsbDtcbiAgY29uc3QgbG9rYWxuYVNpcmluYSA9IGNlbGlqYVxuICAgID8gY2VsaWphLmNsaWVudFdpZHRoIC1cbiAgICAgIHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nTGVmdCkgLVxuICAgICAgcGFyc2VGbG9hdChzdGlsQ2VsaWplLnBhZGRpbmdSaWdodClcbiAgICA6IHdpZHRoO1xuICBjb25zdCBzaXJpbmFHcmFmYSA9IE1hdGgubWF4KDI0MCwgTWF0aC5taW4od2lkdGgsIGxva2FsbmFTaXJpbmEpKTtcbiAgY29uc3QgdXNrbyA9IHNpcmluYUdyYWZhIDwgNDgwO1xuICBjb25zdCBzcmVkaW5lID0gZDMucm9sbHVwcyhcbiAgICB3MDVfcG9kYWNpLFxuICAgIHYgPT4gZDMubWVhbih2LCBkID0+IGQueSksXG4gICAgZCA9PiBkLnNrdXBpbmFcbiAgKS5tYXAoKFtza3VwaW5hLCB5XSkgPT4gKHtza3VwaW5hLCB5fSkpO1xuXG4gIGxldCBtYXJrcztcbiAgbGV0IHg7XG4gIGxldCB5O1xuICBsZXQgc3ltYm9sO1xuXG4gIGlmIChpemJvciA9PT0gXCJSYXNwcsWhZW5pIGRpamFncmFtXCIpIHtcbiAgICBtYXJrcyA9IFtcbiAgICAgIFBsb3QuZG90KHcwNV9wb2RhY2ksIHtcbiAgICAgICAgeDogXCJ4XCIsXG4gICAgICAgIHk6IFwieVwiLFxuICAgICAgICBzeW1ib2w6IFwic2t1cGluYVwiLFxuICAgICAgICBmaWxsOiB0aW50YSxcbiAgICAgICAgcjogMy41LFxuICAgICAgICBvcGFjaXR5OiAwLjcyXG4gICAgICB9KSxcbiAgICAgIFBsb3QucnVsZVkoWzBdLCB7c3Ryb2tlOiBwcmlndXNlbmF9KVxuICAgIF07XG4gICAgeCA9IHtsYWJlbDogXCJWcmlqZWRub3N0IHhcIiwgZ3JpZDogdHJ1ZX07XG4gICAgeSA9IHtsYWJlbDogXCJJc2hvZFwiLCBncmlkOiB0cnVlfTtcbiAgICBzeW1ib2wgPSB7bGVnZW5kOiB0cnVlLCBsYWJlbDogbnVsbH07XG4gIH0gZWxzZSBpZiAoaXpib3IgPT09IFwiSGlzdG9ncmFtIGlzaG9kYVwiKSB7XG4gICAgbWFya3MgPSBbXG4gICAgICBQbG90LnJlY3RZKFxuICAgICAgICB3MDVfcG9kYWNpLFxuICAgICAgICBQbG90LmJpblgoXG4gICAgICAgICAge3k6IFwiY291bnRcIn0sXG4gICAgICAgICAge3g6IFwieVwiLCBmaWxsOiBwcmlndXNlbmEsIHRocmVzaG9sZHM6IDE0LCBpbnNldDogMC42fVxuICAgICAgICApXG4gICAgICApLFxuICAgICAgUGxvdC5ydWxlWShbMF0sIHtzdHJva2U6IHRpbnRhfSlcbiAgICBdO1xuICAgIHggPSB7bGFiZWw6IFwiSXNob2RcIn07XG4gICAgeSA9IHtsYWJlbDogXCJCcm9qIG9wYcW+YW5qYVwiLCBncmlkOiB0cnVlfTtcbiAgfSBlbHNlIGlmIChpemJvciA9PT0gXCJSYXNwb2RqZWxhIHBvIHNrdXBpbmFtYVwiKSB7XG4gICAgbWFya3MgPSBbXG4gICAgICBQbG90LmJveFkodzA1X3BvZGFjaSwge1xuICAgICAgICB4OiBcInNrdXBpbmFcIixcbiAgICAgICAgeTogXCJ5XCIsXG4gICAgICAgIGZpbGw6IHN2aWpldGxhLFxuICAgICAgICBzdHJva2U6IHRpbnRhXG4gICAgICB9KSxcbiAgICAgIFBsb3QucnVsZVkoWzBdLCB7c3Ryb2tlOiBwcmlndXNlbmF9KVxuICAgIF07XG4gICAgeCA9IHtsYWJlbDogbnVsbH07XG4gICAgeSA9IHtsYWJlbDogXCJJc2hvZFwiLCBncmlkOiB0cnVlfTtcbiAgfSBlbHNlIHtcbiAgICBtYXJrcyA9IFtcbiAgICAgIFBsb3QuYmFyWShzcmVkaW5lLCB7XG4gICAgICAgIHg6IFwic2t1cGluYVwiLFxuICAgICAgICB5OiBcInlcIixcbiAgICAgICAgZmlsbDogcHJpZ3VzZW5hLFxuICAgICAgICBpbnNldExlZnQ6IDIyLFxuICAgICAgICBpbnNldFJpZ2h0OiAyMlxuICAgICAgfSksXG4gICAgICBQbG90LnRleHQoc3JlZGluZSwge1xuICAgICAgICB4OiBcInNrdXBpbmFcIixcbiAgICAgICAgeTogXCJ5XCIsXG4gICAgICAgIHRleHQ6IGQgPT4gZC55LnRvTG9jYWxlU3RyaW5nKFwiaHItSFJcIiwge1xuICAgICAgICAgIG1pbmltdW1GcmFjdGlvbkRpZ2l0czogMSxcbiAgICAgICAgICBtYXhpbXVtRnJhY3Rpb25EaWdpdHM6IDFcbiAgICAgICAgfSksXG4gICAgICAgIGR5OiAtMTAsXG4gICAgICAgIGZpbGw6IHRpbnRhXG4gICAgICB9KSxcbiAgICAgIFBsb3QucnVsZVkoWzBdLCB7c3Ryb2tlOiB0aW50YX0pXG4gICAgXTtcbiAgICB4ID0ge2xhYmVsOiBudWxsfTtcbiAgICB5ID0ge2xhYmVsOiBcIkFyaXRtZXRpxI1rYSBzcmVkaW5hIGlzaG9kYVwiLCBncmlkOiB0cnVlLCB6ZXJvOiB0cnVlfTtcbiAgfVxuXG4gIHJldHVybiBQbG90LnBsb3Qoe1xuICAgIHdpZHRoOiBzaXJpbmFHcmFmYSxcbiAgICBoZWlnaHQ6IHVza28gPyA0MjAgOiAzNjAsXG4gICAgbWFyZ2luTGVmdDogdXNrbyA/IDU0IDogNjIsXG4gICAgbWFyZ2luQm90dG9tOiB1c2tvID8gNTIgOiA1NixcbiAgICBzdHlsZToge1xuICAgICAgYmFja2dyb3VuZDogXCJ0cmFuc3BhcmVudFwiLFxuICAgICAgY29sb3I6IHRpbnRhLFxuICAgICAgZm9udEZhbWlseTogXCJ2YXIoLS10b2stZm9udC1tb25vKVwiLFxuICAgICAgZm9udFNpemU6IHVza28gPyBcIjEycHhcIiA6IFwiMTNweFwiXG4gICAgfSxcbiAgICB4LFxuICAgIHksXG4gICAgc3ltYm9sLFxuICAgIG1hcmtzXG4gIH0pO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd3MDVfcGFyJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MDVfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBwcmlrYXo6IElucHV0cy5zZWxlY3QoXG4gICAgW1wiUmFzcHLFoWVuaSBkaWphZ3JhbVwiLCBcIkhpc3RvZ3JhbSBpc2hvZGFcIiwgXCJSYXNwb2RqZWxhIHBvIHNrdXBpbmFtYVwiLCBcIlNyZWRpbmUgc2t1cGluYVwiXSxcbiAgICB7dmFsdWU6IFwiUmFzcHLFoWVuaSBkaWphZ3JhbVwiLCBsYWJlbDogXCJQcmlrYXpcIn1cbiAgKVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IncwNV9wb2RhY2kgPSB7XG4gIGNvbnN0IHJuZyA9IGQzLnJhbmRvbUxjZyg1MDUpO1xuICBjb25zdCBub3JtYWxuYSA9ICgpID0+IHtcbiAgICBsZXQgeDtcbiAgICBsZXQgeTtcbiAgICBsZXQgcmFkaWp1cztcbiAgICBkbyB7XG4gICAgICB4ID0gcm5nKCkgKiAyIC0gMTtcbiAgICAgIHkgPSBybmcoKSAqIDIgLSAxO1xuICAgICAgcmFkaWp1cyA9IHggKiB4ICsgeSAqIHk7XG4gICAgfSB3aGlsZSAoIXJhZGlqdXMgfHwgcmFkaWp1cyA+IDEpO1xuICAgIHJldHVybiAwLjg1ICogeCAqIE1hdGguc3FydCgtMiAqIE1hdGgubG9nKHJhZGlqdXMpIC8gcmFkaWp1cyk7XG4gIH07XG5cbiAgcmV0dXJuIEFycmF5LmZyb20oe2xlbmd0aDogNzJ9LCAoXywgaSkgPT4ge1xuICAgIGNvbnN0IHNrdXBpbmEgPSBpIDwgMzYgPyBcIlNrdXBpbmEgQVwiIDogXCJTa3VwaW5hIEJcIjtcbiAgICBjb25zdCB4ID0gMSArIChpICUgMzYpICogOSAvIDM1O1xuICAgIGNvbnN0IHBvbWFrID0gc2t1cGluYSA9PT0gXCJTa3VwaW5hIEJcIiA/IDAuOCA6IDA7XG4gICAgcmV0dXJuIHtyZWQ6IGkgKyAxLCBza3VwaW5hLCB4LCB5OiAxLjUgKyAwLjU1ICogeCArIHBvbWFrICsgbm9ybWFsbmEoKX07XG4gIH0pO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidzA1X29waXNpID0gKHtcbiAgXCJSYXNwcsWhZW5pIGRpamFncmFtXCI6IFwiU3ZpaCA3MiBvcGHFvmFuamEgemFkcsW+YXZhanUgdmxhc3RpdGUgdnJpamVkbm9zdGkgeCBpIGlzaG9kYSwgYSBvYmxpayBvem5ha2UgcmF6bGlrdWplIGR2aWplIHNrdXBpbmUuIFZpZGkgc2UgcG96aXRpdmFuIG9kbm9zIHZhcmlqYWJsaSBpIG5lxaF0byB2acWhaSBwb2xvxb5haiBza3VwaW5lIEIuXCIsXG4gIFwiSGlzdG9ncmFtIGlzaG9kYVwiOiBcIklzaG9kaSBzdSBwcmVicm9qZW5pIHUgcmF6cmVkZSBwYSBzZSB2aWRpIG5qaWhvdiB1a3VwbmkgcmFzcG9yZWQuIE5lc3RhanUgdnJpamVkbm9zdCB4IGkgcHJpcGFkbm9zdCBza3VwaW5pIHN2YWtvZ2Egb3Bhxb5hbmphLlwiLFxuICBcIlJhc3BvZGplbGEgcG8gc2t1cGluYW1hXCI6IFwiRHZhIG9rdmlyYSDEjXV2YWp1IG1lZGlqYW4sIGt2YXJ0aWxlIGkgaXpkdm9qZW5hIG9wYcW+YW5qYSBwbyBza3VwaW5pLiBOZXN0YWp1IG9kbm9zIHMgdnJpamVkbm/FocSHdSB4IGkgdG/EjWFuIHBvbG/FvmFqIHZlxIdpbmUgcG9qZWRpbmHEjW5paCBvcGHFvmFuamEuXCIsXG4gIFwiU3JlZGluZSBza3VwaW5hXCI6IFwiRHZhIHN0dXBjYSDEjXV2YWp1IHNhbW8gYXJpdG1ldGnEjWt1IHNyZWRpbnUgc3Zha2Ugc2t1cGluZSwgcHJpIMSNZW11IGplIHNyZWRpbmEgc2t1cGluZSBCIHZpxaFhLiBOZXN0YWp1IHJhc3BvZGplbGEsIHJhc3ByxaFlbm9zdCwgb2Rub3MgcyB2cmlqZWRub8WhxId1IHggaSBwb2plZGluYcSNbmEgb3Bhxb5hbmphLlwiXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICBjb25zdCB0aW50YSA9IFwidmFyKC0tdG9rLWluaylcIjtcbiAgY29uc3QgcHJpZ3VzZW5hID0gXCJ2YXIoLS10b2staW5rLW11dGUpXCI7XG4gIGNvbnN0IHN2aWpldGxhID0gXCJ2YXIoLS10b2stZGF0YS01KVwiO1xuICBjb25zdCBpemJvciA9IHcwNV9wYXIucHJpa2F6O1xuICBjb25zdCBjZWxpamEgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLndpZGdldC1mcmFtZSAuY2VsbFwiKTtcbiAgY29uc3Qgc3RpbENlbGlqZSA9IGNlbGlqYSA/IGdldENvbXB1dGVkU3R5bGUoY2VsaWphKSA6IG51bGw7XG4gIGNvbnN0IGxva2FsbmFTaXJpbmEgPSBjZWxpamFcbiAgICA/IGNlbGlqYS5jbGllbnRXaWR0aCAtXG4gICAgICBwYXJzZUZsb2F0KHN0aWxDZWxpamUucGFkZGluZ0xlZnQpIC1cbiAgICAgIHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nUmlnaHQpXG4gICAgOiB3aWR0aDtcbiAgY29uc3Qgc2lyaW5hR3JhZmEgPSBNYXRoLm1heCgyNDAsIE1hdGgubWluKHdpZHRoLCBsb2thbG5hU2lyaW5hKSk7XG4gIGNvbnN0IHVza28gPSBzaXJpbmFHcmFmYSA8IDQ4MDtcbiAgY29uc3Qgc3JlZGluZSA9IGQzLnJvbGx1cHMoXG4gICAgdzA1X3BvZGFjaSxcbiAgICB2ID0+IGQzLm1lYW4odiwgZCA9PiBkLnkpLFxuICAgIGQgPT4gZC5za3VwaW5hXG4gICkubWFwKChbc2t1cGluYSwgeV0pID0+ICh7c2t1cGluYSwgeX0pKTtcblxuICBsZXQgbWFya3M7XG4gIGxldCB4O1xuICBsZXQgeTtcbiAgbGV0IHN5bWJvbDtcblxuICBpZiAoaXpib3IgPT09IFwiUmFzcHLFoWVuaSBkaWphZ3JhbVwiKSB7XG4gICAgbWFya3MgPSBbXG4gICAgICBQbG90LmRvdCh3MDVfcG9kYWNpLCB7XG4gICAgICAgIHg6IFwieFwiLFxuICAgICAgICB5OiBcInlcIixcbiAgICAgICAgc3ltYm9sOiBcInNrdXBpbmFcIixcbiAgICAgICAgZmlsbDogdGludGEsXG4gICAgICAgIHI6IDMuNSxcbiAgICAgICAgb3BhY2l0eTogMC43MlxuICAgICAgfSksXG4gICAgICBQbG90LnJ1bGVZKFswXSwge3N0cm9rZTogcHJpZ3VzZW5hfSlcbiAgICBdO1xuICAgIHggPSB7bGFiZWw6IFwiVnJpamVkbm9zdCB4XCIsIGdyaWQ6IHRydWV9O1xuICAgIHkgPSB7bGFiZWw6IFwiSXNob2RcIiwgZ3JpZDogdHJ1ZX07XG4gICAgc3ltYm9sID0ge2xlZ2VuZDogdHJ1ZSwgbGFiZWw6IG51bGx9O1xuICB9IGVsc2UgaWYgKGl6Ym9yID09PSBcIkhpc3RvZ3JhbSBpc2hvZGFcIikge1xuICAgIG1hcmtzID0gW1xuICAgICAgUGxvdC5yZWN0WShcbiAgICAgICAgdzA1X3BvZGFjaSxcbiAgICAgICAgUGxvdC5iaW5YKFxuICAgICAgICAgIHt5OiBcImNvdW50XCJ9LFxuICAgICAgICAgIHt4OiBcInlcIiwgZmlsbDogcHJpZ3VzZW5hLCB0aHJlc2hvbGRzOiAxNCwgaW5zZXQ6IDAuNn1cbiAgICAgICAgKVxuICAgICAgKSxcbiAgICAgIFBsb3QucnVsZVkoWzBdLCB7c3Ryb2tlOiB0aW50YX0pXG4gICAgXTtcbiAgICB4ID0ge2xhYmVsOiBcIklzaG9kXCJ9O1xuICAgIHkgPSB7bGFiZWw6IFwiQnJvaiBvcGHFvmFuamFcIiwgZ3JpZDogdHJ1ZX07XG4gIH0gZWxzZSBpZiAoaXpib3IgPT09IFwiUmFzcG9kamVsYSBwbyBza3VwaW5hbWFcIikge1xuICAgIG1hcmtzID0gW1xuICAgICAgUGxvdC5ib3hZKHcwNV9wb2RhY2ksIHtcbiAgICAgICAgeDogXCJza3VwaW5hXCIsXG4gICAgICAgIHk6IFwieVwiLFxuICAgICAgICBmaWxsOiBzdmlqZXRsYSxcbiAgICAgICAgc3Ryb2tlOiB0aW50YVxuICAgICAgfSksXG4gICAgICBQbG90LnJ1bGVZKFswXSwge3N0cm9rZTogcHJpZ3VzZW5hfSlcbiAgICBdO1xuICAgIHggPSB7bGFiZWw6IG51bGx9O1xuICAgIHkgPSB7bGFiZWw6IFwiSXNob2RcIiwgZ3JpZDogdHJ1ZX07XG4gIH0gZWxzZSB7XG4gICAgbWFya3MgPSBbXG4gICAgICBQbG90LmJhclkoc3JlZGluZSwge1xuICAgICAgICB4OiBcInNrdXBpbmFcIixcbiAgICAgICAgeTogXCJ5XCIsXG4gICAgICAgIGZpbGw6IHByaWd1c2VuYSxcbiAgICAgICAgaW5zZXRMZWZ0OiAyMixcbiAgICAgICAgaW5zZXRSaWdodDogMjJcbiAgICAgIH0pLFxuICAgICAgUGxvdC50ZXh0KHNyZWRpbmUsIHtcbiAgICAgICAgeDogXCJza3VwaW5hXCIsXG4gICAgICAgIHk6IFwieVwiLFxuICAgICAgICB0ZXh0OiBkID0+IGQueS50b0xvY2FsZVN0cmluZyhcImhyLUhSXCIsIHtcbiAgICAgICAgICBtaW5pbXVtRnJhY3Rpb25EaWdpdHM6IDEsXG4gICAgICAgICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAxXG4gICAgICAgIH0pLFxuICAgICAgICBkeTogLTEwLFxuICAgICAgICBmaWxsOiB0aW50YVxuICAgICAgfSksXG4gICAgICBQbG90LnJ1bGVZKFswXSwge3N0cm9rZTogdGludGF9KVxuICAgIF07XG4gICAgeCA9IHtsYWJlbDogbnVsbH07XG4gICAgeSA9IHtsYWJlbDogXCJBcml0bWV0acSNa2Egc3JlZGluYSBpc2hvZGFcIiwgZ3JpZDogdHJ1ZSwgemVybzogdHJ1ZX07XG4gIH1cblxuICBjb25zdCBncmFmID0gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogc2lyaW5hR3JhZmEsXG4gICAgaGVpZ2h0OiB1c2tvID8gNDIwIDogMzYwLFxuICAgIG1hcmdpbkxlZnQ6IHVza28gPyA1NCA6IDYyLFxuICAgIG1hcmdpbkJvdHRvbTogdXNrbyA/IDUyIDogNTYsXG4gICAgc3R5bGU6IHtcbiAgICAgIGJhY2tncm91bmQ6IFwidHJhbnNwYXJlbnRcIixcbiAgICAgIGNvbG9yOiB0aW50YSxcbiAgICAgIGZvbnRGYW1pbHk6IFwidmFyKC0tdG9rLWZvbnQtbW9ubylcIixcbiAgICAgIGZvbnRTaXplOiB1c2tvID8gXCIxMnB4XCIgOiBcIjEzcHhcIlxuICAgIH0sXG4gICAgeCxcbiAgICB5LFxuICAgIHN5bWJvbCxcbiAgICBtYXJrc1xuICB9KTtcbiAgZ3JhZi5zZXRBdHRyaWJ1dGUoXCJyb2xlXCIsIFwiaW1nXCIpO1xuICBncmFmLnNldEF0dHJpYnV0ZShcImFyaWEtbGFiZWxcIiwgdzA1X29waXNpW2l6Ym9yXSk7XG4gIHJldHVybiBncmFmO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICBjb25zdCBvcGlzID0gdzA1X29waXNpW3cwNV9wYXIucHJpa2F6XTtcbiAgcmV0dXJuIGh0bWxgPHAgY2xhc3M9XCJ3aWRnZXQtZm9vdFwiIHJvbGU9XCJzdGF0dXNcIiBhcmlhLWxpdmU9XCJwb2xpdGVcIj4ke29waXN9PC9wPmA7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3cwNV9wYXInKSJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -3989,6 +4530,16 @@ window._ojs.runtime.interpretFromScriptTags();
     <li class="nav-item">
     <a class="nav-link" href="../resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

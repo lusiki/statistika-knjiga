@@ -1,0 +1,1648 @@
+{
+  "date": "2026-10-21",
+  "status": "dovršeno; proza i oba prikaza provjereni",
+  "scope": "Svih 18 numeriranih poglavlja i dodatni postojeći okvir digitalnog predgovora.",
+  "authority": "Izravna priložena autorska uputa za uređivanje svih okvira; nema promjene statusa programa sveobuhvatne revizije ni tvrdnje da je P6-VERIFY zatvoren.",
+  "total_boxes": 19,
+  "chapters_missing_box": [],
+  "preserved": "Glavna proza, izvršni blokovi, formule izvan okvira, zadaci i identifikatori ostali su sačuvani. Jedina promjena izvan okvira jest kratki ulazni prijelaz u poglavlju 13.",
+  "approved_chapter_13": "Podudara se s priloženim tekstom nakon zanemarivanja prijeloma redaka, podebljanja naslova i dodanoga postojećeg citata cochran1954.",
+  "editorial_decisions": [
+    "Postojeći primjeri zadržani su. Poglavlje 13 razvijeno je prema izričito odobrenoj hipotetskoj knjižnici, uz očuvanu metodološku poantu i citat.",
+    "Berkeley u prvom poglavlju nosi pouku o sastavu skupina, a u drugom o mjerenju pravednosti i dosegu zapisa.",
+    "U drugom poglavlju uklonjena je nepotvrđena tvrdnja o višestrukim prijavama iste osobe; zadržana je izvorno dokumentirana granica povlačenja i preusmjeravanja prijava.",
+    "Literary Digest sada razdvaja pokrivenost i neodaziv te ne pripisuje promašaj samo adresaru.",
+    "Datasaurus je jasno označen kao konstrukcija; početni dinosaur pripisan je Cairu.",
+    "Dulji okvir poglavlja 16 zadržava tablicu, ograničenja modela i licencu. Numerički sadržaj tablice nije mijenjan.",
+    "Hipotetski interval vremena putovanja u poglavlju 9 nije nalaz Hoekstre i suradnika. Oba su primjera jasno odvojena.",
+    "Završni okvir koristi postojeći generirani skup i dinamički ispis postojećih procjena, bez novih empirijskih tvrdnji.",
+    "Pregledani su počeci i završeci svih okvira zajedno; razlikuju se povijesna analiza, čitanje objavljenog rada, institucionalna odluka i završni nastavni izvještaj.",
+    "Pri vizualnoj provjeri sažeti su ponovljeni izrazi u završnom tumačenju i atribuciji poglavlja 16 radi uklanjanja dvaju osamljenih redaka. Sačuvane su metodološke ograde, autori, naslov, DOI članka i tablice, licenca te izjava o prilagodbi i nepromijenjenim brojkama.",
+    "Popravljen je naslijeđeni izlazak citirane tablice u poglavlju 16 iz okvira na širokom zaslonu. Postojeći HTML filter sada uklanja Quarto mrežu i iz unutarnjih elemenata okvira te izdvaja marginalne citate. Sadržaj tablice nije mijenjan."
+  ],
+  "numeric_checks": {
+    "dip_turnout_percent": 62.30206720517671,
+    "dip_ballots": 2215209,
+    "dip_difference": 1554,
+    "digikat": {
+      "rows": 3604,
+      "total": 551712,
+      "mean": 153.0832408435072,
+      "median": 4,
+      "top10": 148748,
+      "top10_percent": 26.961168145699205
+    },
+    "chapter18": {
+      "unadjusted_30": 0.2461456,
+      "adjusted_30": -0.008323207,
+      "ci95": [
+        -0.1863548,
+        0.1697084
+      ],
+      "interval_contains_zero": true,
+      "interval_excludes_abs_unadjusted": true
+    },
+    "chapter16_illustration": {
+      "probability": 0.2,
+      "odds": 0.25
+    }
+  },
+  "verification": {
+    "style": "PASS, 0 kandidata u 19 poglavlja; širi style lane također 0 u 26 datoteka.",
+    "citations": "PASS",
+    "inventory": "PASS",
+    "figure_introductions": "PASS",
+    "approved_reference": "PASS",
+    "code_preservation": "PASS",
+    "full_manuscript_integrity": "FAIL zbog prethodnog nesklada provjernika i odluke STYLE.md od 2026-10-20: očekuje dva AI okvira, a aktualno izdanje zadržava jedan. Ova revizija nije mijenjala te okvire.",
+    "pdf": "PASS",
+    "html": "PASS, svih 39 kanonskih stranica; svih 19 okvira pri 1440 i 390 px",
+    "design_tokens": "PASS"
+  },
+  "environment": "Provjere koriste procesni UTF-8 locale za Windows i RENV_CONFIG_AUTOLOADER_ENABLED=FALSE uz postojeću lokalnu R 4.6 knjižnicu. Prva provjera pod naslijeđenim C.UTF-8 davala je lažne H4 nalaze za Što isprobati; ponovljena je ispravno bez izmjene provjernika. HTML je izgrađen uz zasebnu lokalnu Quarto predmemoriju i eksplicitnu putanju postojeće R knjižnice. PDF je izgrađen odobrenim omotačem uz odobren pristup postojećem TinyTeX-u. Privremena postavka korijenske konfiguracije vraćena je bajt po bajt. docs/ i PDF samo su generirani ili kopirani iz uspješne gradnje.",
+  "sources": {
+    "wasserstein2016": [
+      "https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf",
+      "Izjava ASA; ograničenje odluka prema pragu i razlika između značajnosti i važnosti."
+    ],
+    "bickel1975": [
+      "https://faculty.ucmerced.edu/jvevea/classes/Spark/readings/Bickel-Berkeley.pdf",
+      "Izvorni članak, odjeljak Data and Assumptions i zaključna rasprava."
+    ],
+    "dip2024": [
+      "https://www.izbori.hr/site/UserDocsImages/2024/Izbori_za_zastupnike_u_Hrvatski_sabor/Rezultati/Izvje%C5%A1%C4%87e%20o%20provedenim%20izborima%20za%20zastupnike%20u%20Hrvatski%20sabor%202024.pdf",
+      "Službeno izvješće i tablica odaziva, str. 124; zbrojevi listića dodatno prema već provjerenoj lokalnoj putovnici."
+    ],
+    "digikat2026": [
+      "https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8",
+      "Mrežni dohvat ove snimke nije uspio. Provjereni lokalni CSV, putovnica i računi; nisu dodane tvrdnje o punom korpusu."
+    ],
+    "cleveland1984": [
+      "https://faculty.washington.edu/aragon/classes/hcde511/s12/readings/cleveland84.pdf",
+      "Izvorni rad, pokus očitavanja omjera i usporedba položaja s kutom."
+    ],
+    "matejka2017": [
+      "https://www.research.autodesk.com/publications/same-stats-different-graphs/",
+      "Autorska stranica i izvorni rad; korigirano podrijetlo dinosaura na Cairovu početnu konstrukciju."
+    ],
+    "gilovich1985": [
+      "https://www.sciencedirect.com/science/article/pii/0010028585900106",
+      "Izvorni rad i njegovo tumačenje slučajnih nizova."
+    ],
+    "miller2018": [
+      "https://ditraglia.com/erm/Miller-Sanjurjo-2018.pdf",
+      "Izvorni članak; ispravak odabira i ponovna analiza kontroliranoga pokusa."
+    ],
+    "squire1988": [
+      "https://academic.oup.com/poq/article-abstract/52/1/125/1878544",
+      "Izvorni sažetak izričito razdvaja pristranost uzorka i odgovora te navodi hipotetski potpuni odaziv."
+    ],
+    "hoekstra2014": [
+      "https://link.springer.com/article/10.3758/s13423-013-0572-3",
+      "Sažetak izvornog rada; šest tvrdnji i prosječan broj prihvaćenih tumačenja."
+    ],
+    "greenland2016": [
+      "https://link.springer.com/article/10.1007/s10654-016-0149-3",
+      "Otvoreni izvorni rad; tumačenje p-vrijednosti i odabir analiza."
+    ],
+    "button2013": [
+      "https://doi.org/10.1038/nrn3475",
+      "Izvorni sažetak i ključne točke; niska snaga, precjenjivanje i ponovljivost."
+    ],
+    "wagenmakers2016": [
+      "https://www.ejwagenmakers.com/2016/WagenmakersEtAl2016Strack.pdf",
+      "Izvorni RRR, Table 1, Figures 3–4 i Primary result, str. 921–922."
+    ],
+    "cochran1954": [
+      "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fisher.test.html",
+      "Povijesni citat sačuvan. Izravan dohvat članka nije uspio; metodološko značenje pravila provjereno u službenoj dokumentaciji R-a, Details."
+    ],
+    "belia2005": [
+      "https://pubmed.ncbi.nlm.nih.gov/16392994/",
+      "Izvorni sažetak potvrđuje uzorak, zadatak i ograničenja razumijevanja crtica."
+    ],
+    "nieuwenhuis2011": [
+      "https://www.nature.com/articles/nn.2886",
+      "Izvorni sažetak potvrđuje pregled i razliku između dvaju testova i testa njihove razlike."
+    ],
+    "kleppang2021": [
+      "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0254197",
+      "Otvoreni članak, Methods, Results i Table 3; sačuvana atribucija CC BY 4.0."
+    ],
+    "westreich2013": [
+      "https://pubmed.ncbi.nlm.nih.gov/23371353/",
+      "Izvorni sažetak potvrđuje metodološku granicu iz prethodnog okvira; koeficijenti prilagodbi nisu automatski njihovi uzročni učinci."
+    ],
+    "chouldechova2017": [
+      "https://arxiv.org/html/1703.00056",
+      "Autorski rad; odvojeno značenje ocjene, pozitivna prediktivna vrijednost i stope pogreške."
+    ],
+    "cumming2014": [
+      "https://journals.sagepub.com/doi/10.1177/0956797613504966",
+      "Izvorni članak; procjena i interval kao temelj izvještavanja."
+    ],
+    "sikicanketa2026": [
+      "R/podaci-nastavni.R",
+      "Postojeći nastavni generator; ponovno izračunani regresijski nalazi poglavlja 18."
+    ]
+  },
+  "boxes": [
+    {
+      "chapter": "00",
+      "file": "chapters/00-predgovor.qmd",
+      "line": 197,
+      "existing_example": "ASA i prag značajnosti",
+      "old_title": "Jedan broj nije presuda.",
+      "new_title": "Jedan broj nije presuda.",
+      "situation": "Odluka o novom načinu poučavanja",
+      "statistical_issue": "Značajnost ne mjeri veličinu ni važnost promjene",
+      "consequence": "Odluka o uvođenju ili dodatnom istraživanju",
+      "carry_forward": "Tražiti procjenu, nesigurnost i opravdanje usporedbe",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "wasserstein2016"
+      ],
+      "sources_after": [
+        "wasserstein2016"
+      ],
+      "word_count_approx": 227,
+      "sha256_before": "a78553b11619be5b2d5d7ad7e79507cccf7f7333d88ec9fe14a99e4318464477",
+      "sha256_after": "5935198f59d5badfbf6c0cadf8822e79ddfccb4bbcdd8938ae623bca33e4f415"
+    },
+    {
+      "chapter": "01",
+      "file": "chapters/01-zasto-statistika.qmd",
+      "line": 745,
+      "existing_example": "Berkeley i zbirna stopa prijma",
+      "old_title": "Zbirna stopa i sumnja u pristranost.",
+      "new_title": "Zbirna stopa i sumnja u pristranost.",
+      "situation": "Provjera upisnog postupka",
+      "statistical_issue": "Sastav prijava utječe na zbirnu stopu",
+      "consequence": "Različiti nalazi usmjeravaju provjeru na različite odluke",
+      "carry_forward": "Zadržati zbirni i odjelni pogled",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "bickel1975"
+      ],
+      "sources_after": [
+        "bickel1975"
+      ],
+      "word_count_approx": 260,
+      "sha256_before": "e579b7f797cd99d0d30a2b20b1617f4d433569240b397dbe21c1c076d0bd134c",
+      "sha256_after": "91239e3d4a8b3c3991e1fef0e0ed9cccb05af04bcb9bbccb11d15d2e616bb89f"
+    },
+    {
+      "chapter": "02",
+      "file": "chapters/02-mjerenje-i-dizajn.qmd",
+      "line": 780,
+      "existing_example": "Berkeley i operacionalizacija pravednosti",
+      "old_title": "Što mjeri stopa prijma.",
+      "new_title": "Pravednost koju tablica može vidjeti.",
+      "situation": "Prijedlog poboljšanja upisa",
+      "statistical_issue": "Tablica ne mjeri sve oblike pravednosti i ne obuhvaća sve zainteresirane",
+      "consequence": "Izbor dodatnih podataka i mjesta intervencije",
+      "carry_forward": "Odrediti koji dio puta stopa prijma mjeri",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "bickel1975",
+        "bickel1975"
+      ],
+      "sources_after": [
+        "bickel1975"
+      ],
+      "word_count_approx": 270,
+      "sha256_before": "256599473264e92c3ed24f74d2a05437cd6a0da9926c371862683c4a889d467f",
+      "sha256_after": "da6c4314e4e6d592fa1e512c877913abe0018fbf2b270e339f3aa5e370e45e18"
+    },
+    {
+      "chapter": "03",
+      "file": "chapters/03-kako-brojke-zavode.qmd",
+      "line": 510,
+      "existing_example": "DIP 2024 i odaziv",
+      "old_title": "Kada „glasovalo” postane preširoka riječ.",
+      "new_title": "Kada „glasovalo” postane preširoka riječ.",
+      "situation": "Zamišljena redakcijska vijest o stvarnom izvješću",
+      "statistical_issue": "Pristupanje, listići i važeći glasovi nisu isti brojnik",
+      "consequence": "Naslov može tvrditi više nego tablica",
+      "carry_forward": "Imenovati brojnik, nazivnik i obuhvat",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "dip2024",
+        "dip2024",
+        "dip2024",
+        "dip2024"
+      ],
+      "sources_after": [
+        "dip2024"
+      ],
+      "word_count_approx": 270,
+      "sha256_before": "28ecc3a24076291f648f7a4d1fc170794591738d1f7baf0d14a3d48e68b42a3a",
+      "sha256_after": "4a3ce59caf77b301f969c97421e7c8a8bc11edca63ef225b52224d07089df2a4"
+    },
+    {
+      "chapter": "04",
+      "file": "chapters/04-sazimanje-podataka.qmd",
+      "line": 1118,
+      "existing_example": "DigiKat i broj objava po domeni",
+      "old_title": "Prosječan izvor i tipična domena.",
+      "new_title": "Prosječan izvor i tipična domena.",
+      "situation": "Urednik iz uvodne vinjete opisuje tipičan izvor",
+      "statistical_issue": "Sredina i medijan opisuju različita svojstva asimetrične raspodjele",
+      "consequence": "Naslov može sakriti koncentraciju objava",
+      "carry_forward": "Povezati tipičnu domenu s udjelom najvećih izvora",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "digikat2026"
+      ],
+      "sources_after": [
+        "digikat2026"
+      ],
+      "word_count_approx": 251,
+      "sha256_before": "cfb4e6db28e54f250f9e536e025370dd93eaeafd2a4249131ae100a106bb03b6",
+      "sha256_after": "dd3ef228911dcd2c675d4932541fcbe708755b0e9be5a5b3856e5616c948dfa7"
+    },
+    {
+      "chapter": "05",
+      "file": "chapters/05-vizualizacija.qmd",
+      "line": 977,
+      "existing_example": "Cleveland i McGill, grafička percepcija",
+      "old_title": "Opća zabrana kružnog dijagrama.",
+      "new_title": "Kružni dijagram pred konkretnim zadatkom.",
+      "situation": "Zamišljena kulturna ustanova uspoređuje posjećenost programa",
+      "statistical_issue": "Preciznost očitavanja ovisi o grafičkom zadatku",
+      "consequence": "Izbor prikaza utječe na čitljivost bliskih udjela",
+      "carry_forward": "Birati graf prema usporedbi koju treba podržati",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "cleveland1984",
+        "cleveland1984"
+      ],
+      "sources_after": [
+        "cleveland1984"
+      ],
+      "word_count_approx": 267,
+      "sha256_before": "5802438c8f9b2123b953c23452378f30ff2ab3de6703aac6a5d0c491975177a8",
+      "sha256_after": "bd903e831705f579625fce808893dc2911fd447dda2223a43ee056878f654a02"
+    },
+    {
+      "chapter": "06",
+      "file": "chapters/06-povezanost.qmd",
+      "line": 1027,
+      "existing_example": "Matejka i Fitzmaurice, Datasaurus",
+      "old_title": "Dinosaur s urednim sažetkom.",
+      "new_title": "Dinosaur s urednim sažetkom.",
+      "situation": "Pregled analize bez raspršenog dijagrama",
+      "statistical_issue": "Jednaki sažeci mogu skrivati različite oblike odnosa",
+      "consequence": "Točan račun još ne opravdava opis povezanosti",
+      "carry_forward": "Uz koeficijent pregledati opažanja",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "matejka2017"
+      ],
+      "sources_after": [
+        "matejka2017"
+      ],
+      "word_count_approx": 257,
+      "sha256_before": "8270877091b70815d8b26aae9a1f4a7e1881d429c55e75336c1d62916862edd6",
+      "sha256_after": "393f8148bda3030b93cbe5269220a10a769018137924b50d1de7210e2be3528c"
+    },
+    {
+      "chapter": "07",
+      "file": "chapters/07-vjerojatnost.qmd",
+      "line": 812,
+      "existing_example": "Gilovich i suradnici te Miller i Sanjurjo",
+      "old_title": "Vruća ruka i njezin ispravak.",
+      "new_title": "Vruća ruka i njezin ispravak.",
+      "situation": "Tumačenje niza pogodaka i moguća odluka o dodavanju",
+      "statistical_issue": "Odabir mjesta unutar konačnih nizova mijenja referentni račun",
+      "consequence": "Ispravak mjere mijenja tumačenje izvornog pokusa",
+      "carry_forward": "Provjeriti dojam i postupak kojim ga osporavamo",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "gilovich1985",
+        "miller2018",
+        "miller2018"
+      ],
+      "sources_after": [
+        "gilovich1985",
+        "miller2018"
+      ],
+      "word_count_approx": 270,
+      "sha256_before": "23d106a606a32741c526743ad6a76a97b3638bd6706d465ad8bf75a541cd66c0",
+      "sha256_after": "2b5ac756b4074ab460d96f81de79cca37c157f6852f881d3f1ae0d408c00f00a"
+    },
+    {
+      "chapter": "08",
+      "file": "chapters/08-uzorkovanje.qmd",
+      "line": 1049,
+      "existing_example": "Literary Digest i Squireova ponovna analiza",
+      "old_title": "Deset milijuna listića i pogrešan pobjednik.",
+      "new_title": "Milijuni odgovora i pogrešan pobjednik.",
+      "situation": "Povijesna izborna prognoza",
+      "statistical_issue": "Pokrivenost i neodaziv dva su različita izvora pristranosti",
+      "consequence": "Više istovrsnih odgovora ne mora popraviti prognozu",
+      "carry_forward": "Ispitati tko je pozvan i tko je odgovorio",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "squire1988",
+        "squire1988",
+        "squire1988"
+      ],
+      "sources_after": [
+        "squire1988"
+      ],
+      "word_count_approx": 267,
+      "sha256_before": "7bf127bf693652e698c38d4126922e4cd2c258210bc702965ccea47d00150124",
+      "sha256_after": "1b7c40a6073f0f998c5be8c869b8828eeeca231486e4efc2209df2508b09867b"
+    },
+    {
+      "chapter": "09",
+      "file": "chapters/09-procjena.qmd",
+      "line": 799,
+      "existing_example": "Hoekstra i suradnici, razumijevanje intervala",
+      "old_title": "Šest tvrdnji o jednom intervalu.",
+      "new_title": "Šest tvrdnji o jednom intervalu.",
+      "situation": "Objavljeni zadatak i zaseban hipotetski studentski izvještaj",
+      "statistical_issue": "Interval sredine nije raspon pojedinačnih putovanja ni posteriorna vjerojatnost",
+      "consequence": "Prosjek ne daje odgovor o studentima s dugim putovanjem",
+      "carry_forward": "Imenovati procjenjivanu veličinu i vrstu nesigurnosti",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "hoekstra2014",
+        "hoekstra2014"
+      ],
+      "sources_after": [
+        "hoekstra2014"
+      ],
+      "word_count_approx": 277,
+      "sha256_before": "f46b766e6c0c731dbc25fd4a98a43ea608f987e174bb226acf4ae6e9d28ebbce",
+      "sha256_after": "4f8ad720241afca4f0194b2ffe2007a394e01b9c06d04eada690eb04b02d3719"
+    },
+    {
+      "chapter": "10",
+      "file": "chapters/10-logika-testiranja.qmd",
+      "line": 861,
+      "existing_example": "Greenland i suradnici, pogrešna tumačenja",
+      "old_title": "Popis od dvadeset pet.",
+      "new_title": "Mala p-vrijednost pred uredničkom odlukom.",
+      "situation": "Zamišljena redakcijska procjena nalaza o povjerenju",
+      "statistical_issue": "P-vrijednost ne potvrđuje objašnjenje i ovisi o postupku odabira analiza",
+      "consequence": "Naslov se ograničava ili odgađa",
+      "carry_forward": "Provjeriti model, nacrt i put do rezultata",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "greenland2016"
+      ],
+      "sources_after": [
+        "greenland2016"
+      ],
+      "word_count_approx": 273,
+      "sha256_before": "9fedfc0b9277438dd297e0b5728559bd249ecfe2c74d053713f32c4d2ddcb2bf",
+      "sha256_after": "b64d2b6018fc19df0d34f93542113bfdc7456991d121636315a77371bd10d243"
+    },
+    {
+      "chapter": "11",
+      "file": "chapters/11-velicina-ucinka-i-snaga.qmd",
+      "line": 776,
+      "existing_example": "Button i suradnici, niska snaga",
+      "old_title": "Neuspjeh snage.",
+      "new_title": "Velik objavljeni učinak i plan male studije.",
+      "situation": "Planiranje ponavljanja objavljenog nalaza",
+      "statistical_issue": "Odabir značajnih rezultata može napuhati objavljene procjene",
+      "consequence": "Nova studija može biti premala za sadržajno važan učinak",
+      "carry_forward": "Planirati za raspon uvjerljivih učinaka",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "button2013"
+      ],
+      "sources_after": [
+        "button2013"
+      ],
+      "word_count_approx": 283,
+      "sha256_before": "475124481e16eb10801a32fe077d871e524ecf03cf06a901c36b827b5cd40b8a",
+      "sha256_after": "c89778a1b07b85cc3391ced7253ea5234db0e45b74623104e8b83b0f02474359"
+    },
+    {
+      "chapter": "12",
+      "file": "chapters/12-kriza-i-obnova.qmd",
+      "line": 618,
+      "existing_example": "Wagenmakers i suradnici, RRR",
+      "old_title": "Sedamnaest procjena nije referendum.",
+      "new_title": "Sedamnaest procjena nije referendum.",
+      "situation": "Odluka kako nastaviti nakon laboratorijskih ponavljanja",
+      "statistical_issue": "Brojanje predznaka zanemaruje veličinu i preciznost",
+      "consequence": "Mijenja se očekivanje o veličini ponovljivog nalaza",
+      "carry_forward": "Čitati pojedinačne i objedinjenu procjenu s granicom prijenosa",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "wagenmakers2016",
+        "wagenmakers2016",
+        "wagenmakers2016"
+      ],
+      "sources_after": [
+        "wagenmakers2016"
+      ],
+      "word_count_approx": 268,
+      "sha256_before": "3dded3d26904f376471c95da4c269cc7c90a22a5df330d63ad55ee27ef35e9b8",
+      "sha256_after": "f1f06bb85c8ed699420bba90ae15bbce043b97792755eed2e823b4446429929e"
+    },
+    {
+      "chapter": "13",
+      "file": "chapters/13-kategoricki-podaci.qmd",
+      "line": 887,
+      "existing_example": "Cochranovo pravilo i simulacija; prošireno odobrenom knjižnicom",
+      "old_title": "Prag pet.",
+      "new_title": "Gdje su nestali slušatelji radija?",
+      "situation": "Odobrena zamišljena gradska knjižnica",
+      "statistical_issue": "Spajanje rijetkih kategorija mijenja istraživačko pitanje",
+      "consequence": "Zasebni komunikacijski kanali mogu nestati iz zaključka",
+      "carry_forward": "Sačuvati izvornu tablicu i provjeriti što spajanje oduzima",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "cochran1954"
+      ],
+      "sources_after": [
+        "cochran1954"
+      ],
+      "word_count_approx": 317,
+      "sha256_before": "d354a98db5091f819a40487ca022b59340049780e9186ea2705ac7ed51544709",
+      "sha256_after": "c76b4a90e4c6de58cb6a54e6c74f69fb2486ffe3f051b86c62d94d532b4456be"
+    },
+    {
+      "chapter": "14",
+      "file": "chapters/14-dvije-grupe.qmd",
+      "line": 888,
+      "existing_example": "Belia i suradnici, crtice pogreške",
+      "old_title": "Preklapanje crtica.",
+      "new_title": "Preklapanje crtica.",
+      "situation": "Objavljeni pokus čitanja grafova i zamišljena radionica",
+      "statistical_issue": "Nacrt i značenje crtica određuju račun nesigurnosti",
+      "consequence": "Preklapanje može navesti na pogrešan zaključak o promjeni",
+      "carry_forward": "Izravno prikazati razliku i njezin interval",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "belia2005"
+      ],
+      "sources_after": [
+        "belia2005"
+      ],
+      "word_count_approx": 272,
+      "sha256_before": "ef6c07045fec886cf717ff2f3839bb3a09d085bc60255bdedeab054635c8bb37",
+      "sha256_after": "a876b8b749aa91e6777d10c900b70cec02bd7d5d8e0d6e2dd16311d382fb034e"
+    },
+    {
+      "chapter": "15",
+      "file": "chapters/15-vise-grupa.qmd",
+      "line": 738,
+      "existing_example": "Nieuwenhuis i suradnici, usporedba učinaka",
+      "old_title": "Značajno ovdje, neznačajno ondje.",
+      "new_title": "Značajno ovdje, neznačajno ondje.",
+      "situation": "Zamišljeni program u dvjema dobnim skupinama",
+      "statistical_issue": "Značajno u jednoj skupini nije dokaz razlike učinaka",
+      "consequence": "Program bi se mogao neopravdano uskratiti drugoj skupini",
+      "carry_forward": "Procijeniti razliku učinaka izravno",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "nieuwenhuis2011"
+      ],
+      "sources_after": [
+        "nieuwenhuis2011"
+      ],
+      "word_count_approx": 280,
+      "sha256_before": "2fc2414c8cfd1cfe85165b9dd896be3ffa67bbe334e38fca8f877e06d779ff2e",
+      "sha256_after": "6ebd27c2208dc389423331b95e62864f2a27a820f319eddead62c334dbe705f6"
+    },
+    {
+      "chapter": "16",
+      "file": "chapters/16-regresija.qmd",
+      "line": 1320,
+      "existing_example": "Kleppang i suradnici, Tablica 3",
+      "old_title": "Od omjera do dopuštene rečenice.",
+      "new_title": "Od omjera do dopuštene rečenice.",
+      "situation": "Zamišljeni školski tim čita stvaran presječni nalaz",
+      "statistical_issue": "Omjer izgleda nije omjer rizika ni učinak intervencije",
+      "consequence": "Tablica ne daje dokaz za očekivani učinak ograničenja uporabe",
+      "carry_forward": "Odvojiti opaženu povezanost, apsolutne vjerojatnosti i uzrok",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "kleppang2021",
+        "kleppang2021",
+        "kleppang2021",
+        "kleppang2021",
+        "kleppang2021",
+        "kleppang2021",
+        "westreich2013",
+        "kleppang2021"
+      ],
+      "sources_after": [
+        "kleppang2021",
+        "westreich2013"
+      ],
+      "word_count_approx": 551,
+      "sha256_before": "8858d6088bfd396615753fc739297195a9f26d52faf4a510e2ef83eaf930d9b9",
+      "sha256_after": "717b1bf269baf173ca7f239da3a6926d20e94be22b28170e69a4e4406b0a84c6"
+    },
+    {
+      "chapter": "17",
+      "file": "chapters/17-doba-algoritama.qmd",
+      "line": 632,
+      "existing_example": "Chouldechova, kriteriji pravednosti",
+      "old_title": "Jednaka ocjena, različite pogreške.",
+      "new_title": "Jednaka ocjena, različite pogreške.",
+      "situation": "Procjena rizika te ograničeni prijenos pouke na parlamentarni korpus",
+      "statistical_issue": "Jednakost prema jednom nazivniku ne jamči jednakost stopa pogreške",
+      "consequence": "Izbor praga mijenja raspodjelu pogrešaka i iskustva pogođenih ljudi",
+      "carry_forward": "Imenovati ishod, skupine, prag i posljedice",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "chouldechova2017"
+      ],
+      "sources_after": [
+        "chouldechova2017"
+      ],
+      "word_count_approx": 296,
+      "sha256_before": "7d7b59a9779b73ee1f5d784e12976c3adfd53d6f67d50b261ad31dce12754b97",
+      "sha256_after": "024930e69f10bce760fe2c91d73f21fd9643b3ef6f5440fd524d9165ae0555f0"
+    },
+    {
+      "chapter": "18",
+      "file": "chapters/18-vase-prvo-istrazivanje.qmd",
+      "line": 689,
+      "existing_example": "Cumming i izvještavanje simuliranog završnog istraživanja",
+      "old_title": "Izvještaj s procjenom u prvom planu.",
+      "new_title": "Izvještaj s procjenom u prvom planu.",
+      "situation": "Pisanje sažetka dovršenog nastavnog projekta",
+      "statistical_issue": "Promjena procjene i intervala nosi više informacije od promjene značajnosti",
+      "consequence": "Zaključak postaje skromniji i uporabljiviji",
+      "carry_forward": "Povezati jedinice, nesigurnost, usporedbu i granicu primjene",
+      "value_slot": "interpretation",
+      "sources_before": [
+        "cumming2014"
+      ],
+      "sources_after": [
+        "cumming2014",
+        "sikicanketa2026"
+      ],
+      "word_count_approx": 274,
+      "sha256_before": "fd3d567714231e5918b164160e1eb92af94aaae8a357fbadc3afdfe6270df820",
+      "sha256_after": "244b10a0b492740b3376cbea77bcc9c6e9dac0f9780da67f0a14ea97f889fcd3"
+    }
+  ],
+  "layout_fix": {
+    "files": [
+      "html-filters/systemic-layout.lua",
+      "styles/_callouts.scss"
+    ],
+    "scope": "Postojeći popravak položaja pedagoških okvira proširen na njihove unutarnje mreže i marginalne citate. Tablica i potpis zadržavaju širinu okvira na mobitelu, a potpis koristi svijetli postojeći token radi čitljivosti.",
+    "verification": "U svih 19 okvira pri 1440 i 390 px nema vodoravnog izlaska ni preostalih unutarnjih mreža."
+  },
+  "artifacts": {
+    "pdf": "pdf/Statistika.pdf",
+    "served_pdf": "docs/pdf/Statistika.pdf",
+    "html": "docs/index.html",
+    "pdf_pages": 417,
+    "pdf_sha256": "31526f4fbe520e73bc3e9ae6d2c7776b5a7edfcc9dfd1eca150195bf846eec9c",
+    "html_files_regenerated": 191,
+    "chapter_sources_match_builds": true
+  },
+  "visual_qa": {
+    "pdf": {
+      "pages": 417,
+      "boxes": [
+        {
+          "chapter": "01-zasto-statistika",
+          "title": "Zbirna stopa i sumnja u pristranost.",
+          "start": 25,
+          "end": 26,
+          "ending": "ušle u njezin brojnik i kako su ljudi dospjeli u njezin nazivnik."
+        },
+        {
+          "chapter": "02-mjerenje-i-dizajn",
+          "title": "Pravednost koju tablica može vidjeti.",
+          "start": 45,
+          "end": 46,
+          "ending": "istražiti. Stopa prijma pomaže tek kada znamo koji dio toga puta mjeri."
+        },
+        {
+          "chapter": "03-kako-brojke-zavode",
+          "title": "Kada „glasovalo” postane preširoka riječ.",
+          "start": 61,
+          "end": 62,
+          "ending": "granicu između onoga što smo prebrojili i onoga što tek želimo objasniti."
+        },
+        {
+          "chapter": "04-sazimanje-podataka",
+          "title": "Prosječan izvor i tipična domena.",
+          "start": 90,
+          "end": 91,
+          "ending": "pripada malom dijelu izvora. Riječ prosjek ne može sama obaviti oba posla."
+        },
+        {
+          "chapter": "05-vizualizacija",
+          "title": "Kružni dijagram pred konkretnim zadatkom.",
+          "start": 112,
+          "end": 113,
+          "ending": "koju čini čitljivom, a ne po tome pripada li unaprijed odobrenoj vrsti."
+        },
+        {
+          "chapter": "06-povezanost",
+          "title": "Dinosaur s urednim sažetkom.",
+          "start": 135,
+          "end": 136,
+          "ending": "važnu osobinu odnosa čitatelj propustio kada bismo mu pokazali samo taj broj."
+        },
+        {
+          "chapter": "07-vjerojatnost",
+          "title": "Vruća ruka i njezin ispravak.",
+          "start": 160,
+          "end": 161,
+          "ending": "i dojam koji želimo objasniti i mjerni postupak kojim ga pokušavamo osporiti."
+        },
+        {
+          "chapter": "08-uzorkovanje",
+          "title": "Milijuni odgovora i pogrešan pobjednik.",
+          "start": 185,
+          "end": 185,
+          "ending": "čiji su to odgovori i tko je imao priliku ostati izvan računa."
+        },
+        {
+          "chapter": "09-procjena",
+          "title": "Šest tvrdnji o jednom intervalu.",
+          "start": 203,
+          "end": 204,
+          "ending": "predmet, s prosjeka na ljude ili s postupka na vjerojatnost jedne vrijednosti."
+        },
+        {
+          "chapter": "10-logika-testiranja",
+          "title": "Mala p-vrijednost pred uredničkom odlukom.",
+          "start": 229,
+          "end": 229,
+          "ending": "Između te dvije rečenice mora stajati dokaz koji sama p-vrijednost ne sadrži."
+        },
+        {
+          "chapter": "11-velicina-ucinka-i-snaga",
+          "title": "Velik objavljeni učinak i plan male studije.",
+          "start": 246,
+          "end": 247,
+          "ending": "je uzorak potreban da razlučimo mogućnosti koje su važne za naše istraživanje."
+        },
+        {
+          "chapter": "12-kriza-i-obnova",
+          "title": "Sedamnaest procjena nije referendum.",
+          "start": 264,
+          "end": 264,
+          "ending": "za učinak, možemo pitati koliko velik učinak njihov zajednički rad još dopušta."
+        },
+        {
+          "chapter": "13-kategoricki-podaci",
+          "title": "Gdje su nestali slušatelji radija?",
+          "start": 291,
+          "end": 292,
+          "ending": "to pitanje određuje hoće li slušatelji radija ostati vidljivi u zaključku istraživanja."
+        },
+        {
+          "chapter": "14-dvije-grupe",
+          "title": "Preklapanje crtica.",
+          "start": 308,
+          "end": 309,
+          "ending": "nesigurnost njihove usporedbe, a ne vizualnu presudu izvedenu iz dvaju zasebnih raspona."
+        },
+        {
+          "chapter": "15-vise-grupa",
+          "title": "Značajno ovdje, neznačajno ondje.",
+          "start": 326,
+          "end": 327,
+          "ending": "povod za pitanje, ali odgovor traži procjenu razlike o kojoj stvarno odlučujemo."
+        },
+        {
+          "chapter": "16-regresija",
+          "title": "Od omjera do dopuštene rečenice.",
+          "start": 352,
+          "end": 354,
+          "ending": "i granice intervala sačuvani su. Prilagodba ne podrazumijeva odobrenje autora ni PLOS-a."
+        },
+        {
+          "chapter": "17-doba-algoritama",
+          "title": "Jednaka ocjena, različite pogreške.",
+          "start": 371,
+          "end": 372,
+          "ending": "jednaka ocjena modela može prikrivati različita iskustva ljudi na koje se odnosi."
+        },
+        {
+          "chapter": "18-vase-prvo-istrazivanje",
+          "title": "Izvještaj s procjenom u prvom planu.",
+          "start": 399,
+          "end": 400,
+          "ending": "informacija od završne oznake značajnosti, čak i kada konačna odluka ostaje otvorena."
+        }
+      ],
+      "rendered_pages": [
+        25,
+        26,
+        45,
+        46,
+        61,
+        62,
+        90,
+        91,
+        112,
+        113,
+        135,
+        136,
+        160,
+        161,
+        185,
+        203,
+        204,
+        229,
+        246,
+        247,
+        264,
+        291,
+        292,
+        308,
+        309,
+        326,
+        327,
+        352,
+        353,
+        354,
+        371,
+        372,
+        399,
+        400
+      ],
+      "outside_page_spans": [],
+      "replacement_characters": 0,
+      "pdf_sha256": "31526f4fbe520e73bc3e9ae6d2c7776b5a7edfcc9dfd1eca150195bf846eec9c",
+      "digital_preface": "Not included in print by existing edition configuration; verified in HTML.",
+      "visual_review": "PASS",
+      "visual_review_notes": "All 18 print boxes inspected across 34 rendered pages. The table caption stays with the table; the shortened attribution ends on page 354 without a two-line continuation. No cut text or detached box titles."
+    },
+    "html": {
+      "boxes": 19,
+      "results": [
+        {
+          "chapter": "00-predgovor.qmd",
+          "title": "Jedan broj nije presuda.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 116.546875,
+                "width": 559.59375,
+                "height": 946.015625,
+                "top": 116.546875,
+                "right": 853.96875,
+                "bottom": 1062.5625,
+                "left": 294.375
+              },
+              "text": 1559,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -112.09375,
+                "width": 319.625,
+                "height": 1392.046875,
+                "top": -112.09375,
+                "right": 354.8125,
+                "bottom": 1279.953125,
+                "left": 35.1875
+              },
+              "text": 1559,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "01-zasto-statistika.qmd",
+          "title": "Zbirna stopa i sumnja u pristranost.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 52.828125,
+                "width": 559.59375,
+                "height": 1074.53125,
+                "top": 52.828125,
+                "right": 853.96875,
+                "bottom": 1127.359375,
+                "left": 294.375
+              },
+              "text": 1772,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -218.671875,
+                "width": 319.625,
+                "height": 1605.3125,
+                "top": -218.671875,
+                "right": 354.8125,
+                "bottom": 1386.640625,
+                "left": 35.1875
+              },
+              "text": 1772,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "02-mjerenje-i-dizajn.qmd",
+          "title": "Pravednost koju tablica može vidjeti.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 53.015625,
+                "width": 559.59375,
+                "height": 1074.53125,
+                "top": 53.015625,
+                "right": 853.96875,
+                "bottom": 1127.546875,
+                "left": 294.375
+              },
+              "text": 1930,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -287.859375,
+                "width": 319.625,
+                "height": 1742.96875,
+                "top": -287.859375,
+                "right": 354.8125,
+                "bottom": 1455.109375,
+                "left": 35.1875
+              },
+              "text": 1930,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "03-kako-brojke-zavode.qmd",
+          "title": "Kada „glasovalo” postane preširoka riječ.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 25.21875,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 25.21875,
+                "right": 853.96875,
+                "bottom": 1154.8125,
+                "left": 294.375
+              },
+              "text": 2015,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -328.40625,
+                "width": 319.625,
+                "height": 1825.5625,
+                "top": -328.40625,
+                "right": 354.8125,
+                "bottom": 1497.15625,
+                "left": 35.1875
+              },
+              "text": 2015,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "04-sazimanje-podataka.qmd",
+          "title": "Prosječan izvor i tipična domena.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 66.5,
+                "width": 559.59375,
+                "height": 1047,
+                "top": 66.5,
+                "right": 853.96875,
+                "bottom": 1113.5,
+                "left": 294.375
+              },
+              "text": 1743,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -231.984375,
+                "width": 319.625,
+                "height": 1632.84375,
+                "top": -231.984375,
+                "right": 354.8125,
+                "bottom": 1400.859375,
+                "left": 35.1875
+              },
+              "text": 1743,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "05-vizualizacija.qmd",
+          "title": "Kružni dijagram pred konkretnim zadatkom.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 25.265625,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 25.265625,
+                "right": 853.96875,
+                "bottom": 1154.859375,
+                "left": 294.375
+              },
+              "text": 1905,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -273.421875,
+                "width": 319.625,
+                "height": 1715.4375,
+                "top": -273.421875,
+                "right": 354.8125,
+                "bottom": 1442.015625,
+                "left": 35.1875
+              },
+              "text": 1905,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "06-povezanost.qmd",
+          "title": "Dinosaur s urednim sažetkom.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 66.5,
+                "width": 559.59375,
+                "height": 1047,
+                "top": 66.5,
+                "right": 853.96875,
+                "bottom": 1113.5,
+                "left": 294.375
+              },
+              "text": 1833,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -260.078125,
+                "width": 319.625,
+                "height": 1687.90625,
+                "top": -260.078125,
+                "right": 354.8125,
+                "bottom": 1427.828125,
+                "left": 35.1875
+              },
+              "text": 1833,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "07-vjerojatnost.qmd",
+          "title": "Vruća ruka i njezin ispravak.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 25.546875,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 25.546875,
+                "right": 853.96875,
+                "bottom": 1155.140625,
+                "left": 294.375
+              },
+              "text": 1863,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -260.3125,
+                "width": 319.625,
+                "height": 1687.90625,
+                "top": -260.3125,
+                "right": 354.8125,
+                "bottom": 1427.59375,
+                "left": 35.1875
+              },
+              "text": 1863,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "08-uzorkovanje.qmd",
+          "title": "Milijuni odgovora i pogrešan pobjednik.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 39.265625,
+                "width": 559.59375,
+                "height": 1102.0625,
+                "top": 39.265625,
+                "right": 853.96875,
+                "bottom": 1141.328125,
+                "left": 294.375
+              },
+              "text": 1854,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -260.34375,
+                "width": 319.625,
+                "height": 1687.90625,
+                "top": -260.34375,
+                "right": 354.8125,
+                "bottom": 1427.5625,
+                "left": 35.1875
+              },
+              "text": 1854,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "09-procjena.qmd",
+          "title": "Šest tvrdnji o jednom intervalu.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 24.96875,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 24.96875,
+                "right": 853.96875,
+                "bottom": 1154.5625,
+                "left": 294.375
+              },
+              "text": 1988,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -301.171875,
+                "width": 319.625,
+                "height": 1770.5,
+                "top": -301.171875,
+                "right": 354.8125,
+                "bottom": 1469.328125,
+                "left": 35.1875
+              },
+              "text": 1988,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "10-logika-testiranja.qmd",
+          "title": "Mala p-vrijednost pred uredničkom odlukom.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 25.546875,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 25.546875,
+                "right": 853.96875,
+                "bottom": 1155.140625,
+                "left": 294.375
+              },
+              "text": 1991,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -314.890625,
+                "width": 319.625,
+                "height": 1798.03125,
+                "top": -314.890625,
+                "right": 354.8125,
+                "bottom": 1483.140625,
+                "left": 35.1875
+              },
+              "text": 1991,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "11-velicina-ucinka-i-snaga.qmd",
+          "title": "Velik objavljeni učinak i plan male studije.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 11.46875,
+                "width": 559.59375,
+                "height": 1157.125,
+                "top": 11.46875,
+                "right": 853.96875,
+                "bottom": 1168.59375,
+                "left": 294.375
+              },
+              "text": 1977,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -301.46875,
+                "width": 319.625,
+                "height": 1770.5,
+                "top": -301.46875,
+                "right": 354.8125,
+                "bottom": 1469.03125,
+                "left": 35.1875
+              },
+              "text": 1977,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "12-kriza-i-obnova.qmd",
+          "title": "Sedamnaest procjena nije referendum.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 11.046875,
+                "width": 559.59375,
+                "height": 1157.125,
+                "top": 11.046875,
+                "right": 853.96875,
+                "bottom": 1168.171875,
+                "left": 294.375
+              },
+              "text": 1997,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -328.9375,
+                "width": 319.625,
+                "height": 1825.5625,
+                "top": -328.9375,
+                "right": 354.8125,
+                "bottom": 1496.625,
+                "left": 35.1875
+              },
+              "text": 1997,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "13-kategoricki-podaci.qmd",
+          "title": "Gdje su nestali slušatelji radija?",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": -49.0625,
+                "width": 559.59375,
+                "height": 1278.890625,
+                "top": -49.0625,
+                "right": 853.96875,
+                "bottom": 1229.828125,
+                "left": 294.375
+              },
+              "text": 2196,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -430.71875,
+                "width": 319.625,
+                "height": 2029.921875,
+                "top": -430.71875,
+                "right": 354.8125,
+                "bottom": 1599.203125,
+                "left": 35.1875
+              },
+              "text": 2196,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "14-dvije-grupe.qmd",
+          "title": "Preklapanje crtica.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 25.578125,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 25.578125,
+                "right": 853.96875,
+                "bottom": 1155.171875,
+                "left": 294.375
+              },
+              "text": 1967,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -314.21875,
+                "width": 319.625,
+                "height": 1795.875,
+                "top": -314.21875,
+                "right": 354.8125,
+                "bottom": 1481.65625,
+                "left": 35.1875
+              },
+              "text": 1967,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "15-vise-grupa.qmd",
+          "title": "Značajno ovdje, neznačajno ondje.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 25.484375,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 25.484375,
+                "right": 853.96875,
+                "bottom": 1155.078125,
+                "left": 294.375
+              },
+              "text": 1907,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -287.078125,
+                "width": 319.625,
+                "height": 1742.96875,
+                "top": -287.078125,
+                "right": 354.8125,
+                "bottom": 1455.890625,
+                "left": 35.1875
+              },
+              "text": 1907,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "16-regresija.qmd",
+          "title": "Od omjera do dopuštene rečenice.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": -512.8125,
+                "width": 559.59375,
+                "height": 2205.640625,
+                "top": -512.8125,
+                "right": 853.96875,
+                "bottom": 1692.828125,
+                "left": 294.375
+              },
+              "text": 3736,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -1050.515625,
+                "width": 319.625,
+                "height": 3269.109375,
+                "top": -1050.515625,
+                "right": 354.8125,
+                "bottom": 2218.59375,
+                "left": 35.1875
+              },
+              "text": 3736,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "17-doba-algoritama.qmd",
+          "title": "Jednaka ocjena, različite pogreške.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": -15.6875,
+                "width": 559.59375,
+                "height": 1212.1875,
+                "top": -15.6875,
+                "right": 853.96875,
+                "bottom": 1196.5,
+                "left": 294.375
+              },
+              "text": 2123,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -370.3125,
+                "width": 319.625,
+                "height": 1908.15625,
+                "top": -370.3125,
+                "right": 354.8125,
+                "bottom": 1537.84375,
+                "left": 35.1875
+              },
+              "text": 2123,
+              "nested_page_grids": 0
+            }
+          ]
+        },
+        {
+          "chapter": "18-vase-prvo-istrazivanje.qmd",
+          "title": "Izvještaj s procjenom u prvom planu.",
+          "text_present": true,
+          "unresolved_syntax": false,
+          "widths": [
+            {
+              "viewport": 1440,
+              "client": 560,
+              "scroll": 560,
+              "rect": {
+                "x": 294.375,
+                "y": 25.5,
+                "width": 559.59375,
+                "height": 1129.59375,
+                "top": 25.5,
+                "right": 853.96875,
+                "bottom": 1155.09375,
+                "left": 294.375
+              },
+              "text": 1910,
+              "nested_page_grids": 0
+            },
+            {
+              "viewport": 390,
+              "client": 320,
+              "scroll": 320,
+              "rect": {
+                "x": 35.1875,
+                "y": -300.78125,
+                "width": 319.625,
+                "height": 1770.5,
+                "top": -300.78125,
+                "right": 354.8125,
+                "bottom": 1469.71875,
+                "left": 35.1875
+              },
+              "text": 1910,
+              "nested_page_grids": 0
+            }
+          ]
+        }
+      ],
+      "visual_review": "PASS",
+      "visual_review_notes": "All 19 boxes checked in Chromium over localhost HTTP at 1440 and 390 px. Representative visual inspection of preface, approved chapter 13, and chapter 16. Mobile table scroll reaches Model 3; region has keyboard focus and a visible scrolling instruction."
+    }
+  },
+  "generated_exports": {
+    "chapter_exports": 19,
+    "served_metadata_matches": true,
+    "graph_matches": true
+  },
+  "builds": {
+    "pdf": {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/render-book-pdf.ps1"
+      ],
+      "cwd": "C:\\Users\\lsikic\\Desktop\\Statistika\\tmp\\divljina-2026-10-21\\pdf-workspace",
+      "exit_code": 0,
+      "process_locale": ".UTF-8",
+      "renv_autoloader": false,
+      "source_match": true,
+      "pdf_sha256": "31526f4fbe520e73bc3e9ae6d2c7776b5a7edfcc9dfd1eca150195bf846eec9c",
+      "bytes": 4845884
+    },
+    "html_full": {
+      "commands": [
+        [
+          "quarto",
+          "render",
+          "--to",
+          "html"
+        ]
+      ],
+      "cwd": "C:\\Users\\lsikic\\Desktop\\Statistika\\tmp\\divljina-2026-10-21\\html-workspace",
+      "exit_code": 0,
+      "source_match": true,
+      "generated_files_copied": 191
+    },
+    "html_chapter16_final": {
+      "commands": [
+        [
+          "quarto",
+          "render",
+          "chapters/16-regresija.qmd",
+          "--to",
+          "html"
+        ]
+      ],
+      "cwd": "C:\\Users\\lsikic\\Desktop\\Statistika\\tmp\\divljina-2026-10-21\\html-workspace",
+      "exit_code": 0,
+      "source_match": true,
+      "generated_files_copied": 195
+    }
+  },
+  "known_unrelated_findings": [
+    "FAIL zbog prethodnog nesklada provjernika i odluke STYLE.md od 2026-10-20: očekuje dva AI okvira, a aktualno izdanje zadržava jedan. Ova revizija nije mijenjala te okvire.",
+    "PDF gradnja ponavlja 16 ranije zabilježenih upozorenja o nezatvorenim Div blokovima u spojenom dokumentu. U pregledanim okvirima nema odrezanog teksta ni izgubljenog sadržaja.",
+    "HTML gradnja javlja da downlit i xml2 nisu dostupni za povezivanje naziva funkcija. Prikaz proze i tablica je provjeren.",
+    "Fontconfig pri PDF gradnji upozorava na oznaku procesnog localea .UTF-8; provjera nije našla zamjenske znakove u PDF-u.",
+    "U lokalnom pregledniku vanjski MathJax s cdn.jsdelivr.net nije se učitao, pa mrežni prikaz postojećih matematičkih izraza nije potvrđen. Njihov prikaz u PDF-u je pregledan. Provjera HTML-a obuhvatila je tekst, tablice, citate i raspored okvira."
+  ]
+}

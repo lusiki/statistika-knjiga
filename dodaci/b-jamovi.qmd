@@ -60,24 +60,26 @@ route_rows <- lapply(b_route$routes, function(route) {
 route_table <- do.call(rbind, route_rows)
 ```
 
-Ovaj dodatak daje put kroz izbornike za jezgrene analize koje već izvodi
-Dodatak A. Radi samo s istim kanonskim datotekama, varijablama, pitanjima i
-očekivanim vrijednostima. Ne dodaje drugi skup podataka ni novu analizu.
+Ovaj dodatak pokazuje kako dio analiza iz Dodatka A ponoviti kroz izbornike
+programa jamovi. Koristimo iste datoteke i varijable te odgovaramo na ista
+pitanja. Dobivene rezultate uspoređujemo s vrijednostima iz Dodatka A.
 
-Ruta je prikovana na jamovi 2.7.30.0 i ugrađeni modul jmv 2.7.7.
+Upute su pripremljene za jamovi 2.7.30.0 i ugrađeni modul jmv 2.7.7.
 Inačice su provjerene 25. kolovoza 2026. u [službenom izdanju
 programa](https://github.com/jamovi/jamovi/releases/tag/v2.7.30) i
 [zapisu ugrađenoga modula](https://raw.githubusercontent.com/jamovi/jmv/8c07513626f458bf9d855ac3a8271a9de9c312f9/DESCRIPTION).
-Svi detalji rute, uključujući filtre i vrijednosti pune preciznosti, nalaze se
-u [verzioniranom artefaktu](../config/appendix-b-jamovi-route.json).
+Detaljne postavke, filtri i nezaokružene referentne vrijednosti nalaze se u
+[verzioniranoj datoteci s uputama za
+provjeru](../config/appendix-b-jamovi-route.json).
 
-Ovo je dokumentacijski provjeren put, a ne potvrda rada na čistoj instalaciji.
-Vlasnik te zasebne provjere jest autor i vlasnik kolegija Luka Šikić. Dok je ne
-završi, svaka je ruta označena kao `documented_pending_clean_install`.
+Upute su provjerene prema dokumentaciji, ali još nisu ispitane na
+čistoj instalaciji programa. Tu provjeru treba dovršiti Luka Šikić, autor i nositelj
+kolegija. Do tada zapis uz svaki postupak zadržava oznaku
+`documented_pending_clean_install`.
 
 ## Priprema podataka {#sec-b-priprema}
 
-Otvorite točno jednu distribuiranu datoteku. Za povezanost vremena na mrežama
+Otvorite točno jednu datoteku priloženu knjizi. Za povezanost vremena na mrežama
 i povjerenja skup `anketa_mreze` koristi `data/anketa-mreze.csv`. Pitanje o
 povjerenju, dobi i izvoru vijesti u skupu `populacija_medija` koristi
 `data/populacija-medija.csv`, a pregled pripremljene tekstne tablice koristi
@@ -94,7 +96,7 @@ Nakon uvoza otvorite postavke varijabli. Identifikatore `ispitanik`, `osoba`,
 `dob`, `minute_dnevno`, `povjerenje` i `povjerenje_medijima` postavite kao
 `Continuous`. Kategorijske varijable `obrazovanje`, `izvor_vijesti`,
 `derived_split`, `recorded_label` i `label_path` postavite kao `Nominal`.
-Artefakt navodi samo tipove potrebne pojedinoj ruti.
+Datoteka s uputama navodi samo tipove varijabli potrebne pojedinom postupku.
 
 Nijedna od tih datoteka nema težinu uzorkovanja. Ne stvarajte prazan stupac
 težina i ne uključujte težine u analizi. Ta odluka dolazi iz kataloga podataka,
@@ -104,7 +106,7 @@ a ne iz zadanih postavki programa.
 
 Poglavlja 9, 10, 13, 14 i 15 u Dodatku A rade na fiksnim izvacima. Da bi
 jamovi dobio iste retke, na vrpci `Data` odaberite `Filters` i kopirajte polje
-`jamovi_formula` iz odgovarajuće rute artefakta. Formula koristi samo ključ
+`jamovi_formula` iz zapisa za odgovarajući postupak. Formula koristi samo ključ
 `osoba` i logički operator `or`; ne stvara novi skup ni novu analitičku
 varijablu. [Službene upute za filtre](https://docs.jamovi.org/usermanual/um_4_spreadsheet.html)
 potvrđuju oba dijela sintakse.
@@ -113,10 +115,11 @@ Prije analize provjerite broj uključenih redaka naveden kao `selected_rows`.
 Ako se broj ne slaže, ne nastavljajte. Najčešći su uzroci pogrešna datoteka,
 promijenjen redak ili nepotpuno kopirana formula.
 
-## Jezgrene rute {#sec-b-rute}
+## Osnovni postupci {#sec-b-rute}
 
-Tablica @tbl-b-rute nastaje izravno iz verzioniranoga artefakta. Zato se
-izbornik i očekivana vrijednost ne prepisuju u izvor dodatka.
+Tablica @tbl-b-rute donosi vrijednosti s kojima uspoređujemo rezultate
+dobivene u programu jamovi. Preuzima ih iz iste verzionirane datoteke koja
+sadrži postavke i filtre za opisane postupke.
 
 ```{r}
 #| label: tbl-b-rute
@@ -218,13 +221,14 @@ stranačke pripadnosti. Zato ruta ne računa razliku među strankama i ne širi
 tekstni zadatak. Ona provjerava samo uvoz, jedinicu, nazivnik, kodiranje i
 odluku o validaciji.
 
-## Granica prikovanoga puta {#sec-b-granica}
+## Ograničenja opisanih postupaka {#sec-b-granica}
 
 Ugrađeni `jmv 2.7.7` nema dokumentiran postupak koji bi točno ponovio
 permutacijsku p-vrijednost iz poglavlja 10 s istim brojem preslagivanja i istom
 korekcijom. Ne dokumentira ni fiksni spoj dokaznoga paketa iz poglavlja 12 u
-obliku kojim ga izvodi Dodatak A. Zato tih sedam zlatnih vrijednosti ostaje u
-artefaktu radi pariteta, ali nisu jamovi ruta.
+obliku kojim ga izvodi Dodatak A. Tih sedam referentnih vrijednosti ostaje zabilježeno radi usporedbe s Dodatkom
+A, ali ovaj dodatak ne daje postupak kojim ih možemo ponoviti u programu
+jamovi.
 
 Ne zamjenjujte ih parametarskim testom, drugim brojem preslagivanja ili
 nedatiranim vanjskim modulom. Za te rezultate upotrijebite [provjerenu R
@@ -244,8 +248,9 @@ Strojnu provjeru paketa pokrenite iz korijena knjige ovom naredbom.
 python scripts/check-appendix-b.py
 ```
 
-Provjera u privremenoj mapi ponovno gradi artefakt samo iz kanonskih datoteka i
-rute Dodatka A. Zatim uspoređuje svih 26 očekivanih vrijednosti, popis
-varijabli, pitanja, inačice, filtre, poveznice i tiskovnu tablicu. To je čisti
-put izvora knjige. Nije zamjena za provjeru programa na čistoj instalaciji,
-koja ostaje otvorena vlasniku navedenom u [odjeljku o granici](#sec-b-granica).
+Provjera u privremenoj mapi ponovno priprema upute iz izvornih datoteka i
+postupaka Dodatka A. Zatim uspoređuje svih 26 očekivanih vrijednosti, popis
+varijabli, pitanja, inačice, filtre, poveznice i tiskovnu tablicu. Time
+provjeravamo datoteke i upute uz knjigu. Rad samog programa na
+čistoj instalaciji treba provjeriti zasebno; za tu je provjeru odgovorna osoba
+navedena u [odjeljku o granici](#sec-b-granica).

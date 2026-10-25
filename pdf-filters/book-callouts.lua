@@ -23,6 +23,11 @@ function Div(el)
   for _, cls in ipairs(el.classes) do
     local env = map[cls]
     if env then
+      if cls == "callout-greska" and el.classes:includes("greska-duga") then
+        env = "calloutgreskaduga"
+      elseif cls == "callout-greska" and el.classes:includes("greska-zadrzi") then
+        env = "calloutgreskazadrzi"
+      end
       local out = pandoc.List({})
       out:insert(pandoc.RawBlock("latex", "\\begin{" .. env .. "}"))
       out:extend(el.content)

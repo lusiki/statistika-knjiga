@@ -4,63 +4,81 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 20 min | Pogodi korelaciju | Eurostat 2025, simulirana anketa, Anscombeov kvartet | pogl. 2, 4, 5 |
+Anscombeove smo skupove već usporedili grafički. Njihova gotovo jednaka
+Pearsonova korelacija sada postavlja preciznije pitanje. Koliko o odnosu
+znamo ako vidimo samo koeficijent (Anscombe, 1973)?
 
-**Vinjeta.**
-Anscombe je 1973. objavio četiri skupa s gotovo jednakom Pearsonovom korelacijom
-i međusobno različitim grafovima (Anscombe, 1973). Njegova je usporedba bila
-odgovor na stvaran problem statističke analize, odnosno odluku smije li broj
-zamijeniti pregled podataka.
+Korelacija je u svakom skupu točno izračunata. Razlike su ostale skrivene jer
+je sažela samo jedan aspekt odnosa.
 
-Korelacija je bila točno izračunata. Nije pogriješila u računu, nego je sažela
-samo jedan aspekt odnosa. Poteškoća je nastala kada je taj sažetak pročitan kao
-potpuna slika.
+Što bismo propustili kada bismo povezanost opisali samo tim brojem?
 
-Koji odnosi ostaju izvan kadra kada se povezanost svede na koeficijent?
+Sada kada znamo pročitati raspršeni dijagram, možemo preciznije pitati kako se
+dvije varijable mijenjaju zajedno. U dosadašnjim smo sažecima dnevne minute i
+dob često promatrali odvojeno. Zanima nas i njihov odnos. Želimo ga opisati
+usporedivim brojem, a pritom sačuvati ono što smo iz grafova naučili o
+zakrivljenosti, podskupinama i izdvojenim opažanjima.
+
+Glavni primjer ostaje simulirana anketa `anketa_mreze` iz prethodnih poglavlja
+(Šikić, 2026). Jedan redak predstavlja jednu zamišljenu osobu, pa njezinu dob
+povezujemo s njezinim dnevnim vremenom na društvenim mrežama. Za pregled više
+parova uključit ćemo i povjerenje u sadržaj. Podaci su konstruirani za
+nastavu. Na njima učimo opisivati odnos, bez zaključka o stvarnim navikama ili
+o tome što bi promjena vremena na mrežama izazvala.
+
+Mjeru zajedničkog kretanja gradimo od odstupanja od sredine i
+standardizacije, koje već poznajemo. Pearsonova korelacija sažima linearnu
+vezu, a Spearmanov koeficijent polazi od poretka vrijednosti. Izdvojena
+točka, uži raspon dobi ili spajanje podskupina mogu promijeniti koeficijent
+i njegov smisao. Usporedbom tih slučajeva vraćamo se problemu zbirne slike
+iz Berkeleyjskog slučaja, sada s dvjema brojčanim varijablama.
+
+Provjeru ćemo proširiti na stvarne Eurostatove pokazatelje obrazovanja i
+uporabe interneta, gdje jedinica postaje država umjesto osobe
+({Eurostat}, 2026; {Eurostat}, 2026). Ta promjena određuje što
+povezanost smije značiti. Uočen odnos među državama nećemo pripisati njihovim
+pojedinim stanovnicima. Prikladnost koeficijenta provjeravamo uz graf i opis odabranih jedinica.
+Tako vidimo koliko dobro sažima odnos i što izostavlja. Za pitanje o uzroku
+trebamo odgovarajući nacrt i dodatne podatke, a počinjemo pregledom oblika
+odnosa koji već vidimo.
 
 ## Zajedničko kretanje
 
-Dvije su varijable povezane kada se njihov raspored mijenja zajedno. Pozitivna
-veza znači da se veće vrijednosti jedne češće pojavljuju uz veće vrijednosti
-druge. Negativna veza spaja veće vrijednosti jedne s manjima druge. Slaba
-linearna veza ne znači da odnosa nema, jer zakrivljeni obrazac može imati
-koeficijent blizu nule.
+Dvije su varijable povezane kada se vrijednosti jedne razlikuju ovisno o
+vrijednostima druge. Pri pozitivnoj vezi veće vrijednosti jedne češće dolaze
+uz veće vrijednosti druge. Pri negativnoj dolaze uz manje vrijednosti druge.
+Koeficijent blizu nule može značiti slabu linearnu vezu, ali pritom može
+postojati zakrivljen odnos.
 
-Simulirana anketa pruža prvi pogled na takav odnos. Raspršeni dijagram dobi i
-dnevnoga vremena korištenja pokazuje silazni oblak koji je strmiji u mlađim
-godinama, a zatim se izravnava. Taj oblik treba vidjeti prije nego što se svede
-na jedan broj.
+Na grafu dobi i dnevnih minuta iz ankete `anketa_mreze` svaka točka povezuje
+vrijednosti iste zamišljene osobe (Šikić, 2026). Točke tvore silazni oblak.
+Pad je strmiji među mlađima i poslije se izravnava. Graf nam pokazuje taj
+oblik prije računanja koeficijenta.
 
-*Slika. Dob i dnevno vrijeme korištenja u simuliranoj anketi. Veza je dosljedno silazna, ali nije pravocrtna, pa je mjera koja traži pravac strože kažnjava.*
+*Slika. Dob i dnevno vrijeme korištenja u simuliranoj anketi. Oblak pokazuje silazan, zakrivljen obrazac. Pearsonov koeficijent sažima samo njegov linearni dio. Izrada autora; podaci i postupak opisani su u tekstu.*
 
-Do mjere se dolazi usporedbom predznaka odstupanja. Za svakog se ispitanika pita
-je li iznad prosjeka u obje varijable, ispod prosjeka u obje, ili iznad u jednoj
-i ispod u drugoj. U simuliranoj anketi
-`anketa_mreze`, koja ima
-`r s6_n` ispitanika i nije mjerenje nego nastavni skup proizveden kodom, na istu
-stranu prosjeka u dobi i u dnevnim minutama odstupa
-`r paste0(hr_broj(100 * s6_udio_slaganje, 0), " %")` ispitanika. Kada varijable
-imaju simetrične raspodjele i neovisna odstupanja, taj bi udio bio blizu
-polovine. Nesimetrične rubne raspodjele mogu ga pomaknuti i bez veze, pa udio
-nije samostalna mjera. Ovdje vrijednost znatno ispod polovine pokazuje da
-odstupanja redovito idu na suprotne strane, dakle da je veza negativna, ali ne
-kaže koliko je jaka jer ne razlikuje jedva prijeđeni prosjek od krajnje
-vrijednosti.
+Najprije uspoređujemo na koju stranu od prosjeka odstupa svaki ispitanik u
+objema varijablama. U generiranom nastavnom skupu `anketa_mreze` s `r s6_n`
+ispitanika, `r paste0(hr_broj(100 * s6_udio_slaganje, 0), " %")` odstupa na istu stranu u dobi i dnevnim minutama. Uz
+simetrične raspodjele i neovisna odstupanja očekivali bismo udio blizu
+polovine. Asimetrija ga može promijeniti i bez povezanosti, pa sam udio nije
+mjera veze. U ovom primjeru češća su odstupanja na suprotne strane, što
+odgovara negativnom obrascu na grafu. Za jačinu veze trebamo uz smjer uzeti u
+obzir i veličinu odstupanja.
 
-Odgovor na to daje umnožak. Za svakog se ispitanika pomnože njegova odstupanja
-od dviju sredina, čime se veliko slaganje nagrađuje jače od malog, a neslaganje
-ulazi s negativnim predznakom. Prosjek tih umnožaka po cijelom uzorku mjera je
-zajedničkog kretanja.
+Zato za svaku osobu množimo odstupanja od dviju sredina. Umnožak je pozitivan
+ako oba odstupanja imaju isti predznak, a negativan ako imaju suprotne. Velika
+odstupanja pridonose više od malih. Zbrajanjem tih umnožaka i dijeljenjem
+dobivamo mjeru zajedničkog kretanja.
 
-**Kovarijanca** je prosjek umnožaka odstupanja dviju varijabli od njihovih
-sredina, uz djelitelj umanjen za jedan, pa je pozitivna kada opažanja
-odstupaju na istu stranu i negativna kada odstupaju na suprotne.
+**Kovarijanca** uzorka je zbroj umnožaka odstupanja dviju varijabli od
+njihovih sredina, podijeljen brojem opažanja umanjenim za jedan. Pozitivan
+predznak upućuje na prevladavanje odstupanja u istom smjeru, a negativan u
+suprotnom.
 
 Zapisano simbolima, gdje $x_i$ i $y_i$ označavaju vrijednosti izmjerene kod
 istog opažanja, $\bar{x}$ i $\bar{y}$ njihove sredine, a $n$ broj opažanja,
@@ -72,336 +90,348 @@ Djelitelj $n-1$ isti je onaj iz poglavlja o sažimanju podataka, a formula je
 poopćenje varijance, jer varijanca nastaje kada se ista varijabla stavi na oba
 mjesta.
 
-Jedna osobina kovarijancu čini nezgodnom kao samostalan sažetak. Ona nosi
-jedinice obiju varijabli pomnožene jedna s drugom. Kovarijanca dobi i dnevnih
-minuta u anketi iznosi `r hr_broj(s6_kov, 1)`, a kovarijanca dobi i istog
-vremena izraženog u satima `r hr_broj(s6_kov_sati, 1)`. Odnos se nije
-promijenio, promijenila se jedinica, a broj se promijenio šezdeset puta.
-Vrijednost kovarijance zato ne govori ništa dok se ne zna u čemu je mjereno, a
-parovi s različitim jedinicama ne mogu se po njoj izravno uspoređivati.
+Za provjeru računa potrebne su obje sredine i standardne devijacije. U
+anketi je sredina dobi `r hr_broj(mean(s6_dob), 3)`, a njezina standardna
+devijacija `r hr_broj(sd(s6_dob), 3)` godina. Za dnevne minute odgovarajuće
+vrijednosti iznose `r hr_broj(mean(s6_minute), 3)` i
+`r hr_broj(sd(s6_minute), 3)`. Račun u nastavku koristi nezaokružene
+vrijednosti; prikaz na tri decimale služi ručnoj približnoj provjeri.
 
-Zajedničko kretanje ostaje bez jedinica tek nakon standardizacije.
+Na prvoj osobi iz poznate ankete možemo pregledati jedan član zbroja.
+Dob je `r s6_dob[1]`, a vrijeme `r s6_minute[1]` minuta. Odstupanja od
+dviju sredina iznose `r hr_broj(s6_dob[1] - mean(s6_dob), 2)` godina i
+`r hr_broj(s6_minute[1] - mean(s6_minute), 2)` minuta. Njihov je umnožak
+`r hr_broj((s6_dob[1] - mean(s6_dob)) * (s6_minute[1] - mean(s6_minute)), 2)`.
+Račun ponavljamo na svih 300 parova, zbrajamo umnoške i dijelimo s 299.
+Nema nedostajućih parova, a dob jedne osobe uvijek ostaje uz njezine minute.
+
+Veličina kovarijance ovisi o mjernim jedinicama. Za dob i dnevne minute ovdje
+iznosi `r hr_broj(s6_kov, 1)`. Ako iste minute pretvorimo u sate, dobivamo `r hr_broj(s6_kov_sati, 1)`,
+šezdeset puta drukčiju vrijednost. Odnos je ostao isti. Kovarijancu zato
+moramo čitati uz jedinice i ne možemo njome izravno uspoređivati parove
+mjerene različitim jedinicama.
+
+Za usporedbu različitih parova potrebna nam je mjera neovisna o jedinicama.
 
 ## Od standardizacije do matrice
 
-Rješenje je već napisano u poglavlju o sažimanju podataka. Standardizirana
-vrijednost pretvara opažanje u broj standardnih devijacija od sredine i time
-odbacuje jedinicu. Ako se prije množenja obje varijable standardiziraju, umnožak
-više ne ovisi o tome mjeri li se vrijeme u minutama ili satima.
+Standardizacijom vrijednosti pretvaramo u broj standardnih devijacija od
+sredine. Ako to učinimo s objema varijablama prije množenja, minute ili sati
+više ne utječu na rezultat.
 
-**Pearsonova korelacija** je prosjek umnožaka standardiziranih vrijednosti
-dviju varijabli, pa mjeri smjer i jačinu njihove linearne veze na ljestvici od
+**Pearsonova korelacija** uzorka jest zbroj umnožaka uzorački standardiziranih
+vrijednosti dviju varijabli, podijeljen s $n-1$. Mjeri smjer i jačinu njihove
+linearne veze na ljestvici od
 $-1$ do $+1$, neovisno o mjernim jedinicama.
 
-Uzoračku korelaciju označavamo slovom $r$, a odgovarajuću vrijednost cijele
-populacije grčkim slovom $\rho$. Pravilo je isto. Uzoračka vrijednost nosi
-latinicu, a populacijska grčko slovo.
-Standardizirane vrijednosti dviju varijabli kod opažanja $i$ označujemo sa
-$z_{x_i}$ i $z_{y_i}$, a njihove uzoračke standardne devijacije sa $s_x$ i
-$s_y$. Definicija se zapisuje kao
+Uzoračku korelaciju označujemo s $r$, a populacijsku s $\rho$. Standardizirane
+vrijednosti opažanja $i$ jesu $z_{x_i}$ i $z_{y_i}$, dok su $s_x$ i $s_y$
+uzoračke standardne devijacije. Korelaciju možemo zapisati na dva jednaka
+načina
 
 $$r = \frac{1}{n-1} \sum_{i=1}^{n} z_{x_i} \, z_{y_i} = \frac{\operatorname{Cov}(x, y)}{s_x \, s_y},$$
 
-Dva zapisa daju isti broj, jer dijeljenje kovarijance standardnim devijacijama
-i standardiziranje prije množenja isti su postupak izveden različitim redom.
+Dva zapisa daju isti broj. U prvome standardiziramo prije množenja, a u
+drugome kovarijancu dijelimo standardnim devijacijama. Računamo isto, samo
+drugim redoslijedom.
 
-Da to nije samo tvrdnja, provjerava se izravno. Prosjek umnožaka
-standardiziranih vrijednosti dobi i dnevnih minuta u anketi iznosi
-`r hr_broj(s6_r_iz_z, 3)`, a ugrađeni izračun korelacije daje
-`r hr_broj(s6_r, 3)`. Ista korelacija izračunata na satima umjesto minuta
-iznosi `r hr_broj(s6_r_sati, 3)`, dakle nepromijenjeno, dok se kovarijanca u
-istoj zamjeni pomaknula šezdeset puta. Standardizacija je učinila upravo ono
-zbog čega je uvedena.
+Nakon standardizacije prva osoba ima $z_x = `r hr_broj(s6_z_dob[1], 2)`$
+i $z_y = `r hr_broj(s6_z_min[1], 2)`$, pa u zbroj ulazi njihov umnožak
+`r hr_broj(s6_z_dob[1] * s6_z_min[1], 3)`. Svih 300 takvih umnožaka opet
+dijelimo s 299, jer smo standardizirali uzoračkim standardnim devijacijama.
 
-Krajnje vrijednosti ljestvice imaju geometrijsko značenje. Vrijednost $+1$ znači
-da sve točke leže na jednom uzlaznom pravcu, $-1$ da leže na silaznom, a nula da
-linearne veze nema. Sve između mjeri koliko se oblak približio pravcu, i to je
-cijeli sadržaj koeficijenta. Ono što on ne mjeri jest nagib tog pravca, pa
-korelacija od `r hr_broj(s6_r, 2)` ne govori za koliko se minuta mijenja
-vrijeme korištenja po godini dobi. Taj broj daje tek regresija, i to je razlika
-koju poglavlje o regresiji razrađuje.
+U anketi račun preko standardiziranih vrijednosti daje `r hr_broj(s6_r_iz_z, 3)`, a ugrađeni
+izračun korelacije `r hr_broj(s6_r, 3)`. Ako umjesto minuta koristimo sate, rezultat
+ostaje `r hr_broj(s6_r_sati, 3)`. Kovarijanca se pri toj promjeni jedinice promijenila
+šezdeset puta, a korelacija ostaje ista.
 
-Nakon izračuna redovito slijedi pitanje je li dobiveni broj velik. Cohen je za
-društvene znanosti ponudio orijentacijske vrijednosti, po kojima se korelacija
-oko 0,10 opisuje kao mala, oko 0,30 kao srednja, a oko 0,50 kao velika
-(Cohen, 1988). Te se orijentacijske vrijednosti lako pretvore u univerzalnu
-ljestvicu za očitavanje, iako im izvor ne daje takav status.
+Kada je korelacija $+1$, sve točke leže na uzlaznom pravcu, a pri $-1$ na
+silaznom. Vrijednost nula znači da nema linearne veze. Međuvrijednosti opisuju
+koliko raspored točaka prati pravac. Korelacija ne daje njegov nagib. Iz
+vrijednosti `r hr_broj(s6_r, 2)` ne saznajemo za koliko se minuta vrijeme korištenja
+mijenja uz jednu godinu dobi. To ćemo procijeniti regresijom.
 
-Uvjet stoji već kod izvora. Vrijednosti su ponuđene za polja u kojima ne postoji
-bolja osnova za prosudbu i izričito ustupaju mjesto poznavanju područja
-(Cohen, 1988). Isti apsolutni koeficijent zato ne nosi istu važnost u svim
-istraživačkim kontekstima. Prosudba se oslanja na predmet, mjeru, posljedice i
-literaturu koja proučava usporedive odnose, a ne na sam prag.
+Cohen je kao orijentaciju u društvenim znanostima predložio korelacije oko
+0,10, 0,30 i 0,50 za male, srednje i velike odnose (Cohen, 1988). Te
+vrijednosti nisu univerzalna pravila za procjenu važnosti nalaza.
 
-Jedna preinaka koeficijenta ipak pomaže prosudbi, jer ga stavlja na ljestvicu
-koja se lakše tumači. U jednostavnom linearnom opisu kvadrirana korelacija kaže
-koliki udio varijance jedne varijable odgovara linearnoj vezi s drugom. Zato
-korelacija od `r hr_broj(s6_r, 2)` znači da linearna veza obuhvaća
-`r paste0(hr_broj(100 * s6_r^2, 0), " %")` varijance, dok preostalih
-`r paste0(hr_broj(100 * (1 - s6_r^2), 0), " %")` taj opis ne obuhvaća.
-Kvadriranje je pritom nemilosrdno prema srednjim vrijednostima. Korelacija od
-0,30 u takvu opisu obuhvaća devet posto varijance. Poglavlje o regresiji istu
-veličinu koristi kao mjeru prilagodbe modela.
+Cohen ih preporučuje kada nemamo bolju osnovu u poznavanju područja
+(Cohen, 1988). Važnost koeficijenta zato procjenjujemo prema pojavi, načinu
+mjerenja, posljedicama i nalazima usporedivih istraživanja.
 
-Druga polovina odgovora nema veze s veličinom. Koeficijent izračunat na uzorku
-procjena je, pa nosi vlastitu nesigurnost, koja uz isti nacrt i usporedive
-neovisne jedinice opada s brojem opažanja.
-Korelacija od 0,40 na trideset ispitanika i ista korelacija na tri tisuće
-ispitanika dva su vrlo različita nalaza, iako je broj jednak. Dio knjige o
-uzorkovanju i procjeni tu nesigurnost izračunava, a do tada vrijedi da se
-pouzdanost procjene ne može prosuditi bez broja opažanja uz korelaciju.
+U jednostavnom linearnom opisu kvadrat korelacije pokazuje udio varijance
+povezan s tim opisom. Za korelaciju `r hr_broj(s6_r, 2)` to je `r paste0(hr_broj(100 * s6_r^2, 0), " %")` varijance.
+Preostalih `r paste0(hr_broj(100 * (1 - s6_r^2), 0), " %")` linearni opis ne obuhvaća. Primjerice, korelacija 0,30
+daje devet posto. U poglavlju o regresiji tu ćemo veličinu koristiti za opis
+prilagodbe modela.
 
-Kada se varijabli nakupi, korelacije svih parova slažu se u matricu, koja je
-simetrična i na dijagonali nosi jedinice, jer je svaka varijabla savršeno
-povezana sama sa sobom.
+Uz veličinu veze treba procijeniti nesigurnost. Korelacija iz uzorka može
+odstupati od populacijske, a uz isti nacrt i usporedive neovisne jedinice veći
+uzorak obično daje precizniju procjenu. Vrijednost 0,40 na trideset i na tri
+tisuće osoba zato nema jednaku nesigurnost. Uz koeficijent uvijek navodimo
+broj opažanja, a račun nesigurnosti slijedi u poglavljima o uzorkovanju i
+procjeni.
+
+U poznatoj anketi uz dob i dnevne minute imamo i povjerenje, pa možemo
+promatrati više odnosa. Umjesto da koeficijente zapisujemo odvojeno, slažemo ih
+u matricu u kojoj svaki redak i stupac pripada jednoj varijabli. Isti se par
+pojavljuje s obje strane dijagonale, pa je matrica simetrična. Na dijagonali su
+jedinice jer je svaka varijabla savršeno povezana sama sa sobom.
 
 *Slika. Korelacije triju brojčanih varijabli simulirane ankete. Izrada autora.*
 
 ## Matrica, kodovi i rangovi
 
-Matrica je ekonomična i opasna u istoj mjeri. Tri varijable daju tri para,
-deset varijabli daje četrdeset pet, a pregled u kojem se traži najveći broj
-prestaje biti provjera hipoteze i postaje njezino izmišljanje. Poglavlje o krizi
-i obnovi pokazuje što se s takvim pretraživanjem dogodi kada mu se doda
-testiranje. Ovdje je dovoljno pravilo da matrica služi za pregled, a da svaki
-par koji ulazi u zaključak dobije vlastiti raspršeni dijagram.
+Matrica olakšava pregled, ali i traženje slučajno velikih koeficijenata. Tri
+varijable daju tri para, a deset ih daje četrdeset pet. Hipoteza koju
+osmislimo nakon traženja najvećeg broja nije isto što i unaprijed postavljena
+hipoteza. Posljedice za testiranje razmotrit ćemo u poglavlju o krizi i
+obnovi. Svaki par koji namjeravamo tumačiti najprije prikazujemo raspršenim
+dijagramom.
 
-I brojčana varijabla može nastati iz teksta. **Kodirana kategorija teksta**
-ulazi u odnos zajedno s odlukom osobe koja je sastavila pravilo. U ovoj smo
-autorskoj ilustraciji namjerno odabrali šest naslova iz poglavlja o
-vizualizaciji i sastavili doslovno pravilo. Ono dodjeljuje jedan ako naslov
-sadrži oblik `graphs`, `graphical` ili `graphics`, a nulu u ostalim slučajevima.
-Pet naslova dobiva jedan, jedan nulu, a korelacija koda s godinom iznosi
-`r hr_broj(s6_r_kod_godina, 2)` [Anscombe, 1973; Cleveland, 1984; Tufte, 2001;
-Wilkinson, 2005; Wickham, 2016; Matejka, 2017]. Taj broj opisuje samo namjerno
-odabrane dokumente i ne govori kako se znanstveni naslovi mijenjaju kroz
+Par koji uspoređujemo ne mora početi dvama brojčanim mjerenjima. Brojčanu
+varijablu možemo dobiti i kodiranjem teksta, uz pravila mjerenja koja smo već
+upoznali. **Kodirana kategorija
+teksta** ovisi o pravilu koje smo odabrali. Za šest namjerno izabranih naslova
+iz poglavlja o vizualizaciji dodjeljujemo jedan ako naslov sadržava `graphs`,
+`graphical` ili `graphics`, a inače nulu. Pet naslova dobiva jedan, a jedan nulu.
+Korelacija s godinom iznosi `r hr_broj(s6_r_kod_godina, 2)` [Anscombe, 1973; Cleveland, 1984;
+Tufte, 2001; Wilkinson, 2005; Wickham, 2016; Matejka, 2017]. Taj rezultat opisuje
+samo izabrane naslove i ne pokazuje opću promjenu znanstvenih naslova kroz
 vrijeme.
 
-Proširi li se pravilo tako da i `visual` znači jedan, svih šest kodova postaje
-jednako i korelaciju više nije moguće izračunati [Anscombe, 1973;
+Ako pravilu dodamo oblik `visual`, svih šest naslova dobiva jedan i
+korelacija se više ne može izračunati jer nema razlika u kodu [Anscombe, 1973;
 Cleveland, 1984; Tufte, 2001; Wilkinson, 2005; Wickham, 2016; Matejka, 2017].
-Promijenila se mjera, a ne tekstovi. Kod zato nije objektivno svojstvo autora ni
-dokumenta, nego odluka s imenovanim pravilom, vlasnikom kodiranja i skupom na
-koji je primijenjena. Ovdje je vlasnik odluke autor poglavlja, a ne citirani
-izvori. Kod može ući u povezanost kao nula i jedan, ali koeficijent
-sažima odnos prema toj odluci. Poglavlje o kategoričkim podacima vratit će
-takve kodove u tablicu, a poglavlje o algoritmima pokazati što se mijenja kada
-oznake proizvodi sustav.
+Tekstovi su isti, a mjera se promijenila. Pravilo je sastavio autor poglavlja,
+ne autori citiranih naslova. Zato uz kod navodimo pravilo, osobu koja ga je
+odredila i tekstove na koje je primijenjen. Kasnije ćemo takve kategorije
+proučavati u tablicama i razmotriti što se mijenja kada ih dodjeljuje
+algoritam.
 
-Pearsonova korelacija mjeri koliko se oblak približio pravcu, pa je zakrivljena
-veza za nju djelomično nevidljiva. Odnos u kojem jedna varijabla stalno raste s
-drugom, ali sve sporije, postoji i uredan je, a linearna ga mjera prikazuje
-slabijim nego što jest.
+Izbor brojčanog prikaza važan je i kada izvorno imamo brojčana mjerenja.
+Pearsonova korelacija koristi njihove razmake i sažima linearnu vezu. No dob i
+minute u našoj anketi mogu se dosljedno kretati u suprotnim smjerovima, a da ne
+prate pravac. Ako želimo opisati tu dosljednost poretka, trebamo mjeru koja
+neće tražiti jednake promjene kroz cijeli raspon.
 
-Za takve slučajeve podaci se prije računanja zamjenjuju rangovima. Najmanja
-vrijednost dobiva prvi rang, sljedeća drugi, a jednake vrijednosti dijele
-prosječni rang, nakon čega se na rangove primijeni isti Pearsonov izračun.
-Rangiranje čuva poredak i odbacuje razmake, pa rezultat mjeri je li kretanje
-dosljedno u jednom smjeru bez zahtjeva da bude pravocrtno. Tako dobiven
-**Spearmanov koeficijent ranga**, koji se označava sa $r_s$, mjeri monotonu
-vezu. Često se kraće naziva Spearmanovom korelacijom.
+Vrijednosti zamjenjujemo rangovima. Najmanja dobiva prvi rang, sljedeća drugi,
+a jednake dijele prosječni rang. Zatim na rangovima računamo Pearsonovu
+korelaciju. **Spearmanov koeficijent ranga**, označen s $r_s$, tako mjeri
+dosljednost kretanja u jednom smjeru, odnosno monotonu vezu. Naziva se i
+Spearmanovom korelacijom. Rangovi čuvaju poredak, ali ne i izvorne razmake.
 
-Raspršeni dijagram već je pokazao što koeficijenti tek trebaju sažeti. Oblak
-pada strmo u mlađim godinama i izravnava se poslije, bez odvojene podskupine
-koja bi sama nosila obrazac. Tek uz taj viđeni oblik vrijedi usporediti Pearsonovu
-korelaciju od `r hr_broj(s6_r, 2)` i Spearmanovu od
-`r hr_broj(s6_rs, 2)`. Njihova je razlika spojiva sa zakrivljenošću koja je na
-grafu već vidljiva, ali sama ne otkriva njezin uzrok. Pearsonova korelacija dobi
-s logaritmom minuta iznosi `r hr_broj(s6_r_log, 2)` i približava se
-Spearmanovoj, što je dodatna provjera ovog simuliranog odnosa, a ne opće pravilo
-za izbor mjere.
+Pravilo za vezane rangove možemo vidjeti na namjerno zadanom nizu
+10, 20, 20, 50. Rangovi su 1, 2,5, 2,5 i 4. Dvije dvadesetice dijele
+prosjek drugoga i trećega mjesta. U anketi tako zasebno rangiramo svih 300
+dobi i svih 300 vremena, pa povezujemo rangove koji pripadaju istoj osobi.
 
-**Utjecajno opažanje** nije samo krajnja vrijednost, nego ono čije uključivanje
-ili uklanjanje materijalno mijenja koeficijent.
+Na grafu dobi i minuta vidjeli smo strmiji pad među mlađima i izravnavanje
+poslije, bez odvojene podskupine koja sama stvara odnos. Uz taj graf
+uspoređujemo Pearsonovu korelaciju `r hr_broj(s6_r, 2)` i Spearmanovu `r hr_broj(s6_rs, 2)`. Razlika
+odgovara vidljivoj zakrivljenosti, ali sama je ne bi dokazala. Pearsonova
+korelacija dobi i logaritma minuta iznosi `r hr_broj(s6_r_log, 2)` i bliža je Spearmanovoj.
+To je dodatna provjera ovog simuliranog odnosa, bez općeg pravila za izbor
+mjere.
 
-Bliske Pearsonove i Spearmanove vrijednosti samo su trag koji je spojiv s
-približno pravocrtnom monotonom vezom. Ne dokazuju linearnost, otpornost
-rezultata ni odsutnost utjecajnih opažanja, jer isti neobičan raspored može
-pomaknuti oba koeficijenta. Njihovo razilaženje također ne postavlja dijagnozu.
-Može upozoriti na zakrivljenost, krajnja ili utjecajna opažanja, mnogo vezanih
-rangova, miješanje podskupina ili odabir suženog raspona. Zato se najprije
-pregledaju oblik, raspon, podskupine i opažanja koja odudaraju, a tek se zatim
-koeficijenti koriste kao sekundarni sažeci. Sama razlika nije razlog za
-automatski prijelaz na Spearmanovu mjeru.
+**Utjecajno opažanje** je opažanje čije uključivanje ili uklanjanje znatno
+mijenja koeficijent. Ne mora svaka krajnja vrijednost biti utjecajna.
 
-Nijedna od dviju mjera ne može pouzdano sažeti cijelu vezu koja nije monotona.
-Kada je zadovoljstvo niže i pri vrlo malom i pri vrlo velikom opterećenju, oba
-koeficijenta mogu ispasti blizu nule, jer se uzlazni i silazni dio međusobno
-ponište. To nije znak da odnosa nema nego znak da nijedan broj taj odnos ne
-može nositi.
+Sličnost Pearsonova i Spearmanova koeficijenta može odgovarati približno
+pravocrtnoj monotonoj vezi, ali ne jamči takav oblik ni otpornost nalaza. Oba
+koeficijenta može pomaknuti isti neobičan raspored. Njihova razlika također
+nema jedno objašnjenje. Može nastati zbog zakrivljenosti, utjecajnih točaka,
+vezanih rangova, podskupina ili suženog raspona. Zato najprije pregledavamo
+graf i način odabira podataka. Sama razlika nije dovoljan razlog da odaberemo
+Spearmanovu mjeru.
+
+Ako veza nije monotona, oba koeficijenta mogu biti blizu nule. Zadovoljstvo,
+primjerice, može biti nisko pri vrlo malom i vrlo velikom opterećenju. Uzlazni
+i silazni dio tada se u koeficijentu poništavaju, iako graf pokazuje odnos.
 
 ## Ograničenje raspona i odabir
 
-Prvi način na koji koeficijent zavara nije pogreška računanja nego izbor onoga
-tko je ušao u uzorak. U približno linearnoj vezi, uz sličnu raspršenost ishoda
-duž cijelog odnosa i izravan odabir samo prema jednoj varijabli, sužavanje
-njezina raspona često smanjuje apsolutnu korelaciju. Razlike koje nose signal
-tada se stisnu, dok preostalo rasipanje ne mora nestati s njima.
+Izbor prikladnog koeficijenta još ne rješava pitanje koga smo uključili u
+usporedbu. Na korelaciju utječe i izbor opažanja. U približno linearnoj vezi sa sličnom
+raspršenošću ishoda, odabir prema užem rasponu jedne varijable često smanjuje
+apsolutnu korelaciju. Raspon koji nosi signal postaje manji, dok preostalo
+rasipanje može ostati slično.
 
 **Ograničenje raspona** (*range restriction*) nastaje kada promatrani uzorak
 pokriva samo dio mogućih vrijednosti jedne ili obiju varijabli. Ono može
 oslabiti izmjerenu povezanost, ali smjer promjene ovisi o obliku odnosa i
 pravilu odabira.
 
-Nema univerzalnog pravila po kojem suženje mora smanjiti koeficijent. Kod
-zakrivljene veze izrez može zadržati strmiji ili ravniji dio pa korelaciju
-pojačati ili oslabiti. Ako odabir ovisi o objema varijablama ili o trećoj
-varijabli koja je s njima povezana, može se promijeniti i predznak. Potrebno je
-zato usporediti raspršene dijagrame prije i poslije odabira te znati po kojem su
-pravilu opažanja zadržana.
+Za čist prikaz slabljenja konstruirajmo 27 parova. Svaku vrijednost x od
+jedan do devet ponovimo triput, a y dobijemo dodavanjem −2, 0 i 2. Unutar
+svake vrijednosti x rasipanje je zato isto. Potom zadržimo samo x od četiri
+do šest. Uklanjamo dio raspona, a ne mijenjamo pravilo nastanka y.
 
-Simulirana anketa pokazuje zašto se to pravilo ne smije preskočiti. U cijelom
-uzorku korelacija dobi i dnevnih minuta iznosi `r hr_broj(s6_r, 2)`. U
-najmlađoj dobnoj skupini ostaje `r s6_n_uzak` ispitanika sa sedam zabilježenih
-dobi, od 18 do 24 godine, a korelacija iznosi `r hr_broj(s6_r_uzak, 2)` i
-mijenja predznak. To nije čisti prikaz istog linearnog odnosa u užem rasponu.
-Generator razlikuje
-dobne skupine, ali unutar najmlađe skupine minute ne ovise o točnoj dobi, pa je
-populacijska korelacija unutar nje nula. Dobivena vrijednost od
-`r hr_broj(s6_r_uzak, 2)` posljedica je promjenjivosti uzorka od
-`r s6_n_uzak` opažanja.
+*Slika. Isti linearni mehanizam prije i nakon ograničenja raspona. Konstruirani nastavni primjer, izrada autora.*
 
-Nalaz iz najmlađe skupine zato ne opovrgava vezu u cijelom simuliranom uzorku,
-ali je ni ne procjenjuje oslabljenim oblikom istog koeficijenta. Odgovara na
-uže pitanje o jednoj skupini čiji je odnos drukčije proizveden. Studija
-provedena na studentima jedne generacije jednako tako ne može sama riješiti
-pitanje o dobi kroz cijelu odraslu populaciju. Za uzorke primljenih kandidata,
-zaposlenih radnika ili preživjelih poduzeća prije tumačenja treba utvrditi kako
-je odabir promijenio raspon, oblik i sastav oblaka. Poglavlje o mjerenju i
-dizajnu isti postupak opisuje kao pitanje o tome tko je ušao u skup.
+Manji raspon x uz isto rasipanje oko pravca daje slabiju korelaciju.
+Sužavanje raspona ne mora uvijek smanjiti koeficijent. U zakrivljenoj vezi
+možemo izdvojiti dio koji bolje ili slabije prati pravac. Ako odabir ovisi o
+objema varijablama ili povezanoj trećoj, može se promijeniti i predznak. Zato
+uspoređujemo grafove prije i nakon odabira te provjeravamo pravilo
+uključivanja.
 
-Isti izračun pokazao je i drugi način na koji koeficijent zavara, jer je broj
-različit od nule ovdje nastao iz uzorka u kojem veze nema. U ostalim jednakim
-uvjetima odstupanje barem ovako veliko od nule vjerojatnije je kada je opažanja
-manje, pa koeficijent bez broja opažanja uz sebe ne nosi dovoljno da bi se
-prosudio. Treći je način
-osjetljivost na pojedinačno opažanje, jer jedna vrijednost daleko od ostalih
-pomiče oba prosjeka i obje
-standardne devijacije, a s njima i sam koeficijent. Sva tri načina nose isti
-simptom, dakle broj koji izgleda uvjerljivo. Otkrivaju se pregledom raspršenog
-dijagrama, označenih podskupina i pravila odabira prije nego što se koeficijent
-izračuna ili zapiše.
+U cijeloj simuliranoj anketi korelacija dobi i minuta je `r hr_broj(s6_r, 2)`. Najmlađa
+skupina ima `r s6_n_uzak` osoba sa sedam različitih dobi, od 18 do 24 godine.
+Njezina korelacija iznosi `r hr_broj(s6_r_uzak, 2)` i ima drugi predznak. To se ne može
+tumačiti samo kao slabljenje iste linearne veze. Generator razlikuje dobne
+skupine, ali unutar najmlađe minute ne ovise o točnoj dobi. Populacijska
+korelacija unutar nje zato je nula, a opaženih `r hr_broj(s6_r_uzak, 2)` proizlazi iz
+promjenjivosti uzorka od `r s6_n_uzak` osoba.
+
+Najmlađa skupina odgovara na uže pitanje i njezin nalaz ne opovrgava vezu u
+cijelom skupu. Slično, istraživanje jedne studentske generacije nije dovoljno
+za zaključak o dobi u cijeloj odrasloj populaciji. Za primljene kandidate,
+zaposlene radnike ili preživjela poduzeća trebamo provjeriti kako je odabir
+promijenio raspon, oblik i sastav opažanja.
+
+U primjeru dobivamo koeficijent različit od nule iako je populacijska
+korelacija unutar skupine nula. U usporedivim uvjetima takva su odstupanja češća u
+manjim uzorcima. Na koeficijent može snažno utjecati i jedna udaljena točka
+jer mijenja sredine, standardne devijacije i zajednička odstupanja. Zato uz
+broj opažanja pregledavamo graf, podskupine i način odabira.
 
 ## Podskupine i obrat predznaka
 
-Najteži slučaj nije oslabljen nego preokrenut koeficijent. On nastaje kada
-uzorak sadrži podskupine koje se razlikuju po razini obiju varijabli, a
-promatraju se zbirno.
+Odabirom jedne dobne skupine promijenili smo odnos koji opisujemo. Sada
+ispitujemo obrnut potez, spajanje različitih skupina u jedan prikaz. Kada
+podskupine imaju različite razine obiju varijabli, zbirna korelacija može
+imati suprotan predznak od korelacija unutar podskupina.
 
-Zamislimo tri odjela jedne organizacije, koji se razlikuju po tome koliko su
-njihovi zaposlenici iskusni i koliko su zadovoljni poslom. Podaci koji slijede
-konstruirani su za ovu svrhu i nisu mjerenje. Unutar svakog odjela zadovoljstvo
-blago opada s godinama staža, dok su odjeli s iskusnijim zaposlenicima ujedno
-oni s višim zadovoljstvom.
+To ćemo prikazati konstruiranim podacima o trima odjelima, bez tvrdnje o
+stvarnoj organizaciji. Unutar svakog odjela zadovoljstvo blago opada sa
+stažem. Odjeli s iskusnijim zaposlenicima ipak imaju više prosječno
+zadovoljstvo.
 
-*Slika. Konstruirani podaci u kojima zbirni oblak raste, a oblak unutar svakoga od triju odjela pada. Četiri polja prikazuju iste točke bez regresijskih pravaca.*
+Za svaki odjel generirali smo 60 osoba. Staž je jednoliko raspoređen od 2
+do 7 godina u A, od 7 do 12 u B i od 12 do 17 u C. U sredini tih raspona
+zadovoljstvu zadajemo 3,6, 5,7 i 7,7. Za svaku godinu iznad sredine odjela
+oduzimamo 0,42 i dodajemo neovisno normalno odstupanje standardne devijacije
+0,5. Tako odjel istodobno određuje polazišta staža i zadovoljstva.
+Zadovoljstvo je ovdje konstruirana kontinuirana vrijednost bez unaprijed
+ograničenog raspona, a ne odgovor na stvarnu anketnu ljestvicu.
+Četiri polja sljedećeg grafa pregrupiraju istih 180 generiranih zapisa.
 
-Zbirna korelacija staža i zadovoljstva iznosi `r hr_broj(s6_r_zbirno, 2)`, dakle
-jasno pozitivna. Unutar odjela ona iznosi
-`r hr_broj(s6_r_odjeli$r[[1]], 2)`, `r hr_broj(s6_r_odjeli$r[[2]], 2)` i
-`r hr_broj(s6_r_odjeli$r[[3]], 2)`, dakle negativna u sva tri. Nijedan broj nije
-pogrešno izračunat i nijedan ne proturječi drugome, jer odgovaraju na različita
-pitanja. Zbirni koeficijent mjeri i razliku među odjelima i odnos unutar njih
-odjednom, a razlika među odjelima ovdje je toliko veća da određuje predznak.
+*Slika. Konstruirani podaci u kojima zbirni oblak raste, a oblak unutar svakoga od triju odjela pada. To je konstruirani prikaz Simpsonova paradoksa. Četiri polja prikazuju iste točke bez regresijskih pravaca. Izrada autora; podaci i postupak opisani su u tekstu.*
 
-Ista je pojava koju je Simpson opisao na tablicama frekvencija (Simpson, 1951), a
-poglavlje o statističkom mišljenju pokazalo je na stvarnom slučaju prijamnog
-postupka u Berkeleyju, gdje se zbirna razlika u stopama prijma raspala čim su
-odjeli razdvojeni (Bickel, 1975). Vizualni oblik iste pojave nose mala višestruka
-polja iz poglavlja o vizualizaciji. Zajedničko im je da razlika među skupinama i
-odnos unutar skupina nisu ista veličina, i da ih zbirni broj spaja u jedan.
+Zbirna korelacija staža i zadovoljstva je pozitivna, `r hr_broj(s6_r_zbirno, 2)`. Unutar odjela
+iznosi `r hr_broj(s6_r_odjeli$r[[1]], 2)`, `r hr_broj(s6_r_odjeli$r[[2]], 2)` i `r hr_broj(s6_r_odjeli$r[[3]], 2)`, pa su sve tri negativne. Svaki je
+račun točan. Zbirni rezultat uključuje i razlike među odjelima, koje su ovdje
+dovoljno velike da odrede pozitivan predznak.
 
-Društvene znanosti isti problem susreću i kada se skrivena podjela zamijeni
-pogrešnom jedinicom analize. Korelacije se mogu računati na zemljama, županijama
-ili školama, dakle na prosjecima koji su dostupni kao agregati.
-Agregiranje uklanja dio razlika unutar skupina, pa korelacija među
-agregatima može biti drukčija, katkad i znatno jača, od korelacije među
-pojedincima, a njezin smjer ne mora vrijediti unutar tih jedinica.
-Zaključak o pojedincu izveden iz veze među skupinama naziva se **ekološkom
-pogreškom** (*ecological fallacy*). Ponovni izračun istih agregata ne može
-opravdati tvrdnju o pojedincima; za nju su potrebni podaci i dizajn na
-individualnoj razini. Tvrdnja izračunata na razini zemalja legitiman je nalaz o
-zemljama, i ništa više od toga.
+To je pojava koju je Simpson opisao na frekvencijskim tablicama
+(Simpson, 1951). Već smo je susreli u Berkeleyjskim stopama prijma, gdje se
+zbirna razlika promijenila nakon razdvajanja odjela (Bickel, 1975). Grafovima
+po skupinama možemo odvojiti razlike među skupinama od odnosa unutar njih.
+
+Poseban problem nastaje kada iz korelacije među skupinama zaključujemo o
+pojedincima. Zemlje, županije ili škole često su dostupne samo kao agregati.
+Njihovom korelacijom ne dobivamo odnos među ljudima unutar njih. Agregiranje
+uklanja dio unutarnjih razlika pa koeficijent može biti drukčiji, jači ili
+drugog smjera. Zaključivanje o pojedincima iz takvih odnosa nazivamo
+**ekološkom pogreškom** (*ecological fallacy*). Za individualni zaključak
+trebamo podatke i dizajn na individualnoj razini. Odnos među zemljama ostaje
+nalaz o zemljama.
 
 ## Država kao jedinica
 
-Upravljani Eurostatov izvadak omogućuje da se ta granica vidi na stvarnim
-službenim agregatima. Sadrži po šest pokazatelja za svih 27 država članica EU-a
-u 2025., dakle 162 ključa `država + godina + pokazatelj` i 161 brojčanu
+Na objavljenim pokazateljima možemo provjeriti kako promjena jedinice
+ograničava tumačenje povezanosti. S pojedinačnih osoba sada prelazimo
+na države. Eurostat, statistički ured
+Europske unije, objavljuje pokazatelje kojima uspoređujemo obrazovanje,
+zaposlenost, siromaštvo, uporabu interneta i dobnu strukturu stanovništva
+[{Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026;
+{Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026].
+Koristimo objavljene vrijednosti, a ne simulaciju. U izvornoj tablici jedan
+redak pripada jednom pokazatelju za jednu državu i godinu. Kada pokazatelje
+spojimo za graf, jedna točka predstavlja državu.
+
+Za Hrvatsku i Francusku u nastavku vidimo po dva izvorna retka. Obrazovanje
+se odnosi na osobe od 25 do 34 godine, a uporaba interneta na osobe od 16 do
+74 godine ({Eurostat}, 2026; {Eurostat}, 2026). Povezivanjem
+redaka iste države dobivamo par vrijednosti za jednu točku na grafu.
+
+*Slika. Dva pokazatelja za dvije države u Eurostatovu izvatku za 2025. Izrada autora prema @eurostattertiary2026 i @eurostatinternet2026.*
+
+U tablici su udjeli za čitanje zaokruženi na jednu decimalu. Za graf i
+izračun povezanosti zadržavamo izvorne brojčane vrijednosti.
+
+Eurostatov izvadak sadržava šest pokazatelja za 27 članica EU-a u 2025.,
+odnosno 162 kombinacije `država + godina + pokazatelj` i 161 brojčanu
 vrijednost [{Eurostat}, 2026; {Eurostat}, 2026;
 {Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026;
-{Eurostat}, 2026]. Jedini izostali broj jest rano napuštanje obrazovanja
-u Luksemburgu ({Eurostat}, 2026). Redak ostaje u datoteci kao `:`, s
-izvornom oznakom `u` za nisku pouzdanost i bez oznake povjerljivosti
-({Eurostat}, 2026). Nije pretvoren u nulu niti popunjen drugom godinom.
+{Eurostat}, 2026]. Nedostaje samo rano napuštanje obrazovanja za
+Luksemburg ({Eurostat}, 2026). Zadržan je zapis `:` s izvornom
+oznakom `u` za nisku pouzdanost, bez oznake povjerljivosti
+({Eurostat}, 2026). Ne zamjenjujemo ga nulom ni vrijednošću druge
+godine.
 
-Izvorne oznake ostaju vidljive i kada ih analiza ne koristi kao filtar. One ne
-znače isto što i odsutnost. Hrvatska vrijednost ranog napuštanja od 2,1 također
-nosi `u`, ali jest objavljena brojčana vrijednost ({Eurostat}, 2026).
-Oznaka `b` bilježi prekid u vremenskoj seriji [{Eurostat}, 2026;
-{Eurostat}, 2026]. To ne pretvara ovaj jednogodišnji presjek u analizu
-trenda.
+Oznaka kvalitete razlikuje se od nedostajuće vrijednosti. Hrvatska vrijednost
+ranog napuštanja obrazovanja iznosi 2,1 i također nosi `u`, ali je
+objavljena kao broj ({Eurostat}, 2026). Oznaku `b`, koja
+bilježi prekid vremenske serije, također čuvamo [{Eurostat}, 2026;
+{Eurostat}, 2026]. Analiza ipak ostaje presjek jedne godine.
 
 *Slika. Izvorne statusne oznake u cijelom izvatku od 162 retka. Izrada autora prema šest Eurostatovih skupova za 2025. [@eurostatemployment2026; @eurostatpoverty2026; @eurostattertiary2026; @eurostatearlyleaving2026; @eurostatinternet2026; @eurostatpopulation2026].*
 
-Za glavnu ilustraciju biramo tercijarno obrazovanje i uporabu interneta zbog
-sadržajne veze obrazovnoga i digitalnoga sudjelovanja te potpunoga obuhvata
-EU-27 ({Eurostat}, 2026; {Eurostat}, 2026). Odabir je istraživački
-prikaz, a ne unaprijed registrirana hipoteza. Prvi je pokazatelj udio osoba od
-25 do 34 godine s tercijarnim obrazovanjem, a drugi udio osoba od 16 do 74 godine
-koje su se koristile internetom u prethodna tri mjeseca
-({Eurostat}, 2026; {Eurostat}, 2026). Svaka točka u sljedećem
-raspršenom dijagramu jest jedna
-država članica, a oblik točke čuva izvornu oznaku uz treći pokazatelj, udio
-stanovništva od 65 godina naviše. Tako graf prvo pokazuje zemljopisnu jedinicu,
-oblik veze i kvalitetu izvora, prije nego što ih koeficijent sažme. Veličina
-točke dodaje vrijednost trećeg pokazatelja, pa se pitanje dobne strukture vidi
-bez prilagođavanja modela.
+Za ilustraciju biramo tercijarno obrazovanje i uporabu interneta jer nas
+zanima odnos obrazovnog i digitalnog sudjelovanja, a oba pokazatelja pokrivaju
+EU-27 ({Eurostat}, 2026; {Eurostat}, 2026). To je istraživački
+izbor, bez unaprijed registrirane hipoteze. Prvi pokazuje udio osoba od 25 do
+34 godine s tercijarnim obrazovanjem, a drugi udio osoba od 16 do 74 godine
+koje su koristile internet u prethodna tri mjeseca [{Eurostat}, 2026;
+{Eurostat}, 2026]. Svaka točka predstavlja državu. Veličina joj prikazuje
+udio stanovništva od 65 godina naviše, a oblik čuva izvornu oznaku uz taj
+pokazatelj. Tako prije koeficijenta vidimo odnos i moguću ulogu dobnog
+sastava.
 
 *Slika. Tercijarno obrazovanje i uporaba interneta u 27 država članica EU-a 2025. Veličina točke pokazuje udio stanovništva od 65 godina naviše, a oblik prenosi njegovu statusnu oznaku. Oznaka e znači procjenu, p privremenu vrijednost, a ep procijenjenu i privremenu vrijednost. Izrada autora prema Eurostatu [@eurostattertiary2026; @eurostatinternet2026; @eurostatpopulation2026].*
 
-Pearsonova korelacija među 27 država iznosi `r hr_broj(s6_r_eu, 2)`, a
-Spearmanova `r hr_broj(s6_rs_eu, 2)` [{Eurostat}, 2026;
-{Eurostat}, 2026]. Njihova blizina spojiva je s uglavnom
-uzlaznim oblakom, ali ne dokazuje linearnost ni otpornost rezultata. Dopuštena
-rečenica glasi da su u 27 država članica EU-a u 2025. viši državni udjeli
-tercijarno obrazovanih osoba od 25 do 34 godine bili povezani s višim državnim
-udjelima uporabe interneta među osobama od 16 do 74 godine
-({Eurostat}, 2026; {Eurostat}, 2026). Ne govori da se
-obrazovanija osoba češće koristi internetom, jer datoteka nema osobe kao retke.
+Za 27 država Pearsonova korelacija iznosi `r hr_broj(s6_r_eu, 2)`, a Spearmanova `r hr_broj(s6_rs_eu, 2)`
+({Eurostat}, 2026; {Eurostat}, 2026). Bliske su i odgovaraju
+uglavnom uzlaznom oblaku, ali ne dokazuju linearnost ili otpornost nalaza. U
+EU-27 tijekom 2025. viši državni udjeli tercijarno obrazovanih osoba od 25 do
+34 godine povezani su s višim udjelima uporabe interneta među osobama od 16 do
+74 godine ({Eurostat}, 2026; {Eurostat}, 2026). To ne pokazuje odnos
+obrazovanja i uporabe interneta kod pojedine osobe.
 
-Veličina točaka otvara pitanje mijenja li dobna struktura čitanje te agregatne
-veze [{Eurostat}, 2026; {Eurostat}, 2026;
-{Eurostat}, 2026]. Graf ne dokazuje da je ona objašnjenje početnog odnosa.
-Za to bi najprije trebalo pregledati oba njezina raspršena dijagrama s glavnim
-varijablama i pribaviti dizajn koji razdvaja konkurentska objašnjenja.
-Jednogodišnji presjek ne podupire trend, tvrdnju izvan EU-27, zaključak o
-pojedincu ni uzrok [{Eurostat}, 2026; {Eurostat}, 2026;
-{Eurostat}, 2026].
+Veličina točaka potiče provjeru dobne strukture kao mogućeg trećeg čimbenika
+({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026). Za tu bismo provjeru trebali ispitati odnos dobne strukture s objema glavnim
+varijablama i razmotriti dizajn koji odvaja moguća objašnjenja. Ovaj presjek ne pokazuje
+trend, uzrok, odnos među pojedincima ili nalaz izvan EU-27
+({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026).
 
-Odatle slijedi ono što se o uzroku smije reći. Kao moguću konfundirajuću
-varijablu razmatramo prethodnu zajedničku odrednicu povezanu s objema
-promatranim veličinama. Njezin se položaj određuje sadržajnim uzročnim
-redoslijedom i dizajnom, a ne mjestom ili veličinom točke na grafu. Odjel je u
-konstruiranom primjeru takva zajednička odrednica staža i zadovoljstva. Kada je
-poznata i izmjerena, razdvajanje po njezinim razinama može pokazati kako se
-povezanost mijenja, ali samo po sebi ne uspostavlja uzrok. Kada nije izmjerena,
-koeficijent o njezinoj ulozi ne javlja ništa.
+Moguća konfundirajuća varijabla mora prethoditi objema pojavama i utjecati na
+njih. To prosuđujemo prema sadržaju i dizajnu. U konstruiranom primjeru odjel
+tako oblikuje staž i zadovoljstvo. Razdvajanjem odjela vidimo promjenu
+povezanosti, ali sama ta promjena ne dokazuje uzročnost. O neizmjerenom
+čimbeniku koeficijent ne daje izravnu obavijest.
 
-Zbog toga povezanost sama ne određuje uzrok. Veza između dviju varijabli može
-imati barem četiri objašnjenja. Prva može djelovati na drugu, druga na prvu,
-obje može oblikovati treća, ili je obrazac nastao pukom promjenjivošću uzorka.
-Ista vrijednost koeficijenta spojiva je sa svakim od tih objašnjenja i ne
-razlikuje ih. Razlikuje ih dizajn istraživanja, o kojem je poglavlje o mjerenju
-i dizajnu već govorilo, pa je smjer tvrdnje koju o povezanosti smijemo iznijeti
-određen prije nego što je izračunata.
+Isti koeficijent može odgovarati različitim objašnjenjima. Prva varijabla može
+utjecati na drugu ili obrnuto, obje mogu ovisiti o trećoj, a obrazac može
+nastati slučajnom promjenjivošću uzorka. Za razlikovanje tih mogućnosti
+trebamo istraživački dizajn. Sam izračun ne određuje smjer uzroka.
 
 ## Interakcija — Pogodi korelaciju
 
-Digitalna igra prikazuje četiri raspršena oblaka bez koeficijenta i traži
-procjenu smjera i jačine. Tiskana inačica polazi od četiriju zadanih procjena.
-U oba se puta vidljivi oblik najprije prosuđuje, a tek zatim uspoređuje s
-Pearsonovom korelacijom.
+Svaki oblak ovdje je novi nastavni skup s 54 para bez mjerne jedinice.
+Za jednu točku neovisno izvlačimo dvije normalne vrijednosti sa sredinom
+nula i standardnom devijacijom jedan. Prva postaje $x$, a $y$ dobivamo
+miješanjem dijela prvoga izvlačenja i dijela drugoga. Više zajedničkoga
+dijela znači jaču vezu, a negativan predznak zajedničkoga dijela silaznu vezu.
+Generator zadaje četiri različite populacijske korelacije, dok koeficijent
+svakog konačnog oblaka računamo iz njegovih 54 para. To nisu točno iste
+veličine. Promjenom svoje procjene ne mijenjamo točke.
+
+Četiri raspršena oblaka omogućuju usporedbu smjera i jačine
+povezanosti. Najprije promatramo oblik svakog oblaka. Tablica koja slijedi
+donosi Pearsonove korelacije i zadane procjene, pa se može provjeriti
+koliko su procjene blizu izračunanim vrijednostima.
 
 *Slika. Četiri deterministički simulirana oblaka bez prikazanih koeficijenata. Zajedničke osi omogućuju usporedbu smjera i zbijenosti.*
 
@@ -412,108 +442,117 @@ Pearsonovom korelacijom.
 3. Fino namjestite procjene za slabije oblake B i C bez mijenjanja prvih dviju.
 4. Otvorite rješenje, usporedite četiri odstupanja i opišite koji je oblak bilo najteže procijeniti.
 
-Predznak je u sva četiri oblaka lakše procijeniti od točne jačine. Usporedba
-A i D dodatno pokazuje da vizualni dojam zbijenosti treba kalibrirati istom
-ljestvicom, ali koeficijent ni tada ne zamjenjuje pregled oblika.
+Predznak je lakše uočiti nego točnu jačinu veze. Pri usporedbi oblaka A i D
+trebamo i jednake ljestvice. Ni dobro pogođen koeficijent ne zamjenjuje
+pregled oblika.
 
 **Statistika u divljini.**
-**Dinosaur s urednim sažetkom.** Matejka i Fitzmaurice razvili su postupak koji
-polazi od zadanog skupa i sitnim pomacima točaka mijenja njegov oblik, a pritom
-sredine, standardne devijacije i
-korelaciju drži nepromijenjenima do druge decimale (Matejka, 2017). Iz istog
-sažetka tako su izveli niz oblika, među njima zvijezde, križeve i obris
-dinosaura.
+**Dinosaur s urednim sažetkom.** Zamislimo da na pregled dobijemo analizu
+povezanosti dviju varijabli. Priložene su njihove sredine, standardne
+devijacije i Pearsonov koeficijent, ali nema grafa. Račun možemo
+ponoviti i dobiti iste brojeve. Prije nego što prihvatimo opis odnosa,
+još trebamo saznati kako su opažanja raspoređena.
 
-Doseg nalaza vrijedi odmjeriti. Rad ne pokazuje da je korelacija nestabilna
-niti da je pogrešno izračunata, jer je u svim tim skupovima ista i točna. Ono
-što pokazuje jest da sažetak od nekoliko brojeva ne određuje skup podataka, pa
-put od podataka do sažetka ide samo u jednom smjeru. Iz toga slijedi obveza koja
-je uska i provjerljiva. Uz koeficijent treba prikazati i oblik iz kojeg je
-nastao, a ne napustiti koeficijent.
+Matejka i Fitzmaurice pokazali su koliko toga takav sažetak može
+izostaviti. Njihov postupak sitnim pomacima točaka mijenja izgled skupa,
+a zadane sažetke čuva do druge decimale (Matejka, 2017). Polazeći od
+Cairova obrisa dinosaura, proizveli su skupove koji izgledaju poput
+zvijezde, kruga ili nizova crta, uz iste zaokružene sredine,
+standardne devijacije i korelaciju (Matejka, 2017). To su namjerno
+konstruirani podaci, a ne opažanja neke društvene pojave.
 
-**Pitajte model.**
-Asistent može najprije opisati raspršeni dijagram, a zatim izračunati Pearsonovu
-i Spearmanovu korelaciju. Treba mu zatražiti provjeru oblika, krajnjih i
-utjecajnih opažanja, podskupina i ograničenja raspona prije usporedbe
-koeficijenata. Nakon odgovora valja provjeriti jesu li redovi u dvjema
-varijablama ispravno upareni i je li iz povezanosti izveden nedopušten uzrok.
-Kod službenih agregata asistent mora imenovati državu kao jedinicu, sačuvati
-odsutne vrijednosti i izvorne statusne oznake te odvojiti nalaz o državama od
-tvrdnje o ljudima. Kod kodiranoga teksta mora ponoviti pravilo kodiranja i
-označiti tko ga je sastavio, jer račun ne može provjeriti je li kategorija
-valjano izmjerena.
+Takva demonstracija mijenja našu procjenu izvještaja. Podudaranje
+sažetaka potvrđuje da smo ponovili račun, ali ne potvrđuje da je
+koeficijent dovoljan opis. Slaba linearna povezanost može pratiti
+uređen zakrivljeni oblik. Može se pojaviti i u skupu s odvojenim
+nakupinama. Te razlike traže različita daljnja pitanja, iako se ne
+vide u jednome broju.
 
-Tri moguća promašaja vrijedi tražiti unaprijed. Asistent može veličinu
-koeficijenta očitati s Cohenove ljestvice bez uvjeta koji uz nju ide
-(Cohen, 1988). Korelacija bez broja opažanja ne dopušta prosudbu nesigurnosti.
-Jezik učinka stvara treći promašaj kada jedna varijabla „dovodi do" druge, iako
-je izračunato samo zajedničko kretanje.
+U zamišljenoj analizi zato bismo zatražili raspršeni dijagram svih
+parova. Ako on pokaže zakrivljenost, rečenicu o slaboj vezi trebali
+bismo ograničiti na linearnu povezanost. Ako pokaže skupine ili
+izdvojena opažanja, provjerili bismo što predstavljaju prije
+izračunavanja novih koeficijenata. Ne bismo ih uklonili samo da graf
+postane uredniji.
 
-> Najprije imenuj što predstavlja jedan redak, provjeri uparivanje, odsutne
-> vrijednosti, statusne oznake i pravilo svakoga koda. Zatim opiši oblik,
-> raspon, podskupine i utjecajna opažanja na raspršenom dijagramu, usporedi
-> Pearsonovu i Spearmanovu korelaciju te zaključak ograniči na povezanost koju
-> dizajn podupire.
+Dinosaur je pamtljiv zato što radikalno razdvaja ono što vidimo od
+onoga što koeficijent sažima. U stvarnim podacima raspored će rijetko
+biti tako upadljiv, ali odluka ostaje ista. Uz provjeru je li broj
+točan trebamo provjeriti i koju bi važnu osobinu odnosa čitatelj
+propustio kada bismo mu pokazali samo taj broj.
 
 **Nađite grešku.**
-Na pitanje o odnosu dobi i vremena korištenja asistent je napisao ovu analizu.
+U simuliranoj anketi od 300 osoba provjeravamo odnos dobi i dnevnih
+minuta na društvenim mrežama (Šikić, 2026). Asistentu je postavljeno
+pitanje o cijelom uzorku. Vratio je ovaj račun.
 
-Uz ispis je dodao obrazloženje. Korelacija u toj skupini iznosi
-`r hr_broj(s6_r_uzak, 2)` uz `r s6_n_uzak` ispitanika. Zaključuje da dob i
-vrijeme korištenja nisu negativno povezani u cijelom simuliranom uzorku.
+Za provjeru su dostupni isti sažeci koje smo usporedili uz raspršeni
+dijagram. Pearsonov koeficijent u tablici opisuje linearnu povezanost.
+
+| Uključene osobe | Broj osoba | Pearsonov koeficijent |
+|---|---:|---:|
+| Cijeli simulirani uzorak | 300 | −0,56 |
+| Osobe od 18 do 24 godine | `r s6_n_uzak` | `r hr_broj(s6_r_uzak, 2)` |
+
+: Dob i dnevno vrijeme u dvama obuhvatima. Izrada autora prema sikicanketa2026.
+
+> Račun daje korelaciju `r hr_broj(s6_r_uzak, 2)` uz `r s6_n_uzak`
+> ispitanika. Prema tome, dob i vrijeme korištenja nisu negativno
+> povezani u cijelom simuliranom uzorku.
+
+Pridružite ispis jednom retku tablice. Označite mjesto na kojem se
+odgovor udaljio od postavljenog pitanja i napišite zamjenski zaključak
+koji opisuje oba obuhvata. Sačuvajte točan rezultat asistentova računa.
 
 ## Razrađeni primjer
 
-Dob i dnevno vrijeme korištenja društvenih mreža u simuliranoj anketi traže
-izvještaj koji čuva oblik odnosa, obje mjere i granicu zaključka. Raspršeni
-dijagram zato prethodi računu, a rečenica dolazi tek nakon njih.
+U odnosu dobi i dnevnog vremena korištenja već smo vidjeli zašto koeficijent
+trebamo čitati uz graf. Sada te provjere povezujemo u jedno izvješće o
+simuliranoj anketi. Graf pokazuje oblik odnosa. Pearsonov koeficijent sažima
+koliko odnos prati pravac, a Spearmanov koliko dosljedno slijedi silazni
+poredak. Zaključak se odnosi na te simulirane podatke.
 
-Cjevovod i poziv `summarise` poznati su iz poglavlja o sažimanju podataka.
-Funkcija `cor` računa korelaciju dvaju stupaca, po zadanom Pearsonovu, a argument
-`method` mijenja mjeru u Spearmanovu. Isti obrazac čitanja koda tako ostaje
-primjenjiv i kada se sažimaju dvije varijable zajedno.
+Za oba opisa koristimo iste parove dobi i minuta. Poziv `summarise`, koji
+već poznajemo, okuplja sažetke, a funkcija `cor` računa korelaciju
+dvaju stupaca. Zadana je Pearsonova korelacija. Odabirom Spearmanove u
+argumentu `method` mijenjamo način sažimanja odnosa, dok osobe i njihove
+vrijednosti ostaju iste.
 
-Raspršeni dijagram iz odjeljka o zajedničkom kretanju pokazao je da veza pada
-strmo u mlađim godinama i izravnava se poslije. Tek nakon tog pregleda dva koeficijenta
-imaju smisla zajedno. Pearsonova vrijednost od `r hr_broj(s6_r, 2)` sažima
-koliko je oblak blizu pravca, a Spearmanova od `r hr_broj(s6_rs, 2)` koliko je
-kretanje dosljedno silazno. Njihova je razlika spojiva s već viđenom
-zakrivljenošću, ali bez grafa je ne bi mogla sama dijagnosticirati.
+Graf pokazuje da se pad vremena s dobi poslije izravnava. Pearsonova
+vrijednost `r hr_broj(s6_r, 2)` opisuje linearnu vezu, a Spearmanova `r hr_broj(s6_rs, 2)`
+dosljednost silaznog poretka. Razlika je spojiva sa zakrivljenošću koju smo
+vidjeli, ali bez grafa ne bi bila dovoljna za taj zaključak.
 
-Pošteni izvještaj glasi ovako. U ovom simuliranom uzorku od `r s6_n` ispitanika
-dob i dnevno vrijeme korištenja povezani su negativno i dosljedno, uz
-Spearmanovu korelaciju od `r hr_broj(s6_rs, 2)`, dok je veza na raspršenom
-dijagramu zakrivljena i Pearsonova vrijednost od `r hr_broj(s6_r, 2)` manjeg
-apsolutnog iznosa. Rečenica navodi mjeru, njezinu veličinu, broj opažanja i
-oblik odnosa, a ne navodi uzrok, jer podaci dolaze iz prikaza bez intervencije i
-vremenskoga redoslijeda.
+Rezultat možemo navesti ovako. U simuliranom uzorku od `r s6_n` ispitanika
+dob i dnevno vrijeme korištenja negativno su povezani. Graf pokazuje
+zakrivljen silazni odnos, uz Spearmanovu korelaciju `r hr_broj(s6_rs, 2)` i Pearsonovu
+`r hr_broj(s6_r, 2)`, manjeg apsolutnog iznosa. Ne zaključujemo o uzroku jer je skup
+simuliran i presječan, bez istraživačke intervencije ili zabilježenog
+vremenskog redoslijeda.
 
 ## Od odnosa do tvrdnje
 
-Na granici Dijela II opisati podatke nije isto što i dobiti dopuštenje za svaku
-tvrdnju o njima. Šest revizijskih pitanja prati put od retka u datoteci do
-rečenice koju čitatelj smije prenijeti drugome. Ovdje su primijenjena na
-Eurostatov presjek.
+Na Eurostatovu presjeku pratimo kako od izvornog retka dolazimo do rečenice
+o povezanosti i što usput treba provjeriti.
 
-| Pitanje revizije | Primjena na Eurostatov odnos |
+| Revizijsko pitanje | Primjena na Eurostatov odnos |
 |---|---|
-| Što predstavlja jedan redak? | nakon spajanja pokazatelja, jednu državu članicu EU-a u 2025. |
-| Tko ili što nije moglo ući u podatke? | pojedinci unutar država, zemlje izvan EU-27 i druga razdoblja nisu jedinice ovoga presjeka |
-| Koja je ciljna količina i koja je vrsta tvrdnje? | Pearsonov i Spearmanov koeficijent opisuju povezanost dvaju državnih udjela |
-| Koje izvore neizvjesnosti račun predstavlja, a koje ostavlja izvan? | statusne oznake čuvaju upozorenja izvora, ali koeficijenti ne kvantificiraju mjernu ni uzoračku neizvjesnost i presjek ne predstavlja promjenu kroz godine |
-| Koja bi razumna alternativna odluka mogla materijalno promijeniti odgovor? | druga dobna definicija, drugi pokazatelj, rangovi umjesto vrijednosti ili unaprijed opravdan odnos prema statusnim oznakama mijenjaju pitanje i mogu promijeniti sažetak |
-| Tko može snositi posljedice ako je zaključak pogrešan? | stanovnici i države mogu biti pogrešno opisani, a urednička ili javna odluka može dobiti dokaz koji podaci ne nose |
+| Koja je jedinica? | nakon spajanja pokazatelja, jedna država članica EU-a u 2025. |
+| Tko ili što nedostaje? | pojedinci unutar država, zemlje izvan EU-27 i druga razdoblja nisu jedinice ovoga presjeka |
+| Koji je cilj tvrdnje? | Pearsonov i Spearmanov koeficijent opisuju povezanost dvaju državnih udjela |
+| Gdje je neizvjesnost? | statusne oznake prenose upozorenja izvora; koeficijenti ne mjere uzoračku ni mjernu nesigurnost, a presjek ne pokazuje promjenu kroz vrijeme |
+| Koje drugo objašnjenje ostaje? | druga dobna skupina ili pokazatelj, rangovi umjesto vrijednosti ili drukčije opravdano postupanje sa statusnim oznakama |
+| Tko snosi posljedice? | pogrešan opis stanovnika ili država može dovesti do neutemeljene uredničke ili javne odluke |
 
 : Šest revizijskih pitanja primijenjenih na povezanost službenih agregata. Izrada autora prema Eurostatu ({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026).
 
-Odgovori se ne provjeravaju odvojeno. Promijeni li se jedinica, mijenjaju se
-ciljna količina, razumna alternativa i ljudi koji mogu snositi posljedice.
-Statusna oznaka pritom nije dopuštenje za proizvoljno odbacivanje retka;
-postupanje prema njoj mora biti unaprijed opravdano i vidljivo u izvještaju.
+Promjena jedinice mijenja i ono što procjenjujemo, moguća objašnjenja te
+posljedice zaključka. Statusna oznaka također traži prosudbu. Nije automatski
+razlog za izbacivanje retka, pa svako takvo pravilo unaprijed obrazlažemo i
+navodimo u izvještaju.
 
-Pitanja vode do **granice tvrdnje o povezanosti**. Jedinica, obuhvat i način
-mjerenja određuju čemu se koeficijent smije pripisati. Karta zatim odvaja šest
-vrsta tvrdnji koje se u javnoj komunikaciji lako stapaju u jednu.
+**Granica tvrdnje o povezanosti** ovisi o jedinici, obuhvatu i načinu
+mjerenja. Sljedeća tablica pokazuje koje vrste tvrdnji ti podaci podupiru.
 
 | Dimenzija tvrdnje | Što ovaj dokaz dopušta |
 |---|---|
@@ -526,52 +565,42 @@ vrsta tvrdnji koje se u javnoj komunikaciji lako stapaju u jednu.
 
 : Šest dimenzija tvrdnje na granici Dijela II. Izrada autora prema Eurostatu ({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026).
 
-Pošten izvještaj uz odnos navodi jedinicu, vrijeme, obuhvat i granicu. Za ovaj
-presjek možemo priopćiti da su dva državna udjela u EU-27 2025. bila pozitivno
-povezana ({Eurostat}, 2026; {Eurostat}, 2026). Ne možemo tu rečenicu
-pretvoriti u tvrdnju o pojedincu, uzroku, budućnosti ili zemljama izvan
-presjeka. Sljedeći dio knjige dodaje uzorkovanje i neizvjesnost, pa pita kada
-opaženi odnos smijemo proširiti izvan podataka pred nama.
+Za ovaj presjek možemo reći da su dva državna udjela u EU-27 2025. pozitivno
+povezana ({Eurostat}, 2026; {Eurostat}, 2026). Iz toga ne izvodimo
+zaključak o pojedincima, uzrocima, budućnosti ili drugim zemljama.
 
-Samoprovjera na granici Dijela II obuhvaća četiri pitanja. Što predstavlja
-jedna točka Eurostatova dijagrama? Zašto glavni odnos zadržava Luksemburg, a odnos koji
-uključuje rano napuštanje obrazovanja ne može? Zašto se Pearsonov i Spearmanov
-koeficijent čitaju tek nakon raspršenoga dijagrama? Koje tri analitičke
-dimenzije tvrdnje ovaj presjek ne podupire i što bi svaka tražila?
+Za samoprovjeru možemo odgovoriti na četiri pitanja. Što predstavlja točka
+Eurostatova grafa? Zašto je Luksemburg uključen u glavni odnos, ali ne i u
+odnos s ranim napuštanjem obrazovanja? Zašto prije usporedbe koeficijenata
+pregledavamo graf? Koje tri vrste zaključka ovaj presjek ne podupire i što bi
+nam za njih trebalo?
 
-Račun provjere mora biti čitljiv i bez otvaranja koda. Za svaku od triju
-delegiranih operacija u Dijelu II bilježi što je traženo i vraćeno, što je
-provjereno i kako, ulogu asistenta, ono što je ostalo neprovjereno i odgovornu
-osobu. Sljedeći zapis povezuje tri zadatka s
-asistentom s dokazom koji je već vidljiv u poglavljima.
+Tri pogrešna tumačenja iz ovoga dijela knjige možemo provjeriti istim redom.
+Najprije ustanovimo što je doista u podacima, zatim usporedimo tvrdnju s
+odgovarajućim prikazom i na kraju odredimo granicu zaključka. Tako se
+provjere tablice, grafa i koeficijenta nadovezuju jedna na drugu.
 
-| Polje računa | Sažetak u poglavlju 4 | Graf u poglavlju 5 | Povezanost u poglavlju 6 |
+| Provjera | Sažetak u poglavlju o sažimanju | Graf u poglavlju o vizualizaciji | Povezanost u ovom poglavlju |
 |---|---|---|---|
-| Što je traženo | spojiti mjesečnu i godišnju DigiKatovu tablicu uz puni ključ te vratiti kontrolne brojnosti | predložiti najjednostavniji graf, obrazložiti usporedbu, navesti ljestvicu i napisati alternativni tekst | opisati raspršeni dijagram, usporediti Pearsonovu i Spearmanovu korelaciju te omeđiti zaključak |
-| Što je vraćeno | broj redaka i jedinstvenih ključeva, zbroj objava i ocjena valjanosti spoja | programski zapis stupčastoga grafa, oznake vrijednosti i obrazloženje širine stupaca | jedan Pearsonov koeficijent nakon filtra, broj opažanja i zaključna rečenica |
-| Što je provjereno | jedinica retka, puni ključ, broj redaka, jedinstvenost, zbroj i dostupnost metrike | geometrija, početak osi, redoslijed kategorija, nositelj skupne razlike i alternativni tekst | uparivanje, oblik, utjecajna opažanja, podskupine, raspon i jezik uzročnosti |
-| Kako je provjereno | usporedbom stanja prije i nakon spajanja u tablici kontrole retka, ključa i zbroja iz poglavlja 4 te čitanjem oznake dostupnosti | usporedbom s tablicom izbora prikaza i dvama prikazima istih prosjeka na različitim osima iz poglavlja 5 te provjerom čitljivosti bez boje | čitanjem filtra, usporedbom s cijelim skupom i pregledom zakrivljenoga oblika u ranijem raspršenom dijagramu ovoga poglavlja |
-| Uloga AI-ja | instrument i pogrešiv analitičar | instrument i pogrešiv analitičar | instrument i pogrešiv analitičar |
-| Što je ostalo neprovjereno | valjanost istraživačkoga pitanja, značenje nedostupnih metrika i doseg izvan korpusa | konačni urednički cilj i čitljivost u svakom stvarnom formatu | populacijski doseg i uzročnost, koje podaci i dizajn ne podupiru |
-| Odgovorna osoba | osoba koja potpisuje sažetak | osoba koja objavljuje graf | osoba koja potpisuje tumačenje |
+| Pogrešan zaključak | spoj po godini valjan je jer se zbroj prikazanih redaka može izračunati | treći stupac može biti širi radi optičke ravnoteže | povezanost u jednoj dobnoj podskupini određuje smjer veze u cijelom uzorku |
+| Što gledamo | jedinicu retka, puni ključ, broj redaka i zbroj prije i nakon spajanja | jednake širine stupaca, os od nule i čitljivost bez boje | filtrirani uzorak, cijeli oblak točaka i oblik veze |
+| Gdje je provjera | tablica kontrole spajanja i oznaka dostupnosti metrike | usporedba dviju osi i tablica izbora prikaza | raspršeni dijagram dobi i minuta te koeficijenti za cijeli uzorak |
+| Granica | opis vrijedi za uključeni DigiKatov korpus | graf ne nadomješta provjeru podataka i uredničkoga pitanja | povezanost ne pokazuje uzrok ni populacijski doseg |
 
-: Čitljiv račun provjere za tri zadatka s asistentom u Dijelu II. Izrada autora.
+: Tri provjere pogrešnih analiza u Dijelu II. Izrada autora.
 
 ## Sažetak
 
-Kovarijanca mjeri zajedničko odstupanje od sredina, a korelacija je ista mjera
-očišćena od jedinica, pa se kreće između minus jedan i plus jedan i mjeri koliko
-je oblak blizu pravca. Spearmanov koeficijent radi s rangovima, pa mjeri
-dosljednost smjera bez zahtjeva da veza bude pravocrtna. Slaganje i razilaženje
-dvaju koeficijenata samo su tragovi koji se tumače nakon oblika, raspona,
-podskupina i utjecajnih opažanja na raspršenom dijagramu. Ograničenje raspona
-može oslabiti vezu u poznatim uvjetima, ali kod zakrivljenosti i odabira smjer
-promjene nije zadan. Kodirana kategorija teksta ostaje mjerna odluka i nakon što
-uđe u izračun, a korelacija među državama podupire tvrdnju o državama, ne o
-pojedincima. Povezanost ne određuje uzrok; šest revizijskih pitanja i šest
-dimenzija tvrdnje određuju što poštena rečenica smije prenijeti, a sljedeći dio
-knjige uvodi vjerojatnost i pita koliko se od opaženoga obrasca može očekivati i
-kad veze nema.
+Od zajedničkih odstupanja dviju varijabli izgradili smo kovarijancu, a
+standardizacijom Pearsonovu korelaciju, mjeru linearne veze između minus jedan
+i plus jedan koja ne ovisi o mjernim jedinicama. Kada vrijednosti zamijenimo
+rangovima, Spearmanovim koeficijentom opisujemo monotonost, pri čemu gubimo
+izvorne razmake. Graf nam pomaže protumačiti obje mjere jer pokazuje
+podskupine, utjecajna opažanja i oblik koji se može promijeniti sužavanjem
+raspona. Na rezultat utječu i pravilo kojim tekst pretvaramo u brojčane oznake
+te izbor jedinice, pa povezanost među državama ne prenosimo na pojedince. Za uzročni zaključak i dalje trebamo odgovarajući dizajn. U
+sljedećem dijelu vjerojatnost će nam pomoći razumjeti kakve obrasce može
+proizvesti sam slučajni postupak.
 
 ## Pojmovi
 
@@ -605,9 +634,11 @@ Upotrijebite tablicu korelacija triju varijabli simulirane ankete. Za svaki od
 triju parova zapišite smjer Pearsonove veze. Za par dobi i minuta zatim prema
 raspršenom dijagramu procijenite bi li se Spearmanova vrijednost razlikovala i u
 kojem smjeru. Za preostala dva para zapišite zašto se to ne može prosuditi bez
-njihovih dijagrama i što bi na njima trebalo pregledati. U digitalnom izdanju
-unesite četiri procjene u interakciju i otvorite rješenje; u tisku uzmite četiri
-zadane procjene i koeficijente iz tablice. Za svaki oblak
+njihovih dijagrama i što bi na njima trebalo pregledati.
+[U digitalnom izdanju unesite četiri procjene u interakciju i otvorite
+rješenje.]
+Uzmite četiri zadane procjene i koeficijente iz tablice.
+Za svaki oblak
 izračunajte apsolutno odstupanje procjene. Predajte tablicu sa sedam redaka i
 jednom rečenicom obrazloženja u svakom. Postupak za ponavljanje izračuna nad
 cijelim skupom nalazi se u praktikumu.

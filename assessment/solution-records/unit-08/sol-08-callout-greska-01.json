@@ -8,20 +8,20 @@
     "anchor": "ex-08-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:4293833237f8289878708923712c658cc8908e2aa25db8bf97a5f4c4d87f4851",
+  "prompt_fingerprint": "sha256:ad81c2344a1f9927de9fb27b556cbd721f63d4f037d6e4921d44f732177b0183",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "smaller-standard-error-implies-smaller-individual-variation",
-      "statement": "Druga rečenica iz manje standardne pogreške zaključuje da su vrijednosti pojedinaca u većem uzorku međusobno sličnije.",
+      "statement": "Standardna pogreška pada s četiri na dvije minute, pa se i vremena pojedinaca u većem uzorku međusobno razlikuju upola manje.",
       "why_wrong": "Veći uzorak sužava distribuciju uzoračke sredine, ali ne mijenja populacijsku raspodjelu iz koje su pojedinci izvučeni. Standardna pogreška opisuje varijabilnost procjene kroz uzorke, dok standardna devijacija opisuje varijabilnost pojedinačnih opažanja."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Za isti populacijski proces odvojeno usporediti raspodjelu svih pojedinačnih opažanja i raspodjelu sredina ponovljenih uzoraka pri dvjema veličinama uzorka. Za svaku raspodjelu imenovati jedinicu i mjeru širine.",
-      "expected_evidence": "Pojedinačna su opažanja pri objema veličinama uzorka izvučena iz iste populacije i očekivana im raspršenost ostaje jednaka populacijskoj. Standardna pogreška sredine pada približno sa sigma podijeljenom korijenom iz n, pa se mijenja širina raspodjele sredina, a ne širina populacijskih vrijednosti."
+      "procedure": "Izračunati 20/√25 i 20/√100 te uz svaki rezultat imenovati odnosi li se na pojedince ili na sredine ponovljenih uzoraka.",
+      "expected_evidence": "Oba računa standardne pogreške točna su, 20 / √25 = 4 i 20 / √100 = 2 minute. Stupac standardne devijacije odnosi se na pojedince u istoj populaciji, a stupac standardne pogreške na sredine kroz ponovljene uzorke. Manja nesigurnost sredine ne prepolovljuje raspršenost pojedinaca. Za popravak ove tvrdnje tablica i zadani model dovoljni su.\n\nJedna moguća zamjena glasi ovako.\n\nStandardna pogreška sredine pada s četiri na dvije minute, pa se sredine ponovljenih uzoraka manje razlikuju. Populacijska standardna devijacija pojedinačnih vremena ostaje dvadeset minuta.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -68,16 +68,21 @@
           "component_id": "state-bounded-correction",
           "required_claim": "Veći uzorak daje stabilniju sredinu kroz ponovljena uzorkovanja, dok očekivana raspršenost pojedinačnih vrijednosti ostaje populacijska.",
           "required_evidence": "Ispravak izričito razdvaja preciznost procjene od heterogenosti pojedinaca."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Standardna pogreška sredine pada s četiri na dvije minute, pa se sredine ponovljenih uzoraka manje razlikuju. Populacijska standardna devijacija pojedinačnih vremena ostaje dvadeset minuta.",
+          "required_evidence": "Oba računa standardne pogreške točna su, 20 / √25 = 4 i 20 / √100 = 2 minute. Stupac standardne devijacije odnosi se na pojedince u istoj populaciji, a stupac standardne pogreške na sredine kroz ponovljene uzorke. Manja nesigurnost sredine ne prepolovljuje raspršenost pojedinaca. Za popravak ove tvrdnje tablica i zadani model dovoljni su."
         }
       ]
     },
     "numerical_check": {
-      "applicable": false,
-      "not_applicable_reason": "Okvir traži pojmovnu dijagnozu dviju razina varijabilnosti i ne zadaje jedan brojčani rezultat.",
-      "expected_result": null,
-      "tolerance_or_acceptance_rule": null,
-      "independent_method": null,
-      "evidence_reference": null
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "20 / √25 = 4 minute; 20 / √100 = 2 minute; populacijska standardna devijacija ostaje 20 minuta.",
+      "tolerance_or_acceptance_rule": "Prihvatiti točno 4 i 2 minute uz ispravno imenovanje razine varijabilnosti.",
+      "independent_method": "Neovisno izračunati korijene veličina uzorka i podijeliti zadanu populacijsku standardnu devijaciju.",
+      "evidence_reference": "scripts/check-error-exercises.R"
     },
     "severity_ranked_rubric": {
       "severity_order": [

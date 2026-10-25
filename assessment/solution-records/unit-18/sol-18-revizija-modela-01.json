@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Prepisati prilagođenu procjenu i obje granice, neovisno ih obnoviti iz 300 generiranih zapisa, zatim označiti točnu rečenicu u kojoj se obuhvaćanje nule pretvara u odsutnost. Ispravljeni zaključak povezati s neprilagođenom osjetljivošću i ispuniti svih sedam polja potvrde provjere.",
-      "expected_evidence": "Točne pune vrijednosti jesu -0,008323 boda uz interval od -0,186355 do 0,169708, prikazano kao -0,01 uz -0,19 do 0,17. Jedina pogrešna rečenica tvrdi da zato nema povezanosti. Potvrda mora imenovati zahtjev, povrat, provjereno, način provjere, ulogu AI-ja, neprovjereno i odgovornu osobu."
+      "expected_evidence": "Točne su prilagođena procjena od −0,01 boda, granice od −0,19 do 0,17 i ograničenje linearne, aditivne prilagodbe. Pogreška je tvrdnja da obuhvaćanje nule dokazuje odsutnost povezanosti. Usporedba s neprilagođenih 0,25 boda pokazuje osjetljivost zbirnog odnosa na uključivanje dobi. Razlike oba predznaka ostaju uskladive s prilagođenim intervalom. Prije predaje može se provjeriti oblik odnosa s dobi i ponoviti brojčani račun; bez dodatnih pretpostavki taj nalaz ne postaje uzročni.\n\nJedna moguća zamjena glasi ovako.\n\nNakon unaprijed određene prilagodbe za dob procijenjena razlika iznosi −0,01 boda za trideset minuta više dnevnog vremena, uz 95 % interval od −0,19 do 0,17. Pozitivna neprilagođena procjena osjetljiva je na dob, a prilagođeni rezultat ostavlja otvorene male razlike oba predznaka. Zaključak ovisi o linearnom, aditivnom obliku prilagodbe i ne dokazuje odsutnost svake povezanosti.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -73,6 +73,11 @@
           "component_id": "bound-next-delegation",
           "required_claim": "U sljedećem krugu može se delegirati omeđena provjera računa ili usporedba izvještaja s tablicom, ali ne odluka o dopuštenoj tvrdnji, dijeljenju podataka ili prihvatljivom ograničenju.",
           "required_evidence": "Odgovorna osoba zadržava istraživački cilj, provjeru, objavu i posljedice zaključka."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Nakon unaprijed određene prilagodbe za dob procijenjena razlika iznosi −0,01 boda za trideset minuta više dnevnog vremena, uz 95 % interval od −0,19 do 0,17. Pozitivna neprilagođena procjena osjetljiva je na dob, a prilagođeni rezultat ostavlja otvorene male razlike oba predznaka. Zaključak ovisi o linearnom, aditivnom obliku prilagodbe i ne dokazuje odsutnost svake povezanosti.",
+          "required_evidence": "Točne su prilagođena procjena od −0,01 boda, granice od −0,19 do 0,17 i ograničenje linearne, aditivne prilagodbe. Pogreška je tvrdnja da obuhvaćanje nule dokazuje odsutnost povezanosti. Usporedba s neprilagođenih 0,25 boda pokazuje osjetljivost zbirnog odnosa na uključivanje dobi. Razlike oba predznaka ostaju uskladive s prilagođenim intervalom. Prije predaje može se provjeriti oblik odnosa s dobi i ponoviti brojčani račun; bez dodatnih pretpostavki taj nalaz ne postaje uzročni."
         }
       ]
     },
@@ -85,7 +90,12 @@
       "evidence_reference": "scripts/check-unit-18-numerics.R#UNIT_18_NUMERICS_OK"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-no-association-claim",

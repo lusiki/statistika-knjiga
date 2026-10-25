@@ -65,9 +65,9 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -154,35 +154,6 @@ div.csl-indent {
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
 
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles/styles.css">
 </head>
@@ -614,7 +585,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija, opći okvir</span></a>
+  <a href="./chapters/16-regresija.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regresija — opći okvir</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -684,6 +655,11 @@ window.Quarto = {
   <a href="./dodaci/f-ai-protokol.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Protokol za rad s asistentom</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dodaci/g-numericki-podsjetnik.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Numerički podsjetnik</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -740,10 +716,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -797,8 +777,9 @@ window.Quarto = {
 }());
 </script>
 
-<!-- Popis se gradi iz [@kljuc] citata u poglavljima. Literatura nije dodatak
-     i zato se u strukturi knjige nalazi prije dodataka A–F. -->
+<!-- Popis se gradi isključivo iz [@kljuc] citata u rukopisu i prikazuje samo
+     korištene, provjerene unose. Literatura nije dodatak i zato se u strukturi
+     knjige nalazi prije dodataka A–F. -->
 
 
 
@@ -806,11 +787,11 @@ window.Quarto = {
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-anscombe1973" class="csl-entry" role="listitem">
 Anscombe, F. J. 1973. <span>“Graphs in Statistical Analysis.”</span>
-<em>The American Statistician</em> 27 (1): 17–21.
+<em>The American Statistician</em> 27 (1): 17–21. <a href="https://doi.org/10.1080/00031305.1973.10478966">https://doi.org/10.1080/00031305.1973.10478966</a>.
 </div>
 <div id="ref-barocas2023" class="csl-entry" role="listitem">
 Barocas, Solon, Moritz Hardt, and Arvind Narayanan. 2023. <em>Fairness
-and Machine Learning: Limitations and Opportunities</em>. MIT Press.
+and Machine Learning: Limitations and Opportunities</em>. MIT Press. <a href="https://fairmlbook.org/">https://fairmlbook.org/</a>.
 </div>
 <div id="ref-belia2005" class="csl-entry" role="listitem">
 Belia, Sarah, Fiona Fidler, Jennifer Williams, and Geoff Cumming. 2005.
@@ -824,7 +805,11 @@ in Graduate Admissions: Data from Berkeley.”</span> <em>Science</em> 187
 </div>
 <div id="ref-breiman2001" class="csl-entry" role="listitem">
 Breiman, Leo. 2001. <span>“Statistical Modeling: The Two
-Cultures.”</span> <em>Statistical Science</em> 16 (3): 199–231.
+Cultures.”</span> <em>Statistical Science</em> 16 (3): 199–231. <a href="https://doi.org/10.1214/ss/1009213726">https://doi.org/10.1214/ss/1009213726</a>.
+</div>
+<div id="ref-brown2020" class="csl-entry" role="listitem">
+<span class="nocase">Brown, Tom B. et al.</span> 2020. <span>“Language
+Models Are Few-Shot Learners.”</span> <a href="https://proceedings.neurips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html">https://proceedings.neurips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html</a>.
 </div>
 <div id="ref-button2013" class="csl-entry" role="listitem">
 Button, Katherine S., John P. A. Ioannidis, Claire Mokrysz, et al. 2013.
@@ -835,7 +820,7 @@ of Neuroscience.”</span> <em>Nature Reviews Neuroscience</em> 14 (5):
 <div id="ref-chouldechova2017" class="csl-entry" role="listitem">
 Chouldechova, Alexandra. 2017. <span>“Fair Prediction with Disparate
 Impact: A Study of Bias in Recidivism Prediction Instruments.”</span>
-<em>Big Data</em> 5 (2): 153–63.
+<em>Big Data</em> 5 (2): 153–63. <a href="https://doi.org/10.1089/big.2016.0047">https://doi.org/10.1089/big.2016.0047</a>.
 </div>
 <div id="ref-cleveland1984" class="csl-entry" role="listitem">
 Cleveland, William S., and Robert McGill. 1984. <span>“Graphical
@@ -846,7 +831,7 @@ Association</em> 79 (387): 531–54. <a href="https://doi.org/10.1080/01621459.1
 <div id="ref-cochran1954" class="csl-entry" role="listitem">
 Cochran, William G. 1954. <span>“Some Methods for Strengthening the
 Common <span class="math inline"><em>χ</em><sup>2</sup></span>
-Tests.”</span> <em>Biometrics</em> 10 (4). <a href="https://doi.org/10.2307/3001616">https://doi.org/10.2307/3001616</a>.
+Tests.”</span> <em>Biometrics</em> 10 (4): 417–51. <a href="https://doi.org/10.2307/3001616">https://doi.org/10.2307/3001616</a>.
 </div>
 <div id="ref-cohen1988" class="csl-entry" role="listitem">
 Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral
@@ -854,22 +839,48 @@ Sciences</em>. 2nd ed. Lawrence Erlbaum Associates.
 </div>
 <div id="ref-cohen1994" class="csl-entry" role="listitem">
 Cohen, Jacob. 1994. <span>“The Earth Is Round (p &lt; .05).”</span>
-<em>American Psychologist</em> 49 (12): 997–1003.
+<em>American Psychologist</em> 49 (12): 997–1003. <a href="https://doi.org/10.1037/0003-066X.49.12.997">https://doi.org/10.1037/0003-066X.49.12.997</a>.
 </div>
 <div id="ref-cumming2014" class="csl-entry" role="listitem">
 Cumming, Geoff. 2014. <span>“The New Statistics: Why and How.”</span>
-<em>Psychological Science</em> 25 (1): 7–29.
+<em>Psychological Science</em> 25 (1): 7–29. <a href="https://doi.org/10.1177/0956797613504966">https://doi.org/10.1177/0956797613504966</a>.
+</div>
+<div id="ref-dip2024" class="csl-entry" role="listitem">
+Državno izborno povjerenstvo Republike Hrvatske. 2024. <span>“Izvješće o
+Provedenim Izborima Za Zastupnike u Hrvatski Sabor 2024.”</span> <a href="https://www.izbori.hr/site/UserDocsImages/2024/Izbori_za_zastupnike_u_Hrvatski_sabor/Rezultati/Izvje%C5%A1%C4%87e%20o%20provedenim%20izborima%20za%20zastupnike%20u%20Hrvatski%20sabor%202024.pdf">https://www.izbori.hr/site/UserDocsImages/2024/Izbori_za_zastupnike_u_Hrvatski_sabor/Rezultati/Izvje%C5%A1%C4%87e%20o%20provedenim%20izborima%20za%20zastupnike%20u%20Hrvatski%20sabor%202024.pdf</a>.
 </div>
 <div id="ref-efron1979" class="csl-entry" role="listitem">
 Efron, B. 1979. <span>“Bootstrap Methods: Another Look at the
-Jackknife.”</span> <em>The Annals of Statistics</em> 7 (1): 1–26.
+Jackknife.”</span> <em>The Annals of Statistics</em> 7 (1): 1–26. <a href="https://doi.org/10.1214/aos/1176344552">https://doi.org/10.1214/aos/1176344552</a>.
+</div>
+<div id="ref-eurostatearlyleaving2026" class="csl-entry" role="listitem">
+Eurostat. 2026a. <span>“Early Leavers from Education and Training by
+Labour Status.”</span> <a href="https://doi.org/10.2908/EDAT_LFSE_14">https://doi.org/10.2908/EDAT_LFSE_14</a>.
+</div>
+<div id="ref-eurostatemployment2026" class="csl-entry" role="listitem">
+Eurostat. 2026b. <span>“Employment and Labour Force by Sex and Age -
+Annual Data.”</span> <a href="https://doi.org/10.2908/LFSI_EMP_A">https://doi.org/10.2908/LFSI_EMP_A</a>.
+</div>
+<div id="ref-eurostatinternet2026" class="csl-entry" role="listitem">
+Eurostat. 2026c. <span>“Individuals - Internet Use.”</span> <a href="https://doi.org/10.2908/ISOC_CI_IFP_IU">https://doi.org/10.2908/ISOC_CI_IFP_IU</a>.
+</div>
+<div id="ref-eurostattertiary2026" class="csl-entry" role="listitem">
+Eurostat. 2026d. <span>“Persons Aged 25–34 with Tertiary Educational
+Attainment Level.”</span> <a href="https://doi.org/10.2908/SDG_04_20">https://doi.org/10.2908/SDG_04_20</a>.
+</div>
+<div id="ref-eurostatpoverty2026" class="csl-entry" role="listitem">
+Eurostat. 2026e. <span>“Persons at Risk of Poverty or Social Exclusion
+by Age and Sex.”</span> <a href="https://doi.org/10.2908/ILC_PEPS01N">https://doi.org/10.2908/ILC_PEPS01N</a>.
+</div>
+<div id="ref-eurostatpopulation2026" class="csl-entry" role="listitem">
+Eurostat. 2026f. <span>“Population Structure Indicators at National
+Level.”</span> <a href="https://doi.org/10.2908/DEMO_PJANIND">https://doi.org/10.2908/DEMO_PJANIND</a>.
 </div>
 <div id="ref-gelman2013" class="csl-entry" role="listitem">
 Gelman, Andrew, and Eric Loken. 2013. <span>“The Garden of Forking
 Paths: Why Multiple Comparisons Can Be a Problem, Even When There Is No
 <span>‘Fishing Expedition’</span> or <span>‘p-Hacking’</span> and the
-Research Hypothesis Was Posited Ahead of Time.”</span> Unpublished
-manuscript.
+Research Hypothesis Was Posited Ahead of Time.”</span> <a href="https://sites.stat.columbia.edu/gelman/research/unpublished/forking.pdf">https://sites.stat.columbia.edu/gelman/research/unpublished/forking.pdf</a>.
 </div>
 <div id="ref-gilovich1985" class="csl-entry" role="listitem">
 Gilovich, Thomas, Robert Vallone, and Amos Tversky. 1985. <span>“The Hot
@@ -888,14 +899,16 @@ Wagenmakers. 2014. <span>“Robust Misinterpretation of Confidence
 Intervals.”</span> <em>Psychonomic Bulletin &amp; Review</em> 21 (5):
 1157–64. <a href="https://doi.org/10.3758/s13423-013-0572-3">https://doi.org/10.3758/s13423-013-0572-3</a>.
 </div>
-<div id="ref-ioannidis2005" class="csl-entry" role="listitem">
-Ioannidis, John P. A. 2005. <span>“Why Most Published Research Findings
-Are False.”</span> <em>PLoS Medicine</em> 2 (8): e124.
-</div>
 <div id="ref-ismay2019" class="csl-entry" role="listitem">
 Ismay, Chester, and Albert Y. Kim. 2019. <em>Statistical Inference via
 Data Science: A ModernDive into r and the Tidyverse</em>. Chapman;
 Hall/CRC. <a href="https://doi.org/10.1201/9780367409913">https://doi.org/10.1201/9780367409913</a>.
+</div>
+<div id="ref-kleppang2021" class="csl-entry" role="listitem">
+Kleppang, Annette Løvheim, Anne Mari Steigen, Li Ma, Hanne Søberg
+Finbråten, and Curt Hagquist. 2021. <span>“Electronic Media Use and
+Symptoms of Depression Among Adolescents in Norway.”</span> <em>PLOS
+ONE</em> 16 (7): e0254197. <a href="https://doi.org/10.1371/journal.pone.0254197">https://doi.org/10.1371/journal.pone.0254197</a>.
 </div>
 <div id="ref-matejka2017" class="csl-entry" role="listitem">
 Matejka, Justin, and George Fitzmaurice. 2017. <span>“Same Stats,
@@ -907,8 +920,18 @@ Miller, Joshua B., and Adam Sanjurjo. 2018. <span>“Surprised by the Hot
 Hand Fallacy? <span>A</span> Truth in the Law of Small Numbers.”</span>
 <em>Econometrica</em> 86 (6): 2019–47. <a href="https://doi.org/10.3982/ECTA14943">https://doi.org/10.3982/ECTA14943</a>.
 </div>
-<div id="ref-navarro2019" class="csl-entry" role="listitem">
-Navarro, Danielle. 2019. <em>Learning Statistics with r</em>. <a href="https://learningstatisticswithr.com/">https://learningstatisticswithr.com/</a>.
+<div id="ref-mochtakparlasent2024" class="csl-entry" role="listitem">
+Mochtak, Michal, Peter Rupnik, and Nikola Ljubešić. 2024. <span>“The
+<span>P</span>arla<span>S</span>ent Multilingual Training Dataset for
+Sentiment Identification in Parliamentary Proceedings.”</span>
+<em>Proceedings of the 2024 Joint International Conference on
+Computational Linguistics, Language Resources and Evaluation
+(LREC-COLING 2024)</em> (Torino, Italia), May, 16024–36. <a href="https://aclanthology.org/2024.lrec-main.1393/">https://aclanthology.org/2024.lrec-main.1393/</a>.
+</div>
+<div id="ref-mochtak2023" class="csl-entry" role="listitem">
+Mochtak, Michal, Peter Rupnik, Katja Meden, and Nikola Ljubešić. 2023.
+<em>The Multilingual Sentiment Dataset of Parliamentary Debates
+ParlaSent 1.0</em>. <a href="http://hdl.handle.net/11356/1868">http://hdl.handle.net/11356/1868</a>.
 </div>
 <div id="ref-nieuwenhuis2011" class="csl-entry" role="listitem">
 Nieuwenhuis, Sander, Birte U. Forstmann, and Eric-Jan Wagenmakers. 2011.
@@ -918,21 +941,39 @@ Significance.”</span> <em>Nature Neuroscience</em> 14 (9): 1105–7. <a href="
 <div id="ref-osc2015" class="csl-entry" role="listitem">
 Open Science Collaboration. 2015. <span>“Estimating the Reproducibility
 of Psychological Science.”</span> <em>Science</em> 349 (6251): aac4716.
+<a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a>.
+</div>
+<div id="ref-shmueli2010" class="csl-entry" role="listitem">
+Shmueli, Galit. 2010. <span>“To Explain or to Predict?”</span>
+<em>Statistical Science</em> 25 (3): 289–310. <a href="https://doi.org/10.1214/10-STS330">https://doi.org/10.1214/10-STS330</a>.
+</div>
+<div id="ref-sikicanketa2026" class="csl-entry" role="listitem">
+Šikić, Luka. 2026a. <span>“Anketa o Društvenim Mrežama, Generirani
+Nastavni Skup.”</span> <a href="https://lusiki.github.io/statistika-knjiga/data/anketa-mreze.csv">https://lusiki.github.io/statistika-knjiga/data/anketa-mreze.csv</a>.
+</div>
+<div id="ref-sikic2026" class="csl-entry" role="listitem">
+Šikić, Luka. 2026b. <span>“Populacija Medijskih Navika, Generirani
+Nastavni Skup.”</span> <a href="https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv">https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv</a>.
+</div>
+<div id="ref-digikat2026" class="csl-entry" role="listitem">
+<span class="nocase">Šikić, Luka et al.</span> 2026. <span>“Prikaz i
+Analiza Katoličke Tematike u Digitalnom Medijskom Prostoru.”</span>
+Hrvatsko katoličko sveučilište. <a href="https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8">https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8</a>.
 </div>
 <div id="ref-simmons2011" class="csl-entry" role="listitem">
 Simmons, Joseph P., Leif D. Nelson, and Uri Simonsohn. 2011.
 <span>“False-Positive Psychology: Undisclosed Flexibility in Data
 Collection and Analysis Allows Presenting Anything as
-Significant.”</span> <em>Psychological Science</em> 22 (11): 1359–66.
+Significant.”</span> <em>Psychological Science</em> 22 (11): 1359–66. <a href="https://doi.org/10.1177/0956797611417632">https://doi.org/10.1177/0956797611417632</a>.
 </div>
 <div id="ref-simpson1951" class="csl-entry" role="listitem">
 Simpson, E. H. 1951. <span>“The Interpretation of Interaction in
 Contingency Tables.”</span> <em>Journal of the Royal Statistical
-Society, Series B</em> 13 (2): 238–41.
+Society, Series B</em> 13 (2): 238–41. <a href="https://doi.org/10.1111/j.2517-6161.1951.tb00088.x">https://doi.org/10.1111/j.2517-6161.1951.tb00088.x</a>.
 </div>
 <div id="ref-squire1988" class="csl-entry" role="listitem">
 Squire, Peverill. 1988. <span>“Why the 1936 Literary Digest Poll
-Failed.”</span> <em>Public Opinion Quarterly</em> 52 (1). <a href="https://doi.org/10.1086/269085">https://doi.org/10.1086/269085</a>.
+Failed.”</span> <em>Public Opinion Quarterly</em> 52 (1): 125–33. <a href="https://doi.org/10.1086/269085">https://doi.org/10.1086/269085</a>.
 </div>
 <div id="ref-stevens1946" class="csl-entry" role="listitem">
 Stevens, S. S. 1946. <span>“On the Theory of Scales of
@@ -950,14 +991,26 @@ Tversky, Amos, and Daniel Kahneman. 1973. <span>“Availability: A
 Heuristic for Judging Frequency and Probability.”</span> <em>Cognitive
 Psychology</em> 5 (2): 207–32. <a href="https://doi.org/10.1016/0010-0285(73)90033-9">https://doi.org/10.1016/0010-0285(73)90033-9</a>.
 </div>
+<div id="ref-wagenmakers2016" class="csl-entry" role="listitem">
+<span class="nocase">Wagenmakers, E.-J., T. Beek, L. Dijkhoff, Q. F.
+Gronau, et al.</span> 2016. <span>“Registered Replication Report:
+Strack, Martin, &amp; Stepper (1988).”</span> <em>Perspectives on
+Psychological Science</em> 11 (6): 917–28. <a href="https://doi.org/10.1177/1745691616674458">https://doi.org/10.1177/1745691616674458</a>.
+</div>
 <div id="ref-wasserstein2016" class="csl-entry" role="listitem">
 Wasserstein, Ronald L., and Nicole A. Lazar. 2016. <span>“The ASA’s
 Statement on p-Values: Context, Process, and Purpose.”</span> <em>The
-American Statistician</em> 70 (2): 129–33.
+American Statistician</em> 70 (2): 129–33. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>.
+</div>
+<div id="ref-westreich2013" class="csl-entry" role="listitem">
+Westreich, Daniel, and Sander Greenland. 2013. <span>“The Table 2
+Fallacy: Presenting and Interpreting Confounder and Modifier
+Coefficients.”</span> <em>American Journal of Epidemiology</em> 177 (4):
+292–98. <a href="https://doi.org/10.1093/aje/kws412">https://doi.org/10.1093/aje/kws412</a>.
 </div>
 <div id="ref-wickham2016" class="csl-entry" role="listitem">
 Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data
-Analysis</em>. 2nd ed. Springer.
+Analysis</em>. 2nd ed. Springer. <a href="https://doi.org/10.1007/978-3-319-24277-4">https://doi.org/10.1007/978-3-319-24277-4</a>.
 </div>
 <div id="ref-wickham2023" class="csl-entry" role="listitem">
 Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023.
@@ -1064,23 +1117,21 @@ Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.100
 
 
 
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
 
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
 
-  // -------------------------------------------------------------------
+  // BEGIN GENERATED: book-inventory runtime-routes
 
   var SAMOSTALNE = [
 
     "/index.html",
 
-    "/pojmovnik.html",
-
     "/interakcije.html",
 
-    "/podaci.html",
+    "/pojmovnik.html",
 
-    "/resursi.html",
+    "/podaci.html",
 
     "/uci-s-ai.html",
 
@@ -1090,9 +1141,275 @@ Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.100
 
     "/raspored.html",
 
+    "/resursi.html",
+
+    "/rjesenja.html",
+
+    "/errata.html",
+
     "/404.html"
 
   ];
+
+  var NAVBAR_SKUPINE = [
+
+    {
+
+      "id": "nav-menu-nastava",
+
+      "routes": [
+
+        "/predavanja.html",
+
+        "/silabus.html",
+
+        "/raspored.html"
+
+      ]
+
+    }
+
+  ];
+
+  var PUTOVI_STRANICA = {
+
+    "landing": "/index.html",
+
+    "ch00": "/chapters/00-predgovor.html",
+
+    "ch01": "/chapters/01-zasto-statistika.html",
+
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+
+    "ch05": "/chapters/05-vizualizacija.html",
+
+    "ch06": "/chapters/06-povezanost.html",
+
+    "ch07": "/chapters/07-vjerojatnost.html",
+
+    "ch08": "/chapters/08-uzorkovanje.html",
+
+    "ch09": "/chapters/09-procjena.html",
+
+    "ch10": "/chapters/10-logika-testiranja.html",
+
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+
+    "ch14": "/chapters/14-dvije-grupe.html",
+
+    "ch15": "/chapters/15-vise-grupa.html",
+
+    "ch16": "/chapters/16-regresija.html",
+
+    "ch17": "/chapters/17-doba-algoritama.html",
+
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+
+    "references": "/references.html",
+
+    "app-a": "/dodaci/a-praktikum.html",
+
+    "app-b": "/dodaci/b-jamovi.html",
+
+    "app-c": "/dodaci/c-katalog-podataka.html",
+
+    "app-d": "/dodaci/d-koji-test.html",
+
+    "app-e": "/dodaci/e-rjecnik.html",
+
+    "app-f": "/dodaci/f-ai-protokol.html",
+
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+
+    "interactions": "/interakcije.html",
+
+    "glossary": "/pojmovnik.html",
+
+    "data": "/podaci.html",
+
+    "ai": "/uci-s-ai.html",
+
+    "lectures": "/predavanja.html",
+
+    "syllabus": "/silabus.html",
+
+    "schedule": "/raspored.html",
+
+    "resources": "/resursi.html",
+
+    "solutions": "/rjesenja.html",
+
+    "errata": "/errata.html",
+
+    "not-found": "/404.html"
+
+  };
+
+  var AI_PUTOVI_POGLAVLJA = [
+
+    {
+
+      "route": "/chapters/00-predgovor.html",
+
+      "ai": "/ai/00-predgovor.md"
+
+    },
+
+    {
+
+      "route": "/chapters/01-zasto-statistika.html",
+
+      "ai": "/ai/01-zasto-statistika.md"
+
+    },
+
+    {
+
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+
+    },
+
+    {
+
+      "route": "/chapters/03-kako-brojke-zavode.html",
+
+      "ai": "/ai/03-kako-brojke-zavode.md"
+
+    },
+
+    {
+
+      "route": "/chapters/04-sazimanje-podataka.html",
+
+      "ai": "/ai/04-sazimanje-podataka.md"
+
+    },
+
+    {
+
+      "route": "/chapters/05-vizualizacija.html",
+
+      "ai": "/ai/05-vizualizacija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/06-povezanost.html",
+
+      "ai": "/ai/06-povezanost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/07-vjerojatnost.html",
+
+      "ai": "/ai/07-vjerojatnost.md"
+
+    },
+
+    {
+
+      "route": "/chapters/08-uzorkovanje.html",
+
+      "ai": "/ai/08-uzorkovanje.md"
+
+    },
+
+    {
+
+      "route": "/chapters/09-procjena.html",
+
+      "ai": "/ai/09-procjena.md"
+
+    },
+
+    {
+
+      "route": "/chapters/10-logika-testiranja.html",
+
+      "ai": "/ai/10-logika-testiranja.md"
+
+    },
+
+    {
+
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+
+    },
+
+    {
+
+      "route": "/chapters/12-kriza-i-obnova.html",
+
+      "ai": "/ai/12-kriza-i-obnova.md"
+
+    },
+
+    {
+
+      "route": "/chapters/13-kategoricki-podaci.html",
+
+      "ai": "/ai/13-kategoricki-podaci.md"
+
+    },
+
+    {
+
+      "route": "/chapters/14-dvije-grupe.html",
+
+      "ai": "/ai/14-dvije-grupe.md"
+
+    },
+
+    {
+
+      "route": "/chapters/15-vise-grupa.html",
+
+      "ai": "/ai/15-vise-grupa.md"
+
+    },
+
+    {
+
+      "route": "/chapters/16-regresija.html",
+
+      "ai": "/ai/16-regresija.md"
+
+    },
+
+    {
+
+      "route": "/chapters/17-doba-algoritama.html",
+
+      "ai": "/ai/17-doba-algoritama.md"
+
+    },
+
+    {
+
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+
+    }
+
+  ];
+
+  // END GENERATED: book-inventory runtime-routes
 
 
 
@@ -1378,7 +1695,9 @@ Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.100
 
     var path = location.pathname;
 
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
 
     var isStandalone =
 
@@ -1434,25 +1753,25 @@ Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.100
 
   function setupNastavaActiveState() {
 
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    NAVBAR_SKUPINE.forEach(function (skupina) {
 
-    var isNastava = pages.some(function (page) {
+      var aktivna = skupina.routes.some(function (put) {
 
-      return location.pathname.endsWith(page);
+        return location.pathname.endsWith(put);
+
+      });
+
+      if (!aktivna) return;
+
+      var parent = document.getElementById(skupina.id);
+
+      if (!parent) return;
+
+      parent.classList.add("active", "section-active");
+
+      parent.setAttribute("aria-current", "true");
 
     });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
 
   }
 
@@ -1868,31 +2187,33 @@ Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.100
 
   // 9. AI izbornik u podnožju poglavlja
 
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
 
-  //    koji generira R/build-ai-exports.R.
+  //    generira R/build-ai-exports.R.
 
   // -------------------------------------------------------------------
 
   function setupChapterAI() {
 
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
 
-    if (!m) return;
+      return location.pathname.endsWith(kandidat.route);
+
+    });
+
+    if (!zapis) return;
 
     if (document.querySelector(".ai-cta")) return;
 
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
 
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var mdHref  = zapis.ai;
 
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var uciHref = PUTOVI_STRANICA.ai;
 
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
 
     var absMd   = location.origin + mdHref;
 
@@ -3509,6 +3830,16 @@ Springer. <a href="https://doi.org/10.1007/0-387-28695-0">https://doi.org/10.100
     <li class="nav-item">
     <a class="nav-link" href="./resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

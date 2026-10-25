@@ -120,22 +120,23 @@ udio_nakon_niza <- function(duljina, duljina_niza, p, ponavljanja) {
     ))
     if (length(mjesta) == 0) NA_real_ else mean(niz[mjesta + duljina_niza])
   })
-  mean(vrijednosti, na.rm = TRUE)
+  structure(mean(vrijednosti, na.rm = TRUE),
+    ukljuceni = sum(!is.na(vrijednosti)), izostavljeni = sum(is.na(vrijednosti)))
 }
 
 set.seed(708)
-s7_odabir <- tibble(duljina = c(20, 50, 100)) |>
-  rowwise() |>
-  mutate(
-    nakon_jednog = udio_nakon_niza(duljina, 1, 0.5, 8000),
-    nakon_tri = udio_nakon_niza(duljina, 3, 0.5, 8000)
-  ) |>
-  ungroup()
+s7_odabir <- bind_rows(lapply(c(20, 50, 100), function(n) {
+  jedan <- udio_nakon_niza(n, 1, 0.5, 8000)
+  tri <- udio_nakon_niza(n, 3, 0.5, 8000)
+  tibble(duljina = n, nakon_jednog = as.numeric(jedan), nakon_tri = as.numeric(tri),
+    bez_jednog = attr(jedan, "izostavljeni"), bez_tri = attr(tri, "izostavljeni"))
+}))
 
 # Kampanja iz razrađenog primjera.
 s7_tocno <- 1 - pbinom(13, size = 50, prob = 0.22)
 set.seed(709)
-s7_simulirano <- mean(rbinom(20000, size = 50, prob = 0.22) >= 14)
+s7_kampanje <- rbinom(20000, size = 50, prob = 0.22)
+s7_simulirano <- mean(s7_kampanje >= 14)
 
 s7 <- list(
   p_mreze = s7_p_mreze * 100,
@@ -160,37 +161,66 @@ s7 <- list(
 )
 ```
 
-::: {.chapter-meta}
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 24 min | Simulator novčića i kampanje | simulirana populacija | pogl. 3 i 4 |
-:::
-
 ::: {.callout-vinjeta}
-Gilovich, Vallone i Tversky ispitali su vjerovanje igrača i navijača da
-košarkaš nakon nekoliko pogodaka postaje „vruć” i da mu sljedeći pokušaj ima
-veće izglede nego inače [@gilovich1985]. Analiza zapisa utakmica i kontrolirani
-pokus naveli su ih na zaključak da je riječ o krivom čitanju slučajnih nizova
-[@gilovich1985].
+Košarkaši i navijači često govore o vrućoj ruci, uvjerenju da nakon nekoliko
+pogodaka raste vjerojatnost sljedećeg. Gilovich, Vallone i Tversky proučili su
+to vjerovanje kroz zapise utakmica i kontrolirani pokus. Zaključili su da
+ljudi u slučajnim nizovima vide obrazac koji ne postoji [@gilovich1985].
 
-Njihov nalaz nije samo osporio jedan sportski dojam. Tvrdio je da slučajnost
-sama proizvodi niz koji izgleda kao obrazac, pa oko njega nema što objašnjavati
-[@gilovich1985]. Kasnija ponovna analiza pokazala je da ni postupak mjerenja tog
-obrasca nije bio neutralan [@miller2018].
+Njihovo je tumačenje bilo da se prividni niz uspjeha može objasniti
+slučajnošću [@gilovich1985]. Kasnija ponovna analiza, međutim, otkrila je
+pristranost u samom načinu mjerenja tog obrasca [@miller2018].
 
-Kako razlikovati obrazac od onoga što slučajnost proizvodi bez ijednog razloga?
+Kako procijeniti je li niz posljedica promjene u procesu ili slučajnosti?
 :::
+
+Niz pogodaka može izgledati uvjerljivije od raspršenih uspjeha, iako još ne
+znamo kakve nizove proizvodi proces koji se uopće ne mijenja. Nakon opisivanja
+raspodjela i povezanosti trebamo način da odredimo što bismo očekivali pod
+jasno zadanim uvjetima. Vjerojatnost će nam omogućiti da opaženi rezultat
+usporedimo s drugim rezultatima koje isti model može proizvesti.
+
+Počet ćemo simuliranim bacanjima novčića. Jedno opažanje bit će ishod bacanja,
+a nizovi će pokazati kako se udio glava mijenja kada ponavljamo isti postupak.
+Budući da sami zadajemo izglede, možemo provjeriti koliko kratki niz odstupa
+od onoga što vrijedi za proces. To nije dokaz o ponašanju košarkaša.
+Jednostavan model daje nam usporedbu prema kojoj možemo razmotriti što bi
+stvarni sportski zapisi još trebali pokazati.
+
+Za pitanja o preklapanju događaja vratit ćemo se simuliranoj populaciji
+`populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti
+[@sikic2026]. Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
+uvjet ili oba. Tako ćemo provjeriti kada smijemo zbrajati ili množiti
+vjerojatnosti i zašto poznavanje jednog obilježja može promijeniti izglede za
+drugo. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
+pokušaj s dvama mogućim ishodima.
+
+Raspodjele koje smo dosad čitali kao opise podataka sada ćemo koristiti i kao
+modele mogućih ishoda. Binomna raspodjela opisat će broj uspjeha pod određenim
+pretpostavkama, a normalna krivulja otvoriti pitanje kada je zvonasti oblik
+opravdan. Uz svaki ćemo račun zadržati uvjete koji ga omogućuju.
+
+Usporedbom izračuna i ponovljenih simulacija iste kampanje utvrdit ćemo
+koliko je rezultat neobičan pod zadanim modelom. Taj račun treba razlikovati
+od provjere opisuje li model dobro stvarni svijet.
 
 ## Što vjerojatnost opisuje
 
-Pošten novčić bacimo mnogo puta i nakon svakog bacanja zabilježimo dotadašnji
-udio glava. Jedan niz može nakratko izgledati izrazito neuravnoteženo, pa isti
-postupak simuliramo triput. Prikaz otkriva što se događa s relativnom
-učestalošću dok broj bacanja raste.
+Računalni model svakom bacanju neovisno daje glavu s vjerojatnošću 0,5.
+U prvom generiranom nizu početnih pet ishoda, s jedinicom za glavu i nulom
+za pismo, glasi `r paste(head(s7_nizovi$glava, 5), collapse = ", ")`.
+Nakon petog bacanja imamo `r sum(head(s7_nizovi$glava, 5))` glava od pet,
+pa je udio `r hr_broj(s7_nizovi$udio[5], 2)`. Svaka sljedeća točka iste
+linije dodaje jedno bacanje i ponovno dijeli dotadašnji broj glava brojem
+svih dotadašnjih bacanja. Cijela linija ima 2 000 takvih koraka.
+
+Simulirat ćemo bacanje poštenog novčića i nakon svakog bacanja zabilježiti
+udio glava. Ponavljamo postupak triput kako bismo usporedili moguće nizove.
+Kratki odsječci mogu izgledati neuravnoteženo i uz isti pošten novčić.
 
 ```{r}
 #| label: fig-veliki-brojevi
-#| fig-cap: "Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola."
+#| fig-cap: "Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora; podaci i postupak opisani su u tekstu."
 #| fig-alt: "Tri linije počinju daleko jedna od druge i snažno kolebaju u prvih stotinjak bacanja, a zatim se sve tri postupno primiču vrijednosti pola i ostaju blizu nje do kraja niza."
 
 ggplot(s7_nizovi, aes(bacanje, udio, group = niz)) +
@@ -198,18 +228,16 @@ ggplot(s7_nizovi, aes(bacanje, udio, group = niz)) +
              linetype = "dashed") +
   geom_line(colour = tok_boja("data-4"), linewidth = 0.5) +
   scale_x_continuous(labels = function(x) hr_broj(x, 0)) +
-  scale_y_continuous(limits = c(0, 1), labels = function(x) hr_broj(x, 1)) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.25),
+                     labels = function(x) hr_broj(x, 2)) +
   labs(x = "Broj bacanja", y = "Kumulativni udio glava") +
   theme_knjiga(base_size = 12)
 ```
 
-Nakon dvadeset bacanja tri se niza razilaze od
-`r hr_broj(s7_rani$najmanji, 2)` do `r hr_broj(s7_rani$najveci, 2)`, dovoljno
-da bi promatrač mogao zaključiti kako novčić nije pošten. Nakon dvije
-tisuće bacanja svi leže između `r hr_broj(s7_kasni$najmanji, 3)` i
-`r hr_broj(s7_kasni$najveci, 3)`. Ponavljani proces proizvodi raspodjelu mogućih
-nizova. Pojedini se nizovi razlikuju, ali njihova se relativna učestalost glava
-sve manje udaljava od polovice.
+Nakon dvadeset bacanja udjeli se kreću od `r hr_broj(s7_rani$najmanji, 2)` do `r hr_broj(s7_rani$najveci, 2)`. Nakon dvije
+tisuće između `r hr_broj(s7_kasni$najmanji, 3)` i `r hr_broj(s7_kasni$najveci, 3)`. Nizovi su različiti, ali su u duljim
+nizovima njihovi udjeli bliži polovini. Sam kratki neuravnotežen niz zato nije
+dovoljan da novčić proglasimo nepoštenim.
 
 ::: {#def-vjerojatnost}
 **Vjerojatnost** je broj od nule do jedinice koji događaju pridružuje
@@ -217,120 +245,121 @@ razinu neizvjesnosti unutar jasno opisanoga modela, pri čemu veći broj označu
 veće izglede za taj događaj.
 :::
 
-Model može opisivati postupak koji se ponavlja ili jedinstven događaj. U prvom
-se slučaju njegova vjerojatnost može usporediti s relativnom učestalošću kroz
-mnogo ponavljanja, kao na prikazu. U drugome broj sažima neizvjesnost pod
-navedenim informacijama, primjerice izglede reprezentacije na sljedećem
-prvenstvu. U oba slučaja treba imenovati model i informacije iz kojih broj
-dolazi.
+Model može opisivati ponovljiv postupak ili jedinstven događaj. Za ponovljiv
+postupak vjerojatnost uspoređujemo s učestalošću kroz mnogo ponavljanja. Za
+jedinstven događaj, poput uspjeha reprezentacije na sljedećem prvenstvu, broj
+opisuje neizvjesnost uz dostupne informacije. U oba slučaja trebamo znati
+odakle procjena dolazi.
 
-Pravilnost vidljiva na simuliranom prikazu zove se zakon velikih brojeva. Za
-neovisna ponavljanja sa stabilnom vjerojatnošću relativna se učestalost s brojem
-ponavljanja primiče toj vjerojatnosti.
+Zakon velikih brojeva opisuje približavanje relativne učestalosti
+vjerojatnosti kada raste broj neovisnih ponavljanja sa stabilnom
+vjerojatnošću.
 
-Ono što zakon ne kaže važnije je od onoga što kaže. Nijedno pojedinačno bacanje
-ne zna što se prije dogodilo i ništa ne nadoknađuje. Udio se ne primiče polovici
-zato što se višak glava kompenzira viškom pisama, nego zato što svaki novi
-rezultat ulazi u sve veći nazivnik i time sve manje pomiče omjer. Rani su ishodi
-i dalje u brojniku, samo svaki od njih u dvije tisuće bacanja ima premalen
-utjecaj da bi se početna neravnoteža jasno vidjela.
+To ne znači da kasnija bacanja nadoknađuju ranija. Svako neovisno bacanje ima
+iste izglede bez obzira na prethodne ishode. Kako niz raste, početna
+neravnoteža čini sve manji dio ukupnog broja bacanja. Udio se može približiti
+polovini iako sljedeće bacanje ništa ne kompenzira.
 
-Očekivanje da pošten novčić nakon četiri glave „duguje” pismo zove se kockarska
-zabluda. U fiksnom modelu neovisnih bacanja pogrešan je i obrnuti zaključak da
-niz glava povećava vjerojatnost još jedne glave. Vjerovanje u vruću ruku ipak
-postavlja drukčije pitanje. Možda se mijenja sam proces zbog igračeve forme,
-težine šuta, obrane ili odabira pokušaja. Fiksna i neovisna vjerojatnost zato je
-nulti model za usporedbu, a ne unaprijed zajamčen opis košarke. Analiza mora
-razlikovati promjenjivi proces od širokoga raspona koji već proizvodi
-slučajnost.
+Očekivanje da nakon četiri glave pošten novčić duguje pismo nazivamo
+kockarskom zabludom. U modelu neovisnih bacanja niz glava ne povećava ni
+izglede za novu glavu. Kod košarke je pitanje drukčije jer se mogu mijenjati
+forma, težina šuta, obrana ili odabir pokušaja. Fiksna neovisna vjerojatnost
+služi nam kao polazni model za usporedbu, bez pretpostavke da potpuno opisuje
+igru.
 
-Isti broj može u tvrdnji imati tri različite uloge. Modelna vjerojatnost slijedi
-iz izričitih pretpostavki i dostupnih informacija. Relativna učestalost u
-ponovljenim pokušajima jest dokaz kojim se takav model može provjeravati.
-Osobna sigurnost samo opisuje koliko je netko uvjeren i ne postaje modelna
-vjerojatnost time što je izražena brojem.
+Razlikujemo modelnu vjerojatnost, opaženu učestalost i osobnu sigurnost.
+Modelna vjerojatnost proizlazi iz pretpostavki i informacija. Učestalošću kroz
+ponavljanja možemo provjeravati model. Osobno uvjerenje ne postaje tako
+provjerena vjerojatnost samo zato što ga izrazimo postotkom.
 
-**Kalibrirana nesigurnost** povezuje te uloge bez njihova stapanja. Procjena za
-jedinstven događaj mora navesti informacije na kojima počiva, a njezina se
-kalibracija prosuđuje kroz mnogo usporedivih prognoza. Među prognozama kojima je
-dodijeljeno sedamdeset posto događaj bi se trebao ostvariti približno u
-sedamdeset posto slučajeva. Jedan se ishod može ostvariti ili izostati, ali sam
-ne može pokazati je li osoba ili model dobro kalibriran.
+**Kalibrirana nesigurnost** znači da se prognozirani izgledi slažu s
+učestalostima u mnogo usporedivih prognoza. Među događajima kojima smo
+pripisali sedamdeset posto izgleda, približno sedamdeset posto trebalo bi se
+ostvariti. Za pojedinu prognozu navodimo njezine informacije i pretpostavke.
+Jedan ostvaren ili neostvaren ishod nije dovoljan za ocjenu kalibracije.
 
 ## Tri pravila i jedna pretpostavka
 
-Vjerojatnost da se događaj ne dogodi jednaka je jedinici umanjenoj za
-vjerojatnost da se dogodi, što je često najbrži put do odgovora. Vjerojatnosti
-dvaju ishoda koji se ne mogu dogoditi istovremeno zbrajaju se, a ako se mogu
-preklopiti, od zbroja treba oduzeti preklop kako ne bi bio brojen dvaput. Za
-vjerojatnost da se dva događaja dogode zajedno opće pravilo množi vjerojatnost
-prvoga s uvjetnom vjerojatnošću drugoga. Samo se uz neovisnost smije rabiti
-prečac koji množi njihove dvije rubne vjerojatnosti.
+Da bismo iz poznatih vjerojatnosti dobili novu, najprije razjašnjavamo koje
+ishode ubrajamo u događaj koji nas zanima. Vjerojatnost da se taj događaj ne
+dogodi dobivamo oduzimanjem njegove vjerojatnosti od jedan. To je pravilo
+komplementa. Kada povezujemo
+dva događaja
+riječju „ili”, njihove vjerojatnosti zbrajamo, ali eventualni preklop oduzimamo
+kako iste ishode ne bismo prebrojili dvaput. Za zajedničko nastupanje množimo
+vjerojatnost prvog događaja uvjetnom vjerojatnošću drugog. Tek kada saznanje o
+prvome ne mijenja izglede drugoga, događaji su neovisni i možemo izravno
+pomnožiti njihove pojedinačne vjerojatnosti. Na izboru izvora vijesti vidjet
+ćemo zašto je taj uvjet važan.
 
-Preklop iz drugog pravila lako se previdi, a razlika koju čini vidljiva je na
-podacima. U simuliranoj populaciji `populacija_medija` [@sikic2026] portal bira
-`r hr_broj(s7$p_portal)` % ljudi, a osobe do dvadeset devete godine čine
-`r hr_broj(s7$p_mlad)` % populacije. Zbroj ta dva udjela iznosi
-`r hr_broj(s7$p_zbroj)` %, dok je stvarni udio onih koji su mladi ili biraju portal
-`r hr_broj(s7$p_portal_ili_mlad)` %. Razlika je točno onih
-`r hr_broj(s7$p_portal_i_mlad)` % koji su oboje i koje je zbrajanje izbrojilo
-dvaput.
+Brojnosti u tablici omogućuju da nazivnike provjerimo prije računanja
+postotaka. Retci razlikuju dob do 29 godina od ostalih, a stupci glavni
+izvor vijesti u poznatoj simuliranoj populaciji [@sikic2026].
 
-Prečac u trećem pravilu jedini od navedenih zahtijeva sadržajnu pretpostavku.
+```{r}
+#| echo: false
+#| label: tbl-vjerojatnost-brojnosti
+#| tbl-cap: "Dob i glavni izvor vijesti u simuliranoj populaciji. Izrada autora prema @sikic2026."
+brojnosti7 <- s7_pop |> mutate(Dob = if_else(mlad, "Do 29 godina", "30 i više"),
+  Izvor = case_when(izvor_vijesti == "portal" ~ "Portal",
+    izvor_vijesti == "društvene mreže" ~ "Mreže", TRUE ~ "Ostalo")) |>
+  xtabs(~Dob + Izvor, data = _) |> addmargins()
+rownames(brojnosti7)[nrow(brojnosti7)] <- "Ukupno"
+colnames(brojnosti7)[ncol(brojnosti7)] <- "Ukupno"
+knitr::kable(brojnosti7, format.args = list(big.mark = " "))
+```
+
+U simuliranoj populaciji `populacija_medija` portal bira `r hr_broj(s7$p_portal)` % ljudi, a do
+dvadeset devet godina ima ih `r hr_broj(s7$p_mlad)` % [@sikic2026]. Zbrajanjem dobivamo
+`r hr_broj(s7$p_zbroj)` %. No udio ljudi koji su mladi ili biraju portal jest `r hr_broj(s7$p_portal_ili_mlad)` %.
+Razlika nastaje jer je `r hr_broj(s7$p_portal_i_mlad)` % ljudi istodobno mlado i bira portal, pa smo
+ih u zbroju računali dvaput.
+
+Za pojednostavnjeno pravilo množenja trebamo opravdati neovisnost.
 
 ::: {#def-neovisnost}
 **Neovisnost** dvaju događaja znači da saznanje o tome je li se jedan dogodio
 ne mijenja vjerojatnost drugoga.
 :::
 
-Poglavlje radi na simuliranoj populaciji od pedeset tisuća odraslih osoba, istoj
-koju koriste poglavlja o uzorkovanju i procjeni, i ta je populacija u cijelosti
-poznata. U njoj društvene mreže kao primarni izvor vijesti bira
-`r hr_broj(s7$p_mreze)` % ljudi, a osobe do dvadeset devete godine čine
-`r hr_broj(s7$p_mlad)` % populacije. Kad bi te dvije okolnosti bile neovisne,
-pravilo množenja dalo bi `r hr_broj(s7$p_umnozak)` % ljudi koji su i mladi i biraju
-mreže. Stvarni udio iznosi `r hr_broj(s7$p_oboje)` %, dakle znatno više od
-umnoška.
+Koristimo potpuno poznatu simuliranu populaciju od pedeset tisuća odraslih
+osoba. Društvene mreže kao glavni izvor vijesti bira `r hr_broj(s7$p_mreze)` %, a do
+dvadeset devet godina ima `r hr_broj(s7$p_mlad)` % ljudi. Uz neovisnost bismo množenjem
+dobili `r hr_broj(s7$p_umnozak)` % ljudi koji zadovoljavaju oba uvjeta. U generiranim podacima
+taj je udio `r hr_broj(s7$p_oboje)` %, znatno veći.
 
-Račun je ispravan, a pogrešna je pretpostavka koju je koristio. Neovisnost se
-opravdava opisom procesa i dizajnom, a ne bira zato što pojednostavnjuje
-množenje. Podaci mogu otkriti njezino kršenje, ali izostanak vidljive razlike ne
-može je sam potvrditi. U ovoj potpuno poznatoj simuliranoj populaciji izravno
-vidimo da ne vrijedi, pa nam treba pojam koji razlikuje ukupnu vjerojatnost od
-vjerojatnosti unutar neke skupine.
+Množenje je točno, ali pretpostavka neovisnosti ovdje ne vrijedi. Nju treba
+opravdati načinom nastanka podataka i dizajnom. Podaci mogu pokazati
+odstupanje od neovisnosti, dok odsutnost uočljive razlike sama ne potvrđuje
+pretpostavku. U ovom skupu trebamo razlikovati udio u cijeloj populaciji od
+udjela unutar određene skupine.
 
 ::: {#def-uvjetna-vjerojatnost}
 **Uvjetna vjerojatnost** je vjerojatnost događaja izračunata unutar skupine u
 kojoj je neki drugi događaj već nastupio.
 :::
 
-Među osobama do dvadeset devete godine društvene mreže bira
-`r hr_broj(s7$p_mreze_mlad)` %, a među starijima `r hr_broj(s7$p_mreze_ostali)` %.
-Televizija ide obrnuto, s `r hr_broj(s7$p_tv)` % u cijeloj populaciji i
-`r hr_broj(s7$p_tv_stariji)` % među osobama od šezdeset godina naviše. Razlika
-između ukupne i uvjetne vrijednosti pokazuje da su događaji ovisni; kad
-ovisnosti nema, dva se broja poklapaju.
+Među mlađima od trideset godina mreže bira `r hr_broj(s7$p_mreze_mlad)` %, a među ostalima
+`r hr_broj(s7$p_mreze_ostali)` %. Televiziju bira `r hr_broj(s7$p_tv)` % cijele populacije i `r hr_broj(s7$p_tv_stariji)` % onih
+od šezdeset godina naviše. Ukupne i uvjetne vrijednosti razlikuju se jer su
+dob i izbor izvora povezani.
 
-Smjer uvjeta ne smije se preokrenuti. Poglavlje o tome kako brojke zavode
-pokazalo je da udio upozorenja među ciljanim zapisima nije udio ciljanih zapisa
-među svim upozorenjima. Prvi
-se broj računa među ciljanim zapisima, a drugi među upozorenjima. Za drugi su
-potrebne i temeljna stopa i stopa pogrešnih upozorenja, jer dva smjera imaju
-različite nazivnike.
+Uvjetna vjerojatnost ovisi o smjeru pitanja. Udio upozorenja među ciljanim
+zapisima računa se s drugim nazivnikom od udjela ciljanih zapisa među
+upozorenjima. Taj smo problem susreli u poglavlju o zavaravanju brojkama. Za
+drugi smjer trebamo i temeljnu stopu te stopu pogrešnih upozorenja.
 
-U izvještaju se isto pitanje može pojaviti bez naziva uvjetne vjerojatnosti.
-Udio konverzija među posjetiteljima koji su kliknuli na oglas i udio
-otvaranja među poslanim porukama uvjetne su vjerojatnosti i svaka od njih
-vrijedi samo za skupinu u čijem je nazivniku. Analiza po segmentima nije ništa
-drugo nego niz uvjetnih vjerojatnosti, pa se čita s istim oprezom prema
-nazivniku koji je poglavlje o kategoričkim podacima kasnije stavlja u središte.
+Udio konverzija među ljudima koji su kliknuli oglas ili udio otvaranja među
+poslanim porukama također su uvjetne vjerojatnosti. Vrijede za skupinu iz
+svojeg nazivnika. Pri usporedbi segmenata zato svaki put jasno određujemo na
+koga se udio odnosi.
 
 ## Ponovljeni pokušaji s dva ishoda
 
-Mnoga pitanja u društvenim istraživanjima imaju isti oblik. Fiksan je broj
-pokušaja, svaki završava na jedan od dva načina, i zanima nas koliko ih je
-završilo na prvi. Glasanje, klik, odgovor na poziv i otvaranje poruke stanu u
-taj kalup.
+Pravila za pojedine događaje možemo povezati kada se isti pokušaj ponavlja.
+Često pratimo unaprijed zadan broj pokušaja s dvama ishodima. Zanima nas,
+primjerice, koliko je ljudi kliknulo, odgovorilo na poziv ili otvorilo poruku.
+Za takve situacije možemo razmotriti binomni model.
 
 ::: {#def-binomna-raspodjela}
 **Binomna raspodjela** opisuje broj uspjeha u zadanom broju pokušaja kad svaki
@@ -338,40 +367,45 @@ pokušaj ima samo dva ishoda, jednaku vjerojatnost uspjeha i nikakvu vezu s
 ostalim pokušajima.
 :::
 
-U konstruiranom modelu pretpostavimo dvadeset objava i vjerojatnost od dva posto
-da pojedina u sedam dana dosegne unaprijed zadan prag dijeljenja. Prag, razdoblje
-i broj izloženih korisnika dio su hipotetske definicije viralnosti; njihova bi
-promjena promijenila i model. Zadana je vjerojatnost ulaz modela, a ne izmjeren
-udio. Binomna raspodjela tada kaže da nijedna neće biti viralna u
-`r hr_broj(s7$nijedna)` % zamišljenih mjeseci. To nije prognoza za jedan mjesec
-nego opis onoga što ponavljanja zadanoga modela proizvode.
+U hipotetskom modelu promatramo dvadeset objava. Svaka ima zadanu vjerojatnost
+od dva posto da u sedam dana prijeđe dogovoreni prag dijeljenja. Prag,
+razdoblje i broj izloženih korisnika dio su definicije viralnosti.
+Pretpostavljena vjerojatnost nije izmjereni udio. Prema binomnom modelu,
+nijedna objava ne bi prešla prag u `r hr_broj(s7$nijedna)` % takvih zamišljenih mjeseci.
+Time opisujemo ponavljanja modela, bez jamstva za određeni mjesec.
 
-Svaki uvjet iz definicije treba zasebno opravdati. Vjerojatnost uspjeha nije
-jednaka kroz pokušaje ako se objave razlikuju po dosegu, a neovisnost ne vrijedi
-ako jedno dijeljenje poveća vidljivost sljedeće objave. Viralnost može nastati
-upravo takvim procesom, pa se binomni model ne smije primijeniti bez provjere.
-Ni dvije osobe iz istoga kućanstva nisu neovisne samo zato što zauzimaju dva
-retka ankete.
+Za pojedinu objavu izostanak viralnosti ima vjerojatnost $1-0,02=0,98$.
+Uz neovisnost dvadeset takvih izostanaka množimo, pa je vjerojatnost
+nijedne viralne objave $0,98^{20}$. Za barem jednu koristimo suprotni
+događaj i računamo $1-0,98^{20}$, odnosno
+`r hr_broj(100 * (1 - 0.98^20), 1)` %.
 
-Kad su uvjeti ispunjeni, raspodjela daje dvije korisne stvari odjednom. Očekivani
-broj
-uspjeha jednak je umnošku broja pokušaja i vjerojatnosti uspjeha, pa se lako
-pamti i lako provjerava. Raspršenost oko tog broja raste sporije od samog broja
-pokušaja, što znači da udio uspjeha postaje sve stabilniji što je kampanja veća,
-premda apsolutni broj uspjeha varira sve više. Izvještaj mora držati ta dva
-smjera odvojeno, jer veći apsolutni raspon ne znači da je udio nestabilniji nego
-prije.
+Prije primjene provjeravamo uvjete. Različit doseg objava može značiti
+različite vjerojatnosti uspjeha. Ako jedno dijeljenje povećava vidljivost
+sljedeće objave, pokušaji nisu neovisni. Ni dvije osobe iz istog kućanstva
+nisu neovisne samo zato što imaju zasebne retke u anketi.
 
-Model zato nije opis svijeta nego kontrolirana slika jednog dijela procesa. Ono
-što ga čini korisnim jest da se u njemu točno zna što proizvodi slučajnost, pa
-opaženi rezultat ima s čime biti uspoređen.
+Kada uvjeti vrijede, očekivani broj uspjeha jednak je broju pokušaja
+pomnoženom vjerojatnošću uspjeha. S više pokušaja raste raspršenost broja
+uspjeha, ali sporije od samog broja pokušaja. Udio uspjeha zato postaje
+stabilniji. Veći raspon ukupnog broja ne znači nužno i nestabilniji udio.
+
+Model pojednostavnjuje proces i jasno određuje što može nastati slučajno. Tako
+stvarni rezultat imamo s čime usporediti.
 
 ## Interakcija — Simulator novčića i kampanje
 
-U simulatoru zadana vjerojatnost modela ostaje nepromijenjena, a mijenja se samo
-duljina niza. Vidljivo postaje ono zbog čega se kratki nizovi mogu pogrešno
-pročitati, jer raspon njihovih ishoda ostaje širok i onda kad se generator
-uopće ne mijenja.
+Sada jednu vrijednost dobivamo tek nakon cijeloga niza. Ako u mogućem
+nizu od 20 pokušaja dobijemo šest uspjeha, u histogram unosimo jedan udio
+$6/20 = 0,30$. To je ilustracija računa, ne izdvojeni rezultat simulacije.
+Za svaki histogram ponavljamo cijele neovisne nizove, a vjerojatnost uspjeha
+zadržavamo. Visina stupca broji nizove čiji su udjeli u istom rasponu.
+
+Prikaz uspoređuje ishode ponovljenih nizova uz istu zadanu
+vjerojatnost. Duljina niza mijenja raspon simuliranih udjela. Kratki
+nizovi daju raspršenije rezultate iako postupak koji ih stvara ostaje isti.
+U tiskanom prikazu vjerojatnost uspjeha iznosi 0,30, a za svaku duljinu
+ponavljamo cijeli niz 2 000 puta.
 
 :::: {.content-visible when-format="html"}
 
@@ -516,10 +550,10 @@ w07_rezultati = {
 ```{r}
 #| echo: false
 #| label: fig-w07-print
-#| fig-cap: "Simulirane stope uspjeha pri dvjema duljinama niza i istoj zadanoj vjerojatnosti modela. Dulji niz daje užu raspodjelu."
+#| fig-cap: "Simulirane stope uspjeha pri dvjema duljinama niza i istoj zadanoj vjerojatnosti modela. Dulji niz daje užu raspodjelu. Isprekidana okomita crta označuje zadanu vjerojatnost uspjeha od 0,30. Izrada autora; podaci i postupak opisani su u tekstu."
 #| fig-alt: "Dva okomito poredana histograma pokazuju da se stope uspjeha uz dvjesto pokušaja jače zbijaju oko trideset posto nego uz dvadeset pokušaja."
 #| fig-width: 6.6
-#| fig-height: 6.4
+#| fig-height: 5.0
 set.seed(707)
 
 w07_tisak <- bind_rows(
@@ -555,77 +589,84 @@ ggplot(w07_tisak, aes(stopa)) +
 
 :::
 
+::: {.content-visible when-format="html"}
 **Što isprobati.**
 
 1. Postavite pošten novčić i dvadeset pokušaja pa opišite raspon simuliranih udjela glava.
 2. Povećajte niz na dvjesto pokušaja bez promjene vjerojatnosti.
 3. Prebacite scenarij na kampanju i postavite zadanu stopu uspjeha na trideset posto.
 4. Usporedite jednu krajnju simuliranu stopu s cijelom raspodjelom ponovljenih kampanja.
+:::
 
-Neobičnost jedne kampanje prosuđuje se prema cijeloj raspodjeli ishoda koje isti
-postupak proizvodi. Ishod u širokoj raspodjeli slabije razlikuje konkurentska
-objašnjenja, dok položaj duboko u repu može osporiti zadani model, ali sam ne
-otkriva uzrok odstupanja.
+Rezultat jedne kampanje uspoređujemo s cijelom raspodjelom koju proizvodi isti
+postupak. Ako je raspodjela široka, jedan ishod teže razlikuje moguća
+objašnjenja. Ishod daleko u repu može dovesti model u pitanje, ali ne govori
+sam što je uzrok odstupanja.
 
-Prije nastavka zastajemo radi dohvata. Bez vraćanja na tekst odgovorimo što na
-standardiziranoj ljestvici znače nula, jedan i minus jedan. Povežimo zatim
-duljinu niza iz widgeta sa širinom raspodjele njegovih stopa, bez promjene zadane
-vjerojatnosti modela. Ako te dvije veze nisu jasne, vraćamo se samo na odjeljak o
-standardizaciji u poglavlju o sažimanju podataka i prva dva koraka widgeta.
+Uži histogram duljih nizova pokazuje promjenu raspršenosti. Za opis njegova
+oblika vratit ćemo se standardiziranoj ljestvici iz poglavlja o sažimanju
+podataka. Na njoj nula označuje sredinu, a jedan i minus jedan položaje po
+jednu standardnu devijaciju iznad i ispod nje. Taj će nam poznati način
+opisivanja položaja pomoći da raspodjelu usporedimo sa zvonastom krivuljom.
 
 ## Zvonasta krivulja i njezino područje
 
-Raspodjela mnogih ponavljanja iz widgeta ima prepoznatljiv oblik. Simetrična je i
-najgušća u sredini, a gustoća joj brzo opada prema obama krajevima. Taj oblik u
-statistici ima posebno mjesto, i ne zato što ga priroda posebno voli.
+Raspodjela mnogih ponovljenih udjela može poprimiti približno simetričan oblik
+s najviše vrijednosti oko sredine. Taj zvonasti oblik susrećemo u normalnoj
+raspodjeli.
 
 ::: {#def-normalna-raspodjela}
 **Normalna raspodjela** je simetrična zvonasta raspodjela koju u cijelosti
 određuju njezino središte i njezina standardna devijacija.
 :::
 
-Standardizirana vrijednost iz poglavlja o sažimanju podataka sada postaje položaj
-na toj krivulji.
-Nula označuje središte, pozitivna vrijednost položaj iznad sredine, a negativna
-položaj ispod nje. Njezin apsolutni iznos govori koliko je standardnih
-devijacija vrijednost udaljena od sredine. Novi je korak tek povezati taj
-položaj s područjem normalne krivulje.
+Na nacrtanoj normalnoj krivulji udaljenost mjerimo standardnim devijacijama.
+Okomite granice omeđuju srednjih približno 68 %, 95 % i 99,7 % površine.
+Površina predstavlja udio mogućih vrijednosti, a visina krivulje gustoću.
 
-Svaka stopa u widgetu prosjek je nula i jedinica iz jednoga niza. Neuspjeh nosi
-nulu, a uspjeh jedinicu. Histogram zato ne prikazuje raspodjelu pojedinačnih
-ishoda, nego raspodjelu prosjeka ili stopa dobivenih iz mnogih ponovljenih
-nizova. Ta je razlika ključna za sljedeći rezultat.
+```{r}
+#| echo: false
+#| label: fig-normalna-podrucja
+#| fig-cap: "Pravilo 68–95–99,7 za standardnu normalnu raspodjelu. Izrada autora iz matematičkog modela."
+#| fig-alt: "Tri panela pokazuju normalnu krivulju i osjenčana područja unutar jedne, dviju i triju standardnih devijacija."
+#| fig-height: 3
+normalna7 <- tidyr::expand_grid(z = seq(-4, 4, length.out = 801), k = 1:3) |>
+  mutate(gustoca = dnorm(z), panel = factor(k, levels = 1:3,
+    labels = c("±1 SD · oko 68 %", "±2 SD · oko 95 %", "±3 SD · oko 99,7 %")))
+ggplot(normalna7, aes(z, gustoca)) +
+  geom_area(data = filter(normalna7, abs(z) <= k), fill = tok_boja("data-2")) +
+  geom_line() + facet_wrap(~panel, ncol = 3) +
+  scale_x_continuous(breaks = c(-3, 0, 3)) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 1)) +
+  labs(x = "Udaljenost od sredine u SD-ima", y = "Gustoća") + theme_knjiga(base_size = 9)
+```
 
-Normalna raspodjela povlaštena je zbog središnjega graničnog teorema. U njegovu
-osnovnom obliku opažanja dolaze iz iste raspodjele koja se ne mijenja od
-opažanja do opažanja, međusobno su neovisna, a ta raspodjela ima konačnu
-varijancu. Kako njihov broj raste, raspodjela prosjeka približava se normalnoj
-raspodjeli iako sama opažanja ne moraju biti normalna. Druge inačice teorema
-dopuštaju primjereno slabu ovisnost, ali ne proizvoljnu povezanost, a teorem ne
-pokriva ni raspodjele s beskonačnom varijancom.
+Standardizirana vrijednost određuje položaj na krivulji. Nula je sredina,
+pozitivan predznak označuje vrijednost iznad nje, a negativan ispod. Apsolutna
+vrijednost govori koliko je standardnih devijacija udaljena od sredine. Na
+normalnoj krivulji taj položaj možemo povezati s udjelom površine.
 
-Widget pokazuje uži slučaj. Tri pitanja prevode uvjete teorema na njegov model.
-Dolaze li svi pokušaji iz istoga stabilnog pravila, je li jedan ishod neovisan o
-drugome i ima li binarni ishod konačnu varijancu? Kad su odgovori potvrdni,
-povećanjem broja pokušaja simulirane se stope zbijaju i njihov oblik postaje
-bliži zvonastome. To ne znači da pojedinačni ishodi postaju normalno
-raspodijeljeni. Jaka ovisnost među opažanjima, promjenjiva vjerojatnost ishoda ili
-beskonačna varijanca traže drukčiji model ili dodatne uvjete. Poglavlje o
-uzorkovanju od ovoga ograničenog slučaja gradi svoj argument.
+Svaki simulirani udio prosjek je nula za neuspjehe i jedinica za uspjehe u
+jednom nizu. Histogram stoga prikazuje raspodjelu udjela iz ponovljenih
+nizova. Ne prikazuje raspodjelu pojedinačnih nula i jedinica.
+
+U našoj simulaciji pokušaji slijede isto stabilno pravilo i međusobno su
+neovisni. S duljim nizovima udjeli se manje rasipaju i njihov se histogram
+približava zvonastom obliku. Pojedinačni ishodi i dalje ostaju nule ili
+jedinice. Razlog tom obrascu i uvjete pod kojima vrijedi razradit ćemo u
+poglavlju o uzorkovanju, uz središnji granični teorem.
 
 Sredina i standardna devijacija potpuno određuju položaj i širinu normalne
 raspodjele. Unutar jedne standardne devijacije od sredine leži oko 68 %
 vrijednosti, unutar dvije oko 95 %, a unutar tri oko 99,7 %.
 
-Sada mijenjamo predmet. Više ne promatramo raspodjelu ponovljenih stopa, nego
-raspodjelu pojedinačnih vrijednosti u poznatoj populaciji. Središnji granični
-teorem ne čini te vrijednosti normalnima. Pravilo područja stoga provjeravamo
-zasebno, na dnevnom vremenu provedenom uz medije i iznosu koji je osoba spremna
-platiti za pristup sadržaju.
+Sada promatramo pojedinačne vrijednosti u poznatoj populaciji. Teorem o
+prosjecima ne jamči njihov normalan oblik. Zato zasebno provjeravamo dnevno
+vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
 
 ```{r}
 #| label: fig-pravilo-podrucja
-#| fig-cap: "Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine."
+#| fig-cap: "Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora; podaci i postupak opisani su u tekstu."
 #| fig-alt: "Lijevi panel prikazuje blago desno nagnutu raspodjelu minuta u kojoj su obje crte unutar podataka. Desni panel prikazuje raspodjelu iznosa u kojoj golem stupac stoji na nuli, donja crta pada izvan mogućih vrijednosti, a desni rep se proteže daleko."
 
 s7_dvije <- bind_rows(
@@ -666,45 +707,48 @@ ggplot(s7_dvije, aes(vrijednost)) +
   theme_knjiga(base_size = 12)
 ```
 
-Za dnevne minute pravilo vrijedi približno. Unutar jedne standardne devijacije
-nalazi se
-`r hr_broj(s7_podrucja$minute[1])` % populacije, unutar dviju
-`r hr_broj(s7_podrucja$minute[2])` %, a unutar triju
-`r hr_broj(s7_podrucja$minute[3])` %. Odstupanja od 68, 95 i 99,7 postoje i
-posljedica su blage nagnutosti udesno, ali su dovoljno mala da orijentacija
-ostane upotrebljiva.
+Za dnevne minute unutar jedne standardne devijacije nalazi se `r hr_broj(s7_podrucja$minute[1])` %
+populacije, unutar dviju `r hr_broj(s7_podrucja$minute[2])` %, a unutar triju `r hr_broj(s7_podrucja$minute[3])` %. Te su
+vrijednosti blizu normalnom pravilu. Blaga asimetrija udesno stvara manja
+odstupanja.
 
-Za spremnost na plaćanje pravilo se raspada. Unutar jedne standardne devijacije
-leži `r hr_broj(s7_podrucja$iznos[1])` % populacije umjesto oko 68 %, a unutar
-triju samo `r hr_broj(s7_podrucja$iznos[3])` % umjesto oko 99,7 %. Razlog je
-vidljiv na grafu. Udio ljudi s nultim iznosom jest
-`r hr_broj(s7$bez_platnika)` %, pa se raspodjela nagomilala na nuli i ima dugi
-rep udesno. Donja granica od jedne
-standardne devijacije ispod sredine pada u negativne iznose, koje nitko ne može
-imati, pa ispod nje nema nijedne osobe.
+Za spremnost na plaćanje odstupanja su mnogo veća. Unutar jedne devijacije
+nalazi se `r hr_broj(s7_podrucja$iznos[1])` %, a unutar triju `r hr_broj(s7_podrucja$iznos[3])` % populacije. Graf pokazuje da
+`r hr_broj(s7$bez_platnika)` % ljudi navodi nulu, uz dugi rep prema velikim iznosima. Jedna
+devijacija ispod sredine već daje negativan iznos, pa ispod te granice nema
+opažanja. Normalna raspodjela ne opisuje dobro te sirove vrijednosti.
 
-Ako pogledamo samo one koji nešto plaćaju i njihove iznose logaritmiramo, prikaz
-postaje bliži zvonastome. Poglavlje o sažimanju podataka pokazalo je isti učinak
-promjene ljestvice na primjeru vremena korištenja. Pravilo sada vrijedi gotovo
-točno, s
-`r hr_broj(s7_podrucja$log_iznos[1])` %,
-`r hr_broj(s7_podrucja$log_iznos[2])` % i
-`r hr_broj(s7_podrucja$log_iznos[3])` %. Zvonasti oblik dakle ne opisuje sirove
-iznose; pojavio se tek nakon isključenja nula i promjene ljestvice.
-Isključenje neplatitelja mijenja populaciju i istraživačko pitanje, pa bolji
-pristaj normalnoj krivulji sam ne opravdava tu odluku.
+Promjena ljestvice zahtijeva dva odvojena koraka. Iz istih 50 000 zapisa
+prvo izdvajamo `r sum(s7_iznos > 0)` pozitivnih iznosa, a zatim na njih
+primjenjujemo prirodni logaritam. Primjerice, za prvi pozitivan iznos od
+`r hr_broj(s7_iznos[s7_iznos > 0][1], 1)` kuna nova vrijednost iznosi
+`r hr_broj(s7_log_iznos[1], 3)`. Nule nemaju konačan logaritam i nisu dio
+toga izračuna. Nazivnik svakoga sljedećeg udjela zato su samo platitelji.
+
+Ako izdvojimo osobe spremne nešto platiti i logaritmiramo njihove iznose,
+oblik postaje bliži zvonastom. Unutar odgovarajućih raspona sada je `r hr_broj(s7_podrucja$log_iznos[1])`
+%, `r hr_broj(s7_podrucja$log_iznos[2])` % i `r hr_broj(s7_podrucja$log_iznos[3])` %. Izdvajanjem smo, međutim, promijenili
+populaciju, a logaritmiranjem ljestvicu. Bolje slaganje s normalnom
+raspodjelom samo po sebi ne opravdava izostavljanje neplatitelja.
 
 ## Kad podaci ne pristaju krivulji
 
-Postotci unutar područja govore o cjelini i mogu prikriti gdje točno raspodjela
-odstupa. Prikaz koji odgovara na to pitanje poreda opažene vrijednosti po
-veličini i svaku od njih stavi nasuprot vrijednosti koja bi na tom mjestu bila
-očekivana da raspodjela jest normalna. Kad se oblici poklapaju, točke leže na
-pravcu.
+Za sljedeći prikaz uzimamo po 1 200 vrijednosti iz svakoga od triju
+prethodno opisanih skupova. Svaki panel ima zaseban slučajni odabir bez
+vraćanja, pa se točke ne odnose nužno na iste osobe. Poredak unutar panela
+omogućuje usporedbu oblika raspodjele.
+
+Postotci unutar raspona mogu sakriti mjesto odstupanja. QQ prikaz zato poreda
+opažene vrijednosti i usporedi ih s vrijednostima koje bismo na istim
+položajima očekivali iz normalne raspodjele. Ako se oblici podudaraju, točke
+prate pravac. Vodoravna os prikazuje kvantile standardne normalne raspodjele,
+a okomita poredane vrijednosti u jedinicama promatrane varijable. Referentni
+pravac ovdje prolazi kroz parove prvoga i trećega kvartila. Odstupanja od
+njega pokazuju gdje oblik podataka odstupa od normalnoga oblika.
 
 ```{r}
 #| label: fig-qq
-#| fig-cap: "Poredane vrijednosti triju varijabli nasuprot vrijednostima očekivanima prema normalnoj raspodjeli. Pravac označuje savršeno poklapanje."
+#| fig-cap: "Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora; podaci i postupak opisani su u tekstu."
 #| fig-alt: "U prvom panelu točke za dnevne minute prate pravac uz blago odizanje na desnom kraju. U drugom panelu točke za spremnost na plaćanje leže vodoravno na nuli i zatim naglo skreću uvis. U trećem panelu logaritmirani iznosi ponovno prate pravac."
 
 set.seed(710)
@@ -724,7 +768,8 @@ s7_qq <- bind_rows(
 ggplot(s7_qq, aes(sample = vrijednost)) +
   stat_qq(size = 0.5, alpha = 0.35, colour = tok_boja("data-4")) +
   stat_qq_line(colour = tok_boja("ink-mute"), linewidth = 0.5) +
-  facet_wrap(vars(varijabla), nrow = 1, scales = "free_y") +
+  facet_wrap(vars(varijabla), nrow = 1, scales = "free_y",
+             labeller = label_wrap_gen(width = 10)) +
   scale_x_continuous(labels = function(x) hr_broj(x, 0)) +
   scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
   labs(x = "Očekivana vrijednost prema normalnoj raspodjeli",
@@ -732,28 +777,47 @@ ggplot(s7_qq, aes(sample = vrijednost)) +
   theme_knjiga(base_size = 12)
 ```
 
-Svaki oblik odstupanja nosi svoju poruku. Dnevne minute prate pravac gotovo
-cijelim rasponom i odižu se tek na desnom kraju, što je potpis blagog repa prema
-većim vrijednostima. Spremnost na plaćanje leži vodoravno dok traju nule i zatim
-naglo skreće uvis, jer normalna raspodjela na tom mjestu očekuje postupan
-prijelaz, a podaci ga nemaju. Logaritmirani iznosi vraćaju se na pravac.
+Dnevne minute uglavnom prate pravac, uz odizanje desnog kraja zbog repa prema
+višim vrijednostima. Za spremnost na plaćanje točke najprije stoje vodoravno
+zbog nula, a zatim skreću prema gore. Nakon izdvajanja platitelja i
+logaritmiranja iznosa opet su blizu pravca.
 
-Prikaz ne izriče presudu o tome je li analiza dopuštena. On pokazuje gdje
-pretpostavka pristaje, a gdje se lomi, i time razdvaja odstupanja koja ne moraju
-imati iste posljedice. Važnost blagog odizanja repa ovisi o ciljnoj veličini,
-postupku i utjecaju krajnjih vrijednosti. Gomila na nuli jasno pokazuje samo da
-normalna raspodjela ne opisuje sirove iznose.
+QQ prikaz pokazuje gdje podaci odstupaju od pretpostavke. Ne odlučuje sam je
+li određena analiza prikladna. Posljedice blagog odstupanja u repu ovise o
+ciljnoj veličini, postupku i utjecajnim opažanjima. Velika skupina nula jasno
+pokazuje da normalna raspodjela nije dobar opis sirovih iznosa.
+
+Poznata vjerojatnost i učenje o nepoznatoj stopi različita su pitanja.
+Ako smo sami zadali pošten novčić, pet glava ne mijenja sljedeću
+vjerojatnost 0,5. Ako ne znamo udio uspješnih objava, pet uspjeha postaje
+informacija za njegovu procjenu. Tada nesigurnost proizlazi i iz toga što
+pravilo nastanka podataka tek trebamo naučiti.
 
 ## Nizovi koje slučajnost proizvodi
 
-**Slučajni niz** je slijed ishoda koje proizvodi proces s poznatom slučajnom
-sastavnicom, bez zahtjeva da kratki odsječak izgleda pravilno. Vratimo se
-pitanju iz vinjete, jer ono ima odgovor koji se može izmjeriti.
-Za mjerenje učinka samoga odabira simuliramo uži nulti model. Svaki je pokušaj
-neovisno bacanje poštenoga novčića s fiksnom vjerojatnošću pogotka. Taj model ne
-tvrdi da se stvarna igračeva vjerojatnost ne može mijenjati. U svakom nizu
-izdvajamo pokušaje koji dolaze neposredno iza tri uzastopna pogotka. Bez učinka
-odabira očekivali bismo da među izdvojenima pogodaka bude pola.
+Usporedbom s normalnom krivuljom provjeravali smo odgovara li model obliku
+podataka. U pitanju o vrućoj ruci trebamo provjeriti i način na koji iz niza
+biramo opažanja. **Slučajni niz** nastaje procesom sa slučajnom sastavnicom i ne mora u kratkom
+odsječku izgledati pravilno. Za provjeru vruće ruke simuliramo neovisne
+pokušaje s fiksnom vjerojatnošću pogotka, kao kod poštenog novčića. Ne
+pretpostavljamo da je stvarna košarka takva. Iz svakog niza izdvajamo pokušaje
+neposredno nakon triju pogodaka. Želimo vidjeti mijenja li samo to pravilo
+odabira prosječan udio pogodaka među izdvojenim pokušajima.
+
+Pravilo odabira možemo vidjeti na namjerno složenom nizu
+1, 1, 1, 0, 1, 1, 1, 1. Nakon triju jedinica stoje četvrti i osmi pokušaj,
+s ishodima 0 i 1. Udio na odabranim mjestima zato je $1/2$, iako u cijelom
+nizu ima sedam jedinica od osam. Posljednja tri pogotka ne stvaraju dodatno
+opažanje jer deveti pokušaj ne postoji. U simulaciji umjesto ovoga
+ilustrativnog niza svaki put generiramo novi niz neovisnih pokušaja s
+vjerojatnošću 0,5.
+
+Za svaku kombinaciju duljine i uvjeta generiramo 8 000 nizova. Najprije
+računamo udio odabranih pogodaka unutar svakog niza, a zatim prosjek tih
+udjela, dajući svakom uključenom nizu jednaku težinu. Niz bez ijednog
+prikladnog mjesta nema definiran udio i izostavljamo ga iz toga prosjeka.
+U stupcima „Bez mjesta” prikazujemo koliko je takvih nizova, pa je
+nazivnik prosjeka 8 000 umanjeno za taj broj.
 
 ```{r}
 #| label: tbl-odabir-niza
@@ -762,109 +826,120 @@ odabira očekivali bismo da među izdvojenima pogodaka bude pola.
 s7_odabir |>
   transmute(
     `Duljina niza pokušaja` = hr_broj(duljina, 0),
-    `Nakon jednog pogotka` = hr_broj(nakon_jednog, 3),
-    `Nakon tri pogotka` = hr_broj(nakon_tri, 3)
+    `Nakon jednog` = hr_broj(nakon_jednog, 3),
+    `Bez mjesta nakon jednog` = bez_jednog,
+    `Nakon tri` = hr_broj(nakon_tri, 3),
+    `Bez mjesta nakon tri` = bez_tri
   ) |>
-  knitr::kable(align = c("r", "r", "r"))
+  knitr::kable(align = "r")
 ```
 
-Udio je manji od polovice. U nizu od stotinu pokušaja prosječan udio iza tri
-pogotka iznosi
-`r hr_broj(s7$nakon_tri_100, 3)`, a u nizu od dvadeset pokušaja pada na
-`r hr_broj(s7$nakon_tri_20, 3)`. Postupak pritom nema nikakvu memoriju, jer smo
-ga sami napravili takvim. Odstupanje ne dolazi iz procesa nego iz odabira.
+U nizovima od stotinu pokušaja taj prosječni udio iznosi `r hr_broj(s7$nakon_tri_100, 3)`, a u
+nizovima od dvadeset `r hr_broj(s7$nakon_tri_20, 3)`. Oba su ispod polovine, iako smo simulirali
+proces bez memorije. Odstupanje stvara odabir mjesta i računanje udjela po
+konačnim nizovima.
 
-Razlog je u načinu na koji se iz konačnih nizova bira i prosječuje. Kad iz
-jednog niza izdvojimo mjesta iza tri pogotka, niz s malo pogodaka rijetko uopće
-nudi takvo mjesto. U nizu koji ga nudi ta su tri pogotka već dio uvjeta, pa su
-preostali ishodi koji mogu stajati na promatranome mjestu u prosjeku nešto
-siromašniji pogocima od cijeloga niza. To nije memorija procesa, nego
-kombinatoričko ograničenje uvjetnog odabira u konačnom nizu. Prosjek takvih
-udjela zato leži ispod stvarne vjerojatnosti, i to više što je niz kraći i uvjet
-dulji. Uz uvjet od samo jednog pogotka u nizu od stotinu pokušaja odstupanje
-pada na `r hr_broj(s7$nakon_jednog_100, 3)` i jedva se primjećuje.
+Mehanizam se vidi već u trima bacanjima, kada tražimo ishod nakon jedne
+jedinice. Od osam jednako vjerojatnih nizova šest ima takvo mjesto.
+To su 010, 011, 100, 101, 110 i 111. Njihovi udjeli uspjeha na odabranim
+mjestima redom su 0, 1, 0, 0, 1/2 i 1. Prosjek tih šest udjela iznosi
+5/12, približno 0,417. Nizovi s jednim i dvama odabranim mjestima dobivaju
+jednaku težinu. Ta odluka, a ne promjena novčića, spušta prosjek ispod 1/2.
+Pristranost je veća u kraćim nizovima i uz dulji uvjet. Nakon samo jednog
+pogotka u nizovima od stotinu pokušaja prosječni udio je `r hr_broj(s7$nakon_jednog_100, 3)`, blizu
+polovine.
 
-Veličina tog odstupanja nije akademska sitnica. U nizu od stotinu pokušaja ono
-iznosi oko četiri postotna boda, što je istog reda kao razlika koju bi netko
-tražio da pokaže postojanje forme. Postupak mjerenja time proizvodi pomak u
-smjeru zaključka koji se donosi.
+Za niz od stotinu pokušaja odstupanje je oko četiri postotna boda. Takav je
+pomak usporediv s razlikom koju bi istraživač mogao tražiti kao dokaz promjene
+forme. Zato treba provjeriti koliki dio rezultata nastaje samim postupkom
+mjerenja.
 
-Pouka nadilazi košarku i nije o tome tko je bio u pravu. Analiza koja iz podataka
-izdvoji jedinice po nekom svojstvu tih istih podataka nije više neutralan pogled
-na njih, jer je odabir dio postupka jednako kao i račun koji slijedi.
-Najizravniji način u ovom poglavlju da se to provjeri jest primijeniti cijeli
-postupak, s odabirom uključenim, na podatke u kojima se odgovor unaprijed zna.
-Upravo to knjiga radi otkad je populacija poznata, i to je razlog zbog kojeg
-simulacija u ovim poglavljima dolazi prije formule.
+Kada iz podataka odabiremo jedinice prema obilježjima tih istih podataka,
+pravilo odabira postaje dio analize. Njegov učinak možemo provjeriti na procesu čije je pravilo poznato, ali tada
+moramo simulirati i odabir jedinica i završni izračun.
 
 ::: {.callout-divljina}
-**Vruća ruka i njezin ispravak.** Gilovich, Vallone i Tversky protumačili su
-svoje nalaze kao dokaz da se nizovi pogodaka pogrešno čitaju kao promjena
-igračeve vjerojatnosti pogotka [@gilovich1985]. Miller i Sanjurjo pokazali su
-da uobičajena mjera uvjetne ovisnosti nosi pristranost odabira niza, da su
-izvorna studija i njezina ponavljanja na nju osjetljivi te da se zaključak
-izvorne studije nakon ispravka obrće [@miller2018].
+**Vruća ruka i njezin ispravak.** Kada igrač nekoliko puta uzastopno
+pogodi, suigrač bi mu mogao ponovno dodati loptu jer očekuje nastavak
+niza. To je moguća odluka kojoj pitanje o vrućoj ruci daje smisao.
+Zanima nas govori li prethodni uspjeh nešto o sljedećem pokušaju ili
+promatramo niz kakav može nastati i bez promjene vjerojatnosti pogotka.
 
-Promijenio se postupak čitanja istih podataka. Simulacija u prethodnom odjeljku
-mjeri vrstu pristranosti koju Miller i Sanjurjo izvode za konačne nizove
-[@miller2018]. Iz toga ne slijedi da je vruća ruka dokazana, nego da izvorni
-nalaz nije podupirao zaključak koji mu je pripisan. Tvrdnja o odsutnosti učinka
-traži jednako pažljivo mjerenje kao tvrdnja o njegovu postojanju. Stvarna bi
-promjena forme morala biti razlučena i od težine šuta, obrane te odabira
-pokušaja; niz sam po sebi ne bira među tim objašnjenjima.
+Gilovich, Vallone i Tversky proučavali su vjerovanje u vruću ruku i
+svoje nalaze protumačili kao dokaz da ljudi u nizovima vide promjenu
+koje nema [@gilovich1985]. Za provjeru takve tvrdnje naizgled je
+dovoljno izdvojiti pokušaje nakon pogodaka i usporediti njihovu uspješnost s uspješnošću pokušaja nakon promašaja. No izdvajanjem
+mjesta unutar konačnih nizova već smo uveli postupak odabira koji
+može promijeniti očekivani rezultat.
+
+Upravo su taj problem razradili Miller i Sanjurjo. Pokazali su da je
+uobičajena mjera ovisnosti osjetljiva na pristranost odabira, a nakon
+ispravka ponovno su analizirali izvorni kontrolirani pokus i dobili
+zaključak u prilog vrućoj ruci [@miller2018]. Ispravak nije nastao
+zato što su naknadno odlučili više vjerovati dojmu igrača. Promijenili
+su referentni račun s kojim su uspoređivali opaženi niz.
+
+Naša simulacija pokazuje kako postupak odabira i prosječenja proizvodi pomak
+iako se zadana vjerojatnost ne mijenja. Prije tumačenja stvarnih pokušaja
+zato treba provjeriti cijeli postupak na procesu čije je pravilo poznato.
+Tako znamo koliki pomak mogu proizvesti sam odabir i računanje.
+
+Za odluku na terenu ni ispravljena mjera nije potpuna uputa.
+Treba razmotriti težinu sljedećeg šuta, obranu i raspoložive
+suigrače. Moguća promjena forme nije isto što i najbolja odluka o
+dodavanju. Zato provjeravamo i dojam o vrućoj ruci i mjerni postupak kojim ga
+pokušavamo osporiti.
 :::
 
-::: {.callout-model}
-Pod zadanim modelom asistent može izračunati vjerojatnost i izvesti simulaciju.
-Slaganje tih putova provjerava samo unutarnju dosljednost računa, a ne model
-stvarnoga procesa. U odgovoru zato tražimo tri moguća promašaja. Neovisnost može
-ostati neizrečena, ukupna i uvjetna vjerojatnost mogu dobiti zamijenjene
-nazivnike, a vjerojatnost ishoda pod modelom može postati neopravdana
-vjerojatnost samoga modela.
 
-> Navedi koje pretpostavke o neovisnosti i jednakoj vjerojatnosti koristiš prije
-> nego što bilo što izračunaš. Zapiši događaj i njegov komplement, izračunaj
-> rezultat analitički, zatim ga približno provjeri simulacijom sa sjemenom 709 te
-> pokaži da se dobiveni broj nalazi između nule i jedinice.
+Za planiranje kampanje zanima nas barem jedna objava koja prijeđe prag.
+Provjerimo koje informacije taj račun traži uz vjerojatnost jedne objave.
 
-| Polje računa | Zapis |
-|---|---|
-| Što je traženo | analitička i simulacijska vjerojatnost istoga ishoda pod izričitim modelom |
-| Što je vraćeno | dva broja, sjeme, korištene pretpostavke i granica zaključka |
-| Što je provjereno | događaj, komplement, nazivnik, neovisnost, jednaka vjerojatnost i podudaranje dvaju putova |
-| Kako je provjereno | ručnim čitanjem komplementa, provjerom granica i izvršivom simulacijom sa sjemenom 709 |
-| Uloga AI-ja | instrument za račun i pogrešiv analitičar pri tumačenju |
-| Što je ostalo neprovjereno | opisuje li zadani model stvarni proces i jesu li dostupne informacije potpune |
-| Odgovorna osoba | osoba koja potpisuje zaključak |
-:::
+::: {#ex-07-callout-greska-01 .callout-greska .greska-zadrzi}
+U nastavnom modelu svakoj objavi zadajemo vjerojatnost od dva posto
+da u sedam dana prijeđe dogovoreni prag dijeljenja. To je pretpostavka
+vježbe, a ne izmjeren udio. Urednik pita kolika je vjerojatnost da barem
+jedna od pet objava iste kampanje prijeđe prag.
 
-::: {#ex-07-callout-greska-01 .callout-greska}
-U hipotetskom modelu svakoj se objavi zadaje vjerojatnost od dva posto da u
-sedam dana prijeđe unaprijed dogovoren prag dijeljenja. To je ulaz modela, a ne
-izmjeren udio. Na pitanje koliko je vjerojatno da barem jedna od pet objava iste
-kampanje prijeđe prag asistent je napisao ovu analizu.
+U opisu kampanje piše da objave mogu doći do istih pratitelja i da se
+dijele tijekom istog tjedna. Nema podataka o tome pojavljuju li se
+njihovi uspjesi zajedno. Asistent je predložio račun komplementom.
 
 ```r
 p_viral <- 0.02
 p_barem_jedna <- 1 - (1 - p_viral)^5
 ```
 
-Uz ispis je dodao obrazloženje. Vjerojatnost da pojedina objava ne postane
-viralna iznosi 0,98, vjerojatnost da nijedna od pet ne postane viralna je
-0,98 na petu potenciju, a komplement toga daje 9,6 %. Budući da su objave
-zasebne jedinice iste kampanje, zaključuje da je račun potpun.
+> Za jednu objavu vjerojatnost ostanka ispod praga iznosi 0,98.
+> Za svih pet ona iznosi 0,98 na petu potenciju, pa komplement daje
+> približno 9,6 %. Budući da je svaka objava zasebna jedinica,
+> taj broj možemo upotrijebiti kao vjerojatnost uspjeha kampanje.
+
+Napišite uredniku može li broj preuzeti bez dodatnog uvjeta. U odgovoru
+zadržite valjan račun, imenujte pretpostavku koju traži jedan njegov
+korak i navedite koju bi informaciju o objavama trebalo pribaviti.
+Ne morate izračunati novu vjerojatnost ako podaci za nju nisu zadani.
 
 :::
 
 ## Razrađeni primjer
 
-Zamislimo e-bilten poslan na pedeset adresa i otvoren četrnaest puta. Radi
-provjere računa zadajemo referentni model u kojem svaka poruka ima jednaku,
-poznatu vjerojatnost otvaranja od dvadeset dva posto, a otvaranja su međusobno
-neovisna. Brojevi su hipotetski i nisu mjerenje stvarne kampanje. Pitanje glasi
-koliko je četrnaest ili više otvaranja neobično pod tim modelom. Vjerojatnost
-računamo iz binomne raspodjele, a zatim je približno provjeravamo brojanjem u
-dvadeset tisuća simuliranih kampanja.
+Zamislimo da je e-bilten poslan na pedeset adresa i otvoren četrnaest puta.
+Zadajemo hipotetski model s poznatom vjerojatnošću otvaranja od dvadeset dva
+posto za svaku poruku i neovisnim otvaranjima. Koliko je pod tim modelom
+vjerojatno četrnaest ili više otvaranja? Rezultat ćemo izračunati binomnom
+raspodjelom i provjeriti kroz dvadeset tisuća simuliranih kampanja. Primjer
+nije mjerenje stvarne kampanje. Za traženu vjerojatnost koristimo već poznato
+pravilo komplementa. Od svih mogućih ishoda izostavit ćemo one s najviše
+trinaest otvaranja, pa ostaju četrnaest ili više.
+
+Jedna simulirana kampanja sadrži 50 neovisnih odgovora „otvoreno” ili
+„nije otvoreno”, s istih 22 % izgleda za svaku poruku. Njihov zbroj daje
+broj otvaranja jedne kampanje. Prvih pet generiranih zbrojeva iznosi
+`r paste(s7_kampanje[1:5], collapse = ", ")`. Svaki uspoređujemo s 14,
+a među svih 20 000 kampanja taj prag doseže njih
+`r sum(s7_kampanje >= 14)`. Dijeljenjem s 20 000 dobit ćemo simuliranu
+vjerojatnost. Sva ponavljanja imaju definiran rezultat i ulaze u nazivnik.
 
 ```{r}
 #| echo: true
@@ -876,40 +951,39 @@ kampanje <- rbinom(20000, size = 50, prob = 0.22)
 mean(kampanje >= 14)
 ```
 
-Funkcija `pbinom` vraća vjerojatnost da uspjeha bude najviše onoliko koliko je
-zadano, pa je komplement te vrijednosti pri trinaest upravo vjerojatnost od
-četrnaest naviše. Funkcija `rbinom` izvlači slučajne ishode iz iste raspodjele,
-pa njihov udio daje približno isti broj kada su kod i pretpostavke dosljedni.
+Poziv `pbinom` provodi prvi dio tog računa, zbraja vjerojatnosti od nula
+do trinaest otvaranja. Oduzimanje od jedan ostavlja traženi dio raspodjele.
+Poziv `rbinom` zatim simulira kampanje prema istim pretpostavkama. Udio
+kampanja s najmanje četrnaest otvaranja trebao bi biti blizu izračunatoj
+vjerojatnosti, pa možemo usporediti računski rezultat s ponavljanjem postupka.
 
-Analitički put daje `r hr_broj(s7$tocno)` %, a simulacija
-`r hr_broj(s7$simulirano)` %. Mala razlika nastaje zato što je broj simuliranih
-kampanja konačan. Njihova blizina interna je računska provjera, a ne neovisan
-dokaz da model opisuje stvarni proces.
+Izračun daje `r hr_broj(s7$tocno)` %, a simulacija `r hr_broj(s7$simulirano)` %. Razlikuju se malo jer smo
+simulirali konačan broj kampanja. Podudaranje provjerava račun u zadanom
+modelu, bez neovisne potvrde modela u stvarnosti.
 
-Pod zadanim bi modelom četrnaest ili više otvaranja nastalo otprilike jednom u
-pet ponavljanja. Ishod zato nije osobito neobičan za taj model, ali time model
-nije potvrđen. Čak ni mnogo rjeđi ishod ne bi pokazao da ga je uzrokovao naslov.
-Publika, vrijeme slanja, doseg i drugi dijelovi procesa ostali bi moguća
-objašnjenja. Tvrdnja o učinku naslova tražila bi usporedbu nasumično dodijeljenih
-inačica, a urednička odluka još i cilj te troškove pogreške.
+Četrnaest ili više otvaranja nastalo bi otprilike u jednom od pet ponavljanja.
+Ishod zato nije posebno neobičan pod modelom, ali to ne potvrđuje sve njegove
+pretpostavke. Ni mnogo rjeđi ishod sam ne bi dokazao učinak naslova jer bi
+publika, vrijeme slanja i doseg ostali moguća objašnjenja. Za učinak naslova
+trebali bismo usporediti nasumično dodijeljene inačice. Za uredničku odluku uz
+to trebamo cilj i troškove pogreške.
 
-Ovdje čitamo samo jednostranu repnu vjerojatnost pod izričitim modelom. Sljedeće
-poglavlje pita kako se statistika mijenja od uzorka do uzorka; formalna pravila
-testiranja i odluke dolaze poslije toga.
+Izračunali smo vjerojatnost ishoda u jednom repu raspodjele pod izričitim
+modelom. 
 
 ## Sažetak {.sazetak}
 
-Vjerojatnost pripada opisanom modelu i informacijama; modelna vjerojatnost nije
-isto što i osobna sigurnost, a kalibraciju procjenjujemo kroz ishode mnogih
-usporedivih prognoza. Komplement, zbrajanje i opće pravilo množenja traže jasno
-imenovane događaje i nazivnike, dok prečac s umnoškom rubnih vjerojatnosti traži
-neovisnost. Binomna raspodjela opisuje ponovljene binarne pokušaje kada su
-njezini uvjeti ispunjeni, a središnji granični teorem pod svojim uvjetima govori
-o raspodjeli zbrojeva ili prosjeka, ne o obliku pojedinačnih podataka. Pravilo
-68–95–99,7 vrijedi za približno normalne raspodjele, dok je simulacija nizova
-pokazala da i postupak odabira može proizvesti pomak koji tražimo. Poglavlje o
-uzorkovanju tu logiku prenosi na statistike koje se mijenjaju od uzorka do
-uzorka.
+Vjerojatnost nam omogućuje da opaženi rezultat usporedimo s ishodima koje
+proizvodi jasno zadan model, a kalibraciju prognoza provjeravamo kroz mnogo
+usporedivih predviđanja. Prije zbrajanja i množenja određujemo događaje,
+njihove preklape i uvjete, kao što binomni model traži neovisne binarne
+pokušaje s jednakom vjerojatnošću. Ponavljanjem vidimo i zašto raspodjela
+prosjeka pod uvjetima središnjega graničnog teorema može postati približno
+normalna, iako pojedinačni podaci to nisu. Pravilo o 68, 95 i 99,7 %
+primjenjujemo na onu raspodjelu koja je doista približno normalna. Simulacija
+vruće ruke pokazala je da u provjeru treba uključiti i pravilo odabira, jer i
+ono može promijeniti rezultat. U poglavlju o uzorkovanju istim ćemo
+ponavljanjem proučiti procjene iz različitih uzoraka.
 
 ## Pojmovi {.pojmovi}
 
@@ -934,14 +1008,19 @@ QQ prikazu poduprlo vaš odgovor.
 
 ### Računski {#ex-07-racunski-01 .zadaci-razina}
 
-Vratite se na hipotetsku provjeru zapisa i protokol skeptičnoga čitanja iz
-poglavlja o tome kako brojke zavode. Iz ranijega primjera dohvatite potrebne
-brojnosti, a na tvrdnju „provjera je pouzdana jer nalazi devedeset posto ciljanih
-zapisa” primijenite svih šest ondje razvijenih revizijskih pitanja. Zatim
-izračunajte udio upozorenja među ciljanim zapisima, udio ciljanih zapisa među
-svim upozorenjima i temeljnu stopu. Predajte kratku revizijsku tablicu, račun i
-dvije rečenice koje jasno omeđuju tumačenje. Bez ranijega protokola račun nije
-potpun odgovor.
+U hipotetskoj provjeri od 10 000 zapisa njih 100 stvorio je program.
+Provjera označuje 90 od tih 100 i pogrešno označuje 495 od preostalih 9 900.
+Primijenite šest revizijskih pitanja na tvrdnju da je provjera pouzdana jer
+pronalazi devedeset posto ciljanih zapisa. Iz navedenih brojnosti izračunajte
+udio upozorenja među ciljanim zapisima, udio ciljanih zapisa među upozorenjima
+i temeljnu stopu. Predajte tablicu odgovora, račun i dvije rečenice o tome što
+rezultati dopuštaju zaključiti.
+
+Vraćamo se hipotetskom modelu dvadeset neovisnih objava, od kojih svaka ima
+vjerojatnost uspjeha 0,02. Najprije izračunajte vjerojatnost da nijedna ne
+uspije, a zatim pravilom komplementa vjerojatnost barem jednoga uspjeha.
+Navedite zašto isti račun nije opravdan ako uspjeh jedne objave mijenja
+vjerojatnost uspjeha sljedeće.
 
 
 ### Kritički {#ex-07-kriticki-01 .zadaci-razina}
@@ -953,7 +1032,6 @@ rečenicu koju bi popularni prikaz smio zadržati.
 
 ### Revizija modela {#ex-07-revizija-modela-01 .zadaci-razina}
 
-Ocijenite analizu iz okvira o pogrešci. Imenujte korake računa koji su ispravni,
-označite račun koji vrijedi samo uz neovisnost, zatim izdvojite rečenicu u kojoj
-je neovisnost neopravdano proglašena potvrđenom i napišite rečenicu kojom bi
-izvještaj morao ograničiti svoj zaključak.
+Provjerite analizu iz okvira. Izdvojite ispravne računske korake i korak koji
+zahtijeva neovisnost. Navedite rečenicu koja neovisnost neopravdano smatra
+potvrđenom. Napišite zamjenu koja jasno ograničava zaključak.

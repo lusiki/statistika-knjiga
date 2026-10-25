@@ -395,7 +395,7 @@ def unit_01_numerical_check(
     except (OSError, csv.Error) as exc:
         return [f"Unit 01 data could not be read independently: {exc}"], {}
 
-    required_labels = {"portal", "društvene mreže", "tisak"}
+    required_labels = {"portal", "društvene mreže", "tisak", "TV", "radio"}
     by_label = {row.get("izvor_vijesti", ""): row for row in rows}
     missing = required_labels - set(by_label)
     if missing:
@@ -461,13 +461,16 @@ def unit_01_numerical_check(
     print_n, print_d, print_share = paid["tisak"]
     network_n, network_d, network_share = paid["društvene mreže"]
     print_network_gap = print_share - network_share
+    combined_n = paid["TV"][0] + paid["radio"][0]
+    combined_d = paid["TV"][1] + paid["radio"][1]
+    combined_share = Decimal(combined_n) / Decimal(combined_d)
     hr_integer = lambda value: f"{value:,}".replace(",", ".")
     hr_decimal = lambda value: f"{value:.2f}".replace(".", ",")
     hr_percent = lambda value: hr_decimal(value * 100) + " %"
     expected_tokens = {
         "callout_greska": [
-            f"{hr_integer(portal_n)} / {hr_integer(portal_d)}",
-            hr_percent(portal_share),
+            f"{hr_integer(combined_n)} / {hr_integer(combined_d)}",
+            hr_percent(combined_share),
             f"{hr_integer(print_n)} / {hr_integer(print_d)}",
             hr_percent(print_share),
         ],
@@ -483,8 +486,8 @@ def unit_01_numerical_check(
             hr_percent(b_aggregate),
         ],
         "revizija_modela": [
-            f"{hr_integer(portal_n)} / {hr_integer(portal_d)}",
-            hr_percent(portal_share),
+            f"{hr_integer(combined_n)} / {hr_integer(combined_d)}",
+            hr_percent(combined_share),
             f"{hr_integer(print_n)} / {hr_integer(print_d)}",
             hr_percent(print_share),
         ],
@@ -614,24 +617,23 @@ def unit_03_numerical_check(
     except AssertionError as exc:
         return [f"Unit 03 numerical prompt is unavailable: {exc}"], {}
 
-    turnout_match = re.search(
-        r"(\d{1,3}(?:\.\d{3})+)\s+važećih.*?"
-        r"(\d{1,3}(?:\.\d{3})+)\s+nevažećih.*?"
-        r"(\d{1,3}(?:\.\d{3})+)\s+birača prema glasačkim listićima.*?"
-        r"(\d{1,3}(?:\.\d{3})+)\s+manje od\s+"
-        r"(\d{1,3}(?:\.\d{3})+)\s+pristupilih.*?"
-        r"približno\s+([0-9]+,[0-9]+)\s*%",
-        callout_prompt,
-        flags=re.DOTALL,
-    )
-    if not turnout_match:
-        return ["Unit 03 turnout values could not be parsed from the planted-error prompt."], {}
+    def table_count(label: str) -> int:
+        match = re.search(r"\| " + re.escape(label) + r" \| ([\d.]+) \|", callout_prompt)
+        if not match:
+            raise ValueError(label)
+        return int(match.group(1).replace(".", ""))
+
+    try:
+        valid = table_count("Važeći glasački listići")
+        invalid = table_count("Nevažeći glasački listići")
+        stated_ballots = table_count("Birači prema glasačkim listićima")
+        accessed = table_count("Pristupili glasovanju")
+        stated_gap = int(re.search(r"To je ([\d.]+) manje", callout_prompt).group(1).replace(".", ""))
+        stated_relative_percent = Decimal(re.search(r"približno ([\d,]+) %", callout_prompt).group(1).replace(",", "."))
+    except (ValueError, AttributeError):
+        return ["Unit 03 turnout values could not be parsed from the planted-error table."], {}
 
     parse_hr_integer = lambda value: int(value.replace(".", ""))
-    valid, invalid, stated_ballots, stated_gap, accessed = (
-        parse_hr_integer(value) for value in turnout_match.groups()[:5]
-    )
-    stated_relative_percent = Decimal(turnout_match.group(6).replace(",", "."))
     ballots = valid + invalid
     turnout_gap = accessed - ballots
     relative_gap_percent = Decimal(turnout_gap) / Decimal(accessed) * Decimal(100)
@@ -1609,12 +1611,12 @@ def unit_07_numerical_check(
     if at_least_one_percent != Decimal("9.6079203200"):
         errors.append(f"Unit 07 complement percentage drifted: {at_least_one_percent}")
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     required_callout_tokens = (
         "p_viral <- 0.02",
         "1 - (1 - p_viral)^5",
-        "zasebne jedinice iste kampanje",
-        "račun potpun",
+        "svaka objava zasebna jedinica",
+        "vjerojatnost uspjeha kampanje",
     )
     if not all(token in normalized_callout for token in required_callout_tokens):
         errors.append("Unit 07 callout no longer exposes the complete independence-dependent calculation.")
@@ -1861,13 +1863,13 @@ def unit_08_numerical_check(
             f"Unit 08 weighted estimates drifted: {observed_values} != {expected_values}"
         )
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     required_callout_tokens = (
         "veći nasumični uzorak",
         "užu distribuciju uzoračkih sredina",
-        "standardna pogreška manja",
-        "vrijednosti pojedinaca",
-        "međusobno sličnije",
+        "standardna pogreška pada s četiri na dvije minute",
+        "vremena pojedinaca",
+        "međusobno razlikuju upola manje",
     )
     if not all(token in normalized_callout for token in required_callout_tokens):
         errors.append("Unit 08 callout no longer exposes the complete two-level variation error.")
@@ -1950,7 +1952,7 @@ def unit_08_numerical_check(
         for task_class, record in by_class.items()
         if record["answer_components"]["numerical_check"]["applicable"]
     }
-    if numerical_applicable != {"racunski"}:
+    if numerical_applicable != {"callout_greska", "racunski", "revizija_modela"}:
         errors.append(f"Unit 08 numerical applicability mismatch: {sorted(numerical_applicable)}")
 
     numerical_result = str(
@@ -2124,18 +2126,18 @@ def unit_09_numerical_check(
         if token not in chapter_03:
             errors.append(f"Unit 09 Chapter 03 reach-back contract is missing: {token}")
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
-            "jednom vrijednošću po neovisno uzorkovanoj osobi",
+            "osobe su uzorkovane neovisno",
             "replicate",
             "sample",
             "median",
             "quantile",
-            "devedesetpetpostotna vjerojatnost",
-            "fiksna populacijska vrijednost",
-            "upravo ovog opaženog intervala",
+            "95 % vjerojatnosti",
+            "fiksni populacijski medijan",
+            "upravo dobivenih granica",
         )
     ):
         errors.append("Unit 09 callout no longer exposes the complete fixed-parameter probability error.")
@@ -2163,13 +2165,11 @@ def unit_09_numerical_check(
             "između postavki a i b",
             "između a i c",
             "data/populacija-medija.csv",
-            "izvor_vijesti_sifra",
-            "data/populacija-medija-agregat.csv",
-            "pet reproduciranih vrijednosti",
-            "ne pisanje koda",
+            "tri računa širine, dva dijeljenja",
+            "ta provjera nije uvjet tiskanoga zadatka",
         )
     ):
-        errors.append("Unit 09 numerical prompt no longer preserves preset, file-reconciliation and no-code requirements.")
+        errors.append("Unit 09 numerical prompt no longer preserves printed preset/aggregate calculations and the optional-file boundary.")
 
     normalized_critical = " ".join(critical_prompt.split()).casefold()
     if not all(
@@ -2229,7 +2229,7 @@ def unit_09_numerical_check(
         for task_class, record in by_class.items()
         if record["answer_components"]["numerical_check"]["applicable"]
     }
-    if numerical_applicable != {"racunski", "kriticki"}:
+    if numerical_applicable != {"callout_greska", "racunski", "kriticki", "revizija_modela"}:
         errors.append(f"Unit 09 numerical applicability mismatch: {sorted(numerical_applicable)}")
 
     racunski_result = str(
@@ -2373,17 +2373,17 @@ def unit_10_numerical_check(
     if calibration_rate != Decimal("4.875"):
         errors.append(f"Unit 10 calibration rate drifted: {calibration_rate}")
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
-            "nulti model pretpostavlja jednaku punu raspodjelu",
+            "nulti model jednake pune raspodjele",
             "zasebne jedinice opažanja",
-            "oznake smatraju zamjenjivima",
-            "oznake su promatračke",
-            "ne podupire uzročnu tvrdnju",
+            "oznake skupina zamjenjive",
+            "skupine su promatračke",
+            "ne pokazuje uzrok razlike",
             "(b + 1) / (b + 1)",
-            "vjerojatnost da između dviju skupina nema razlike",
+            "vjerojatnost da između skupina nema razlike",
         )
     ):
         errors.append("Unit 10 callout no longer exposes one complete reversed-conditional error.")
@@ -2547,7 +2547,7 @@ def unit_11_numerical_check(
         "#| label: fig-w11-print",
         "#| label: tbl-w11-print-agregat",
         "#| label: tbl-w11-print-snaga",
-        "d_opazeni <- (mean(tisak) - mean(portal)) / sd_zdruzena",
+        "d_opazeni <- 0.78",
         "power.t.test(n = 30, delta = d_opazeni, sd = 1,",
     ):
         if source_token not in source_text:
@@ -2670,16 +2670,16 @@ def unit_11_numerical_check(
     target_n_raw = Decimal("227.64002629604767")
     target_n_ceiling = 228
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
-            "tridesetero ljudi po skupini",
+            "trideset osoba po skupini",
             "delta = d_opazeni",
-            "opažena razlika daje standardiziranu razliku oko 0,78",
-            "snaga izračunata za tu vrijednost",
+            "konstruiran nalaz standardizirane razlike od 0,78",
+            "snagu približno 0,84",
             "studija bila dovoljno velika",
-            "procijenjenoj razlici može vjerovati",
+            "potvrđuje da je završena studija",
         )
     ):
         errors.append("Unit 11 callout no longer exposes one complete observed-effect power error.")
@@ -2849,10 +2849,11 @@ def unit_12_numerical_check(
         "#| label: tbl-rrr-laboratoriji",
         "set.seed(1212)",
         "0.05 / 12",
-        "stopifnot(nrow(rrr) == 17, sum(rrr$n_total) == 1894)",
-        'procjena <- c(0.026766, 0.014151)',
-        'donja <- c(-0.107693, -0.076191)',
-        'gornja <- c(0.161225, 0.104493)',
+        "stopifnot(nrow(w12_rrr) == 17, sum(w12_rrr$n_total) == 1894)",
+        'w12_sirova <- w12_sinteza(w12_rrr$raw_mean_difference, w12_rrr$raw_se)',
+        'w12_standardna <- w12_sinteza(w12_rrr$cohen_d, w12_rrr$d_se)',
+        'donja = m - qnorm(0.975) * pogreska',
+        'gornja = m + qnorm(0.975) * pogreska',
     ):
         if source_token not in source_text:
             errors.append(f"Unit 12 source no longer exposes required numerical contract: {source_token}")
@@ -2927,15 +2928,15 @@ def unit_12_numerical_check(
     if abs(corrected_family_rate - 0.04886993281129881) > 1e-15:
         errors.append(f"Unit 12 corrected multiplicity probability drifted: {corrected_family_rate}")
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
-            "unaprijed naveo glavni ishod",
-            "objedinjena sirova razlika iznosi 0,03 boda",
+            "unaprijed odredio glavni ishod",
+            "ocjenama stripova iznosi 0,03 boda",
             "interval od −0,11 do 0,16",
-            "budući da je analiza predregistrirana",
-            "zaključak nužno valjan",
+            "predregistracija je zato dovoljan razlog",
+            "bez usporedbe provedene analize s planom",
         )
     ):
         errors.append("Unit 12 callout no longer exposes one complete preregistration-validity error.")
@@ -3154,14 +3155,14 @@ def unit_13_numerical_check(
     if abs(cramer_v - math.sqrt(1 / 24)) > 1e-15:
         errors.append(f"Unit 13 Cramer's V verification drifted: {cramer_v}")
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
             "očekivane frekvencije",
-            "prilagođeni standardizirani reziduali",
-            "značajan na razini ispod jedan promil",
-            "veza između dobi i izvora vijesti vrlo je snažna",
+            "cramérovo v | 0,25",
+            "p-vrijednost manju od 0,001",
+            "povezanost dobi i izvora vijesti vrlo je snažna",
         )
     ):
         errors.append("Unit 13 callout no longer exposes one complete p-value-as-strength error.")
@@ -3214,7 +3215,7 @@ def unit_13_numerical_check(
         for token in (
             "dijagnostičke korake koji su provedeni ispravno",
             "jedan pogrešan zaključak",
-            "koju bi veličinu izvještaj morao sadržavati",
+            "već navedeno cramérovo v",
         )
     ):
         errors.append("Unit 13 model revision no longer diagnoses one claim and names strength evidence.")
@@ -3243,7 +3244,7 @@ def unit_13_numerical_check(
         for task_class, record in by_class.items()
         if record["answer_components"]["numerical_check"]["applicable"]
     }
-    if numerical_applicable != {"racunski"}:
+    if numerical_applicable != {"callout_greska", "racunski", "revizija_modela"}:
         errors.append(f"Unit 13 numerical applicability mismatch: {sorted(numerical_applicable)}")
 
     numerical_result = str(
@@ -3701,11 +3702,11 @@ def unit_14_numerical_check(
             f"{widget_independent_se}/{widget_paired_se}"
         )
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
-            "jedinica neovisnosti označena je kao osoba",
+            "jedinica neovisnosti je osoba",
             "referentna skupina su društvene mreže",
             "welchov test ne traži jednake varijance",
             "od 30 do 49 godina",
@@ -3885,7 +3886,7 @@ def unit_15_numerical_check(
     for source_token in (
         "set.seed(1515)",
         "slice_sample(populacija_medija, n = 300)",
-        "s15_model <- aov(povjerenje_medijima ~ izvor_vijesti, data = pet_izvora)",
+        "s15_model <- aov(povjerenje_medijima ~ izvor_vijesti,\n             data = pet_izvora)",
         "TukeyHSD(s15_model)$izvor_vijesti",
         "oneway.test(",
         "kruskal.test(povjerenje_medijima ~ izvor_vijesti, data = pet_izvora)",
@@ -4316,14 +4317,14 @@ def unit_15_numerical_check(
     ):
         errors.append("Unit 15 widget default variance decomposition drifted.")
 
-    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", callout_prompt).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
-            "točno jedna pogreška",
+            "pretpostavke o neovisnosti",
             "p.adjust.method = \"none\"",
-            "koju obitelj pogrešaka",
-            "uredne pojedinačne p-vrijednosti",
+            "vjerojatnost barem jedne pogrešne tvrdnje",
+            "nakon značajnog ukupnog testa",
             "ne pišite zamjenski kod",
         )
     ):
@@ -4376,8 +4377,8 @@ def unit_15_numerical_check(
         for token in (
             "imenujte jedinu pogrešku",
             "koju stopu pogreške ugrožava",
-            "fatalni prigovor",
-            "dijelova artefakta koji su još korisni",
+            "taj prigovor",
+            "dijelova analize koji su još korisni",
             "ne pokrećite kod",
             "ne pišite njegovu zamjenu",
         )
@@ -4416,7 +4417,7 @@ def unit_15_numerical_check(
         "callout_greska": ("10 parova", "548/2000 = 27,4 %", "85/2000 = 4,25 %", "808/2000 = 40,4 %", "40,126306076162 %"),
         "racunski": ("df između = 3", "df unutar = 96", "MS između = 120/3 = 40", "MS unutar = 480/96 = 5", "F = 8", "0,20", "F = 4", "0,111111111111"),
         "kriticki": ("58098/10827", "5,366029371017", "54432/13378", "4,068769621767", "1,297259749250"),
-        "revizija_modela": ("5 skupina", "10 parova", "548/2000 = 27,4 %", "85/2000 = 4,25 %", "40,126306076162 %"),
+        "revizija_modela": ("Pet skupina", "10 parova", "548/2000 = 27,4 %", "85/2000 = 4,25 %", "40,126306076162 %"),
     }
     for task_class, tokens in required_result_tokens.items():
         result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
@@ -4688,16 +4689,16 @@ def unit_16_numerical_check(
     ):
         errors.append(f"Unit 16 interaction slopes drifted: {slope_a}/{slope_b}/{slope_pooled}")
 
-    normalized_callout = " ".join(prompts["callout_greska"].split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", prompts["callout_greska"]).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (
             "novih korisnika",
-            "sve navedene varijable zabilježene su prije odgovora",
+            "svi prediktori dostupni su prije odgovora",
             "data = uzorak",
             "fitted(model)",
-            "korisnika koje nije vidio",
-            "primjenu na novim podacima",
+            "kriterij za nove korisnike",
+            "preporučiti za primjenu",
         )
     ):
         errors.append("Unit 16 callout no longer exposes one complete training-validation error.")
@@ -4722,7 +4723,7 @@ def unit_16_numerical_check(
     normalized_revision = " ".join(prompts["revizija_modela"].split()).casefold()
     if not all(
         token in normalized_revision
-        for token in ("što je u kodu ispravno", "redak u kojem se pogreška događa", "isti ispis podnio", "nije curenje informacija", "skupu za učenje")
+        for token in ("što je u kodu ispravno", "skupom na kojem su dobivene", "isti ispis podnio", "unaprijed dostupni prediktori", "novim podacima")
     ):
         errors.append("Unit 16 model revision no longer requires one evidence-based validation audit.")
 
@@ -4754,11 +4755,11 @@ def unit_16_numerical_check(
         errors.append(f"Unit 16 numerical applicability mismatch: {sorted(numerical_applicable)}")
 
     required_result_tokens = {
-        "callout_greska": ("R-kvadrat je 1 − SSE/SST", "sqrt(SSE/n)", "Nula redaka odvojene provjere"),
+        "callout_greska": ("R-kvadrat je 1 − SSE/SST", "sqrt(SSE/200)", "Nula redaka odvojene provjere"),
         "konceptualni": ("0,036723816394", "0,026885173178", "33,429660636866", "47,867443055318", "0,6, −0,2 i zbirno 0,2"),
         "racunski": ("1,1010", "0,8070", "1,101714491813", "0,806555195344"),
         "kriticki": ("AOR 1,60", "1,43–1,80", "60 % veće izglede", "apsolutna promjena ostaje neodređena"),
-        "revizija_modela": ("RMSE = sqrt(SSE/n)", "R-kvadrat = 1 − SSE/SST", "nula odvojenih redaka", "1,647113", "2,061988"),
+        "revizija_modela": ("R-kvadrat je 1 − SSE/SST", "sqrt(SSE/200)", "Nula redaka odvojene provjere"),
     }
     for task_class, tokens in required_result_tokens.items():
         result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
@@ -5061,7 +5062,7 @@ def unit_18_numerical_check(
         if source_token not in source_text:
             errors.append(f"Unit 18 source no longer exposes required capstone contract: {source_token}")
 
-    normalized_callout = " ".join(prompts["callout_greska"].split()).casefold()
+    normalized_callout = " ".join(re.sub(r"(?m)^> ?", "", prompts["callout_greska"]).split()).casefold()
     if not all(
         token in normalized_callout
         for token in (

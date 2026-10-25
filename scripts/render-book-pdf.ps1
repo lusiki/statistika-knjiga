@@ -99,6 +99,10 @@ try {
   # generated Quarto projection drifts. The checker never modifies the source.
   $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
   if (-not $pythonCommand) { throw "python is required for the book inventory gate" }
+  & $pythonCommand.Source (Join-Path $root "scripts\build-print-apparatus.py")
+  if ($LASTEXITCODE -ne 0) {
+    throw "print apparatus generation failed (exit $LASTEXITCODE)"
+  }
   if (-not (Test-Path -LiteralPath $inventoryCheck -PathType Leaf)) {
     throw "book inventory checker not found at $inventoryCheck"
   }
@@ -125,7 +129,7 @@ try {
   }
 
   Write-Host "Rendering fresh book PDF through the approved wrapper..."
-  & $quarto render --profile pdf
+  & $quarto render --profile pdf --to pdf
   if ($LASTEXITCODE -ne 0) {
     throw "quarto render failed (exit $LASTEXITCODE)"
   }

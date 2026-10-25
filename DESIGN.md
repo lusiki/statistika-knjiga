@@ -110,7 +110,7 @@ Web ih učitava iz `styles/head.html`; PDF ih traži u sustavu.
 | Obitelj | Uloga | Postavke |
 |---------|-------|----------|
 | **Newsreader** | naslovi, otvaranje poglavlja, kurzivni navodi | rez 300 na velikim veličinama, **nikad bold**, tracking −0,022em, line-height 1,02–1,14 |
-| **Literata** | tijelo teksta | 17 px / 1,62; u tisku 10,5 pt / 14,5 pt |
+| **Literata** | tijelo teksta | 17 px / 1,62; u tisku 11 pt s prozračnim proredom |
 | **Public Sans** | sučelje, potpisi, margina, izvori, glave tablica | 13 px |
 | **JetBrains Mono** | kod, brojke, oznake, „eyebrow" | 11–13 px, letter-spacing 0,14–0,16em za oznake |
 
@@ -125,11 +125,9 @@ vrijedi za `pre`, `code`, sve izlaze i sve slajdove.
 
 ### Pisma za PDF
 
-`tex/theme.tex` traži pisma u sustavu preko `\IfFontExistsTF`. Ako ih nema,
-blok se **tiho gradi na Latin Modernu** — PDF nikad ne pada zbog pisma, samo
-izgubi identitet. Instalacija je opisana u `fonts/print/README.md`; za pun
-tiskani izgled trebaju Newsreader i Literata (Public Sans i JetBrains Mono su
-neobavezni i učitavaju se ako postoje).
+`tex/theme.tex` učitava statičke instance iz `fonts/print/`. Sve četiri obitelji
+dio su izvora knjige; nepostojanje datoteke zaustavlja gradnju umjesto da
+neopaženo promijeni izgled. Podrijetlo i licence su u `fonts/print/README.md`.
 
 ---
 
@@ -142,10 +140,9 @@ kategorije ispisuje CSS; u `.qmd`-u se ne upisuje.
 
 | Element | Klasa | Oblik na zaslonu | U tisku |
 |---------|-------|------------------|---------|
-| **Vinjeta** | `.callout-vinjeta` | 2 px gornja crta + vlas donja, displejni kurziv 22 px | isto |
-| **Definicija** | `::: {#def-…}` | 2 px lijeva oker crta + ispuna `accent-wash` | crna crta + 4 % siva |
+| **Uvodni slučaj** | `.callout-vinjeta` | gornja crta + vlas donja, displejni kurziv, bez oznake „Vinjeta” | isto |
+| **Definicija** | `::: {#def-…}` | 2 px lijeva oker crta + ispuna `accent-wash` | običan odlomak s podebljanim pojmom, bez oznake i broja |
 | **Statistika u divljini** | `.callout-divljina` | tamna ploha `ink` unutar stupca teksta, navod u bijelom kurzivu | bijela ploha s 1,6 pt crnim okvirom |
-| **Pitajte model** | `.callout-model` | 1 px točkasti okvir; upit u monou na `paper-soft` | isto |
 | **Nađite grešku** | `.callout-greska` | 3 px gornja crta, bez ispune, oznaka podcrtana okerom | podcrta crna |
 | **Razrađeni primjer** | `##` odjeljak · `.primjer` | u pravilu obični `##` odjeljak; klasa `.primjer` daje viseće mono brojeve koraka i vlas liniju po koraku | isto |
 | **Sažetak** | `## … {.sazetak}` | uvučena traka `paper-soft`, strelice `→` | isto |
@@ -156,18 +153,6 @@ kategorije ispisuje CSS; u `.qmd`-u se ne upisuje.
 Razrađeni primjer je po [STYLE.md](STYLE.md) obični `##` odjeljak, ne kutija.
 Klasa `.primjer` postoji za slučaj kad se analiza doista raspada na numerirane
 korake; tada `###` podnaslovi postaju koraci `01`, `02`, `03`.
-
-Upit u „Pitajte model" piše se kao obični blok citat i CSS ga pretvara u mono
-traku, pa `.qmd` ne nosi ni jedan sirovi `<div>`:
-
-```markdown
-::: {.callout-model}
-Asistent dobro objašnjava standardnu pogrešku. Loše procjenjuje je li uzorak
-reprezentativan — to ne može znati iz podataka koje mu date.
-
-> Objasni razliku između SD i SE na mojim podacima. Navedi pretpostavke.
-:::
-```
 
 ### Pojam s definicijom na dodir
 
@@ -182,17 +167,12 @@ pojam u kurziv, a engleski termin u bilješku uz vanjski rub. Ovo **ne**
 zamjenjuje `#def-` div: samo `#def-` divovi ulaze u pojmovnik i graf pojmova
 (`R/build-concept-graph.R`).
 
-### Traka metapodataka poglavlja
+### Početak bez metapodatkovne trake
 
-```markdown
-::: {.chapter-meta}
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 28 min | Stroj za CLT | ESS HR 2023 | pogl. 4, 7 |
-:::
-```
-
-Tablica se pri učitavanju pretvara u jedan mono redak ispod naslova poglavlja.
+Poglavlja nemaju traku s vremenom čitanja, podacima, widgetom i preduvjetima.
+Podaci se uvode običnim odlomkom prije prve uporabe. Uvodni slučaj zadržava
+svoje oblikovanje, ali nema ispisanu oznaku „Vinjeta”. Odluka vrijedi za sva
+izdanja od 12. listopada 2026.
 
 ### Widget
 
@@ -212,8 +192,8 @@ Tablica se pri učitavanju pretvara u jedan mono redak ispod naslova poglavlja.
   2,2 rem. Mjeru od 66 znakova drži `--tok-measure`, ne širina stupca — stupac
   je okvir, mjera je pravilo. Ispod 1 000 px margina pada u tijek teksta iza
   odlomka na koji se odnosi.
-- **Tisak.** B5, 176 × 250 mm. Unutarnji rub 22 mm, vanjski 38 mm, gore
-  22 mm, dolje 25 mm; bilješke uz rub 28 mm. Vanjski je rub širok namjerno:
+- **Tisak.** B5, 176 × 250 mm. Unutarnji rub 22 mm, vanjski 33 mm, gore
+  21 mm, dolje 23 mm; bilješke uz rub 25 mm. Vanjski je rub širok namjerno:
   prima izvore, engleske termine i sitne figure.
 
 ---
@@ -222,10 +202,14 @@ Tablica se pri učitavanju pretvara u jedan mono redak ispod naslova poglavlja.
 
 Puna stranica, bez slike. Redom: oznaka `POGLAVLJE 08` u okernom monou,
 naslov u Newsreaderu u rezu 300 na najviše 16 znakova širine, uvodna rečenica
-(YAML `subtitle:`) u Literati na 54 znaka, pa vlas linija i traka
-metapodataka — vrijeme čitanja, widget, podaci, preduvjeti.
+(YAML `subtitle:`) u Literati na 54 znaka, pa uvodni slučaj bez kategorijske
+oznake i bez trake metapodataka.
 
 U tisku isto, bez okera: oznaka je u tinti, crta je vlas siva.
+
+Naslovna stranica tiskanog izdanja od 12. listopada 2026. nosi naslov,
+podnaslov i imena autora bez portreta. Tiskani prikazi imaju samo statične
+grafove i njihova tumačenja, bez uputa za kontrole digitalnog izdanja.
 
 ---
 
@@ -265,5 +249,3 @@ sirovi hex.
 - **Naslovnica** (`cover.png`) i **favicon**. Redci su u `_quarto.yml`
   zakomentirani; otključavaju se kad datoteke postoje.
 - **Slika za dijeljenje poveznice** (Open Graph). Ista priča.
-- **Statičke instance pisama** u `fonts/print/`. PDF radi bez njih, na Latin
-  Modernu; s njima dobiva pun tiskani izgled.

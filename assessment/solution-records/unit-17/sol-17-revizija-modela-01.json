@@ -8,20 +8,20 @@
     "anchor": "ex-17-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:37f2a3aef8062f848cc91bfa2566910b621d1c2adc3315852732d4c67b301271",
+  "prompt_fingerprint": "sha256:a099a7a802ea957f6f9bfe886ddfee1727c7e280ea7f4c88fa4b239155b977aa",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "held-out-label-accuracy-treated-as-construct-validity",
-      "statement": "Tvrdnja prelazi s visoke točnosti prema izdvojenim zabilježenim oznakama na zaključak da model valjano mjeri ton.",
+      "statement": "Ako model na izdvojenom skupu postigne visoku točnost prema zabilježenim oznakama, time će dokazati da ispravno mjeri ton rečenica.",
       "why_wrong": "Izdvojeni skup može provjeriti predviđanje zabilježenoga referentnog ishoda samo u granicama svojega korpusa, postupka oznake i zaključanoga praga. Ne provjerava automatski valjanost tona, nepogrešivost oznake, reprezentativnost, podskupinske terete, budući pomak ni postupovnu pravednost."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Rastaviti tvrdnju na prihvatljivi prediktivni dio i pogrešan zaključak o mjerenju. Provjeriti jedinicu, granicu korpusa, grupirano razdvajanje, put oznake, prag i dostupne skupne varijable, a zatim navesti što bi trebalo nadzirati i kako se odluka osporava.",
-      "expected_evidence": "Prihvatljiva tvrdnja ograničena je na uspješnost prema zabilježenim ishodima na usporedivo označenim izdvojenim rečenicama. Paket nema govornika ni obranjive podskupine, oznaka je pogrešiva, a buduća uporaba traži praćenje pomaka, slučajni ili stratificirani neovisni audit nepregledanih rečenica te obavijest, prigovor i žalbu."
+      "expected_evidence": "Plan pravilno razdvaja dokumente i predviđa zaključavanje modela i praga. Buduća točnost može opisati slaganje sa zabilježenim oznakama u tom ispitnom dijelu, ali ne dokazuje valjanost mjerenja tona. Za nju treba zasebno ispitati primjerenost uputa i referentnih oznaka. Neovisni koderi mogli bi, bez uvida u modelove odluke, ponovno označiti dio rečenica te obrazložiti neslaganja i ulogu konteksta. To može pokazati nejasne kategorije čak i uz visoku modelovu podudarnost. Različit put oznake i odabir korpusa i dalje ograničavaju prijenos.\n\nJedna moguća zamjena glasi ovako.\n\nIzdvojenim ispitivanjem procijenit ćemo koliko se zaključani model slaže sa zabilježenim oznakama odabranih rečenica. Zasebnom provjerom kodiranja ispitat ćemo koliko te oznake odgovaraju namjeravanom značenju tona; rezultat te provjere još nije poznat.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -78,19 +78,29 @@
           "component_id": "reject-fluency-as-evidence",
           "required_claim": "Tečan odgovor jezičnoga modela ne dokazuje nedostupnu oznaku, skupinu, kontekst, valjanost ili buduću uspješnost.",
           "required_evidence": "Jezična uvjerljivost nije podatkovni izvor ni neovisna provjera."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Izdvojenim ispitivanjem procijenit ćemo koliko se zaključani model slaže sa zabilježenim oznakama odabranih rečenica. Zasebnom provjerom kodiranja ispitat ćemo koliko te oznake odgovaraju namjeravanom značenju tona; rezultat te provjere još nije poznat.",
+          "required_evidence": "Plan pravilno razdvaja dokumente i predviđa zaključavanje modela i praga. Buduća točnost može opisati slaganje sa zabilježenim oznakama u tom ispitnom dijelu, ali ne dokazuje valjanost mjerenja tona. Za nju treba zasebno ispitati primjerenost uputa i referentnih oznaka. Neovisni koderi mogli bi, bez uvida u modelove odluke, ponovno označiti dio rečenica te obrazložiti neslaganja i ulogu konteksta. To može pokazati nejasne kategorije čak i uz visoku modelovu podudarnost. Različit put oznake i odabir korpusa i dalje ograničavaju prijenos."
         }
       ]
     },
     "numerical_check": {
       "applicable": false,
-      "not_applicable_reason": "Tvrdnja ne navodi konkretnu točnost, tablicu zabune, prag ni predviđanja. Revizija mora odbiti izmišljanje brojke i uspostaviti dokazne granice u najviše šest rečenica.",
+      "not_applicable_reason": "Plan tek predviđa račun točnosti. Nema izmjerenih predviđanja ni brojke uspješnosti; ocjenjuje se odnos budućeg dokaza i tvrdnje o mjerenju.",
       "expected_result": null,
       "tolerance_or_acceptance_rule": null,
       "independent_method": null,
       "evidence_reference": null
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-validity-proof",

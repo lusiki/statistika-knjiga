@@ -8,7 +8,7 @@
     "anchor": "ex-07-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:36f9b5c650d6d2e425e87cfdb040ed1b50b2782ae0cf8a184f166d3a67b03a3b",
+  "prompt_fingerprint": "sha256:a28d1c402a1458ce947ba281e7d8bde6ad32db3c5f6bc4be6e8d59b740dba1b5",
   "answer_components": {
     "planted_error": {
       "applicable": true,
@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Označiti ispravne korake komplementa i potenciranja, uz potenciranje zapisati uvjet neovisnosti, izdvojiti završnu rečenicu kao mjesto neopravdane potvrde i preoblikovati zaključak tako da broj ostane vezan uz model.",
-      "expected_evidence": "Vrijednosti 0,98, 0,98^5 i 1 - 0,98^5 računaju se ispravno te daju približno 9,6 %. Pogreška nastaje samo kada se zasebnost objava uzme kao dokaz neovisnosti i rezultat bez uvjeta pripiše kampanji."
+      "expected_evidence": "Račun komplementa daje 1 − 0,98^5 = 0,0960792032, odnosno približno 9,6 %. Taj rezultat vrijedi za pet neovisnih ishoda s jednakom zadanom vjerojatnošću. Sama činjenica da su objave zasebne jedinice ne potvrđuje neovisnost, a zajednička publika dopušta ovisnost. Trebaju podaci o zajedničkom pojavljivanju uspjeha ili opravdan model te ovisnosti. Nije moguće izračunati novu jedinstvenu vjerojatnost samo iz zadanih pojedinačnih vjerojatnosti.\n\nJedna moguća zamjena glasi ovako.\n\nUz pretpostavku neovisnosti pet objava i zadanu vjerojatnost od 2 % za svaku, barem jedan uspjeh ima vjerojatnost približno 9,6 %. Opis kampanje ne potvrđuje tu pretpostavku.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -68,6 +68,11 @@
           "component_id": "write-bounded-replacement",
           "required_claim": "Ako je pet objava neovisno i svaka ima vjerojatnost 0,02, model daje približno 9,6 % za barem jednu uspješnu objavu; bez provjere neovisnosti taj broj ne opisuje nužno stvarnu kampanju.",
           "required_evidence": "Ispravljena rečenica čuva račun, izriče uvjet i povlači granicu primjene."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Uz pretpostavku neovisnosti pet objava i zadanu vjerojatnost od 2 % za svaku, barem jedan uspjeh ima vjerojatnost približno 9,6 %. Opis kampanje ne potvrđuje tu pretpostavku.",
+          "required_evidence": "Račun komplementa daje 1 − 0,98^5 = 0,0960792032, odnosno približno 9,6 %. Taj rezultat vrijedi za pet neovisnih ishoda s jednakom zadanom vjerojatnošću. Sama činjenica da su objave zasebne jedinice ne potvrđuje neovisnost, a zajednička publika dopušta ovisnost. Trebaju podaci o zajedničkom pojavljivanju uspjeha ili opravdan model te ovisnosti. Nije moguće izračunati novu jedinstvenu vjerojatnost samo iz zadanih pojedinačnih vjerojatnosti."
         }
       ]
     },

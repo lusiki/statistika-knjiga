@@ -8,36 +8,36 @@
     "anchor": "ex-01-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:790926d347f98f3add076ca2316a1fefb422d659f391e2ea225e1c80f1267631",
+  "prompt_fingerprint": "sha256:2c231811b79a8182bc633f728a01a489808c6ddd7628fba042c418cf416779fb",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "count-substituted-for-within-group-share",
-      "statement": "Rečenica 'Prema tome, portal ima veći udio osoba spremnih platiti' izvodi usporedbu udjela samo iz usporedbe broja osoba.",
-      "why_wrong": "Portalni broj 3.514 dijeli se s 15.101, a tiskani broj 1.289 s 4.855. Dobivenih 23,27 % za portal manje je od 26,55 % za tisak."
+      "statement": "Iz većega broja osoba spremnih platiti u televizijskoj i radijskoj skupini zajedno izvedeno je da televizija i radio zajedno imaju i veći udio takvih osoba.",
+      "why_wrong": "Brojevi 4.301 i 1.289 imaju različite nazivnike. Televizija i radio zajedno imaju 4.301 od 16.666, odnosno 25,81 %, a tisak 1.289 od 4.855, odnosno 26,55 %, pa televizija i radio zajedno imaju veći broj, ali manji udio."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Iz modelnoga teksta izdvojiti oba brojnika, pronaći pripadne nazivnike u tablici, neovisno ponoviti dva dijeljenja i zatim provjeriti ostaje li zamjenska rečenica unutar generirane populacije.",
-      "expected_evidence": "3.514 / 15.101 = 23,27 % i 1.289 / 4.855 = 26,55 %; ispravna zamjena glasi da portal ima veći broj, a tisak veći udio u generiranoj populaciji."
+      "procedure": "Za televiziju i radio zajedno te za tisak zasebno podijeliti broj osoba spremnih platiti ukupnim brojem osoba u toj skupini, a zatim usporediti dobivene udjele umjesto brojnika.",
+      "expected_evidence": "Točni su udio tiska od 26,55 % i podatak da televizija i radio zajedno imaju više osoba spremnih platiti. Za udio televizije i radija zajedno treba podijeliti 4.301 s 16.666, pa dobivamo 25,81 %. Za usporedbu tih dviju skupina tablica je dovoljna; ne objašnjava zašto se skupine razlikuju.\n\nJedna moguća zamjena glasi ovako.\n\nTelevizija i radio zajedno imaju više osoba spremnih platiti nego tisak, 4.301 prema 1.289. Među njihovim je korisnicima, međutim, manji udio spremnih platiti, 25,81 % prema 26,55 %; oba opisa vrijede za zadanu simulaciju.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
       "not_applicable_reason": null,
       "responses": [
         {
-          "response": "Pogrešna je brojka 1.289.",
-          "why_insufficient": "Brojnik za tisak točan je; pogreška nastaje tek kada se broj portala protumači kao veći udio."
+          "response": "Televizija i radio zajedno imaju više osoba spremnih platiti, pa je zaključak točan.",
+          "why_insufficient": "Ponavlja usporedbu brojnika i ne izračunava udio unutar skupine koji posljednja rečenica tvrdi."
         },
         {
-          "response": "Portal nema više osoba spremnih platiti.",
-          "why_insufficient": "Portal doista ima veći broj od tiska, ali nema veći udio unutar svoje veće skupine."
+          "response": "Skup je generiran pa se iz njega ništa ne može zaključiti.",
+          "why_insufficient": "Iz skupa se smiju opisati broj i udio unutar poznate generirane populacije; problem je zamjena tih dviju mjera, a ne nemogućnost svakoga opisa."
         },
         {
-          "response": "Jedina je pogreška to što skup nije stvaran.",
-          "why_insufficient": "Generirano podrijetlo ispravno ograničava zaključak; ono ne poništava opis poznate generirane populacije."
+          "response": "Tisak ima udio od 26,55 %.",
+          "why_insufficient": "Navodi samo jedan rezultat i ne pokazuje zašto veći broj u televizijskoj i radijskoj skupini ne znači veći portalni udio."
         }
       ]
     },
@@ -46,34 +46,39 @@
       "not_applicable_reason": null,
       "components": [
         {
-          "component_id": "correct-numerators-and-denominators",
-          "required_claim": "Portalni su brojnik i nazivnik 3.514 i 15.101, a tiskani 1.289 i 4.855.",
-          "required_evidence": "Odgovarajući retci prikazane tablice."
+          "component_id": "portal-numerator-denominator-share",
+          "required_claim": "Televizija i radio zajedno imaju 4.301 spremnih platiti među 16.666 osobom, odnosno 25,81 %.",
+          "required_evidence": "Redak TV i radio zajedno u prikazanoj tablici i neovisni račun 4.301 / 16.666."
         },
         {
-          "component_id": "identify-one-wrong-sentence",
-          "required_claim": "Pogrešna je samo posljednja rečenica koja portalnom većem broju pripisuje veći udio.",
-          "required_evidence": "Usporedba strukture tvrdnje s dvama različitim nazivnicima."
+          "component_id": "print-numerator-denominator-share",
+          "required_claim": "Tisak ima 1.289 spremnih platiti među 4.855 osoba, odnosno 26,55 %.",
+          "required_evidence": "Redak tisak u prikazanoj tablici i neovisni račun 1.289 / 4.855."
         },
         {
-          "component_id": "correct-replacement",
-          "required_claim": "Ispravna zamjena navodi da portal ima veći broj osoba spremnih platiti, ali tisak ima veći udio, 26,55 % prema 23,27 %.",
-          "required_evidence": "Neovisni računi oba udjela."
+          "component_id": "name-and-correct-only-error",
+          "required_claim": "Jedina je pogreška zamjena većega broja većim udjelom; ispravno je reći da televizija i radio zajedno imaju veći broj, a tisak veći udio.",
+          "required_evidence": "Usporedba dvaju brojnika odvojena od usporedbe dvaju omjera."
         },
         {
-          "component_id": "real-population-boundary",
-          "required_claim": "Ni ispravljeni odgovor ne opisuje stvarne stanovnike Hrvatske jer su zapisi generirani za nastavu, a ne prikupljeni iz te populacije.",
-          "required_evidence": "Deklarirano podrijetlo skupa i granica generalizacije u poglavlju."
+          "component_id": "preserve-generated-population-boundary",
+          "required_claim": "Ispravljeni opis vrijedi samo za poznatu generiranu populaciju i ne opisuje stvarne stanovnike Hrvatske.",
+          "required_evidence": "Deklarirano podrijetlo skupa u okviru modela i razrađenom primjeru."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Televizija i radio zajedno imaju više osoba spremnih platiti nego tisak, 4.301 prema 1.289. Među njihovim je korisnicima, međutim, manji udio spremnih platiti, 25,81 % prema 26,55 %; oba opisa vrijede za zadanu simulaciju.",
+          "required_evidence": "Točni su udio tiska od 26,55 % i podatak da televizija i radio zajedno imaju više osoba spremnih platiti. Za udio televizije i radija zajedno treba podijeliti 4.301 s 16.666, pa dobivamo 25,81 %. Za usporedbu tih dviju skupina tablica je dovoljna; ne objašnjava zašto se skupine razlikuju."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "3.514 / 15.101 = 0,2326998212 = 23,27 %; 1.289 / 4.855 = 0,2654994851 = 26,55 %; portal ima veći broj, a tisak veći udio",
-      "tolerance_or_acceptance_rule": "Brojnici i nazivnici moraju odgovarati tablici; prihvaćaju se udjeli na dvije decimale ili precizniji ekvivalenti uz ispravnu usporedbu i granicu generirane populacije.",
-      "independent_method": "Ponoviti dva omjera iz cjelobrojnih stupaca izvornoga CSV-a i odvojeno provjeriti podrijetlo skupa prije pisanja zamjenske rečenice.",
-      "evidence_reference": "data/populacija-medija-agregat.csv, retci portal i tisak; chapters/01-zasto-statistika.qmd#ex-01-revizija-modela-01"
+      "expected_result": "4.301 / 16.666 = 0,2580703228 = 25,81 %; 1.289 / 4.855 = 0,2654994851 = 26,55 %; 25,81 % < 26,55 %",
+      "tolerance_or_acceptance_rule": "Brojnici i nazivnici moraju biti točni; prihvaćaju se udjeli 25,81 % i 26,55 % ili dosljedno prikazane preciznije vrijednosti uz ispravan smjer usporedbe.",
+      "independent_method": "Ponovno izračunati oba omjera iz cjelobrojnih stupaca broj_platio i broj u izvornom CSV-u, bez preuzimanja zapisanoga udjela ili rješenja.",
+      "evidence_reference": "data/populacija-medija-agregat.csv, zbrojeni retci TV i radio te zasebni redak tisak; chapters/01-zasto-statistika.qmd#ex-01-callout-greska-01"
     },
     "severity_ranked_rubric": {
       "severity_order": [
@@ -84,28 +89,28 @@
       ],
       "criteria": [
         {
-          "criterion_id": "fatal-keeps-wrong-share-or-generalises",
+          "criterion_id": "fatal-count-share-confusion-or-population-transfer",
           "severity": "fatal",
-          "description": "Odgovor zadržava tvrdnju da portal ima veći udio ili ispravljeni rezultat generalizira na stvarne stanovnike Hrvatske.",
-          "observable_evidence": "Središnja analiza ostaje nespojiva s računom ili podrijetlom podataka."
+          "description": "Odgovor prihvaća da veći broj dokazuje veći udio ili ispravljeni rezultat prenosi na stvarne stanovnike Hrvatske.",
+          "observable_evidence": "Središnja tvrdnja ostaje nespojiva s nazivnicima ili prelazi deklariranu granicu generirane populacije."
         },
         {
-          "criterion_id": "major-missing-required-deliverable",
+          "criterion_id": "major-missing-one-denominator-or-correction",
           "severity": "major",
-          "description": "Nedostaju točni brojnici i nazivnici, pogrešna rečenica, zamjenska rečenica ili objašnjenje granice prema stvarnoj populaciji.",
-          "observable_evidence": "Barem jedan od četiri izričito tražena dijela predaje nije moguće pronaći."
+          "description": "Pogreška je imenovana, ali nedostaje jedan nazivnik, jedan udio ili jasna ispravna zamjena posljednje rečenice.",
+          "observable_evidence": "Ne može se provjeriti cijela usporedba portala i tiska."
         },
         {
-          "criterion_id": "minor-incomplete-arithmetic-trace",
+          "criterion_id": "minor-rounding-or-measure-label",
           "severity": "minor",
-          "description": "Zaključak i granica su točni, ali jedan omjer ili način zaokruživanja nije potpuno prikazan.",
-          "observable_evidence": "Rezultat se može potvrditi, ali trag provjere nije samodostatan."
+          "description": "Smjer i logika su točni, ali zaokruživanje nije dosljedno ili broj i udio nisu jasno označeni.",
+          "observable_evidence": "Rezultat se može ispraviti lokalnom oznakom ili dosljednim decimalnim mjestima."
         },
         {
-          "criterion_id": "useful-separates-description-and-generalisation",
+          "criterion_id": "useful-parallel-fraction-display",
           "severity": "useful_improvement",
-          "description": "Odgovor izričito odvaja valjan opis generirane populacije od nedopuštene generalizacije na stvarne ljude.",
-          "observable_evidence": "Ispravljena rečenica i granica tvrdnje čine dva jasna, povezana koraka."
+          "description": "Odgovor prikazuje oba razlomka usporedno i jednom rečenicom razdvaja broj od udjela.",
+          "observable_evidence": "Trag provjere čitljiv je bez vraćanja na dodatni račun."
         }
       ]
     }
@@ -118,8 +123,7 @@
     }
   ],
   "instructor_notes": [
-    "Namjerna pogreška ista je ona koju revizijski zadatak traži da student pronađe. Brojnici, tiskani udio i tvrdnja da portal ima veći broj nisu pogrešni.",
-    "Zadatak ocjenjuje statističku prosudbu i ne smije se pretvoriti u pisanje ili popravljanje koda."
+    "Zadatak provjerava istu bilješku o televiziji i radiju zajedno prema tisku kao prethodni okvir. Ne prenositi zaključak na stvarnu populaciju."
   ],
   "visibility_contract": "D06-two-layer-v1",
   "human_responsibility": {

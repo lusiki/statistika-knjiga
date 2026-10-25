@@ -6,11 +6,14 @@
 # Ova datoteka nadjačava _quarto.yml. Sve što ovdje nije navedeno nasljeđuje
 # se iz zadane konfiguracije, pa HTML build ostaje netaknut.
 #
-# Literatura je u kanonskom `book.references`, a `book.appendices` već sadržava
-# samo dodatke A–F. Profil zato ne prepisuje strukturu knjige.
+# Literatura ostaje u knjizi. Filter print-edition uklanja dodatke iz PDF-a
+# prije obrade sadržaja i unakrsnih referenci; mrežni popis ostaje sačuvan.
 
 project:
   output-dir: pdf
+
+# The final print filter runs citeproc before serialising table captions.
+citeproc: false
 
 book:
   title: "Osnove statistike za društvene znanosti"
@@ -26,21 +29,22 @@ format:
       - open=right
       - numbers=noenddot
     pdf-engine: xelatex
-    # Format bloka: B5 (176 × 250 mm). Satnica je uska da stupac teksta
-    # ostane na 66 znakova, a vanjski rub širok da primi bilješke i izvore
+    keep-tex: true
+    # Format bloka: B5 (176 × 250 mm). Satnica ostavlja citljiv stupac teksta
+    # i vanjski rub za biljeske i izvore
     # (DESIGN.md, §7 „Mreža").
     papersize: b5
     geometry:
       - paperwidth=176mm
       - paperheight=250mm
       - inner=22mm
-      - outer=38mm
-      - top=22mm
-      - bottom=25mm
-      - marginparwidth=28mm
+      - outer=33mm
+      - top=21mm
+      - bottom=23mm
+      - marginparwidth=25mm
       - marginparsep=5mm
-    fontsize: 10.5pt
-    linestretch: 1.18
+    fontsize: 11pt
+    linestretch: 1.15
     lang: hr-HR
     toc: true
     toc-depth: 2
@@ -75,7 +79,12 @@ knitr:
         bg: "transparent"
 
 filters:
+  - path: pdf-filters/print-edition.lua
+    at: pre-quarto
   - pdf-filters/strip-ojs.lua
+  # Web naslovnica nije drugo poglavlje u tiskanoj knjizi.
+  - pdf-filters/strip-landing.lua
+  - pdf-filters/book-meta.lua
   # Infografike u SVG-u prethodno se rasteriziraju (scripts/svg-to-png.R),
   # a ovaj filter prepisuje .svg u .png samo za PDF build.
   - pdf-filters/swap-svg-png.lua
@@ -83,3 +92,5 @@ filters:
   # tcolorbox okruženja definirana u tex/theme.tex; bez ovoga bi u PDF-u
   # ispale kao obični pasusi.
   - pdf-filters/book-callouts.lua
+  - path: pdf-filters/continued-tables.lua
+    at: post-render

@@ -8,7 +8,7 @@
     "anchor": "ex-04-racunski-01"
   },
   "task_class": "racunski",
-  "prompt_fingerprint": "sha256:3a40f506e4bd884e92cd2b5f2bc234f93e5b860691f466079a5cec2717977514",
+  "prompt_fingerprint": "sha256:91d0eff627ba091c8210353a0107fca6a01d3736941e91d06ceda1a23c52969e",
   "answer_components": {
     "planted_error": {
       "applicable": false,
@@ -20,7 +20,7 @@
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Za oba preseta zbrojiti svih deset vrijednosti, podijeliti s deset i medijan uzeti iz srednja dva poredana mjesta; zatim iz agregata za šifru 1 odvojeno ponoviti prosjek i udio te uskladiti zbrojeve četiriju dobnih redaka.",
+      "procedure": "Za oba stanja zbrojiti svih deset vrijednosti, podijeliti s deset i medijan uzeti iz srednja dva poredana mjesta; zatim iz agregata za šifru 1 odvojeno ponoviti prosjek i udio te uskladiti zbrojeve četiriju dobnih redaka. Zbroj kvadrata odstupanja zbijenog niza jest 30, pa SD = korijen iz 30/9. Kvartile računamo navedenom linearnom interpolacijom tipa 7.",
       "expected_evidence": "Zbijeni niz ima sredinu i medijan 11,0, niz s krajnjim opažanjem sredinu 16,9 i medijan 11,5; prvi agregat daje 81,5444 minute i udio 0,30, a četiri retka zbrajaju se na 300 osoba i 15.019 minuta."
     },
     "plausible_non_answers": {
@@ -28,7 +28,7 @@
       "not_applicable_reason": null,
       "responses": [
         {
-          "response": "Oba preseta imaju sredinu 11 jer se devet vrijednosti grupira oko 11.",
+          "response": "Oba stanja imaju sredinu 11 jer se devet vrijednosti grupira oko 11.",
           "why_insufficient": "Krajnje opažanje 70 ulazi u puni zbroj i podiže sredinu na 16,9."
         },
         {
@@ -78,15 +78,20 @@
           "component_id": "keep-print-path-code-free",
           "required_claim": "Cijela obvezna provjera izvediva je iz tiskanih tablica bez widgeta, datoteke ili pisanja koda.",
           "required_evidence": "Oba niza i svih pet polja agregatne provjere vidljivi su u zadatku."
+        },
+        {
+          "component_id": "october-04-numerical-extension",
+          "required_claim": "Za zbijeni niz SD iznosi 1,82574, a IQR 2. Nakon zamjene opažanja SD iznosi 18,74656, a IQR 2,75. Vrijednost z = 1,5 znači položaj 1,5 standardnih devijacija iznad sredine referentne skupine; ne znači 1,5 % osoba.",
+          "required_evidence": "Zbroj kvadrata odstupanja zbijenog niza jest 30, pa SD = korijen iz 30/9. Kvartile računamo navedenom linearnom interpolacijom tipa 7."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "Zbijena 110 / 10 = 11,0 i medijan (11 + 11) / 2 = 11,0; Krajnje opažanje 169 / 10 = 16,9 i medijan (11 + 12) / 2 = 11,5; pomak sredine 5,9 i medijana 0,5; 7.339 / 90 = 81,5444; 90 / 300 = 0,30 = 30 %; 90 + 84 + 66 + 60 = 300; 7.339 + 4.567 + 2.139 + 974 = 15.019.",
+      "expected_result": "Zbijena 110 / 10 = 11,0 i medijan (11 + 11) / 2 = 11,0; Krajnje opažanje 169 / 10 = 16,9 i medijan (11 + 12) / 2 = 11,5; pomak sredine 5,9 i medijana 0,5; 7.339 / 90 = 81,5444; 90 / 300 = 0,30 = 30 %; 90 + 84 + 66 + 60 = 300; 7.339 + 4.567 + 2.139 + 974 = 15.019. Za zbijeni niz SD iznosi 1,82574, a IQR 2. Nakon zamjene opažanja SD iznosi 18,74656, a IQR 2,75. Vrijednost z = 1,5 znači položaj 1,5 standardnih devijacija iznad sredine referentne skupine; ne znači 1,5 % osoba.",
       "tolerance_or_acceptance_rule": "Sredine i medijani moraju biti točni na jednu decimalu; prosjek 7.339 kroz 90 prihvaća se od 81,5444 do 81,5445, udio kao 0,30 ili 30 %, a zbrojevi moraju biti cjelobrojno točni.",
-      "independent_method": "Vrijednosti preseta pročitati iz izvornoga objekta poglavlja, a agregatne vrijednosti iz CSV-a; svaki sažetak ponovno izračunati standardnom aritmetikom bez čitanja kanonskoga rješenja.",
+      "independent_method": "Vrijednosti stanja pročitati iz izvornoga objekta poglavlja, a agregatne vrijednosti iz CSV-a; svaki sažetak ponovno izračunati standardnom aritmetikom bez čitanja kanonskoga rješenja.",
       "evidence_reference": "chapters/04-sazimanje-podataka.qmd#ex-04-racunski-01 i data/anketa-mreze-agregat.csv"
     },
     "severity_ranked_rubric": {
@@ -106,7 +111,7 @@
         {
           "criterion_id": "major-missing-preset-or-aggregate-check",
           "severity": "major",
-          "description": "Nedostaje jedan traženi sažetak preseta, objašnjenje različita pomaka ili jedna od četiriju agregatnih provjera.",
+          "description": "Nedostaje jedan traženi sažetak stanja, objašnjenje različita pomaka ili jedna od četiriju agregatnih provjera.",
           "observable_evidence": "Jedan cijeli računski ili interpretacijski dio zadatka nije moguće provjeriti."
         },
         {
@@ -132,7 +137,7 @@
     },
     {
       "alternative_id": "spreadsheet-recalculation",
-      "description": "Kalkulator ili proračunska tablica prihvatljivi su za neovisni račun preseta i agregata.",
+      "description": "Kalkulator ili proračunska tablica prihvatljivi su za neovisni račun stanja i agregata.",
       "acceptance_boundary": "Predaja mora sadržavati rezultate i obrazloženje, ali se ne ocjenjuje niti zahtijeva proizvodnja koda."
     }
   ],
@@ -145,5 +150,10 @@
     "judgment_owner": "student_or_submitting_author",
     "verification_required": true,
     "code_production_assessed": false
+  },
+  "self_study": {
+    "hint": "Za sredinu trebate svih deset vrijednosti. Za medijan poredajte niz i pronađite dva središnja mjesta. U drugom dijelu zadatka razlikujte broj osoba u dobnoj skupini od broja osoba u cijeloj anketi.",
+    "worked_answer": "Zbijeni niz ima zbroj 110, pa je sredina 110/10 = 11. Peto i šesto mjesto imaju vrijednost 11, pa je i medijan 11. U nizu s krajnjim opažanjem zbroj je 169, sredina 16,9, a medijan (11 + 12)/2 = 11,5. Sredina se povećala za 5,9, a medijan za 0,5 jer krajnja vrijednost ulazi u puni zbroj, dok medijan određuju središnja mjesta.\n\nU agregatu za prvu dobnu skupinu prosjek je 7.339/90 = 81,5444 minute, a udio 90/300 = 0,30. Zbroj broja osoba kroz četiri skupine jest 300, a zbroj minuta 15.019. Prosjek cijele ankete zato je 15.019/300, približno 50,0633 minute. Prosjek skupine i njezin udio imaju različite nazivnike.\n\nZa zbijeni niz SD iznosi 1,82574, a IQR 2. Nakon zamjene opažanja SD iznosi 18,74656, a IQR 2,75. Vrijednost z = 1,5 znači položaj 1,5 standardnih devijacija iznad sredine referentne skupine; ne znači 1,5 % osoba. Zbroj kvadrata odstupanja zbijenog niza jest 30, pa SD = korijen iz 30/9. Kvartile računamo navedenom linearnom interpolacijom tipa 7.",
+    "why_adequate": "Odgovor pokazuje račun, objašnjava razliku sredine i medijana te zasebno provjerava dva nazivnika. Prijepis gotovog prosjeka iz tablice ne bi pokazao kako je broj provjeren."
   }
 }
