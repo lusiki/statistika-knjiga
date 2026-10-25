@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/18-vase-prvo-istrazivanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -754,10 +754,11 @@ podataka (*data minimization*), objava uporabe asistenta (*AI-use disclosure*)
 
 Vratite se temama zavaravajućih brojki, uzorkovanja, krize i obnove te
 statistike u doba algoritama. Za primjer s hrvatskim rečenicama iz ParlaSenta
-odgovorite na šest revizijskih pitanja. U odgovorima pokažite kako nazivnik,
-izbor rečenica, analitičke odluke i posljedice pogreške ograničavaju zaključak.
-Zatim napišite jednu tvrdnju koju prikazani podaci podupiru i jednu koju ne
-podupiru. Sam regresijski model iz ovoga poglavlja nije dovoljan za te
+odgovorite na šest revizijskih pitanja. U odgovorima upotrijebite barem po
+jedan dokaz o zavaravajućem nazivniku, selekciji, analitičkoj fleksibilnosti
+i teretu odluke. Pokažite kako nazivnik, izbor rečenica, analitičke
+odluke i posljedice pogreške ograničavaju zaključak. Zatim napišite jednu tvrdnju koju
+paket podupire i jednu koju ne podupire. Sam regresijski model iz ovoga poglavlja nije dovoljan za te
 odgovore.
 
 ### Računski

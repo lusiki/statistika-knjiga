@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -519,12 +519,13 @@ QQ prikazu poduprlo vaš odgovor.
 
 ### Računski
 
-U hipotetskoj provjeri od 10 000 zapisa njih 100 stvorio je program.
-Provjera označuje 90 od tih 100 i pogrešno označuje 495 od preostalih 9 900.
-Primijenite šest revizijskih pitanja na tvrdnju da je provjera pouzdana jer
-pronalazi devedeset posto ciljanih zapisa. Iz navedenih brojnosti izračunajte
-udio upozorenja među ciljanim zapisima, udio ciljanih zapisa među upozorenjima
-i temeljnu stopu. Predajte tablicu odgovora, račun i dvije rečenice o tome što
+Vratite se na hipotetsku provjeru zapisa iz poglavlja o tome kako brojke
+zavode. Od 10 000 zapisa njih 100 stvorio je program. Provjera označuje 90 od
+tih 100 i pogrešno označuje 495 od preostalih 9 900. Na tvrdnju da je provjera
+pouzdana jer pronalazi devedeset posto ciljanih zapisa primijenite svih šest
+revizijskih pitanja. Iz navedenih brojnosti izračunajte udio upozorenja među
+ciljanim zapisima, udio ciljanih zapisa među svim upozorenjima i temeljnu
+stopu. Predajte kratku revizijsku tablicu, račun i dvije rečenice o tome što
 rezultati dopuštaju zaključiti.
 
 Vraćamo se hipotetskom modelu dvadeset neovisnih objava, od kojih svaka ima
@@ -542,6 +543,6 @@ rečenicu koju bi popularni prikaz smio zadržati.
 
 ### Revizija modela
 
-Provjerite analizu iz okvira. Izdvojite ispravne računske korake i korak koji
-zahtijeva neovisnost. Navedite rečenicu koja neovisnost neopravdano smatra
-potvrđenom. Napišite zamjenu koja jasno ograničava zaključak.
+Provjerite analizu iz okvira. Izdvojite ispravne računske korake i
+označite račun koji vrijedi samo uz neovisnost. Zatim izdvojite rečenicu koja
+neovisnost neopravdano smatra potvrđenom. Napišite zamjenu koja jasno ograničava zaključak.

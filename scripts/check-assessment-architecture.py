@@ -188,10 +188,20 @@ def canonical_prompt(lines: list[str], anchor: str) -> str:
         if not heading:
             raise AssertionError(f"Source anchor {anchor!r} is not on a fenced div or heading")
         level = len(heading.group(1))
+        # A heading-owned prompt ends at the next heading of the same or a
+        # higher level, or at a closing fence that belongs to an enclosing
+        # block (for example a format-visibility wrapper around the section).
+        depth = 0
         for line in lines[start + 1 :]:
             following = re.match(r"^(#+)\s", line)
             if following and len(following.group(1)) <= level:
                 break
+            if re.match(r"^:::+\s*\{", line):
+                depth += 1
+            elif re.match(r"^:::+\s*$", line):
+                if depth == 0:
+                    break
+                depth -= 1
             raw_prompt.append(line)
 
     prompt = without_profile_regions(raw_prompt, anchor)
@@ -1626,10 +1636,10 @@ def unit_07_numerical_check(
     except OSError as exc:
         return errors + [f"Unit 07 chapter 03 reachback could not be read: {exc}"], {}
     verifier_match = re.search(
-        r"Zamislimo\s+([\d.]+)\s+zapisa\.\s+Njih\s+([\d.]+).*?"
-        r"Provjera\s+pronađe\s+([\d.]+)\s+od\s+tih\s+([\d.]+)\s+zapisa,\s+"
-        r"ali\s+pogrešno\s+označi\s+i\s+([\d.]+)\s+ostalih\.\s+"
-        r"Dobiva\s+([\d.]+)\s+upozorenja",
+        r"Uzmimo\s+hipotetski\s+skup\s+od\s+([\d.]+)\s+zapisa\.\s+Program\s+je\s+stvorio\s+njih\s+([\d.]+).*?"
+        r"Detektor\s+prepoznaje\s+([\d.]+)\s+od\s+tih\s+([\d.]+)\s+sintetičkih\s+zapisa\s+"
+        r"i\s+pogrešno\s+označava\s+([\d.]+)\s+ostalih\..*?"
+        r"Od\s+ukupno\s+([\d.]+)\s+upozorenja",
         chapter_03_text,
         flags=re.DOTALL,
     )
@@ -1679,7 +1689,7 @@ def unit_07_numerical_check(
     normalized_chapter_03 = " ".join(chapter_03_text.split()).casefold()
     if not all(
         token in normalized_chapter_03
-        for token in ("10.000 zapisa", "90 od tih 100 zapisa", "495 ostalih", "585 upozorenja")
+        for token in ("10.000 zapisa", "90 od tih 100 sintetičkih zapisa", "495 ostalih", "585 upozorenja")
     ):
         errors.append("Unit 07 print reachback must preserve the rendered chapter 03 verifier counts.")
 
@@ -4364,7 +4374,7 @@ def unit_15_numerical_check(
             "opisne i uzročne tvrdnje",
             "najmanjega važnog učinka",
             "data/populacija-medija-agregat.csv",
-            "najmanju razliku na ljestvici od 0 do 10",
+            "najmanju razliku na ljestvici od 1 do 10",
             "zbroj_povjerenja` i `broj",
             "ne dokazuje da odabir izvora uzrokuje povjerenje",
         )
@@ -5051,7 +5061,7 @@ def unit_18_numerical_check(
     source_text = "\n".join(lines)
     for source_token in (
         'WIDGET:  bez widgeta',
-        '| 39 min | bez widgeta | simulirana anketa i ParlaSent 1.0 | cijela knjiga |',
+        # The chapter metadata strip was retired on 12 October 2026 (DESIGN.md §5).
         '"data/parlament_oznake.csv"',
         "s18_prijenos$n == 2698",
         "s18_prijenos$dokumenti == 2499",

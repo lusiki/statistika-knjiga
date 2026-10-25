@@ -98,7 +98,7 @@ function Invoke-Fixture(
   Copy-Item -LiteralPath $wrapper -Destination (Join-Path $caseScripts "render-book-pdf.ps1")
   Copy-Item -LiteralPath (Join-Path $root "scripts\check-book-inventory.py") -Destination (Join-Path $caseScripts "check-book-inventory.py")
   Copy-Item -LiteralPath (Join-Path $root "scripts\book_inventory.py") -Destination (Join-Path $caseScripts "book_inventory.py")
-  foreach ($consumer in @('audit-rendered-html.js', 'check-pdf-release-path.ps1', 'check-rendered-html.py', 'embed-404-assets.py', 'render-book-docx.ps1')) {
+  foreach ($consumer in @('audit-rendered-html.js', 'build-print-apparatus.py', 'check-pdf-release-path.ps1', 'check-rendered-html.py', 'embed-404-assets.py', 'render-book-docx.ps1')) {
     Copy-Item -LiteralPath (Join-Path $root "scripts\$consumer") -Destination (Join-Path $caseScripts $consumer)
   }
   Copy-Item -LiteralPath $workflow -Destination (Join-Path $caseRoot ".github\workflows\publish.yml")
@@ -110,8 +110,11 @@ function Invoke-Fixture(
   Copy-Item -LiteralPath (Join-Path $root "config\book-inventory.json") -Destination (Join-Path $caseConfig "book-inventory.json")
   Copy-Item -LiteralPath (Join-Path $root "styles\book-include.html") -Destination (Join-Path $caseRoot "styles\book-include.html")
   $inventory = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $caseConfig "book-inventory.json") | ConvertFrom-Json
+  # The wrapper runs scripts/build-print-apparatus.py before rendering. It
+  # needs a quoted chapter title and a terms section on every chapter page.
+  New-Item -ItemType Directory -Force -Path (Join-Path $caseRoot "assessment") | Out-Null
   foreach ($page in $inventory.pages) {
-    Write-Text (Join-Path $caseRoot $page.source) "---`ntitle: Fixture`n---`n"
+    Write-Text (Join-Path $caseRoot $page.source) "---`ntitle: `"Fixture`"`n---`n`n## Pojmovi`n`nfixture (*fixture*)`n`n## Zadaci`n"
   }
   Write-Text (Join-Path $caseRoot "_quarto.yml") (New-Config $ValidConfig)
   Write-Text (Join-Path $caseRoot "pdf\Statistika.pdf") "STALE_SOURCE"

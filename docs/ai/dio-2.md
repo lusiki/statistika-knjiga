@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -607,7 +607,8 @@ standardnu devijaciju, koristeći djelitelj devet. U tablici raspršenosti
 usporedite promjene SD-a i IQR-a nakon zamjene krajnjeg opažanja. Koja se
 mjera više promijenila i zašto? Ako je standardizirana vrijednost neke osobe
 $z=1,5$, opišite njezin položaj prema sredini bez pretvaranja te vrijednosti
-u postotak osoba.
+u postotak osoba. Zadatak je jednak u digitalnoj i tiskanoj inačici;
+interakcija služi samo za dodatne pokuse.
 
 Za drugu provjeru koristimo agregate simulirane ankete, bez dodatnog
 zaokruživanja. U svakom su retku uz prosjek navedeni brojnik, nazivnik i
@@ -617,8 +618,9 @@ cjelobrojni zbroj.
 
 Za šifru 1 provjerite `7339 / 90` i `90 / 300`. Zatim zbrojite četiri brojnika i
 četiri zbroja minuta. Ako koristite datoteku `data/anketa-mreze.csv`, izdvojite šifru 1 i iz
-tih redaka ponovno izračunajte prvi redak zbirne tablice. Nije potrebno pisati
-kod. Tablica sadržava i sve vrijednosti potrebne za ručnu provjeru.
+tih redaka ponovno izračunajte prvi redak zbirne tablice; zadatak ne zahtijeva
+pisanje koda. U tisku su svi potrebni brojnici, nazivnici i provjereni
+odgovori već u tablici.
 
 ### Kritički
 
@@ -645,7 +647,7 @@ spajanje.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1157,7 +1159,8 @@ odlomak s presudom i s uvjetom pod kojim bi presuda bila suprotna.
 
 Provjerite prijedlog grafa iz okvira o pogrešci. Navedite ispravne grafičke odluke i
 izdvojite onu koja obmanjuje. Opišite što treba promijeniti da udio ponovno
-bude prikazan samo duljinom stupca. Nije potrebno pisati ili popravljati kod.
+bude prikazan samo duljinom stupca. Opis predajte bez pisanja ili popravljanja
+koda.
 
 ---
 
@@ -1167,7 +1170,7 @@ bude prikazan samo duljinom stupca. Nije potrebno pisati ili popravljati kod.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1800,7 +1803,7 @@ kojem smjeru. Za preostala dva para zapišite zašto se to ne može prosuditi be
 njihovih dijagrama i što bi na njima trebalo pregledati.
 [U digitalnom izdanju unesite četiri procjene u interakciju i otvorite
 rješenje.]
-Uzmite četiri zadane procjene i koeficijente iz tablice.
+U tisku uzmite četiri zadane procjene i koeficijente iz tablice.
 Za svaki oblak
 izračunajte apsolutno odstupanje procjene. Predajte tablicu sa sedam redaka i
 jednom rečenicom obrazloženja u svakom. Postupak za ponavljanje izračuna nad

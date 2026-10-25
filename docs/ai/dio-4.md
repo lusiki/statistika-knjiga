@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -533,8 +533,8 @@ portalu. Pozivajući se na razliku između slučajnosti uzorkovanja i selekcije 
 poglavlja o uzorkovanju, odredite koju tvrdnju o populaciji ni mala p-vrijednost ne bi
 mogla opravdati. [Na kraju u HTML widgetu postavite stvarnu razliku na nulu i
 zabilježite približan udio uzoraka ispod praga.]
-[Na kraju očitajte udio iz prvoga retka tablice stopa odbacivanja, u kojem
-stvarne razlike nema.]
+[U tiskanom ili dokumentnom izdanju na kraju očitajte udio iz prvoga retka
+tablice stopa odbacivanja, u kojem stvarne razlike nema.]
 
 ### Kritički
 
@@ -560,7 +560,7 @@ slijedi i njezinu ispravljenu inačicu.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1053,7 +1053,8 @@ uz statični prikaz. Za svaki redak podijelite zbroj povjerenja brojem osoba,
 usporedite rezultat s pohranjenim prosjekom i izračunajte razliku prosjeka.
 Zatim za standardiziranu razliku 0,4 zabilježite snagu pri 40, 80, 160 i 300
 jedinica po skupini. U HTML-u upotrijebite widget.
-Vrijednosti očitajte iz tablice sa zadanom postavkom.
+[U tiskanom izdanju tablicu sa zadanom postavkom upotrijebite kao izvor
+vrijednosti.]
 
 Vratite se objašnjenju standardne pogreške i širine intervala u poglavlju o
 procjeni. Objasnite zašto veći uzorak istodobno sužava interval i povećava snagu,
@@ -1082,7 +1083,7 @@ napišite čime bi taj argument trebalo zamijeniti.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
