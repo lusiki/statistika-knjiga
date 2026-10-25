@@ -1,0 +1,113 @@
+// Landing page: compact title zone, one experiment, progressive book contents.
+body.landing-page {
+  .hero {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+    padding: 2rem 2.25rem;
+    gap: 2rem;
+    margin-bottom: 0;
+  }
+  h1.hero-title { font-size: clamp(2.75rem, 5.5vw, 4rem); line-height: 1.05; }
+  .hero-podnaslov { text-transform: none; font-size: 1.5rem; }
+  .hero-lede { font-size: 1rem; max-width: 44ch; }
+  .hero-cta { margin-top: 1.5rem; }
+  .hero-zvono { max-width: 19rem; }
+  .hero-zvono::before { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+  .landing-byline {
+    border-bottom: 1px solid $tok-rule;
+    padding: 1.1rem 0;
+    font-family: $tok-font-sans;
+    font-size: 0.8125rem;
+    > p { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 2rem; margin: 0; max-width: none; }
+  }
+  .landing-experiment {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    margin: 1rem 0;
+    scroll-margin-top: 6rem;
+    > * { min-width: 0; }
+  }
+  h2.landing-experiment-title { border: 0; padding: 0; margin: 0 0 1rem; font-size: 1.75rem; }
+  .landing-experiment-copy p { font-size: 1rem; }
+  .landing-distribution {
+    background: $tok-paper-soft;
+    margin: 0;
+    padding: 1.25rem;
+    figcaption { font-family: $tok-font-sans; font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: $tok-ink; margin: 0; }
+    [hidden] { display: none !important; }
+  }
+  .landing-bars {
+    height: 9rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    margin: 1.25rem 0 0.35rem;
+    padding: 0;
+    border-bottom: $tok-rule-width solid $tok-ink;
+    > i { display: block; flex: 1; background: $tok-ink; transition: height 700ms cubic-bezier(.22,.61,.36,1); }
+  }
+  .landing-plot-scale { display: flex; justify-content: space-between; font-family: $tok-font-sans; font-size: 0.75rem; margin: 0 0 1.5rem; }
+  .landing-distribution-controls {
+    font-family: $tok-font-sans;
+    label { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.875rem; }
+    output { font-family: $tok-font-mono; }
+    input { display: block; width: 100%; min-height: $tok-touch; accent-color: $tok-accent; margin: 0.25rem 0; }
+  }
+  .landing-compare {
+    min-height: $tok-touch;
+    background: transparent;
+    border: 0;
+    padding: 0.5rem 0;
+    font-family: $tok-font-sans;
+    font-size: 0.875rem;
+    color: $tok-ink;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+  .landing-distribution-note { font-family: $tok-font-sans; font-size: 0.8125rem; line-height: 1.5; min-height: 2.5em; margin: 0.5rem 0 0; }
+  #istrazite-knjigu { scroll-margin-top: 6rem; }
+  #istrazite-knjigu > h2 { border: 0; margin: 1.75rem 0 1rem; padding: 0; }
+  .landing-parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 0 2rem; }
+  .landing-part {
+    border-top: 1px solid $tok-rule;
+    margin: 0;
+    padding: 0;
+    summary {
+      position: relative;
+      display: block;
+      list-style: none;
+      padding: 1.4rem 2rem 1.4rem 0;
+      min-height: 6rem;
+      font-family: $tok-font-sans;
+      color: $tok-ink;
+      &::-webkit-details-marker { display: none; }
+      &::after { content: "＋"; position: absolute; right: 0.5rem; top: 2rem; }
+      &:hover { background: $tok-accent-wash; }
+    }
+    &[open] summary::after { content: "−"; }
+    .landing-part-label { display: block; font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .landing-part-title { display: block; font-size: 1.25rem; font-weight: 500; line-height: 1.25; }
+    ul { list-style: none; margin: 0 0 1rem; padding: 0; }
+    li { margin: 0; padding: 0; }
+    a { display: block; min-height: $tok-touch; padding: 0.6rem 0; font-family: $tok-font-sans; font-size: 0.9375rem; }
+  }
+  .landing-about {
+    border-top: 1px solid $tok-rule;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    summary { font-family: $tok-font-sans; min-height: $tok-touch; }
+    p { max-width: $tok-measure; }
+  }
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: minmax(0, 1fr); padding: 1.5rem; }
+    .hero-zvono { justify-self: center; max-width: 12rem; }
+    .landing-experiment { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+  }
+  @media (max-width: 450px) {
+    .landing-parts { grid-template-columns: minmax(0, 1fr); }
+    .hero-cta .btn-knjiga { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .landing-bars > i { transition: none; } }
+}

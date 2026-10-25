@@ -875,6 +875,59 @@ async function runSmokeAudit() {
     await page.locator("h1").waitFor({state: "visible"});
     if (pageErrors.length) throw new Error(`gallery page error: ${pageErrors.join(" | ")}`);
 
+    await page.goto(`${baseUrl}/index.html`, {waitUntil: "domcontentloaded"});
+    const landingSlider = page.locator('#landing-sample-size');
+    await landingSlider.waitFor({state: 'visible'});
+    if ((await page.locator('.landing-authors').innerText()) !== 'sikic . palic') {
+      throw new Error('landing author signature is incorrect');
+    }
+    if (!(await page.locator('.nav-footer-center').innerText()).includes('© 2026 · Statistika 101')) {
+      throw new Error('footer uses an outdated book title');
+    }
+    if (await page.locator('.landing-part').count() !== 6 ||
+        await page.locator('.landing-part a').count() !== 18) {
+      throw new Error('landing contents omit book sections or chapters');
+    }
+    const peak = page.locator('.landing-bars > i').nth(20);
+    const peakBefore = await peak.getAttribute('style');
+    await page.locator('.landing-compare').click();
+    if (await landingSlider.inputValue() !== '100' || await peak.getAttribute('style') === peakBefore) {
+      throw new Error('landing distribution does not respond to larger samples');
+    }
+    await page.locator('.landing-compare').click();
+    if (await landingSlider.inputValue() !== '5') throw new Error('landing smaller-sample comparison failed');
+    await landingSlider.focus();
+    await landingSlider.press('ArrowRight');
+    if (await landingSlider.inputValue() !== '10') throw new Error('landing slider keyboard control failed');
+    const part = page.locator('.landing-part').first();
+    await part.locator('summary').focus();
+    await part.locator('summary').press('Enter');
+    if (!(await part.evaluate(el => el.open))) throw new Error('landing contents keyboard disclosure failed');
+    await part.locator('summary').press('Enter');
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({width, height: 1000});
+      if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) {
+        throw new Error(`landing page overflows at ${width}px`);
+      }
+      if (outDir && width !== 320) {
+        await page.locator('.hero-title').evaluate(el => el.scrollIntoView({block: 'start'}));
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(250);
+        await page.screenshot({path: path.join(outDir, `landing-${width}.png`), fullPage: true});
+      }
+    }
+    await page.emulateMedia({reducedMotion: 'reduce'});
+    if (await peak.evaluate(el => getComputedStyle(el).transitionDuration) !== '0s') {
+      throw new Error('landing distribution ignores reduced-motion preference');
+    }
+    const noJsContext = await browser.newContext({javaScriptEnabled: false});
+    const noJsPage = await noJsContext.newPage();
+    await noJsPage.goto(`${baseUrl}/index.html`);
+    await noJsPage.locator('.landing-part summary').first().click();
+    await noJsPage.locator('.landing-part a').first().waitFor({state: 'visible'});
+    await noJsContext.close();
+    if (pageErrors.length) throw new Error(`landing page error: ${pageErrors.join(' | ')}`);
+
     console.log(
       "BROWSER_RUNTIME_OK " +
       `node=${runtime.node} playwright=${runtime.playwright} ` +
@@ -883,7 +936,7 @@ async function runSmokeAudit() {
     console.log(
       "BROWSER_SMOKE_OK " +
       `route=${smokeRoute} widths=1280,390 themes=light,dark ` +
-      "keyboard=pass reset=pass live_region=pass gallery=17 filter=pass deep_links=17 publish=false"
+      "keyboard=pass reset=pass live_region=pass gallery=17 filter=pass deep_links=17 landing=pass reduced_motion=pass no_js=pass publish=false"
     );
     await context.close();
   } finally {

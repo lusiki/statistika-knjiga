@@ -10,78 +10,113 @@ format:
     toc: false
 ---
 
-<!-- =====================================================================
-  Naslovnica. Marketinški registar, izuzeta iz STYLE.md strukturnih pravila
-  (ali ne iz H1, H2 i tipografije).
-
-  Metapodaci ostaju u YAML-u, a vidljivi naslov nosi hero-kompozicija.
-===================================================================== -->
+<!-- Naslovnica je marketinški registar. Metapodaci ostaju u YAML-u. -->
 
 ::: {.hero}
 ::: {.hero-copy}
-[Udžbenik]{.section-label}
-
 # Statistika 101 {.hero-title}
 
 [Intuitivni uvod u analizu podataka]{.hero-podnaslov}
 
 ::: {.hero-lede}
-Za studente koji moraju razumjeti istraživanje, a ne postati analitičari.
+Razumijte istraživanja kroz pitanja, primjere i simulacije.
 Uz srednjoškolsku matematiku, bez predznanja programiranja.
-Svaka ideja najprije se vidi kroz simulaciju, pa tek onda dobiva ime i formulu.
 :::
 
 ::: {.hero-cta}
-[Počni čitati](chapters/00-predgovor.html){.btn-knjiga .primarni}
-[Interakcije](interakcije.html){.btn-knjiga}
-[Uči uz AI](uci-s-ai.html){.btn-knjiga}
+[Isprobaj jednu ideju →](#isprobaj){.btn-knjiga .primarni}
+[Pregledaj sadržaj](#istrazite-knjigu){.btn-knjiga}
 :::
 :::
-
 ::: {.hero-zvono aria-hidden="true"}
 :::
 :::
 
-## Autori {.autori-naslov}
-
-::: {.autori}
-::: {.autor}
-<img class="autor-portret" src="images/luka-sikic.jpg" alt="Luka Šikić">
-
-::: {.autor-podaci}
-### Luka Šikić {.autor-ime}
-:::
+::: {.landing-byline}
+[sikic . palic]{.landing-authors aria-label="Autori Luka Šikić i Petra Palić"}
+[18 poglavlja · 17 interakcija]{.landing-counts}
 :::
 
-::: {.autor}
-<img class="autor-portret" src="images/petra-palic.jpg" alt="Petra Palić">
+::: {#isprobaj .landing-experiment}
+::: {.landing-experiment-copy}
+## Veći uzorak. Stabilnija procjena. {.landing-experiment-title}
 
-::: {.autor-podaci}
-### Petra Palić {.autor-ime}
-:::
-:::
-:::
+Pomaknite klizač. Sredine većih uzoraka okupljaju se bliže stvarnoj sredini.
 
-::: {.brojke}
-::: {.brojka}
-[18]{.broj-disk}
-[poglavlja]{.oznaka}
-:::
-::: {.brojka}
-[5]{.broj-disk}
-[dijelova]{.oznaka}
-:::
-::: {.brojka}
-[17]{.broj-disk}
-[interakcija]{.oznaka}
-:::
-::: {.brojka}
-[7]{.broj-disk}
-[dodataka]{.oznaka}
-:::
+[Istraži uzorkovanje →](chapters/08-uzorkovanje.html#interakcija-w08){.btn-knjiga}
 :::
 
-## Što knjiga obećava
+<figure class="landing-distribution" aria-labelledby="distribution-caption">
+<figcaption id="distribution-caption">Shematski pregled · sredine uzoraka</figcaption>
+<section class="landing-bars" role="img" aria-label="Shematska raspodjela sredina uzoraka" hidden></section>
+<p class="landing-plot-scale" hidden><span>niže procjene</span><span>više procjene</span></p>
+<form class="landing-distribution-controls" hidden>
+<label for="landing-sample-size">Veličina uzorka <output for="landing-sample-size">25</output></label>
+<input id="landing-sample-size" type="range" min="5" max="100" step="5" value="25">
+<button type="button" class="landing-compare">Usporedi s većim uzorkom →</button>
+<p class="landing-distribution-note" role="status" aria-live="polite"></p>
+</form>
+<noscript><p>Veći uzorci daju užu raspodjelu sredina. Za pomicanje klizača uključite JavaScript ili otvorite poglavlje o uzorkovanju.</p></noscript>
+</figure>
+:::
+
+## Istražite knjigu {#istrazite-knjigu}
+
+::: {.landing-parts}
+<details class="landing-part">
+<summary><span class="landing-part-label">Dio I</span><span class="landing-part-title">Statističko mišljenje</span></summary>
+
+- [Zašto statistika](chapters/01-zasto-statistika.html)
+- [Mjerenje i istraživački dizajn](chapters/02-mjerenje-i-dizajn.html)
+- [Kako brojke zavode](chapters/03-kako-brojke-zavode.html)
+
+</details>
+<details class="landing-part">
+<summary><span class="landing-part-label">Dio II</span><span class="landing-part-title">Opisivanje podataka</span></summary>
+
+- [Sažimanje podataka](chapters/04-sazimanje-podataka.html)
+- [Vizualizacija kao argument](chapters/05-vizualizacija.html)
+- [Povezanost](chapters/06-povezanost.html)
+
+</details>
+<details class="landing-part">
+<summary><span class="landing-part-label">Dio III</span><span class="landing-part-title">Od uzorka do populacije</span></summary>
+
+- [Vjerojatnost koliko treba](chapters/07-vjerojatnost.html)
+- [Uzorkovanje](chapters/08-uzorkovanje.html)
+- [Procjena](chapters/09-procjena.html)
+
+</details>
+<details class="landing-part">
+<summary><span class="landing-part-label">Dio IV</span><span class="landing-part-title">Zaključivanje</span></summary>
+
+- [Logika testiranja](chapters/10-logika-testiranja.html)
+- [Veličina učinka i snaga](chapters/11-velicina-ucinka-i-snaga.html)
+- [Kriza i obnova](chapters/12-kriza-i-obnova.html)
+
+</details>
+<details class="landing-part">
+<summary><span class="landing-part-label">Dio V</span><span class="landing-part-title">Modeli</span></summary>
+
+- [Kategorički podaci](chapters/13-kategoricki-podaci.html)
+- [Uspoređivanje dviju grupa](chapters/14-dvije-grupe.html)
+- [Uspoređivanje više grupa](chapters/15-vise-grupa.html)
+- [Regresija](chapters/16-regresija.html)
+- [Statistika u doba algoritama](chapters/17-doba-algoritama.html)
+
+</details>
+<details class="landing-part">
+<summary><span class="landing-part-label">Završnica</span><span class="landing-part-title">Vaše prvo istraživanje</span></summary>
+
+- [Vaše prvo istraživanje](chapters/18-vase-prvo-istrazivanje.html)
+
+</details>
+:::
+
+<details class="landing-about" id="kako-citirati">
+<summary>O knjizi i citiranju</summary>
+
+### Što knjiga obećava
 
 Nakon čitanja student može kritički prosuditi statističku tvrdnju na koju
 naiđe u medijima, izvještaju ili odgovoru umjetne inteligencije. Može pošteno
@@ -90,82 +125,17 @@ analize koje prevladavaju u objavljenim društvenoznanstvenim istraživanjima
 te ih reproducirati u ograničenom opsegu. I može s AI asistentom raditi disciplinirano, prepuštajući mu
 računanje, a zadržavajući prosudbu, provjeru i odgovornost.
 
-## Kako citirati ovu knjigu {#kako-citirati}
+### Kako citirati ovu knjigu
 
-Ovo je predobjavni radni nacrt, a ne zamrznuto izdanje. Radni naslov je
-*Statistika 101*; konačni naslov, redoslijed autora,
-izdanje, inačica, datum i trajni identifikator još nisu potvrđeni.
+Ovo je predobjavni radni nacrt, a ne zamrznuto izdanje. Naslov je
+*Statistika 101*; redoslijed autora, izdanje, inačica, datum i trajni
+identifikator još nisu potvrđeni.
 
-Ako se nacrt mora navesti prije objave, uz trenutačno navedene autore i radni
+Ako se nacrt mora navesti prije objave, uz trenutačno navedene autore i
 naslov zabilježite mrežnu adresu, datum pristupa i točan Git commit. Nemojte ga
 opisati kao objavljeno izdanje. Nakon zamrzavanja metapodataka ovaj će odjeljak
 dobiti jedan konačni navod usklađen s kolofonom i arhiviranim izvornim stanjem.
 
-::: {.hub-grid}
-::: {.hub-card}
-::: {.hub-num}
-Dio I
-:::
-::: {.hub-name}
-Statističko mišljenje
-:::
-::: {.hub-desc}
-Signal i šum, mjerenje i dizajn, i kako brojke zavode.
-:::
-:::
-::: {.hub-card}
-::: {.hub-num}
-Dio II
-:::
-::: {.hub-name}
-Opisivanje podataka
-:::
-::: {.hub-desc}
-Sažimanje, vizualizacija kao argument, povezanost.
-:::
-:::
-::: {.hub-card}
-::: {.hub-num}
-Dio III
-:::
-::: {.hub-name}
-Od uzorka do populacije
-:::
-::: {.hub-desc}
-Vjerojatnost koliko treba, uzorkovanje, procjena.
-:::
-:::
-::: {.hub-card}
-::: {.hub-num}
-Dio IV
-:::
-::: {.hub-name}
-Zaključivanje
-:::
-::: {.hub-desc}
-Logika testiranja, veličina učinka i snaga, kriza i obnova.
-:::
-:::
-::: {.hub-card}
-::: {.hub-num}
-Dio V
-:::
-::: {.hub-name}
-Modeli
-:::
-::: {.hub-desc}
-Kategorički podaci, usporedbe grupa, regresija, doba algoritama.
-:::
-:::
-::: {.hub-card}
-::: {.hub-num}
-Završnica
-:::
-::: {.hub-name}
-Vaše prvo istraživanje
-:::
-::: {.hub-desc}
-Jedno cjelovito vođeno istraživanje, od pitanja do izvještaja.
-:::
-:::
-:::
+</details>
+
+<script src="widgets/landing.js" defer></script>
