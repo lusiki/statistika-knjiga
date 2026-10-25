@@ -112,9 +112,38 @@ body.landing-page {
   @media (prefers-reduced-motion: reduce) { .landing-bars > i { transition: none; } }
 }
 
-.landing-authors a {
-  color: inherit;
-  text-decoration: none;
-  &:hover { text-decoration: underline; text-underline-offset: .2em; }
-  &:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+// Two signatures: a concept dome and a numbered author disc.
+body.landing-page .landing-authors {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .75rem;
+  .author-separator { color: var(--tok-ink-faint); }
+  .author-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    min-height: 44px;
+    padding: .3rem .65rem;
+    font-family: var(--tok-font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: .025em;
+    text-decoration: none;
+    border-bottom: 2px solid currentColor;
+    color: var(--tok-concept);
+    &::before { content: '01'; flex: 0 0 28px; width: 28px; height: 16px; border-radius: 28px 28px 0 0; background: var(--tok-concept); color: var(--tok-paper); display: grid; place-items: center; padding-top: 2px; font-size: .55rem; letter-spacing: 0; }
+    &:hover { background: var(--tok-surface); border-bottom-width: 4px; padding-bottom: calc(.3rem - 2px); }
+    &:focus-visible { outline: 2px solid var(--tok-ink); outline-offset: 4px; }
+  }
+  .author-link-petra {
+    color: var(--tok-ink);
+    &::before {
+      content: '02'; flex-basis: 24px; width: 24px; height: 24px; padding-top: 0; border-radius: 50%;
+      background: var(--tok-accent); color: var(--tok-on-accent);
+      border: 1px solid var(--tok-on-accent);
+      display: grid; place-items: center; font-size: .65rem; letter-spacing: 0;
+    }
+    &:hover { background: var(--tok-accent-wash); }
+  }
 }
