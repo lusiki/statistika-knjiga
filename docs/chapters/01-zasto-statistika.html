@@ -2,17 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hr-HR" xml:lang="hr-HR"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Udžbenik statistike za društvene znanosti — statističko mišljenje, opisivanje podataka, uzorkovanje i procjena, zaključivanje, linearni modeli i statistika u doba algoritama.">
 
-<title>Zašto statistika – Osnove statistike za društvene znanosti</title>
+<title>Zašto statistika – Statistika 101</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -25,9 +22,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -38,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -63,6 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,20 +86,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../chapters/02-mjerenje-i-dizajn.html" rel="next">
 <link href="../chapters/00-predgovor.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d863536a35c72399060ca13ea1ba5060.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d863536a35c72399060ca13ea1ba5060.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1cc29e0bfa4db480e39bd5d9581edf95.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-f736e697f19f6ba2e3029018030b82fa.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -131,68 +125,38 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- =====================================================================
-
-     head.html — pisma knjige (include-in-header)
-
+     head.html — pisma knjige (include-in-header), sustav Zvono
      ---------------------------------------------------------------------
-
-     Četiri obitelji, sve s Google Fontsa, sve s punom hrvatskom
-
+     Tri obitelji, sve s Google Fontsa, sve s punom hrvatskom
      dijakritikom (č ć đ š ž):
 
-
-
-       Newsreader      displej — naslovi, otvaranje poglavlja, navodi
-
+       Jost            displej, naslovi, sučelje, potpisi
        Literata        tijelo teksta
-
-       Public Sans     sučelje, potpisi, margina, izvori, glave tablica
-
-       JetBrains Mono  kod, brojke, oznake, „eyebrow"
-
-
+       JetBrains Mono  kod, brojke, oznake widgeta
 
      Imena pisama žive u styles/_tokens.scss; ovdje su samo poveznice na
-
-     datoteke. Za PDF ih treba instalirati lokalno — tex/theme.tex ih traži
-
-     u sustavu i tiho pada na Latin Modern ako ih nema.
-
-
+     datoteke. PDF i R grafovi učitavaju statičke instance iz fonts/print/.
 
      ŠESTI NOSITELJ BOJE. `theme-color` ne može se izraziti tokenom jer ga
-
-     čita preglednik, ne stranica. Vrijednost je token:paper i mijenja se
-
-     zajedno s njim (vidi DESIGN.md).
-
+     čita preglednik, ne stranica. Vrijednosti su token:paper svijetle i
+     tamne teme i mijenjaju se zajedno s njima (vidi DESIGN.md).
      ================================================================== -->
 
-
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;1,400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=Public+Sans:ital,wght@0,400..700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<meta name="theme-color" content="#F2E8D5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191814" media="(prefers-color-scheme: dark)">
 
-
-
-<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
-
-<meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
-
-
-
-<!-- Oznaka stranice: tri rastuća stupca, s okerom kao signalom navođenja. -->
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
-
+<!-- Oznaka stranice: kupola u tinti s modrom unutarnjom kupolom nad osnovicom
+     (token:brand-ink, token:brand-navy). -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 26 A14 14 0 0 1 30 26 Z' fill='%231B1A17'/%3E%3Cpath d='M9 26 A7 7 0 0 1 23 26 Z' fill='%231E3F7A'/%3E%3Crect x='1' y='26' width='30' height='3' fill='%231B1A17'/%3E%3C/svg%3E">
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -205,7 +169,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -224,169 +188,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -394,7 +196,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Osnove statistike za društvene znanosti</span>
+    <span class="navbar-title">Statistika 101</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Prikaži ili sakrij navigaciju" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -513,7 +315,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Osnove statistike za društvene znanosti</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Statistika 101</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -765,7 +567,6 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-zasto-statistika.html">DIO I: STATISTIČKO MIŠLJENJE</a></li><li class="breadcrumb-item"><a href="../chapters/01-zasto-statistika.html"><span class="chapter-title">Zašto statistika</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Zašto statistika</span></h1>
@@ -793,9 +594,34 @@ window.Quarto = {
   );
   var title = document.querySelector("#title-block-header h1.title");
   if (chapterMatch && title && !title.parentNode.querySelector(".chapter-kicker")) {
+    // Sustav Zvono: disk s brojem i os lijevo, oznaka dijela iznad naslova.
+    var header = document.getElementById("title-block-header");
+    if (header) header.classList.add("zv-opener");
+
+    var rail = document.createElement("span");
+    rail.className = "zv-rail";
+    rail.setAttribute("aria-hidden", "true");
+    var disc = document.createElement("span");
+    disc.className = "zv-rail__disc";
+    disc.textContent = chapterMatch[1];
+    rail.appendChild(disc);
+    title.parentNode.insertBefore(rail, title.parentNode.firstChild);
+
+    var partLink = document.querySelector(
+      "#title-block-header .breadcrumb .breadcrumb-item:first-child a"
+    );
+    var partName = "";
+    if (partLink) {
+      var raw = partLink.textContent.trim();
+      var m = raw.match(/^DIO ([IVX]+):\s*(.+)$/);
+      partName = m
+        ? "Dio " + m[1] + " · " + m[2].charAt(0) + m[2].slice(1).toLowerCase()
+        : raw.charAt(0) + raw.slice(1).toLowerCase();
+    }
     var kicker = document.createElement("span");
     kicker.className = "kicker chapter-kicker";
-    kicker.textContent = "POGLAVLJE " + chapterMatch[1];
+    kicker.textContent = "Poglavlje " + parseInt(chapterMatch[1], 10) +
+      (partName ? " · " + partName : "");
     title.parentNode.insertBefore(kicker, title);
   }
 
@@ -904,13 +730,13 @@ window.Quarto = {
 <div class="no-row-height column-margin column-container"><div id="podsjetnik-udjeli-stope" class="">
 <p><strong>Podsjetnik.</strong> <a href="../dodaci/g-numericki-podsjetnik.html#sec-ag-udjeli-stope">Udjeli i stope</a></p>
 </div></div><div class="callout-vinjeta page-columns page-full">
-<p>Jesu li poslijediplomski programi Sveučilišta Kalifornije u Berkeleyju diskriminirali žene pri upisu 1973. godine? Zbirne stope prijma muškaraca i žena toliko su se razlikovale da su potaknule sumnju u postupak upisa <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Istraživači su zatim usporedili prijave unutar svakog odjela. Pokazalo se da su se žene češće prijavljivale na odjele koji su primali manji udio kandidata. Zbirna razlika zato nije izravno pokazivala kako su pojedini odjeli odlučivali o prijavama muškaraca i žena <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>.</p>
+<p>Jesu li poslijediplomski programi Sveučilišta Kalifornije u Berkeleyju diskriminirali žene pri upisu 1973. godine? Zbirne stope prijma muškaraca i žena toliko su se razlikovale da su potaknule sumnju u postupak upisa <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Istraživači su zatim usporedili prijave unutar svakog odjela. Pokazalo se da su se žene češće prijavljivale na odjele koji su primali manji udio kandidata. Zbirna razlika zato nije izravno pokazivala kako su pojedini odjeli odlučivali o prijavama muškaraca i žena <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>.</p>
 <p>Oba su izračuna točna i koriste iste prijave. Ukupne stope pokazuju veliku razliku, a stope po odjelima otkrivaju koliko na nju utječe raspored prijava. Koja usporedba odgovara na pitanje koje nas zanima?</p>
 </div>
-<p>Kad pročitamo da je jedna skupina uspješnija od druge, lako je preskočiti račun i odmah tražiti objašnjenje. Berkeleyjski slučaj poziva nas da zastanemo kod same usporedbe <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>. Prije odluke o tome što razlika znači trebamo znati koga uspoređujemo, što je zabilježeno i prema kojoj cjelini računamo postotak. To su pitanja od kojih ćemo krenuti, bez pretpostavke da već poznajemo statističke postupke.</p>
+<p>Kad pročitamo da je jedna skupina uspješnija od druge, lako je preskočiti račun i odmah tražiti objašnjenje. Berkeleyjski slučaj poziva nas da zastanemo kod same usporedbe <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>. Prije odluke o tome što razlika znači trebamo znati koga uspoređujemo, što je zabilježeno i prema kojoj cjelini računamo postotak. To su pitanja od kojih ćemo krenuti, bez pretpostavke da već poznajemo statističke postupke.</p>
 <div class="no-row-height column-margin column-container"></div><p>U knjizi ćemo učiti pratiti put od istraživačkog pitanja do zaključka. Račun će nam pomoći opisati podatke, usporediti skupine i procijeniti nesigurnost, ali morat ćemo odlučiti odgovara li na pitanje koje smo postavili. Za početak su nam dovoljni poznati postoci, jednostavne tablice i spremnost da provjerimo što stoji iza broja. Ne trebamo znati programirati. Trebamo moći objasniti zašto smo nešto podijelili, koga smo izostavili i dokle dobiveni odgovor vrijedi.</p>
-<p>Uz stvarni slučaj prijava koristit ćemo autorski skup <code>populacija_medija</code>, računalno stvorenu populaciju odraslih osoba iz zamišljenoga grada <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Jedan zapis predstavlja jednu zamišljenu osobu. U prvom ćemo računu povezati njezin glavni izvor vijesti sa spremnošću na plaćanje vijesti. Usporedit ćemo broj osoba koje bi platile s njihovim udjelom unutar pojedinog izvora. Tako možemo pratiti svaki korak bez tvrdnje da opisujemo stvarnu medijsku publiku.</p>
+<p>Uz stvarni slučaj prijava koristit ćemo autorski skup <code>populacija_medija</code>, računalno stvorenu populaciju odraslih osoba iz zamišljenoga grada <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Jedan zapis predstavlja jednu zamišljenu osobu. U prvom ćemo računu povezati njezin glavni izvor vijesti sa spremnošću na plaćanje vijesti. Usporedit ćemo broj osoba koje bi platile s njihovim udjelom unutar pojedinog izvora. Tako možemo pratiti svaki korak bez tvrdnje da opisujemo stvarnu medijsku publiku.</p>
 <div class="no-row-height column-margin column-container"></div><p>Prijave na studij i spremnost na plaćanje vijesti različite su pojave, ali pred nas postavljaju sličan problem. Broj dobiva značenje tek kada znamo koje je ljude ili prijave obuhvatio i s čime ih uspoređujemo. Dok pratimo te usporedbe, razlikovat ćemo ono što podaci već pokazuju od onoga za što nam treba dodatno objašnjenje. Tu razliku tražimo i kada čitamo istraživanje, medijski naslov ili odgovor asistenta.</p>
 <section id="broj-nije-zaključak" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="broj-nije-zaključak">Broj nije zaključak</h2>
@@ -925,19 +751,19 @@ window.Quarto = {
 
 <div class="no-row-height column-margin column-container"><div id="podsjetnik-postotci-postotni-bodovi" class="">
 <p><strong>Podsjetnik.</strong> <a href="../dodaci/g-numericki-podsjetnik.html#sec-ag-postotci-postotni-bodovi">Postotci i postotni bodovi</a></p>
-</div></div><p>U skupu <code>populacija_medija</code> imamo zapise za 50.000 zamišljenih odraslih stanovnika <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Uz izvor vijesti i spremnost na plaćanje, za svaku su osobu zabilježeni dob, obrazovanje, povjerenje u medije na ljestvici od 1 do 10 i dnevno praćenje medija. Istom ćemo se populacijom služiti pri uzorkovanju, usporedbama skupina i regresiji, kako bismo nove postupke mogli pratiti na poznatom primjeru.</p>
-<p>Računalno stvaranje tih zapisa slijedi zadana pravila. Najprije nastaju dob i izvor vijesti, čije se vjerojatnosti mijenjaju s dobi. Povjerenje ovisi o dobi i izvoru uz slučajno odstupanje, a spremnost na plaćanje o povjerenju i obrazovanju. Tako nastaju namjerno povezane varijable. Jedna osoba može odstupati od zadanoga obrasca, a cjelina od 50.000 osoba pokazuje obrazac koji je autor ugradio u generator <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Prva tri retka pokazuju kako taj skup izgleda prije sažimanja. Svaki redak čuva više obilježja iste generirane osobe <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>.</p>
+</div></div><p>U skupu <code>populacija_medija</code> imamo zapise za 50.000 zamišljenih odraslih stanovnika <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Uz izvor vijesti i spremnost na plaćanje, za svaku su osobu zabilježeni dob, obrazovanje, povjerenje u medije na ljestvici od 1 do 10 i dnevno praćenje medija. Istom ćemo se populacijom služiti pri uzorkovanju, usporedbama skupina i regresiji, kako bismo nove postupke mogli pratiti na poznatom primjeru.</p>
+<p>Računalno stvaranje tih zapisa slijedi zadana pravila. Najprije nastaju dob i izvor vijesti, čije se vjerojatnosti mijenjaju s dobi. Povjerenje ovisi o dobi i izvoru uz slučajno odstupanje, a spremnost na plaćanje o povjerenju i obrazovanju. Tako nastaju namjerno povezane varijable. Jedna osoba može odstupati od zadanoga obrasca, a cjelina od 50.000 osoba pokazuje obrazac koji je autor ugradio u generator <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Prva tri retka pokazuju kako taj skup izgleda prije sažimanja. Svaki redak čuva više obilježja iste generirane osobe <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>.</p>
 <div class="table-keep-words page-columns page-full">
 <div class="cell page-columns page-full" data-layout-align="center">
 <div id="tbl-s1-primjer-zapisa" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-s1-primjer-zapisa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;1: Tri zapisa iz generirane populacije medijskih navika. Izrada autora prema <span class="citation" data-cites="sikic2026">Šikić (<a href="../references.html#ref-sikic2026" role="doc-biblioref">2026.</a>)</span>.
+Tablica&nbsp;1: Tri zapisa iz generirane populacije medijskih navika. Izrada autora prema <span class="citation" data-cites="sikic2026">Šikić (<a href="../references.html#ref-sikic2026" role="doc-biblioref">2026</a>)</span>.
 </figcaption>
 <div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-s1-primjer-zapisa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">Osoba</th>
@@ -978,8 +804,8 @@ Tablica&nbsp;1: Tri zapisa iz generirane populacije medijskih navika. Izrada aut
 </div>
 </div>
 <p>Broj osobe služi povezivanju njezinih odgovora. Vrijednost u stupcu izvora vijesti jedna je kategorija, povjerenje je ocjena, a spremnost na plaćanje u ovoj je tablici prikazana odgovorom da ili ne. Kada poslije nacrtamo graf ili izvučemo uzorak, mijenjamo način uporabe tih zapisa, a ne njihovo podrijetlo.</p>
-<p>Iz takvih zapisa možemo prebrojiti osobe spremne platiti vijesti. Želimo li usporediti izvore s različitim brojem korisnika, trebamo i <strong>nazivnik</strong>, količinu s kojom dijelimo brojnik. Brojnik je broj slučajeva koji zadovoljavaju uvjet, ovdje osoba spremnih platiti vijesti. Među 4.855 osoba kojima je tisak glavni izvor vijesti njih 1.289 spremno je platiti vijesti. Među 15.101 korisnikom portala spremnih je 3.514 <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. U većoj skupini takvih osoba ima više, ali tek dijeljenjem možemo usporediti udjele. Jednako treba znati prema kojoj količini računamo stopu ili prosjek.</p>
-<div class="no-row-height column-margin column-container"></div><p>Provjeravamo i <strong>podrijetlo podataka</strong>. Treba znati tko ih je proizveo, kojim postupkom, koju inačicu koristimo i koja su njezina ograničenja. Za naš je nastavni skup poznat postupak stvaranja i njegovo sjeme, početna postavka koja omogućuje ponavljanje iste simulacije <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Zato možemo provjeriti račun i tumačenje. Za tvrdnju o hrvatskoj publici trebali bismo podatke prikupljene od stvarnih ljudi.</p>
+<p>Iz takvih zapisa možemo prebrojiti osobe spremne platiti vijesti. Želimo li usporediti izvore s različitim brojem korisnika, trebamo i <strong>nazivnik</strong>, količinu s kojom dijelimo brojnik. Brojnik je broj slučajeva koji zadovoljavaju uvjet, ovdje osoba spremnih platiti vijesti. Među 4.855 osoba kojima je tisak glavni izvor vijesti njih 1.289 spremno je platiti vijesti. Među 15.101 korisnikom portala spremnih je 3.514 <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. U većoj skupini takvih osoba ima više, ali tek dijeljenjem možemo usporediti udjele. Jednako treba znati prema kojoj količini računamo stopu ili prosjek.</p>
+<div class="no-row-height column-margin column-container"></div><p>Provjeravamo i <strong>podrijetlo podataka</strong>. Treba znati tko ih je proizveo, kojim postupkom, koju inačicu koristimo i koja su njezina ograničenja. Za naš je nastavni skup poznat postupak stvaranja i njegovo sjeme, početna postavka koja omogućuje ponavljanje iste simulacije <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Zato možemo provjeriti račun i tumačenje. Za tvrdnju o hrvatskoj publici trebali bismo podatke prikupljene od stvarnih ljudi.</p>
 <p>Poznavanje podrijetla podataka pomaže nam procijeniti i što možemo doznati iz osobnog iskustva. Anegdota može upozoriti na problem, ponuditi moguće objašnjenje ili opisati posljedicu koja se iz tablice ne vidi. Sama ipak ne pokazuje koliko je pojava raširena ni bi li se ponovila u drugim okolnostima. Za to trebamo više opažanja, uz jasnu odluku o tome koga promatramo, što mjerimo i što uspoređujemo.</p>
 <p>Iskaz ispitanice o tome zašto je prestala čitati vijesti, primjerice, otkriva okolnosti i redoslijed događaja koji bi mogli objasniti njezinu odluku. Taj iskaz upućuje na ono što treba provjeriti. Uređen skup podataka omogućuje da zatim ispitamo kako se pojava raspoređuje među promatranim ljudima. Želimo li zaključak proširiti na druge ljude, moramo opravdati i način odabira sudionika. Iz jednog svjedočenja ne možemo odrediti raširenost pojave, kao što iz prosjeka ne možemo iščitati iskustvo svake osobe.</p>
 <p>Za takve odluke potrebno je poznavanje područja. Teorija i okolnosti slučaja pomažu nam odabrati usporedive skupine, predložiti objašnjenje i prosuditi koliko bi velika razlika bila važna. Izračun slijedi te odluke.</p>
@@ -1101,7 +927,7 @@ Tablica&nbsp;3: Četiri djelatnosti prema pitanju koje postavljaju. Izrada autor
 </div>
 </figure>
 </div>
-<p><strong>Podatkovna znanost</strong> obuhvaća rad kojim od izvora podataka dolazimo do analize koju možemo ponoviti. <strong>Strojno učenje</strong> ispituje koliko dobro obrazac naučen iz jednih podataka djeluje na novim opažanjima. Taj je pristup blizak algoritamskoj kulturi modeliranja koju je Breiman razlikovao od modeliranja usmjerenog na objašnjenje <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001.</a>)</span>. <strong>Sustav umjetne inteligencije</strong> uključuje model, sučelje i način njegove uporabe u određenoj ustanovi ili postupku odlučivanja. Pri procjeni takvog sustava razmatramo tehnička svojstva, ali i pogreške te posljedice uporabe <span class="citation" data-cites="barocas2023">(<a href="../references.html#ref-barocas2023" role="doc-biblioref">Barocas i sur. 2023.</a>)</span>.</p>
+<p><strong>Podatkovna znanost</strong> obuhvaća rad kojim od izvora podataka dolazimo do analize koju možemo ponoviti. <strong>Strojno učenje</strong> ispituje koliko dobro obrazac naučen iz jednih podataka djeluje na novim opažanjima. Taj je pristup blizak algoritamskoj kulturi modeliranja koju je Breiman razlikovao od modeliranja usmjerenog na objašnjenje <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001</a>)</span>. <strong>Sustav umjetne inteligencije</strong> uključuje model, sučelje i način njegove uporabe u određenoj ustanovi ili postupku odlučivanja. Pri procjeni takvog sustava razmatramo tehnička svojstva, ali i pogreške te posljedice uporabe <span class="citation" data-cites="barocas2023">(<a href="../references.html#ref-barocas2023" role="doc-biblioref">Barocas, Hardt, i Narayanan 2023</a>)</span>.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-breiman2001" class="csl-entry" role="listitem">
 Breiman, Leo. 2001. <span>„Statistical Modeling: The Two Cultures“</span>. <em>Statistical Science</em> 16 (3): 199–231. <a href="https://doi.org/10.1214/ss/1009213726">https://doi.org/10.1214/ss/1009213726</a>.
 </div><div id="ref-barocas2023" class="csl-entry" role="listitem">
@@ -1114,7 +940,7 @@ Barocas, Solon, Moritz Hardt, i Arvind Narayanan. 2023. <em>Fairness and Machine
 <h2 class="anchored" data-anchor-id="gdje-intuicija-popušta">Gdje intuicija popušta</h2>
 <p>Zaključak se katkad čini toliko očitim da provjera izgleda suvišna. Ipak, pri procjeni slučajnosti i promjenjivosti lako uočimo obrazac i ondje gdje ga nema.</p>
 <p>Uzmimo dva niza od 10 bacanja poštenog novčića. U prvom se pismo i glava pravilno izmjenjuju. U drugom nema pravilne izmjene, a pismo se pojavljuje i triput zaredom. Drugi niz može izgledati prirodnije, ali svaki od 1024 moguća niza ima jednaku vjerojatnost. Dojam nastaje zato što očekujemo da slučajan niz izgleda na određen način. Slučajnost može proizvesti i pravilnu izmjenu i nekoliko jednakih ishoda zaredom.</p>
-<p>Slično zaključujemo iz poznatih primjera. Ako susjed i dvoje kolega hvale novu aplikaciju za vijesti, mogli bismo pomisliti da je ona općenito dobro prihvaćena. Troje poznanika ipak ne predstavlja cijelu publiku. Možda se vijestima bave više od drugih pa su zato i isprobali aplikaciju. Tversky i Kahneman nazvali su heuristikom dostupnosti sklonost da učestalost procjenjujemo prema tome koliko se lako prisjetimo nekog primjera <span class="citation" data-cites="tversky1973">(<a href="../references.html#ref-tversky1973" role="doc-biblioref">Tversky i Kahneman 1973.</a>)</span>. Živopisan ili nedavan slučaj tako može ostaviti pretjerano snažan dojam.</p>
+<p>Slično zaključujemo iz poznatih primjera. Ako susjed i dvoje kolega hvale novu aplikaciju za vijesti, mogli bismo pomisliti da je ona općenito dobro prihvaćena. Troje poznanika ipak ne predstavlja cijelu publiku. Možda se vijestima bave više od drugih pa su zato i isprobali aplikaciju. Tversky i Kahneman nazvali su heuristikom dostupnosti sklonost da učestalost procjenjujemo prema tome koliko se lako prisjetimo nekog primjera <span class="citation" data-cites="tversky1973">(<a href="../references.html#ref-tversky1973" role="doc-biblioref">Tversky i Kahneman 1973</a>)</span>. Živopisan ili nedavan slučaj tako može ostaviti pretjerano snažan dojam.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-tversky1973" class="csl-entry" role="listitem">
 Tversky, Amos, i Daniel Kahneman. 1973. <span>„Availability: A Heuristic for Judging Frequency and Probability“</span>. <em>Cognitive Psychology</em> 5 (2): 207–32. <a href="https://doi.org/10.1016/0010-0285(73)90033-9">https://doi.org/10.1016/0010-0285(73)90033-9</a>.
 </div></div><p>Zamislimo i usporedbu u kojoj portali s više objavljenih tekstova imaju više posjeta. Iz nje se lako izvodi preporuka da treba više objavljivati. Veći portali, međutim, mogu imati i više novinara, veći proračun te drukčiju, stariju publiku. Treba razmotriti utječe li broj tekstova na posjete, potiče li veća posjećenost objavljivanje ili oboje ovisi o drugim obilježjima portala. Postupke kojima provjeravamo takva objašnjenja razradit ćemo u poglavljima o istraživačkom dizajnu i regresiji.</p>
@@ -1231,23 +1057,23 @@ Tablica&nbsp;5: Šest revizijskih pitanja. Izrada autora.
 </div>
 </figure>
 </div>
-<p>U Berkeleyjskim podacima promatramo prijave iz određenog razdoblja. Nemamo cijeli obrazovni put kandidata ni podatke o procesima koji su prethodili prijavi <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>. Iz stopa možemo opisati ishode tih prijava. Za motive ljudi koji su odlučivali ili posljedice drukčijih kriterija trebali bismo dodatne podatke.</p>
+<p>U Berkeleyjskim podacima promatramo prijave iz određenog razdoblja. Nemamo cijeli obrazovni put kandidata ni podatke o procesima koji su prethodili prijavi <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>. Iz stopa možemo opisati ishode tih prijava. Za motive ljudi koji su odlučivali ili posljedice drukčijih kriterija trebali bismo dodatne podatke.</p>
 <div class="no-row-height column-margin column-container"></div><p>Odgovori na šest pitanja pomažu odrediti što podaci podupiru i koja pretpostavka traži najviše provjere. To ne jamči da ćemo biti u pravu, ali omogućuje da drugi razumiju i provjere naš zaključak.</p>
 </section>
 <section id="zbirna-slika-i-skrivena-struktura" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="zbirna-slika-i-skrivena-struktura">Zbirna slika i skrivena struktura</h2>
 <p>Vratimo se sada razlici između ukupne stope prijma i stopa po odjelima. Ukupni prosjek ili stopa ovisi o rezultatima podskupina i o tome koliko je svaka podskupina zastupljena. Brojnija podskupina više utječe na ukupni rezultat. Zato se zbirna stopa može promijeniti samo zbog drukčijeg sastava, čak i ako stope unutar podskupina ostanu jednake.</p>
-<p>U Berkeleyju su se odjeli razlikovali po tome koliko je teško bilo upisati ih. Žene su češće birale selektivnije odjele, pa su ti odjeli više utjecali na njihovu ukupnu stopu prijma. Usporedba unutar pojedinih odjela uklonila je taj utjecaj rasporeda prijava. Razlika vidljiva u zbirnim podacima tada se smanjila ili preokrenula <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Brojnosti pokazuju oba pogleda na Berkeley. Za cijelo sveučilište bilo je 8 442 prijave muškaraca, od kojih je prihvaćeno 3 738, te 4 321 prijava žena, od kojih je prihvaćeno 1 494 <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>. To daje 44,3 % i 34,6 %. Sljedeća tablica prikazuje šest najvećih odjela iz istoga slučaja, sačuvanih u skupu <code>UCBAdmissions</code>. Njihovih 4 526 prijava čini podskup, pa njegov zbirni postotak nije postotak cijeloga sveučilišta <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>.</p>
+<p>U Berkeleyju su se odjeli razlikovali po tome koliko je teško bilo upisati ih. Žene su češće birale selektivnije odjele, pa su ti odjeli više utjecali na njihovu ukupnu stopu prijma. Usporedba unutar pojedinih odjela uklonila je taj utjecaj rasporeda prijava. Razlika vidljiva u zbirnim podacima tada se smanjila ili preokrenula <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Brojnosti pokazuju oba pogleda na Berkeley. Za cijelo sveučilište bilo je 8 442 prijave muškaraca, od kojih je prihvaćeno 3 738, te 4 321 prijava žena, od kojih je prihvaćeno 1 494 <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>. To daje 44,3 % i 34,6 %. Sljedeća tablica prikazuje šest najvećih odjela iz istoga slučaja, sačuvanih u skupu <code>UCBAdmissions</code>. Njihovih 4 526 prijava čini podskup, pa njegov zbirni postotak nije postotak cijeloga sveučilišta <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>.</p>
 <div class="cell page-columns page-full" data-layout-align="center">
 <div id="tbl-berkeley-odjeli" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-berkeley-odjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;6: Prijave i prijam u šest najvećih odjela Berkeleyja 1973. Podaci UCBAdmissions prema <span class="citation" data-cites="bickel1975">Bickel i sur. (<a href="../references.html#ref-bickel1975" role="doc-biblioref">1975.</a>)</span>; postoci izračunati iz prikazanih brojnosti.
+Tablica&nbsp;6: Prijave i prijam u šest najvećih odjela Berkeleyja 1973. Podaci UCBAdmissions prema <span class="citation" data-cites="bickel1975">Bickel, Hammel, i O’Connell (<a href="../references.html#ref-bickel1975" role="doc-biblioref">1975</a>)</span>; postoci izračunati iz prikazanih brojnosti.
 </figcaption>
 <div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-berkeley-odjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Odjel</th>
@@ -1363,9 +1189,9 @@ Tablica&nbsp;6: Prijave i prijam u šest najvećih odjela Berkeleyja 1973. Podac
 </figure>
 </div>
 </div>
-<p>U odjele A i B, koji imaju visoke stope prijma, prijavilo se 1385 od 2691 muškaraca iz ovoga podskupa, a samo 133 od 1835 žena <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>. Razlikuju se i stope unutar odjela i udjeli prijava usmjerenih u pojedine odjele. Zbirni postotak uključuje oboje; tablica sama ne objašnjava zašto je izbor odjela bio tako raspoređen.</p>
+<p>U odjele A i B, koji imaju visoke stope prijma, prijavilo se 1385 od 2691 muškaraca iz ovoga podskupa, a samo 133 od 1835 žena <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>. Razlikuju se i stope unutar odjela i udjeli prijava usmjerenih u pojedine odjele. Zbirni postotak uključuje oboje; tablica sama ne objašnjava zašto je izbor odjela bio tako raspoređen.</p>
 <div class="no-row-height column-margin column-container"></div><div id="def-simpsonov-paradoks" class="theorem definition page-columns page-full">
-<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Simpsonov paradoks</strong> je obrazac u kojem se smjer povezanosti u združenim podacima promijeni ili preokrene kada se podaci razdvoje prema relevantnoj trećoj varijabli <span class="citation" data-cites="simpson1951">(<a href="../references.html#ref-simpson1951" role="doc-biblioref">Simpson 1951.</a>)</span>.</p>
+<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Simpsonov paradoks</strong> je obrazac u kojem se smjer povezanosti u združenim podacima promijeni ili preokrene kada se podaci razdvoje prema relevantnoj trećoj varijabli <span class="citation" data-cites="simpson1951">(<a href="../references.html#ref-simpson1951" role="doc-biblioref">Simpson 1951</a>)</span>.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-simpson1951" class="csl-entry" role="listitem">
 Simpson, E. H. 1951. <span>„The Interpretation of Interaction in Contingency Tables“</span>. <em>Journal of the Royal Statistical Society, Series B</em> 13 (2): 238–41. <a href="https://doi.org/10.1111/j.2517-6161.1951.tb00088.x">https://doi.org/10.1111/j.2517-6161.1951.tb00088.x</a>.
 </div></div></div>
@@ -1415,7 +1241,7 @@ Tablica&nbsp;7: Sastav skupina u konstruiranom tiskanom primjeru. Izrada autora.
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="616" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 615;"><span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a>viewof w01_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="616" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 615;"><span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a>viewof w01_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
 <span id="cb1-617"><a href="#cb1-617" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pogled</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
 <span id="cb1-618"><a href="#cb1-618" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Združeno"</span><span class="op">,</span> <span class="st">"Po podskupinama"</span>]<span class="op">,</span></span>
 <span id="cb1-619"><a href="#cb1-619" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="st">"Združeno"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Pogled"</span>}</span>
@@ -1428,7 +1254,7 @@ Tablica&nbsp;7: Sastav skupina u konstruiranom tiskanom primjeru. Izrada autora.
 <span id="cb1-626"><a href="#cb1-626" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
 <span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Udio B u pristupačnijoj podskupini"</span>}</span>
 <span id="cb1-628"><a href="#cb1-628" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-629"><a href="#cb1-629" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-629"><a href="#cb1-629" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -1439,7 +1265,7 @@ Tablica&nbsp;7: Sastav skupina u konstruiranom tiskanom primjeru. Izrada autora.
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="634" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 633;"><span id="cb2-634"><a href="#cb2-634" aria-hidden="true" tabindex="-1"></a>w01_tema <span class="op">=</span> Generators<span class="op">.</span><span class="fu">observe</span>(obavijesti <span class="kw">=&gt;</span> {</span>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="634" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 633;"><span id="cb2-634"><a href="#cb2-634" aria-hidden="true" tabindex="-1"></a>w01_tema <span class="op">=</span> Generators<span class="op">.</span><span class="fu">observe</span>(obavijesti <span class="kw">=&gt;</span> {</span>
 <span id="cb2-635"><a href="#cb2-635" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> revizija <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb2-636"><a href="#cb2-636" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> osvjezi <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="fu">obavijesti</span>(<span class="op">++</span>revizija)<span class="op">;</span></span>
 <span id="cb2-637"><a href="#cb2-637" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> promatrac <span class="op">=</span> <span class="kw">new</span> <span class="bu">MutationObserver</span>(osvjezi)<span class="op">;</span></span>
@@ -1451,7 +1277,7 @@ Tablica&nbsp;7: Sastav skupina u konstruiranom tiskanom primjeru. Izrada autora.
 <span id="cb2-643"><a href="#cb2-643" aria-hidden="true" tabindex="-1"></a>  promatrac<span class="op">.</span><span class="fu">observe</span>(<span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">,</span> postavke)<span class="op">;</span></span>
 <span id="cb2-644"><a href="#cb2-644" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osvjezi</span>()<span class="op">;</span></span>
 <span id="cb2-645"><a href="#cb2-645" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> () <span class="kw">=&gt;</span> promatrac<span class="op">.</span><span class="fu">disconnect</span>()<span class="op">;</span></span>
-<span id="cb2-646"><a href="#cb2-646" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-646"><a href="#cb2-646" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
@@ -1462,7 +1288,7 @@ Tablica&nbsp;7: Sastav skupina u konstruiranom tiskanom primjeru. Izrada autora.
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="654" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 653;"><span id="cb3-654"><a href="#cb3-654" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="654" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 653;"><span id="cb3-654"><a href="#cb3-654" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb3-655"><a href="#cb3-655" aria-hidden="true" tabindex="-1"></a>  w01_tema<span class="op">;</span></span>
 <span id="cb3-656"><a href="#cb3-656" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> css <span class="op">=</span> <span class="fu">getComputedStyle</span>(<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span>)<span class="op">;</span></span>
 <span id="cb3-657"><a href="#cb3-657" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> bojaA <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-1"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
@@ -1557,7 +1383,7 @@ Tablica&nbsp;7: Sastav skupina u konstruiranom tiskanom primjeru. Izrada autora.
 <span id="cb3-746"><a href="#cb3-746" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
 <span id="cb3-747"><a href="#cb3-747" aria-hidden="true" tabindex="-1"></a>    marks</span>
 <span id="cb3-748"><a href="#cb3-748" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb3-749"><a href="#cb3-749" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-749"><a href="#cb3-749" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="fig-w01" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1582,9 +1408,9 @@ Slika&nbsp;1: Zbirne stope i stope po podskupinama u konstruiranom primjeru Simp
 </ol>
 <p>Kada su skupine jednako raspoređene po podskupinama, takav obrat nije moguć. Zbirna usporedba tada zadržava smjer razlike unutar podskupina. Za obrat je potreban i drukčiji sastav skupina, pa bez razdvajanja podataka ne možemo odrediti koliko ukupnoj razlici pridonose stope uspjeha, a koliko zastupljenost podskupina.</p>
 <div class="callout-divljina page-columns page-full">
-<p><strong>Zbirna stopa i sumnja u pristranost.</strong> Iza Berkeleyjske tablice stajalo je pitanje o postupanju prema kandidatima, a ne samo zadatak računanja postotaka. Niža ukupna stopa prijma žena potaknula je sumnju u upisni postupak <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>. Bickel i suradnici zato su ispitali kako se prijave i odluke raspoređuju po odjelima, koji su zasebno odlučivali o prijmu <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>.</p>
+<p><strong>Zbirna stopa i sumnja u pristranost.</strong> Iza Berkeleyjske tablice stajalo je pitanje o postupanju prema kandidatima, a ne samo zadatak računanja postotaka. Niža ukupna stopa prijma žena potaknula je sumnju u upisni postupak <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>. Bickel i suradnici zato su ispitali kako se prijave i odluke raspoređuju po odjelima, koji su zasebno odlučivali o prijmu <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>.</p>
 <div class="no-row-height column-margin column-container"></div><p>Vratimo se toj sumnji nakon prikaza obrata. Kada bismo sastavljali izvještaj za nekoga tko treba provjeriti upisni postupak, zbirna stopa bila bi važan početak. Pokazala bi razliku u ishodima svih zabilježenih prijava. No iz nje još ne bismo mogli utvrditi u kojem dijelu postupka nastaje razlika. Za to trebamo uz svaku stopu vidjeti koliko je prijava upućeno pojedinom odjelu i koliko ih je prihvaćeno.</p>
-<p>U izvornom slučaju žene su se češće prijavljivale na odjele koji su primali manji udio kandidata obaju spolova <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>. Zato ukupni postotak istodobno opisuje postupanje odjela i raspored prijava među njima. Razdvajanjem tih sastavnica mijenja se ono što možemo tvrditi o radu upisnih povjerenstava. Pritom ne nestaje pitanje zašto su prijave bile tako raspoređene ni jesu li kandidati imali jednake mogućnosti prije prijave.</p>
+<p>U izvornom slučaju žene su se češće prijavljivale na odjele koji su primali manji udio kandidata obaju spolova <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel, Hammel, i O’Connell 1975</a>)</span>. Zato ukupni postotak istodobno opisuje postupanje odjela i raspored prijava među njima. Razdvajanjem tih sastavnica mijenja se ono što možemo tvrditi o radu upisnih povjerenstava. Pritom ne nestaje pitanje zašto su prijave bile tako raspoređene ni jesu li kandidati imali jednake mogućnosti prije prijave.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-bickel1975" class="csl-entry" role="listitem">
 Bickel, P. J., E. A. Hammel, i J. W. O’Connell. 1975. <span>„Sex Bias in Graduate Admissions: Data from Berkeley“</span>. <em>Science</em> 187 (4175): 398–404. <a href="https://doi.org/10.1126/science.187.4175.398">https://doi.org/10.1126/science.187.4175.398</a>.
 </div></div><p>Dobar bi izvještaj zato zadržao oba pogleda. Zbirne stope pokazuju ukupnu razliku u ishodima, a odjelne usporedbe približavaju nas odluci koja nas zanima. Kad bismo prikazali samo prvi pogled, mogli bismo razliku neopravdano pripisati povjerenstvima. Kad bismo prikazali samo drugi, mogli bismo prerano zatvoriti pitanje nejednakosti.</p>
@@ -1592,11 +1418,11 @@ Bickel, P. J., E. A. Hammel, i J. W. O’Connell. 1975. <span>„Sex Bias in Gra
 </div>
 <p>U našoj generiranoj populaciji isti se problem javlja pri usporedbi broja osoba spremnih platiti vijesti i njihova udjela unutar izvora.</p>
 <div id="ex-01-callout-greska-01" class="callout-greska page-columns page-full">
-<p>U usporedbi izvora vijesti zanima nas koliko je njihovih korisnika spremno platiti vijesti. Sljedeći izvadak iz poznate simulacije daje brojnosti potrebne za provjeru asistentove bilješke <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Svaka zamišljena osoba pripada samo jednom retku.</p>
+<p>U usporedbi izvora vijesti zanima nas koliko je njihovih korisnika spremno platiti vijesti. Sljedeći izvadak iz poznate simulacije daje brojnosti potrebne za provjeru asistentove bilješke <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Svaka zamišljena osoba pripada samo jednom retku.</p>
 <div class="no-row-height column-margin column-container"></div><div id="tbl-greska-placanje" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-greska-placanje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;8: Spremnost na plaćanje u dvjema odvojenim skupinama izvora. Izrada autora prema <span class="citation" data-cites="sikic2026">Šikić (<a href="../references.html#ref-sikic2026" role="doc-biblioref">2026.</a>)</span>.
+Tablica&nbsp;8: Spremnost na plaćanje u dvjema odvojenim skupinama izvora. Izrada autora prema <span class="citation" data-cites="sikic2026">Šikić (<a href="../references.html#ref-sikic2026" role="doc-biblioref">2026</a>)</span>.
 </figcaption>
 <div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-greska-placanje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1631,17 +1457,17 @@ Tablica&nbsp;8: Spremnost na plaćanje u dvjema odvojenim skupinama izvora. Izra
 </section>
 <section id="razrađeni-primjer" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Razliku između broja i udjela možemo provjeriti za sve izvore vijesti u poznatoj autorskoj simulaciji od 50.000 osoba <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Za svaki izvor pitamo koliki je udio njegovih korisnika spreman platiti vijesti. Jedinica analize ostaje generirana osoba, a veličina skupine daje nazivnik. Time povezujemo pitanje s računom koji na njega odgovara. Rezultat će opisivati tu generiranu populaciju, bez objašnjenja uzroka razlika ili zaključka o stvarnim ljudima.</p>
+<p>Razliku između broja i udjela možemo provjeriti za sve izvore vijesti u poznatoj autorskoj simulaciji od 50.000 osoba <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Za svaki izvor pitamo koliki je udio njegovih korisnika spreman platiti vijesti. Jedinica analize ostaje generirana osoba, a veličina skupine daje nazivnik. Time povezujemo pitanje s računom koji na njega odgovara. Rezultat će opisivati tu generiranu populaciju, bez objašnjenja uzroka razlika ili zaključka o stvarnim ljudima.</p>
 <div class="no-row-height column-margin column-container"></div><p>Za svaki izvor tablica sadržava broj osoba, broj onih koji bi platili vijesti i njihov udio. Stupac <code>Osobe</code> daje nazivnik, a <code>Spremni platiti</code> brojnik. Redoslijed izvora određen je udjelom.</p>
 <div class="cell page-columns page-full" data-layout-align="center">
 <div id="tbl-mediji-placanje" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mediji-placanje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;9: Spremnost platiti prema glavnom izvoru vijesti u generiranoj populaciji. Izrada autora prema <span class="citation" data-cites="sikic2026">Šikić (<a href="../references.html#ref-sikic2026" role="doc-biblioref">2026.</a>)</span>.
+Tablica&nbsp;9: Spremnost platiti prema glavnom izvoru vijesti u generiranoj populaciji. Izrada autora prema <span class="citation" data-cites="sikic2026">Šikić (<a href="../references.html#ref-sikic2026" role="doc-biblioref">2026</a>)</span>.
 </figcaption>
 <div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-mediji-placanje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Izvor</th>
@@ -1688,9 +1514,9 @@ Tablica&nbsp;9: Spremnost platiti prema glavnom izvoru vijesti u generiranoj pop
 </figure>
 </div>
 </div>
-<p>Među osobama kojima je portal glavni izvor vijesti njih 3.514 spremno je platiti vijesti, što je najveći broj među skupinama <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. No ta je skupina i najveća. Dijeljenjem s 15.101 dobivamo udio od 23,27 % <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Za tisak dijelimo 1.289 s 4.855 i dobivamo 26,55 % <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Portal ima više osoba spremnih platiti, a tisak njihov veći udio.</p>
-<div class="no-row-height column-margin column-container"></div><p>Pri tumačenju polazimo od toga da imamo cijelu generiranu populaciju. U tih 50.000 zapisa nema nesigurnosti koja bi nastala odabirom uzorka <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Ipak, ne znamo bi li pravilo kojim su podaci generirani bilo korisno za neku drugu svrhu. Iz ovih udjela ne zaključujemo o stvarnoj publici, uzrocima razlika ili odluci koju bi trebalo donijeti. Budući da ne istražujemo uzrok, ne biramo ni među mogućim uzročnim objašnjenjima. Ovdje pogrešno tumačenje ne pogađa stvarne ljude, ali u stvarnoj bi analizi zamjena broja udjelom mogla usmjeriti resurse prema većoj skupini samo zbog njezine veličine.</p>
-<p>Zaključak stoga glasi da u generiranoj populaciji tisak ima najveći udio osoba spremnih platiti vijesti, a portal najveći broj takvih osoba <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Pri usporedbi udjela uzimamo u obzir veličinu svake skupine. Pri usporedbi brojeva promatramo samo brojnike.</p>
+<p>Među osobama kojima je portal glavni izvor vijesti njih 3.514 spremno je platiti vijesti, što je najveći broj među skupinama <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. No ta je skupina i najveća. Dijeljenjem s 15.101 dobivamo udio od 23,27 % <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Za tisak dijelimo 1.289 s 4.855 i dobivamo 26,55 % <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Portal ima više osoba spremnih platiti, a tisak njihov veći udio.</p>
+<div class="no-row-height column-margin column-container"></div><p>Pri tumačenju polazimo od toga da imamo cijelu generiranu populaciju. U tih 50.000 zapisa nema nesigurnosti koja bi nastala odabirom uzorka <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Ipak, ne znamo bi li pravilo kojim su podaci generirani bilo korisno za neku drugu svrhu. Iz ovih udjela ne zaključujemo o stvarnoj publici, uzrocima razlika ili odluci koju bi trebalo donijeti. Budući da ne istražujemo uzrok, ne biramo ni među mogućim uzročnim objašnjenjima. Ovdje pogrešno tumačenje ne pogađa stvarne ljude, ali u stvarnoj bi analizi zamjena broja udjelom mogla usmjeriti resurse prema većoj skupini samo zbog njezine veličine.</p>
+<p>Zaključak stoga glasi da u generiranoj populaciji tisak ima najveći udio osoba spremnih platiti vijesti, a portal najveći broj takvih osoba <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Pri usporedbi udjela uzimamo u obzir veličinu svake skupine. Pri usporedbi brojeva promatramo samo brojnike.</p>
 <div class="no-row-height column-margin column-container"></div></section>
 <section id="sažetak" class="level2 sazetak">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
@@ -1765,7 +1591,7 @@ Tablica&nbsp;9: Spremnost platiti prema glavnom izvoru vijesti u generiranoj pop
 </section>
 <section id="ex-01-racunski-01" class="level3 zadaci-razina page-columns page-full">
 <h3 class="zadaci-razina anchored" data-anchor-id="ex-01-racunski-01">Računski</h3>
-<p>Upotrijebite <a href="#tbl-mediji-placanje">tablicu spremnosti na plaćanje</a>. Za portal i tisak ručno podijelite vrijednost <code>Spremni platiti</code> s vrijednošću <code>Osobe</code> te rezultat pretvorite u postotak. Predajte dva razlomka, dva postotka i jednu rečenicu koja objašnjava zašto portal ima veći broj, a tisak veći udio. Zatim usporedite tisak s društvenim mrežama i razliku zaokružite na dvije decimale <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>.</p>
+<p>Upotrijebite <a href="#tbl-mediji-placanje">tablicu spremnosti na plaćanje</a>. Za portal i tisak ručno podijelite vrijednost <code>Spremni platiti</code> s vrijednošću <code>Osobe</code> te rezultat pretvorite u postotak. Predajte dva razlomka, dva postotka i jednu rečenicu koja objašnjava zašto portal ima veći broj, a tisak veći udio. Zatim usporedite tisak s društvenim mrežama i razliku zaokružite na dvije decimale <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-sikic2026" class="csl-entry" role="listitem">
 Šikić, Luka. 2026. <span>„Populacija medijskih navika, generirani nastavni skup“</span>. <a href="https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv">https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv</a>.
 </div></div><p>U simulaciji su stope skupine A u pristupačnijoj i zahtjevnijoj podskupini 80 % i 20 %, a stope skupine B 90 % i 30 %. Pretpostavite da obje skupine imaju po 50 % jedinica u svakoj podskupini. Izračunajte dvije zbirne stope i objasnite zašto obrata nema. <span>U digitalnom izdanju rezultat možete provjeriti widgetom.</span></p>
@@ -1785,2333 +1611,1195 @@ Tablica&nbsp;9: Spremnost platiti prema glavnom izvoru vijesti u generiranoj pop
 
 </main> <!-- /main -->
 <script>
-
 /* =====================================================================
-
    book-include.html — ponašanje stranice (include-after-body)
-
    ---------------------------------------------------------------------
-
    Sve vizualno živi u styles/ (SCSS + styles.css). Ovdje nema boja ni
-
    pisama; moduli samo dodaju elemente i klase koje CSS zna stilizirati.
 
-
-
    Moduli
-
      1. traka napretka čitanja
-
      2. pregled na prijelaz za unutarnje poveznice
-
      3. dinkus (*** u prozi -> stilizirani razdjelnik)
-
      4. sidra uz naslove
-
      5. samostalne stranice bez knjižnog okvira
-
      5a. aktivno stanje roditelja izbornika Nastava
-
      6. čišćenje sidebara
-
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
-
      8. sklopivi prozni blokovi („Što isprobati")
-
      9. AI izbornik u podnožju poglavlja
-
      10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
-
      11. traka metapodataka na otvaranju poglavlja
-
      12. pamćenje stanja widgeta po stranici
-
      13. organizacija mobilne navigacije
-
      14. lokalni oporavak resursa stranice 404
-
      15. uklanjanje oznake vanjske poveznice s istog izvorišta
-
      16. pristupačno vodoravno pomicanje širokih tablica
-
      17. hrvatski pristupačni nazivi pretraživanja
-
    ===================================================================== */
-
 (function () {
-
   "use strict";
 
-
-
   // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
-
   // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
-
   // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
-
   function seedPojmovnikSearch() {
-
     if (!document.body.classList.contains("pojmovnik-page")) return;
-
     if (document.getElementById("quarto-search")) return;
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var host = document.createElement("div");
-
     host.id = "quarto-search";
-
     host.title = "Pretraži knjigu";
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     if (tools) tools.appendChild(host);
-
     else navbar.querySelector(".navbar-container").appendChild(host);
-
   }
-
-
 
   seedPojmovnikSearch();
 
-
-
   // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
-
   // ručno; pokrenite python scripts/check-book-inventory.py --write.
-
   // BEGIN GENERATED: book-inventory runtime-routes
-
   var SAMOSTALNE = [
-
     "/index.html",
-
     "/interakcije.html",
-
     "/pojmovnik.html",
-
     "/podaci.html",
-
     "/uci-s-ai.html",
-
     "/predavanja.html",
-
     "/silabus.html",
-
     "/raspored.html",
-
     "/resursi.html",
-
     "/rjesenja.html",
-
     "/errata.html",
-
     "/404.html"
-
   ];
-
   var NAVBAR_SKUPINE = [
-
     {
-
       "id": "nav-menu-nastava",
-
       "routes": [
-
         "/predavanja.html",
-
         "/silabus.html",
-
         "/raspored.html"
-
       ]
-
     }
-
   ];
-
   var PUTOVI_STRANICA = {
-
     "landing": "/index.html",
-
     "ch00": "/chapters/00-predgovor.html",
-
     "ch01": "/chapters/01-zasto-statistika.html",
-
     "ch02": "/chapters/02-mjerenje-i-dizajn.html",
-
     "ch03": "/chapters/03-kako-brojke-zavode.html",
-
     "ch04": "/chapters/04-sazimanje-podataka.html",
-
     "ch05": "/chapters/05-vizualizacija.html",
-
     "ch06": "/chapters/06-povezanost.html",
-
     "ch07": "/chapters/07-vjerojatnost.html",
-
     "ch08": "/chapters/08-uzorkovanje.html",
-
     "ch09": "/chapters/09-procjena.html",
-
     "ch10": "/chapters/10-logika-testiranja.html",
-
     "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
-
     "ch12": "/chapters/12-kriza-i-obnova.html",
-
     "ch13": "/chapters/13-kategoricki-podaci.html",
-
     "ch14": "/chapters/14-dvije-grupe.html",
-
     "ch15": "/chapters/15-vise-grupa.html",
-
     "ch16": "/chapters/16-regresija.html",
-
     "ch17": "/chapters/17-doba-algoritama.html",
-
     "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
-
     "references": "/references.html",
-
     "app-a": "/dodaci/a-praktikum.html",
-
     "app-b": "/dodaci/b-jamovi.html",
-
     "app-c": "/dodaci/c-katalog-podataka.html",
-
     "app-d": "/dodaci/d-koji-test.html",
-
     "app-e": "/dodaci/e-rjecnik.html",
-
     "app-f": "/dodaci/f-ai-protokol.html",
-
     "app-g": "/dodaci/g-numericki-podsjetnik.html",
-
     "interactions": "/interakcije.html",
-
     "glossary": "/pojmovnik.html",
-
     "data": "/podaci.html",
-
     "ai": "/uci-s-ai.html",
-
     "lectures": "/predavanja.html",
-
     "syllabus": "/silabus.html",
-
     "schedule": "/raspored.html",
-
     "resources": "/resursi.html",
-
     "solutions": "/rjesenja.html",
-
     "errata": "/errata.html",
-
     "not-found": "/404.html"
-
   };
-
   var AI_PUTOVI_POGLAVLJA = [
-
     {
-
       "route": "/chapters/00-predgovor.html",
-
       "ai": "/ai/00-predgovor.md"
-
     },
-
     {
-
       "route": "/chapters/01-zasto-statistika.html",
-
       "ai": "/ai/01-zasto-statistika.md"
-
     },
-
     {
-
       "route": "/chapters/02-mjerenje-i-dizajn.html",
-
       "ai": "/ai/02-mjerenje-i-dizajn.md"
-
     },
-
     {
-
       "route": "/chapters/03-kako-brojke-zavode.html",
-
       "ai": "/ai/03-kako-brojke-zavode.md"
-
     },
-
     {
-
       "route": "/chapters/04-sazimanje-podataka.html",
-
       "ai": "/ai/04-sazimanje-podataka.md"
-
     },
-
     {
-
       "route": "/chapters/05-vizualizacija.html",
-
       "ai": "/ai/05-vizualizacija.md"
-
     },
-
     {
-
       "route": "/chapters/06-povezanost.html",
-
       "ai": "/ai/06-povezanost.md"
-
     },
-
     {
-
       "route": "/chapters/07-vjerojatnost.html",
-
       "ai": "/ai/07-vjerojatnost.md"
-
     },
-
     {
-
       "route": "/chapters/08-uzorkovanje.html",
-
       "ai": "/ai/08-uzorkovanje.md"
-
     },
-
     {
-
       "route": "/chapters/09-procjena.html",
-
       "ai": "/ai/09-procjena.md"
-
     },
-
     {
-
       "route": "/chapters/10-logika-testiranja.html",
-
       "ai": "/ai/10-logika-testiranja.md"
-
     },
-
     {
-
       "route": "/chapters/11-velicina-ucinka-i-snaga.html",
-
       "ai": "/ai/11-velicina-ucinka-i-snaga.md"
-
     },
-
     {
-
       "route": "/chapters/12-kriza-i-obnova.html",
-
       "ai": "/ai/12-kriza-i-obnova.md"
-
     },
-
     {
-
       "route": "/chapters/13-kategoricki-podaci.html",
-
       "ai": "/ai/13-kategoricki-podaci.md"
-
     },
-
     {
-
       "route": "/chapters/14-dvije-grupe.html",
-
       "ai": "/ai/14-dvije-grupe.md"
-
     },
-
     {
-
       "route": "/chapters/15-vise-grupa.html",
-
       "ai": "/ai/15-vise-grupa.md"
-
     },
-
     {
-
       "route": "/chapters/16-regresija.html",
-
       "ai": "/ai/16-regresija.md"
-
     },
-
     {
-
       "route": "/chapters/17-doba-algoritama.html",
-
       "ai": "/ai/17-doba-algoritama.md"
-
     },
-
     {
-
       "route": "/chapters/18-vase-prvo-istrazivanje.html",
-
       "ai": "/ai/18-vase-prvo-istrazivanje.md"
-
     }
-
   ];
-
   // END GENERATED: book-inventory runtime-routes
 
-
-
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
-
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
-
   var UPUTA =
-
-    "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
-
+    "Ti si moj mentor za udžbenik „Statistika 101: Intuitivni uvod u analizu podataka”. " +
     "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
-
     "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
-
     "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
-
     "gradi intuiciju prije formule, prilagodi se mojoj razini i na zahtjev sažmi " +
-
     "gradivo, izradi kviz, kartice ili plan učenja. Na početku me pitaj što učim " +
-
     "i koji mi je cilj.";
 
-
-
   // -------------------------------------------------------------------
-
   // 1. Traka napretka čitanja
-
   // -------------------------------------------------------------------
-
   function setupProgressBar() {
-
     if (document.getElementById("reading-progress")) return;
-
     var bar = document.createElement("div");
-
     bar.id = "reading-progress";
-
     document.body.appendChild(bar);
 
-
-
     var ticking = false;
-
     function update() {
-
       var doc = document.documentElement;
-
       var scrollTop = window.scrollY || doc.scrollTop;
-
       var max = (doc.scrollHeight - doc.clientHeight) || 1;
-
       var pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
-
       bar.style.width = pct + "%";
-
       ticking = false;
-
     }
-
     window.addEventListener("scroll", function () {
-
       if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-
     }, { passive: true });
-
     update();
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 2. Pregled na prijelaz za unutarnje poveznice (#sidra u dokumentu)
-
   // -------------------------------------------------------------------
-
   function setupInternalHover() {
-
     var tip = null, hideTimer = null;
 
-
-
     function ensureTip() {
-
       if (tip) return tip;
-
       tip = document.createElement("div");
-
       tip.className = "internal-hover-preview";
-
       document.body.appendChild(tip);
-
       return tip;
-
     }
-
-
 
     function show(target, text, title) {
-
       var t = ensureTip();
-
       t.innerHTML = "";
-
       if (title) {
-
         var h = document.createElement("div");
-
         h.className = "ihp-title";
-
         h.textContent = title;
-
         t.appendChild(h);
-
       }
-
       var body = document.createElement("div");
-
       body.textContent = text;
-
       t.appendChild(body);
 
-
-
       var rect = target.getBoundingClientRect();
-
       var left = window.scrollX + rect.left;
-
       var maxLeft = window.scrollX + document.documentElement.clientWidth - 400;
-
       if (left > maxLeft) left = maxLeft;
-
       if (left < 8) left = 8;
-
       t.style.top = (window.scrollY + rect.bottom + 8) + "px";
-
       t.style.left = left + "px";
-
       t.classList.add("visible");
-
     }
-
-
 
     function hide() { if (tip) tip.classList.remove("visible"); }
 
-
-
     document.addEventListener("mouseover", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       if (a.classList.contains("citation") || a.classList.contains("footnote-ref")) return;
-
       if (a.closest(".sidebar, nav, .toc, #TOC, .quarto-secondary-nav")) return;
 
-
-
       var hash = a.getAttribute("href").slice(1);
-
       if (!hash) return;
-
       var tgt = document.getElementById(hash);
-
       if (!tgt) return;
 
-
-
       var titleEl = tgt.querySelector("h1, h2, h3, h4") ||
-
                     (tgt.tagName.match(/^H[1-6]$/) ? tgt : null);
-
       var title = titleEl ? titleEl.textContent.trim() : "";
-
       var ctx = (tgt.textContent || "").trim().replace(/\s+/g, " ");
-
       if (title) ctx = ctx.replace(title, "").trim();
-
       ctx = ctx.slice(0, 280) + (ctx.length > 280 ? "…" : "");
 
-
-
       clearTimeout(hideTimer);
-
       show(a, ctx, title);
-
     });
-
-
 
     document.addEventListener("mouseout", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       hideTimer = setTimeout(hide, 120);
-
     });
-
-
 
     window.addEventListener("scroll", hide, { passive: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 3. Dinkus — pasus koji je samo "***" postaje razdjelnik
-
   // -------------------------------------------------------------------
-
   function setupDinkus() {
-
     document.querySelectorAll("main p").forEach(function (p) {
-
       var t = p.textContent.trim();
-
       if (t === "***" || t === "* * *" || t === "◆ ◆ ◆") {
-
         var div = document.createElement("div");
-
         div.className = "dinkus";
-
         p.parentNode.replaceChild(div, p);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 4. Sidra uz naslove
-
   // -------------------------------------------------------------------
-
   function setupAnchorLinks() {
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
-
       if (h.classList.contains("title")) return;
-
       if (h.querySelector("a.anchorjs-link")) return;
-
       var link = document.createElement("a");
-
       link.className = "anchorjs-link";
-
       link.href = "#" + h.id;
-
       link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
-
       h.appendChild(link);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5. Samostalne stranice — bez knjižnog okvira
-
   // -------------------------------------------------------------------
-
   function setupStandalonePages() {
-
     var path = location.pathname;
-
     var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
-
     var normalized = path.endsWith("/") ? path + naslovnica : path;
-
     var isStandalone =
-
       document.body.classList.contains("standalone-page") ||
-
       document.body.classList.contains("not-found-page") ||
-
       SAMOSTALNE.some(function (p) { return normalized.endsWith(p); });
-
     if (!isStandalone) return;
-
-
 
     document.body.classList.add("standalone-page");
 
-
-
     var sb = document.getElementById("quarto-sidebar");
-
     if (sb) sb.style.display = "none";
-
     var msb = document.getElementById("quarto-margin-sidebar");
-
     if (msb) msb.style.display = "none";
-
     document.querySelectorAll(".quarto-page-breadcrumbs").forEach(function (el) { el.remove(); });
 
-
-
     // Quarto dodaje "Appendix A — " prefiks dodacima; na hub stranicama smeta.
-
     var strip = function (s) {
-
       return s.replace(/^Appendix\s+\S*\s*[—–-]\s*/i, "").replace(/^\s*[—–-]\s+/, "").trim();
-
     };
-
     var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
-
     if (titleEl) titleEl.textContent = strip(titleEl.textContent);
-
     document.title = strip(document.title);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
-
   // -------------------------------------------------------------------
-
   function setupNastavaActiveState() {
-
     NAVBAR_SKUPINE.forEach(function (skupina) {
-
       var aktivna = skupina.routes.some(function (put) {
-
         return location.pathname.endsWith(put);
-
       });
-
       if (!aktivna) return;
-
       var parent = document.getElementById(skupina.id);
-
       if (!parent) return;
-
       parent.classList.add("active", "section-active");
-
       parent.setAttribute("aria-current", "true");
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
-
   //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
-
   //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
-
   // -------------------------------------------------------------------
-
   function removePrunedItems() {
-
     var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
-
     document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
-
       .forEach(function (a) {
-
         var href = a.getAttribute("href") || "";
-
         var hide = endings.some(function (e) { return href.endsWith(e); });
-
         if (hide) {
-
           a.style.display = "none";
-
           var li = a.closest(".sidebar-item");
-
           if (li) li.style.display = "none";
-
         }
-
       });
-
   }
-
-
 
   function pruneSidebar() {
-
     removePrunedItems();
-
     setTimeout(removePrunedItems, 200);
-
     setTimeout(removePrunedItems, 800);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 7. Upravljačke ploče interaktivnih grafova
-
   //    Observable rendira kontrole asinkrono, pa MutationObserver hvata
-
   //    njihovo pojavljivanje. Ploča se sklapa u <details>, klizači dobiju
-
   //    ispunu trake (--fill) i gumb za povratak na početne vrijednosti.
-
   // -------------------------------------------------------------------
-
   function setupOjsPanels() {
-
     function paintFill(r) {
-
       var min = parseFloat(r.min), max = parseFloat(r.max);
-
       if (!isFinite(min)) min = 0;
-
       if (!isFinite(max)) max = 100;
-
       var pct = max > min ? ((r.value - min) / (max - min)) * 100 : 0;
-
       r.style.setProperty("--fill", pct.toFixed(2) + "%");
-
     }
-
-
 
     function enhanceRange(r) {
-
       if (r.dataset.ojsEnhanced) return;
-
       r.dataset.ojsEnhanced = "1";
-
       r.dataset.ojsInitial = r.value;
-
       paintFill(r);
-
       r.addEventListener("input", function () {
-
         paintFill(r);
-
         var num = r.parentElement && r.parentElement.querySelector('input[type="number"]');
-
         if (num) {
-
           num.classList.remove("ojs-pulse");
-
           void num.offsetWidth;
-
           num.classList.add("ojs-pulse");
-
         }
-
       });
-
     }
-
-
 
     function panelMeta(panel) {
-
       var host = panel.closest && panel.closest("[data-ojs-label]");
-
       var widget = panel.closest && panel.closest(".widget-frame[data-naslov]");
-
       var widgetTitle = widget && widget.getAttribute("data-naslov");
-
       return {
-
         label: host && host.getAttribute("data-ojs-label") ||
-
           (widgetTitle ? "Postavke: " + widgetTitle : "Parametri simulacije"),
-
         hint: host && host.getAttribute("data-ojs-hint") ||
-
           "otvori za promjenu vrijednosti"
-
       };
-
     }
-
-
 
     function collapsePanel(panel) {
-
       if (panel.dataset.ojsCollapsed) return;
-
       var parent = panel.parentElement;
-
       if (!parent) return;
-
       panel.dataset.ojsCollapsed = "1";
-
       var meta = panelMeta(panel);
 
-
-
       var details = document.createElement("details");
-
       details.className = "ojs-collapsible";
-
       var summary = document.createElement("summary");
-
       summary.className = "ojs-collapsible-summary";
-
       summary.innerHTML =
-
         '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
         '<span class="ojs-collapsible-label"></span>' +
-
         '<span class="ojs-collapsible-hint"></span>';
-
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
-
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
 
-
-
       parent.insertBefore(details, panel);
-
       details.appendChild(summary);
-
       details.appendChild(panel);
-
     }
-
-
 
     function enhancePanel(panel) {
-
       if (panel.dataset.ojsPanel) return;
-
       panel.dataset.ojsPanel = "1";
-
       panel.querySelectorAll("input, select, textarea").forEach(function (el) {
-
         if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
-
         if (el.type === "checkbox" || el.type === "radio") {
-
           el.dataset.ojsInitialChecked = el.checked ? "1" : "0";
-
         }
-
       });
-
       var btn = document.createElement("button");
-
       btn.type = "button";
-
       btn.className = "ojs-reset";
-
       btn.textContent = "↺ početne vrijednosti";
-
       btn.title = "Vrati početne vrijednosti";
-
       btn.addEventListener("click", function () {
-
         panel.querySelectorAll('input[type="range"]').forEach(function (r) {
-
           if (r.dataset.ojsInitial === undefined) return;
-
           r.value = r.dataset.ojsInitial;
-
           r.dispatchEvent(new Event("input", { bubbles: true }));
-
         });
-
         panel.querySelectorAll(
-
           'input:not([type="range"]), select, textarea'
-
         ).forEach(function (el) {
-
           if (el.dataset.ojsInitial === undefined) return;
-
           if (el.type === "checkbox" || el.type === "radio") {
-
             el.checked = el.dataset.ojsInitialChecked === "1";
-
           } else {
-
             el.value = el.dataset.ojsInitial;
-
           }
-
           el.dispatchEvent(new Event("input", { bubbles: true }));
-
           el.dispatchEvent(new Event("change", { bubbles: true }));
-
         });
-
       });
-
       panel.appendChild(btn);
-
       collapsePanel(panel);
-
     }
-
-
 
     var scanQueued = false;
-
     function scan() {
-
       scanQueued = false;
-
       document.querySelectorAll('form[class^="oi-"] input[type="range"]').forEach(enhanceRange);
-
       document.querySelectorAll('form[class^="oi-"]').forEach(function (f) {
-
         if (f.classList.contains("quarto-ojs-table-fixup")) return;
-
         var p = f.parentElement;
-
         if (p && p.tagName === "DIV") enhancePanel(p);
-
       });
-
       document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
-
         if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
-
         if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
-
       });
-
+      // Sustav Zvono: zaglavlje widgeta s diskom, naslovom i oznakom.
+      document.querySelectorAll(".widget-frame[data-naslov]:not(.zv-widget-glava)").forEach(function (frame) {
+        var oznaka = frame.getAttribute("data-oznaka") || "";
+        var broj = (oznaka.match(/(\d+\.\d+)/) || [])[1] || "";
+        var glava = document.createElement("div");
+        glava.className = "widget-glava";
+        if (broj) {
+          var disk = document.createElement("span");
+          disk.className = "widget-glava__disk";
+          disk.setAttribute("aria-hidden", "true");
+          disk.textContent = broj;
+          glava.appendChild(disk);
+        }
+        var naslov = document.createElement("span");
+        naslov.className = "widget-glava__naslov";
+        naslov.textContent = frame.getAttribute("data-naslov");
+        glava.appendChild(naslov);
+        if (oznaka) {
+          var lbl = document.createElement("span");
+          lbl.className = "widget-glava__oznaka";
+          lbl.textContent = oznaka.toLowerCase();
+          glava.appendChild(lbl);
+        }
+        frame.insertBefore(glava, frame.firstChild);
+        frame.classList.add("zv-widget-glava");
+      });
     }
-
     function queueScan() {
-
       if (scanQueued) return;
-
       scanQueued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     new MutationObserver(queueScan).observe(document.body, { childList: true, subtree: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
-
   // -------------------------------------------------------------------
-
   function wrapCollapsible(node, label, hint) {
-
     if (node.dataset.ojsCollapsibleWrapped) return null;
-
     var parent = node.parentElement;
-
     if (!parent) return null;
-
     node.dataset.ojsCollapsibleWrapped = "1";
 
-
-
     var details = document.createElement("details");
-
     details.className = "ojs-collapsible ojs-collapsible-prose";
-
     var summary = document.createElement("summary");
-
     summary.className = "ojs-collapsible-summary";
-
     summary.innerHTML =
-
       '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
       '<span class="ojs-collapsible-label"></span>' +
-
       '<span class="ojs-collapsible-hint"></span>';
-
     summary.querySelector(".ojs-collapsible-label").textContent = label;
-
     summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
 
-
-
     var body = document.createElement("div");
-
     body.className = "ojs-collapsible-body";
 
-
-
     parent.insertBefore(details, node);
-
     details.appendChild(summary);
-
     details.appendChild(body);
-
     body.appendChild(node);
-
     return body;
-
   }
-
-
 
   function setupProseCollapsibles() {
-
     var main = document.querySelector("main.content") || document.querySelector("main");
-
     if (!main) return;
 
-
-
     main.querySelectorAll("p").forEach(function (p) {
-
       if (p.dataset.ojsCollapsibleWrapped) return;
-
       var strong = p.querySelector(":scope > strong:first-child");
-
       if (!strong) return;
-
       if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
-
       var next = p.nextElementSibling;
-
       strong.remove();
-
       if (p.firstChild && p.firstChild.nodeType === 3) {
-
         p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
-
       }
-
       var body = wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
-
       if (body && next && (next.matches("ol") || next.matches("ul"))) {
-
         body.appendChild(next);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 9. AI izbornik u podnožju poglavlja
-
   //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
-
   //    generira R/build-ai-exports.R.
-
   // -------------------------------------------------------------------
-
   function setupChapterAI() {
-
     var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
-
       return location.pathname.endsWith(kandidat.route);
-
     });
-
     if (!zapis) return;
-
     if (document.querySelector(".ai-cta")) return;
-
     var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
-
-
     var mdHref  = zapis.ai;
-
     var uciHref = PUTOVI_STRANICA.ai;
-
     var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
-
     var absMd   = location.origin + mdHref;
-
     var q = encodeURIComponent(
-
       UPUTA +
-
       "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
-
       absMd);
 
-
-
     var box = document.createElement("div");
-
     box.className = "ai-cta-foot";
 
-
-
     var det = document.createElement("details");
-
     det.className = "ai-cta";
-
     det.innerHTML =
-
       "<summary>🤖 Pitaj AI o ovom poglavlju</summary>" +
-
       '<div class="ai-cta-menu">' +
-
         '<a href="' + mdHref + '" download>⬇ Preuzmi tekst (.md)</a>' +
-
         '<a href="https://claude.ai/new?q=' + q + '" target="_blank" rel="noopener">Otvori u Claudeu</a>' +
-
         '<a href="https://chatgpt.com/?q=' + q + '" target="_blank" rel="noopener">Otvori u ChatGPT-u</a>' +
-
         '<a href="' + uciHref + '">Sve opcije i cijela knjiga →</a>' +
-
       "</div>";
 
-
-
     var pm = document.createElement("a");
-
     pm.className = "ai-cta-pm";
-
     pm.href = pmHref;
-
     pm.innerHTML = "🕸 Pojmovi ovog poglavlja u mreži";
 
-
-
     box.appendChild(det);
-
     box.appendChild(pm);
 
-
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     var fn = article.querySelector("section.footnotes, #refs, section#footnotes");
-
     if (fn) fn.parentNode.insertBefore(box, fn);
-
     else article.appendChild(box);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 10. Pojmovi na dodir
-
   //     [statističko zaključivanje]{.pojam def="…" en="…" ch="8"}
-
   //     Pandoc atribute prenosi doslovno na <span>, pa oblačić gradimo
-
   //     odavde. Izgled je u styles/_base.scss (.pojam__oblacic).
-
   // -------------------------------------------------------------------
-
   function setupPojmovi() {
-
     var pojmovi = document.querySelectorAll("span.pojam");
-
     if (!pojmovi.length) return;
 
-
-
     pojmovi.forEach(function (el) {
-
       if (el.dataset.pojamSpreman) return;
-
       el.dataset.pojamSpreman = "1";
 
-
-
       var def = el.getAttribute("def") || "";
-
       var en  = el.getAttribute("en")  || "";
-
       var ch  = el.getAttribute("ch")  || "";
-
       if (!def && !en && !ch) return;
-
-
 
       el.setAttribute("tabindex", "0");
 
-
-
       var tip = document.createElement("span");
-
       tip.className = "pojam__oblacic";
-
       tip.setAttribute("role", "tooltip");
 
-
-
       var glava = document.createElement("span");
-
       glava.className = "pojam__glava";
-
       glava.textContent = el.textContent.trim();
-
       tip.appendChild(glava);
 
-
-
       if (def) tip.appendChild(document.createTextNode(def));
-
       if (en) {
-
         var e = document.createElement("em");
-
         e.className = "pojam__en";
-
         e.textContent = " " + en;
-
         tip.appendChild(e);
-
       }
-
       if (ch) {
-
         var c = document.createElement("span");
-
         c.className = "pojam__pogl";
-
         c.textContent = "→ pogl. " + ch;
-
         tip.appendChild(c);
-
       }
-
       el.appendChild(tip);
-
     });
-
-
 
     // Dodir i tipkovnica: klik otvara, klik izvan zatvara (CSS pokriva miš).
-
     document.addEventListener("click", function (e) {
-
       var t = e.target.closest && e.target.closest("span.pojam");
-
       document.querySelectorAll("span.pojam.je-otvoren").forEach(function (o) {
-
         if (o !== t) o.classList.remove("je-otvoren");
-
       });
-
       if (t) { t.classList.toggle("je-otvoren"); e.stopPropagation(); }
-
     });
-
     document.addEventListener("keydown", function (e) {
-
       if (e.key !== "Escape") return;
-
       document.querySelectorAll("span.pojam.je-otvoren")
-
         .forEach(function (o) { o.classList.remove("je-otvoren"); });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 11. Traka metapodataka na otvaranju poglavlja
-
   //     U .qmd-u se piše kao obična tablica unutar ::: {.chapter-meta};
-
   //     ovdje postaje jedan redak parova natpis / vrijednost.
-
   // -------------------------------------------------------------------
-
   function setupChapterMeta() {
-
     document.querySelectorAll(".chapter-meta").forEach(function (box) {
-
       var table = box.querySelector("table");
-
       if (!table || box.dataset.metaSpremna) return;
-
       box.dataset.metaSpremna = "1";
 
-
-
       var glave = [].map.call(table.querySelectorAll("thead th"),
-
         function (th) { return th.textContent.trim(); });
-
       var polja = [].map.call(table.querySelectorAll("tbody tr:first-child td"),
-
         function (td) { return td.textContent.trim(); });
-
       if (!glave.length) return;
 
-
-
       var red = document.createElement("div");
-
       red.className = "chapter-meta__row";
-
       glave.forEach(function (g, i) {
-
         var cell = document.createElement("div");
-
         var k = document.createElement("span");
-
         k.className = "chapter-meta__key";
-
         k.textContent = g;
-
         cell.appendChild(k);
-
         cell.appendChild(document.createTextNode(polja[i] || "—"));
-
         red.appendChild(cell);
-
       });
-
-
 
       var wrap = table.closest(".table, figure") || table;
-
       wrap.parentNode.replaceChild(red, wrap);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 12. Pamćenje stanja widgeta
-
   //     Čitatelj koji odscrola i vrati se ne gubi svoje istraživanje.
-
   //     Ključ je po stranici; vrijednosti su samo brojevi i nizovi iz
-
   //     kontrola, pa localStorage ne nosi ništa osobno.
-
   // -------------------------------------------------------------------
-
   function setupWidgetMemory() {
-
     var kljuc = "statistika:widget:" + location.pathname;
-
     var IZBOR = ".widget-frame input, .widget-frame select, " +
-
                 'form[class^="oi-"] input, form[class^="oi-"] select';
 
-
-
     function spremi() {
-
       var s = {};
-
       document.querySelectorAll(IZBOR).forEach(function (el, i) {
-
         if (el.type === "checkbox" || el.type === "radio") s[i] = el.checked;
-
         else s[i] = el.value;
-
       });
-
       try { localStorage.setItem(kljuc, JSON.stringify(s)); } catch (e) {}
-
     }
-
-
 
     function vrati() {
-
       var s;
-
       try { s = JSON.parse(localStorage.getItem(kljuc) || "null"); } catch (e) { return; }
-
       if (!s) return;
-
       var polja = document.querySelectorAll(IZBOR);
-
       if (!polja.length) return;
-
       polja.forEach(function (el, i) {
-
         if (!(i in s)) return;
-
         if (el.type === "checkbox" || el.type === "radio") el.checked = !!s[i];
-
         else el.value = s[i];
-
         el.dispatchEvent(new Event("input", { bubbles: true }));
-
         el.dispatchEvent(new Event("change", { bubbles: true }));
-
       });
-
     }
-
-
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
-
     // je dovoljan jer se stanje pamti na svaku promjenu.
-
     window.setTimeout(vrati, 600);
-
     document.addEventListener("input", function (e) {
-
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 13. Mobilna navigacija
-
   //     Zatvoreno zaglavlje ostaje jedan redak. Pretraga, bočni izbornik
-
   //     i hamburger čine jednu skupinu, a sekundarni alati sele u otvoreni
-
   //     glavni izbornik. Na širokom zaslonu sve se vraća na Quartova mjesta.
-
   // -------------------------------------------------------------------
-
   function setupMobileNavbar() {
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var container = navbar.querySelector(".navbar-container");
-
     var collapse = navbar.querySelector(".navbar-collapse");
-
     var toggler = navbar.querySelector(".navbar-toggler");
-
     if (!container || !collapse || !toggler) return;
 
-
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
-
     var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
-
     var searchButton = secondary && secondary.querySelector(".quarto-search-button");
-
     if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
-
       var searchHost = navbar.querySelector("#quarto-search");
-
       if (searchHost) searchHost.hidden = true;
-
       searchButton = document.createElement("button");
-
       searchButton.type = "button";
-
       searchButton.className = "btn quarto-search-button";
-
       searchButton.setAttribute("aria-label", "Pretraži knjigu");
-
       searchButton.setAttribute("title", "Pretraži knjigu");
-
       searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
-
       searchButton.addEventListener("click", function () {
-
         if (window.quartoOpenSearch) window.quartoOpenSearch();
-
       });
-
       if (tools) tools.appendChild(searchButton);
-
       else container.insertBefore(searchButton, toggler);
-
     }
-
     var brandTitle = navbar.querySelector(".navbar-title");
-
     var fullBrand = brandTitle ? brandTitle.textContent.trim() : "";
-
     var actions = null;
 
-
-
     function markerFor(el, name) {
-
       if (!el) return null;
-
       var marker = document.createComment("navbar-" + name);
-
       el.parentNode.insertBefore(marker, el);
-
       return marker;
-
     }
-
-
 
     var positions = [
-
       { node: toggler, marker: markerFor(toggler, "toggler") },
-
       { node: tools, marker: markerFor(tools, "tools") },
-
       { node: sidebarButton, marker: markerFor(sidebarButton, "sidebar") },
-
       { node: searchButton, marker: markerFor(searchButton, "search") }
-
     ];
 
-
-
     function restore(item) {
-
       if (item.node && item.marker && item.marker.parentNode) {
-
         item.marker.parentNode.insertBefore(item.node, item.marker);
-
       }
-
     }
 
-
-
     function localize() {
-
       toggler.setAttribute("aria-label", "Otvori navigaciju");
-
       if (sidebarButton) {
-
         sidebarButton.setAttribute("aria-label", "Otvori sadržaj knjige");
-
       }
-
       if (searchButton) {
-
         var searchControl = searchButton.matches("button")
-
           ? searchButton
-
           : searchButton.querySelector("button");
-
         if (searchControl) {
-
           searchControl.setAttribute("aria-label", "Pretraži knjigu");
-
           searchControl.setAttribute("title", "Pretraži knjigu");
-
         }
-
       }
-
-
 
       var labels = {
-
         "Source Code": "Izvorni kod",
-
         "Share": "Podijeli",
-
         "Toggle dark mode": "Promijeni temu",
-
         "Toggle light mode": "Promijeni temu",
-
         "Toggle reader mode": "Način čitanja"
-
       };
-
       navbar.querySelectorAll(".quarto-navigation-tool").forEach(function (a) {
-
         var source = a.getAttribute("title") || a.getAttribute("aria-label") || "";
-
         if (!labels[source]) return;
-
         a.setAttribute("title", labels[source]);
-
         a.setAttribute("aria-label", labels[source]);
-
       });
-
     }
-
-
 
     function organize(mobile) {
-
       document.body.classList.toggle("navbar-mobile-organized", mobile);
-
       if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
-
-      if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
-
-
+      if (brandTitle) brandTitle.textContent = fullBrand;  // „Statistika 101" stane i na telefon
 
       if (mobile) {
-
         if (!actions) {
-
           actions = document.createElement("div");
-
           actions.className = "mobile-navbar-actions";
-
           container.insertBefore(actions, collapse);
-
         }
-
         if (sidebarButton) actions.appendChild(sidebarButton);
-
         if (searchButton) actions.appendChild(searchButton);
-
         actions.appendChild(toggler);
-
         if (tools) collapse.appendChild(tools);
-
       } else {
-
         positions.forEach(restore);
-
         if (actions) {
-
           actions.remove();
-
           actions = null;
-
         }
-
       }
-
     }
 
-
-
     localize();
-
     var mq = window.matchMedia("(max-width: 991.98px)");
-
     organize(mq.matches);
-
     var onChange = function (e) { organize(e.matches); };
-
     if (mq.addEventListener) mq.addEventListener("change", onChange);
-
     else mq.addListener(onChange);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 14. Stranica 404 pri lokalnom posluživanju iz korijena
-
   //     Lokalni resursi ugrađuju se nakon rendera, ali navigacijske poveznice
-
   //     i dalje nose produkcijski podput. Izvan tog podputa vraćamo ih na
-
   //     lokalni korijen; na GitHub Pagesu ostaju netaknute.
-
   // -------------------------------------------------------------------
-
   function setupNotFoundFallback() {
-
     if (!document.body.classList.contains("not-found-page")) return;
-
     var offset = document.querySelector('meta[name="quarto:offset"]');
-
     var prefix = offset ? (offset.getAttribute("content") || "") : "";
-
     prefix = prefix.replace(/\/+$/, "");
-
     if (!prefix || prefix === "/" ||
-
         location.pathname === prefix ||
-
         location.pathname.indexOf(prefix + "/") === 0) return;
 
-
-
     document.querySelectorAll("[href], [src]").forEach(function (el) {
-
       ["href", "src"].forEach(function (attr) {
-
         var value = el.getAttribute(attr);
-
         if (!value || value.indexOf(prefix + "/") !== 0) return;
-
         el.setAttribute(attr, value.slice(prefix.length));
-
       });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 15. Poveznice s istog izvorišta
-
   //     Quarto ih u lokalnom pregledu katkad označi kao vanjske prije nego
-
   //     što razriješi adresu. `no-external` sprečava naknadno ukrašavanje,
-
   //     a već dodani znak i otvaranje u novoj kartici uklanjaju se.
-
   // -------------------------------------------------------------------
-
   function setupSameOriginLinks() {
-
     var queued = false;
-
-
 
     function clean() {
-
       queued = false;
-
       document.querySelectorAll("a[href]").forEach(function (a) {
-
         var url;
-
         try { url = new URL(a.getAttribute("href"), location.href); }
-
         catch (e) { return; }
-
         if (url.origin !== location.origin) return;
 
-
-
         a.classList.add("no-external");
-
         a.classList.remove("external", "external-link");
-
         a.removeAttribute("data-external");
-
         if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
 
-
-
         var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean)
-
           .filter(function (token) {
-
             return token !== "external" && token !== "noopener" &&
-
               token !== "noreferrer";
-
           });
-
         if (rel.length) a.setAttribute("rel", rel.join(" "));
-
         else a.removeAttribute("rel");
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(clean);
-
     }
-
-
 
     clean();
-
     window.setTimeout(clean, 250);
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 16. Široke tablice
-
   //     Vodoravno pomicanje dobiva tipkovni fokus, jasan naziv i vidljivu
-
   //     uputu samo kada je tablica doista šira od raspoloživog prostora.
-
   // -------------------------------------------------------------------
-
   function setupAccessibleTables() {
-
     var nextId = 0;
-
     var queued = false;
-
     var resizeObserver = typeof ResizeObserver === "function"
-
       ? new ResizeObserver(queueScan)
-
       : null;
 
-
-
     function tableLabel(table) {
-
       var caption = table.querySelector("caption");
-
       var figure = table.closest("figure");
-
       if (!caption && figure) caption = figure.querySelector("figcaption");
-
       var text = caption && caption.textContent
-
         ? caption.textContent.trim().replace(/\s+/g, " ")
-
         : "";
-
       return text ? "Tablica: " + text : "Tablica s vodoravnim pomicanjem";
-
     }
-
-
 
     function wrapperFor(table) {
-
       var parent = table.parentElement;
-
       if (parent && (
-
         parent.classList.contains("table-responsive") ||
-
         parent.classList.contains("cell-output-display")
-
       )) {
-
         return parent;
-
       }
-
-
 
       var wrapper = document.createElement("div");
-
       wrapper.className = "table-responsive";
-
       table.parentNode.insertBefore(wrapper, table);
-
       wrapper.appendChild(table);
-
       return wrapper;
-
     }
-
-
 
     function update(table, scroller, hint) {
-
       if (!table.isConnected || !scroller.isConnected) return;
-
       var overflows = table.scrollWidth > scroller.clientWidth + 1;
-
       scroller.classList.toggle("table-scrollable", overflows);
-
       hint.hidden = !overflows;
 
-
-
       if (overflows) {
-
         if (!scroller.hasAttribute("tabindex")) {
-
           scroller.tabIndex = 0;
-
           scroller.dataset.tableManagedTabindex = "1";
-
         }
-
         if (!scroller.hasAttribute("role")) {
-
           scroller.setAttribute("role", "region");
-
           scroller.dataset.tableManagedRole = "1";
-
         }
-
         if (!scroller.hasAttribute("aria-label")) {
-
           scroller.setAttribute("aria-label", tableLabel(table));
-
           scroller.dataset.tableManagedLabel = "1";
-
         }
-
         var describedBy = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean);
-
         if (describedBy.indexOf(hint.id) === -1) describedBy.push(hint.id);
-
         scroller.setAttribute("aria-describedby", describedBy.join(" "));
-
       } else {
-
         if (scroller.dataset.tableManagedTabindex) {
-
           scroller.removeAttribute("tabindex");
-
           delete scroller.dataset.tableManagedTabindex;
-
         }
-
         if (scroller.dataset.tableManagedRole) {
-
           scroller.removeAttribute("role");
-
           delete scroller.dataset.tableManagedRole;
-
         }
-
         if (scroller.dataset.tableManagedLabel) {
-
           scroller.removeAttribute("aria-label");
-
           delete scroller.dataset.tableManagedLabel;
-
         }
-
         var remaining = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean)
-
           .filter(function (id) { return id !== hint.id; });
-
         if (remaining.length) {
-
           scroller.setAttribute("aria-describedby", remaining.join(" "));
-
         } else {
-
           scroller.removeAttribute("aria-describedby");
-
         }
-
       }
-
     }
-
-
 
     function prepare(table) {
-
       if (table.dataset.tableScrollerReady || table.closest(".chapter-meta")) {
-
         return;
-
       }
-
       table.dataset.tableScrollerReady = "1";
-
       var scroller = wrapperFor(table);
-
       var hint = document.createElement("p");
-
       hint.className = "table-scroll-hint";
-
       hint.id = "table-scroll-hint-" + (++nextId);
-
       hint.textContent = "↔ Pomaknite tablicu za preostale stupce";
-
       hint.hidden = true;
-
       scroller.insertAdjacentElement("afterend", hint);
 
-
-
       var refresh = function () {
-
         window.requestAnimationFrame(function () {
-
           update(table, scroller, hint);
-
         });
-
       };
-
       refresh();
-
       table.addEventListener("load", refresh, true);
-
       if (resizeObserver) resizeObserver.observe(scroller);
-
     }
-
-
 
     function scan() {
-
       queued = false;
-
       document.querySelectorAll("main table, #quarto-content table")
-
         .forEach(prepare);
-
     }
-
-
 
     function queueScan() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     window.addEventListener("load", queueScan);
-
     window.addEventListener("resize", queueScan);
-
     new MutationObserver(queueScan).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 17. Pretraživanje
-
   //     Quarto prevodi vidljivi tekst iz `language`, ali Algolijina ovojnica
-
   //     zadržava nekoliko engleskih pristupačnih naziva. Prevodimo i početne
-
   //     elemente i kontrole koje se umeću tek kada se pretraživanje otvori.
-
   // -------------------------------------------------------------------
-
   function setupSearchLocalization() {
-
     var translations = {
-
       "Search": "Pretraži",
-
       "Clear": "Očisti pretraživanje",
-
       "Cancel": "Odustani",
-
       "Submit": "Pretraži",
-
       "Close": "Zatvori",
-
       "Reset": "Vrati početno"
-
     };
-
     var queued = false;
 
-
-
     function localize() {
-
       queued = false;
-
       document.querySelectorAll(
-
         ".aa-Autocomplete, .aa-DetachedSearchButton, " +
-
         ".aa-DetachedOverlay [aria-label], " +
-
         ".aa-DetachedOverlay [title], " +
-
         ".aa-DetachedOverlay [placeholder]"
-
       ).forEach(function (element) {
-
         ["aria-label", "title", "placeholder"].forEach(function (attribute) {
-
           var value = element.getAttribute(attribute);
-
           if (value && translations[value]) {
-
             element.setAttribute(attribute, translations[value]);
-
           }
-
         });
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(localize);
-
     }
 
-
-
     localize();
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
-
-
 
   // -------------------------------------------------------------------
-
   function init() {
-
     try { setupProgressBar(); } catch (e) {}
-
     try { setupInternalHover(); } catch (e) {}
-
     try { setupDinkus(); } catch (e) {}
-
     try { setupAnchorLinks(); } catch (e) {}
-
     try { setupStandalonePages(); } catch (e) {}
-
     try { setupNastavaActiveState(); } catch (e) {}
-
     try { pruneSidebar(); } catch (e) {}
-
     try { setupOjsPanels(); } catch (e) {}
-
     try { setupProseCollapsibles(); } catch (e) {}
-
     try { setupChapterAI(); } catch (e) {}
-
     try { setupPojmovi(); } catch (e) {}
-
     try { setupChapterMeta(); } catch (e) {}
-
     try { setupWidgetMemory(); } catch (e) {}
-
     try { setupMobileNavbar(); } catch (e) {}
-
     try { setupNotFoundFallback(); } catch (e) {}
-
     try { setupSameOriginLinks(); } catch (e) {}
-
     try { setupAccessibleTables(); } catch (e) {}
-
     try { setupSearchLocalization(); } catch (e) {}
-
   }
-
-
 
   if (document.readyState === "loading") {
-
     document.addEventListener("DOMContentLoaded", init);
-
   } else {
-
     init();
-
   }
-
 })();
-
 </script>
-
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MDFfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBwb2dsZWQ6IElucHV0cy5zZWxlY3QoXG4gICAgW1wiWmRydcW+ZW5vXCIsIFwiUG8gcG9kc2t1cGluYW1hXCJdLFxuICAgIHt2YWx1ZTogXCJaZHJ1xb5lbm9cIiwgbGFiZWw6IFwiUG9nbGVkXCJ9XG4gICksXG4gIHVkaW9fYTogSW5wdXRzLnJhbmdlKFxuICAgIFswLCAxMDBdLFxuICAgIHt2YWx1ZTogODAsIHN0ZXA6IDUsIGxhYmVsOiBcIlVkaW8gQSB1IHByaXN0dXBhxI1uaWpvaiBwb2Rza3VwaW5pXCJ9XG4gICksXG4gIHVkaW9fYjogSW5wdXRzLnJhbmdlKFxuICAgIFswLCAxMDBdLFxuICAgIHt2YWx1ZTogMjAsIHN0ZXA6IDUsIGxhYmVsOiBcIlVkaW8gQiB1IHByaXN0dXBhxI1uaWpvaiBwb2Rza3VwaW5pXCJ9XG4gIClcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ3MDFfdGVtYSA9IEdlbmVyYXRvcnMub2JzZXJ2ZShvYmF2aWplc3RpID0+IHtcbiAgbGV0IHJldml6aWphID0gMDtcbiAgY29uc3Qgb3N2amV6aSA9ICgpID0+IG9iYXZpamVzdGkoKytyZXZpemlqYSk7XG4gIGNvbnN0IHByb21hdHJhYyA9IG5ldyBNdXRhdGlvbk9ic2VydmVyKG9zdmplemkpO1xuICBjb25zdCBwb3N0YXZrZSA9IHtcbiAgICBhdHRyaWJ1dGVzOiB0cnVlLFxuICAgIGF0dHJpYnV0ZUZpbHRlcjogW1wiY2xhc3NcIiwgXCJkYXRhLWJzLXRoZW1lXCJdXG4gIH07XG4gIHByb21hdHJhYy5vYnNlcnZlKGRvY3VtZW50LmRvY3VtZW50RWxlbWVudCwgcG9zdGF2a2UpO1xuICBwcm9tYXRyYWMub2JzZXJ2ZShkb2N1bWVudC5ib2R5LCBwb3N0YXZrZSk7XG4gIG9zdmplemkoKTtcbiAgcmV0dXJuICgpID0+IHByb21hdHJhYy5kaXNjb25uZWN0KCk7XG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICB3MDFfdGVtYTtcbiAgY29uc3QgY3NzID0gZ2V0Q29tcHV0ZWRTdHlsZShkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQpO1xuICBjb25zdCBib2phQSA9IGNzcy5nZXRQcm9wZXJ0eVZhbHVlKFwiLS10b2stZGF0YS0xXCIpLnRyaW0oKTtcbiAgY29uc3QgYm9qYUIgPSBjc3MuZ2V0UHJvcGVydHlWYWx1ZShcIi0tdG9rLWRhdGEtNFwiKS50cmltKCk7XG4gIGNvbnN0IHRpbnRhID0gY3NzLmdldFByb3BlcnR5VmFsdWUoXCItLXRvay1pbmtcIikudHJpbSgpO1xuICBjb25zdCBsaW5pamEgPSBjc3MuZ2V0UHJvcGVydHlWYWx1ZShcIi0tdG9rLXJ1bGVcIikudHJpbSgpO1xuICBjb25zdCBzYW5zID0gY3NzLmdldFByb3BlcnR5VmFsdWUoXCItLXRvay1mb250LXNhbnNcIikudHJpbSgpO1xuICBjb25zdCBwb3N0b3RhayA9IG5ldyBJbnRsLk51bWJlckZvcm1hdChcImhyLUhSXCIsIHtcbiAgICBzdHlsZTogXCJwZXJjZW50XCIsXG4gICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAwXG4gIH0pO1xuXG4gIGNvbnN0IHN0b3BlID0gW1xuICAgIHtwb2Rza3VwaW5hOiBcIlByaXN0dXBhxI1uaWphXCIsIHNrdXBpbmE6IFwiU2t1cGluYSBBXCIsIHN0b3BhOiAwLjgwfSxcbiAgICB7cG9kc2t1cGluYTogXCJQcmlzdHVwYcSNbmlqYVwiLCBza3VwaW5hOiBcIlNrdXBpbmEgQlwiLCBzdG9wYTogMC45MH0sXG4gICAge3BvZHNrdXBpbmE6IFwiWmFodGpldm5pamFcIiwgc2t1cGluYTogXCJTa3VwaW5hIEFcIiwgc3RvcGE6IDAuMjB9LFxuICAgIHtwb2Rza3VwaW5hOiBcIlphaHRqZXZuaWphXCIsIHNrdXBpbmE6IFwiU2t1cGluYSBCXCIsIHN0b3BhOiAwLjMwfVxuICBdO1xuXG4gIGNvbnN0IHVkaW9BID0gdzAxX3Bhci51ZGlvX2EgLyAxMDA7XG4gIGNvbnN0IHVkaW9CID0gdzAxX3Bhci51ZGlvX2IgLyAxMDA7XG4gIGNvbnN0IHVrdXBubyA9IFtcbiAgICB7XG4gICAgICBwb2Rza3VwaW5hOiBcIlpkcnXFvmVub1wiLFxuICAgICAgc2t1cGluYTogXCJTa3VwaW5hIEFcIixcbiAgICAgIHN0b3BhOiB1ZGlvQSAqIDAuODAgKyAoMSAtIHVkaW9BKSAqIDAuMjBcbiAgICB9LFxuICAgIHtcbiAgICAgIHBvZHNrdXBpbmE6IFwiWmRydcW+ZW5vXCIsXG4gICAgICBza3VwaW5hOiBcIlNrdXBpbmEgQlwiLFxuICAgICAgc3RvcGE6IHVkaW9CICogMC45MCArICgxIC0gdWRpb0IpICogMC4zMFxuICAgIH1cbiAgXTtcblxuICBjb25zdCByYXpkdm9qZW5vID0gdzAxX3Bhci5wb2dsZWQgPT09IFwiUG8gcG9kc2t1cGluYW1hXCI7XG4gIGNvbnN0IGNlbGlqYSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIud2lkZ2V0LWZyYW1lIC5jZWxsXCIpO1xuICBjb25zdCBzdGlsQ2VsaWplID0gY2VsaWphID8gZ2V0Q29tcHV0ZWRTdHlsZShjZWxpamEpIDogbnVsbDtcbiAgY29uc3QgbG9rYWxuYVNpcmluYSA9IGNlbGlqYVxuICAgID8gY2VsaWphLmNsaWVudFdpZHRoIC1cbiAgICAgIHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nTGVmdCkgLVxuICAgICAgcGFyc2VGbG9hdChzdGlsQ2VsaWplLnBhZGRpbmdSaWdodClcbiAgICA6IHdpZHRoO1xuICBjb25zdCBzaXJpbmFHcmFmYSA9IE1hdGgubWF4KDI0MCwgTWF0aC5taW4od2lkdGgsIGxva2FsbmFTaXJpbmEpKTtcbiAgY29uc3QgdXNrbyA9IHNpcmluYUdyYWZhIDwgNDgwO1xuICBjb25zdCBwb2RhY2kgPSByYXpkdm9qZW5vID8gc3RvcGUgOiB1a3Vwbm87XG4gIGNvbnN0IHJhc3BvcmVkID0gcmF6ZHZvamVub1xuICAgID8gKHVza28gPyB7Znk6IFwicG9kc2t1cGluYVwifSA6IHtmeDogXCJwb2Rza3VwaW5hXCJ9KVxuICAgIDoge307XG4gIGNvbnN0IG1hcmtzID0gW1xuICAgIFBsb3QuYmFyWShwb2RhY2ksIHtcbiAgICAgIHg6IFwic2t1cGluYVwiLFxuICAgICAgeTogXCJzdG9wYVwiLFxuICAgICAgZmlsbDogXCJza3VwaW5hXCIsXG4gICAgICBpbnNldDogMTgsXG4gICAgICAuLi5yYXNwb3JlZFxuICAgIH0pLFxuICAgIFBsb3QudGV4dChwb2RhY2ksIHtcbiAgICAgIHg6IFwic2t1cGluYVwiLFxuICAgICAgeTogXCJzdG9wYVwiLFxuICAgICAgdGV4dDogZCA9PiBwb3N0b3Rhay5mb3JtYXQoZC5zdG9wYSksXG4gICAgICBkeTogLTksXG4gICAgICBmaWxsOiB0aW50YSxcbiAgICAgIC4uLnJhc3BvcmVkXG4gICAgfSksXG4gICAgUGxvdC5ydWxlWShbMF0sIHtzdHJva2U6IGxpbmlqYX0pXG4gIF07XG5cbiAgcmV0dXJuIFBsb3QucGxvdCh7XG4gICAgd2lkdGg6IHNpcmluYUdyYWZhLFxuICAgIGhlaWdodDogcmF6ZHZvamVubyA/ICh1c2tvID8gNTAwIDogMzMwKSA6ICh1c2tvID8gMzQwIDogMzAwKSxcbiAgICBtYXJnaW5MZWZ0OiB1c2tvID8gNTIgOiA1OCxcbiAgICBtYXJnaW5SaWdodDogdXNrbyA/IDE0IDogMjQsXG4gICAgbWFyZ2luQm90dG9tOiA0OCxcbiAgICBtYXJnaW5Ub3A6IHJhemR2b2plbm8gPyAodXNrbyA/IDI0IDogMzQpIDogKHVza28gPyAyOCA6IDIwKSxcbiAgICBzdHlsZToge1xuICAgICAgYmFja2dyb3VuZDogXCJ0cmFuc3BhcmVudFwiLFxuICAgICAgZm9udEZhbWlseTogc2FucyxcbiAgICAgIGZvbnRTaXplOiB1c2tvID8gXCIxMnB4XCIgOiBcIjEzcHhcIlxuICAgIH0sXG4gICAgY29sb3I6IHtcbiAgICAgIGRvbWFpbjogW1wiU2t1cGluYSBBXCIsIFwiU2t1cGluYSBCXCJdLFxuICAgICAgcmFuZ2U6IFtib2phQSwgYm9qYUJdLFxuICAgICAgbGVnZW5kOiBmYWxzZVxuICAgIH0sXG4gICAgeDoge2xhYmVsOiBudWxsfSxcbiAgICBmeDogcmF6ZHZvamVubyAmJiAhdXNrbyA/IHtsYWJlbDogbnVsbH0gOiB1bmRlZmluZWQsXG4gICAgZnk6IHJhemR2b2plbm8gJiYgdXNrbyA/IHtsYWJlbDogbnVsbH0gOiB1bmRlZmluZWQsXG4gICAgeToge1xuICAgICAgbGFiZWw6IFwiU3RvcGEgdXNwamVoYVwiLFxuICAgICAgZG9tYWluOiBbMCwgMV0sXG4gICAgICB0aWNrRm9ybWF0OiBkID0+IHBvc3RvdGFrLmZvcm1hdChkKVxuICAgIH0sXG4gICAgbWFya3NcbiAgfSk7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3cwMV9wYXInKSJ9XX0=
 </script>
@@ -4124,263 +2812,387 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Kopirano");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Kopirano");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopirano");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopirano");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -4388,161 +3200,185 @@ window._ojs.runtime.interpretFromScriptTags();
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/00-predgovor.html" class="pagination-link" aria-label="Predgovor">

@@ -1,6 +1,6 @@
 # DIO I: STATISTIČKO MIŠLJENJE
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
 > Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
@@ -10,7 +10,7 @@
 
 # Zašto statistika
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
@@ -688,7 +688,7 @@ ispravljena analiza ne može primijeniti na stvarne stanovnike Hrvatske.
 
 # Mjerenje i istraživački dizajn
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
@@ -1408,7 +1408,7 @@ onoga što je u opisanoj anketi već učinjeno.
 
 # Kako brojke zavode
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.

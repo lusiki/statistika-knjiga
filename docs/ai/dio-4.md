@@ -1,6 +1,6 @@
 # DIO IV: ZAKLJUČIVANJE
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
 > Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
@@ -10,7 +10,7 @@
 
 # Logika testiranja
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
@@ -556,7 +556,7 @@ slijedi i njezinu ispravljenu inačicu.
 
 # Veličina učinka i snaga
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
@@ -1078,7 +1078,7 @@ napišite čime bi taj argument trebalo zamijeniti.
 
 # Kriza i obnova
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.

@@ -1,6 +1,6 @@
 # Sažimanje podataka
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.

@@ -1,6 +1,6 @@
 # DIO III: OD UZORKA DO POPULACIJE
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
 > Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
@@ -10,7 +10,7 @@
 
 # Vjerojatnost koliko treba
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
@@ -560,7 +560,7 @@ potvrđenom. Napišite zamjenu koja jasno ograničava zaključak.
 
 # Uzorkovanje
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
@@ -1218,7 +1218,7 @@ druge rečenice koja zadržava sve što je u njoj bilo točno.
 
 # Procjena
 
-> Iz knjige: Osnove statistike za društvene znanosti
+> Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.

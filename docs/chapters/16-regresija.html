@@ -2,17 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hr-HR" xml:lang="hr-HR"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Udžbenik statistike za društvene znanosti — statističko mišljenje, opisivanje podataka, uzorkovanje i procjena, zaključivanje, linearni modeli i statistika u doba algoritama.">
 
-<title>Regresija — opći okvir – Osnove statistike za društvene znanosti</title>
+<title>Regresija — opći okvir – Statistika 101</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -25,9 +22,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -38,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -63,6 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,20 +86,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../chapters/17-doba-algoritama.html" rel="next">
 <link href="../chapters/15-vise-grupa.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d863536a35c72399060ca13ea1ba5060.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d863536a35c72399060ca13ea1ba5060.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1cc29e0bfa4db480e39bd5d9581edf95.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-f736e697f19f6ba2e3029018030b82fa.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -134,68 +128,38 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- =====================================================================
-
-     head.html — pisma knjige (include-in-header)
-
+     head.html — pisma knjige (include-in-header), sustav Zvono
      ---------------------------------------------------------------------
-
-     Četiri obitelji, sve s Google Fontsa, sve s punom hrvatskom
-
+     Tri obitelji, sve s Google Fontsa, sve s punom hrvatskom
      dijakritikom (č ć đ š ž):
 
-
-
-       Newsreader      displej — naslovi, otvaranje poglavlja, navodi
-
+       Jost            displej, naslovi, sučelje, potpisi
        Literata        tijelo teksta
-
-       Public Sans     sučelje, potpisi, margina, izvori, glave tablica
-
-       JetBrains Mono  kod, brojke, oznake, „eyebrow"
-
-
+       JetBrains Mono  kod, brojke, oznake widgeta
 
      Imena pisama žive u styles/_tokens.scss; ovdje su samo poveznice na
-
-     datoteke. Za PDF ih treba instalirati lokalno — tex/theme.tex ih traži
-
-     u sustavu i tiho pada na Latin Modern ako ih nema.
-
-
+     datoteke. PDF i R grafovi učitavaju statičke instance iz fonts/print/.
 
      ŠESTI NOSITELJ BOJE. `theme-color` ne može se izraziti tokenom jer ga
-
-     čita preglednik, ne stranica. Vrijednost je token:paper i mijenja se
-
-     zajedno s njim (vidi DESIGN.md).
-
+     čita preglednik, ne stranica. Vrijednosti su token:paper svijetle i
+     tamne teme i mijenjaju se zajedno s njima (vidi DESIGN.md).
      ================================================================== -->
 
-
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;1,400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=Public+Sans:ital,wght@0,400..700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<meta name="theme-color" content="#F2E8D5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191814" media="(prefers-color-scheme: dark)">
 
-
-
-<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
-
-<meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
-
-
-
-<!-- Oznaka stranice: tri rastuća stupca, s okerom kao signalom navođenja. -->
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
-
+<!-- Oznaka stranice: kupola u tinti s modrom unutarnjom kupolom nad osnovicom
+     (token:brand-ink, token:brand-navy). -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 26 A14 14 0 0 1 30 26 Z' fill='%231B1A17'/%3E%3Cpath d='M9 26 A7 7 0 0 1 23 26 Z' fill='%231E3F7A'/%3E%3Crect x='1' y='26' width='30' height='3' fill='%231B1A17'/%3E%3C/svg%3E">
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -208,7 +172,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -227,169 +191,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -397,7 +199,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Osnove statistike za društvene znanosti</span>
+    <span class="navbar-title">Statistika 101</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Prikaži ili sakrij navigaciju" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -516,7 +318,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Osnove statistike za društvene znanosti</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Statistika 101</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -765,7 +567,6 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/13-kategoricki-podaci.html">DIO V: MODELI</a></li><li class="breadcrumb-item"><a href="../chapters/16-regresija.html"><span class="chapter-title">Regresija — opći okvir</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Regresija — opći okvir</span></h1>
@@ -793,9 +594,34 @@ window.Quarto = {
   );
   var title = document.querySelector("#title-block-header h1.title");
   if (chapterMatch && title && !title.parentNode.querySelector(".chapter-kicker")) {
+    // Sustav Zvono: disk s brojem i os lijevo, oznaka dijela iznad naslova.
+    var header = document.getElementById("title-block-header");
+    if (header) header.classList.add("zv-opener");
+
+    var rail = document.createElement("span");
+    rail.className = "zv-rail";
+    rail.setAttribute("aria-hidden", "true");
+    var disc = document.createElement("span");
+    disc.className = "zv-rail__disc";
+    disc.textContent = chapterMatch[1];
+    rail.appendChild(disc);
+    title.parentNode.insertBefore(rail, title.parentNode.firstChild);
+
+    var partLink = document.querySelector(
+      "#title-block-header .breadcrumb .breadcrumb-item:first-child a"
+    );
+    var partName = "";
+    if (partLink) {
+      var raw = partLink.textContent.trim();
+      var m = raw.match(/^DIO ([IVX]+):\s*(.+)$/);
+      partName = m
+        ? "Dio " + m[1] + " · " + m[2].charAt(0) + m[2].slice(1).toLowerCase()
+        : raw.charAt(0) + raw.slice(1).toLowerCase();
+    }
     var kicker = document.createElement("span");
     kicker.className = "kicker chapter-kicker";
-    kicker.textContent = "POGLAVLJE " + chapterMatch[1];
+    kicker.textContent = "Poglavlje " + parseInt(chapterMatch[1], 10) +
+      (partName ? " · " + partName : "");
     title.parentNode.insertBefore(kicker, title);
   }
 
@@ -911,7 +737,7 @@ window.Quarto = {
   Kostur se ne mijenja bez zapisa u STYLE.md.
 ===================================================================== -->
 <div class="callout-vinjeta page-columns page-full">
-<p>Breiman je 2001. opisao dva pristupa statističkom modeliranju <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001.</a>)</span>. U prvome istraživač postavlja model nastanka podataka i tumači njegove parametre. U drugome postupak procjenjuje prema tome koliko dobro predviđa nove ishode.</p>
+<p>Breiman je 2001. opisao dva pristupa statističkom modeliranju <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001</a>)</span>. U prvome istraživač postavlja model nastanka podataka i tumači njegove parametre. U drugome postupak procjenjuje prema tome koliko dobro predviđa nove ishode.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-breiman2001" class="csl-entry" role="listitem">
 Breiman, Leo. 2001. <span>„Statistical Modeling: The Two Cultures“</span>. <em>Statistical Science</em> 16 (3): 199–231. <a href="https://doi.org/10.1214/ss/1009213726">https://doi.org/10.1214/ss/1009213726</a>.
 </div></div><p>Upozorio je da dobro pristajanje opaženim podacima nije dovoljno za procjenu modela. Model može dobro opisati postojeći skup, a slabo predviđati nove rezultate ili pogrešno prikazivati mehanizam nastanka podataka.</p>
@@ -919,12 +745,12 @@ Breiman, Leo. 2001. <span>„Statistical Modeling: The Two Cultures“</span>. <
 </div>
 <p>Uspoređivali smo prosječno povjerenje među korisnicima različitih izvora vijesti. Sada nas zanima kako se ono razlikuje s dobi, bez razvrstavanja ljudi u dobne skupine. Možemo postaviti pravac koji za svaku dob daje predviđeni prosjek i zatim provjeriti što takav opis propušta.</p>
 <p>Regresija povezuje nekoliko postupaka koje već poznajemo. Korelacija nas je naučila čitati smjer i jačinu linearne veze, a usporedbe dviju i više skupina pokazale su kako oznake skupina ulaze u linearni model. Sada ćemo brojčani i kategorički prediktor promatrati zajedno. Pitanje iz poglavlja o mjerenju i dizajnu pritom ostaje otvoreno. Trebamo procijeniti opisuje li model odnos ili imamo i razloge za uzročno tumačenje.</p>
-<p>Polazimo od svih 50.000 zamišljenih odraslih osoba u skupu <code>populacija_medija</code>, koristeći dob, glavni izvor vijesti i povjerenje u medije <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Jedan zapis pripada jednoj osobi. Budući da za ovaj opis koristimo cijelu konačnu simuliranu populaciju, ne procjenjujemo nepoznatu vrijednost iz uzorka. Koeficijenti će sažeti zabilježene odgovore, a od njih ćemo odvojiti pravila kojima su ti odgovori stvoreni. Pri povratku ranijim uzorcima ponovno ćemo razmotriti i njihovu nesigurnost.</p>
+<p>Polazimo od svih 50.000 zamišljenih odraslih osoba u skupu <code>populacija_medija</code>, koristeći dob, glavni izvor vijesti i povjerenje u medije <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Jedan zapis pripada jednoj osobi. Budući da za ovaj opis koristimo cijelu konačnu simuliranu populaciju, ne procjenjujemo nepoznatu vrijednost iz uzorka. Koeficijenti će sažeti zabilježene odgovore, a od njih ćemo odvojiti pravila kojima su ti odgovori stvoreni. Pri povratku ranijim uzorcima ponovno ćemo razmotriti i njihovu nesigurnost.</p>
 <div class="no-row-height column-margin column-container"></div><p>Odabrani pravac usporedit ćemo s opažanjima preko njihovih odstupanja, reziduala. Tako ćemo razumjeti metodu najmanjih kvadrata prije tumačenja koeficijenata. Dodavanjem izvora vijesti usporedit ćemo zbirni odnos dobi i povjerenja s odnosom pri jednakom izvoru, a interakcijom dopustiti da nagib ovisi o drugoj varijabli. Grafovi reziduala pomoći će nam provjeriti prilagodbu.</p>
 <p>Model ćemo na kraju prosuđivati prema svrsi. Dobar opis opaženih odgovora, uspješno predviđanje nove osobe i objašnjenje uzroka traže različite provjere. Trebamo znati što koeficijent uspoređuje, što je ostalo izvan modela i koji bi dodatni dokaz podupro jači zaključak.</p>
 <section id="pravac-kao-tvrdnja-o-prosjeku" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="pravac-kao-tvrdnja-o-prosjeku">Pravac kao tvrdnja o prosjeku</h2>
-<p>Povjerenje u medije bilježimo na ljestvici od jedan do deset, a dob u godinama <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Korelacija bi sažela jačinu linearne veze. Regresijski pravac omogućuje da za odabranu razliku u godinama očitamo modelom predviđenu razliku u bodovima povjerenja.</p>
+<p>Povjerenje u medije bilježimo na ljestvici od jedan do deset, a dob u godinama <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Korelacija bi sažela jačinu linearne veze. Regresijski pravac omogućuje da za odabranu razliku u godinama očitamo modelom predviđenu razliku u bodovima povjerenja.</p>
 <div class="no-row-height column-margin column-container"><div id="podsjetnik-nagib" class="">
 <p><strong>Podsjetnik.</strong> <a href="../dodaci/g-numericki-podsjetnik.html#sec-ag-nagib">Nagib</a></p>
 </div></div>
@@ -967,7 +793,7 @@ Tablica&nbsp;1: Prva tri opažanja i njihovi reziduali u zbirnom modelu dobi. Iz
 </figcaption>
 <div aria-describedby="tbl-s16-opazeno-predvideno-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">Osoba</th>
@@ -1024,7 +850,7 @@ Tablica&nbsp;2: Nagib uz dob izračunat zasebno među korisnicima svakog izvora 
 </figcaption>
 <div aria-describedby="tbl-unutar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Izvor vijesti</th>
@@ -1101,7 +927,7 @@ Tablica&nbsp;3: Svi koeficijenti modela s dobi i glavnim izvorom vijesti. Portal
 </figcaption>
 <div aria-describedby="tbl-puni-regresijski-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Dio</th>
@@ -1150,7 +976,7 @@ Tablica&nbsp;4: Konačnopopulacijski koeficijenti izvora vijesti uz jednaku dob,
 </figcaption>
 <div aria-describedby="tbl-oporavak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 22%">
 <col style="width: 33%">
@@ -1233,7 +1059,7 @@ Slika&nbsp;3: Predviđene vrijednosti u simuliranom primjeru s različitim skupn
 </div>
 </div>
 </div>
-<p>Interakciju čitamo kroz skupne nagibe ili predviđene vrijednosti. Značajan nagib u jednoj i neznačajan u drugoj skupini ne dokazuje da se nagibi razlikuju. Potrebna je izravna procjena interakcije s nesigurnošću <span class="citation" data-cites="nieuwenhuis2011">(<a href="../references.html#ref-nieuwenhuis2011" role="doc-biblioref">Nieuwenhuis i sur. 2011.</a>)</span>. Ovaj deterministički primjer pokazuje oblik odnosa. U stvarnoj analizi trebalo bi prikazati i interval za razliku nagiba.</p>
+<p>Interakciju čitamo kroz skupne nagibe ili predviđene vrijednosti. Značajan nagib u jednoj i neznačajan u drugoj skupini ne dokazuje da se nagibi razlikuju. Potrebna je izravna procjena interakcije s nesigurnošću <span class="citation" data-cites="nieuwenhuis2011">(<a href="../references.html#ref-nieuwenhuis2011" role="doc-biblioref">Nieuwenhuis, Forstmann, i Wagenmakers 2011</a>)</span>. Ovaj deterministički primjer pokazuje oblik odnosa. U stvarnoj analizi trebalo bi prikazati i interval za razliku nagiba.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-nieuwenhuis2011" class="csl-entry" role="listitem">
 Nieuwenhuis, Sander, Birte U. Forstmann, i Eric-Jan Wagenmakers. 2011. <span>„Erroneous Analyses of Interactions in Neuroscience: A Problem of Significance“</span>. <em>Nature Neuroscience</em> 14 (9): 1105–7. <a href="https://doi.org/10.1038/nn.2886">https://doi.org/10.1038/nn.2886</a>.
 </div></div><p>Za pomicanje pravca stvaramo drugi nastavni skup od 52 zapisa, s vremenom, angažmanom i prethodnim interesom. Interes generiramo normalno sa sredinom nula i standardnom devijacijom jedan. Vrijeme nastaje kao <span class="math inline">\(5 + 1,8\)</span> puta interes, uz neovisno odstupanje standardne devijacije 1,5 i donju granicu nula. Angažman je <span class="math inline">\(20 + 2,3\)</span> puta vrijeme <span class="math inline">\(+ 7\)</span> puta interes, uz drugo neovisno odstupanje standardne devijacije 4,5. Zato prethodni interes ovdje prethodi objema varijablama i utječe na obje. To je drukčije pravilo od dobnog puta preko izvora vijesti u glavnom primjeru.</p>
@@ -1242,7 +1068,7 @@ Nieuwenhuis, Sander, Birte U. Forstmann, i Eric-Jan Wagenmakers. 2011. <span>„
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="760" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 759;"><span id="cb1-760"><a href="#cb1-760" aria-hidden="true" tabindex="-1"></a>viewof w16_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="760" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 759;"><span id="cb1-760"><a href="#cb1-760" aria-hidden="true" tabindex="-1"></a>viewof w16_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
 <span id="cb1-761"><a href="#cb1-761" aria-hidden="true" tabindex="-1"></a>  <span class="dt">odsječak</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">10</span><span class="op">,</span> <span class="dv">35</span>]<span class="op">,</span> {</span>
 <span id="cb1-762"><a href="#cb1-762" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Odsječak pravca:"</span></span>
 <span id="cb1-763"><a href="#cb1-763" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
@@ -1252,7 +1078,7 @@ Nieuwenhuis, Sander, Birte U. Forstmann, i Eric-Jan Wagenmakers. 2011. <span>„
 <span id="cb1-767"><a href="#cb1-767" aria-hidden="true" tabindex="-1"></a>  <span class="dt">drugi</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({</span>
 <span id="cb1-768"><a href="#cb1-768" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prikaži model s prethodnim interesom"</span></span>
 <span id="cb1-769"><a href="#cb1-769" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb1-770"><a href="#cb1-770" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-770"><a href="#cb1-770" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -1263,7 +1089,7 @@ Nieuwenhuis, Sander, Birte U. Forstmann, i Eric-Jan Wagenmakers. 2011. <span>„
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="778" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 777;"><span id="cb2-778"><a href="#cb2-778" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="778" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 777;"><span id="cb2-778"><a href="#cb2-778" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb2-779"><a href="#cb2-779" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--widget-ink)"</span><span class="op">;</span></span>
 <span id="cb2-780"><a href="#cb2-780" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> priguseno <span class="op">=</span> <span class="st">"var(--tok-ink-mute)"</span><span class="op">;</span></span>
 <span id="cb2-781"><a href="#cb2-781" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pravilo <span class="op">=</span> <span class="st">"var(--widget-grid)"</span><span class="op">;</span></span>
@@ -1474,7 +1300,7 @@ Nieuwenhuis, Sander, Birte U. Forstmann, i Eric-Jan Wagenmakers. 2011. <span>„
 <span id="cb2-986"><a href="#cb2-986" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
 <span id="cb2-987"><a href="#cb2-987" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;</span><span class="sc">${</span>sazetakTekst<span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
 <span id="cb2-988"><a href="#cb2-988" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb2-989"><a href="#cb2-989" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-989"><a href="#cb2-989" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="fig-w16" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1524,10 +1350,10 @@ Slika&nbsp;4: Regresijski pravac — pomični pravac, reziduali i usporedba zbir
 <p>Na istim redcima i istom ishodu dodavanje prediktora ne smanjuje obični objašnjeni udio. U uzorku od dvjesto osoba pet slučajnih stupaca povećava ga s 8,1 % na 9,1 %. Prilagođeni koeficijent determinacije uzima u obzir broj prediktora i pada s 5,8 % na 4,3 %. Ta prilagodba pomaže pri usporedbi, ali sama ne provjerava predviđanje, uzročnost ni sadržajnu valjanost.</p>
 <p>Ograničenje raspona također mijenja ovu mjeru. Među osobama od trideset do pedeset godina nagib iznosi 0,0385, gotovo kao prije. Objašnjeni udio ipak pada s 8,8 % na 1,4 % u skupu od 24 282 ljudi. Koeficijent determinacije zato ovisi o populaciji i rasponu podataka.</p>
 <p>Slični nagibi u različitim populacijama mogu imati vrlo različite objašnjene udjele. Za usporedbu koeficijenata trebamo provjeriti ishod, ljestvicu, populaciju, kodiranje i uključene prilagodbe. Kod uzoraka trebamo i intervale koji odgovaraju nacrtu.</p>
-<p>Ni zajednički naziv ne jamči usporedive podatke. U našoj simulaciji „medijska aktivnost” označuje dnevne minute osobe iz konačne populacije odraslih <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. DigiKat obuhvaća platformske objave prema pravilima korpusa, s jedinicom objave ili agregata <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref"><span class="nocase">Šikić i sur.</span> 2026.</a>)</span>. Osobne minute ne prikazuju svako privatno ponašanje, a korpus ne obuhvaća sadržaj izvan svojeg izbora. Regresija objava zato ne opisuje osobnu uporabu, a skupni obrazac ne možemo pripisati pojedincu. Trebamo usporediti konstrukt, jedinicu, populaciju i obuhvat mjerenja.</p>
+<p>Ni zajednički naziv ne jamči usporedive podatke. U našoj simulaciji „medijska aktivnost” označuje dnevne minute osobe iz konačne populacije odraslih <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. DigiKat obuhvaća platformske objave prema pravilima korpusa, s jedinicom objave ili agregata <span class="citation" data-cites="digikat2026">(<a href="../references.html#ref-digikat2026" role="doc-biblioref">Šikić i ostali 2026</a>)</span>. Osobne minute ne prikazuju svako privatno ponašanje, a korpus ne obuhvaća sadržaj izvan svojeg izbora. Regresija objava zato ne opisuje osobnu uporabu, a skupni obrazac ne možemo pripisati pojedincu. Trebamo usporediti konstrukt, jedinicu, populaciju i obuhvat mjerenja.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-digikat2026" class="csl-entry" role="listitem">
-<span class="nocase">Šikić, Luka i sur.</span> 2026. <span>„Prikaz i analiza katoličke tematike u digitalnom medijskom prostoru“</span>. Hrvatsko katoličko sveučilište. <a href="https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8">https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8</a>.
-</div></div><p>Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo osobe od 30 do 50 godina, a ne podskup prethodnih 200. Za sljedeći dijagnostički primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu i očekivana vrijednost i raspršenost <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>.</p>
+Šikić, Luka i ostali. 2026. <span>„Prikaz i analiza katoličke tematike u digitalnom medijskom prostoru“</span>. Hrvatsko katoličko sveučilište. <a href="https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8">https://github.com/lusiki/DigiKat/tree/278a127f9170c1aca82035a4a8357b8a995f91d8</a>.
+</div></div><p>Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo osobe od 30 do 50 godina, a ne podskup prethodnih 200. Za sljedeći dijagnostički primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu i očekivana vrijednost i raspršenost <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>.</p>
 <p>Jedan objašnjeni udio ipak ne otkriva gdje model slabije odgovara podacima. Za to se vraćamo pojedinačnim odstupanjima, rezidualima. U našoj populaciji linearni odnos dnevnog praćenja medija i dobi ima nagib 1,05 minute po godini. Reziduali oko tog pravca nisu jednako raspršeni duž cijelog raspona, što možemo vidjeti na njihovu prikazu.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1549,7 +1375,7 @@ Slika&nbsp;5: Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostim
 </section>
 <section id="objašnjenje-i-predviđanje" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="objašnjenje-i-predviđanje">Objašnjenje i predviđanje</h2>
-<p>Za opis odnosa tražimo sadržajno smislen i razumljiv model. Za predviđanje tražimo malu pogrešku na novim jedinicama. Uzročno objašnjenje zahtijeva dodatno opravdanje iz nacrta i identifikacijskih pretpostavki, uvjeta pod kojima opažene odnose možemo pripisati pretpostavljenom uzroku. Shmueli pokazuje da se ti ciljevi razlikuju već pri izboru mjera i varijabli <span class="citation" data-cites="shmueli2010">(<a href="../references.html#ref-shmueli2010" role="doc-biblioref">Shmueli 2010.</a>)</span>. Model dobar za jedan cilj može biti loš za drugi.</p>
+<p>Za opis odnosa tražimo sadržajno smislen i razumljiv model. Za predviđanje tražimo malu pogrešku na novim jedinicama. Uzročno objašnjenje zahtijeva dodatno opravdanje iz nacrta i identifikacijskih pretpostavki, uvjeta pod kojima opažene odnose možemo pripisati pretpostavljenom uzroku. Shmueli pokazuje da se ti ciljevi razlikuju već pri izboru mjera i varijabli <span class="citation" data-cites="shmueli2010">(<a href="../references.html#ref-shmueli2010" role="doc-biblioref">Shmueli 2010</a>)</span>. Model dobar za jedan cilj može biti loš za drugi.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-shmueli2010" class="csl-entry" role="listitem">
 Shmueli, Galit. 2010. <span>„To Explain or to Predict?“</span> <em>Statistical Science</em> 25 (3): 289–310. <a href="https://doi.org/10.1214/10-STS330">https://doi.org/10.1214/10-STS330</a>.
 </div></div><p>U sljedećim primjerima povjerenje predviđamo neposredno prije nego što nova osoba odgovori na pitanje o povjerenju. Tada znamo dob i izvor vijesti. Slučajni stupci kojima ćemo pokazati preprilagodbu također su dostupni prije odgovora i jednako definirani u oba skupa. Informacije koje nastaju poslije ishoda ne smijemo koristiti.</p>
@@ -1565,7 +1391,7 @@ Tablica&nbsp;5: Odvojene osobe, predviđanja jednostavnijeg modela i kvadrirane 
 </figcaption>
 <div aria-describedby="tbl-s16-nove-osobe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">Osoba</th>
@@ -1609,7 +1435,7 @@ Tablica&nbsp;6: Prosječna pogreška predviđanja dvaju modela na podacima na ko
 </figcaption>
 <div aria-describedby="tbl-predikcija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 47%">
 <col style="width: 26%">
@@ -1658,12 +1484,12 @@ Tablica&nbsp;6: Prosječna pogreška predviđanja dvaju modela na podacima na ko
 <p>Zato u izvještaju opisujemo usporedbu koju smo doista napravili. Tvrdnja o tome što bi se dogodilo kada bismo nešto promijenili traži nacrt i pretpostavke koji opravdavaju takvu promjenu.</p>
 <p>Prije riječi „učinak” korisno je zapisati koja bi druga objašnjenja proizvela isti obrazac i kako ih nacrt isključuje. Ako se ključna pretpostavka ne može provjeriti ovim podacima, trebamo je jasno navesti uz zaključak.</p>
 <div class="callout-divljina page-columns page-full">
-<p><strong>Od omjera do dopuštene rečenice.</strong> Školski stručni tim mogao bi iz istraživanja o društvenim mrežama pokušati zaključiti bi li ograničenje vremena uporabe smanjilo simptome depresije. U toj zamišljenoj primjeni nalaz treba pročitati prije nego što ga pretvorimo u preporuku. Kleppang i suradnici analizirali su samoprijavljene presječne podatke istraživanja Ungdata iz 2018., koji obuhvaćaju 12.353 norveških adolescenata od 15 do 16 godina, uz ukupni odaziv od 85 % <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i sur. 2021.</a>)</span>. Njihov je predmet povezanost uporabe medija i simptoma, a ne učinak provedene zabrane.</p>
-<div class="no-row-height column-margin column-container"></div><p>Ishod u modelu razlikuje rezultat na mjeri simptoma depresije na ili iznad 80. percentila od nižih rezultata <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i sur. 2021.</a>)</span>. To nije isto što i klinička dijagnoza. Sljedeći izvadak prikazuje kako se omjeri mijenjaju kada se društvene mreže i igranje uključe zasebno ili zajedno.</p>
+<p><strong>Od omjera do dopuštene rečenice.</strong> Školski stručni tim mogao bi iz istraživanja o društvenim mrežama pokušati zaključiti bi li ograničenje vremena uporabe smanjilo simptome depresije. U toj zamišljenoj primjeni nalaz treba pročitati prije nego što ga pretvorimo u preporuku. Kleppang i suradnici analizirali su samoprijavljene presječne podatke istraživanja Ungdata iz 2018., koji obuhvaćaju 12.353 norveških adolescenata od 15 do 16 godina, uz ukupni odaziv od 85 % <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i ostali 2021</a>)</span>. Njihov je predmet povezanost uporabe medija i simptoma, a ne učinak provedene zabrane.</p>
+<div class="no-row-height column-margin column-container"></div><p>Ishod u modelu razlikuje rezultat na mjeri simptoma depresije na ili iznad 80. percentila od nižih rezultata <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i ostali 2021</a>)</span>. To nije isto što i klinička dijagnoza. Sljedeći izvadak prikazuje kako se omjeri mijenjaju kada se društvene mreže i igranje uključe zasebno ili zajedno.</p>
 <div id="tbl-kleppang" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-kleppang-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;7: Prilagođeni omjeri izgleda za simptome depresije prema uporabi društvenih mreža i igranju. Sadržajno skraćena, preoblikovana i na hrvatski prevedena prilagodba Tablice 3 iz rada Kleppang i suradnika <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i sur. 2021.</a>)</span>.
+Tablica&nbsp;7: Prilagođeni omjeri izgleda za simptome depresije prema uporabi društvenih mreža i igranju. Sadržajno skraćena, preoblikovana i na hrvatski prevedena prilagodba Tablice 3 iz rada Kleppang i suradnika <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i ostali 2021</a>)</span>.
 </figcaption>
 <div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-kleppang-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1711,26 +1537,26 @@ Tablica&nbsp;7: Prilagođeni omjeri izgleda za simptome depresije prema uporabi 
 </div>
 </figure>
 </div>
-<p>Binarni ishod u ovome radu analizira se logističkom regresijom. Taj model povezuje prediktore s logaritmom izgleda, a ne s neograničenom sredinom binarnoga ishoda. Izgledi su omjer vjerojatnosti ishoda i vjerojatnosti njegova izostanka. Eksponiranjem odgovarajućega koeficijenta dobiva se omjer izgleda uz ostale prediktore u modelu. Ovdje učimo čitati objavljeni rezultat; prilagodba i provjera logističkog modela izvan su opsega knjige <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i sur. 2021.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>AOR označuje prilagođeni omjer izgleda. Sva tri modela uključuju rod ili spol, imanje prijatelja, pušenje, visoko obrazovanje roditelja i obiteljsko materijalno stanje <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i sur. 2021.</a>)</span>. Model 3 istodobno uključuje obje aktivnosti, pa je omjer za mreže prilagođen i za igranje, a omjer za igranje i za uporabu mreža. Referentne su skupine označene jedinicom. Prije čitanja nalaza treba razlikovati izglede od vjerojatnosti. U zamišljenoj skupini u kojoj ishod ima 20 od 100 osoba, vjerojatnost je 0,20, a izgledi su 20 prema 80, odnosno 0,25. Za vjerojatnost <span class="math inline">\(p\)</span> isti račun zapisujemo kao <span class="math inline">\(p/(1-p)\)</span>. Omjer izgleda uspoređuje te izglede, a omjer rizika uspoređuje vjerojatnosti. Nijedan nije razlika u postotnim bodovima.</p>
-<p>U Modelu 1 procijenjeni izgledi za ishod kod uporabe mreža dulje od tri sata iznose 1,60 puta izglede referentne skupine, uz interval od 1,43 do 1,80 <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i sur. 2021.</a>)</span>. Vrijednosti iznad jedan znače veće, a ispod jedan manje izglede. Interval koji obuhvaća jedan dopušta i jednake izglede. Tim stoga ne može nalaz prepričati kao povećanje vjerojatnosti za 60 postotnih bodova ili kao dokaz da će ograničenje uporabe ukloniti odgovarajući dio simptoma.</p>
+<p>Binarni ishod u ovome radu analizira se logističkom regresijom. Taj model povezuje prediktore s logaritmom izgleda, a ne s neograničenom sredinom binarnoga ishoda. Izgledi su omjer vjerojatnosti ishoda i vjerojatnosti njegova izostanka. Eksponiranjem odgovarajućega koeficijenta dobiva se omjer izgleda uz ostale prediktore u modelu. Ovdje učimo čitati objavljeni rezultat; prilagodba i provjera logističkog modela izvan su opsega knjige <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i ostali 2021</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>AOR označuje prilagođeni omjer izgleda. Sva tri modela uključuju rod ili spol, imanje prijatelja, pušenje, visoko obrazovanje roditelja i obiteljsko materijalno stanje <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i ostali 2021</a>)</span>. Model 3 istodobno uključuje obje aktivnosti, pa je omjer za mreže prilagođen i za igranje, a omjer za igranje i za uporabu mreža. Referentne su skupine označene jedinicom. Prije čitanja nalaza treba razlikovati izglede od vjerojatnosti. U zamišljenoj skupini u kojoj ishod ima 20 od 100 osoba, vjerojatnost je 0,20, a izgledi su 20 prema 80, odnosno 0,25. Za vjerojatnost <span class="math inline">\(p\)</span> isti račun zapisujemo kao <span class="math inline">\(p/(1-p)\)</span>. Omjer izgleda uspoređuje te izglede, a omjer rizika uspoređuje vjerojatnosti. Nijedan nije razlika u postotnim bodovima.</p>
+<p>U Modelu 1 procijenjeni izgledi za ishod kod uporabe mreža dulje od tri sata iznose 1,60 puta izglede referentne skupine, uz interval od 1,43 do 1,80 <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i ostali 2021</a>)</span>. Vrijednosti iznad jedan znače veće, a ispod jedan manje izglede. Interval koji obuhvaća jedan dopušta i jednake izglede. Tim stoga ne može nalaz prepričati kao povećanje vjerojatnosti za 60 postotnih bodova ili kao dokaz da će ograničenje uporabe ukloniti odgovarajući dio simptoma.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-westreich2013" class="csl-entry" role="listitem">
 Westreich, Daniel, i Sander Greenland. 2013. <span>„The Table 2 Fallacy: Presenting and Interpreting Confounder and Modifier Coefficients“</span>. <em>American Journal of Epidemiology</em> 177 (4): 292–98. <a href="https://doi.org/10.1093/aje/kws412">https://doi.org/10.1093/aje/kws412</a>.
-</div></div><p>Za predviđenu vjerojatnost trebaju odsječak, ostali koeficijenti i vrijednosti prediktora. Izvadak ne daje nazivnike modela, mjere pristajanja ni dijagnostiku, pa ne omogućuje provjeru gubitka redaka i pristajanja. Koeficijenti prilagodbenih varijabli nisu automatski njihovi uzročni učinci <span class="citation" data-cites="westreich2013">(<a href="../references.html#ref-westreich2013" role="doc-biblioref">Westreich i Greenland 2013.</a>)</span>.</p>
-<p>Školskom timu nalaz pokazuje povezanost vrijednu daljnjeg proučavanja. Presječni nacrt, samoprijava i mogući neizmjereni čimbenici ne dopuštaju uzročni zaključak <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i sur. 2021.</a>)</span>. Tablica tako čuva opaženi nalaz, a pokazuje koji dokaz još nedostaje za odluku o ograničavanju uporabe.</p>
+</div></div><p>Za predviđenu vjerojatnost trebaju odsječak, ostali koeficijenti i vrijednosti prediktora. Izvadak ne daje nazivnike modela, mjere pristajanja ni dijagnostiku, pa ne omogućuje provjeru gubitka redaka i pristajanja. Koeficijenti prilagodbenih varijabli nisu automatski njihovi uzročni učinci <span class="citation" data-cites="westreich2013">(<a href="../references.html#ref-westreich2013" role="doc-biblioref">Westreich i Greenland 2013</a>)</span>.</p>
+<p>Školskom timu nalaz pokazuje povezanost vrijednu daljnjeg proučavanja. Presječni nacrt, samoprijava i mogući neizmjereni čimbenici ne dopuštaju uzročni zaključak <span class="citation" data-cites="kleppang2021">(<a href="../references.html#ref-kleppang2021" role="doc-biblioref">Kleppang i ostali 2021</a>)</span>. Tablica tako čuva opaženi nalaz, a pokazuje koji dokaz još nedostaje za odluku o ograničavanju uporabe.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-kleppang2021" class="csl-entry" role="listitem">
 Kleppang, Annette Løvheim, Anne Mari Steigen, Li Ma, Hanne Søberg Finbråten, i Curt Hagquist. 2021. <span>„Electronic Media Use and Symptoms of Depression among Adolescents in Norway“</span>. <em>PLOS ONE</em> 16 (7): e0254197. <a href="https://doi.org/10.1371/journal.pone.0254197">https://doi.org/10.1371/journal.pone.0254197</a>.
 </div></div><p>Izvor su Annette Løvheim Kleppang, Anne Mari Steigen, Li Ma, Hanne Søberg Finbråten i Curt Hagquist, „Electronic media use and symptoms of depression among adolescents in Norway”, <em>PLOS ONE</em> 16(7), e0254197, 2021, <a href="https://doi.org/10.1371/journal.pone.0254197">članak</a> i <a href="https://doi.org/10.1371/journal.pone.0254197.t003">izvorna Tablica 3</a>. Licenca je <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Tablica je skraćena, preoblikovana i prevedena na hrvatski. Brojevi i granice intervala sačuvani su. Prilagodba ne podrazumijeva odobrenje autora ni PLOS-a.</p>
 </div>
 <div id="ex-16-callout-greska-01" class="callout-greska greska-zadrzi page-columns page-full">
-<p>Tim želi provjeriti predviđa li model povjerenje kod novih korisnika uz korijen srednje kvadratne pogreške manji od dva boda. To je unaprijed zadan kriterij ove nastavne vježbe. Za prilagodbu je uzeto prvih 200 zapisa simulirane populacije <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. U zamišljenoj primjeni svi prediktori dostupni su prije odgovora o povjerenju.</p>
+<p>Tim želi provjeriti predviđa li model povjerenje kod novih korisnika uz korijen srednje kvadratne pogreške manji od dva boda. To je unaprijed zadan kriterij ove nastavne vježbe. Za prilagodbu je uzeto prvih 200 zapisa simulirane populacije <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. U zamišljenoj primjeni svi prediktori dostupni su prije odgovora o povjerenju.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-sikic2026" class="csl-entry" role="listitem">
 Šikić, Luka. 2026. <span>„Populacija medijskih navika, generirani nastavni skup“</span>. <a href="https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv">https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv</a>.
 </div></div><p>Asistentov račun rabi naziv <code>uzorak</code> za tih istih 200 zapisa.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(povjerenje_medijima <span class="sc">~</span> dob <span class="sc">+</span> izvor_vijesti <span class="sc">+</span> obrazovanje <span class="sc">+</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(povjerenje_medijima <span class="sc">~</span> dob <span class="sc">+</span> izvor_vijesti <span class="sc">+</span> obrazovanje <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              minute_medija <span class="sc">+</span> spol, <span class="at">data =</span> uzorak)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pogreska <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((uzorak<span class="sc">$</span>povjerenje_medijima <span class="sc">-</span> <span class="fu">fitted</span>(model))<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">r2 =</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared, <span class="at">pogreska =</span> pogreska)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">r2 =</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared, <span class="at">pogreska =</span> pogreska)</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Ispis daje <span class="math inline">\(R^2 =\)</span> 0,12 i korijen srednje kvadratne pogreške 1,78 boda na ljestvici povjerenja od jedan do deset. U zapisu nema drugog skupa podataka. Asistent zaključuje sljedeće.</p>
 <blockquote class="blockquote">
 <p>Izračunane vrijednosti opisuju pristajanje modela navedenim zapisima. Pogreška je manja od dva boda, pa je zadani kriterij za nove korisnike zadovoljen i model možemo preporučiti za primjenu.</p>
@@ -1744,13 +1570,13 @@ Kleppang, Annette Løvheim, Anne Mari Steigen, Li Ma, Hanne Søberg Finbråten, 
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>zbirni <span class="ot">&lt;-</span> <span class="fu">lm</span>(povjerenje_medijima <span class="sc">~</span> dob, <span class="at">data =</span> populacija_medija)</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>zbirni <span class="ot">&lt;-</span> <span class="fu">lm</span>(povjerenje_medijima <span class="sc">~</span> dob, <span class="at">data =</span> populacija_medija)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>prilagodeni <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  povjerenje_medijima <span class="sc">~</span> dob <span class="sc">+</span> izvor_vijesti,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> populacija_medija</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">zbirni =</span> <span class="fu">coef</span>(zbirni)[[<span class="st">"dob"</span>]],</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">prilagodeni =</span> <span class="fu">coef</span>(prilagodeni)[[<span class="st">"dob"</span>]])</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">prilagodeni =</span> <span class="fu">coef</span>(prilagodeni)[[<span class="st">"dob"</span>]])</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     zbirni prilagodeni 
@@ -1766,7 +1592,7 @@ Tablica&nbsp;8: Konačnopopulacijski nagib uz dob u dvama modelima za zabilježe
 </figcaption>
 <div aria-describedby="tbl-primjer-nagibi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Model</th>
@@ -1882,2333 +1708,1195 @@ Tablica&nbsp;8: Konačnopopulacijski nagib uz dob u dvama modelima za zabilježe
 
 </main> <!-- /main -->
 <script>
-
 /* =====================================================================
-
    book-include.html — ponašanje stranice (include-after-body)
-
    ---------------------------------------------------------------------
-
    Sve vizualno živi u styles/ (SCSS + styles.css). Ovdje nema boja ni
-
    pisama; moduli samo dodaju elemente i klase koje CSS zna stilizirati.
 
-
-
    Moduli
-
      1. traka napretka čitanja
-
      2. pregled na prijelaz za unutarnje poveznice
-
      3. dinkus (*** u prozi -> stilizirani razdjelnik)
-
      4. sidra uz naslove
-
      5. samostalne stranice bez knjižnog okvira
-
      5a. aktivno stanje roditelja izbornika Nastava
-
      6. čišćenje sidebara
-
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
-
      8. sklopivi prozni blokovi („Što isprobati")
-
      9. AI izbornik u podnožju poglavlja
-
      10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
-
      11. traka metapodataka na otvaranju poglavlja
-
      12. pamćenje stanja widgeta po stranici
-
      13. organizacija mobilne navigacije
-
      14. lokalni oporavak resursa stranice 404
-
      15. uklanjanje oznake vanjske poveznice s istog izvorišta
-
      16. pristupačno vodoravno pomicanje širokih tablica
-
      17. hrvatski pristupačni nazivi pretraživanja
-
    ===================================================================== */
-
 (function () {
-
   "use strict";
 
-
-
   // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
-
   // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
-
   // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
-
   function seedPojmovnikSearch() {
-
     if (!document.body.classList.contains("pojmovnik-page")) return;
-
     if (document.getElementById("quarto-search")) return;
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var host = document.createElement("div");
-
     host.id = "quarto-search";
-
     host.title = "Pretraži knjigu";
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     if (tools) tools.appendChild(host);
-
     else navbar.querySelector(".navbar-container").appendChild(host);
-
   }
-
-
 
   seedPojmovnikSearch();
 
-
-
   // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
-
   // ručno; pokrenite python scripts/check-book-inventory.py --write.
-
   // BEGIN GENERATED: book-inventory runtime-routes
-
   var SAMOSTALNE = [
-
     "/index.html",
-
     "/interakcije.html",
-
     "/pojmovnik.html",
-
     "/podaci.html",
-
     "/uci-s-ai.html",
-
     "/predavanja.html",
-
     "/silabus.html",
-
     "/raspored.html",
-
     "/resursi.html",
-
     "/rjesenja.html",
-
     "/errata.html",
-
     "/404.html"
-
   ];
-
   var NAVBAR_SKUPINE = [
-
     {
-
       "id": "nav-menu-nastava",
-
       "routes": [
-
         "/predavanja.html",
-
         "/silabus.html",
-
         "/raspored.html"
-
       ]
-
     }
-
   ];
-
   var PUTOVI_STRANICA = {
-
     "landing": "/index.html",
-
     "ch00": "/chapters/00-predgovor.html",
-
     "ch01": "/chapters/01-zasto-statistika.html",
-
     "ch02": "/chapters/02-mjerenje-i-dizajn.html",
-
     "ch03": "/chapters/03-kako-brojke-zavode.html",
-
     "ch04": "/chapters/04-sazimanje-podataka.html",
-
     "ch05": "/chapters/05-vizualizacija.html",
-
     "ch06": "/chapters/06-povezanost.html",
-
     "ch07": "/chapters/07-vjerojatnost.html",
-
     "ch08": "/chapters/08-uzorkovanje.html",
-
     "ch09": "/chapters/09-procjena.html",
-
     "ch10": "/chapters/10-logika-testiranja.html",
-
     "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
-
     "ch12": "/chapters/12-kriza-i-obnova.html",
-
     "ch13": "/chapters/13-kategoricki-podaci.html",
-
     "ch14": "/chapters/14-dvije-grupe.html",
-
     "ch15": "/chapters/15-vise-grupa.html",
-
     "ch16": "/chapters/16-regresija.html",
-
     "ch17": "/chapters/17-doba-algoritama.html",
-
     "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
-
     "references": "/references.html",
-
     "app-a": "/dodaci/a-praktikum.html",
-
     "app-b": "/dodaci/b-jamovi.html",
-
     "app-c": "/dodaci/c-katalog-podataka.html",
-
     "app-d": "/dodaci/d-koji-test.html",
-
     "app-e": "/dodaci/e-rjecnik.html",
-
     "app-f": "/dodaci/f-ai-protokol.html",
-
     "app-g": "/dodaci/g-numericki-podsjetnik.html",
-
     "interactions": "/interakcije.html",
-
     "glossary": "/pojmovnik.html",
-
     "data": "/podaci.html",
-
     "ai": "/uci-s-ai.html",
-
     "lectures": "/predavanja.html",
-
     "syllabus": "/silabus.html",
-
     "schedule": "/raspored.html",
-
     "resources": "/resursi.html",
-
     "solutions": "/rjesenja.html",
-
     "errata": "/errata.html",
-
     "not-found": "/404.html"
-
   };
-
   var AI_PUTOVI_POGLAVLJA = [
-
     {
-
       "route": "/chapters/00-predgovor.html",
-
       "ai": "/ai/00-predgovor.md"
-
     },
-
     {
-
       "route": "/chapters/01-zasto-statistika.html",
-
       "ai": "/ai/01-zasto-statistika.md"
-
     },
-
     {
-
       "route": "/chapters/02-mjerenje-i-dizajn.html",
-
       "ai": "/ai/02-mjerenje-i-dizajn.md"
-
     },
-
     {
-
       "route": "/chapters/03-kako-brojke-zavode.html",
-
       "ai": "/ai/03-kako-brojke-zavode.md"
-
     },
-
     {
-
       "route": "/chapters/04-sazimanje-podataka.html",
-
       "ai": "/ai/04-sazimanje-podataka.md"
-
     },
-
     {
-
       "route": "/chapters/05-vizualizacija.html",
-
       "ai": "/ai/05-vizualizacija.md"
-
     },
-
     {
-
       "route": "/chapters/06-povezanost.html",
-
       "ai": "/ai/06-povezanost.md"
-
     },
-
     {
-
       "route": "/chapters/07-vjerojatnost.html",
-
       "ai": "/ai/07-vjerojatnost.md"
-
     },
-
     {
-
       "route": "/chapters/08-uzorkovanje.html",
-
       "ai": "/ai/08-uzorkovanje.md"
-
     },
-
     {
-
       "route": "/chapters/09-procjena.html",
-
       "ai": "/ai/09-procjena.md"
-
     },
-
     {
-
       "route": "/chapters/10-logika-testiranja.html",
-
       "ai": "/ai/10-logika-testiranja.md"
-
     },
-
     {
-
       "route": "/chapters/11-velicina-ucinka-i-snaga.html",
-
       "ai": "/ai/11-velicina-ucinka-i-snaga.md"
-
     },
-
     {
-
       "route": "/chapters/12-kriza-i-obnova.html",
-
       "ai": "/ai/12-kriza-i-obnova.md"
-
     },
-
     {
-
       "route": "/chapters/13-kategoricki-podaci.html",
-
       "ai": "/ai/13-kategoricki-podaci.md"
-
     },
-
     {
-
       "route": "/chapters/14-dvije-grupe.html",
-
       "ai": "/ai/14-dvije-grupe.md"
-
     },
-
     {
-
       "route": "/chapters/15-vise-grupa.html",
-
       "ai": "/ai/15-vise-grupa.md"
-
     },
-
     {
-
       "route": "/chapters/16-regresija.html",
-
       "ai": "/ai/16-regresija.md"
-
     },
-
     {
-
       "route": "/chapters/17-doba-algoritama.html",
-
       "ai": "/ai/17-doba-algoritama.md"
-
     },
-
     {
-
       "route": "/chapters/18-vase-prvo-istrazivanje.html",
-
       "ai": "/ai/18-vase-prvo-istrazivanje.md"
-
     }
-
   ];
-
   // END GENERATED: book-inventory runtime-routes
 
-
-
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
-
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
-
   var UPUTA =
-
-    "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
-
+    "Ti si moj mentor za udžbenik „Statistika 101: Intuitivni uvod u analizu podataka”. " +
     "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
-
     "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
-
     "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
-
     "gradi intuiciju prije formule, prilagodi se mojoj razini i na zahtjev sažmi " +
-
     "gradivo, izradi kviz, kartice ili plan učenja. Na početku me pitaj što učim " +
-
     "i koji mi je cilj.";
 
-
-
   // -------------------------------------------------------------------
-
   // 1. Traka napretka čitanja
-
   // -------------------------------------------------------------------
-
   function setupProgressBar() {
-
     if (document.getElementById("reading-progress")) return;
-
     var bar = document.createElement("div");
-
     bar.id = "reading-progress";
-
     document.body.appendChild(bar);
 
-
-
     var ticking = false;
-
     function update() {
-
       var doc = document.documentElement;
-
       var scrollTop = window.scrollY || doc.scrollTop;
-
       var max = (doc.scrollHeight - doc.clientHeight) || 1;
-
       var pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
-
       bar.style.width = pct + "%";
-
       ticking = false;
-
     }
-
     window.addEventListener("scroll", function () {
-
       if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-
     }, { passive: true });
-
     update();
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 2. Pregled na prijelaz za unutarnje poveznice (#sidra u dokumentu)
-
   // -------------------------------------------------------------------
-
   function setupInternalHover() {
-
     var tip = null, hideTimer = null;
 
-
-
     function ensureTip() {
-
       if (tip) return tip;
-
       tip = document.createElement("div");
-
       tip.className = "internal-hover-preview";
-
       document.body.appendChild(tip);
-
       return tip;
-
     }
-
-
 
     function show(target, text, title) {
-
       var t = ensureTip();
-
       t.innerHTML = "";
-
       if (title) {
-
         var h = document.createElement("div");
-
         h.className = "ihp-title";
-
         h.textContent = title;
-
         t.appendChild(h);
-
       }
-
       var body = document.createElement("div");
-
       body.textContent = text;
-
       t.appendChild(body);
 
-
-
       var rect = target.getBoundingClientRect();
-
       var left = window.scrollX + rect.left;
-
       var maxLeft = window.scrollX + document.documentElement.clientWidth - 400;
-
       if (left > maxLeft) left = maxLeft;
-
       if (left < 8) left = 8;
-
       t.style.top = (window.scrollY + rect.bottom + 8) + "px";
-
       t.style.left = left + "px";
-
       t.classList.add("visible");
-
     }
-
-
 
     function hide() { if (tip) tip.classList.remove("visible"); }
 
-
-
     document.addEventListener("mouseover", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       if (a.classList.contains("citation") || a.classList.contains("footnote-ref")) return;
-
       if (a.closest(".sidebar, nav, .toc, #TOC, .quarto-secondary-nav")) return;
 
-
-
       var hash = a.getAttribute("href").slice(1);
-
       if (!hash) return;
-
       var tgt = document.getElementById(hash);
-
       if (!tgt) return;
 
-
-
       var titleEl = tgt.querySelector("h1, h2, h3, h4") ||
-
                     (tgt.tagName.match(/^H[1-6]$/) ? tgt : null);
-
       var title = titleEl ? titleEl.textContent.trim() : "";
-
       var ctx = (tgt.textContent || "").trim().replace(/\s+/g, " ");
-
       if (title) ctx = ctx.replace(title, "").trim();
-
       ctx = ctx.slice(0, 280) + (ctx.length > 280 ? "…" : "");
 
-
-
       clearTimeout(hideTimer);
-
       show(a, ctx, title);
-
     });
-
-
 
     document.addEventListener("mouseout", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       hideTimer = setTimeout(hide, 120);
-
     });
-
-
 
     window.addEventListener("scroll", hide, { passive: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 3. Dinkus — pasus koji je samo "***" postaje razdjelnik
-
   // -------------------------------------------------------------------
-
   function setupDinkus() {
-
     document.querySelectorAll("main p").forEach(function (p) {
-
       var t = p.textContent.trim();
-
       if (t === "***" || t === "* * *" || t === "◆ ◆ ◆") {
-
         var div = document.createElement("div");
-
         div.className = "dinkus";
-
         p.parentNode.replaceChild(div, p);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 4. Sidra uz naslove
-
   // -------------------------------------------------------------------
-
   function setupAnchorLinks() {
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
-
       if (h.classList.contains("title")) return;
-
       if (h.querySelector("a.anchorjs-link")) return;
-
       var link = document.createElement("a");
-
       link.className = "anchorjs-link";
-
       link.href = "#" + h.id;
-
       link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
-
       h.appendChild(link);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5. Samostalne stranice — bez knjižnog okvira
-
   // -------------------------------------------------------------------
-
   function setupStandalonePages() {
-
     var path = location.pathname;
-
     var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
-
     var normalized = path.endsWith("/") ? path + naslovnica : path;
-
     var isStandalone =
-
       document.body.classList.contains("standalone-page") ||
-
       document.body.classList.contains("not-found-page") ||
-
       SAMOSTALNE.some(function (p) { return normalized.endsWith(p); });
-
     if (!isStandalone) return;
-
-
 
     document.body.classList.add("standalone-page");
 
-
-
     var sb = document.getElementById("quarto-sidebar");
-
     if (sb) sb.style.display = "none";
-
     var msb = document.getElementById("quarto-margin-sidebar");
-
     if (msb) msb.style.display = "none";
-
     document.querySelectorAll(".quarto-page-breadcrumbs").forEach(function (el) { el.remove(); });
 
-
-
     // Quarto dodaje "Appendix A — " prefiks dodacima; na hub stranicama smeta.
-
     var strip = function (s) {
-
       return s.replace(/^Appendix\s+\S*\s*[—–-]\s*/i, "").replace(/^\s*[—–-]\s+/, "").trim();
-
     };
-
     var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
-
     if (titleEl) titleEl.textContent = strip(titleEl.textContent);
-
     document.title = strip(document.title);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
-
   // -------------------------------------------------------------------
-
   function setupNastavaActiveState() {
-
     NAVBAR_SKUPINE.forEach(function (skupina) {
-
       var aktivna = skupina.routes.some(function (put) {
-
         return location.pathname.endsWith(put);
-
       });
-
       if (!aktivna) return;
-
       var parent = document.getElementById(skupina.id);
-
       if (!parent) return;
-
       parent.classList.add("active", "section-active");
-
       parent.setAttribute("aria-current", "true");
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
-
   //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
-
   //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
-
   // -------------------------------------------------------------------
-
   function removePrunedItems() {
-
     var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
-
     document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
-
       .forEach(function (a) {
-
         var href = a.getAttribute("href") || "";
-
         var hide = endings.some(function (e) { return href.endsWith(e); });
-
         if (hide) {
-
           a.style.display = "none";
-
           var li = a.closest(".sidebar-item");
-
           if (li) li.style.display = "none";
-
         }
-
       });
-
   }
-
-
 
   function pruneSidebar() {
-
     removePrunedItems();
-
     setTimeout(removePrunedItems, 200);
-
     setTimeout(removePrunedItems, 800);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 7. Upravljačke ploče interaktivnih grafova
-
   //    Observable rendira kontrole asinkrono, pa MutationObserver hvata
-
   //    njihovo pojavljivanje. Ploča se sklapa u <details>, klizači dobiju
-
   //    ispunu trake (--fill) i gumb za povratak na početne vrijednosti.
-
   // -------------------------------------------------------------------
-
   function setupOjsPanels() {
-
     function paintFill(r) {
-
       var min = parseFloat(r.min), max = parseFloat(r.max);
-
       if (!isFinite(min)) min = 0;
-
       if (!isFinite(max)) max = 100;
-
       var pct = max > min ? ((r.value - min) / (max - min)) * 100 : 0;
-
       r.style.setProperty("--fill", pct.toFixed(2) + "%");
-
     }
-
-
 
     function enhanceRange(r) {
-
       if (r.dataset.ojsEnhanced) return;
-
       r.dataset.ojsEnhanced = "1";
-
       r.dataset.ojsInitial = r.value;
-
       paintFill(r);
-
       r.addEventListener("input", function () {
-
         paintFill(r);
-
         var num = r.parentElement && r.parentElement.querySelector('input[type="number"]');
-
         if (num) {
-
           num.classList.remove("ojs-pulse");
-
           void num.offsetWidth;
-
           num.classList.add("ojs-pulse");
-
         }
-
       });
-
     }
-
-
 
     function panelMeta(panel) {
-
       var host = panel.closest && panel.closest("[data-ojs-label]");
-
       var widget = panel.closest && panel.closest(".widget-frame[data-naslov]");
-
       var widgetTitle = widget && widget.getAttribute("data-naslov");
-
       return {
-
         label: host && host.getAttribute("data-ojs-label") ||
-
           (widgetTitle ? "Postavke: " + widgetTitle : "Parametri simulacije"),
-
         hint: host && host.getAttribute("data-ojs-hint") ||
-
           "otvori za promjenu vrijednosti"
-
       };
-
     }
-
-
 
     function collapsePanel(panel) {
-
       if (panel.dataset.ojsCollapsed) return;
-
       var parent = panel.parentElement;
-
       if (!parent) return;
-
       panel.dataset.ojsCollapsed = "1";
-
       var meta = panelMeta(panel);
 
-
-
       var details = document.createElement("details");
-
       details.className = "ojs-collapsible";
-
       var summary = document.createElement("summary");
-
       summary.className = "ojs-collapsible-summary";
-
       summary.innerHTML =
-
         '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
         '<span class="ojs-collapsible-label"></span>' +
-
         '<span class="ojs-collapsible-hint"></span>';
-
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
-
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
 
-
-
       parent.insertBefore(details, panel);
-
       details.appendChild(summary);
-
       details.appendChild(panel);
-
     }
-
-
 
     function enhancePanel(panel) {
-
       if (panel.dataset.ojsPanel) return;
-
       panel.dataset.ojsPanel = "1";
-
       panel.querySelectorAll("input, select, textarea").forEach(function (el) {
-
         if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
-
         if (el.type === "checkbox" || el.type === "radio") {
-
           el.dataset.ojsInitialChecked = el.checked ? "1" : "0";
-
         }
-
       });
-
       var btn = document.createElement("button");
-
       btn.type = "button";
-
       btn.className = "ojs-reset";
-
       btn.textContent = "↺ početne vrijednosti";
-
       btn.title = "Vrati početne vrijednosti";
-
       btn.addEventListener("click", function () {
-
         panel.querySelectorAll('input[type="range"]').forEach(function (r) {
-
           if (r.dataset.ojsInitial === undefined) return;
-
           r.value = r.dataset.ojsInitial;
-
           r.dispatchEvent(new Event("input", { bubbles: true }));
-
         });
-
         panel.querySelectorAll(
-
           'input:not([type="range"]), select, textarea'
-
         ).forEach(function (el) {
-
           if (el.dataset.ojsInitial === undefined) return;
-
           if (el.type === "checkbox" || el.type === "radio") {
-
             el.checked = el.dataset.ojsInitialChecked === "1";
-
           } else {
-
             el.value = el.dataset.ojsInitial;
-
           }
-
           el.dispatchEvent(new Event("input", { bubbles: true }));
-
           el.dispatchEvent(new Event("change", { bubbles: true }));
-
         });
-
       });
-
       panel.appendChild(btn);
-
       collapsePanel(panel);
-
     }
-
-
 
     var scanQueued = false;
-
     function scan() {
-
       scanQueued = false;
-
       document.querySelectorAll('form[class^="oi-"] input[type="range"]').forEach(enhanceRange);
-
       document.querySelectorAll('form[class^="oi-"]').forEach(function (f) {
-
         if (f.classList.contains("quarto-ojs-table-fixup")) return;
-
         var p = f.parentElement;
-
         if (p && p.tagName === "DIV") enhancePanel(p);
-
       });
-
       document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
-
         if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
-
         if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
-
       });
-
+      // Sustav Zvono: zaglavlje widgeta s diskom, naslovom i oznakom.
+      document.querySelectorAll(".widget-frame[data-naslov]:not(.zv-widget-glava)").forEach(function (frame) {
+        var oznaka = frame.getAttribute("data-oznaka") || "";
+        var broj = (oznaka.match(/(\d+\.\d+)/) || [])[1] || "";
+        var glava = document.createElement("div");
+        glava.className = "widget-glava";
+        if (broj) {
+          var disk = document.createElement("span");
+          disk.className = "widget-glava__disk";
+          disk.setAttribute("aria-hidden", "true");
+          disk.textContent = broj;
+          glava.appendChild(disk);
+        }
+        var naslov = document.createElement("span");
+        naslov.className = "widget-glava__naslov";
+        naslov.textContent = frame.getAttribute("data-naslov");
+        glava.appendChild(naslov);
+        if (oznaka) {
+          var lbl = document.createElement("span");
+          lbl.className = "widget-glava__oznaka";
+          lbl.textContent = oznaka.toLowerCase();
+          glava.appendChild(lbl);
+        }
+        frame.insertBefore(glava, frame.firstChild);
+        frame.classList.add("zv-widget-glava");
+      });
     }
-
     function queueScan() {
-
       if (scanQueued) return;
-
       scanQueued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     new MutationObserver(queueScan).observe(document.body, { childList: true, subtree: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
-
   // -------------------------------------------------------------------
-
   function wrapCollapsible(node, label, hint) {
-
     if (node.dataset.ojsCollapsibleWrapped) return null;
-
     var parent = node.parentElement;
-
     if (!parent) return null;
-
     node.dataset.ojsCollapsibleWrapped = "1";
 
-
-
     var details = document.createElement("details");
-
     details.className = "ojs-collapsible ojs-collapsible-prose";
-
     var summary = document.createElement("summary");
-
     summary.className = "ojs-collapsible-summary";
-
     summary.innerHTML =
-
       '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
       '<span class="ojs-collapsible-label"></span>' +
-
       '<span class="ojs-collapsible-hint"></span>';
-
     summary.querySelector(".ojs-collapsible-label").textContent = label;
-
     summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
 
-
-
     var body = document.createElement("div");
-
     body.className = "ojs-collapsible-body";
 
-
-
     parent.insertBefore(details, node);
-
     details.appendChild(summary);
-
     details.appendChild(body);
-
     body.appendChild(node);
-
     return body;
-
   }
-
-
 
   function setupProseCollapsibles() {
-
     var main = document.querySelector("main.content") || document.querySelector("main");
-
     if (!main) return;
 
-
-
     main.querySelectorAll("p").forEach(function (p) {
-
       if (p.dataset.ojsCollapsibleWrapped) return;
-
       var strong = p.querySelector(":scope > strong:first-child");
-
       if (!strong) return;
-
       if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
-
       var next = p.nextElementSibling;
-
       strong.remove();
-
       if (p.firstChild && p.firstChild.nodeType === 3) {
-
         p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
-
       }
-
       var body = wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
-
       if (body && next && (next.matches("ol") || next.matches("ul"))) {
-
         body.appendChild(next);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 9. AI izbornik u podnožju poglavlja
-
   //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
-
   //    generira R/build-ai-exports.R.
-
   // -------------------------------------------------------------------
-
   function setupChapterAI() {
-
     var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
-
       return location.pathname.endsWith(kandidat.route);
-
     });
-
     if (!zapis) return;
-
     if (document.querySelector(".ai-cta")) return;
-
     var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
-
-
     var mdHref  = zapis.ai;
-
     var uciHref = PUTOVI_STRANICA.ai;
-
     var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
-
     var absMd   = location.origin + mdHref;
-
     var q = encodeURIComponent(
-
       UPUTA +
-
       "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
-
       absMd);
 
-
-
     var box = document.createElement("div");
-
     box.className = "ai-cta-foot";
 
-
-
     var det = document.createElement("details");
-
     det.className = "ai-cta";
-
     det.innerHTML =
-
       "<summary>🤖 Pitaj AI o ovom poglavlju</summary>" +
-
       '<div class="ai-cta-menu">' +
-
         '<a href="' + mdHref + '" download>⬇ Preuzmi tekst (.md)</a>' +
-
         '<a href="https://claude.ai/new?q=' + q + '" target="_blank" rel="noopener">Otvori u Claudeu</a>' +
-
         '<a href="https://chatgpt.com/?q=' + q + '" target="_blank" rel="noopener">Otvori u ChatGPT-u</a>' +
-
         '<a href="' + uciHref + '">Sve opcije i cijela knjiga →</a>' +
-
       "</div>";
 
-
-
     var pm = document.createElement("a");
-
     pm.className = "ai-cta-pm";
-
     pm.href = pmHref;
-
     pm.innerHTML = "🕸 Pojmovi ovog poglavlja u mreži";
 
-
-
     box.appendChild(det);
-
     box.appendChild(pm);
 
-
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     var fn = article.querySelector("section.footnotes, #refs, section#footnotes");
-
     if (fn) fn.parentNode.insertBefore(box, fn);
-
     else article.appendChild(box);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 10. Pojmovi na dodir
-
   //     [statističko zaključivanje]{.pojam def="…" en="…" ch="8"}
-
   //     Pandoc atribute prenosi doslovno na <span>, pa oblačić gradimo
-
   //     odavde. Izgled je u styles/_base.scss (.pojam__oblacic).
-
   // -------------------------------------------------------------------
-
   function setupPojmovi() {
-
     var pojmovi = document.querySelectorAll("span.pojam");
-
     if (!pojmovi.length) return;
 
-
-
     pojmovi.forEach(function (el) {
-
       if (el.dataset.pojamSpreman) return;
-
       el.dataset.pojamSpreman = "1";
 
-
-
       var def = el.getAttribute("def") || "";
-
       var en  = el.getAttribute("en")  || "";
-
       var ch  = el.getAttribute("ch")  || "";
-
       if (!def && !en && !ch) return;
-
-
 
       el.setAttribute("tabindex", "0");
 
-
-
       var tip = document.createElement("span");
-
       tip.className = "pojam__oblacic";
-
       tip.setAttribute("role", "tooltip");
 
-
-
       var glava = document.createElement("span");
-
       glava.className = "pojam__glava";
-
       glava.textContent = el.textContent.trim();
-
       tip.appendChild(glava);
 
-
-
       if (def) tip.appendChild(document.createTextNode(def));
-
       if (en) {
-
         var e = document.createElement("em");
-
         e.className = "pojam__en";
-
         e.textContent = " " + en;
-
         tip.appendChild(e);
-
       }
-
       if (ch) {
-
         var c = document.createElement("span");
-
         c.className = "pojam__pogl";
-
         c.textContent = "→ pogl. " + ch;
-
         tip.appendChild(c);
-
       }
-
       el.appendChild(tip);
-
     });
-
-
 
     // Dodir i tipkovnica: klik otvara, klik izvan zatvara (CSS pokriva miš).
-
     document.addEventListener("click", function (e) {
-
       var t = e.target.closest && e.target.closest("span.pojam");
-
       document.querySelectorAll("span.pojam.je-otvoren").forEach(function (o) {
-
         if (o !== t) o.classList.remove("je-otvoren");
-
       });
-
       if (t) { t.classList.toggle("je-otvoren"); e.stopPropagation(); }
-
     });
-
     document.addEventListener("keydown", function (e) {
-
       if (e.key !== "Escape") return;
-
       document.querySelectorAll("span.pojam.je-otvoren")
-
         .forEach(function (o) { o.classList.remove("je-otvoren"); });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 11. Traka metapodataka na otvaranju poglavlja
-
   //     U .qmd-u se piše kao obična tablica unutar ::: {.chapter-meta};
-
   //     ovdje postaje jedan redak parova natpis / vrijednost.
-
   // -------------------------------------------------------------------
-
   function setupChapterMeta() {
-
     document.querySelectorAll(".chapter-meta").forEach(function (box) {
-
       var table = box.querySelector("table");
-
       if (!table || box.dataset.metaSpremna) return;
-
       box.dataset.metaSpremna = "1";
 
-
-
       var glave = [].map.call(table.querySelectorAll("thead th"),
-
         function (th) { return th.textContent.trim(); });
-
       var polja = [].map.call(table.querySelectorAll("tbody tr:first-child td"),
-
         function (td) { return td.textContent.trim(); });
-
       if (!glave.length) return;
 
-
-
       var red = document.createElement("div");
-
       red.className = "chapter-meta__row";
-
       glave.forEach(function (g, i) {
-
         var cell = document.createElement("div");
-
         var k = document.createElement("span");
-
         k.className = "chapter-meta__key";
-
         k.textContent = g;
-
         cell.appendChild(k);
-
         cell.appendChild(document.createTextNode(polja[i] || "—"));
-
         red.appendChild(cell);
-
       });
-
-
 
       var wrap = table.closest(".table, figure") || table;
-
       wrap.parentNode.replaceChild(red, wrap);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 12. Pamćenje stanja widgeta
-
   //     Čitatelj koji odscrola i vrati se ne gubi svoje istraživanje.
-
   //     Ključ je po stranici; vrijednosti su samo brojevi i nizovi iz
-
   //     kontrola, pa localStorage ne nosi ništa osobno.
-
   // -------------------------------------------------------------------
-
   function setupWidgetMemory() {
-
     var kljuc = "statistika:widget:" + location.pathname;
-
     var IZBOR = ".widget-frame input, .widget-frame select, " +
-
                 'form[class^="oi-"] input, form[class^="oi-"] select';
 
-
-
     function spremi() {
-
       var s = {};
-
       document.querySelectorAll(IZBOR).forEach(function (el, i) {
-
         if (el.type === "checkbox" || el.type === "radio") s[i] = el.checked;
-
         else s[i] = el.value;
-
       });
-
       try { localStorage.setItem(kljuc, JSON.stringify(s)); } catch (e) {}
-
     }
-
-
 
     function vrati() {
-
       var s;
-
       try { s = JSON.parse(localStorage.getItem(kljuc) || "null"); } catch (e) { return; }
-
       if (!s) return;
-
       var polja = document.querySelectorAll(IZBOR);
-
       if (!polja.length) return;
-
       polja.forEach(function (el, i) {
-
         if (!(i in s)) return;
-
         if (el.type === "checkbox" || el.type === "radio") el.checked = !!s[i];
-
         else el.value = s[i];
-
         el.dispatchEvent(new Event("input", { bubbles: true }));
-
         el.dispatchEvent(new Event("change", { bubbles: true }));
-
       });
-
     }
-
-
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
-
     // je dovoljan jer se stanje pamti na svaku promjenu.
-
     window.setTimeout(vrati, 600);
-
     document.addEventListener("input", function (e) {
-
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 13. Mobilna navigacija
-
   //     Zatvoreno zaglavlje ostaje jedan redak. Pretraga, bočni izbornik
-
   //     i hamburger čine jednu skupinu, a sekundarni alati sele u otvoreni
-
   //     glavni izbornik. Na širokom zaslonu sve se vraća na Quartova mjesta.
-
   // -------------------------------------------------------------------
-
   function setupMobileNavbar() {
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var container = navbar.querySelector(".navbar-container");
-
     var collapse = navbar.querySelector(".navbar-collapse");
-
     var toggler = navbar.querySelector(".navbar-toggler");
-
     if (!container || !collapse || !toggler) return;
 
-
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
-
     var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
-
     var searchButton = secondary && secondary.querySelector(".quarto-search-button");
-
     if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
-
       var searchHost = navbar.querySelector("#quarto-search");
-
       if (searchHost) searchHost.hidden = true;
-
       searchButton = document.createElement("button");
-
       searchButton.type = "button";
-
       searchButton.className = "btn quarto-search-button";
-
       searchButton.setAttribute("aria-label", "Pretraži knjigu");
-
       searchButton.setAttribute("title", "Pretraži knjigu");
-
       searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
-
       searchButton.addEventListener("click", function () {
-
         if (window.quartoOpenSearch) window.quartoOpenSearch();
-
       });
-
       if (tools) tools.appendChild(searchButton);
-
       else container.insertBefore(searchButton, toggler);
-
     }
-
     var brandTitle = navbar.querySelector(".navbar-title");
-
     var fullBrand = brandTitle ? brandTitle.textContent.trim() : "";
-
     var actions = null;
 
-
-
     function markerFor(el, name) {
-
       if (!el) return null;
-
       var marker = document.createComment("navbar-" + name);
-
       el.parentNode.insertBefore(marker, el);
-
       return marker;
-
     }
-
-
 
     var positions = [
-
       { node: toggler, marker: markerFor(toggler, "toggler") },
-
       { node: tools, marker: markerFor(tools, "tools") },
-
       { node: sidebarButton, marker: markerFor(sidebarButton, "sidebar") },
-
       { node: searchButton, marker: markerFor(searchButton, "search") }
-
     ];
 
-
-
     function restore(item) {
-
       if (item.node && item.marker && item.marker.parentNode) {
-
         item.marker.parentNode.insertBefore(item.node, item.marker);
-
       }
-
     }
 
-
-
     function localize() {
-
       toggler.setAttribute("aria-label", "Otvori navigaciju");
-
       if (sidebarButton) {
-
         sidebarButton.setAttribute("aria-label", "Otvori sadržaj knjige");
-
       }
-
       if (searchButton) {
-
         var searchControl = searchButton.matches("button")
-
           ? searchButton
-
           : searchButton.querySelector("button");
-
         if (searchControl) {
-
           searchControl.setAttribute("aria-label", "Pretraži knjigu");
-
           searchControl.setAttribute("title", "Pretraži knjigu");
-
         }
-
       }
-
-
 
       var labels = {
-
         "Source Code": "Izvorni kod",
-
         "Share": "Podijeli",
-
         "Toggle dark mode": "Promijeni temu",
-
         "Toggle light mode": "Promijeni temu",
-
         "Toggle reader mode": "Način čitanja"
-
       };
-
       navbar.querySelectorAll(".quarto-navigation-tool").forEach(function (a) {
-
         var source = a.getAttribute("title") || a.getAttribute("aria-label") || "";
-
         if (!labels[source]) return;
-
         a.setAttribute("title", labels[source]);
-
         a.setAttribute("aria-label", labels[source]);
-
       });
-
     }
-
-
 
     function organize(mobile) {
-
       document.body.classList.toggle("navbar-mobile-organized", mobile);
-
       if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
-
-      if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
-
-
+      if (brandTitle) brandTitle.textContent = fullBrand;  // „Statistika 101" stane i na telefon
 
       if (mobile) {
-
         if (!actions) {
-
           actions = document.createElement("div");
-
           actions.className = "mobile-navbar-actions";
-
           container.insertBefore(actions, collapse);
-
         }
-
         if (sidebarButton) actions.appendChild(sidebarButton);
-
         if (searchButton) actions.appendChild(searchButton);
-
         actions.appendChild(toggler);
-
         if (tools) collapse.appendChild(tools);
-
       } else {
-
         positions.forEach(restore);
-
         if (actions) {
-
           actions.remove();
-
           actions = null;
-
         }
-
       }
-
     }
 
-
-
     localize();
-
     var mq = window.matchMedia("(max-width: 991.98px)");
-
     organize(mq.matches);
-
     var onChange = function (e) { organize(e.matches); };
-
     if (mq.addEventListener) mq.addEventListener("change", onChange);
-
     else mq.addListener(onChange);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 14. Stranica 404 pri lokalnom posluživanju iz korijena
-
   //     Lokalni resursi ugrađuju se nakon rendera, ali navigacijske poveznice
-
   //     i dalje nose produkcijski podput. Izvan tog podputa vraćamo ih na
-
   //     lokalni korijen; na GitHub Pagesu ostaju netaknute.
-
   // -------------------------------------------------------------------
-
   function setupNotFoundFallback() {
-
     if (!document.body.classList.contains("not-found-page")) return;
-
     var offset = document.querySelector('meta[name="quarto:offset"]');
-
     var prefix = offset ? (offset.getAttribute("content") || "") : "";
-
     prefix = prefix.replace(/\/+$/, "");
-
     if (!prefix || prefix === "/" ||
-
         location.pathname === prefix ||
-
         location.pathname.indexOf(prefix + "/") === 0) return;
 
-
-
     document.querySelectorAll("[href], [src]").forEach(function (el) {
-
       ["href", "src"].forEach(function (attr) {
-
         var value = el.getAttribute(attr);
-
         if (!value || value.indexOf(prefix + "/") !== 0) return;
-
         el.setAttribute(attr, value.slice(prefix.length));
-
       });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 15. Poveznice s istog izvorišta
-
   //     Quarto ih u lokalnom pregledu katkad označi kao vanjske prije nego
-
   //     što razriješi adresu. `no-external` sprečava naknadno ukrašavanje,
-
   //     a već dodani znak i otvaranje u novoj kartici uklanjaju se.
-
   // -------------------------------------------------------------------
-
   function setupSameOriginLinks() {
-
     var queued = false;
-
-
 
     function clean() {
-
       queued = false;
-
       document.querySelectorAll("a[href]").forEach(function (a) {
-
         var url;
-
         try { url = new URL(a.getAttribute("href"), location.href); }
-
         catch (e) { return; }
-
         if (url.origin !== location.origin) return;
 
-
-
         a.classList.add("no-external");
-
         a.classList.remove("external", "external-link");
-
         a.removeAttribute("data-external");
-
         if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
 
-
-
         var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean)
-
           .filter(function (token) {
-
             return token !== "external" && token !== "noopener" &&
-
               token !== "noreferrer";
-
           });
-
         if (rel.length) a.setAttribute("rel", rel.join(" "));
-
         else a.removeAttribute("rel");
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(clean);
-
     }
-
-
 
     clean();
-
     window.setTimeout(clean, 250);
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 16. Široke tablice
-
   //     Vodoravno pomicanje dobiva tipkovni fokus, jasan naziv i vidljivu
-
   //     uputu samo kada je tablica doista šira od raspoloživog prostora.
-
   // -------------------------------------------------------------------
-
   function setupAccessibleTables() {
-
     var nextId = 0;
-
     var queued = false;
-
     var resizeObserver = typeof ResizeObserver === "function"
-
       ? new ResizeObserver(queueScan)
-
       : null;
 
-
-
     function tableLabel(table) {
-
       var caption = table.querySelector("caption");
-
       var figure = table.closest("figure");
-
       if (!caption && figure) caption = figure.querySelector("figcaption");
-
       var text = caption && caption.textContent
-
         ? caption.textContent.trim().replace(/\s+/g, " ")
-
         : "";
-
       return text ? "Tablica: " + text : "Tablica s vodoravnim pomicanjem";
-
     }
-
-
 
     function wrapperFor(table) {
-
       var parent = table.parentElement;
-
       if (parent && (
-
         parent.classList.contains("table-responsive") ||
-
         parent.classList.contains("cell-output-display")
-
       )) {
-
         return parent;
-
       }
-
-
 
       var wrapper = document.createElement("div");
-
       wrapper.className = "table-responsive";
-
       table.parentNode.insertBefore(wrapper, table);
-
       wrapper.appendChild(table);
-
       return wrapper;
-
     }
-
-
 
     function update(table, scroller, hint) {
-
       if (!table.isConnected || !scroller.isConnected) return;
-
       var overflows = table.scrollWidth > scroller.clientWidth + 1;
-
       scroller.classList.toggle("table-scrollable", overflows);
-
       hint.hidden = !overflows;
 
-
-
       if (overflows) {
-
         if (!scroller.hasAttribute("tabindex")) {
-
           scroller.tabIndex = 0;
-
           scroller.dataset.tableManagedTabindex = "1";
-
         }
-
         if (!scroller.hasAttribute("role")) {
-
           scroller.setAttribute("role", "region");
-
           scroller.dataset.tableManagedRole = "1";
-
         }
-
         if (!scroller.hasAttribute("aria-label")) {
-
           scroller.setAttribute("aria-label", tableLabel(table));
-
           scroller.dataset.tableManagedLabel = "1";
-
         }
-
         var describedBy = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean);
-
         if (describedBy.indexOf(hint.id) === -1) describedBy.push(hint.id);
-
         scroller.setAttribute("aria-describedby", describedBy.join(" "));
-
       } else {
-
         if (scroller.dataset.tableManagedTabindex) {
-
           scroller.removeAttribute("tabindex");
-
           delete scroller.dataset.tableManagedTabindex;
-
         }
-
         if (scroller.dataset.tableManagedRole) {
-
           scroller.removeAttribute("role");
-
           delete scroller.dataset.tableManagedRole;
-
         }
-
         if (scroller.dataset.tableManagedLabel) {
-
           scroller.removeAttribute("aria-label");
-
           delete scroller.dataset.tableManagedLabel;
-
         }
-
         var remaining = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean)
-
           .filter(function (id) { return id !== hint.id; });
-
         if (remaining.length) {
-
           scroller.setAttribute("aria-describedby", remaining.join(" "));
-
         } else {
-
           scroller.removeAttribute("aria-describedby");
-
         }
-
       }
-
     }
-
-
 
     function prepare(table) {
-
       if (table.dataset.tableScrollerReady || table.closest(".chapter-meta")) {
-
         return;
-
       }
-
       table.dataset.tableScrollerReady = "1";
-
       var scroller = wrapperFor(table);
-
       var hint = document.createElement("p");
-
       hint.className = "table-scroll-hint";
-
       hint.id = "table-scroll-hint-" + (++nextId);
-
       hint.textContent = "↔ Pomaknite tablicu za preostale stupce";
-
       hint.hidden = true;
-
       scroller.insertAdjacentElement("afterend", hint);
 
-
-
       var refresh = function () {
-
         window.requestAnimationFrame(function () {
-
           update(table, scroller, hint);
-
         });
-
       };
-
       refresh();
-
       table.addEventListener("load", refresh, true);
-
       if (resizeObserver) resizeObserver.observe(scroller);
-
     }
-
-
 
     function scan() {
-
       queued = false;
-
       document.querySelectorAll("main table, #quarto-content table")
-
         .forEach(prepare);
-
     }
-
-
 
     function queueScan() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     window.addEventListener("load", queueScan);
-
     window.addEventListener("resize", queueScan);
-
     new MutationObserver(queueScan).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 17. Pretraživanje
-
   //     Quarto prevodi vidljivi tekst iz `language`, ali Algolijina ovojnica
-
   //     zadržava nekoliko engleskih pristupačnih naziva. Prevodimo i početne
-
   //     elemente i kontrole koje se umeću tek kada se pretraživanje otvori.
-
   // -------------------------------------------------------------------
-
   function setupSearchLocalization() {
-
     var translations = {
-
       "Search": "Pretraži",
-
       "Clear": "Očisti pretraživanje",
-
       "Cancel": "Odustani",
-
       "Submit": "Pretraži",
-
       "Close": "Zatvori",
-
       "Reset": "Vrati početno"
-
     };
-
     var queued = false;
 
-
-
     function localize() {
-
       queued = false;
-
       document.querySelectorAll(
-
         ".aa-Autocomplete, .aa-DetachedSearchButton, " +
-
         ".aa-DetachedOverlay [aria-label], " +
-
         ".aa-DetachedOverlay [title], " +
-
         ".aa-DetachedOverlay [placeholder]"
-
       ).forEach(function (element) {
-
         ["aria-label", "title", "placeholder"].forEach(function (attribute) {
-
           var value = element.getAttribute(attribute);
-
           if (value && translations[value]) {
-
             element.setAttribute(attribute, translations[value]);
-
           }
-
         });
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(localize);
-
     }
 
-
-
     localize();
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
-
-
 
   // -------------------------------------------------------------------
-
   function init() {
-
     try { setupProgressBar(); } catch (e) {}
-
     try { setupInternalHover(); } catch (e) {}
-
     try { setupDinkus(); } catch (e) {}
-
     try { setupAnchorLinks(); } catch (e) {}
-
     try { setupStandalonePages(); } catch (e) {}
-
     try { setupNastavaActiveState(); } catch (e) {}
-
     try { pruneSidebar(); } catch (e) {}
-
     try { setupOjsPanels(); } catch (e) {}
-
     try { setupProseCollapsibles(); } catch (e) {}
-
     try { setupChapterAI(); } catch (e) {}
-
     try { setupPojmovi(); } catch (e) {}
-
     try { setupChapterMeta(); } catch (e) {}
-
     try { setupWidgetMemory(); } catch (e) {}
-
     try { setupMobileNavbar(); } catch (e) {}
-
     try { setupNotFoundFallback(); } catch (e) {}
-
     try { setupSameOriginLinks(); } catch (e) {}
-
     try { setupAccessibleTables(); } catch (e) {}
-
     try { setupSearchLocalization(); } catch (e) {}
-
   }
-
-
 
   if (document.readyState === "loading") {
-
     document.addEventListener("DOMContentLoaded", init);
-
   } else {
-
     init();
-
   }
-
 })();
-
 </script>
-
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MTZfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBvZHNqZcSNYWs6IElucHV0cy5yYW5nZShbLTEwLCAzNV0sIHtcbiAgICB2YWx1ZTogMTAsIHN0ZXA6IDEsIGxhYmVsOiBcIk9kc2plxI1hayBwcmF2Y2E6XCJcbiAgfSksXG4gIG5hZ2liOiBJbnB1dHMucmFuZ2UoWzAsIDddLCB7XG4gICAgdmFsdWU6IDQuNSwgc3RlcDogMC4xLCBsYWJlbDogXCJOYWdpYiBwcmF2Y2E6XCJcbiAgfSksXG4gIGRydWdpOiBJbnB1dHMudG9nZ2xlKHtcbiAgICB2YWx1ZTogZmFsc2UsIGxhYmVsOiBcIlByaWthxb5pIG1vZGVsIHMgcHJldGhvZG5pbSBpbnRlcmVzb21cIlxuICB9KVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcbiAgY29uc3QgdGludGEgPSBcInZhcigtLXdpZGdldC1pbmspXCI7XG4gIGNvbnN0IHByaWd1c2VubyA9IFwidmFyKC0tdG9rLWluay1tdXRlKVwiO1xuICBjb25zdCBwcmF2aWxvID0gXCJ2YXIoLS13aWRnZXQtZ3JpZClcIjtcbiAgY29uc3QgcG92cnNpbmEgPSBcInZhcigtLXRvay1zdXJmYWNlKVwiO1xuICBjb25zdCBwb2RhdGFrID0gXCJ2YXIoLS13aWRnZXQtZmlsbClcIjtcbiAgY29uc3QgcHJpbGFnb2Rlbm8gPSBcInZhcigtLXdpZGdldC1pbmstc2Vjb25kYXJ5KVwiO1xuICBjb25zdCBuYWdsYXNhayA9IFwidmFyKC0td2lkZ2V0LWVtcGhhc2lzKVwiO1xuICBjb25zdCBmb3JtYXRCcm9qID0gbmV3IEludGwuTnVtYmVyRm9ybWF0KFwiaHItSFJcIiwge1xuICAgIG1heGltdW1GcmFjdGlvbkRpZ2l0czogMVxuICB9KTtcbiAgZnVuY3Rpb24gbm9ybWFsbmFCZXpTcHJlbW5pa2Eoc291cmNlKSB7XG4gICAgcmV0dXJuICgpID0+IHtcbiAgICAgIGxldCB4O1xuICAgICAgbGV0IHk7XG4gICAgICBsZXQgcmFkaXVzO1xuICAgICAgZG8ge1xuICAgICAgICB4ID0gc291cmNlKCkgKiAyIC0gMTtcbiAgICAgICAgeSA9IHNvdXJjZSgpICogMiAtIDE7XG4gICAgICAgIHJhZGl1cyA9IHggKiB4ICsgeSAqIHk7XG4gICAgICB9IHdoaWxlICghcmFkaXVzIHx8IHJhZGl1cyA+IDEpO1xuICAgICAgcmV0dXJuIHggKiBNYXRoLnNxcnQoLTIgKiBNYXRoLmxvZyhyYWRpdXMpIC8gcmFkaXVzKTtcbiAgICB9O1xuICB9XG4gIGNvbnN0IHJuZyA9IGQzLnJhbmRvbUxjZygxNjE2KTtcbiAgY29uc3Qgbm9ybWFsbmEgPSBub3JtYWxuYUJlelNwcmVtbmlrYShybmcpO1xuXG4gIGNvbnN0IHBvZGFjaSA9IEFycmF5LmZyb20oe2xlbmd0aDogNTJ9LCAoKSA9PiB7XG4gICAgY29uc3QgaW50ZXJlcyA9IG5vcm1hbG5hKCk7XG4gICAgY29uc3QgdnJpamVtZSA9IE1hdGgubWF4KDAsIDUgKyAxLjggKiBpbnRlcmVzICsgMS41ICogbm9ybWFsbmEoKSk7XG4gICAgY29uc3QgYW5nYXptYW4gPSAyMCArIDIuMyAqIHZyaWplbWUgKyA3ICogaW50ZXJlcyArIDQuNSAqIG5vcm1hbG5hKCk7XG4gICAgcmV0dXJuIHtpbnRlcmVzLCB2cmlqZW1lLCBhbmdhem1hbn07XG4gIH0pO1xuXG4gIGNvbnN0IHJlZ3Jlc2lqYSA9ICh4LCB5KSA9PiB7XG4gICAgY29uc3QgbXggPSBkMy5tZWFuKHgpO1xuICAgIGNvbnN0IG15ID0gZDMubWVhbih5KTtcbiAgICBjb25zdCBicm9qbmlrID0gZDMuc3VtKHgsICh2LCBpKSA9PiAodiAtIG14KSAqICh5W2ldIC0gbXkpKTtcbiAgICBjb25zdCBuYXppdm5payA9IGQzLnN1bSh4LCB2ID0+ICh2IC0gbXgpICoqIDIpO1xuICAgIGNvbnN0IGIgPSBicm9qbmlrIC8gbmF6aXZuaWs7XG4gICAgcmV0dXJuIHthOiBteSAtIGIgKiBteCwgYn07XG4gIH07XG4gIGNvbnN0IHggPSBwb2RhY2kubWFwKGQgPT4gZC52cmlqZW1lKTtcbiAgY29uc3QgeSA9IHBvZGFjaS5tYXAoZCA9PiBkLmFuZ2F6bWFuKTtcbiAgY29uc3QgeiA9IHBvZGFjaS5tYXAoZCA9PiBkLmludGVyZXMpO1xuICBjb25zdCB6YmlybmkgPSByZWdyZXNpamEoeCwgeSk7XG4gIGNvbnN0IHhQcmVtYVogPSByZWdyZXNpamEoeiwgeCk7XG4gIGNvbnN0IHlQcmVtYVogPSByZWdyZXNpamEoeiwgeSk7XG4gIGNvbnN0IHhPc3RhdGFrID0geC5tYXAoKHYsIGkpID0+IHYgLSB4UHJlbWFaLmEgLSB4UHJlbWFaLmIgKiB6W2ldKTtcbiAgY29uc3QgeU9zdGF0YWsgPSB5Lm1hcCgodiwgaSkgPT4gdiAtIHlQcmVtYVouYSAtIHlQcmVtYVouYiAqIHpbaV0pO1xuICBjb25zdCBwcmlsYWdvZGVuaU5hZ2liID1cbiAgICBkMy5zdW0oeE9zdGF0YWssICh2LCBpKSA9PiB2ICogeU9zdGF0YWtbaV0pIC9cbiAgICBkMy5zdW0oeE9zdGF0YWssIHYgPT4gdiAqKiAyKTtcbiAgY29uc3QgcHJpbGFnb2RlbmkgPSB7XG4gICAgYTogZDMubWVhbih5KSAtIHByaWxhZ29kZW5pTmFnaWIgKiBkMy5tZWFuKHgpLFxuICAgIGI6IHByaWxhZ29kZW5pTmFnaWJcbiAgfTtcblxuICBjb25zdCByZXppZHVhbGkgPSBwb2RhY2kubWFwKGQgPT4gKHtcbiAgICAuLi5kLFxuICAgIHByb2NqZW5hOiB3MTZfcGFyLm9kc2plxI1hayArIHcxNl9wYXIubmFnaWIgKiBkLnZyaWplbWVcbiAgfSkpO1xuICBjb25zdCBzc2UgPSBkMy5zdW0ocmV6aWR1YWxpLCBkID0+XG4gICAgKGQuYW5nYXptYW4gLSBkLnByb2NqZW5hKSAqKiAyKTtcbiAgY29uc3Qgc3NlTmFqbWFuamkgPSBkMy5zdW0ocG9kYWNpLCBkID0+XG4gICAgKGQuYW5nYXptYW4gLSB6YmlybmkuYSAtIHpiaXJuaS5iICogZC52cmlqZW1lKSAqKiAyKTtcbiAgY29uc3QgeFJhc3BvbiA9IGQzLmV4dGVudCh4KTtcbiAgY29uc3QgeE9kbWFrID0gKHhSYXNwb25bMV0gLSB4UmFzcG9uWzBdKSAqIDAuMDU7XG4gIGNvbnN0IHhNaW4gPSBNYXRoLm1heCgwLCB4UmFzcG9uWzBdIC0geE9kbWFrKTtcbiAgY29uc3QgeE1heCA9IHhSYXNwb25bMV0gKyB4T2RtYWs7XG4gIGNvbnN0IGxpbmlqYSA9IG1vZGVsID0+IFtcbiAgICB7eDogeE1pbiwgeTogbW9kZWwuYSArIG1vZGVsLmIgKiB4TWlufSxcbiAgICB7eDogeE1heCwgeTogbW9kZWwuYSArIG1vZGVsLmIgKiB4TWF4fVxuICBdO1xuICBjb25zdCBrb3Jpc25pa292ID0ge2E6IHcxNl9wYXIub2RzamXEjWFrLCBiOiB3MTZfcGFyLm5hZ2lifTtcbiAgY29uc3Qgc3ZlWSA9IFtcbiAgICAuLi55LFxuICAgIC4uLmxpbmlqYShrb3Jpc25pa292KS5tYXAoZCA9PiBkLnkpLFxuICAgIC4uLmxpbmlqYSh6YmlybmkpLm1hcChkID0+IGQueSksXG4gICAgLi4uKHcxNl9wYXIuZHJ1Z2kgPyBsaW5pamEocHJpbGFnb2RlbmkpLm1hcChkID0+IGQueSkgOiBbXSlcbiAgXTtcbiAgY29uc3QgeVJhc3BvbiA9IGQzLmV4dGVudChzdmVZKTtcbiAgY29uc3QgeU9kbWFrID0gTWF0aC5tYXgoMywgKHlSYXNwb25bMV0gLSB5UmFzcG9uWzBdKSAqIDAuMDcpO1xuICBjb25zdCBjZWxpamEgPVxuICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZmlnLXcxNlwiKT8uY2xvc2VzdChcIi5jZWxsXCIpID8/XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi53aWRnZXQtZnJhbWUgLmNlbGxcIik7XG4gIGNvbnN0IHN0aWxDZWxpamUgPSBjZWxpamEgPyBnZXRDb21wdXRlZFN0eWxlKGNlbGlqYSkgOiBudWxsO1xuICBjb25zdCBsb2thbG5hU2lyaW5hID0gY2VsaWphXG4gICAgPyBjZWxpamEuY2xpZW50V2lkdGggLVxuICAgICAgKHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nTGVmdCkgfHwgMCkgLVxuICAgICAgKHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nUmlnaHQpIHx8IDApXG4gICAgOiB3aWR0aDtcbiAgY29uc3Qgc2lyaW5hR3JhZmEgPSBNYXRoLm1heChcbiAgICAxLFxuICAgIE1hdGguZmxvb3IoTWF0aC5taW4od2lkdGgsIGxva2FsbmFTaXJpbmEpKVxuICApO1xuICBjb25zdCBtb2JpbG5vID0gc2lyaW5hR3JhZmEgPCA0ODA7XG4gIGNvbnN0IHNhemV0YWtUZWtzdCA9XG4gICAgYFpicm9qIGt2YWRyYXRhICR7Zm9ybWF0QnJvai5mb3JtYXQoc3NlKX0gwrcgbWluaW11bSAke2Zvcm1hdEJyb2ouZm9ybWF0KHNzZU5ham1hbmppKX1gO1xuICBjb25zdCBncmFmID0gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogc2lyaW5hR3JhZmEsXG4gICAgaGVpZ2h0OiBtb2JpbG5vID8gNDEwIDogMzY1LFxuICAgIG1hcmdpblRvcDogMjAsXG4gICAgbWFyZ2luUmlnaHQ6IDIwLFxuICAgIG1hcmdpbkJvdHRvbTogbW9iaWxubyA/IDU2IDogNDgsXG4gICAgbWFyZ2luTGVmdDogbW9iaWxubyA/IDYyIDogNTgsXG4gICAgc3R5bGU6IHtcbiAgICAgIGJhY2tncm91bmQ6IFwidHJhbnNwYXJlbnRcIixcbiAgICAgIGNvbG9yOiB0aW50YSxcbiAgICAgIGZvbnRGYW1pbHk6IFwidmFyKC0tdG9rLWZvbnQtbW9ubylcIixcbiAgICAgIGZvbnRTaXplOiBtb2JpbG5vID8gXCIxNXB4XCIgOiBcIjEzcHhcIlxuICAgIH0sXG4gICAgeDoge1xuICAgICAgbGFiZWw6IFwiU2ltdWxpcmFubyB2cmlqZW1lXCIsXG4gICAgICBkb21haW46IFt4TWluLCB4TWF4XSxcbiAgICAgIGdyaWQ6IHRydWVcbiAgICB9LFxuICAgIHk6IHtcbiAgICAgIGxhYmVsOiBcIlNpbXVsaXJhbmkgYW5nYcW+bWFuXCIsXG4gICAgICBkb21haW46IFt5UmFzcG9uWzBdIC0geU9kbWFrLCB5UmFzcG9uWzFdICsgeU9kbWFrXSxcbiAgICAgIGdyaWQ6IHRydWVcbiAgICB9LFxuICAgIG1hcmtzOiBbXG4gICAgICBQbG90LnJ1bGVYKHJlemlkdWFsaSwge1xuICAgICAgICB4OiBcInZyaWplbWVcIixcbiAgICAgICAgeTE6IFwiYW5nYXptYW5cIixcbiAgICAgICAgeTI6IFwicHJvY2plbmFcIixcbiAgICAgICAgc3Ryb2tlOiBuYWdsYXNhayxcbiAgICAgICAgc3Ryb2tlT3BhY2l0eTogMC4zNVxuICAgICAgfSksXG4gICAgICBQbG90LmRvdChwb2RhY2ksIHtcbiAgICAgICAgeDogXCJ2cmlqZW1lXCIsXG4gICAgICAgIHk6IFwiYW5nYXptYW5cIixcbiAgICAgICAgcjogNCxcbiAgICAgICAgZmlsbDogcG9kYXRhayxcbiAgICAgICAgc3Ryb2tlOiBwb3Zyc2luYSxcbiAgICAgICAgc3Ryb2tlV2lkdGg6IDAuOFxuICAgICAgfSksXG4gICAgICBQbG90LmxpbmUobGluaWphKGtvcmlzbmlrb3YpLCB7XG4gICAgICAgIHg6IFwieFwiLFxuICAgICAgICB5OiBcInlcIixcbiAgICAgICAgc3Ryb2tlOiBuYWdsYXNhayxcbiAgICAgICAgc3Ryb2tlV2lkdGg6IDIuOFxuICAgICAgfSksXG4gICAgICBQbG90LmxpbmUobGluaWphKHpiaXJuaSksIHtcbiAgICAgICAgeDogXCJ4XCIsXG4gICAgICAgIHk6IFwieVwiLFxuICAgICAgICBzdHJva2U6IHRpbnRhLFxuICAgICAgICBzdHJva2VXaWR0aDogMS44LFxuICAgICAgICBzdHJva2VEYXNoYXJyYXk6IFwiNiw0XCJcbiAgICAgIH0pLFxuICAgICAgLi4uKHcxNl9wYXIuZHJ1Z2kgPyBbXG4gICAgICAgIFBsb3QubGluZShsaW5pamEocHJpbGFnb2RlbmkpLCB7XG4gICAgICAgICAgeDogXCJ4XCIsXG4gICAgICAgICAgeTogXCJ5XCIsXG4gICAgICAgICAgc3Ryb2tlOiBwcmlsYWdvZGVubyxcbiAgICAgICAgICBzdHJva2VXaWR0aDogMixcbiAgICAgICAgICBzdHJva2VEYXNoYXJyYXk6IFwiMiwzXCJcbiAgICAgICAgfSlcbiAgICAgIF0gOiBbXSksXG4gICAgICBQbG90LnRleHQoW3tcbiAgICAgICAgeDogeE1heCxcbiAgICAgICAgeToga29yaXNuaWtvdi5hICsga29yaXNuaWtvdi5iICogeE1heCxcbiAgICAgICAgdGVrc3Q6IG1vYmlsbm8gPyBcInBvbWnEjW5pXCIgOiBcInBvbWnEjW5pIHByYXZhY1wiXG4gICAgICB9XSwge1xuICAgICAgICB4OiBcInhcIixcbiAgICAgICAgeTogXCJ5XCIsXG4gICAgICAgIHRleHQ6IFwidGVrc3RcIixcbiAgICAgICAgZmlsbDogbmFnbGFzYWssXG4gICAgICAgIGR5OiAtMTAsXG4gICAgICAgIGR4OiAtNSxcbiAgICAgICAgdGV4dEFuY2hvcjogXCJlbmRcIixcbiAgICAgICAgZm9udFdlaWdodDogNjAwXG4gICAgICB9KSxcbiAgICAgIFBsb3QudGV4dChbe1xuICAgICAgICB4OiB4TWF4LFxuICAgICAgICB5OiB6YmlybmkuYSArIHpiaXJuaS5iICogeE1heCxcbiAgICAgICAgdGVrc3Q6IG1vYmlsbm8gPyBcIm5ham1hbmppXCIgOiBcIm5ham1hbmppIGt2YWRyYXRpXCJcbiAgICAgIH1dLCB7XG4gICAgICAgIHg6IFwieFwiLFxuICAgICAgICB5OiBcInlcIixcbiAgICAgICAgdGV4dDogXCJ0ZWtzdFwiLFxuICAgICAgICBmaWxsOiB0aW50YSxcbiAgICAgICAgZHk6IDExLFxuICAgICAgICBkeDogLTUsXG4gICAgICAgIHRleHRBbmNob3I6IFwiZW5kXCIsXG4gICAgICAgIGZvbnRXZWlnaHQ6IDYwMFxuICAgICAgfSksXG4gICAgICAuLi4odzE2X3Bhci5kcnVnaSA/IFtcbiAgICAgICAgUGxvdC50ZXh0KFt7XG4gICAgICAgICAgeDogeE1heCxcbiAgICAgICAgICB5OiBwcmlsYWdvZGVuaS5hICsgcHJpbGFnb2RlbmkuYiAqIHhNYXgsXG4gICAgICAgICAgdGVrc3Q6IG1vYmlsbm8gPyBcInV6IGludGVyZXNcIiA6IFwidXogamVkbmFrIGludGVyZXNcIlxuICAgICAgICB9XSwge1xuICAgICAgICAgIHg6IFwieFwiLFxuICAgICAgICAgIHk6IFwieVwiLFxuICAgICAgICAgIHRleHQ6IFwidGVrc3RcIixcbiAgICAgICAgICBmaWxsOiBwcmlsYWdvZGVubyxcbiAgICAgICAgICBkeTogMjIsXG4gICAgICAgICAgZHg6IC01LFxuICAgICAgICAgIHRleHRBbmNob3I6IFwiZW5kXCIsXG4gICAgICAgICAgZm9udFdlaWdodDogNjAwXG4gICAgICAgIH0pXG4gICAgICBdIDogW10pLFxuICAgICAgUGxvdC5ydWxlWShbeVJhc3BvblswXSAtIHlPZG1ha10sIHtzdHJva2U6IHByYXZpbG99KVxuICAgIF1cbiAgfSk7XG4gIHJldHVybiBodG1sYDxkaXY+XG4gICAgJHtncmFmfVxuICAgIDxwIGNsYXNzPVwid2lkZ2V0LWZvb3RcIiByb2xlPVwic3RhdHVzXCIgYXJpYS1saXZlPVwicG9saXRlXCI+JHtzYXpldGFrVGVrc3R9PC9wPlxuICA8L2Rpdj5gO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd3MTZfcGFyJykifV19
 </script>
@@ -4221,263 +2909,387 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Kopirano");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Kopirano");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopirano");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopirano");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -4485,161 +3297,185 @@ window._ojs.runtime.interpretFromScriptTags();
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/15-vise-grupa.html" class="pagination-link" aria-label="Uspoređivanje više grupa">

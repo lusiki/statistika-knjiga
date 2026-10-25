@@ -2,17 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hr-HR" xml:lang="hr-HR"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Udžbenik statistike za društvene znanosti — statističko mišljenje, opisivanje podataka, uzorkovanje i procjena, zaključivanje, linearni modeli i statistika u doba algoritama.">
 
-<title>Kako brojke zavode – Osnove statistike za društvene znanosti</title>
+<title>Kako brojke zavode – Statistika 101</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -25,9 +22,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -38,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -63,6 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,20 +86,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../chapters/04-sazimanje-podataka.html" rel="next">
 <link href="../chapters/02-mjerenje-i-dizajn.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d863536a35c72399060ca13ea1ba5060.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d863536a35c72399060ca13ea1ba5060.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-d1ac786c26e82d347c6991cf25c07e78.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-179fdbdfd7c5097196674e4925a1a77b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1cc29e0bfa4db480e39bd5d9581edf95.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-f736e697f19f6ba2e3029018030b82fa.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -131,68 +125,38 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- =====================================================================
-
-     head.html — pisma knjige (include-in-header)
-
+     head.html — pisma knjige (include-in-header), sustav Zvono
      ---------------------------------------------------------------------
-
-     Četiri obitelji, sve s Google Fontsa, sve s punom hrvatskom
-
+     Tri obitelji, sve s Google Fontsa, sve s punom hrvatskom
      dijakritikom (č ć đ š ž):
 
-
-
-       Newsreader      displej — naslovi, otvaranje poglavlja, navodi
-
+       Jost            displej, naslovi, sučelje, potpisi
        Literata        tijelo teksta
-
-       Public Sans     sučelje, potpisi, margina, izvori, glave tablica
-
-       JetBrains Mono  kod, brojke, oznake, „eyebrow"
-
-
+       JetBrains Mono  kod, brojke, oznake widgeta
 
      Imena pisama žive u styles/_tokens.scss; ovdje su samo poveznice na
-
-     datoteke. Za PDF ih treba instalirati lokalno — tex/theme.tex ih traži
-
-     u sustavu i tiho pada na Latin Modern ako ih nema.
-
-
+     datoteke. PDF i R grafovi učitavaju statičke instance iz fonts/print/.
 
      ŠESTI NOSITELJ BOJE. `theme-color` ne može se izraziti tokenom jer ga
-
-     čita preglednik, ne stranica. Vrijednost je token:paper i mijenja se
-
-     zajedno s njim (vidi DESIGN.md).
-
+     čita preglednik, ne stranica. Vrijednosti su token:paper svijetle i
+     tamne teme i mijenjaju se zajedno s njima (vidi DESIGN.md).
      ================================================================== -->
 
-
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;1,400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=Public+Sans:ital,wght@0,400..700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<meta name="theme-color" content="#F2E8D5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191814" media="(prefers-color-scheme: dark)">
 
-
-
-<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
-
-<meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
-
-
-
-<!-- Oznaka stranice: tri rastuća stupca, s okerom kao signalom navođenja. -->
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
-
+<!-- Oznaka stranice: kupola u tinti s modrom unutarnjom kupolom nad osnovicom
+     (token:brand-ink, token:brand-navy). -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 26 A14 14 0 0 1 30 26 Z' fill='%231B1A17'/%3E%3Cpath d='M9 26 A7 7 0 0 1 23 26 Z' fill='%231E3F7A'/%3E%3Crect x='1' y='26' width='30' height='3' fill='%231B1A17'/%3E%3C/svg%3E">
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -205,7 +169,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -224,169 +188,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -394,7 +196,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Osnove statistike za društvene znanosti</span>
+    <span class="navbar-title">Statistika 101</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Prikaži ili sakrij navigaciju" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -513,7 +315,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Osnove statistike za društvene znanosti</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Statistika 101</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -763,7 +565,6 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-zasto-statistika.html">DIO I: STATISTIČKO MIŠLJENJE</a></li><li class="breadcrumb-item"><a href="../chapters/03-kako-brojke-zavode.html"><span class="chapter-title">Kako brojke zavode</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Kako brojke zavode</span></h1>
@@ -791,9 +592,34 @@ window.Quarto = {
   );
   var title = document.querySelector("#title-block-header h1.title");
   if (chapterMatch && title && !title.parentNode.querySelector(".chapter-kicker")) {
+    // Sustav Zvono: disk s brojem i os lijevo, oznaka dijela iznad naslova.
+    var header = document.getElementById("title-block-header");
+    if (header) header.classList.add("zv-opener");
+
+    var rail = document.createElement("span");
+    rail.className = "zv-rail";
+    rail.setAttribute("aria-hidden", "true");
+    var disc = document.createElement("span");
+    disc.className = "zv-rail__disc";
+    disc.textContent = chapterMatch[1];
+    rail.appendChild(disc);
+    title.parentNode.insertBefore(rail, title.parentNode.firstChild);
+
+    var partLink = document.querySelector(
+      "#title-block-header .breadcrumb .breadcrumb-item:first-child a"
+    );
+    var partName = "";
+    if (partLink) {
+      var raw = partLink.textContent.trim();
+      var m = raw.match(/^DIO ([IVX]+):\s*(.+)$/);
+      partName = m
+        ? "Dio " + m[1] + " · " + m[2].charAt(0) + m[2].slice(1).toLowerCase()
+        : raw.charAt(0) + raw.slice(1).toLowerCase();
+    }
     var kicker = document.createElement("span");
     kicker.className = "kicker chapter-kicker";
-    kicker.textContent = "POGLAVLJE " + chapterMatch[1];
+    kicker.textContent = "Poglavlje " + parseInt(chapterMatch[1], 10) +
+      (partName ? " · " + partName : "");
     title.parentNode.insertBefore(kicker, title);
   }
 
@@ -883,21 +709,21 @@ window.Quarto = {
   Kostur se ne mijenja bez zapisa u STYLE.md.
 ===================================================================== -->
 <div class="callout-vinjeta page-columns page-full">
-<p>Službeno izvješće o izborima za Hrvatski sabor 2024. navodi odaziv od 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Do njega dolazimo dijeljenjem 2.216.763 birača koji su pristupili glasovanju s 3.558.089 birača na obrađenim biračkim mjestima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Račun potvrđuje objavljeni postotak.</p>
-<div class="no-row-height column-margin column-container"></div><p>Izvješće navodi i 2.154.733 važeća te 60.476 nevažećih listića <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Zajedno ih je 2.215.209, odnosno 1.554 manje od broja pristupilih <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Kada kažemo da je glasovalo 62,30 % birača, moramo zato razjasniti mislimo li na pristupanje glasovanju ili broj prema listićima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
+<p>Službeno izvješće o izborima za Hrvatski sabor 2024. navodi odaziv od 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Do njega dolazimo dijeljenjem 2.216.763 birača koji su pristupili glasovanju s 3.558.089 birača na obrađenim biračkim mjestima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Račun potvrđuje objavljeni postotak.</p>
+<div class="no-row-height column-margin column-container"></div><p>Izvješće navodi i 2.154.733 važeća te 60.476 nevažećih listića <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Zajedno ih je 2.215.209, odnosno 1.554 manje od broja pristupilih <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Kada kažemo da je glasovalo 62,30 % birača, moramo zato razjasniti mislimo li na pristupanje glasovanju ili broj prema listićima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
 <p>Što trebamo provjeriti prije nego što točan broj pretvorimo u naslov?</p>
 </div>
-<p>Iza postotka iz izbornog izvješća stoji nekoliko odluka o tome što se broji <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. One lako nestanu kada tablicu skratimo u naslov. U prvim smo poglavljima naučili tražiti jedinicu i nazivnik te razlikovati pojavu od načina na koji je mjerimo. Sada ćemo tim pitanjima provjeravati tvrdnje koje već dolaze s gotovim brojem, grafom ili uvjerljivim objašnjenjem.</p>
-<div class="no-row-height column-margin column-container"></div><p>Glavni primjer počiva na stvarnoj objavljenoj tablici Državnoga izbornog povjerenstva <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Njezine stavke predstavljaju nacionalne zbrojeve s različitim značenjima, a ne pojedinačne zapise birača. Usporedit ćemo broj pristupilih glasovanju, broj prema listićima i broj birača koji služi kao nazivnik. Cilj je utvrditi koju rečenicu možemo napisati na temelju tih podataka. Razliku među evidencijama nećemo pretvarati u objašnjenje događaja za koje nemamo dokaz.</p>
+<p>Iza postotka iz izbornog izvješća stoji nekoliko odluka o tome što se broji <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. One lako nestanu kada tablicu skratimo u naslov. U prvim smo poglavljima naučili tražiti jedinicu i nazivnik te razlikovati pojavu od načina na koji je mjerimo. Sada ćemo tim pitanjima provjeravati tvrdnje koje već dolaze s gotovim brojem, grafom ili uvjerljivim objašnjenjem.</p>
+<div class="no-row-height column-margin column-container"></div><p>Glavni primjer počiva na stvarnoj objavljenoj tablici Državnoga izbornog povjerenstva <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Njezine stavke predstavljaju nacionalne zbrojeve s različitim značenjima, a ne pojedinačne zapise birača. Usporedit ćemo broj pristupilih glasovanju, broj prema listićima i broj birača koji služi kao nazivnik. Cilj je utvrditi koju rečenicu možemo napisati na temelju tih podataka. Razliku među evidencijama nećemo pretvarati u objašnjenje događaja za koje nemamo dokaz.</p>
 <p>Od provjere omjera prijeći ćemo na načine prikazivanja. Ispitat ćemo kako promjena osnovice ili raspona osi mijenja dojam, zašto postotna promjena nije isto što i promjena u postotnim bodovima te kako zanemarivanje rijetkosti neke pojave može zavesti. Pri čitanju ankete povezat ćemo objavljenu marginu pogreške s onime što smo naučili o obuhvatu i odazivu. Konstruirani anketni primjeri poslužit će nam da odvojeno mijenjamo veličinu uzorka i sustavnu pristranost; njihove rezultate nećemo čitati kao izbornu prognozu.</p>
 <p>Provjera završava povratkom izvoru i usporedbom računa s riječima kojima je opisan. To vrijedi i kada analizu sastavi asistent. Tražit ćemo trag do tablice, provjeriti račun koji nosi tvrdnju i zabilježiti što nedostaje za njezino tumačenje. Tako ćemo sastaviti protokol skeptičnoga čitanja koji razlikuje potvrđenu brojku, nedostajući podatak i zaključak koji prelazi dokaz.</p>
 <section id="od-točnoga-broja-do-potpune-tvrdnje" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="od-točnoga-broja-do-potpune-tvrdnje">Od točnoga broja do potpune tvrdnje</h2>
-<p>Polazimo od službenog <em>Izvješća o provedenim izborima za zastupnike u Hrvatski sabor 2024.</em>, koje je objavilo Državno izborno povjerenstvo <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024.</a>)</span>. Tablica „Odaziv birača” nalazi se na stranici 124 i provjerena je na službenom portalu 5. kolovoza 2026. <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Za provjeru koristimo objavljenu tablicu. Izborna datoteka nije preuzeta ni pohranjena uz knjigu, a dostupnost na portalu sama ne znači dopuštenje za njezino daljnje dijeljenje.</p>
+<p>Polazimo od službenog <em>Izvješća o provedenim izborima za zastupnike u Hrvatski sabor 2024.</em>, koje je objavilo Državno izborno povjerenstvo <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024</a>)</span>. Tablica „Odaziv birača” nalazi se na stranici 124 i provjerena je na službenom portalu 5. kolovoza 2026. <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Za provjeru koristimo objavljenu tablicu. Izborna datoteka nije preuzeta ni pohranjena uz knjigu, a dostupnost na portalu sama ne znači dopuštenje za njezino daljnje dijeljenje.</p>
 <div class="no-row-height column-margin column-container"></div><p>Naslov dokumenta, izdavač i stranica omogućuju drugoj osobi da pronađe broj. Bez tih podataka tvrdnja može biti točna, ali provjera zahtijeva dodatno traženje izvora.</p>
-<p>U tablici je pet različitih veličina koje bismo u običnom govoru mogli nazvati brojem birača <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Za račun trebamo sačuvati njihove pune oznake.</p>
+<p>U tablici je pet različitih veličina koje bismo u običnom govoru mogli nazvati brojem birača <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Za račun trebamo sačuvati njihove pune oznake.</p>
 <div class="no-row-height column-margin column-container"></div><table class="caption-top table">
-<caption>Nacionalne vrijednosti izbora za Hrvatski sabor 2024. Izrada autora prema <span class="citation" data-cites="dip2024">Državno izborno povjerenstvo Republike Hrvatske (<a href="../references.html#ref-dip2024" role="doc-biblioref">2024.</a>)</span>, str. 124.</caption>
+<caption>Nacionalne vrijednosti izbora za Hrvatski sabor 2024. Izrada autora prema <span class="citation" data-cites="dip2024">Državno izborno povjerenstvo Republike Hrvatske (<a href="../references.html#ref-dip2024" role="doc-biblioref">2024</a>)</span>, str. 124.</caption>
 <colgroup>
 <col style="width: 30%">
 <col style="width: 40%">
@@ -938,21 +764,21 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div class="no-row-height column-margin column-container"></div><p>Objavljeni postotak slijedi iz prvoga i drugoga retka <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Objavljeni postotak slijedi iz prvoga i drugoga retka <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
 <p><span class="math display">\[
 \frac{2\,216\,763}{3\,558\,089}\times 100 = 62{,}30\,\%.
 \]</span></p>
-<p>Za provjeru broja prema listićima trebamo drugu operaciju. Zbrajamo važeće i nevažeće listiće, jer zajedno čine sve pronađene listiće iz tablice <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
+<p>Za provjeru broja prema listićima trebamo drugu operaciju. Zbrajamo važeće i nevažeće listiće, jer zajedno čine sve pronađene listiće iz tablice <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
 <div class="no-row-height column-margin column-container"></div><p><span class="math display">\[
 2\,154\,733 + 60\,476 = 2\,215\,209.
 \]</span></p>
-<p>Oba su računa točna, ali se odnose na različite faze postupka. Razlika od 1.554 pokazuje da broj pristupilih nije jednak broju prema listićima, bez objašnjenja zašto je razlika nastala <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Iz nje ne možemo zaključiti da evidencija sadrži pogrešku. Ni jednaki zbrojevi ne bi značili da dvije oznake imaju isto značenje.</p>
+<p>Oba su računa točna, ali se odnose na različite faze postupka. Razlika od 1.554 pokazuje da broj pristupilih nije jednak broju prema listićima, bez objašnjenja zašto je razlika nastala <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Iz nje ne možemo zaključiti da evidencija sadrži pogrešku. Ni jednaki zbrojevi ne bi značili da dvije oznake imaju isto značenje.</p>
 <div class="no-row-height column-margin column-container"></div><p>Pri pisanju naslova biramo podatke, računamo omjer i odlučujemo kako ćemo ga opisati. Na svakom koraku možemo promijeniti značenje, iako nismo promijenili brojeve. Zato uz dijeljenje provjeravamo i odgovaraju li riječi u tvrdnji oznakama iz izvora.</p>
-<p>U ovom primjeru možemo povezati izvješće, njegove oznake, nacionalne zbrojeve i omjer s tvrdnjom o pristupanju glasovanju <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Ako asistent vrati samo 62,30 %, nedostaje objašnjenje što je podijelio <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Uz rezultat treba zadržati brojnik, nazivnik i njihov obuhvat kako bi se mogao provjeriti i račun i tumačenje.</p>
+<p>U ovom primjeru možemo povezati izvješće, njegove oznake, nacionalne zbrojeve i omjer s tvrdnjom o pristupanju glasovanju <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Ako asistent vrati samo 62,30 %, nedostaje objašnjenje što je podijelio <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Uz rezultat treba zadržati brojnik, nazivnik i njihov obuhvat kako bi se mogao provjeriti i račun i tumačenje.</p>
 <div class="no-row-height column-margin column-container"></div></section>
 <section id="nazivnik-os-i-rijedak-ishod" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="nazivnik-os-i-rijedak-ishod">Nazivnik, os i rijedak ishod</h2>
-<p>Uz svaki postotak pitamo na koju se cjelinu odnosi. Odaziv od 62,30 % zato čitamo zajedno s nazivnikom <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Graf koji prikazuje samo postotak izostavlja izvorne brojeve. Ako mu os počinje neposredno ispod opaženih vrijednosti, male razlike mogu izgledati velike. Skraćena os može biti korisna, ali njezin raspon mora biti vidljiv i odgovarati pitanju.</p>
+<p>Uz svaki postotak pitamo na koju se cjelinu odnosi. Odaziv od 62,30 % zato čitamo zajedno s nazivnikom <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Graf koji prikazuje samo postotak izostavlja izvorne brojeve. Ako mu os počinje neposredno ispod opaženih vrijednosti, male razlike mogu izgledati velike. Skraćena os može biti korisna, ali njezin raspon mora biti vidljiv i odgovarati pitanju.</p>
 <div class="no-row-height column-margin column-container"></div><p>Značenje razlike čuvamo i izborom mjere promjene. Kada dvije stope oduzmemo, razliku izražavamo u <strong>postotnim bodovima</strong>. Za relativnu postotnu promjenu tu razliku još dijelimo početnom stopom. Prvi račun govori koliko su stope udaljene na istoj ljestvici, a drugi kolika je promjena u odnosu na polazište. U nastavku ćemo tu razliku provjeriti usporedbom dvaju obuhvata izbornog izvješća.</p>
 <p>Nazivnik odlučuje o značenju postotka i kada procjenjujemo uspješnost nekog postupka. Sintetički zapis stvorio je program. Detektor je postupak koji pokušava prepoznati takvo podrijetlo, a upozorenje je njegova oznaka da bi zapis mogao biti sintetički.</p>
 <p>Udio pronađenih sintetičkih zapisa, primjerice, nije isto što i udio ispravnih upozorenja. Uzmimo hipotetski skup od 10.000 zapisa. Program je stvorio njih 100, a ostali bilježe stvarne događaje. Detektor prepoznaje 90 od tih 100 sintetičkih zapisa i pogrešno označava 495 ostalih. Te brojeve namjerno zadajemo za ilustraciju, ne dobivamo ih procjenom stvarnog sustava. Preostala mjesta dopunjavamo do 100 sintetičkih i 9.900 ostalih zapisa.</p>
@@ -1010,13 +836,13 @@ Tablica&nbsp;1: Namjerno zadana brojanja za usporedbu nazivnika. Izrada autora.
 <p>Pri čitanju ankete ponovno koristimo sedam polja kartice iz prethodnog poglavlja. Bilježimo ciljnu populaciju, okvir iz kojeg su ljudi odabrani i način regrutacije. Tražimo broj pozvanih i odgovora, datume, formulaciju pitanja, ponderiranje, odnosno primjenu težina, neodaziv, naručitelja te objavljenu marginu pogreške. Ono što nije navedeno ostavljamo označeno kao nepoznato.</p>
 <p>Za administrativnu evidenciju provjeravamo koji događaji prema pravilima ulaze u nju, jesu li zapisi ispravni, oznake dosljedne i obrada uredna. Za anketu uz mjerenje provjeravamo izbor sudionika, okvir, regrutaciju i neodaziv. Anketa ima i promjenjivost koja nastaje odabirom uzorka. Jedna margina uz znak ± ne opisuje sve te izvore nesigurnosti.</p>
 <p>Dobrovoljna internetska anketa može prikupiti mnogo odgovora, a ipak izostaviti ljude koji se sustavno razlikuju u onome što mjerimo. Manji vjerojatnosni uzorak može imati veću slučajnu promjenjivost, ali jasnije pokazivati na koga možemo prenijeti nalaz. Veličinu uzorka zato uvijek čitamo uz način odabira.</p>
-<p>Učinak odabira redaka možemo provjeriti i u izbornom izvješću. Za jedinice I.–X. zabilježeno je 2.140.824 pristupilih od 3.482.150 birača, što daje 61,48 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Uključimo li sve jedinice I.–XII., odaziv iznosi 62,30 %, odnosno 0,82 postotna boda više <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Prije tumačenja razlike moramo provjeriti usporedivost nazivnika. Za XI. i XII. jedinicu tablica odaziva navodi jednake brojeve birača i pristupilih, 41 120 i 34 819. Na prethodnoj stranici zasebni su registrirani brojevi 222 300 birača XI. jedinice i ukupno 275 521 pripadnik navedenih manjina <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 123–24</a>)</span>. Stopa od 100 % u tablici odaziva stoga ne znači da su glasovali svi iz tih registarskih populacija.</p>
-<p>Zbroj I.–X. i zbroj I.–XII. opisuju različite obuhvate. Izbor užega nije sam po sebi biranje trešanja. To postaje kad ga biramo radi poželjnijeg rezultata, a prešutimo što izostavljamo i zašto se nazivnici razlikuju. Sljedeća tablica donosi brojnosti po izbornim jedinicama za provjeru zbrojeva iz izvješća <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
+<p>Učinak odabira redaka možemo provjeriti i u izbornom izvješću. Za jedinice I.–X. zabilježeno je 2.140.824 pristupilih od 3.482.150 birača, što daje 61,48 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Uključimo li sve jedinice I.–XII., odaziv iznosi 62,30 %, odnosno 0,82 postotna boda više <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Prije tumačenja razlike moramo provjeriti usporedivost nazivnika. Za XI. i XII. jedinicu tablica odaziva navodi jednake brojeve birača i pristupilih, 41 120 i 34 819. Na prethodnoj stranici zasebni su registrirani brojevi 222 300 birača XI. jedinice i ukupno 275 521 pripadnik navedenih manjina <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 123–24</a>)</span>. Stopa od 100 % u tablici odaziva stoga ne znači da su glasovali svi iz tih registarskih populacija.</p>
+<p>Zbroj I.–X. i zbroj I.–XII. opisuju različite obuhvate. Izbor užega nije sam po sebi biranje trešanja. To postaje kad ga biramo radi poželjnijeg rezultata, a prešutimo što izostavljamo i zašto se nazivnici razlikuju. Sljedeća tablica donosi brojnosti po izbornim jedinicama za provjeru zbrojeva iz izvješća <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
 <div class="no-row-height column-margin column-container"></div><div id="tbl-dip-jedinice" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dip-jedinice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <span class="citation" data-cites="dip2024">Državno izborno povjerenstvo Republike Hrvatske (<a href="../references.html#ref-dip2024" role="doc-biblioref">2024.</a>)</span>, str. 124.
+Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <span class="citation" data-cites="dip2024">Državno izborno povjerenstvo Republike Hrvatske (<a href="../references.html#ref-dip2024" role="doc-biblioref">2024</a>)</span>, str. 124.
 </figcaption>
 <div class="no-row-height column-margin column-container"></div><div aria-describedby="tbl-dip-jedinice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1094,7 +920,7 @@ Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <sp
 </figure>
 </div>
 <p>U odnosu na zaokruženu stopu I.–X. relativna razlika iznosi <span class="math inline">\((62,30-61,48)/61,48\times100\approx1,33\)</span> %. To je usporedba dvaju obuhvata istih izbora, a ne rast odaziva kroz vrijeme.</p>
-<p>Razlika od 0,82 postotna boda izgledala bi mala na osi od 0 % do 100 %, a mnogo istaknutija na osi od 61 % do 63 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Broj i njegovo značenje ostaju isti. Mijenja se vizualni dojam, zbog čega raspon osi treba jasno označiti i opravdati.</p>
+<p>Razlika od 0,82 postotna boda izgledala bi mala na osi od 0 % do 100 %, a mnogo istaknutija na osi od 61 % do 63 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Broj i njegovo značenje ostaju isti. Mijenja se vizualni dojam, zbog čega raspon osi treba jasno označiti i opravdati.</p>
 <div class="no-row-height column-margin column-container"></div></section>
 <section id="interakcija-istraživač-margine-pogreške" class="level2">
 <h2 class="anchored" data-anchor-id="interakcija-istraživač-margine-pogreške">Interakcija — Istraživač margine pogreške</h2>
@@ -1104,7 +930,7 @@ Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <sp
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="290" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 289;"><span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>viewof w03_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="290" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 289;"><span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>viewof w03_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
 <span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
 <span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">100</span><span class="op">,</span> <span class="dv">3000</span>]<span class="op">,</span></span>
 <span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Veličina uzorka"</span>}</span>
@@ -1121,7 +947,7 @@ Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <sp
 <span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Pristranost procjene u postotnim bodovima"</span></span>
 <span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -1132,7 +958,7 @@ Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <sp
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="312" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 311;"><span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>w03_tema <span class="op">=</span> Generators<span class="op">.</span><span class="fu">observe</span>(obavijesti <span class="kw">=&gt;</span> {</span>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="312" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 311;"><span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>w03_tema <span class="op">=</span> Generators<span class="op">.</span><span class="fu">observe</span>(obavijesti <span class="kw">=&gt;</span> {</span>
 <span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> revizija <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> osvjezi <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="fu">obavijesti</span>(<span class="op">++</span>revizija)<span class="op">;</span></span>
 <span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> promatrac <span class="op">=</span> <span class="kw">new</span> <span class="bu">MutationObserver</span>(osvjezi)<span class="op">;</span></span>
@@ -1144,7 +970,7 @@ Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <sp
 <span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>  promatrac<span class="op">.</span><span class="fu">observe</span>(<span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">,</span> postavke)<span class="op">;</span></span>
 <span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osvjezi</span>()<span class="op">;</span></span>
 <span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> () <span class="kw">=&gt;</span> promatrac<span class="op">.</span><span class="fu">disconnect</span>()<span class="op">;</span></span>
-<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
@@ -1155,7 +981,7 @@ Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <sp
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="332" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 331;"><span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="332" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 331;"><span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb3-333"><a href="#cb3-333" aria-hidden="true" tabindex="-1"></a>  w03_tema<span class="op">;</span></span>
 <span id="cb3-334"><a href="#cb3-334" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> css <span class="op">=</span> <span class="fu">getComputedStyle</span>(<span class="bu">document</span><span class="op">.</span><span class="at">documentElement</span>)<span class="op">;</span></span>
 <span id="cb3-335"><a href="#cb3-335" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> css<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">"--tok-data-1"</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
@@ -1287,7 +1113,7 @@ Tablica&nbsp;2: Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema <sp
 <span id="cb3-461"><a href="#cb3-461" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">0.45</span><span class="op">,</span> <span class="fl">0.55</span>]}<span class="op">,</span></span>
 <span id="cb3-462"><a href="#cb3-462" aria-hidden="true" tabindex="-1"></a>    marks</span>
 <span id="cb3-463"><a href="#cb3-463" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb3-464"><a href="#cb3-464" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-464"><a href="#cb3-464" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="fig-w03" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1315,17 +1141,17 @@ Slika&nbsp;1: Približna margina pogreške i položaj pretpostavljene istinite v
 <section id="podrijetlo-ljudskog-i-strojnog-broja" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="podrijetlo-ljudskog-i-strojnog-broja">Podrijetlo ljudskog i strojnog broja</h2>
 <div class="callout-divljina page-columns page-full">
-<p><strong>Kada „glasovalo” postane preširoka riječ.</strong> U zamišljenoj redakciji pripremamo kratku vijest o izlaznosti na izbore. Pred nama je stvarno izvješće DIP-a, u kojem tablica odaziva navodi 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Naslov „Glasovalo je 62,30 % birača” čini se prirodnim sažetkom tog podatka. Prije objave ipak trebamo utvrditi što glagol glasovalo prenosi iz tablice, a što mu čitatelj može pridodati.</p>
-<div class="no-row-height column-margin column-container"></div><p>U početnoj smo tablici već razlikovali broj pristupilih od broja birača prema glasačkim listićima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Te veličine ne smijemo zamijeniti u naslovu, a samu razliku ne možemo protumačiti bez dodatnih podataka.</p>
+<p><strong>Kada „glasovalo” postane preširoka riječ.</strong> U zamišljenoj redakciji pripremamo kratku vijest o izlaznosti na izbore. Pred nama je stvarno izvješće DIP-a, u kojem tablica odaziva navodi 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Naslov „Glasovalo je 62,30 % birača” čini se prirodnim sažetkom tog podatka. Prije objave ipak trebamo utvrditi što glagol glasovalo prenosi iz tablice, a što mu čitatelj može pridodati.</p>
+<div class="no-row-height column-margin column-container"></div><p>U početnoj smo tablici već razlikovali broj pristupilih od broja birača prema glasačkim listićima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Te veličine ne smijemo zamijeniti u naslovu, a samu razliku ne možemo protumačiti bez dodatnih podataka.</p>
 <p>Za redakcijsku odluku to znači da provjera dijeljenja nije dovoljna. Kad bismo odaziv opisali kao udio birača koji su dali važeći glas nekoj listi, promijenili bismo značenje brojnika. Kad bismo nazivnik zamijenili svim punoljetnim stanovnicima, odgovorili bismo na drugo pitanje. Nijednu od tih promjena ne opravdava to što početni postotak dolazi iz službenog izvora.</p>
-<p>Vijest zato možemo vezati uz imenovanu mjeru. Prema izvješću DIP-a, glasovanju je pristupilo 62,30 % birača na obrađenim biračkim mjestima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Uz poveznicu na tablicu čitatelj može provjeriti brojnik, nazivnik i obuhvat. Uredništvo je sačuvalo glavnu informaciju i preciziralo na što se ona odnosi.</p>
+<p>Vijest zato možemo vezati uz imenovanu mjeru. Prema izvješću DIP-a, glasovanju je pristupilo 62,30 % birača na obrađenim biračkim mjestima <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Uz poveznicu na tablicu čitatelj može provjeriti brojnik, nazivnik i obuhvat. Uredništvo je sačuvalo glavnu informaciju i preciziralo na što se ona odnosi.</p>
 <div class="no-row-height column-margin column-container"></div><p>Izlaznost ne objašnjava razloge izlaska ni političke stavove birača.</p>
 </div>
 <p>Asistent može zbrojiti vrijednosti, usporediti nazivnike i predložiti jasniju rečenicu. Svaki dobiveni broj ipak povezujemo s objavom i ulaznim podacima. Provjeravamo što je izračunato, koji je nazivnik korišten i vodi li citat do tog podatka.</p>
 <div id="ex-03-callout-greska-01" class="callout-greska page-columns page-full">
-<p>Prije objave vijesti provjeravate asistentov sažetak iste DIP-ove tablice koju smo već čitali. Izvadak zadržava službene oznake i brojnosti <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
+<p>Prije objave vijesti provjeravate asistentov sažetak iste DIP-ove tablice koju smo već čitali. Izvadak zadržava službene oznake i brojnosti <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
 <div class="no-row-height column-margin column-container"></div><table class="caption-top table">
-<caption>Izvadak službenih izbornih brojnosti. Izrada autora prema <span class="citation" data-cites="dip2024">Državno izborno povjerenstvo Republike Hrvatske (<a href="../references.html#ref-dip2024" role="doc-biblioref">2024.</a>)</span>, str. 124.</caption>
+<caption>Izvadak službenih izbornih brojnosti. Izrada autora prema <span class="citation" data-cites="dip2024">Državno izborno povjerenstvo Republike Hrvatske (<a href="../references.html#ref-dip2024" role="doc-biblioref">2024</a>)</span>, str. 124.</caption>
 <thead>
 <tr class="header">
 <th>Oznaka u izvješću</th>
@@ -1402,17 +1228,17 @@ Slika&nbsp;1: Približna margina pogreške i položaj pretpostavljene istinite v
 <section id="razrađeni-primjer" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
 <p>Početnu tvrdnju o odazivu sada možemo provjeriti od izvora do konačne rečenice. Već smo razlikovali službene oznake i njihove nazivnike. Preostaje provjeriti slažu li se zbrojevi pojedinih izbornih jedinica s nacionalnim retkom te sačuvati to značenje pri pisanju zaključka.</p>
-<p>Vraćamo se tablici „Odaziv birača” na stranici 124 izvješća Državnog izbornog povjerenstva Republike Hrvatske o izborima za Hrvatski sabor 2024. <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Provjera na službenom portalu obavljena je 5. kolovoza 2026., pa uz račun zadržavamo i taj datum <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024.</a>)</span>. Uz knjigu nije pohranjena izborna datoteka niti se pretpostavlja dopuštenje za njezino daljnje dijeljenje.</p>
+<p>Vraćamo se tablici „Odaziv birača” na stranici 124 izvješća Državnog izbornog povjerenstva Republike Hrvatske o izborima za Hrvatski sabor 2024. <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Provjera na službenom portalu obavljena je 5. kolovoza 2026., pa uz račun zadržavamo i taj datum <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024</a>)</span>. Uz knjigu nije pohranjena izborna datoteka niti se pretpostavlja dopuštenje za njezino daljnje dijeljenje.</p>
 <div class="no-row-height column-margin column-container"></div><p>Datum pregleda bilježimo kako bi se znalo kada smo provjerili dokument. Ne jamči da će dokument zauvijek ostati isti. Ako se sadržaj na adresi promijeni ili nestane, bez spremljene datoteke i njezina kontrolnog zbroja nećemo moći potvrditi istovjetnost s pregledanom inačicom.</p>
-<p>Tablica sadržava dvanaest redaka izbornih jedinica I.–XII. i nacionalni zbroj <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Nacionalni redak služi provjeri zbrojeva i ne računamo ga kao dodatnu jedinicu. Nazivnik se odnosi na birače na obrađenim biračkim mjestima, pa ga ne zamjenjujemo drugim ukupnim brojem birača bez provjere obuhvata <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Zbrojeve za odaziv možemo ponovno provjeriti iz <a href="#tbl-dip-jedinice">tablice izbornih jedinica</a>. Zbrajanje dvanaest redaka daje 3.558.089 birača i 2.216.763 pristupilih, jednako nacionalnom retku izvješća <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Njihov omjer daje objavljenih 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>.</p>
-<p>Za glasačke listiće ovdje koristimo nacionalne vrijednosti iz početne tablice <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Ondje smo već provjerili njihov zbroj i razliku prema broju pristupilih. Ovaj prikaz ne uključuje zasebnu provjeru svih izbornih i manjinskih redaka za listiće.</p>
+<p>Tablica sadržava dvanaest redaka izbornih jedinica I.–XII. i nacionalni zbroj <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Nacionalni redak služi provjeri zbrojeva i ne računamo ga kao dodatnu jedinicu. Nazivnik se odnosi na birače na obrađenim biračkim mjestima, pa ga ne zamjenjujemo drugim ukupnim brojem birača bez provjere obuhvata <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"></div><p>Zbrojeve za odaziv možemo ponovno provjeriti iz <a href="#tbl-dip-jedinice">tablice izbornih jedinica</a>. Zbrajanje dvanaest redaka daje 3.558.089 birača i 2.216.763 pristupilih, jednako nacionalnom retku izvješća <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Njihov omjer daje objavljenih 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>.</p>
+<p>Za glasačke listiće ovdje koristimo nacionalne vrijednosti iz početne tablice <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Ondje smo već provjerili njihov zbroj i razliku prema broju pristupilih. Ovaj prikaz ne uključuje zasebnu provjeru svih izbornih i manjinskih redaka za listiće.</p>
 <div class="no-row-height column-margin column-container"></div><section id="doseg-revidirane-tvrdnje" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="doseg-revidirane-tvrdnje">Doseg revidirane tvrdnje</h3>
-<p>Izbor jedinica I.–X. daje 61,48 %, a svih jedinica I.–XII. 62,30 %, uz razliku od 0,82 postotna boda <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Uz rezultat zato uvijek navodimo obuhvat. Uži skup koristimo samo ako imamo zasebno obrazloženo pitanje o tim jedinicama.</p>
+<p>Izbor jedinica I.–X. daje 61,48 %, a svih jedinica I.–XII. 62,30 %, uz razliku od 0,82 postotna boda <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Uz rezultat zato uvijek navodimo obuhvat. Uži skup koristimo samo ako imamo zasebno obrazloženo pitanje o tim jedinicama.</p>
 <div class="no-row-height column-margin column-container"></div><p>DIP-ova tablica omogućuje opis zabilježenog odaziva u navedenom obuhvatu. Redci izbornih jedinica mogu poslužiti za usporedbu ili analizu povezanosti na toj razini. Ne pokazuju zašto je pojedinac izašao, kojoj je listi dao potporu ni što će se dogoditi na budućim izborima. Ovdje ih koristimo da bismo odabrali točnu i provjerljivu formulaciju javne tvrdnje.</p>
 <p>Administrativnom ukupnom broju ne pridružujemo marginu pogreške namijenjenu anketnoj procjeni. I dalje mogu postojati nesigurnosti u obuhvatu, definicijama, obradi i zapisima. Za svaku od njih ovo izvješće ne daje posebnu brojčanu mjeru.</p>
-<p>Provjerena tvrdnja glasi da je prema izvješću DIP-a za izbore za Hrvatski sabor 2024. glasovanju pristupilo 2.216.763 od 3.558.089 birača na obrađenim biračkim mjestima, odnosno 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Zbroj važećih i nevažećih listića iznosi 2.215.209, što je 1.554 manje <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Oznake ostaju različite jer opisuju različite faze postupka, bez obzira na veličinu razlike.</p>
+<p>Provjerena tvrdnja glasi da je prema izvješću DIP-a za izbore za Hrvatski sabor 2024. glasovanju pristupilo 2.216.763 od 3.558.089 birača na obrađenim biračkim mjestima, odnosno 62,30 % <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Zbroj važećih i nevažećih listića iznosi 2.215.209, što je 1.554 manje <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Oznake ostaju različite jer opisuju različite faze postupka, bez obzira na veličinu razlike.</p>
 <div class="no-row-height column-margin column-container"></div><p>Tvrdnju bismo ponovno provjerili kada bi se promijenio službeni izvor, obuhvat, značenje oznake ili slaganje sastavnica s ukupnim vrijednostima.</p>
 </section>
 </section>
@@ -1571,22 +1397,22 @@ Slika&nbsp;1: Približna margina pogreške i položaj pretpostavljene istinite v
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
 <section id="ex-03-konceptualni-01" class="level3 zadaci-razina page-columns page-full">
 <h3 class="zadaci-razina anchored" data-anchor-id="ex-03-konceptualni-01">Konceptualni</h3>
-<p>Objasnite zašto broj pristupilih ne možemo zamijeniti zbrojem važećih i nevažećih listića. Navedite što razlika od 1.554 pokazuje, a što ne možemo zaključiti o njezinu uzroku <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Zatim, bez novog računa, objasnite zašto se u dvama hipotetskim primjerima mijenja udio ispravnih upozorenja, iako detektor zadržava iste stope pronalaženja ciljanih zapisa i pogrešnog označavanja.</p>
+<p>Objasnite zašto broj pristupilih ne možemo zamijeniti zbrojem važećih i nevažećih listića. Navedite što razlika od 1.554 pokazuje, a što ne možemo zaključiti o njezinu uzroku <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Zatim, bez novog računa, objasnite zašto se u dvama hipotetskim primjerima mijenja udio ispravnih upozorenja, iako detektor zadržava iste stope pronalaženja ciljanih zapisa i pogrešnog označavanja.</p>
 <div class="no-row-height column-margin column-container"></div></section>
 <section id="ex-03-racunski-01" class="level3 zadaci-razina page-columns page-full">
 <h3 class="zadaci-razina anchored" data-anchor-id="ex-03-racunski-01">Računski</h3>
-<p>Koristite zbirnu tablicu generiranog skupa <code>populacija_medija</code> iz datoteke <code>data/populacija-medija-agregat.csv</code> <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Portal je glavni izvor vijesti za 15.101 od 50.000 generiranih osoba, a televizija za 10.827 <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026.</a>)</span>. Izračunajte udjele, razliku u postotnim bodovima i relativnu razliku prema udjelu televizije. Uz rezultate napišite da opisuju simulaciju. Koristite kalkulator ili proračunsku tablicu, bez predaje koda.</p>
+<p>Koristite zbirnu tablicu generiranog skupa <code>populacija_medija</code> iz datoteke <code>data/populacija-medija-agregat.csv</code> <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Portal je glavni izvor vijesti za 15.101 od 50.000 generiranih osoba, a televizija za 10.827 <span class="citation" data-cites="sikic2026">(<a href="../references.html#ref-sikic2026" role="doc-biblioref">Šikić 2026</a>)</span>. Izračunajte udjele, razliku u postotnim bodovima i relativnu razliku prema udjelu televizije. Uz rezultate napišite da opisuju simulaciju. Koristite kalkulator ili proračunsku tablicu, bez predaje koda.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-sikic2026" class="csl-entry" role="listitem">
 Šikić, Luka. 2026. <span>„Populacija medijskih navika, generirani nastavni skup“</span>. <a href="https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv">https://lusiki.github.io/statistika-knjiga/data/populacija-medija.csv</a>.
 </div></div></section>
 <section id="ex-03-kriticki-01" class="level3 zadaci-razina page-columns page-full">
 <h3 class="zadaci-razina anchored" data-anchor-id="ex-03-kriticki-01">Kritički</h3>
-<p>Polazište je nacionalni redak službene tablice „Odaziv birača” <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Usporedite tri ponuđene uredničke prerade toga retka. To su „Na izborima je glasovalo 62,30 % birača”, „DIP bilježi da je glasovanju pristupilo 62,30 % birača na obrađenim biračkim mjestima” i „Većina građana podržala je pobjedničke liste” <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Za svaku navedite je li poduprta prikazanim dokazom. Najbolju preradu doradite tako da uključi brojnik, nazivnik, izvor i jednu važnu granicu.</p>
+<p>Polazište je nacionalni redak službene tablice „Odaziv birača” <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Usporedite tri ponuđene uredničke prerade toga retka. To su „Na izborima je glasovalo 62,30 % birača”, „DIP bilježi da je glasovanju pristupilo 62,30 % birača na obrađenim biračkim mjestima” i „Većina građana podržala je pobjedničke liste” <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Za svaku navedite je li poduprta prikazanim dokazom. Najbolju preradu doradite tako da uključi brojnik, nazivnik, izvor i jednu važnu granicu.</p>
 <div class="no-row-height column-margin column-container"></div><p>Razvrstajte generiranu populaciju iz računskog zadatka, pogrešni odgovor modela iz okvira, umjetno stvorenu izbornu fotografiju označenu kao takvu i nepostojeću stranicu izvješća navedenu kao izvor. Svakom predmetu dodijelite oznaku simulacija, hipotetski izlaz modela, sintetički zapis ili izmišljeni dokaz. Objasnite koji zaključak ne možemo opravdati takvim predmetom.</p>
 </section>
 <section id="ex-03-revizija-modela-01" class="level3 zadaci-razina page-columns page-full">
 <h3 class="zadaci-razina anchored" data-anchor-id="ex-03-revizija-modela-01">Revizija modela</h3>
-<p>Provjerite odgovor modela iz okvira. Ponovno zbrojite listiće i izračunajte razliku prema broju pristupilih <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024., 124</a>)</span>. Napišite ispravljeni odgovor u najviše četiri rečenice. Jasno odvojite ono što izvor potvrđuje od objašnjenja za koje bismo trebali dodatni dokaz.</p>
+<p>Provjerite odgovor modela iz okvira. Ponovno zbrojite listiće i izračunajte razliku prema broju pristupilih <span class="citation" data-cites="dip2024">(<a href="../references.html#ref-dip2024" role="doc-biblioref">Državno izborno povjerenstvo Republike Hrvatske 2024, 124</a>)</span>. Napišite ispravljeni odgovor u najviše četiri rečenice. Jasno odvojite ono što izvor potvrđuje od objašnjenja za koje bismo trebali dodatni dokaz.</p>
 
 
 <div class="no-row-height column-margin column-container"><div id="ref-dip2024" class="csl-entry" role="listitem">
@@ -1597,2333 +1423,1195 @@ Državno izborno povjerenstvo Republike Hrvatske. 2024. <span>„Izvješće o pr
 
 </main> <!-- /main -->
 <script>
-
 /* =====================================================================
-
    book-include.html — ponašanje stranice (include-after-body)
-
    ---------------------------------------------------------------------
-
    Sve vizualno živi u styles/ (SCSS + styles.css). Ovdje nema boja ni
-
    pisama; moduli samo dodaju elemente i klase koje CSS zna stilizirati.
 
-
-
    Moduli
-
      1. traka napretka čitanja
-
      2. pregled na prijelaz za unutarnje poveznice
-
      3. dinkus (*** u prozi -> stilizirani razdjelnik)
-
      4. sidra uz naslove
-
      5. samostalne stranice bez knjižnog okvira
-
      5a. aktivno stanje roditelja izbornika Nastava
-
      6. čišćenje sidebara
-
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
-
      8. sklopivi prozni blokovi („Što isprobati")
-
      9. AI izbornik u podnožju poglavlja
-
      10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
-
      11. traka metapodataka na otvaranju poglavlja
-
      12. pamćenje stanja widgeta po stranici
-
      13. organizacija mobilne navigacije
-
      14. lokalni oporavak resursa stranice 404
-
      15. uklanjanje oznake vanjske poveznice s istog izvorišta
-
      16. pristupačno vodoravno pomicanje širokih tablica
-
      17. hrvatski pristupačni nazivi pretraživanja
-
    ===================================================================== */
-
 (function () {
-
   "use strict";
 
-
-
   // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
-
   // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
-
   // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
-
   function seedPojmovnikSearch() {
-
     if (!document.body.classList.contains("pojmovnik-page")) return;
-
     if (document.getElementById("quarto-search")) return;
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var host = document.createElement("div");
-
     host.id = "quarto-search";
-
     host.title = "Pretraži knjigu";
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     if (tools) tools.appendChild(host);
-
     else navbar.querySelector(".navbar-container").appendChild(host);
-
   }
-
-
 
   seedPojmovnikSearch();
 
-
-
   // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
-
   // ručno; pokrenite python scripts/check-book-inventory.py --write.
-
   // BEGIN GENERATED: book-inventory runtime-routes
-
   var SAMOSTALNE = [
-
     "/index.html",
-
     "/interakcije.html",
-
     "/pojmovnik.html",
-
     "/podaci.html",
-
     "/uci-s-ai.html",
-
     "/predavanja.html",
-
     "/silabus.html",
-
     "/raspored.html",
-
     "/resursi.html",
-
     "/rjesenja.html",
-
     "/errata.html",
-
     "/404.html"
-
   ];
-
   var NAVBAR_SKUPINE = [
-
     {
-
       "id": "nav-menu-nastava",
-
       "routes": [
-
         "/predavanja.html",
-
         "/silabus.html",
-
         "/raspored.html"
-
       ]
-
     }
-
   ];
-
   var PUTOVI_STRANICA = {
-
     "landing": "/index.html",
-
     "ch00": "/chapters/00-predgovor.html",
-
     "ch01": "/chapters/01-zasto-statistika.html",
-
     "ch02": "/chapters/02-mjerenje-i-dizajn.html",
-
     "ch03": "/chapters/03-kako-brojke-zavode.html",
-
     "ch04": "/chapters/04-sazimanje-podataka.html",
-
     "ch05": "/chapters/05-vizualizacija.html",
-
     "ch06": "/chapters/06-povezanost.html",
-
     "ch07": "/chapters/07-vjerojatnost.html",
-
     "ch08": "/chapters/08-uzorkovanje.html",
-
     "ch09": "/chapters/09-procjena.html",
-
     "ch10": "/chapters/10-logika-testiranja.html",
-
     "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
-
     "ch12": "/chapters/12-kriza-i-obnova.html",
-
     "ch13": "/chapters/13-kategoricki-podaci.html",
-
     "ch14": "/chapters/14-dvije-grupe.html",
-
     "ch15": "/chapters/15-vise-grupa.html",
-
     "ch16": "/chapters/16-regresija.html",
-
     "ch17": "/chapters/17-doba-algoritama.html",
-
     "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
-
     "references": "/references.html",
-
     "app-a": "/dodaci/a-praktikum.html",
-
     "app-b": "/dodaci/b-jamovi.html",
-
     "app-c": "/dodaci/c-katalog-podataka.html",
-
     "app-d": "/dodaci/d-koji-test.html",
-
     "app-e": "/dodaci/e-rjecnik.html",
-
     "app-f": "/dodaci/f-ai-protokol.html",
-
     "app-g": "/dodaci/g-numericki-podsjetnik.html",
-
     "interactions": "/interakcije.html",
-
     "glossary": "/pojmovnik.html",
-
     "data": "/podaci.html",
-
     "ai": "/uci-s-ai.html",
-
     "lectures": "/predavanja.html",
-
     "syllabus": "/silabus.html",
-
     "schedule": "/raspored.html",
-
     "resources": "/resursi.html",
-
     "solutions": "/rjesenja.html",
-
     "errata": "/errata.html",
-
     "not-found": "/404.html"
-
   };
-
   var AI_PUTOVI_POGLAVLJA = [
-
     {
-
       "route": "/chapters/00-predgovor.html",
-
       "ai": "/ai/00-predgovor.md"
-
     },
-
     {
-
       "route": "/chapters/01-zasto-statistika.html",
-
       "ai": "/ai/01-zasto-statistika.md"
-
     },
-
     {
-
       "route": "/chapters/02-mjerenje-i-dizajn.html",
-
       "ai": "/ai/02-mjerenje-i-dizajn.md"
-
     },
-
     {
-
       "route": "/chapters/03-kako-brojke-zavode.html",
-
       "ai": "/ai/03-kako-brojke-zavode.md"
-
     },
-
     {
-
       "route": "/chapters/04-sazimanje-podataka.html",
-
       "ai": "/ai/04-sazimanje-podataka.md"
-
     },
-
     {
-
       "route": "/chapters/05-vizualizacija.html",
-
       "ai": "/ai/05-vizualizacija.md"
-
     },
-
     {
-
       "route": "/chapters/06-povezanost.html",
-
       "ai": "/ai/06-povezanost.md"
-
     },
-
     {
-
       "route": "/chapters/07-vjerojatnost.html",
-
       "ai": "/ai/07-vjerojatnost.md"
-
     },
-
     {
-
       "route": "/chapters/08-uzorkovanje.html",
-
       "ai": "/ai/08-uzorkovanje.md"
-
     },
-
     {
-
       "route": "/chapters/09-procjena.html",
-
       "ai": "/ai/09-procjena.md"
-
     },
-
     {
-
       "route": "/chapters/10-logika-testiranja.html",
-
       "ai": "/ai/10-logika-testiranja.md"
-
     },
-
     {
-
       "route": "/chapters/11-velicina-ucinka-i-snaga.html",
-
       "ai": "/ai/11-velicina-ucinka-i-snaga.md"
-
     },
-
     {
-
       "route": "/chapters/12-kriza-i-obnova.html",
-
       "ai": "/ai/12-kriza-i-obnova.md"
-
     },
-
     {
-
       "route": "/chapters/13-kategoricki-podaci.html",
-
       "ai": "/ai/13-kategoricki-podaci.md"
-
     },
-
     {
-
       "route": "/chapters/14-dvije-grupe.html",
-
       "ai": "/ai/14-dvije-grupe.md"
-
     },
-
     {
-
       "route": "/chapters/15-vise-grupa.html",
-
       "ai": "/ai/15-vise-grupa.md"
-
     },
-
     {
-
       "route": "/chapters/16-regresija.html",
-
       "ai": "/ai/16-regresija.md"
-
     },
-
     {
-
       "route": "/chapters/17-doba-algoritama.html",
-
       "ai": "/ai/17-doba-algoritama.md"
-
     },
-
     {
-
       "route": "/chapters/18-vase-prvo-istrazivanje.html",
-
       "ai": "/ai/18-vase-prvo-istrazivanje.md"
-
     }
-
   ];
-
   // END GENERATED: book-inventory runtime-routes
 
-
-
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
-
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
-
   var UPUTA =
-
-    "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
-
+    "Ti si moj mentor za udžbenik „Statistika 101: Intuitivni uvod u analizu podataka”. " +
     "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
-
     "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
-
     "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
-
     "gradi intuiciju prije formule, prilagodi se mojoj razini i na zahtjev sažmi " +
-
     "gradivo, izradi kviz, kartice ili plan učenja. Na početku me pitaj što učim " +
-
     "i koji mi je cilj.";
 
-
-
   // -------------------------------------------------------------------
-
   // 1. Traka napretka čitanja
-
   // -------------------------------------------------------------------
-
   function setupProgressBar() {
-
     if (document.getElementById("reading-progress")) return;
-
     var bar = document.createElement("div");
-
     bar.id = "reading-progress";
-
     document.body.appendChild(bar);
 
-
-
     var ticking = false;
-
     function update() {
-
       var doc = document.documentElement;
-
       var scrollTop = window.scrollY || doc.scrollTop;
-
       var max = (doc.scrollHeight - doc.clientHeight) || 1;
-
       var pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
-
       bar.style.width = pct + "%";
-
       ticking = false;
-
     }
-
     window.addEventListener("scroll", function () {
-
       if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-
     }, { passive: true });
-
     update();
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 2. Pregled na prijelaz za unutarnje poveznice (#sidra u dokumentu)
-
   // -------------------------------------------------------------------
-
   function setupInternalHover() {
-
     var tip = null, hideTimer = null;
 
-
-
     function ensureTip() {
-
       if (tip) return tip;
-
       tip = document.createElement("div");
-
       tip.className = "internal-hover-preview";
-
       document.body.appendChild(tip);
-
       return tip;
-
     }
-
-
 
     function show(target, text, title) {
-
       var t = ensureTip();
-
       t.innerHTML = "";
-
       if (title) {
-
         var h = document.createElement("div");
-
         h.className = "ihp-title";
-
         h.textContent = title;
-
         t.appendChild(h);
-
       }
-
       var body = document.createElement("div");
-
       body.textContent = text;
-
       t.appendChild(body);
 
-
-
       var rect = target.getBoundingClientRect();
-
       var left = window.scrollX + rect.left;
-
       var maxLeft = window.scrollX + document.documentElement.clientWidth - 400;
-
       if (left > maxLeft) left = maxLeft;
-
       if (left < 8) left = 8;
-
       t.style.top = (window.scrollY + rect.bottom + 8) + "px";
-
       t.style.left = left + "px";
-
       t.classList.add("visible");
-
     }
-
-
 
     function hide() { if (tip) tip.classList.remove("visible"); }
 
-
-
     document.addEventListener("mouseover", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       if (a.classList.contains("citation") || a.classList.contains("footnote-ref")) return;
-
       if (a.closest(".sidebar, nav, .toc, #TOC, .quarto-secondary-nav")) return;
 
-
-
       var hash = a.getAttribute("href").slice(1);
-
       if (!hash) return;
-
       var tgt = document.getElementById(hash);
-
       if (!tgt) return;
 
-
-
       var titleEl = tgt.querySelector("h1, h2, h3, h4") ||
-
                     (tgt.tagName.match(/^H[1-6]$/) ? tgt : null);
-
       var title = titleEl ? titleEl.textContent.trim() : "";
-
       var ctx = (tgt.textContent || "").trim().replace(/\s+/g, " ");
-
       if (title) ctx = ctx.replace(title, "").trim();
-
       ctx = ctx.slice(0, 280) + (ctx.length > 280 ? "…" : "");
 
-
-
       clearTimeout(hideTimer);
-
       show(a, ctx, title);
-
     });
-
-
 
     document.addEventListener("mouseout", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       hideTimer = setTimeout(hide, 120);
-
     });
-
-
 
     window.addEventListener("scroll", hide, { passive: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 3. Dinkus — pasus koji je samo "***" postaje razdjelnik
-
   // -------------------------------------------------------------------
-
   function setupDinkus() {
-
     document.querySelectorAll("main p").forEach(function (p) {
-
       var t = p.textContent.trim();
-
       if (t === "***" || t === "* * *" || t === "◆ ◆ ◆") {
-
         var div = document.createElement("div");
-
         div.className = "dinkus";
-
         p.parentNode.replaceChild(div, p);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 4. Sidra uz naslove
-
   // -------------------------------------------------------------------
-
   function setupAnchorLinks() {
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
-
       if (h.classList.contains("title")) return;
-
       if (h.querySelector("a.anchorjs-link")) return;
-
       var link = document.createElement("a");
-
       link.className = "anchorjs-link";
-
       link.href = "#" + h.id;
-
       link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
-
       h.appendChild(link);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5. Samostalne stranice — bez knjižnog okvira
-
   // -------------------------------------------------------------------
-
   function setupStandalonePages() {
-
     var path = location.pathname;
-
     var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
-
     var normalized = path.endsWith("/") ? path + naslovnica : path;
-
     var isStandalone =
-
       document.body.classList.contains("standalone-page") ||
-
       document.body.classList.contains("not-found-page") ||
-
       SAMOSTALNE.some(function (p) { return normalized.endsWith(p); });
-
     if (!isStandalone) return;
-
-
 
     document.body.classList.add("standalone-page");
 
-
-
     var sb = document.getElementById("quarto-sidebar");
-
     if (sb) sb.style.display = "none";
-
     var msb = document.getElementById("quarto-margin-sidebar");
-
     if (msb) msb.style.display = "none";
-
     document.querySelectorAll(".quarto-page-breadcrumbs").forEach(function (el) { el.remove(); });
 
-
-
     // Quarto dodaje "Appendix A — " prefiks dodacima; na hub stranicama smeta.
-
     var strip = function (s) {
-
       return s.replace(/^Appendix\s+\S*\s*[—–-]\s*/i, "").replace(/^\s*[—–-]\s+/, "").trim();
-
     };
-
     var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
-
     if (titleEl) titleEl.textContent = strip(titleEl.textContent);
-
     document.title = strip(document.title);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
-
   // -------------------------------------------------------------------
-
   function setupNastavaActiveState() {
-
     NAVBAR_SKUPINE.forEach(function (skupina) {
-
       var aktivna = skupina.routes.some(function (put) {
-
         return location.pathname.endsWith(put);
-
       });
-
       if (!aktivna) return;
-
       var parent = document.getElementById(skupina.id);
-
       if (!parent) return;
-
       parent.classList.add("active", "section-active");
-
       parent.setAttribute("aria-current", "true");
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
-
   //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
-
   //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
-
   // -------------------------------------------------------------------
-
   function removePrunedItems() {
-
     var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
-
     document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
-
       .forEach(function (a) {
-
         var href = a.getAttribute("href") || "";
-
         var hide = endings.some(function (e) { return href.endsWith(e); });
-
         if (hide) {
-
           a.style.display = "none";
-
           var li = a.closest(".sidebar-item");
-
           if (li) li.style.display = "none";
-
         }
-
       });
-
   }
-
-
 
   function pruneSidebar() {
-
     removePrunedItems();
-
     setTimeout(removePrunedItems, 200);
-
     setTimeout(removePrunedItems, 800);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 7. Upravljačke ploče interaktivnih grafova
-
   //    Observable rendira kontrole asinkrono, pa MutationObserver hvata
-
   //    njihovo pojavljivanje. Ploča se sklapa u <details>, klizači dobiju
-
   //    ispunu trake (--fill) i gumb za povratak na početne vrijednosti.
-
   // -------------------------------------------------------------------
-
   function setupOjsPanels() {
-
     function paintFill(r) {
-
       var min = parseFloat(r.min), max = parseFloat(r.max);
-
       if (!isFinite(min)) min = 0;
-
       if (!isFinite(max)) max = 100;
-
       var pct = max > min ? ((r.value - min) / (max - min)) * 100 : 0;
-
       r.style.setProperty("--fill", pct.toFixed(2) + "%");
-
     }
-
-
 
     function enhanceRange(r) {
-
       if (r.dataset.ojsEnhanced) return;
-
       r.dataset.ojsEnhanced = "1";
-
       r.dataset.ojsInitial = r.value;
-
       paintFill(r);
-
       r.addEventListener("input", function () {
-
         paintFill(r);
-
         var num = r.parentElement && r.parentElement.querySelector('input[type="number"]');
-
         if (num) {
-
           num.classList.remove("ojs-pulse");
-
           void num.offsetWidth;
-
           num.classList.add("ojs-pulse");
-
         }
-
       });
-
     }
-
-
 
     function panelMeta(panel) {
-
       var host = panel.closest && panel.closest("[data-ojs-label]");
-
       var widget = panel.closest && panel.closest(".widget-frame[data-naslov]");
-
       var widgetTitle = widget && widget.getAttribute("data-naslov");
-
       return {
-
         label: host && host.getAttribute("data-ojs-label") ||
-
           (widgetTitle ? "Postavke: " + widgetTitle : "Parametri simulacije"),
-
         hint: host && host.getAttribute("data-ojs-hint") ||
-
           "otvori za promjenu vrijednosti"
-
       };
-
     }
-
-
 
     function collapsePanel(panel) {
-
       if (panel.dataset.ojsCollapsed) return;
-
       var parent = panel.parentElement;
-
       if (!parent) return;
-
       panel.dataset.ojsCollapsed = "1";
-
       var meta = panelMeta(panel);
 
-
-
       var details = document.createElement("details");
-
       details.className = "ojs-collapsible";
-
       var summary = document.createElement("summary");
-
       summary.className = "ojs-collapsible-summary";
-
       summary.innerHTML =
-
         '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
         '<span class="ojs-collapsible-label"></span>' +
-
         '<span class="ojs-collapsible-hint"></span>';
-
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
-
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
 
-
-
       parent.insertBefore(details, panel);
-
       details.appendChild(summary);
-
       details.appendChild(panel);
-
     }
-
-
 
     function enhancePanel(panel) {
-
       if (panel.dataset.ojsPanel) return;
-
       panel.dataset.ojsPanel = "1";
-
       panel.querySelectorAll("input, select, textarea").forEach(function (el) {
-
         if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
-
         if (el.type === "checkbox" || el.type === "radio") {
-
           el.dataset.ojsInitialChecked = el.checked ? "1" : "0";
-
         }
-
       });
-
       var btn = document.createElement("button");
-
       btn.type = "button";
-
       btn.className = "ojs-reset";
-
       btn.textContent = "↺ početne vrijednosti";
-
       btn.title = "Vrati početne vrijednosti";
-
       btn.addEventListener("click", function () {
-
         panel.querySelectorAll('input[type="range"]').forEach(function (r) {
-
           if (r.dataset.ojsInitial === undefined) return;
-
           r.value = r.dataset.ojsInitial;
-
           r.dispatchEvent(new Event("input", { bubbles: true }));
-
         });
-
         panel.querySelectorAll(
-
           'input:not([type="range"]), select, textarea'
-
         ).forEach(function (el) {
-
           if (el.dataset.ojsInitial === undefined) return;
-
           if (el.type === "checkbox" || el.type === "radio") {
-
             el.checked = el.dataset.ojsInitialChecked === "1";
-
           } else {
-
             el.value = el.dataset.ojsInitial;
-
           }
-
           el.dispatchEvent(new Event("input", { bubbles: true }));
-
           el.dispatchEvent(new Event("change", { bubbles: true }));
-
         });
-
       });
-
       panel.appendChild(btn);
-
       collapsePanel(panel);
-
     }
-
-
 
     var scanQueued = false;
-
     function scan() {
-
       scanQueued = false;
-
       document.querySelectorAll('form[class^="oi-"] input[type="range"]').forEach(enhanceRange);
-
       document.querySelectorAll('form[class^="oi-"]').forEach(function (f) {
-
         if (f.classList.contains("quarto-ojs-table-fixup")) return;
-
         var p = f.parentElement;
-
         if (p && p.tagName === "DIV") enhancePanel(p);
-
       });
-
       document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
-
         if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
-
         if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
-
       });
-
+      // Sustav Zvono: zaglavlje widgeta s diskom, naslovom i oznakom.
+      document.querySelectorAll(".widget-frame[data-naslov]:not(.zv-widget-glava)").forEach(function (frame) {
+        var oznaka = frame.getAttribute("data-oznaka") || "";
+        var broj = (oznaka.match(/(\d+\.\d+)/) || [])[1] || "";
+        var glava = document.createElement("div");
+        glava.className = "widget-glava";
+        if (broj) {
+          var disk = document.createElement("span");
+          disk.className = "widget-glava__disk";
+          disk.setAttribute("aria-hidden", "true");
+          disk.textContent = broj;
+          glava.appendChild(disk);
+        }
+        var naslov = document.createElement("span");
+        naslov.className = "widget-glava__naslov";
+        naslov.textContent = frame.getAttribute("data-naslov");
+        glava.appendChild(naslov);
+        if (oznaka) {
+          var lbl = document.createElement("span");
+          lbl.className = "widget-glava__oznaka";
+          lbl.textContent = oznaka.toLowerCase();
+          glava.appendChild(lbl);
+        }
+        frame.insertBefore(glava, frame.firstChild);
+        frame.classList.add("zv-widget-glava");
+      });
     }
-
     function queueScan() {
-
       if (scanQueued) return;
-
       scanQueued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     new MutationObserver(queueScan).observe(document.body, { childList: true, subtree: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
-
   // -------------------------------------------------------------------
-
   function wrapCollapsible(node, label, hint) {
-
     if (node.dataset.ojsCollapsibleWrapped) return null;
-
     var parent = node.parentElement;
-
     if (!parent) return null;
-
     node.dataset.ojsCollapsibleWrapped = "1";
 
-
-
     var details = document.createElement("details");
-
     details.className = "ojs-collapsible ojs-collapsible-prose";
-
     var summary = document.createElement("summary");
-
     summary.className = "ojs-collapsible-summary";
-
     summary.innerHTML =
-
       '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
       '<span class="ojs-collapsible-label"></span>' +
-
       '<span class="ojs-collapsible-hint"></span>';
-
     summary.querySelector(".ojs-collapsible-label").textContent = label;
-
     summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
 
-
-
     var body = document.createElement("div");
-
     body.className = "ojs-collapsible-body";
 
-
-
     parent.insertBefore(details, node);
-
     details.appendChild(summary);
-
     details.appendChild(body);
-
     body.appendChild(node);
-
     return body;
-
   }
-
-
 
   function setupProseCollapsibles() {
-
     var main = document.querySelector("main.content") || document.querySelector("main");
-
     if (!main) return;
 
-
-
     main.querySelectorAll("p").forEach(function (p) {
-
       if (p.dataset.ojsCollapsibleWrapped) return;
-
       var strong = p.querySelector(":scope > strong:first-child");
-
       if (!strong) return;
-
       if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
-
       var next = p.nextElementSibling;
-
       strong.remove();
-
       if (p.firstChild && p.firstChild.nodeType === 3) {
-
         p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
-
       }
-
       var body = wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
-
       if (body && next && (next.matches("ol") || next.matches("ul"))) {
-
         body.appendChild(next);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 9. AI izbornik u podnožju poglavlja
-
   //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
-
   //    generira R/build-ai-exports.R.
-
   // -------------------------------------------------------------------
-
   function setupChapterAI() {
-
     var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
-
       return location.pathname.endsWith(kandidat.route);
-
     });
-
     if (!zapis) return;
-
     if (document.querySelector(".ai-cta")) return;
-
     var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
-
-
     var mdHref  = zapis.ai;
-
     var uciHref = PUTOVI_STRANICA.ai;
-
     var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
-
     var absMd   = location.origin + mdHref;
-
     var q = encodeURIComponent(
-
       UPUTA +
-
       "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
-
       absMd);
 
-
-
     var box = document.createElement("div");
-
     box.className = "ai-cta-foot";
 
-
-
     var det = document.createElement("details");
-
     det.className = "ai-cta";
-
     det.innerHTML =
-
       "<summary>🤖 Pitaj AI o ovom poglavlju</summary>" +
-
       '<div class="ai-cta-menu">' +
-
         '<a href="' + mdHref + '" download>⬇ Preuzmi tekst (.md)</a>' +
-
         '<a href="https://claude.ai/new?q=' + q + '" target="_blank" rel="noopener">Otvori u Claudeu</a>' +
-
         '<a href="https://chatgpt.com/?q=' + q + '" target="_blank" rel="noopener">Otvori u ChatGPT-u</a>' +
-
         '<a href="' + uciHref + '">Sve opcije i cijela knjiga →</a>' +
-
       "</div>";
 
-
-
     var pm = document.createElement("a");
-
     pm.className = "ai-cta-pm";
-
     pm.href = pmHref;
-
     pm.innerHTML = "🕸 Pojmovi ovog poglavlja u mreži";
 
-
-
     box.appendChild(det);
-
     box.appendChild(pm);
 
-
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     var fn = article.querySelector("section.footnotes, #refs, section#footnotes");
-
     if (fn) fn.parentNode.insertBefore(box, fn);
-
     else article.appendChild(box);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 10. Pojmovi na dodir
-
   //     [statističko zaključivanje]{.pojam def="…" en="…" ch="8"}
-
   //     Pandoc atribute prenosi doslovno na <span>, pa oblačić gradimo
-
   //     odavde. Izgled je u styles/_base.scss (.pojam__oblacic).
-
   // -------------------------------------------------------------------
-
   function setupPojmovi() {
-
     var pojmovi = document.querySelectorAll("span.pojam");
-
     if (!pojmovi.length) return;
 
-
-
     pojmovi.forEach(function (el) {
-
       if (el.dataset.pojamSpreman) return;
-
       el.dataset.pojamSpreman = "1";
 
-
-
       var def = el.getAttribute("def") || "";
-
       var en  = el.getAttribute("en")  || "";
-
       var ch  = el.getAttribute("ch")  || "";
-
       if (!def && !en && !ch) return;
-
-
 
       el.setAttribute("tabindex", "0");
 
-
-
       var tip = document.createElement("span");
-
       tip.className = "pojam__oblacic";
-
       tip.setAttribute("role", "tooltip");
 
-
-
       var glava = document.createElement("span");
-
       glava.className = "pojam__glava";
-
       glava.textContent = el.textContent.trim();
-
       tip.appendChild(glava);
 
-
-
       if (def) tip.appendChild(document.createTextNode(def));
-
       if (en) {
-
         var e = document.createElement("em");
-
         e.className = "pojam__en";
-
         e.textContent = " " + en;
-
         tip.appendChild(e);
-
       }
-
       if (ch) {
-
         var c = document.createElement("span");
-
         c.className = "pojam__pogl";
-
         c.textContent = "→ pogl. " + ch;
-
         tip.appendChild(c);
-
       }
-
       el.appendChild(tip);
-
     });
-
-
 
     // Dodir i tipkovnica: klik otvara, klik izvan zatvara (CSS pokriva miš).
-
     document.addEventListener("click", function (e) {
-
       var t = e.target.closest && e.target.closest("span.pojam");
-
       document.querySelectorAll("span.pojam.je-otvoren").forEach(function (o) {
-
         if (o !== t) o.classList.remove("je-otvoren");
-
       });
-
       if (t) { t.classList.toggle("je-otvoren"); e.stopPropagation(); }
-
     });
-
     document.addEventListener("keydown", function (e) {
-
       if (e.key !== "Escape") return;
-
       document.querySelectorAll("span.pojam.je-otvoren")
-
         .forEach(function (o) { o.classList.remove("je-otvoren"); });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 11. Traka metapodataka na otvaranju poglavlja
-
   //     U .qmd-u se piše kao obična tablica unutar ::: {.chapter-meta};
-
   //     ovdje postaje jedan redak parova natpis / vrijednost.
-
   // -------------------------------------------------------------------
-
   function setupChapterMeta() {
-
     document.querySelectorAll(".chapter-meta").forEach(function (box) {
-
       var table = box.querySelector("table");
-
       if (!table || box.dataset.metaSpremna) return;
-
       box.dataset.metaSpremna = "1";
 
-
-
       var glave = [].map.call(table.querySelectorAll("thead th"),
-
         function (th) { return th.textContent.trim(); });
-
       var polja = [].map.call(table.querySelectorAll("tbody tr:first-child td"),
-
         function (td) { return td.textContent.trim(); });
-
       if (!glave.length) return;
 
-
-
       var red = document.createElement("div");
-
       red.className = "chapter-meta__row";
-
       glave.forEach(function (g, i) {
-
         var cell = document.createElement("div");
-
         var k = document.createElement("span");
-
         k.className = "chapter-meta__key";
-
         k.textContent = g;
-
         cell.appendChild(k);
-
         cell.appendChild(document.createTextNode(polja[i] || "—"));
-
         red.appendChild(cell);
-
       });
-
-
 
       var wrap = table.closest(".table, figure") || table;
-
       wrap.parentNode.replaceChild(red, wrap);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 12. Pamćenje stanja widgeta
-
   //     Čitatelj koji odscrola i vrati se ne gubi svoje istraživanje.
-
   //     Ključ je po stranici; vrijednosti su samo brojevi i nizovi iz
-
   //     kontrola, pa localStorage ne nosi ništa osobno.
-
   // -------------------------------------------------------------------
-
   function setupWidgetMemory() {
-
     var kljuc = "statistika:widget:" + location.pathname;
-
     var IZBOR = ".widget-frame input, .widget-frame select, " +
-
                 'form[class^="oi-"] input, form[class^="oi-"] select';
 
-
-
     function spremi() {
-
       var s = {};
-
       document.querySelectorAll(IZBOR).forEach(function (el, i) {
-
         if (el.type === "checkbox" || el.type === "radio") s[i] = el.checked;
-
         else s[i] = el.value;
-
       });
-
       try { localStorage.setItem(kljuc, JSON.stringify(s)); } catch (e) {}
-
     }
-
-
 
     function vrati() {
-
       var s;
-
       try { s = JSON.parse(localStorage.getItem(kljuc) || "null"); } catch (e) { return; }
-
       if (!s) return;
-
       var polja = document.querySelectorAll(IZBOR);
-
       if (!polja.length) return;
-
       polja.forEach(function (el, i) {
-
         if (!(i in s)) return;
-
         if (el.type === "checkbox" || el.type === "radio") el.checked = !!s[i];
-
         else el.value = s[i];
-
         el.dispatchEvent(new Event("input", { bubbles: true }));
-
         el.dispatchEvent(new Event("change", { bubbles: true }));
-
       });
-
     }
-
-
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
-
     // je dovoljan jer se stanje pamti na svaku promjenu.
-
     window.setTimeout(vrati, 600);
-
     document.addEventListener("input", function (e) {
-
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 13. Mobilna navigacija
-
   //     Zatvoreno zaglavlje ostaje jedan redak. Pretraga, bočni izbornik
-
   //     i hamburger čine jednu skupinu, a sekundarni alati sele u otvoreni
-
   //     glavni izbornik. Na širokom zaslonu sve se vraća na Quartova mjesta.
-
   // -------------------------------------------------------------------
-
   function setupMobileNavbar() {
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var container = navbar.querySelector(".navbar-container");
-
     var collapse = navbar.querySelector(".navbar-collapse");
-
     var toggler = navbar.querySelector(".navbar-toggler");
-
     if (!container || !collapse || !toggler) return;
 
-
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
-
     var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
-
     var searchButton = secondary && secondary.querySelector(".quarto-search-button");
-
     if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
-
       var searchHost = navbar.querySelector("#quarto-search");
-
       if (searchHost) searchHost.hidden = true;
-
       searchButton = document.createElement("button");
-
       searchButton.type = "button";
-
       searchButton.className = "btn quarto-search-button";
-
       searchButton.setAttribute("aria-label", "Pretraži knjigu");
-
       searchButton.setAttribute("title", "Pretraži knjigu");
-
       searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
-
       searchButton.addEventListener("click", function () {
-
         if (window.quartoOpenSearch) window.quartoOpenSearch();
-
       });
-
       if (tools) tools.appendChild(searchButton);
-
       else container.insertBefore(searchButton, toggler);
-
     }
-
     var brandTitle = navbar.querySelector(".navbar-title");
-
     var fullBrand = brandTitle ? brandTitle.textContent.trim() : "";
-
     var actions = null;
 
-
-
     function markerFor(el, name) {
-
       if (!el) return null;
-
       var marker = document.createComment("navbar-" + name);
-
       el.parentNode.insertBefore(marker, el);
-
       return marker;
-
     }
-
-
 
     var positions = [
-
       { node: toggler, marker: markerFor(toggler, "toggler") },
-
       { node: tools, marker: markerFor(tools, "tools") },
-
       { node: sidebarButton, marker: markerFor(sidebarButton, "sidebar") },
-
       { node: searchButton, marker: markerFor(searchButton, "search") }
-
     ];
 
-
-
     function restore(item) {
-
       if (item.node && item.marker && item.marker.parentNode) {
-
         item.marker.parentNode.insertBefore(item.node, item.marker);
-
       }
-
     }
 
-
-
     function localize() {
-
       toggler.setAttribute("aria-label", "Otvori navigaciju");
-
       if (sidebarButton) {
-
         sidebarButton.setAttribute("aria-label", "Otvori sadržaj knjige");
-
       }
-
       if (searchButton) {
-
         var searchControl = searchButton.matches("button")
-
           ? searchButton
-
           : searchButton.querySelector("button");
-
         if (searchControl) {
-
           searchControl.setAttribute("aria-label", "Pretraži knjigu");
-
           searchControl.setAttribute("title", "Pretraži knjigu");
-
         }
-
       }
-
-
 
       var labels = {
-
         "Source Code": "Izvorni kod",
-
         "Share": "Podijeli",
-
         "Toggle dark mode": "Promijeni temu",
-
         "Toggle light mode": "Promijeni temu",
-
         "Toggle reader mode": "Način čitanja"
-
       };
-
       navbar.querySelectorAll(".quarto-navigation-tool").forEach(function (a) {
-
         var source = a.getAttribute("title") || a.getAttribute("aria-label") || "";
-
         if (!labels[source]) return;
-
         a.setAttribute("title", labels[source]);
-
         a.setAttribute("aria-label", labels[source]);
-
       });
-
     }
-
-
 
     function organize(mobile) {
-
       document.body.classList.toggle("navbar-mobile-organized", mobile);
-
       if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
-
-      if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
-
-
+      if (brandTitle) brandTitle.textContent = fullBrand;  // „Statistika 101" stane i na telefon
 
       if (mobile) {
-
         if (!actions) {
-
           actions = document.createElement("div");
-
           actions.className = "mobile-navbar-actions";
-
           container.insertBefore(actions, collapse);
-
         }
-
         if (sidebarButton) actions.appendChild(sidebarButton);
-
         if (searchButton) actions.appendChild(searchButton);
-
         actions.appendChild(toggler);
-
         if (tools) collapse.appendChild(tools);
-
       } else {
-
         positions.forEach(restore);
-
         if (actions) {
-
           actions.remove();
-
           actions = null;
-
         }
-
       }
-
     }
 
-
-
     localize();
-
     var mq = window.matchMedia("(max-width: 991.98px)");
-
     organize(mq.matches);
-
     var onChange = function (e) { organize(e.matches); };
-
     if (mq.addEventListener) mq.addEventListener("change", onChange);
-
     else mq.addListener(onChange);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 14. Stranica 404 pri lokalnom posluživanju iz korijena
-
   //     Lokalni resursi ugrađuju se nakon rendera, ali navigacijske poveznice
-
   //     i dalje nose produkcijski podput. Izvan tog podputa vraćamo ih na
-
   //     lokalni korijen; na GitHub Pagesu ostaju netaknute.
-
   // -------------------------------------------------------------------
-
   function setupNotFoundFallback() {
-
     if (!document.body.classList.contains("not-found-page")) return;
-
     var offset = document.querySelector('meta[name="quarto:offset"]');
-
     var prefix = offset ? (offset.getAttribute("content") || "") : "";
-
     prefix = prefix.replace(/\/+$/, "");
-
     if (!prefix || prefix === "/" ||
-
         location.pathname === prefix ||
-
         location.pathname.indexOf(prefix + "/") === 0) return;
 
-
-
     document.querySelectorAll("[href], [src]").forEach(function (el) {
-
       ["href", "src"].forEach(function (attr) {
-
         var value = el.getAttribute(attr);
-
         if (!value || value.indexOf(prefix + "/") !== 0) return;
-
         el.setAttribute(attr, value.slice(prefix.length));
-
       });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 15. Poveznice s istog izvorišta
-
   //     Quarto ih u lokalnom pregledu katkad označi kao vanjske prije nego
-
   //     što razriješi adresu. `no-external` sprečava naknadno ukrašavanje,
-
   //     a već dodani znak i otvaranje u novoj kartici uklanjaju se.
-
   // -------------------------------------------------------------------
-
   function setupSameOriginLinks() {
-
     var queued = false;
-
-
 
     function clean() {
-
       queued = false;
-
       document.querySelectorAll("a[href]").forEach(function (a) {
-
         var url;
-
         try { url = new URL(a.getAttribute("href"), location.href); }
-
         catch (e) { return; }
-
         if (url.origin !== location.origin) return;
 
-
-
         a.classList.add("no-external");
-
         a.classList.remove("external", "external-link");
-
         a.removeAttribute("data-external");
-
         if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
 
-
-
         var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean)
-
           .filter(function (token) {
-
             return token !== "external" && token !== "noopener" &&
-
               token !== "noreferrer";
-
           });
-
         if (rel.length) a.setAttribute("rel", rel.join(" "));
-
         else a.removeAttribute("rel");
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(clean);
-
     }
-
-
 
     clean();
-
     window.setTimeout(clean, 250);
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 16. Široke tablice
-
   //     Vodoravno pomicanje dobiva tipkovni fokus, jasan naziv i vidljivu
-
   //     uputu samo kada je tablica doista šira od raspoloživog prostora.
-
   // -------------------------------------------------------------------
-
   function setupAccessibleTables() {
-
     var nextId = 0;
-
     var queued = false;
-
     var resizeObserver = typeof ResizeObserver === "function"
-
       ? new ResizeObserver(queueScan)
-
       : null;
 
-
-
     function tableLabel(table) {
-
       var caption = table.querySelector("caption");
-
       var figure = table.closest("figure");
-
       if (!caption && figure) caption = figure.querySelector("figcaption");
-
       var text = caption && caption.textContent
-
         ? caption.textContent.trim().replace(/\s+/g, " ")
-
         : "";
-
       return text ? "Tablica: " + text : "Tablica s vodoravnim pomicanjem";
-
     }
-
-
 
     function wrapperFor(table) {
-
       var parent = table.parentElement;
-
       if (parent && (
-
         parent.classList.contains("table-responsive") ||
-
         parent.classList.contains("cell-output-display")
-
       )) {
-
         return parent;
-
       }
-
-
 
       var wrapper = document.createElement("div");
-
       wrapper.className = "table-responsive";
-
       table.parentNode.insertBefore(wrapper, table);
-
       wrapper.appendChild(table);
-
       return wrapper;
-
     }
-
-
 
     function update(table, scroller, hint) {
-
       if (!table.isConnected || !scroller.isConnected) return;
-
       var overflows = table.scrollWidth > scroller.clientWidth + 1;
-
       scroller.classList.toggle("table-scrollable", overflows);
-
       hint.hidden = !overflows;
 
-
-
       if (overflows) {
-
         if (!scroller.hasAttribute("tabindex")) {
-
           scroller.tabIndex = 0;
-
           scroller.dataset.tableManagedTabindex = "1";
-
         }
-
         if (!scroller.hasAttribute("role")) {
-
           scroller.setAttribute("role", "region");
-
           scroller.dataset.tableManagedRole = "1";
-
         }
-
         if (!scroller.hasAttribute("aria-label")) {
-
           scroller.setAttribute("aria-label", tableLabel(table));
-
           scroller.dataset.tableManagedLabel = "1";
-
         }
-
         var describedBy = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean);
-
         if (describedBy.indexOf(hint.id) === -1) describedBy.push(hint.id);
-
         scroller.setAttribute("aria-describedby", describedBy.join(" "));
-
       } else {
-
         if (scroller.dataset.tableManagedTabindex) {
-
           scroller.removeAttribute("tabindex");
-
           delete scroller.dataset.tableManagedTabindex;
-
         }
-
         if (scroller.dataset.tableManagedRole) {
-
           scroller.removeAttribute("role");
-
           delete scroller.dataset.tableManagedRole;
-
         }
-
         if (scroller.dataset.tableManagedLabel) {
-
           scroller.removeAttribute("aria-label");
-
           delete scroller.dataset.tableManagedLabel;
-
         }
-
         var remaining = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean)
-
           .filter(function (id) { return id !== hint.id; });
-
         if (remaining.length) {
-
           scroller.setAttribute("aria-describedby", remaining.join(" "));
-
         } else {
-
           scroller.removeAttribute("aria-describedby");
-
         }
-
       }
-
     }
-
-
 
     function prepare(table) {
-
       if (table.dataset.tableScrollerReady || table.closest(".chapter-meta")) {
-
         return;
-
       }
-
       table.dataset.tableScrollerReady = "1";
-
       var scroller = wrapperFor(table);
-
       var hint = document.createElement("p");
-
       hint.className = "table-scroll-hint";
-
       hint.id = "table-scroll-hint-" + (++nextId);
-
       hint.textContent = "↔ Pomaknite tablicu za preostale stupce";
-
       hint.hidden = true;
-
       scroller.insertAdjacentElement("afterend", hint);
 
-
-
       var refresh = function () {
-
         window.requestAnimationFrame(function () {
-
           update(table, scroller, hint);
-
         });
-
       };
-
       refresh();
-
       table.addEventListener("load", refresh, true);
-
       if (resizeObserver) resizeObserver.observe(scroller);
-
     }
-
-
 
     function scan() {
-
       queued = false;
-
       document.querySelectorAll("main table, #quarto-content table")
-
         .forEach(prepare);
-
     }
-
-
 
     function queueScan() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     window.addEventListener("load", queueScan);
-
     window.addEventListener("resize", queueScan);
-
     new MutationObserver(queueScan).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 17. Pretraživanje
-
   //     Quarto prevodi vidljivi tekst iz `language`, ali Algolijina ovojnica
-
   //     zadržava nekoliko engleskih pristupačnih naziva. Prevodimo i početne
-
   //     elemente i kontrole koje se umeću tek kada se pretraživanje otvori.
-
   // -------------------------------------------------------------------
-
   function setupSearchLocalization() {
-
     var translations = {
-
       "Search": "Pretraži",
-
       "Clear": "Očisti pretraživanje",
-
       "Cancel": "Odustani",
-
       "Submit": "Pretraži",
-
       "Close": "Zatvori",
-
       "Reset": "Vrati početno"
-
     };
-
     var queued = false;
 
-
-
     function localize() {
-
       queued = false;
-
       document.querySelectorAll(
-
         ".aa-Autocomplete, .aa-DetachedSearchButton, " +
-
         ".aa-DetachedOverlay [aria-label], " +
-
         ".aa-DetachedOverlay [title], " +
-
         ".aa-DetachedOverlay [placeholder]"
-
       ).forEach(function (element) {
-
         ["aria-label", "title", "placeholder"].forEach(function (attribute) {
-
           var value = element.getAttribute(attribute);
-
           if (value && translations[value]) {
-
             element.setAttribute(attribute, translations[value]);
-
           }
-
         });
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(localize);
-
     }
 
-
-
     localize();
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
-
-
 
   // -------------------------------------------------------------------
-
   function init() {
-
     try { setupProgressBar(); } catch (e) {}
-
     try { setupInternalHover(); } catch (e) {}
-
     try { setupDinkus(); } catch (e) {}
-
     try { setupAnchorLinks(); } catch (e) {}
-
     try { setupStandalonePages(); } catch (e) {}
-
     try { setupNastavaActiveState(); } catch (e) {}
-
     try { pruneSidebar(); } catch (e) {}
-
     try { setupOjsPanels(); } catch (e) {}
-
     try { setupProseCollapsibles(); } catch (e) {}
-
     try { setupChapterAI(); } catch (e) {}
-
     try { setupPojmovi(); } catch (e) {}
-
     try { setupChapterMeta(); } catch (e) {}
-
     try { setupWidgetMemory(); } catch (e) {}
-
     try { setupMobileNavbar(); } catch (e) {}
-
     try { setupNotFoundFallback(); } catch (e) {}
-
     try { setupSameOriginLinks(); } catch (e) {}
-
     try { setupAccessibleTables(); } catch (e) {}
-
     try { setupSearchLocalization(); } catch (e) {}
-
   }
-
-
 
   if (document.readyState === "loading") {
-
     document.addEventListener("DOMContentLoaded", init);
-
   } else {
-
     init();
-
   }
-
 })();
-
 </script>
-
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MDNfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBuOiBJbnB1dHMucmFuZ2UoXG4gICAgWzEwMCwgMzAwMF0sXG4gICAge3ZhbHVlOiAxMDAwLCBzdGVwOiAxMDAsIGxhYmVsOiBcIlZlbGnEjWluYSB1em9ya2FcIn1cbiAgKSxcbiAgdWRpbzogSW5wdXRzLnJhbmdlKFxuICAgIFsxMCwgOTBdLFxuICAgIHt2YWx1ZTogNTIsIHN0ZXA6IDEsIGxhYmVsOiBcIlByb2NpamVuamVuaSB1ZGlvIHUgcG9zdG9jaW1hXCJ9XG4gICksXG4gIHByaXN0cmFub3N0OiBJbnB1dHMucmFuZ2UoXG4gICAgWy0xMCwgMTBdLFxuICAgIHtcbiAgICAgIHZhbHVlOiAwLFxuICAgICAgc3RlcDogMSxcbiAgICAgIGxhYmVsOiBcIlByaXN0cmFub3N0IHByb2NqZW5lIHUgcG9zdG90bmltIGJvZG92aW1hXCJcbiAgICB9XG4gIClcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ3MDNfdGVtYSA9IEdlbmVyYXRvcnMub2JzZXJ2ZShvYmF2aWplc3RpID0+IHtcbiAgbGV0IHJldml6aWphID0gMDtcbiAgY29uc3Qgb3N2amV6aSA9ICgpID0+IG9iYXZpamVzdGkoKytyZXZpemlqYSk7XG4gIGNvbnN0IHByb21hdHJhYyA9IG5ldyBNdXRhdGlvbk9ic2VydmVyKG9zdmplemkpO1xuICBjb25zdCBwb3N0YXZrZSA9IHtcbiAgICBhdHRyaWJ1dGVzOiB0cnVlLFxuICAgIGF0dHJpYnV0ZUZpbHRlcjogW1wiY2xhc3NcIiwgXCJkYXRhLWJzLXRoZW1lXCJdXG4gIH07XG4gIHByb21hdHJhYy5vYnNlcnZlKGRvY3VtZW50LmRvY3VtZW50RWxlbWVudCwgcG9zdGF2a2UpO1xuICBwcm9tYXRyYWMub2JzZXJ2ZShkb2N1bWVudC5ib2R5LCBwb3N0YXZrZSk7XG4gIG9zdmplemkoKTtcbiAgcmV0dXJuICgpID0+IHByb21hdHJhYy5kaXNjb25uZWN0KCk7XG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICB3MDNfdGVtYTtcbiAgY29uc3QgY3NzID0gZ2V0Q29tcHV0ZWRTdHlsZShkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQpO1xuICBjb25zdCB0aW50YSA9IGNzcy5nZXRQcm9wZXJ0eVZhbHVlKFwiLS10b2stZGF0YS0xXCIpLnRyaW0oKTtcbiAgY29uc3QgaXN0aW5hQm9qYSA9IGNzcy5nZXRQcm9wZXJ0eVZhbHVlKFwiLS10b2stZGF0YS0yXCIpLnRyaW0oKTtcbiAgY29uc3QgaW50ZXJ2YWxCb2phID0gY3NzLmdldFByb3BlcnR5VmFsdWUoXCItLXRvay1kYXRhLTRcIikudHJpbSgpO1xuICBjb25zdCBwcmlndXNlbmEgPSBjc3MuZ2V0UHJvcGVydHlWYWx1ZShcIi0tdG9rLWluay1tdXRlXCIpLnRyaW0oKTtcbiAgY29uc3Qgc2FucyA9IGNzcy5nZXRQcm9wZXJ0eVZhbHVlKFwiLS10b2stZm9udC1zYW5zXCIpLnRyaW0oKTtcbiAgY29uc3QgcG9zdG90YWsgPSBuZXcgSW50bC5OdW1iZXJGb3JtYXQoXCJoci1IUlwiLCB7XG4gICAgc3R5bGU6IFwicGVyY2VudFwiLFxuICAgIG1pbmltdW1GcmFjdGlvbkRpZ2l0czogMCxcbiAgICBtYXhpbXVtRnJhY3Rpb25EaWdpdHM6IDFcbiAgfSk7XG4gIGNvbnN0IGRlY2ltYWxuaSA9IG5ldyBJbnRsLk51bWJlckZvcm1hdChcImhyLUhSXCIsIHtcbiAgICBtaW5pbXVtRnJhY3Rpb25EaWdpdHM6IDEsXG4gICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAxXG4gIH0pO1xuXG4gIGNvbnN0IHByb2NqZW5hID0gdzAzX3Bhci51ZGlvIC8gMTAwO1xuICBjb25zdCBwcmlzdHJhbm9zdCA9IHcwM19wYXIucHJpc3RyYW5vc3QgLyAxMDA7XG4gIGNvbnN0IGlzdGluYSA9IHByb2NqZW5hIC0gcHJpc3RyYW5vc3Q7XG4gIGNvbnN0IG1hcmdpbmEgPSAxLjk2ICogTWF0aC5zcXJ0KFxuICAgIHByb2NqZW5hICogKDEgLSBwcm9jamVuYSkgLyB3MDNfcGFyLm5cbiAgKTtcbiAgY29uc3QgZG9uamEgPSBNYXRoLm1heCgwLCBwcm9jamVuYSAtIG1hcmdpbmEpO1xuICBjb25zdCBnb3JuamEgPSBNYXRoLm1pbigxLCBwcm9jamVuYSArIG1hcmdpbmEpO1xuICBjb25zdCBwb2tsYXBhbmplID0gTWF0aC5hYnMocHJpc3RyYW5vc3QpIDwgMWUtOTtcblxuICBjb25zdCBtYXJrcyA9IFtcbiAgICBQbG90LnJ1bGVZKFxuICAgICAgW3t5OiAwLCBkb25qYSwgZ29ybmphfV0sXG4gICAgICB7XG4gICAgICAgIHk6IFwieVwiLFxuICAgICAgICB4MTogXCJkb25qYVwiLFxuICAgICAgICB4MjogXCJnb3JuamFcIixcbiAgICAgICAgc3Ryb2tlOiBpbnRlcnZhbEJvamEsXG4gICAgICAgIHN0cm9rZVdpZHRoOiA4LFxuICAgICAgICBzdHJva2VMaW5lY2FwOiBcInJvdW5kXCJcbiAgICAgIH1cbiAgICApLFxuICAgIFBsb3QuZG90KFxuICAgICAgW1xuICAgICAgICB7eDogZG9uamEsIHk6IDB9LFxuICAgICAgICB7eDogZ29ybmphLCB5OiAwfVxuICAgICAgXSxcbiAgICAgIHt4OiBcInhcIiwgeTogXCJ5XCIsIHI6IDMuNiwgZmlsbDogaW50ZXJ2YWxCb2phfVxuICAgICksXG4gICAgUGxvdC5kb3QoXG4gICAgICBbe3g6IHByb2NqZW5hLCB5OiAwfV0sXG4gICAgICB7eDogXCJ4XCIsIHk6IFwieVwiLCByOiA3LCBmaWxsOiB0aW50YX1cbiAgICApLFxuICAgIFBsb3QudGV4dChcbiAgICAgIFt7XG4gICAgICAgIHg6IChkb25qYSArIGdvcm5qYSkgLyAyLFxuICAgICAgICB5OiAwLjI2LFxuICAgICAgICBvem5ha2E6IGBwcmlibGnFvm5hIG1hcmdpbmEgwrEgJHtkZWNpbWFsbmkuZm9ybWF0KDEwMCAqIG1hcmdpbmEpfSBib2RhYFxuICAgICAgfV0sXG4gICAgICB7eDogXCJ4XCIsIHk6IFwieVwiLCB0ZXh0OiBcIm96bmFrYVwiLCBmaWxsOiBwcmlndXNlbmF9XG4gICAgKVxuICBdO1xuXG4gIGlmIChwb2tsYXBhbmplKSB7XG4gICAgbWFya3MucHVzaChcbiAgICAgIFBsb3QudGV4dChcbiAgICAgICAgW3tcbiAgICAgICAgICB4OiBwcm9jamVuYSxcbiAgICAgICAgICB5OiAtMC4yNSxcbiAgICAgICAgICBvem5ha2E6IGBwcm9jamVuYSBpIHByZXRwb3N0YXZsamVuYSBpc3RpbmEgJHtwb3N0b3Rhay5mb3JtYXQocHJvY2plbmEpfWBcbiAgICAgICAgfV0sXG4gICAgICAgIHt4OiBcInhcIiwgeTogXCJ5XCIsIHRleHQ6IFwib3puYWthXCIsIGZpbGw6IHByaWd1c2VuYX1cbiAgICAgIClcbiAgICApO1xuICB9IGVsc2Uge1xuICAgIG1hcmtzLnB1c2goXG4gICAgICBQbG90LmRvdChcbiAgICAgICAgW3t4OiBpc3RpbmEsIHk6IDB9XSxcbiAgICAgICAge1xuICAgICAgICAgIHg6IFwieFwiLFxuICAgICAgICAgIHk6IFwieVwiLFxuICAgICAgICAgIHI6IDYuNSxcbiAgICAgICAgICBzeW1ib2w6IFwiZGlhbW9uZFwiLFxuICAgICAgICAgIGZpbGw6IGlzdGluYUJvamFcbiAgICAgICAgfVxuICAgICAgKSxcbiAgICAgIFBsb3QudGV4dChcbiAgICAgICAgW1xuICAgICAgICAgIHtcbiAgICAgICAgICAgIHg6IHByb2NqZW5hLFxuICAgICAgICAgICAgeTogLTAuMjUsXG4gICAgICAgICAgICBvem5ha2E6IGBwcm9jamVuYSAke3Bvc3RvdGFrLmZvcm1hdChwcm9jamVuYSl9YFxuICAgICAgICAgIH0sXG4gICAgICAgICAge1xuICAgICAgICAgICAgeDogaXN0aW5hLFxuICAgICAgICAgICAgeTogMC40MixcbiAgICAgICAgICAgIG96bmFrYTogYHByZXRwb3N0YXZsamVuYSBpc3RpbmEgJHtwb3N0b3Rhay5mb3JtYXQoaXN0aW5hKX1gXG4gICAgICAgICAgfVxuICAgICAgICBdLFxuICAgICAgICB7eDogXCJ4XCIsIHk6IFwieVwiLCB0ZXh0OiBcIm96bmFrYVwiLCBmaWxsOiBwcmlndXNlbmF9XG4gICAgICApXG4gICAgKTtcbiAgfVxuXG4gIGNvbnN0IGNlbGlqYSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIud2lkZ2V0LWZyYW1lIC5jZWxsXCIpO1xuICBjb25zdCBzdGlsQ2VsaWplID0gY2VsaWphID8gZ2V0Q29tcHV0ZWRTdHlsZShjZWxpamEpIDogbnVsbDtcbiAgY29uc3QgbG9rYWxuYVNpcmluYSA9IGNlbGlqYVxuICAgID8gY2VsaWphLmNsaWVudFdpZHRoIC1cbiAgICAgIHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nTGVmdCkgLVxuICAgICAgcGFyc2VGbG9hdChzdGlsQ2VsaWplLnBhZGRpbmdSaWdodClcbiAgICA6IHdpZHRoO1xuICBjb25zdCBzaXJpbmFHcmFmYSA9IE1hdGgubWF4KDI0MCwgTWF0aC5taW4od2lkdGgsIGxva2FsbmFTaXJpbmEpKTtcbiAgY29uc3QgdXNrbyA9IHNpcmluYUdyYWZhIDwgNDgwO1xuICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogc2lyaW5hR3JhZmEsXG4gICAgaGVpZ2h0OiB1c2tvID8gMzEwIDogMjYwLFxuICAgIG1hcmdpbkxlZnQ6IHVza28gPyAzOCA6IDQyLFxuICAgIG1hcmdpblJpZ2h0OiB1c2tvID8gMTYgOiAyOCxcbiAgICBtYXJnaW5Ub3A6IHVza28gPyA0OCA6IDMwLFxuICAgIG1hcmdpbkJvdHRvbTogNDgsXG4gICAgc3R5bGU6IHtcbiAgICAgIGJhY2tncm91bmQ6IFwidHJhbnNwYXJlbnRcIixcbiAgICAgIGZvbnRGYW1pbHk6IHNhbnMsXG4gICAgICBmb250U2l6ZTogdXNrbyA/IFwiMTJweFwiIDogXCIxM3B4XCJcbiAgICB9LFxuICAgIHg6IHtcbiAgICAgIGxhYmVsOiBcIlVkaW9cIixcbiAgICAgIGRvbWFpbjogWzAsIDFdLFxuICAgICAgdGlja0Zvcm1hdDogZCA9PiBwb3N0b3Rhay5mb3JtYXQoZCksXG4gICAgICBncmlkOiB0cnVlXG4gICAgfSxcbiAgICB5OiB7YXhpczogbnVsbCwgZG9tYWluOiBbLTAuNDUsIDAuNTVdfSxcbiAgICBtYXJrc1xuICB9KTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgndzAzX3BhcicpIn1dfQ==
 </script>
@@ -3936,263 +2624,387 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Kopirano");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Kopirano");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopirano");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopirano");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -4200,161 +3012,185 @@ window._ojs.runtime.interpretFromScriptTags();
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/02-mjerenje-i-dizajn.html" class="pagination-link" aria-label="Mjerenje i istraživački dizajn">
