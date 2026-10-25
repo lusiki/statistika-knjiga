@@ -263,6 +263,13 @@ desno: disk „101”, tri ugniježđene kupole, os i osnovica. Kompoziciju crta
 `brand-*` tokena na praznom divu `.hero-zvono`, pa nema slike koju bi trebalo
 održavati.
 
+Naslovnica koristi kompaktniju naslovnu traku, potpis `sikic . palic` i jedan
+shematski prikaz raspodjele sredina uzoraka. Klizač mijenja širinu i visinu
+raspodjele na zajedničkim osima; prijelaz pokreće čitatelj i poštuje smanjeno
+kretanje. Šest izvornih `details` elemenata otkriva poveznice na poglavlja,
+bez raspona brojeva u sažetoj oznaci. Podaci o knjizi i citiranju ostaju
+dostupni ispod sadržaja. Stilske prilagodbe nalaze se u `_landing.scss`.
+
 **Korica.** `tex/korica.tex` crta koricu u formatu B5 iz `brand-*` vrijednosti
 i prevodi se u `images/korica.pdf`; `images/cover.png` je njezin rasterski
 prikaz za dijeljenje. Tiskani PDF počinje koricom, a unutrašnjost ostaje
