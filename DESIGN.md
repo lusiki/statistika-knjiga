@@ -319,3 +319,12 @@ sirovi hex.
   `_quarto.yml`, iako `images/cover.png` postoji.
 - **Word rukopis** (`scripts/render-book-docx.ps1`) nasljeđuje boje i pisma iz
   zadanog predloška; nema vlastiti Zvono predložak.
+
+### Interaktivna mreža pojmova
+
+Pojmovnik koristi fokusirani prikaz najbližih pojmova i pregled cijele mreže.
+Debljina bridova prati supojavljivanje (`cooc`), a isprekidana crta označuje
+vezu u definiciji. Oker označuje odabrani pojam; modra ostale pojmove.
+Povlačenje, zumiranje i crtanje bilježaka rade samo u trenutačnom prikazu.
+Izvorni filtri i abecedni popis ostaju dostupni. Stilovi čitaju tokene
+u `_concept-network.scss`, a ponašanje je u `widgets/concept-network.js`.

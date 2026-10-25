@@ -1,0 +1,59 @@
+#concept-studio{--paper:var(--tok-paper);--surface:var(--tok-surface);--ink:var(--tok-ink);--muted:var(--tok-ink-faint);--rule:var(--tok-rule);--navy:var(--tok-concept);--accent:var(--tok-accent);--on-accent:var(--tok-on-accent);--note:var(--tok-accent-deep);background:var(--paper);color:var(--ink);font:400 16px/1.45 var(--tok-font-display)}
+
+#concept-studio *{box-sizing:border-box}
+#concept-studio .mast{padding:18px 30px;border-bottom:3px solid var(--ink);display:flex;justify-content:space-between;gap:15px;align-items:center;padding-right:100px}
+#concept-studio .brand{font-size:21px;font-weight:500}
+#concept-studio .brand:before{content:'';display:inline-block;width:20px;height:10px;border-radius:20px 20px 0 0;background:currentColor;margin-right:9px}
+#concept-studio .mast span:last-child{font-size:13px}
+#concept-studio header{padding:28px 30px 20px}
+#concept-studio h1{font:400 44px/1.1 var(--tok-font-display);margin:0 0 12px;letter-spacing:-.025em}
+#concept-studio header p{font:400 15px/1.6 var(--tok-font-serif);max-width:65ch;margin:0}
+#concept-studio .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;padding:0 30px 18px}
+#concept-studio .search{flex:1;min-width:170px}
+#concept-studio label{display:block;font-size:12px;margin-bottom:5px}
+#concept-studio input{background:var(--surface);color:var(--ink);border:1px solid var(--rule);padding:10px 12px;width:100%;font:inherit;min-height:44px;border-radius:0}
+#concept-studio button{font:400 14px var(--tok-font-display);color:var(--ink);background:transparent;border:1px solid var(--rule);padding:10px 12px;min-height:44px;border-radius:0}
+#concept-studio button:hover{background:var(--surface)}
+#concept-studio button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+#concept-studio button:disabled{opacity:.4}
+#concept-studio .mode{display:flex}
+#concept-studio .mode button+button{border-left:0}
+#concept-studio .workspace{display:grid;grid-template-columns:minmax(0,1fr) 245px;border-top:3px solid var(--ink);border-bottom:1px solid var(--rule)}
+#concept-studio .map{min-width:0;position:relative;background:var(--surface)}
+#concept-studio .map svg{display:block;width:100%;height:520px;touch-action:none}
+#concept-studio .canvas-head{display:flex;gap:12px;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--rule);font-size:12px}
+#concept-studio .canvas-head .zoom{display:flex;gap:6px}
+#concept-studio .zoom button{min-width:36px;min-height:36px;padding:6px}
+#concept-studio .map-help{font-size:12px;color:var(--muted);padding:10px 16px;border-top:1px solid var(--rule);margin:0}
+#concept-studio .network-inspector{padding:22px 20px;border-left:1px solid var(--rule);min-width:0}
+#concept-studio .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+#concept-studio h2{font:500 25px/1.15 var(--tok-font-display);margin:12px 0 16px;overflow-wrap:anywhere}
+#concept-studio .network-definition{font:400 14px/1.65 var(--tok-font-serif);margin:0 0 18px}
+#concept-studio a{color:var(--ink);text-underline-offset:4px;font-size:14px}
+#concept-studio h3{font-size:13px;font-weight:500;margin:28px 0 8px}
+#concept-studio .related button{display:flex;text-align:left;width:100%;justify-content:space-between;align-items:center;gap:10px;border:0;border-top:1px solid var(--rule);padding:10px 0;font-size:13px}
+#concept-studio .related small{font-size:11px;color:var(--muted);white-space:nowrap}
+#concept-studio .legend{display:flex;flex-wrap:wrap;gap:12px 22px;padding:15px 30px;font-size:12px;color:var(--muted)}
+#concept-studio .legend span{display:inline-flex;gap:8px;align-items:center}
+#concept-studio .sample{width:25px;height:0;border-top:2px solid var(--muted)}
+#concept-studio .sample.def{border-top:2px dashed var(--navy)}
+#concept-studio .sample.note{border-color:var(--note)}
+#concept-studio .node circle{stroke:var(--surface);stroke-width:2;fill:var(--navy)}
+#concept-studio .node.selected circle{fill:var(--accent);stroke:var(--on-accent)}
+#concept-studio .node .chapter{font:500 11px var(--tok-font-display);fill:var(--paper);pointer-events:none;text-anchor:middle;dominant-baseline:central}
+#concept-studio .node.selected .chapter{fill:var(--on-accent)}
+#concept-studio .node foreignObject{overflow:visible}
+#concept-studio .node button{display:block;border:0;padding:32px 2px 2px;background:transparent!important;width:100%;min-height:64px;font:500 13px/1.2 var(--tok-font-display);text-align:center;overflow-wrap:anywhere}
+#concept-studio .node button span{background:var(--surface);padding:1px 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+#concept-studio .node:not(.labelled) foreignObject{display:none}
+#concept-studio .node:not(.labelled) circle{opacity:.6}
+#concept-studio .map.pen .node{pointer-events:none}
+#concept-studio .empty{padding:0 30px 14px;margin:0;font-size:13px}
+@media(max-width:700px){#concept-studio .workspace{grid-template-columns:1fr}#concept-studio .network-inspector{border-left:0;border-top:1px solid var(--rule)}#concept-studio .map svg{height:440px}#concept-studio header,#concept-studio .toolbar{padding-left:18px;padding-right:18px}#concept-studio .mast{padding-left:18px}#concept-studio .mast span:last-child{display:none}#concept-studio h1{font-size:36px}#concept-studio .related{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}#concept-studio .legend{padding:14px 18px}}
+
+#concept-studio :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+#concept-studio h2{border:0;padding:0;text-transform:none}
+#concept-studio .network-title{font-size:36px}
+#concept-studio .counts,#concept-studio .related small{font-family:var(--tok-font-mono);font-variant-numeric:tabular-nums}
+
+#concept-studio .network-inspector{grid-column:auto;grid-row:auto}
