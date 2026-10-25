@@ -393,6 +393,18 @@ viewof w14_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w14_par;
+  form.dataset.learningForm = "w14";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w14_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 //| label: fig-w14
 //| fig-cap: "Jedan simulirani uzorak dviju skupina i raspodjela procijenjene razlike kroz ponovljene uzorke."
 //| fig-alt: "Pri početnoj postavci raspodjele skupina A i B znatno se preklapaju, dok se ponovljene procjene razlike nakupljaju oko stvarne razlike pet."

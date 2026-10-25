@@ -373,6 +373,18 @@ viewof w09_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w09_par;
+  form.dataset.learningForm = "w09";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w09_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w09_intervali = {
   const rng = d3.randomLcg(908);
   function normalna() {
@@ -433,9 +445,7 @@ w09_intervali = {
 
   return Plot.plot({
     width: sirinaGrafa,
-    height: mobilno
-      ? Math.max(500, Math.min(780, 170 + w09_par.k * 6))
-      : Math.max(460, Math.min(740, 145 + w09_par.k * 5.8)),
+    height: mobilno ? 780 : 740,
     marginLeft: mobilno ? 28 : 24,
     marginRight: 20,
     marginBottom: mobilno ? 62 : 54,
@@ -451,7 +461,7 @@ w09_intervali = {
       nice: false,
       grid: true
     },
-    y: {axis: null, reverse: true},
+    y: {axis: null, reverse: true, domain: [0, 101]},
     marks: [
       Plot.ruleX([0], {
         stroke: tinta,

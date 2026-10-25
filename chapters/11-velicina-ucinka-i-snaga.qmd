@@ -586,6 +586,18 @@ viewof w11_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w11_par;
+  form.dataset.learningForm = "w11";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w11_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 //| label: fig-w11
 //| fig-cap: "Simulirana snaga kroz veličine uzorka u idealiziranom postupku s poznatom varijabilnošću."
 //| fig-alt: "Pri početnoj standardiziranoj razlici 0,35 krivulja snage raste s veličinom svake skupine, a označena je vrijednost za osamdeset jedinica."

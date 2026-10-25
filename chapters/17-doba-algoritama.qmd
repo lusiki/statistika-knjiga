@@ -349,6 +349,18 @@ viewof w17_par = Inputs.form({
 })
 ```
 
+```{ojs}
+//| echo: false
+{
+  const form = viewof w17_par;
+  form.dataset.learningForm = "w17";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w17_par);
+  return state;
+}
+```
+
 [Rezultat se učitava.]{#w17-status .visually-hidden role="status" aria-live="polite"}
 
 ```{ojs}

@@ -815,6 +815,18 @@ viewof w06_par = {
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w06_par;
+  form.dataset.learningForm = "w06";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w06_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w06_scenariji = {
   const ciljevi = [
     {oblak: "Oblak A", rho: -0.80},

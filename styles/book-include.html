@@ -832,7 +832,7 @@
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
     // je dovoljan jer se stanje pamti na svaku promjenu.
-    window.setTimeout(vrati, 600);
+    if (!new URLSearchParams(location.search).has("pokus")) window.setTimeout(vrati, 600);
     document.addEventListener("input", function (e) {
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
     });

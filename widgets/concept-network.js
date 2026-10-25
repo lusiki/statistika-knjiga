@@ -4,6 +4,41 @@ export function createNetwork(d3, data) {
  host.innerHTML="<div id=\"concept-studio\">\n <header><h2 class=\"network-title\">Ideje su povezane.</h2><p>Odaberite pojam i istražite njegove veze. Povucite čvorove, približite mrežu ili zabilježite vlastitu misao.</p></header>\n <div class=\"toolbar\">\n  <div class=\"search\"><label for=\"concept-search\">Pronađite pojam</label><input id=\"concept-search\" list=\"concept-options\" placeholder=\"npr. standardna pogreška\" autocomplete=\"off\"><datalist id=\"concept-options\"></datalist></div>\n  <div class=\"mode\" aria-label=\"Opseg mreže\"><button data-mode=\"focus\" aria-pressed=\"true\">Bliske veze</button><button data-mode=\"all\" aria-pressed=\"false\">Cijela mreža</button></div>\n  <button class=\"pen-toggle\" aria-pressed=\"false\">Crtaj bilješke</button><button class=\"clear\" disabled>Obriši bilješke</button>\n </div>\n <p class=\"empty\" hidden role=\"status\"></p>\n <div class=\"workspace\">\n  <section class=\"map\" aria-label=\"Interaktivna mreža pojmova\">\n   <div class=\"canvas-head\"><span class=\"counts\"></span><div class=\"zoom\"><button class=\"minus\" aria-label=\"Smanji mrežu\">−</button><button class=\"plus\" aria-label=\"Povećaj mrežu\">+</button><button class=\"reset\">Posloži</button></div></div>\n   <svg aria-label=\"Mreža pojmova; pojmovi su dostupni i putem pretraživanja i popisa veza\"></svg>\n   <p class=\"map-help\">Povucite čvor · kotačić za zum · prazna ploha za pomicanje</p>\n  </section>\n  <div class=\"network-inspector\" aria-live=\"polite\"><span class=\"eyebrow\"></span><h2></h2><p class=\"network-definition\"></p><a target=\"_blank\" rel=\"noopener\">Pročitaj u poglavlju →</a><h3>Najčešće zajedno</h3><div class=\"related\"></div></div>\n </div>\n <div class=\"legend\"><span><i class=\"sample\"></i>Supojavljivanje · deblje = češće</span><span><i class=\"sample def\"></i>Veza u definiciji</span><span><i class=\"sample note\"></i>Vaše bilješke · samo u ovom prikazu</span></div>\n </div>";
  const root=host.firstElementChild; root.remove();
  const nodeById=new Map(data.nodes.map(n=>[n.id,n]));
+ // Authored reading sequences, deliberately separate from co-occurrence edges.
+ const journeys = [
+  {name:'Od uzorka do intervala',steps:[
+   ['pogreska-uzorkovanja','Različiti uzorci daju različite procjene. Pogreška uzorkovanja opisuje odstupanje procjene od populacijske vrijednosti.'],
+   ['distribucija-uzorkovanja','Ponavljanjem uzorkovanja dobivamo raspodjelu mogućih vrijednosti statistike. Ona opisuje variranje procjene kroz uzorke.'],
+   ['standardna-pogreska','Raspršenost distribucije uzorkovanja mjerimo standardnom pogreškom. Njome povezujemo veličinu uzorka i preciznost procjene.'],
+   ['interval-pouzdanosti','Standardna pogreška sudjeluje u konstrukciji intervala. Razina pouzdanosti opisuje pokrivenost postupka kroz ponovljene uzorke.']]},
+  {name:'Od povezanosti do modela',steps:[
+   ['kovarijanca','Počinjemo zajedničkim variranjem dviju varijabli. Veličina kovarijance ovisi i o njihovim mjernim jedinicama.'],
+   ['korelacija','Standardizacija kovarijance vodi Pearsonovoj korelaciji. Ona opisuje smjer i jačinu linearne povezanosti.'],
+   ['konfundirajuca-varijabla','Za tumačenje odnosa razmatramo treće varijable. Zbirna povezanost sama po sebi ne utvrđuje uzrok.'],
+   ['visestruka-regresija','Višestruka regresija opisuje odnos uz uključene druge prediktore. Tumačenje koeficijenta ovisi o modelu i istraživačkom dizajnu.']]},
+  {name:'Od hipoteze do snage',steps:[
+   ['nulta-hipoteza','Nulta hipoteza određuje referentni model za usporedbu s podacima.'],
+   ['testna-statistika','Testna statistika sažima odstupanje podataka relevantno za tu usporedbu.'],
+   ['p-vrijednost','Referentna raspodjela omogućuje izračun p-vrijednosti. Ona se računa uz pretpostavljenu nultu hipotezu.'],
+   ['pogreska-prve-vrste','Odbacivanje istinite nulte hipoteze jest pogreška prve vrste. Prag odluke povezan je s kontrolom te pogreške.'],
+   ['statisticka-snaga','Snaga opisuje vjerojatnost odbacivanja nulte hipoteze pri određenom stvarnom učinku. Ovisi o učinku, uzorku i postupku.']]}
+ ];
+ const journeyBox=document.createElement('div');journeyBox.className='concept-journey';
+ const journeyLabel=document.createElement('label');journeyLabel.textContent='Vođeni put kroz pojmove';
+ const journeySelect=document.createElement('select');journeySelect.setAttribute('aria-label','Odaberite vođeni put');
+ journeySelect.add(new Option('Odaberite put',''));
+ journeys.forEach((j,i)=>journeySelect.add(new Option(j.name,String(i))));journeyLabel.append(journeySelect);
+ const journeySteps=document.createElement('div');journeySteps.className='concept-journey-steps';
+ const journeyNote=document.createElement('p');journeyNote.textContent='Redoslijed učenja je autorski prijedlog. Crte na mreži i dalje prikazuju veze iz knjige.';
+ const journeyExplanation=document.createElement('p');journeyExplanation.setAttribute('aria-live','polite');
+ journeyBox.append(journeyLabel,journeyNote,journeySteps,journeyExplanation);root.querySelector('.toolbar').before(journeyBox);
+ journeySelect.onchange=()=>{
+  journeySteps.replaceChildren();journeyExplanation.textContent='';if(journeySelect.value==='')return;
+  const j=journeys[+journeySelect.value];
+  j.steps.forEach(([id,explanation],i)=>{const b=document.createElement('button');b.type='button';b.textContent=(i+1)+'. '+(nodeById.get(id)?.term||'Pojam izvan odabranog filtra');b.disabled=!nodeById.has(id);b.onclick=()=>{state.mode='focus';select(id);journeySteps.querySelectorAll('button').forEach(x=>x.removeAttribute('aria-current'));b.setAttribute('aria-current','step');journeyExplanation.textContent=explanation;};journeySteps.append(b);});
+  journeySteps.querySelector('button:not(:disabled)')?.click();
+ };
+
  const state={selected:data.nodes.some(n=>n.id==='standardna-pogreska')?'standardna-pogreska':data.nodes[0].id,mode:'focus',pen:false};
  const svg=d3.select(root.querySelector('svg')), map=root.querySelector('.map');
  const scene=svg.append('g'), edgesG=scene.append('g'), notesG=scene.append('g'), nodesG=scene.append('g');

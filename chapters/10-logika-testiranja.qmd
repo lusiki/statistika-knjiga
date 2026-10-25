@@ -439,6 +439,18 @@ viewof w10_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w10_par;
+  form.dataset.learningForm = "w10";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w10_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 //| label: fig-w10
 //| fig-cap: "Raspodjele p-vrijednosti pod nultim modelom i pod odabranim stvarnim učinkom."
 //| fig-alt: "Pri početnoj postavci p-vrijednosti pod nultim modelom ispunjavaju interval od nule do jedan, dok su uz standardiziranu razliku 0,35 češće blizu nule."

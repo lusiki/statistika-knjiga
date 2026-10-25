@@ -1,0 +1,111 @@
+<script>
+(() => {
+  "use strict";
+  // Ordered prompts follow the existing chapter experiments. No student text is saved.
+  const lessons = {
+    w01: ["Može li se zaključak o uspješnijoj skupini promijeniti kad prikažete podskupine?", "Usporedite zbirne stope sa stopama unutar podskupina. Različit sastav skupina može preokrenuti zbirnu usporedbu."],
+    w02: ["Hoće li smjer veze ostati jednak kad uzmete u obzir treću varijablu?", "Usporedite zbirni prikaz s prikazom prema trećoj varijabli. Zbirni odnos uključuje i razlike među skupinama."],
+    w03: ["Hoće li veći uzorak ukloniti pristranost procjene?", "Povećajte uzorak uz istu pristranost. Margina se sužava, ali sustavni pomak ostaje."],
+    w04: ["Hoće li krajnje opažanje više pomaknuti sredinu ili medijan?", "Pomaknite krajnje opažanje uz jednaku raspršenost ostalih. Sredina reagira na njegovu udaljenost, a medijan na poredak opažanja."],
+    w05: ["Hoće li histogram pokazati istu informaciju o povezanosti kao raspršeni dijagram?", "Promijenite prikaz istih podataka. Histogram opisuje raspodjelu jedne varijable; raspršeni dijagram pokazuje parove vrijednosti."],
+    w06: ["Koji oblak ima najjaču linearnu povezanost, neovisno o njezinu predznaku?", "Procijenite korelacije prije otkrivanja vrijednosti. Jačinu linearne veze pokazuje apsolutna vrijednost korelacije, a predznak njezin smjer."],
+    w07: ["Kako će se raspršenost stopa promijeniti ako povećate broj pokušaja u svakom nizu?", "Uz istu zadanu vjerojatnost povećajte broj pokušaja. Stope se jače okupljaju oko zadane vrijednosti; broj ponovljenih nizova određuje koliko ih promatrate."],
+    w08: ["Kako će se raspodjela sredina promijeniti kad povećate veličinu uzorka?", "Uz isti oblik populacije povećajte uzorak. Standardna pogreška sredine pada s korijenom veličine uzorka. Četverostruki uzorak prepolovljuje teorijsku standardnu pogrešku."],
+    w09: ["Hoće li viša razina pouzdanosti dati uže ili šire intervale?", "Zadržite veličinu uzorka i povećajte razinu pouzdanosti. Intervali postaju širi. Pokrivenost opisuje postupak kroz ponovljene uzorke, a pojedini interval obuhvaća cilj ili ga promašuje."],
+    w10: ["Kako će stroži prag odluke promijeniti odbacivanja uz nultu hipotezu i uz stvarni učinak?", "Smanjite prag uz isti uzorak i učinak. Odbacivanje postaje rjeđe u oba slučaja, pa se smanjuju i pogreške prve vrste i snaga."],
+    w11: ["Može li veći uzorak povećati snagu bez promjene stvarnog učinka?", "Zadržite učinak i prag, a povećajte veličinu skupine. Preciznije razlikovanje od nule povećava snagu; stvarni učinak ostaje isti."],
+    w12: ["Što se događa s izgledima za barem jedan mali p kada povećate broj analitičkih putova?", "Povećajte broj ishoda, podskupina ili provjera. Više prilika povećava mogućnost barem jednoga lažno pozitivnog rezultata. Korigirani prag uzima u obzir broj putova."],
+    w13: ["Hoće li veća tablica pri istom relativnom obrascu nužno značiti i jaču povezanost?", "Povećajte rubne zbrojeve uz isti relativni pomak. Razlikujte dokaz odstupanja od neovisnosti od veličine povezanosti; zaokruživanje frekvencija može malo promijeniti obrazac."],
+    w14: ["Hoće li uparivanje promijeniti preciznost procjene iste razlike?", "Usporedite dizajne uz iste ostale postavke. Preciznost uparenog postupka ovisi o raspršenosti razlika unutar parova."],
+    w15: ["Kako veća raspršenost unutar skupina mijenja uvjerljivost razlika među njihovim sredinama?", "Zadržite sredine i povećajte raspršenost. Razlike među skupinama postaju manje izražene u odnosu na varijabilnost unutar njih."],
+    w16: ["Možete li pomicanjem pravca smanjiti ukupnu pogrešku predviđanja?", "Promijenite nagib i odsječak te pratite reziduale i njihov kvadratni zbroj. Najbolji pravac prema tom kriteriju minimizira zbroj kvadrata reziduala."],
+    w17: ["Hoće li jednak klasifikacijski prag dati jednake rezultate u skupinama s različitim temeljnim stopama?", "Zadržite prag i promijenite temeljne stope. Jednak prag ne jamči jednake prediktivne vrijednosti u različitim skupinama."],
+    landing: ["Hoće li veći uzorak dati užu ili širu raspodjelu sredina?", "Povećajte uzorak s 25 na 100. U ovom normalnom modelu standardna pogreška pada s 0,20 na 0,10, dok populacijska sredina ostaje ista."]
+  };
+  const seeds = {w05:505,w06:"606–609",w07:707,w08:808,w09:908,w10:1010,w11:1111,w12:1212,w14:1414,w15:1515,w16:1616,w17:1717};
+  const fmt = n => Number(n).toLocaleString('hr-HR',{maximumFractionDigits:3});
+  function explain(id,p) {
+    switch(id) {
+      case 'w01': return `Zbirna stopa A iznosi ${fmt(20+.6*p.udio_a)} %, a B ${fmt(30+.6*p.udio_b)} %. Udio pristupačnije podskupine mijenja zbirnu usporedbu.`;
+      case 'w02': return `Dodatni pomak ishoda iznosi ${fmt(p.pomak)}. Usporedite smjer odnosa u zbirnom prikazu i unutar skupina.`;
+      case 'w03': return `Za uzorak od ${fmt(p.n)} i procijenjeni udio ${fmt(p.udio)} % normalna margina iznosi približno ${fmt(196*Math.sqrt(p.udio/100*(1-p.udio/100)/p.n))} postotnih bodova. Ona ne uključuje zadanu pristranost od ${fmt(p.pristranost)} bodova.`;
+      case 'w04': return `Krajnje opažanje iznosi ${fmt(p.krajnja)}, a faktor raspršenosti ${fmt(p.faktor)}. Usporedite koliko na tu promjenu reagiraju sredina i medijan.`;
+      case 'w05': return `Prikaz „${p.prikaz}” koristi iste podatke. Promijenili ste pogled na podatke, a ne opažanja.`;
+      case 'w06': return `Vaše procjene su ${['a','b','c','d'].map(k=>k.toUpperCase()+' '+fmt(p[k])).join(', ')}. Usporedite povratnu informaciju ispod oblaka s njihovim oblikom.`;
+      case 'w07': return `Uz vjerojatnost ${fmt(p.p)} i ${fmt(p.n)} neovisnih pokušaja teorijska standardna devijacija stope iznosi ${fmt(100*Math.sqrt(p.p*(1-p.p)/p.n))} postotnih bodova. Prikaz sadrži ${fmt(p.k)} ponovljenih nizova.`;
+      case 'w08': {const sd=p.oblik==='Dvovršna'?Math.sqrt(4.36):1;return `Za n = ${fmt(p.n)} teorijska standardna pogreška sredine iznosi ${fmt(sd/Math.sqrt(p.n))}. Oblik populacije je „${p.oblik}”. Simulirana raspršenost može malo odstupati od teorijske.`;}
+      case 'w09': return `Pri n = ${fmt(p.n)} i pouzdanosti ${p.razina}, širina svakog intervala u ovom modelu iznosi ${fmt(2*({'90 %':1.645,'95 %':1.96,'99 %':2.576}[p.razina])/Math.sqrt(p.n))}. Pokrivenost ispod grafa odnosi se na ${p.k} prikazanih intervala.`;
+      case 'w10': return `Svaka skupina ima ${p.n} jedinica, stvarna standardizirana razlika je ${fmt(p.ucinak)}, a prag ${fmt(p.prag)}. Usporedite udjele odbacivanja uz nulu i uz taj učinak.`;
+      case 'w11': return `Učinak ${fmt(p.ucinak)} i ${p.n} jedinica u svakoj skupini daju očekivani pomak testne statistike ${fmt(p.ucinak*Math.sqrt(p.n/2))}. Prikazana snaga procijenjena je iz ${fmt(p.ponavljanja)} ponavljanja po točki uz prag ${fmt(p.prag)}.`;
+      case 'w12': return `${p.ishodi} ishoda × ${p.podskupine} podskupinskih inačica × ${p.provjere} provjera daje ${p.ishodi*p.podskupine*p.provjere} analitičkih putova. Pratite udio istraživanja s barem jednim rezultatom ispod praga.`;
+      case 'w13': return `Rubni zbroj svake skupine je ${p.n}, a relativni pomak prema dijagonali ${p.pomak} %. Usporedite mjeru povezanosti s odstupanjem opaženih i očekivanih frekvencija.`;
+      case 'w14': return `Dizajn je „${p.dizajn}”, uz ${p.n} jedinica po skupini ili parova. Zadana razlika ${p.razlika} uz standardnu devijaciju ${p.sd} odgovara omjeru ${fmt(p.razlika/p.sd)}.`;
+      case 'w15': return `Zadane sredine su ${p.sredina_a}, ${p.sredina_b} i ${p.sredina_c}, uz standardnu devijaciju ${p.rasprsenost}. Njihov raspon iznosi ${fmt(Math.max(p.sredina_a,p.sredina_b,p.sredina_c)-Math.min(p.sredina_a,p.sredina_b,p.sredina_c))}.`;
+      case 'w16': return `Nagib ${fmt(p.nagib)} znači promjenu predviđanja za ${fmt(p.nagib)} po jedinici prediktora. Odsječak je ${fmt(p['odsječak'])}; prikaz dodatnog modela je ${p.drugi?'uključen':'isključen'}.`;
+      case 'w17': return `Zajednički prag je ${fmt(p.prag)}, a temeljne stope ${fmt(100*p.temeljna_a)} % i ${fmt(100*p.temeljna_b)} %. Usporedite prediktivne vrijednosti skupina pri istom pragu.`;
+      case 'landing': return `Za n = ${p.n}, standardna pogreška iznosi ${fmt(1/Math.sqrt(p.n))}. Populacijska standardna devijacija u ovoj shemi iznosi 1.`;
+    }
+  }
+  const el = (tag,cls,text) => { const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n; };
+  const button = text => {const b=el('button','',text);b.type='button';return b;};
+  let shared=null;
+  try {const raw=new URLSearchParams(location.search).get('pokus');if(raw&&raw.length<5000){const s=JSON.parse(raw);if(s.v===1&&lessons[s.id]&&s.params&&typeof s.params==='object')shared=s;}} catch {}
+  function setup(frame,id) {
+    if(frame.dataset.learningReady||!lessons[id])return;
+    const landing=id==='landing';
+    const form=landing?frame.querySelector('form'):frame.querySelector('[data-learning-form]');
+    const stateNode=frame.querySelector('[data-experiment-state]');
+    if(!form||(!landing&&!stateNode))return;
+    frame.dataset.learningReady='true';
+    const getParams=()=>landing?{n:+frame.querySelector('input[type=range]').value}:JSON.parse(frame.querySelector('[data-experiment-state]').dataset.experimentState);
+    const initial=getParams();let pinned=null,restored=false;
+    const lesson=el('div','experiment-lesson');
+    const question=el('p','experiment-question',lessons[id][0]);
+    const label=el('label','', 'Vaše predviđanje');
+    const prediction=el('textarea');prediction.rows=2;prediction.maxLength=600;prediction.placeholder='Zapišite što očekujete prije promjene postavki.';label.append(prediction);
+    const reveal=el('details','experiment-reveal');reveal.append(el('summary','', 'Otkrij objašnjenje'),el('p','',lessons[id][1]));
+    lesson.append(el('span','experiment-step','Predvidite · isprobajte · objasnite'),question,label,reveal);
+    if(landing)frame.prepend(lesson);else {const before=frame.querySelector('.widget-first-step');if(before)before.replaceWith(lesson);else frame.prepend(lesson);}
+    const live=el('p','experiment-live');live.setAttribute('role','status');live.setAttribute('aria-live','polite');
+    const actions=el('div','experiment-actions');const pin=button('Usporedi s ovim rezultatom'),clear=button('Ukloni usporedbu'),share=button('Kopiraj poveznicu na ovaj prikaz');clear.hidden=true;actions.append(pin,clear,share);
+    const feedback=el('p','experiment-feedback');feedback.setAttribute('role','status');
+    const fallback=el('input','experiment-share-url');fallback.readOnly=true;fallback.hidden=true;fallback.setAttribute('aria-label','Poveznica na pokus');
+    const comparison=el('div','experiment-comparison');comparison.hidden=true;
+    frame.append(live,actions,feedback,fallback,comparison);
+    const plots=()=>[...frame.querySelectorAll('[id^="fig-w"] svg')].filter(s=>!s.closest('.experiment-comparison'));
+    function snapshot(){return plots().map(s=>{const c=s.cloneNode(true);c.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));c.removeAttribute('id');c.setAttribute('aria-label','Spremljeni graf');return c;});}
+    function update(){
+      const p=getParams();let text=explain(id,p);
+      if(pinned && (id==='w08'||landing) && (landing||pinned.params.oblik===p.oblik)) text+=` U odnosu na spremljeni n = ${pinned.params.n}, teorijska standardna pogreška sada je ${fmt(Math.sqrt(pinned.params.n/p.n))} puta početna.`;
+      if(live.textContent!==text)live.textContent=text;
+      if(pinned){comparison.hidden=false;const current=el('div');current.append(el('h4','','Sada'),el('p','',explain(id,p)));const old=el('div');old.append(el('h4','','Spremljeno'),el('p','',explain(id,pinned.params)));
+        if(['w08','w09','w11'].includes(id)){old.append(...pinned.plots.map(s=>s.cloneNode(true)));current.append(...snapshot());}
+        if(landing){old.append(pinned.plot.cloneNode(true));current.append(frame.querySelector('.landing-bars').cloneNode(true));}
+        comparison.replaceChildren(old,current);
+      }
+      pin.disabled=!landing&&!plots().length;
+    }
+    pin.onclick=()=>{pinned={params:getParams(),plots:snapshot(),plot:landing?frame.querySelector('.landing-bars').cloneNode(true):null};clear.hidden=false;pin.textContent='Zamijeni spremljeni rezultat';update();};
+    clear.onclick=()=>{pinned=null;comparison.replaceChildren();comparison.hidden=true;clear.hidden=true;pin.textContent='Usporedi s ovim rezultatom';update();};
+    share.onclick=async()=>{const url=new URL(location.href);url.searchParams.set('pokus',JSON.stringify({v:1,id,params:getParams(),seed:seeds[id]??null}));url.hash=landing?'isprobaj':frame.id;try{await navigator.clipboard.writeText(url.href);feedback.textContent='Poveznica je kopirana. Sadrži postavke pokusa; vaše predviđanje ostaje privatno.';}catch{fallback.value=url.href;fallback.hidden=false;fallback.focus();fallback.select();feedback.textContent='Kopirajte poveznicu iz polja.';}};
+    function restore(){if(restored||!shared||shared.id!==id)return;restored=true;
+      const p=shared.params,keys=Object.keys(initial);
+      const valid=Object.keys(p).length===keys.length&&keys.every(k=>Object.hasOwn(p,k)&&typeof p[k]===typeof initial[k]&&(typeof p[k]!=='number'||Number.isFinite(p[k])));
+      if(!valid||shared.seed!==(seeds[id]??null)){feedback.textContent='Poveznica ima nepodržane postavke. Prikazane su početne vrijednosti.';return;}
+      const controls=landing?[frame.querySelector('input[type=range]')]:[...form.querySelectorAll('form')].map(f=>f.querySelector('input[type=range],select,input[type=checkbox]')).filter(Boolean);
+      const bounded=keys.every((k,i)=>{const c=controls[i];if(!c)return false;if(c.type==='range'){const step=Number(c.step)||1;const steps=(p[k]-Number(c.min))/step;return p[k]>=+c.min&&p[k]<=+c.max&&Math.abs(steps-Math.round(steps))<1e-7;}if(c.tagName==='SELECT')return [...c.options].some(o=>o.textContent===String(p[k]));return typeof p[k]==='boolean';});
+      if(!bounded){feedback.textContent='Postavke poveznice izlaze iz dopuštenog raspona.';return;}
+      if(landing){controls[0].value=p.n;controls[0].dispatchEvent(new Event('input',{bubbles:true}));}else{form.value=p;form.dispatchEvent(new Event('input',{bubbles:true}));}
+      feedback.textContent='Učitane su podijeljene postavke pokusa.';
+    }
+    let timer;
+    const schedule=()=>{pin.disabled=true;clearTimeout(timer);timer=setTimeout(()=>{restore();update();},120);};
+    // Watch only reactive outputs, not the comparison and feedback we author.
+    if(!landing){frame.querySelectorAll('.cell').forEach(c=>new MutationObserver(schedule).observe(c,{childList:true,subtree:true,characterData:true}));}
+    frame.addEventListener('input',e=>{if(e.target!==prediction)schedule();});
+    restore();update();
+  }
+  function scan(){document.querySelectorAll('.widget-frame').forEach(f=>{const m=(f.getAttribute('data-oznaka')||'').match(/Widget (\d+)/);if(m)setup(f,'w'+m[1]);});const landing=document.querySelector('.landing-distribution');if(landing)setup(landing,'landing');}
+  let queued=false;new MutationObserver(()=>{if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;scan();});}}).observe(document.body,{childList:true,subtree:true});scan();
+})();
+</script>

@@ -557,6 +557,18 @@ viewof w08_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w08_par;
+  form.dataset.learningForm = "w08";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w08_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w08_simulacija = {
   const rng = d3.randomLcg(808);
   const normalna = d3.randomNormal.source(rng)(0, 1);
@@ -668,9 +680,10 @@ w08_binovi = {
       fontFamily: "var(--tok-font-mono)",
       fontSize: mobilno ? "15px" : "12px"
     },
-    x: {label: "Vrijednost", grid: true},
+    x: {label: "Vrijednost", domain: [-6, 12], nice: false, grid: true},
     y: {
       label: "Udio u razredu",
+      domain: [0, 0.8], nice: false,
       grid: true,
       tickFormat: d => `${(100 * d).toLocaleString("hr-HR", {
         maximumFractionDigits: 0

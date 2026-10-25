@@ -874,6 +874,18 @@ viewof w04_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w04_par;
+  form.dataset.learningForm = "w04";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w04_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w04_tema = Generators.observe(obavijesti => {
   let revizija = 0;
   const osvjezi = () => obavijesti(++revizija);

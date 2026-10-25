@@ -328,6 +328,18 @@ viewof w15_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w15_par;
+  form.dataset.learningForm = "w15";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w15_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 //| label: fig-w15
 //| fig-cap: "Dekompozicija varijance — skupne sredine, zajednička sredina i raspršenost pojedinačnih opažanja."
 //| fig-alt: "Tri skupine imaju sredine 46, 52 i 58 te standardnu devijaciju 6. Opažanja su prikazana oko skupnih sredina, a okomite crte povezuju skupne sredine sa zajedničkom sredinom."
