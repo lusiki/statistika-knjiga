@@ -8,11 +8,11 @@
     "anchor": "ex-09-racunski-01"
   },
   "task_class": "racunski",
-  "prompt_fingerprint": "sha256:75e20591f3345e58ae163f09bc1396b88efb1dbe9d6151a2f3df3dd248e55fcb",
+  "prompt_fingerprint": "sha256:6e70e039b7e7c3acc3a1bae6f84a7419f712553f1ee17ca165c5a1f99868e142",
   "answer_components": {
     "planted_error": {
       "applicable": false,
-      "not_applicable_reason": "Zadatak traži tri širine, dva dijeljenja i granicu provjere agregata, bez posađene pogreške.",
+      "not_applicable_reason": "Zadatak traži predviđanje, tri širine, dva dijeljenja i granicu provjere agregata, bez posađene pogreške.",
       "error_id": null,
       "statement": null,
       "why_wrong": null
@@ -20,8 +20,8 @@
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Izračunati 2z*/sqrt(n) za A, B i C te iz tiskane tablice 15101/50000 i 72101/15101. Usporediti zaokružene rezultate i navesti da agregat ne potvrđuje pojedinačne zapise.",
-      "expected_evidence": "Širine su približno 0,620, 0,815 i 0,310. Iz zadanih brojnika i nazivnika dobivamo 0,30202 i 4,77458. Tiskana tablica omogućuje provjeru dijeljenja, a ne rekonstrukciju pojedinačnih zapisa."
+      "procedure": "Prije čitanja rezultata zapisati predviđeni poredak širina i dugoročni obuhvat za A, B i C. Izračunati 2z*/sqrt(n), usporediti predviđanje s računom i očitanim promašajima te obrazložiti eventualnu ispravku. Iz tiskane agregatne tablice izračunati 15101/50000 i 72101/15101 te objasniti granicu provjere pojedinačnih zapisa.",
+      "expected_evidence": "Poredak širina je B > A > C, s približnim vrijednostima 0,815, 0,620 i 0,310. U zadanoj normalnoj populaciji dugoročni obuhvat iznosi 99 % za B te 95 % za A i C. Promašaji A=3, B=0 i C=1 pripadaju nizu od 50 ponavljanja. Omjeri iznose 0,30202 i 4,77458. Slaganje dijeljenja s agregatom ne potvrđuje nastanak pojedinačnih zapisa."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -42,6 +42,10 @@
         {
           "response": "Slaganje agregata dokazuje empirijski nalaz o stvarnim stanovnicima.",
           "why_insufficient": "Datoteke opisuju sintetičku populaciju i provjeravaju podatkovni postupak, ne stvarnu populacijsku tvrdnju."
+        },
+        {
+          "response": "Postavka C ima višu razinu pouzdanosti od A jer je u tablici promašila samo jednom.",
+          "why_insufficient": "A i C imaju istu zadanu razinu od 95 %. Tri odnosno jedan promašaj ostvareni su u konačnom nizu od 50 ponavljanja; veći uzorak u C sužava interval uz isti dugoročni obuhvat."
         }
       ]
     },
@@ -56,8 +60,8 @@
         },
         {
           "component_id": "compare-presets",
-          "required_claim": "A prema B izolira višu razinu pouzdanosti i širi interval, dok A prema C izolira četverostruko veći n i prepolovljuje širinu.",
-          "required_evidence": "A i B dijele n=40; A i C dijele z*=1,960, a sqrt(160)=2*sqrt(40). Objavljeni promašaji su A=3, B=0 i C=1."
+          "required_claim": "Početno predviđanje uspoređeno je s rezultatima. Ispravan poredak širina jest B > A > C. A prema B izolira višu razinu pouzdanosti i širi interval, dok A prema C izolira četverostruko veći n i prepolovljuje širinu uz istu razinu od 95 %.",
+          "required_evidence": "A i B dijele n=40; A i C dijele z*=1,960, a sqrt(160)=2*sqrt(40). Dugoročni obuhvat uz zadane pretpostavke jest 95 %, 99 % i 95 % za A, B i C. Objavljeni promašaji A=3, B=0 i C=1 pripadaju nizu od 50 ponavljanja. Manje promašaja u C ne mijenja njegovu zadanu razinu pouzdanosti. Pogrešno početno predviđanje prihvatljivo je ako je nakon provjere obrazloženo ispravljeno."
         },
         {
           "component_id": "reproduce-portal-aggregates",
@@ -80,7 +84,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "expected_result": "A: širina 0,619806421393 i 3 promašaja. B: širina 0,814602725259 i 0 promašaja. C: širina 0,309903210697 i 1 promašaj. Analitička datoteka ima 50000 redaka; portal ima 15101 redak od ukupno 50000, zbroj povjerenja 72101, udio 15101/50000 = 0,30202 i prosjek 72101/15101 = 4,7745844646. Točkasta procjena ovdje je prosjek 4,815. Standardna pogreška iznosi 2,093/√200 ≈ 0,148, a margina približno 0,290 boda. Granice su približno 4,525 i 5,105. Razina od 95 % odnosi se na dugoročni obuhvat postupka kada vrijede njegove pretpostavke. Početni medijan pet vrijednosti jest 134 minute. Ponovni uzorak glasi 83, 83, 82, 139, 164 i ima medijan 83 minute.",
-      "tolerance_or_acceptance_rule": "Širine zaokružiti na najmanje tri decimale; 0,30202 i 4,77458 na pet. Traže se dva ispravna nazivnika, usporedbe postavki i granica provjere. Prebrojavanje pojedinačnih zapisa i ponavljanje simulacije nisu obvezni.",
+      "tolerance_or_acceptance_rule": "Širine zaokružiti na najmanje tri decimale; 0,30202 i 4,77458 na pet. Predati početno predviđanje i usporedbu s rezultatima. Završno obrazloženje mora razlikovati dugoročni obuhvat od ostvarenih promašaja, zadržati dva ispravna nazivnika i granicu agregatne provjere. Obrazložena ispravka početnog predviđanja prihvatljiva je. Prebrojavanje pojedinačnih zapisa i ponavljanje simulacije nisu obvezni.",
       "independent_method": "Tri širine izračunati iz formule i zadanih kritičnih vrijednosti, a dva omjera iz cjelobrojnih ulaza tiskane tablice. Provjera CSV-a i ponavljanje simulacije dodatni su autorski kontrolni postupci, a nisu uvjet studentskoga odgovora. Poredani početni niz jest 82, 83, 134, 139, 164. Ponavljanje i izostavljanje zapisa mijenjaju medijan. Za percentilni interval trebali bismo mnogo takvih ponovnih uzoraka; ova demonstracija s pet vrijednosti ne zamjenjuje raniji račun na svih 60 osoba.",
       "evidence_reference": "chapters/09-procjena.qmd#tbl-w09-tiskani-preseti; chapters/09-procjena.qmd#tbl-w09-agregat-portal; data/populacija-medija.csv; data/populacija-medija-agregat.csv"
     },
@@ -101,8 +105,8 @@
         {
           "criterion_id": "major-missing-width-comparison-or-data-reconciliation",
           "severity": "major",
-          "description": "Nedostaje neka širina, usporedba A–B/A–C, jedan od dvaju omjera ili granica provjere iz agregata.",
-          "observable_evidence": "Jedan od dvaju nosivih računa nema potpun i provjerljiv rezultat."
+          "description": "Nedostaje neka širina, predviđanje i njegova provjera, usporedba A–B/A–C, jedan od dvaju omjera ili granica provjere iz agregata. Završno tumačenje pogrešno poistovjećuje ostvarene promašaje s dugoročnim obuhvatom.",
+          "observable_evidence": "Odgovor nema potpun račun i usporedbu s početnim predviđanjem ili iz manjeg broja promašaja u C izvodi višu razinu pouzdanosti. Početno pogrešno predviđanje koje je nakon provjere ispravno obrazloženo nije razlog za umanjenje ocjene."
         },
         {
           "criterion_id": "minor-rounding-or-miss-reporting-defect",
@@ -129,7 +133,8 @@
   "instructor_notes": [
     "Obvezni zadatak u cijelosti se rješava iz tiskanih tablica uz kalkulator.",
     "Provjera pojedinačnih CSV zapisa dobrovoljna je mrežna nadogradnja; njezin izostanak ne smanjuje ocjenu.",
-    "Broj promašaja pripada fiksnom nizu, a nije teorijsko očekivanje."
+    "Broj promašaja pripada fiksnom nizu, a nije teorijsko očekivanje.",
+    "Najprije zatražiti predviđanje iz veličine uzorka i razine pouzdanosti, zatim usporedbu s rezultatima. Vrednuje se završno razumijevanje i obrazložena ispravka, a ne točnost prvog predviđanja sama za sebe."
   ],
   "visibility_contract": "D06-two-layer-v1",
   "human_responsibility": {
@@ -138,8 +143,8 @@
     "code_production_assessed": false
   },
   "self_study": {
-    "hint": "Za prvi interval odvojite prosjek, standardnu pogrešku i marginu. Za ručni bootstrap prepišite zadane retke, uključujući ponovljeni redak, pa ponovno poredajte vrijednosti. Za svaku postavku odvojeno zapišite kritičnu vrijednost i broj opažanja. Između A i B mijenja se razina pouzdanosti, a između A i C veličina uzorka. Za portal zadržite ukupan broj redaka kao nazivnik udjela, a broj korisnika portala kao nazivnik njihova prosjeka.",
-    "worked_answer": "Širine intervala dobivene izrazom iz zadatka približno su 0,619806 za A, 0,814603 za B i 0,309903 za C. Viša razina pouzdanosti u B širi interval. Četverostruko veći uzorak u C prepolovljuje širinu u odnosu na A. U prikazanom nizu zabilježena su tri promašaja za A, nijedan za B i jedan za C. Taj jedan niz ne utvrđuje dugoročni obuhvat postupka.\n\nTiskana tablica zadaje ukupno 50.000 osoba, 15.101 korisnika portala i njihov zbroj povjerenja od 72.101. Udio je 15.101/50.000 = 0,30202, odnosno 30,202 %. Prosjek povjerenja korisnika portala jest 72.101/15.101, približno 4,774584 boda. Ti brojevi odgovaraju agregatu. Ako radimo samo s tiskanom tablicom, možemo provjeriti dijeljenja, ali ne tvrdimo da smo provjerili retke analitičke datoteke.\n\nTočkasta procjena ovdje je prosjek 4,815. Standardna pogreška iznosi 2,093/√200 ≈ 0,148, a margina približno 0,290 boda. Granice su približno 4,525 i 5,105. Razina od 95 % odnosi se na dugoročni obuhvat postupka kada vrijede njegove pretpostavke. Početni medijan pet vrijednosti jest 134 minute. Ponovni uzorak glasi 83, 83, 82, 139, 164 i ima medijan 83 minute.",
+    "hint": "Za prvi interval odvojite prosjek, standardnu pogrešku i marginu. Za ručni bootstrap prepišite zadane retke, uključujući ponovljeni redak, pa ponovno poredajte vrijednosti. Prije računanja predvidite poredak širina i obuhvat. Usporedite predviđanje s rezultatima i razdvojite dugoročni obuhvat od promašaja u prikazanom nizu. Za portal zadržite ukupan broj redaka kao nazivnik udjela, a broj korisnika portala kao nazivnik njihova prosjeka.",
+    "worked_answer": "Predviđamo poredak širina B > A > C, a račun daje približno 0,814603, 0,619806 i 0,309903. Dugoročni obuhvat iznosi 99 % za B te 95 % za A i C. Četverostruki uzorak u C prepolovljuje širinu u odnosu na A. U prikazanom nizu A ima tri promašaja, B nijedan, a C jedan. Taj jedan niz ne utvrđuje dugoročni obuhvat postupka.\n\nTiskana tablica zadaje ukupno 50.000 osoba, 15.101 korisnika portala i njihov zbroj povjerenja od 72.101. Udio je 15.101/50.000 = 0,30202, odnosno 30,202 %. Prosjek povjerenja korisnika portala jest 72.101/15.101, približno 4,774584 boda. Ti brojevi odgovaraju agregatu. Ako radimo samo s tiskanom tablicom, možemo provjeriti dijeljenja, ali ne tvrdimo da smo provjerili retke analitičke datoteke.\n\nTočkasta procjena ovdje je prosjek 4,815. Standardna pogreška iznosi 2,093/√200 ≈ 0,148, a margina približno 0,290 boda. Granice su približno 4,525 i 5,105. Razina od 95 % odnosi se na dugoročni obuhvat postupka kada vrijede njegove pretpostavke. Početni medijan pet vrijednosti jest 134 minute. Ponovni uzorak glasi 83, 83, 82, 139, 164 i ima medijan 83 minute.",
     "why_adequate": "Odgovor odvaja promjenu preciznosti od obuhvata i provjerava brojnik i nazivnik svakog sažetka. Usporedba s agregatom čuva istu skupinu i istu definiciju povjerenja. Poredani početni niz jest 82, 83, 134, 139, 164. Ponavljanje i izostavljanje zapisa mijenjaju medijan. Za percentilni interval trebali bismo mnogo takvih ponovnih uzoraka; ova demonstracija s pet vrijednosti ne zamjenjuje raniji račun na svih 60 osoba."
   }
 }

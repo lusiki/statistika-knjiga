@@ -59,7 +59,7 @@ Razdvojite što se mijenja između uzoraka od onoga što ostaje fiksno. Provjeri
 
 ### Poglavlje 9 — Računski zadatak {.unnumbered}
 
-Za prvi interval odvojite prosjek, standardnu pogrešku i marginu. Za ručni bootstrap prepišite zadane retke, uključujući ponovljeni redak, pa ponovno poredajte vrijednosti. Za svaku postavku odvojeno zapišite kritičnu vrijednost i broj opažanja. Između A i B mijenja se razina pouzdanosti, a između A i C veličina uzorka. Za portal zadržite ukupan broj redaka kao nazivnik udjela, a broj korisnika portala kao nazivnik njihova prosjeka.
+Za prvi interval odvojite prosjek, standardnu pogrešku i marginu. Za ručni bootstrap prepišite zadane retke, uključujući ponovljeni redak, pa ponovno poredajte vrijednosti. Prije računanja predvidite poredak širina i obuhvat. Usporedite predviđanje s rezultatima i razdvojite dugoročni obuhvat od promašaja u prikazanom nizu. Za portal zadržite ukupan broj redaka kao nazivnik udjela, a broj korisnika portala kao nazivnik njihova prosjeka.
 
 ### Poglavlje 10 — Konceptualni zadatak {.unnumbered}
 
@@ -305,7 +305,7 @@ Nepoznatost nije isto što i slučajnost u ovom frekventističkom postupku; popu
 
 ### Poglavlje 9 — Računski zadatak {.unnumbered}
 
-Širine intervala dobivene izrazom iz zadatka približno su 0,619806 za A, 0,814603 za B i 0,309903 za C. Viša razina pouzdanosti u B širi interval. Četverostruko veći uzorak u C prepolovljuje širinu u odnosu na A. U prikazanom nizu zabilježena su tri promašaja za A, nijedan za B i jedan za C. Taj jedan niz ne utvrđuje dugoročni obuhvat postupka.
+Predviđamo poredak širina B > A > C, a račun daje približno 0,814603, 0,619806 i 0,309903. Dugoročni obuhvat iznosi 99 % za B te 95 % za A i C. Četverostruki uzorak u C prepolovljuje širinu u odnosu na A. U prikazanom nizu A ima tri promašaja, B nijedan, a C jedan. Taj jedan niz ne utvrđuje dugoročni obuhvat postupka.
 
 Tiskana tablica zadaje ukupno 50.000 osoba, 15.101 korisnika portala i njihov zbroj povjerenja od 72.101. Udio je 15.101/50.000 = 0,30202, odnosno 30,202 %. Prosjek povjerenja korisnika portala jest 72.101/15.101, približno 4,774584 boda. Ti brojevi odgovaraju agregatu. Ako radimo samo s tiskanom tablicom, možemo provjeriti dijeljenja, ali ne tvrdimo da smo provjerili retke analitičke datoteke.
 

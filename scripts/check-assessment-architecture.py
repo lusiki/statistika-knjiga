@@ -2170,12 +2170,19 @@ def unit_09_numerical_check(
     if not all(
         token in normalized_numerical
         for token in (
-            "iz tiskane tablice s trima postavkama",
+            "u tiskanoj tablici s trima postavkama",
+            "najprije promotrite samo veličinu uzorka i razinu pouzdanosti",
+            "predvidite poredak širina i dugoročni obuhvat",
             "$2z^*/\\sqrt{n}$",
-            "između postavki a i b",
-            "između a i c",
+            "usporedite ih s tablicom",
+            "očitajte promašaje",
+            "njihov manji broj u c nego u a ne znači višu razinu pouzdanosti",
             "data/populacija-medija.csv",
-            "tri računa širine, dva dijeljenja",
+            "broj korisnika portala ukupnim brojem osoba",
+            "zbroj njihova povjerenja brojem korisnika portala",
+            "predajte predviđanje, usporedbu s rezultatima",
+            "tri računa širine i dva dijeljenja",
+            "objasnite zašto iz agregata možemo provjeriti račun",
             "ta provjera nije uvjet tiskanoga zadatka",
         )
     ):
