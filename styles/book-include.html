@@ -28,11 +28,9 @@
 (function () {
   "use strict";
 
-  // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
-  // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
-  // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
-  function seedPojmovnikSearch() {
-    if (!document.body.classList.contains("pojmovnik-page")) return;
+  // Svaka stranica treba standardni Quarto host prije DOMContentLoaded,
+  // uključujući samostalne stranice koje nemaju knjižni sidebar.
+  function seedGlobalSearch() {
     if (document.getElementById("quarto-search")) return;
     var navbar = document.querySelector("#quarto-header .navbar");
     if (!navbar) return;
@@ -44,7 +42,7 @@
     else navbar.querySelector(".navbar-container").appendChild(host);
   }
 
-  seedPojmovnikSearch();
+  seedGlobalSearch();
 
   // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
   // ručno; pokrenite python scripts/check-book-inventory.py --write.
@@ -69,9 +67,9 @@
     {
       "id": "nav-menu-nastava",
       "routes": [
-        "/predavanja.html",
-        "/silabus.html",
-        "/raspored.html"
+        "/raspored.html",
+        "/rjesenja.html",
+        "/dodaci/d-koji-test.html"
       ]
     }
   ];
@@ -386,10 +384,10 @@
   //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
   // -------------------------------------------------------------------
   function removePrunedItems() {
-    var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
+    var endings = SAMOSTALNE;
     document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
       .forEach(function (a) {
-        var href = a.getAttribute("href") || "";
+        var href = new URL(a.href, location.href).pathname;
         var hide = endings.some(function (e) { return href.endsWith(e); });
         if (hide) {
           a.style.display = "none";
@@ -453,6 +451,7 @@
       var parent = panel.parentElement;
       if (!parent) return;
       panel.dataset.ojsCollapsed = "1";
+      if (panel.closest("[data-ojs-always-open]")) return;
       var meta = panelMeta(panel);
 
       var details = document.createElement("details");
@@ -469,6 +468,9 @@
         '<span class="ojs-collapsible-hint"></span>';
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
+      if (!inWidget) details.addEventListener("toggle", function () {
+        summary.querySelector(".ojs-collapsible-hint").textContent = details.open ? "zatvori" : meta.hint;
+      });
       if (inWidget) {
         var hint = summary.querySelector(".ojs-collapsible-hint");
         function updateHint() {
@@ -489,6 +491,7 @@
     function enhancePanel(panel) {
       if (panel.dataset.ojsPanel) return;
       panel.dataset.ojsPanel = "1";
+      if (panel.closest('[data-ojs-always-open]')) return;
       panel.querySelectorAll("input, select, textarea").forEach(function (el) {
         if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
         if (el.type === "checkbox" || el.type === "radio") {
@@ -617,6 +620,9 @@
       '<span class="ojs-collapsible-hint"></span>';
     summary.querySelector(".ojs-collapsible-label").textContent = label;
     summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
+    details.addEventListener("toggle", function () {
+      summary.querySelector(".ojs-collapsible-hint").textContent = details.open ? "zatvori" : (hint || "otvori za prikaz");
+    });
 
     var body = document.createElement("div");
     body.className = "ojs-collapsible-body";
@@ -859,18 +865,32 @@
     var tools = navbar.querySelector(".quarto-navbar-tools");
     var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
     var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
-    var searchButton = secondary && secondary.querySelector(".quarto-search-button");
-    if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
+    var oldSearch = secondary && secondary.querySelector(".quarto-search-button");
+    if (oldSearch) oldSearch.remove();
+    var searchButton = null;
+    {
       var searchHost = navbar.querySelector("#quarto-search");
       if (searchHost) searchHost.hidden = true;
       searchButton = document.createElement("button");
       searchButton.type = "button";
-      searchButton.className = "btn quarto-search-button";
+      searchButton.className = "btn quarto-search-button site-search-button";
       searchButton.setAttribute("aria-label", "Pretraži knjigu");
       searchButton.setAttribute("title", "Pretraži knjigu");
       searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
       searchButton.addEventListener("click", function () {
-        if (window.quartoOpenSearch) window.quartoOpenSearch();
+        if (!window.quartoOpenSearch) return;
+        window.quartoOpenSearch();
+        var opened = false;
+        var focusObserver = new MutationObserver(function () {
+          var overlay = document.querySelector('.aa-DetachedOverlay');
+          var visible = overlay && overlay.getBoundingClientRect().height > 0;
+          if (visible) opened = true;
+          if (opened && !visible) {
+            focusObserver.disconnect();
+            searchButton.focus({ preventScroll: true });
+          }
+        });
+        focusObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
       });
       if (tools) tools.appendChild(searchButton);
       else container.insertBefore(searchButton, toggler);
@@ -1056,8 +1076,7 @@
     function wrapperFor(table) {
       var parent = table.parentElement;
       if (parent && (
-        parent.classList.contains("table-responsive") ||
-        parent.classList.contains("cell-output-display")
+        parent.classList.contains("table-responsive")
       )) {
         return parent;
       }

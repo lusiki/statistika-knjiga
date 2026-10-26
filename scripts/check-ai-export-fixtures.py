@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import json
 import shutil
 import subprocess
 import sys
@@ -115,6 +116,18 @@ def main() -> int:
                 run(export_command(ROOT, positive_output)),
             )
             print("AI_EXPORT_POSITIVE_OK mode=release publish=false")
+            manifest = json.loads((positive_output / "data/ai-exports.json").read_text(encoding="utf-8"))
+            assert all(chapter["tokensApprox"] > 0 for chapter in manifest["chapters"]), "An offered chapter export is empty"
+
+            format_root = base / "format-source"
+            format_root.mkdir()
+            copy_export_sources(format_root)
+            with (format_root / "chapters/00-predgovor.qmd").open("a", encoding="utf-8") as handle:
+                handle.write('\n::: {.content-visible when-format="pdf"}\n\nPRINT_ONLY_SENTINEL\n\n:::\n\n::: {.content-hidden when-format="pdf"}\n\nWEB_ONLY_SENTINEL\n\n:::\n')
+            format_output = base / "format-output"
+            require_success("public-web-preface", run(export_command(format_root, format_output)))
+            preface = (format_output / "docs/ai/00-predgovor.md").read_text(encoding="utf-8")
+            assert "WEB_ONLY_SENTINEL" in preface and "PRINT_ONLY_SENTINEL" not in preface
 
             build_root = base / "build-error-source"
             build_root.mkdir()

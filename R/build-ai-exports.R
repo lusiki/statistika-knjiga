@@ -652,7 +652,9 @@ strip_chapter <- function(lines, bib_map, xref_map) {
       if (has_profile && !visible_profile && !hidden_profile && RELEASE_MODE) {
         stop("nepoznata when-profile ruta u izvoru izvoza")
       }
-      if (visible_profile || str_detect(attrs, "when-format=\"pdf\"")) {
+      visible_pdf <- str_detect(attrs, "(^|\\s)\\.?content-visible(\\s|$)") &&
+        str_detect(attrs, "when-format=\"pdf\"")
+      if (visible_profile || visible_pdf) {
         div_stack <- c(div_stack, "drop")
       } else {
         div_stack <- c(div_stack, "keep")

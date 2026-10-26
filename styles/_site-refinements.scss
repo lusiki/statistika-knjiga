@@ -1,0 +1,333 @@
+// Final website review: shared reflow, clear tasks, and accessible control states.
+[hidden],
+#quarto-content [hidden] {
+  display: none !important;
+}
+h1,
+h2,
+h3,
+h4,
+summary,
+button,
+.nav-link {
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+main,
+main section,
+.cell,
+.cell-output,
+.cell-output-display {
+  min-width: 0;
+}
+main :where(a, code, .csl-entry) {
+  overflow-wrap: anywhere;
+}
+main :not(pre) > code {
+  white-space: normal;
+}
+main .table-responsive {
+  max-width: 100%;
+  overflow-x: auto;
+}
+main .table-responsive table {
+  margin-left: 0;
+  margin-right: 0;
+}
+main span.math.display,
+main span.math.math-inline-wide {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+main pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.math-scroll-hint {
+  display: block;
+  margin: 0.25rem 0 1rem;
+  font: 0.8125rem/1.4 $tok-font-sans;
+  color: $tok-ink-mute;
+}
+main > section > section > h2 {
+  border-top-width: $tok-rule-width;
+}
+.site-skip {
+  position: fixed;
+  top: -6rem;
+  left: 1rem;
+  z-index: 3000;
+  padding: 0.75rem 1rem;
+  background: $tok-surface;
+  color: $tok-ink;
+}
+.site-skip:focus {
+  top: 0.5rem;
+}
+.site-search-button,
+.site-search-button:hover,
+.site-search-button:focus-visible {
+  color: $tok-ink;
+  background: transparent;
+}
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.site-footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: $tok-touch;
+  font: 0.875rem $tok-font-sans;
+}
+.practice-paths,
+.practice-jumps,
+.solution-tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 1rem 0 1.5rem;
+  font-family: $tok-font-sans;
+}
+.practice-jumps a,
+.solution-tasks a {
+  display: inline-flex;
+  align-items: center;
+  min-height: $tok-touch;
+}
+.catalogue-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.catalogue-controls label,
+.solution-picker label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font: 500 0.9375rem $tok-font-sans;
+  min-width: 0;
+  flex: 1 1 16rem;
+}
+.catalogue-controls input,
+.catalogue-controls select,
+.solution-picker select {
+  width: 100%;
+  min-height: $tok-touch;
+  background: $tok-surface;
+  border: 1px solid $tok-ink-mute;
+  color: $tok-ink;
+  padding: 0.5rem;
+  border-radius: 0;
+  font: 1rem $tok-font-sans;
+}
+.catalogue-count,
+.ai-file-note {
+  font: 0.875rem/1.5 $tok-font-sans;
+  color: $tok-ink-mute;
+}
+.dataset-entry {
+  padding: 1.5rem 0;
+  border-top: $tok-rule-width solid $tok-ink;
+}
+.dataset-entry h2 {
+  border: 0;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  font-size: 1.5rem;
+}
+.dataset-entry p {
+  max-width: $tok-measure;
+}
+.dataset-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.dataset-downloads a {
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+.dataset-source {
+  display: inline-block;
+  min-height: $tok-touch;
+  font: 0.9375rem/1.6 $tok-font-sans;
+}
+.dataset-chapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.8rem;
+  font: 0.875rem/1.5 $tok-font-sans;
+}
+.dataset-chapters a {
+  min-height: 1.75rem;
+}
+.catalogue-reference {
+  border-top: 1px solid $tok-rule;
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+.catalogue-reference > summary {
+  font: 500 1rem $tok-font-sans;
+  padding: 0.75rem 0;
+  min-height: $tok-touch;
+  cursor: pointer;
+}
+.solution-picker {
+  border-bottom: 1px solid $tok-rule;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+.solution-picker select {
+  max-width: 38rem;
+}
+.ai-selected-title {
+  font-family: $tok-font-sans;
+  font-weight: 500;
+  margin-top: 0.75rem;
+}
+.ojs-task-control select {
+  min-height: $tok-touch;
+  font-size: 1rem;
+}
+.experiment-lesson > summary {
+  font: 500 0.9375rem/1.5 $tok-font-sans;
+  min-height: $tok-touch;
+  cursor: pointer;
+}
+.experiment-lesson:not([open]) {
+  padding: 0.5rem 1rem;
+}
+.experiment-lesson[open] > summary {
+  margin-bottom: 1rem;
+}
+.concept-atlas {
+  button:hover,
+  button:focus-visible,
+  button:active,
+  button[aria-pressed="true"] {
+    color: $tok-ink;
+  }
+  .atlas-part:hover,
+  .atlas-part:focus-visible,
+  .atlas-related button:hover,
+  .atlas-index-list button:hover {
+    background: $tok-accent-wash;
+    color: $tok-ink;
+  }
+  .atlas-part {
+    font-size: 0.8125rem;
+    gap: 0.35rem;
+  }
+  .atlas-legend {
+    gap: 0 1rem;
+  }
+  .atlas-list-shortcut {
+    background: transparent;
+    border: 0;
+    text-decoration: underline;
+    min-height: $tok-touch;
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+  }
+  .atlas-definition {
+    scroll-margin-top: 5rem;
+  }
+  .atlas-edge-note {
+    font-size: 0.8125rem;
+  }
+}
+.terminology-list--glossary > dl {
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr);
+}
+.terminology-list--glossary dd {
+  text-align: left;
+  font-style: normal;
+}
+.terminology-list__chapter {
+  font-size: 0.8125rem;
+}
+.ojs-collapsible-hint,
+.section-label,
+.widget-oznaka {
+  font-size: 0.8125rem;
+}
+body.standalone-page .quarto-reader-toggle {
+  display: none;
+}
+@media (min-width: 992px) {
+  body.site-reading-focus #quarto-content,
+  body.site-reading-focus #quarto-content main.page-columns,
+  body.site-reading-focus #quarto-content main .page-columns {
+    display: block !important;
+  }
+  body.site-reading-focus main {
+    width: min(100% - 4rem, 42.5rem);
+    margin-inline: auto;
+  }
+  body.site-reading-focus main .page-full {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+  body.site-reading-focus main .column-margin {
+    position: static;
+    width: auto;
+    height: auto !important;
+    margin: 1rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid $tok-rule;
+  }
+  body.site-reading-focus .page-navigation {
+    max-width: 42.5rem;
+    margin-inline: auto;
+  }
+  body.site-reading-focus #quarto-sidebar,
+  body.site-reading-focus #quarto-margin-sidebar {
+    display: none !important;
+  }
+  body.site-reading-focus .quarto-sidebar-toggle {
+    display: none !important;
+  }
+}
+@media (max-width: 600px) {
+  main,
+  main > section {
+    max-width: 100%;
+  }
+  main h1,
+  main h1.title {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+  }
+  .concept-atlas .atlas-part {
+    font-size: 0.8125rem;
+  }
+  .concept-atlas .atlas-network {
+    height: clamp(18rem, 45vh, 24rem);
+  }
+  .dataset-downloads {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dataset-downloads a {
+    width: 100%;
+  }
+  .catalogue-reference table {
+    min-width: 32rem;
+  }
+  .terminology-list--glossary > dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tjedni .tjedan {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+}

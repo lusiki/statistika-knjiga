@@ -224,9 +224,9 @@ ispisanu oznaku „Vinjeta”.
 Zaglavlje s diskom („08.1”), naslovom i oznakom gradi `styles/book-include.html`
 iz atributa. Bez JS-a pseudo-elementi ispisuju naslov i oznaku.
 
-Kontrole simulacije otvorene su pri prvom prikazu i mogu se sklopiti. Iznad
-njih se ponavlja prvi pokus iz postojećeg odjeljka „Što isprobati”, bez drugog
-izvora nastavnih uputa. Kartice interakcija vode na stabilni identifikator
+Kontrole simulacije otvorene su pri prvom prikazu i mogu se sklopiti. Graf i
+osnovne kontrole prethode sklopivom bloku za predviđanje i objašnjenje; blok
+se oslanja na postojeći pokus iz odjeljka „Što isprobati”. Kartice interakcija vode na stabilni identifikator
 `interakcija-wNN` na okviru, a zasebna poveznica otvara početak poglavlja.
 Galerija koristi shematske preglede u bojama podataka, pitanje i broj poglavlja;
 status izrade i interni prioritet ostaju u registru, izvan čitateljskog sučelja.
