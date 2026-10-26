@@ -10,24 +10,12 @@ format:
     code-tools: false
 ---
 
-<!-- =====================================================================
-  Mreža pojmova. Čita data/concept-graph.json, koji gradi
-  R/build-concept-graph.R iz `::: {#def-slug}` divova u poglavljima.
-  Pojam koji dobije definicijski div automatski ulazi ovamo — popis se
-  nigdje ne održava ručno.
+<!-- Mreža, definicije i sidra dolaze iz kanonskog concept-graph.json.
+     Parametar ?poglavlje=<slug> zadržava put iz podnožja poglavlja. -->
 
-  Pokreni nakon promjene poglavlja:  Rscript R/build-concept-graph.R
-
-  Poveznica iz podnožja poglavlja dolazi s ?poglavlje=<slug>, pa se stranica
-  otvara filtrirana na to poglavlje.
-===================================================================== -->
-
-Svaki pojam koji knjiga formalno definira nalazi se ovdje, zajedno s
-poglavljem u kojem je uveden i s pojmovima uz koje se pojavljuje. Bridovi ne
-znače hijerarhiju nego supojavljivanje. Dva su pojma povezana ako ih knjiga
-koristi zajedno, a deblji brid znači češće zajedno. Isprekidane veze označuju
-pojmove povezane u definiciji. Pregled cijele mreže prikazuje jače veze
-i veze u definicijama; bliski pogled izdvaja najčešće veze odabranog pojma.
+::: {.atlas-fallback}
+[Otvori abecedni rječnik →](dodaci/e-rjecnik.qmd)
+:::
 
 ```{ojs}
 //| echo: false
@@ -36,118 +24,23 @@ graf = FileAttachment("data/concept-graph.json").json()
 
 ```{ojs}
 //| echo: false
-pocetnoPoglavlje = {
-  const p = new URLSearchParams(window.location.search).get("poglavlje");
-  return p ? "chapters/" + p + ".qmd" : "sva";
-}
-```
-
-```{ojs}
-//| echo: false
-poglavljaPopis = {
-  const m = new Map();
-  for (const n of graf.nodes) m.set(n.chapter, n.chapterTitle);
-  return ["sva", ...m.keys()];
-}
-```
-
-::: {.ojs-task-control data-ojs-label="Pretraži i filtriraj pojmovnik" data-ojs-hint="otvori pretraživanje"}
-```{ojs}
-//| echo: false
-viewof filtri = {
-  if (!graf.nodes.length) {
-    const prazno = document.createElement("span");
-    prazno.hidden = true;
-    prazno.value = { poglavlje: "sva", pojam: "" };
-    return prazno;
-  }
-  return Inputs.form({
-    poglavlje: Inputs.select(poglavljaPopis, {
-      label: "Poglavlje",
-      value: poglavljaPopis.includes(pocetnoPoglavlje) ? pocetnoPoglavlje : "sva",
-      format: k => k === "sva" ? "sva poglavlja"
-        : (graf.nodes.find(n => n.chapter === k) || {}).chapterTitle || k
-    }),
-    pojam: Inputs.text({
-      label: "Traži pojam",
-      placeholder: "npr. standardna pogreška"
-    })
-  });
-}
-```
-:::
-
-```{ojs}
-//| echo: false
-izborPoglavlja = filtri.poglavlje
-```
-
-```{ojs}
-//| echo: false
-trazi = filtri.pojam
-```
-
-```{ojs}
-//| echo: false
-vidljivi = {
-  const q = (trazi || "").toLowerCase().trim();
-  return graf.nodes.filter(n =>
-    (izborPoglavlja === "sva" || n.chapter === izborPoglavlja) &&
-    (q === "" || n.term.toLowerCase().includes(q) ||
-     (n.firstSentence || "").toLowerCase().includes(q)));
-}
-```
-
-```{ojs}
-//| echo: false
 {
-  if (!graf.nodes.length) {
-    return htl.html`<div class="empty-state" role="status">
-      <div class="empty-state-title">Pojmovnik se još gradi</div>
-      <p>Formalno definirani pojmovi pojavit će se ovdje kada njihovi zapisi
-      budu spremni. Do tada nema praznih filtara ni neispunjene mreže.</p>
-    </div>`;
-  }
-
-  const ids = new Set(vidljivi.map(n => n.id));
-  if (!ids.size) return htl.html`<p role="status">Nema pojmova za odabrani filtar.</p>`;
-  const {createNetwork} = await import(await FileAttachment("widgets/concept-network.js").url());
-  const network = createNetwork(d3, {
-    nodes: vidljivi,
-    edges: graf.edges.filter(e => ids.has(e.source) && ids.has(e.target))
+  const {createAtlas} = await import(await FileAttachment("widgets/concept-atlas.js").url());
+  const params = new URLSearchParams(window.location.search);
+  const chapter = params.get("poglavlje");
+  const atlas = createAtlas(graf, {
+    d3,
+    chapter: chapter ? `chapters/${chapter}.qmd` : "",
+    selected: params.get("pojam") || "",
+    href: n => `${n.chapter.replace(/\.qmd$/, ".html")}#def-${n.id}`
   });
-  invalidation.then(() => network.dispose());
-  return network;
+  invalidation.then(() => atlas.dispose());
+  return atlas;
 }
 ```
 
-```{ojs}
-//| echo: false
-{
-  if (!graf.nodes.length) {
-    const prazno = document.createElement("span");
-    prazno.hidden = true;
-    prazno.setAttribute("aria-hidden", "true");
-    return prazno;
-  }
-  const naslov = htl.html`<h2 id="popis-pojmova">Popis pojmova</h2>`;
-  if (!vidljivi.length) {
-    return htl.html`<section>${naslov}
-      <p class="filter-empty">Nema pojmova za odabrani filtar.</p>
-    </section>`;
-  }
-  const red = (n) => htl.html`<div class="pojam-red">
-    <a class="pojam-red__naslov"
-       href="${n.chapter.replace(/\.qmd$/, ".html")}#def-${n.id}">${n.term}</a>
-    <span class="pojam-red__poglavlje">
-      · ${n.chapterTitle}</span>
-    <div class="pojam-red__opis">
-      ${n.firstSentence || ""}</div>
-  </div>`;
-  const sorted = [...vidljivi].sort((a, b) => a.term.localeCompare(b.term, "hr"));
-  return htl.html`<section>${naslov}<div>${sorted.map(red)}</div></section>`;
-}
-```
+<details class="glossary-notes" id="o-nazivlju">
+<summary>O nazivlju</summary>
 
 <!-- BEGIN GENERATED TERMINOLOGY ROUTES -->
 
@@ -208,3 +101,5 @@ Za kanonsko nazivlje odgovara Luka Šikić. Neovisna terminološka
 recenzija nije pribavljena i knjiga je ne tvrdi.
 
 <!-- END GENERATED TERMINOLOGY ROUTES -->
+
+</details>

@@ -31,9 +31,17 @@ const server=http.createServer((req,res)=>{let file=path.resolve(root,'.'+decode
    await p.setViewportSize({width:390,height:900});await p.waitForTimeout(300);assert(await p.locator('.widget-frame').evaluate(e=>e.scrollWidth<=e.clientWidth+2),w.id+' mobile overflow');await p.setViewportSize({width:1280,height:1000});
    console.log(w.id+' PASS');
   }
-  await p.goto(base+'index.html');await p.locator('.experiment-live').waitFor();assert.equal(await p.locator('.experiment-lesson').count(),1);await p.locator('#landing-sample-size').fill('100');await p.locator('#landing-sample-size').dispatchEvent('input');await p.waitForTimeout(300);assert((await p.locator('.experiment-live').innerText()).includes('0,1'));
-  await p.getByRole('button',{name:'Kopiraj poveznicu na ovaj prikaz'}).click();const landingURL=await p.evaluate(()=>navigator.clipboard.readText());await p.goto(landingURL);await p.locator('.experiment-live').waitFor();assert.equal(await p.locator('#landing-sample-size').inputValue(),'100');
-  await p.goto(base+'pojmovnik.html');await p.locator('.concept-journey select').waitFor();await p.locator('.concept-journey select').selectOption('0');assert.equal(await p.locator('.concept-journey-steps button').count(),4);await p.locator('.concept-journey-steps button').last().click();assert.equal(await p.locator('.network-inspector h2').innerText(),'Interval pouzdanosti');assert((await p.locator('.network-inspector a').getAttribute('href')).endsWith('#def-interval-pouzdanosti'));
-  assert.deepEqual(errors,[]);console.log('LEARNING_TOOLS_OK widgets=17 landing=1 journeys=pass sharing=pass reproducibility=pass mobile=pass');
+  await p.goto(base+'index.html');await p.locator('h1.hero-title').waitFor();
+  assert.equal(await p.locator('#landing-sample-size').count(),0);
+  for (const [name, file] of [['Luka Šikić — osobni profil','cv-luka.html'],['Petra Palić — osobni profil','cv-petra.html']]) {
+   await p.getByRole('link',{name,exact:true}).click();assert(p.url().endsWith(file));await p.locator('h1').waitFor();await p.goto(base+'index.html');
+  }
+  await p.goto(base+'pojmovnik.html?pojam=interval-pouzdanosti');
+  await p.locator('.atlas-definition h2').waitFor();
+  assert.equal(await p.locator('.atlas-definition h2').innerText(),'Interval pouzdanosti');
+  assert((await p.locator('.atlas-chapter').getAttribute('href')).endsWith('#def-interval-pouzdanosti'));
+  const graph=JSON.parse(fs.readFileSync(path.join(root,'data/concept-graph.json'),'utf8'));
+  assert.equal(await p.locator('.atlas-node').count(),graph.nodes.length);
+  assert.deepEqual(errors,[]);console.log('LEARNING_TOOLS_OK widgets=17 landing=pass authors=pass atlas=pass sharing=pass reproducibility=pass mobile=pass');
  } finally {await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});

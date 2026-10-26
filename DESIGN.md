@@ -1,6 +1,6 @@
 # DESIGN.md — vizualni sustav knjige
 
-Knjiga *Statistika 101: Intuitivni uvod u analizu podataka* ima identitet koji
+Knjiga *Statistika 101: Uvod u analizu podataka za društvene znanosti* ima identitet koji
 se zove **Zvono**. Polazi od korice 02 Zvono: bauhausovska geometrija, mala slova
 u displejnom registru i četiri oblika koji ponavljaju jedan statistički motiv,
 kupolu normalne raspodjele nad osnovicom, s tankom osi kroz sredinu.
@@ -263,12 +263,24 @@ desno: disk „101”, tri ugniježđene kupole, os i osnovica. Kompoziciju crta
 `brand-*` tokena na praznom divu `.hero-zvono`, pa nema slike koju bi trebalo
 održavati.
 
-Naslovnica koristi kompaktniju naslovnu traku, potpis `sikic . palic` i jedan
-shematski prikaz raspodjele sredina uzoraka. Klizač mijenja širinu i visinu
-raspodjele na zajedničkim osima; prijelaz pokreće čitatelj i poštuje smanjeno
-kretanje. Šest izvornih `details` elemenata otkriva poveznice na poglavlja,
-bez raspona brojeva u sažetoj oznaci. Podaci o knjizi i citiranju ostaju
-dostupni ispod sadržaja. Stilske prilagodbe nalaze se u `_landing.scss`.
+Naslovnica zadržava statičnu naslovnu traku, potpis `sikic . palic` i
+izravan ulaz „Počni čitati”. Pokus s raspodjelom, klizač i pregled svih
+poglavlja uklonjeni su; sadržaj knjige ostaje u knjižnoj navigaciji.
+Podaci o citiranju dostupni su kroz zatvoreni `details` pri dnu stranice.
+Stilske prilagodbe nalaze se u `_landing.scss`.
+
+**Pojmovnik.** Živi atlas prikazuje sve pojmove u povezanoj, pomičnoj
+mreži. Veličina točke prati broj spominjanja, a boja dio knjige; završnica
+ima prsten umjesto pune točke. Vide se najjače veze i samo dio naziva.
+Prelazak mišem ili fokus otkriva naziv, povlačenje pomiče čvor, a odabir
+otvara definiciju i poveznicu na izvorno poglavlje uz mrežu (ispod nje na
+mobitelu). Mreža se može povećati, pomaknuti i vratiti u cjelovit prikaz.
+Pretraga i sklopivi indeks A–Ž
+obuhvaćaju sve pojmove; terminološke napomene otvaraju se na zahtjev.
+Mreža čita kanonski `concept-graph.json`, zadržava put `?poglavlje=…` i
+stabilna `#def-` sidra. Boje i pisma dolaze iz tokena, kretanje se može
+zaustaviti i poštuje postavku smanjenog kretanja. Prikaz i ponašanje žive
+u `_atlas.scss` i `widgets/concept-atlas.js`.
 
 **Korica.** `tex/korica.tex` crta koricu u formatu B5 iz `brand-*` vrijednosti
 i prevodi se u `images/korica.pdf`; `images/cover.png` je njezin rasterski

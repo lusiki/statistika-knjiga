@@ -75,7 +75,7 @@ def main() -> None:
                            leftMargin=22*mm, rightMargin=22*mm,
                            topMargin=19*mm, bottomMargin=19*mm,
                            title='Nađite grešku — provjere rješenja',
-                           author='Statistika 101: Intuitivni uvod u analizu podataka',
+                           author='Statistika 101: Uvod u analizu podataka za društvene znanosti',
                            subject='Javne provjere iz kanonskih zapisa rješenja',
                            keywords='records-sha256='+digest.hexdigest())
     def footer(canvas, document):

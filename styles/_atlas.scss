@@ -1,0 +1,101 @@
+// Living atlas uses the same role-based palette and type as the book.
+body.pojmovnik-page:has(.concept-atlas) {
+  #title-block-header, .atlas-fallback { display: none; }
+}
+.concept-atlas {
+  font-family: $tok-font-sans;
+  color: $tok-ink;
+  margin: 1rem 0;
+  [hidden] { display: none !important; }
+  button, input { font-family: inherit; color: inherit; }
+  button { cursor: pointer; }
+  .atlas-header { display: flex; justify-content: space-between; gap: 1.5rem; align-items: start; }
+  h1.atlas-title { font: 400 clamp(2.5rem, 5vw, 3rem)/1.05 $tok-font-display; letter-spacing: -0.035em; text-transform: lowercase; margin: 0 0 0.75rem; }
+  .atlas-hint, .atlas-scope { font-size: 0.8125rem; color: $tok-ink-mute; margin: 0 0 0.5rem; }
+  .atlas-search { position: relative; z-index: 5; width: 19rem; max-width: 100%; }
+  input { border: 0; border-bottom: 2px solid $tok-ink; border-radius: 0; background: $tok-paper; min-height: $tok-touch; padding: 0.5rem 0.25rem; width: 100%; font-size: 1rem; }
+  input::placeholder { color: $tok-ink-mute; opacity: 1; }
+  .atlas-results { position: absolute; top: 100%; left: 0; right: 0; padding: 0.4rem; background: $tok-surface; border: 1px solid $tok-rule; }
+  .atlas-results button { display: block; width: 100%; text-align: left; border: 0; padding: 0.6rem; background: transparent; font-size: 0.875rem; min-height: $tok-touch; }
+  .atlas-results button:hover { background: $tok-accent-wash; }
+  .atlas-results p { font-size: 0.875rem; padding: 0.6rem; margin: 0; }
+  .atlas-legend { display: flex; flex-wrap: wrap; gap: 0 1.2rem; margin: 0.5rem 0; }
+  .atlas-part { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0; min-height: $tok-touch; border: 0; background: transparent; font-size: 0.75rem; }
+  .atlas-part[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 0.3em; }
+  .atlas-part-dot { width: 0.55rem; height: 0.55rem; border: 1px solid $tok-ink-mute; border-radius: 50%; background: var(--atlas-color); }
+  [data-part="1"] { --atlas-color: #{$tok-data-1}; }
+  [data-part="2"] { --atlas-color: #{$tok-data-2}; }
+  [data-part="3"] { --atlas-color: #{$tok-data-3}; }
+  [data-part="4"] { --atlas-color: #{$tok-data-4}; }
+  [data-part="5"] { --atlas-color: #{$tok-data-5}; }
+  [data-part="6"] { --atlas-color: #{$tok-data-1}; }
+  [data-part="6"] .atlas-node-shape, [data-part="6"] .atlas-part-dot { background: $tok-paper; border: 2px solid $tok-ink; }
+  .atlas-stage { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; isolation: isolate; margin: 0.5rem 0 1rem; border-top: 1px solid $tok-rule; border-bottom: 1px solid $tok-rule; }
+  .atlas-network { position: relative; height: clamp(29rem, 60vh, 36rem); min-width: 0; overflow: hidden; touch-action: pan-y; cursor: grab; }
+  .atlas-network:active { cursor: grabbing; }
+  .atlas-links { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .atlas-links line { stroke: $tok-ink-mute; stroke-opacity: 0.17; stroke-width: 0.8; }
+  .atlas-links .atlas-link-active { stroke: $tok-concept; stroke-opacity: 0.65; stroke-width: 1.3; }
+  .atlas-links .is-muted { stroke-opacity: 0.045; }
+  .atlas-node { position: absolute; top: 0; left: 0; display: grid; place-items: center; text-align: left; border: 0; padding: 0; border-radius: 50%; background: transparent; font-size: 0.75rem; line-height: 1.25; cursor: grab; touch-action: none; user-select: none; }
+  .atlas-node:active { cursor: grabbing; }
+  .atlas-node-shape { width: var(--node-size); height: var(--node-size); border-radius: 50%; background: var(--atlas-color); border: 1px solid $tok-ink-mute; pointer-events: none; }
+  .atlas-labels { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .atlas-node-label { position: absolute; width: max-content; max-width: 10rem; background: $tok-paper; padding: 0.1rem 0.2rem; opacity: 0; pointer-events: none; font-size: 0.75rem; line-height: 1.25; }
+  .atlas-node-label.is-visible { opacity: 1; }
+  .atlas-node.is-muted { opacity: 0.2; }
+  .atlas-node.is-active, .atlas-node:focus-visible { z-index: 2; opacity: 1; }
+  .atlas-node.is-active .atlas-node-shape, .atlas-node[aria-pressed="true"] .atlas-node-shape { border: 2px solid $tok-on-accent; background: $tok-accent; }
+  .atlas-node-label.is-active { font-weight: 500; }
+  .atlas-sidebar { min-width: 0; border-left: 1px solid $tok-rule; padding: 2rem 0 2rem 1.5rem; }
+  .atlas-invitation { margin-top: 4rem; }
+  .atlas-eyebrow { font-size: 0.6875rem; letter-spacing: 0.07em; text-transform: uppercase; color: $tok-ink-mute; }
+  .atlas-invitation h2 { font: 400 1.7rem/1.2 $tok-font-display; border: 0; padding: 0; margin: 0.75rem 0 1rem; }
+  .atlas-invitation p { font-size: 0.875rem; color: $tok-ink-mute; line-height: 1.6; }
+  .atlas-definition { margin: 0; min-width: 0; }
+  .atlas-zoom { position: absolute; bottom: 0.5rem; left: 0.5rem; display: flex; gap: 0.25rem; z-index: 4; }
+  .atlas-zoom button { min-width: $tok-touch; min-height: $tok-touch; padding: 0.25rem; font-size: 1.25rem; background: $tok-paper; border: 1px solid $tok-rule; }
+  .atlas-zoom .atlas-fit { font-size: 0.75rem; padding: 0.25rem 0.75rem; }
+  .atlas-zoom button:disabled { opacity: 0.4; cursor: default; }
+  .atlas-close { display: block; margin-left: auto; border: 0; background: transparent; padding: 0.25rem 0 0.5rem 0.5rem; font-size: 0.8125rem; min-height: $tok-touch; }
+  .atlas-definition h2 { font: 500 1.5rem/1.2 $tok-font-sans; color: $tok-concept; border: 0; padding: 0; margin: 0.5rem 0 1rem; text-transform: none; }
+  .atlas-definition-text { font: 400 0.9375rem/1.6 $tok-font-serif; margin: 0 0 1rem; color: $tok-ink-soft; hyphens: none; text-align: left; }
+  .atlas-chapter { font-size: 0.875rem; }
+  .atlas-related { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; border-top: 1px solid $tok-rule; margin-top: 1rem; padding-top: 0.5rem; }
+  .atlas-related button { background: transparent; border: 0; padding: 0.4rem 0; min-height: $tok-touch; font-size: 0.8125rem; text-align: left; text-decoration: underline; text-underline-offset: 0.2em; }
+  .atlas-footer { display: flex; flex-wrap: wrap; align-items: start; gap: 0 1.25rem; font-size: 0.8125rem; }
+  .atlas-footer > button, .atlas-index > summary { background: transparent; border: 0; padding: 0.5rem 0; min-height: $tok-touch; font: inherit; text-decoration: underline; text-underline-offset: 0.3em; }
+  .atlas-index { display: contents; }
+  .atlas-index > summary { display: block; cursor: pointer; list-style: none; }
+  .atlas-index > summary::-webkit-details-marker { display: none; }
+  .atlas-index > summary::after { content: " +"; }
+  .atlas-index[open] > summary::after { content: " −"; }
+  .atlas-index-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 1.5rem; order: 5; width: 100%; padding: 1rem 0; }
+  .atlas-index:not([open]) > .atlas-index-list { display: none; }
+  .atlas-index-list button { border: 0; border-bottom: 1px solid $tok-rule; background: transparent; padding: 0.75rem 0; font-size: 0.875rem; text-align: left; min-height: $tok-touch; }
+  .atlas-edge-note { margin: 0 0 0 auto; padding: 0.7rem 0; max-width: 35ch; font-size: 0.75rem; color: $tok-ink-mute; }
+  @media (max-width: 800px) {
+    .atlas-header { flex-direction: column; gap: 0.75rem; }
+    .atlas-search { width: 100%; }
+    .atlas-stage { grid-template-columns: minmax(0, 1fr); }
+    .atlas-network { height: clamp(24rem, 65vh, 32rem); }
+    .atlas-sidebar { border-left: 0; padding: 0; }
+    .atlas-invitation { display: none; }
+    .atlas-legend { gap: 0 1rem; }
+    .atlas-part { font-size: 0.6875rem; }
+    .atlas-index-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .atlas-edge-note { width: 100%; max-width: none; margin: 0; }
+    .atlas-definition { margin: 0; padding: 0 0 1.5rem; border-top: 1px solid $tok-rule; }
+  }
+  @media (max-width: 360px) {
+    .atlas-index-list { grid-template-columns: 1fr; }
+  }
+}
+.glossary-notes {
+  font-family: $tok-font-sans;
+  > summary { cursor: pointer; min-height: $tok-touch; font-size: 0.875rem; padding: 0.5rem 0; }
+  &.atlas-notes-enhanced:not([open]) { display: none; }
+  &.atlas-notes-enhanced > summary { font-size: 0.8125rem; }
+  h2 { font-size: 1.5rem; }
+  table { font-size: 0.875rem; }
+}

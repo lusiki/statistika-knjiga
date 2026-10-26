@@ -872,12 +872,86 @@ async function runSmokeAudit() {
     }
     await mountedGlossary.click();
     await page.waitForURL(`${baseUrl}/statistika-knjiga/pojmovnik.html?*`);
-    await page.locator("h1").waitFor({state: "visible"});
+    await page.locator('.atlas-title').waitFor({state: 'visible'});
     if (pageErrors.length) throw new Error(`gallery page error: ${pageErrors.join(" | ")}`);
 
+    // The connected atlas keeps every canonical concept in the visible network.
+    await page.goto(`${baseUrl}/pojmovnik.html`, {waitUntil: 'domcontentloaded'});
+    const atlas = page.locator('.concept-atlas');
+    await atlas.locator('.atlas-node').first().waitFor();
+    const graph = JSON.parse(fs.readFileSync(path.join(root, 'data', 'concept-graph.json'), 'utf8'));
+    if (await atlas.locator('.atlas-index-list button').count() !== graph.nodes.length) {
+      throw new Error('atlas index omits canonical concepts');
+    }
+    if (await atlas.locator('.atlas-node').count() !== graph.nodes.length) {
+      throw new Error('atlas network omits canonical concepts');
+    }
+    const nodeIds = await atlas.locator('.atlas-node').evaluateAll(nodes => nodes.map(n => n.dataset.id).join('|'));
+    await atlas.locator('.atlas-part').first().click();
+    if (await atlas.locator('.atlas-node.is-muted').count() === 0) throw new Error('atlas part highlight failed');
+    await atlas.locator('.atlas-part').first().click();
+    const beforeZoom = await atlas.locator('.atlas-node-shape').first().boundingBox();
+    await atlas.getByRole('button', {name: 'Povećaj mrežu', exact: true}).click();
+    const afterZoom = await atlas.locator('.atlas-node-shape').first().boundingBox();
+    if (afterZoom.width <= beforeZoom.width * 1.1) throw new Error('atlas zoom failed');
+    await atlas.getByRole('button', {name: 'Cijela mreža', exact: true}).click();
+    const graphBox = await atlas.locator('.atlas-network').boundingBox();
+    const beforePan = await atlas.locator('.atlas-node').first().boundingBox();
+    await page.mouse.move(graphBox.x + 8, graphBox.y + 8);
+    await page.mouse.down();
+    await page.mouse.move(graphBox.x + 48, graphBox.y + 28, {steps: 4});
+    await page.mouse.up();
+    const afterPan = await atlas.locator('.atlas-node').first().boundingBox();
+    if (afterPan.x <= beforePan.x + 30) throw new Error('atlas background pan failed');
+    await atlas.getByRole('button', {name: 'Cijela mreža', exact: true}).click();
+    await atlas.locator('input[type="search"]').fill('standardna pogreska');
+    await atlas.locator('.atlas-results button').first().click();
+    if (await atlas.locator('.atlas-definition h2').innerText() !== 'Standardna pogreška') {
+      throw new Error('atlas diacritic-insensitive search failed');
+    }
+    if (!(await atlas.locator('.atlas-chapter').getAttribute('href')).endsWith('#def-standardna-pogreska')) {
+      throw new Error('atlas definition link lost its canonical anchor');
+    }
+    if (await atlas.locator('.atlas-node').evaluateAll(nodes => nodes.map(n => n.dataset.id).join('|')) !== nodeIds) {
+      throw new Error('atlas selection replaced the connected graph');
+    }
+    await atlas.locator('.atlas-close').click();
+    if (await atlas.locator('.atlas-pause').getAttribute('aria-pressed') !== 'true') {
+      await atlas.locator('.atlas-pause').click();
+    }
+    const atlasNode = atlas.locator('.atlas-node').first();
+    await atlasNode.focus();
+    const beforeKey = await atlasNode.boundingBox();
+    await atlasNode.press('ArrowRight');
+    const afterKey = await atlasNode.boundingBox();
+    if (afterKey.x <= beforeKey.x + 10) throw new Error('atlas keyboard movement failed');
+    await page.mouse.move(afterKey.x + afterKey.width / 2, afterKey.y + afterKey.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(afterKey.x + afterKey.width / 2 + 40, afterKey.y + afterKey.height / 2 + 30, {steps: 5});
+    await page.mouse.up();
+    const afterDrag = await atlasNode.boundingBox();
+    if (afterDrag.x <= afterKey.x + 20 || await atlas.locator('.atlas-definition').isVisible()) {
+      throw new Error('atlas drag failed or incorrectly opened a definition');
+    }
+    await atlas.locator('.atlas-index summary').click();
+    await atlas.locator('.atlas-index-list button').first().click();
+    await atlas.locator('.atlas-definition').waitFor({state: 'visible'});
+    await atlas.locator('.atlas-close').click();
+    await page.emulateMedia({reducedMotion: 'no-preference'});
+    await page.waitForFunction(() => document.querySelector('.atlas-pause')?.textContent === 'Zaustavi kretanje');
+    await page.emulateMedia({reducedMotion: 'reduce'});
+    await page.waitForFunction(() => document.querySelector('.atlas-pause')?.textContent === 'Pokreni kretanje');
+    await atlas.locator('input[type="search"]').fill('predikcija');
+    await atlas.locator('.atlas-results button').first().click();
+    if (!(await page.locator('#o-nazivlju').evaluate(el => el.open))) {
+      throw new Error('atlas alternative-term route failed');
+    }
+
     await page.goto(`${baseUrl}/index.html`, {waitUntil: "domcontentloaded"});
-    const landingSlider = page.locator('#landing-sample-size');
-    await landingSlider.waitFor({state: 'visible'});
+    await page.locator('h1.hero-title').waitFor({state: 'visible'});
+    if (await page.locator('.hero-podnaslov').innerText() !== 'Uvod u analizu podataka za društvene znanosti') {
+      throw new Error('landing subtitle is outdated');
+    }
     const signatures = await page.locator('.landing-authors a').evaluateAll(links => links.map(a => ({name: a.textContent.trim(), href: a.getAttribute('href')})));
     if (signatures.length !== 2 || signatures[0].name !== 'sikic' || signatures[1].name !== 'palic' || !signatures[0].href.endsWith('cv-luka.html') || !signatures[1].href.endsWith('cv-petra.html')) {
       throw new Error('landing author signature is incorrect');
@@ -885,47 +959,36 @@ async function runSmokeAudit() {
     if (!(await page.locator('.nav-footer-center').innerText()).includes('© 2026 · Statistika 101')) {
       throw new Error('footer uses an outdated book title');
     }
-    if (await page.locator('.landing-part').count() !== 6 ||
-        await page.locator('.landing-part a').count() !== 18) {
-      throw new Error('landing contents omit book sections or chapters');
+    if (await page.locator('.landing-distribution, #landing-sample-size, .landing-parts').count()) {
+      throw new Error('landing page still contains the removed experiment or contents');
     }
-    const peak = page.locator('.landing-bars > i').nth(20);
-    const peakBefore = await peak.getAttribute('style');
-    await page.locator('.landing-compare').click();
-    if (await landingSlider.inputValue() !== '100' || await peak.getAttribute('style') === peakBefore) {
-      throw new Error('landing distribution does not respond to larger samples');
+    const startReading = page.locator('.hero-cta .primarni');
+    if (!(await startReading.getAttribute('href')).endsWith(pageById.get('ch01').output)) {
+      throw new Error('landing reading action does not enter the first chapter');
     }
-    await page.locator('.landing-compare').click();
-    if (await landingSlider.inputValue() !== '5') throw new Error('landing smaller-sample comparison failed');
-    await landingSlider.focus();
-    await landingSlider.press('ArrowRight');
-    if (await landingSlider.inputValue() !== '10') throw new Error('landing slider keyboard control failed');
-    const part = page.locator('.landing-part').first();
-    await part.locator('summary').focus();
-    await part.locator('summary').press('Enter');
-    if (!(await part.evaluate(el => el.open))) throw new Error('landing contents keyboard disclosure failed');
-    await part.locator('summary').press('Enter');
+    const citation = page.locator('.landing-about');
+    await citation.locator('summary').focus();
+    await citation.locator('summary').press('Enter');
+    if (!(await citation.evaluate(el => el.open))) throw new Error('citation disclosure failed');
+    await citation.locator('summary').press('Enter');
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({width, height: 1000});
       if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) {
         throw new Error(`landing page overflows at ${width}px`);
       }
       if (outDir && width !== 320) {
-        await page.locator('.hero-title').evaluate(el => el.scrollIntoView({block: 'start'}));
+        await page.locator('h1.hero-title').evaluate(el => el.scrollIntoView({block: 'start'}));
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(250);
         await page.screenshot({path: path.join(outDir, `landing-${width}.png`), fullPage: true});
       }
     }
-    await page.emulateMedia({reducedMotion: 'reduce'});
-    if (await peak.evaluate(el => getComputedStyle(el).transitionDuration) !== '0s') {
-      throw new Error('landing distribution ignores reduced-motion preference');
-    }
     const noJsContext = await browser.newContext({javaScriptEnabled: false});
     const noJsPage = await noJsContext.newPage();
     await noJsPage.goto(`${baseUrl}/index.html`);
-    await noJsPage.locator('.landing-part summary').first().click();
-    await noJsPage.locator('.landing-part a').first().waitFor({state: 'visible'});
+    await noJsPage.locator('.hero-cta .primarni').waitFor({state: 'visible'});
+    await noJsPage.locator('.landing-about summary').click();
+    await noJsPage.locator('#kako-citirati').waitFor({state: 'visible'});
     await noJsContext.close();
     if (pageErrors.length) throw new Error(`landing page error: ${pageErrors.join(' | ')}`);
 
