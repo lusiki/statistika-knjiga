@@ -47,3 +47,12 @@ svim čitačima zaslona. Povijesni validator `check-release-governance.R` uklju�
 statične kontrolne zbrojeve staroga dokaza i postojeću granicu kolofona; nije
 obnovljen ni proglašen prolaznim ovim zahvatom. Registar uredničke revizije i
 pravila zaključavanja konačnoga izdanja ostaju zasebni.
+
+Nakon uključivanja zasebne autorske izmjene rukopisa `4027adf`, ponovljeni su
+potpuni HTML render, svih 252 provjera prikaza, 17 provjera interakcija,
+preglednički smoke i izvozni testovi. Objavni CI zatim je otkrio 15 zastarjelih
+otisaka tiskovnih widgeta: promijenjeni su potpisi i jedan alternativni opis.
+Usporedba svakoga bloka s prethodnim izvorom potvrdila je nepromijenjeni
+izvršni R i OJS kod. Obnovljeni su samo otisci u `data/widgets.json`, bez
+izmjene očekivanih vrijednosti ili tolerancija. Prolaze svih 17 numeričkih
+parova i osam negativnih provjera.
