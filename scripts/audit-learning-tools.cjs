@@ -34,7 +34,7 @@ const server=http.createServer((req,res)=>{let file=path.resolve(root,'.'+decode
   await p.goto(base+'index.html');await p.locator('h1.hero-title').waitFor();
   assert.equal(await p.locator('#landing-sample-size').count(),0);
   for (const [name, file] of [['Luka Šikić — osobni profil','cv-luka.html'],['Petra Palić — osobni profil','cv-petra.html']]) {
-   await p.getByRole('link',{name,exact:true}).click();assert(p.url().endsWith(file));await p.locator('h1').waitFor();await p.goto(base+'index.html');
+   await p.getByRole('link',{name,exact:true}).click();assert(p.url().endsWith(file));await p.locator('.author-profile h1.name').waitFor();await p.goto(base+'index.html');
   }
   await p.goto(base+'pojmovnik.html?pojam=interval-pouzdanosti');
   await p.locator('.atlas-definition h2').waitFor();
