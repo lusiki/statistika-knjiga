@@ -25886,5 +25886,182 @@
       "references.bib": "1d24b57e952f1591964cb50fb85dc13648cd11918f22c60e198f28476cab87bd",
       "scripts/build-appendix-c-views.R": "6d470a25d8bbf3761c2c547e5b36e61d40f42bd8a096839b6707d93d8196b1f8"
     }
+  },
+  "publication_integration_2026_10_26": {
+    "authorization": "commit and push and merge the main and tell me what is next to be done with this or if this is finished.",
+    "pull_request": "https://github.com/lusiki/statistika-knjiga/pull/14",
+    "editorial_closeout_commit": "0e54da3db1ca1e2d0a5a94207b312afc450dfe44",
+    "main_integrated": "f3448addaf6894672d47d70f29118d1504daef00",
+    "integration_commit": "4e20ea50ea73b5404b1480d9de51ecd0366471ea",
+    "conflicts": 0,
+    "editorial_delta_proof": "The ordered changed paths and added/deleted lines of 1167353..0e54da3 exactly match f3448ad..4e20ea5; only hunk positions differ.",
+    "generated_artifacts_refreshed": [
+      "config/appendix-f-ai-route.json",
+      "config/appendix-g-numeracy-route.json"
+    ],
+    "artifact_reason": "Latest main added widget state nodes to chapter sources and two author profile routes. F changes only 85 source SHA-256 fields; G records current input hashes and 40 non-solution pages.",
+    "effective_validation": {
+      "passed": 26,
+      "total": 30,
+      "checks": [
+        {
+          "command": "python -X utf8 scripts/check-book-inventory.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/build-solution-routes.py --check",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-assessment-architecture.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-pathways.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-manuscript-integrity.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-figure-introductions.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-citations.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-concepts.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-katalog.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-data-integrity.R",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-integrity-fixtures.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-data-fixtures.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-teaching-variants.R",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-error-exercises.R",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-unit-16-numerics.R",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-unit-17-numerics.R",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-unit-18-numerics.R",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-appendix-a.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-appendix-b.py",
+          "exit_code": 1,
+          "output": "APPENDIX_B_CHECK_FAIL: Dodatku B nedostaje obvezni trag: Luka Sikic\n"
+        },
+        {
+          "command": "python -X utf8 scripts/check-appendix-c.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-appendix-d.py",
+          "exit_code": 1,
+          "output": "APPENDIX_D_CHECK_FAILED print-reference-spread-markers\n"
+        },
+        {
+          "command": "python -X utf8 scripts/check-appendix-e.py",
+          "exit_code": 1,
+          "output": "APPENDIX_E_CHECK_FAILED route artifact conventions hash is stale\n"
+        },
+        {
+          "command": "python -X utf8 scripts/check-appendix-f.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-appendix-g.py",
+          "exit_code": 1,
+          "output": "APPENDIX_G_CHECK_FAILED architecture counts={'chapters': 19, 'appendices': 7, 'canonical_pages': 40, 'widgets': 17, 'widgets_with_static_twins': 17, 'callout_types': 4, 'authorization': {'gate': 'G-A2d', 'decision': 'D10', 'approved_on': '2026-08-04'}}\n"
+        },
+        {
+          "command": "python -X utf8 scripts/check-chapter-spines.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-identity-briefs.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-terminology.py",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-widgets.py .",
+          "exit_code": 0,
+          "output": "PASS"
+        },
+        {
+          "command": "python -X utf8 scripts/check-widget-parity.py .",
+          "exit_code": 0,
+          "output": "PASS"
+        }
+      ]
+    },
+    "remaining_failures": {
+      "B": "Previously recorded mandatory author-name trace mismatch.",
+      "D": "Previously recorded print-reference-spread-markers failure.",
+      "E": "Previously recorded stale conventions hash.",
+      "G": "Existing checker retains 38 non-solution pages and 39 inventory pages; current main has 40/41 after adding author-luka and author-petra. The checker blob is unchanged from 1167353 to f3448ad. Regenerated artifact matches the current builder; architecture assertion remains unresolved."
+    },
+    "scope": "No checker, governance control, registry, chapter status or historical validation result changed. P6-VERIFY remains open. CI and merge outcomes are recorded on PR 14."
   }
 }

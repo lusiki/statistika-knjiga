@@ -38,4 +38,24 @@ nisu uključeni u commitove.
 
 Svaki provedeni prijedlog ima zaseban lokalni commit. Upravljačke datoteke,
 registri i statusi poglavlja ostali su netaknuti; P6-VERIFY ostaje otvoren.
-**Nema pusha, PR-a ni mergea.**
+**U trenutku lokalnog uredničkog zatvaranja nije bilo pusha, PR-a ni mergea.**
+
+## Priprema spajanja, 26. listopada 2026.
+
+Autor je naknadno izričito odobrio commit, push i spajanje u `main`.
+Otvoren je [PR #14](https://github.com/lusiki/statistika-knjiga/pull/14).
+Aktualni `main` (`f3448ad`) uključen je bez sukoba u `4e20ea5`.
+Usporedba dodanih i uklonjenih redaka po datotekama potvrđuje da je cijela
+prethodno pregledana urednička razlika sačuvana.
+
+Generatori su obnovili zapise F i G zbog novih izvora interakcija i autorskih
+stranica na `main`. Ponovljena ljestvica nakon te obnove daje **26/30**:
+F ponovno prolazi; B, D i E zadržavaju ranije padove. G sada pokazuje dodatni
+postojeći nesklad provjere sa stanjem `main`: očekuje 38 stranica bez rješenja,
+a inventar ih nakon dodavanja `cv-luka` i `cv-petra` ima 40. Njegov obnovljeni
+zapis odgovara generatoru. Provjera nije promijenjena radi prolaza.
+
+Sljedeći zaseban posao jest nastaviti `P6-VERIFY`, razriješiti aktualne padove
+B/D/E/G te provjeriti pet otvorenih stavki R30 i preostale prihvatne uvjete.
+Povijesni dokazi i upravljački statusi ostaju sačuvani. Ishod produkcijske
+izgradnje i spajanja prati se na PR-u.
