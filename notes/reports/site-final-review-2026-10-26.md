@@ -56,3 +56,11 @@ Usporedba svakoga bloka s prethodnim izvorom potvrdila je nepromijenjeni
 izvršni R i OJS kod. Obnovljeni su samo otisci u `data/widgets.json`, bez
 izmjene očekivanih vrijednosti ili tolerancija. Prolaze svih 17 numeričkih
 parova i osam negativnih provjera.
+
+Objava `9ca9758` prošla je cijeli produkcijski postupak i GitHub Pages
+deployment u [izvođenju 40312859679](https://github.com/lusiki/statistika-knjiga/actions/runs/40312859679).
+Na javnoj adresi ponovno su prošle sve korisničke radnje i 252 kombinacije
+prikaza. PDF vraća HTTP 200 i ispravan tip datoteke, a izvoz predgovora
+sadrži 10.913 znakova. U samom provjerivaču ispravljeno je razrješavanje
+relativne poveznice rezultata pretrage pod GitHub Pages podputom; izvor
+mrežnog sučelja time se ne mijenja. I lokalna i javna provjera prolaze.

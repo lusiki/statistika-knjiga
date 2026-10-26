@@ -96,9 +96,16 @@ const server = http.createServer((req, res) => {
     const resultURL = await p
       .locator(".aa-DetachedOverlay .aa-Item a")
       .first()
-      .getAttribute("href");
+      .evaluate((a) => a.href);
     await p.locator(".aa-DetachedOverlay .aa-Item a").first().click();
-    await p.waitForURL(new URL(resultURL, base).href);
+    // Resolve relative links against the current page, including a Pages subpath.
+    // Quarto can remove its temporary search query after navigation.
+    const resultTarget = new URL(resultURL);
+    await p.waitForURL(
+      (url) =>
+        url.origin === resultTarget.origin &&
+        url.pathname === resultTarget.pathname,
+    );
     await go("chapters/13-kategoricki-podaci.html");
     for (const page of inventory.pages.filter((x) =>
       /^chapters\//.test(x.output),
