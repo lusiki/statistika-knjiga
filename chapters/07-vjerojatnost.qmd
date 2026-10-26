@@ -426,6 +426,18 @@ viewof w07_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w07_par;
+  form.dataset.learningForm = "w07";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w07_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w07_rezultati = {
   const rng = d3.randomLcg(707);
   return Array.from({length: w07_par.k}, () => {

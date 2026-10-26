@@ -407,6 +407,18 @@ viewof w12_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w12_par;
+  form.dataset.learningForm = "w12";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w12_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 //| label: fig-w12
 //| fig-cap: "Udio simuliranih istraživanja s barem jednim rezultatom ispod odabranog praga nakon pretraživanja više neovisnih analitičkih putova."
 //| fig-alt: "Pri početnih dvanaest analitičkih putova kumulativna krivulja brzo raste, pa nominalni prag 0,05 zahvaća mnogo više istraživanja od praga korigiranog za broj putova."

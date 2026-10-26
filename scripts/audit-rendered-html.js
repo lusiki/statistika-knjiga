@@ -842,8 +842,8 @@ async function runSmokeAudit() {
         width: element.clientWidth,
         display: getComputedStyle(element.querySelector(".widget-workbench")).display
       }));
-      if (workbenchLayout.width >= 520 && workbenchLayout.display !== "grid") {
-        throw new Error("wide CLT workbench did not place controls beside the chart");
+      if (workbenchLayout.display !== "block") {
+        throw new Error("CLT learning workbench must give the chart the full reading width");
       }
       if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) {
         throw new Error(`CLT workbench overflows at ${width}px`);
@@ -878,7 +878,8 @@ async function runSmokeAudit() {
     await page.goto(`${baseUrl}/index.html`, {waitUntil: "domcontentloaded"});
     const landingSlider = page.locator('#landing-sample-size');
     await landingSlider.waitFor({state: 'visible'});
-    if ((await page.locator('.landing-authors').innerText()) !== 'sikic . palic') {
+    const signatures = await page.locator('.landing-authors a').evaluateAll(links => links.map(a => ({name: a.textContent.trim(), href: a.getAttribute('href')})));
+    if (signatures.length !== 2 || signatures[0].name !== 'sikic' || signatures[1].name !== 'palic' || !signatures[0].href.endsWith('cv-luka.html') || !signatures[1].href.endsWith('cv-petra.html')) {
       throw new Error('landing author signature is incorrect');
     }
     if (!(await page.locator('.nav-footer-center').innerText()).includes('© 2026 · Statistika 101')) {

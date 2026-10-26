@@ -610,6 +610,18 @@ viewof w01_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w01_par;
+  form.dataset.learningForm = "w01";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w01_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w01_tema = Generators.observe(obavijesti => {
   let revizija = 0;
   const osvjezi = () => obavijesti(++revizija);

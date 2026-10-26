@@ -741,6 +741,18 @@ viewof w05_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w05_par;
+  form.dataset.learningForm = "w05";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w05_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w05_podaci = {
   const rng = d3.randomLcg(505);
   const normalna = () => {

@@ -230,8 +230,8 @@ izvora nastavnih uputa. Kartice interakcija vode na stabilni identifikator
 `interakcija-wNN` na okviru, a zasebna poveznica otvara početak poglavlja.
 Galerija koristi shematske preglede u bojama podataka, pitanje i broj poglavlja;
 status izrade i interni prioritet ostaju u registru, izvan čitateljskog sučelja.
-CLT stroj pri širini okvira od najmanje 520 px smješta kontrole uz graf;
-na užem zaslonu kontrole i graf slijede jedan ispod drugoga.
+CLT stroj smješta kontrole iznad grafa pune širine kako bi oznake ostale
+čitljive uz zadatak i spremljenu usporedbu.
 
 ---
 
@@ -319,3 +319,33 @@ sirovi hex.
   `_quarto.yml`, iako `images/cover.png` postoji.
 - **Word rukopis** (`scripts/render-book-docx.ps1`) nasljeđuje boje i pisma iz
   zadanog predloška; nema vlastiti Zvono predložak.
+
+### Interaktivna mreža pojmova
+
+Pojmovnik koristi fokusirani prikaz najbližih pojmova i pregled cijele mreže.
+Debljina bridova prati supojavljivanje (`cooc`), a isprekidana crta označuje
+vezu u definiciji. Oker označuje odabrani pojam; modra ostale pojmove.
+Povlačenje, zumiranje i crtanje bilježaka rade samo u trenutačnom prikazu.
+Izvorni filtri i abecedni popis ostaju dostupni. Stilovi čitaju tokene
+u `_concept-network.scss`, a ponašanje je u `widgets/concept-network.js`.
+
+### Pokusi s predviđanjem i usporedbom
+
+Svih sedamnaest interakcija i naslovna shema imaju kratko pitanje, privatno
+polje predviđanja i objašnjenje na otvaranje. Reaktivni tekst čita stvarne
+postavke. Spremljena usporedba čuva postavke i, za uzorkovanje, intervale i
+snagu, grafove na jednakim osima. Ostale interakcije uspoređuju tekstualno
+protumačene postavke. Poveznica s parametrom `pokus` nosi verziju, postavke i
+postojeće fiksno sjeme; nikada ne uključuje zapisano predviđanje. Poveznica
+ima prednost pred lokalnim pamćenjem. Vođeni putovi pojmovnika odvojeni su
+od bridova supojavljivanja. Dodatak se nalazi u `learning-include.html`.
+
+### Profili autora
+
+Samostalne stranice `cv-luka.qmd` i `cv-petra.qmd` čuvaju sadržaj izvornih
+životopisa iz projekta Javne politike. Luka ima modru naslovnu plohu i portret
+u kupoli, a Petra oker plohu i kružni portret. Kontrola „Presloži oblike”
+mijenja samo naslovnu geometriju; tekst ostaje na mjestu. Poveznice na odjeljke
+omogućuju brz pregled. Stilovi su u `_author-profiles.scss` i koriste tokene.
+Profili su u inventaru kao dvije dodatne samostalne stranice, izvan povijesne
+osnove nastavnih putova od 39 stranica.

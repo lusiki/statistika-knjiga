@@ -61,6 +61,8 @@
     "/resursi.html",
     "/rjesenja.html",
     "/errata.html",
+    "/cv-luka.html",
+    "/cv-petra.html",
     "/404.html"
   ];
   var NAVBAR_SKUPINE = [
@@ -112,6 +114,8 @@
     "resources": "/resursi.html",
     "solutions": "/rjesenja.html",
     "errata": "/errata.html",
+    "author-luka": "/cv-luka.html",
+    "author-petra": "/cv-petra.html",
     "not-found": "/404.html"
   };
   var AI_PUTOVI_POGLAVLJA = [
@@ -832,7 +836,7 @@
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
     // je dovoljan jer se stanje pamti na svaku promjenu.
-    window.setTimeout(vrati, 600);
+    if (!new URLSearchParams(location.search).has("pokus")) window.setTimeout(vrati, 600);
     document.addEventListener("input", function (e) {
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
     });

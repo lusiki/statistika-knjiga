@@ -529,6 +529,18 @@ viewof w02_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w02_par;
+  form.dataset.learningForm = "w02";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w02_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 w02_tema = Generators.observe(obavijesti => {
   let revizija = 0;
   const osvjezi = () => obavijesti(++revizija);

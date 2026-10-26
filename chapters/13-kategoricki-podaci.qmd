@@ -422,6 +422,18 @@ viewof w13_par = Inputs.form({
 
 ```{ojs}
 //| echo: false
+{
+  const form = viewof w13_par;
+  form.dataset.learningForm = "w13";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w13_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
 //| label: fig-w13
 //| fig-cap: "Opažene i očekivane frekvencije u tablici dva puta dva s jednakim rubnim zbrojevima."
 //| fig-alt: "Pri početnoj postavci dijagonalne ćelije imaju više, a preostale manje opažanja od očekivanih frekvencija. Svaka ćelija prikazuje svoj doprinos ukupnom odstupanju."
