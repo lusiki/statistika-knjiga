@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -36,7 +36,7 @@ Koja usporedba odgovara na pitanje koje nas zanima?
 
 Kad pročitamo da je jedna skupina uspješnija od druge, lako je preskočiti
 račun i odmah tražiti objašnjenje. Berkeleyjski slučaj poziva nas da zastanemo
-kod same usporedbe (Bickel, 1975). Prije odluke o tome što razlika znači
+kod same usporedbe (Bickel, 1975). Zapisi su nastali u postupku prijave na studij i čuvaju stvarni sastav prijava po odjelima (Bickel, 1975). Prije odluke o tome što razlika znači
 trebamo znati koga uspoređujemo, što je zabilježeno i prema kojoj cjelini
 računamo postotak. To su pitanja od kojih ćemo krenuti, bez pretpostavke da
 već poznajemo statističke postupke.
@@ -47,8 +47,10 @@ ali morat ćemo odlučiti odgovara li na pitanje koje smo postavili. Za početak
 su nam dovoljni poznati postoci, jednostavne tablice i spremnost da provjerimo
 što stoji iza broja. U središtu je sposobnost da objasnimo zašto smo nešto podijelili, koga smo izostavili i dokle dobiveni odgovor vrijedi. To možemo vježbati uz prikazane račune.
 
-Uz stvarni slučaj prijava koristit ćemo autorski skup `populacija_medija`,
-računalno stvorenu populaciju odraslih osoba iz zamišljenoga grada. Jedan zapis predstavlja jednu zamišljenu osobu. U prvom ćemo
+Uz stvarne prijave na studij koristit ćemo i skup podataka o medijskim
+navikama stanovnika zamišljenoga grada, nazvan `populacija_medija`.
+Stvorili smo ga računalnom simulacijom. Svaki redak njegove tablice opisuje
+jednu zamišljenu odraslu osobu. U prvom ćemo
 računu povezati njezin glavni izvor vijesti sa spremnošću na plaćanje vijesti.
 Usporedit ćemo broj osoba koje bi platile s njihovim udjelom unutar pojedinog
 izvora. Tako možemo pratiti svaki korak na populaciji čiji su odnosi unaprijed zadani.
@@ -99,10 +101,10 @@ i izvor vijesti, čije se vjerojatnosti mijenjaju s dobi. Povjerenje ovisi o
 dobi i izvoru uz slučajno odstupanje, a spremnost na plaćanje o povjerenju i
 obrazovanju. Tako nastaju namjerno povezane varijable. Jedna osoba može
 odstupati od zadanoga obrasca, a cjelina od 50.000 osoba pokazuje obrazac koji
-je autor ugradio u generator.
+je autor ugradio u generator. Ti zapisi ne opisuju stvarne stanovnike.
 
 Prva tri retka pokazuju kako taj skup izgleda prije sažimanja. Svaki redak
-čuva više obilježja iste generirane osobe.
+čuva više obilježja iste zamišljene osobe.
 
 *Slika. Tri zapisa iz generirane populacije medijskih navika. Izrada autora.*
 
@@ -241,9 +243,8 @@ opisivanju ili predviđanju, ali sam ne pokazuje što uzrokuje odnos.
 
 **Podatkovna znanost** obuhvaća rad kojim od izvora podataka dolazimo do
 analize koju možemo ponoviti. **Strojno učenje** ispituje koliko dobro obrazac
-naučen iz jednih podataka djeluje na novim opažanjima. Taj je pristup blizak
-algoritamskoj kulturi modeliranja koju je Breiman razlikovao od modeliranja
-usmjerenog na objašnjenje (Breiman, 2001). **Sustav umjetne inteligencije**
+naučen iz jednih podataka djeluje na novim opažanjima. Takav pristup stavlja uspješnost predviđanja u prvi plan, dok je drugi
+pristup modeliranju više usmjeren na objašnjenje odnosa (Breiman, 2001). **Sustav umjetne inteligencije**
 uključuje model, sučelje i način njegove uporabe u određenoj ustanovi ili
 postupku odlučivanja. Pri procjeni takvog sustava razmatramo tehnička
 svojstva, ali i pogreške te posljedice uporabe (Barocas, 2023).
@@ -279,10 +280,8 @@ nekoliko jednakih ishoda zaredom.
 Slično zaključujemo iz poznatih primjera. Ako susjed i dvoje kolega hvale novu
 aplikaciju za vijesti, mogli bismo pomisliti da je ona općenito dobro
 prihvaćena. Troje poznanika ipak ne predstavlja cijelu publiku. Možda se
-vijestima bave više od drugih pa su zato i isprobali aplikaciju. Tversky i
-Kahneman nazvali su heuristikom dostupnosti sklonost da učestalost
-procjenjujemo prema tome koliko se lako prisjetimo nekog primjera
-(Tversky, 1973). Živopisan ili nedavan slučaj tako može ostaviti pretjerano
+vijestima bave više od drugih pa su zato i isprobali aplikaciju. Sklonost da učestalost procjenjujemo prema tome koliko se lako prisjetimo
+nekog primjera poznata je kao heuristika dostupnosti (Tversky, 1973). Živopisan ili nedavan slučaj tako može ostaviti pretjerano
 snažan dojam.
 
 Zamislimo i usporedbu u kojoj portali s više objavljenih tekstova imaju više
@@ -298,7 +297,7 @@ s ostalim mogućim nizovima, pohvale aplikacije s iskustvima šire publike, a
 posjete portalima uzimajući u obzir njihovu veličinu. Time postaje vidljivo na
 čemu se zaključak temelji.
 
-Provjera obuhvata potrebna je i pri velikom broju zapisa. Milijuni interakcija na portalu opisuju zabilježene aktivnosti njegovih posjetitelja; za upoznavanje ostale publike trebalo bi prikupiti dodatne podatke.
+Provjera obuhvata potrebna je i pri velikom broju zapisa. Milijuni interakcija na portalu opisuju zabilježene aktivnosti njegovih posjetitelja. Za upoznavanje ostale publike trebalo bi prikupiti dodatne podatke.
 Odgovori većega broja zasebno odabranih ljudi obično daju stabilniji
 postotak od odgovora male skupine. Korist je manja kada se isti odgovori ponavljaju, a sustavno izostavljen dio publike ostaje izvan obuhvata.
 
@@ -408,7 +407,7 @@ Brojnosti pokazuju oba pogleda na Berkeley. Za cijelo sveučilište bilo je
 sačuvanih u skupu `UCBAdmissions`. Njihovih 4 526 prijava čini podskup,
 pa njegov zbirni postotak nije postotak cijeloga sveučilišta (Bickel, 1975).
 
-*Slika. Prijave i prijam u šest najvećih odjela Berkeleyja 1973. Podaci UCBAdmissions prema @bickel1975; postoci izračunati iz prikazanih brojnosti.*
+*Slika. Prijave i prijam u šest najvećih odjela Berkeleyja 1973. Podaci UCBAdmissions prema @bickel1975. Postoci izračunati iz prikazanih brojnosti.*
 
 U odjele A i B, koji imaju visoke stope prijma, prijavilo se
 `r sum(berkeley1$Prijave[berkeley1$Gender == "Male" & berkeley1$Dept %in% c("A", "B")])`
@@ -417,7 +416,7 @@ podskupa, a samo
 `r sum(berkeley1$Prijave[berkeley1$Gender == "Female" & berkeley1$Dept %in% c("A", "B")])`
 od `r sum(berkeley1$Prijave[berkeley1$Gender == "Female"])` žena (Bickel, 1975).
 Razlikuju se i stope unutar odjela i udjeli prijava usmjerenih u pojedine
-odjele. Zbirni postotak uključuje oboje; tablica sama ne objašnjava
+odjele. Zbirni postotak uključuje oboje. Tablica sama ne objašnjava
 zašto je izbor odjela bio tako raspoređen.
 
 **Simpsonov paradoks** je obrazac u kojem se smjer povezanosti u združenim
@@ -501,8 +500,8 @@ Kada su skupine jednako raspoređene po podskupinama, zbirna usporedba zadržava
 **Zbirna stopa i sumnja u pristranost.** Iza Berkeleyjske tablice stajalo
 je pitanje o postupanju prema kandidatima, a ne samo zadatak računanja
 postotaka. Niža ukupna stopa prijma žena potaknula je sumnju u upisni
-postupak (Bickel, 1975). Bickel i suradnici zato su ispitali kako se prijave i odluke
-raspoređuju po odjelima, koji su zasebno odlučivali o prijmu
+postupak (Bickel, 1975). Istraživanje se zato usmjerilo na pitanje kako su se prijave i odluke
+raspoređivale po odjelima, jer je svaki odjel zasebno odlučivao o prijmu
 (Bickel, 1975).
 
 Vratimo se toj sumnji nakon prikaza obrata. Kada bismo sastavljali izvještaj
@@ -556,9 +555,9 @@ tisak nije dovoljan za njezin zaključak.
 ## Razrađeni primjer
 
 Razliku između broja i udjela možemo provjeriti za sve izvore vijesti u
-poznatoj autorskoj simulaciji od 50.000 osoba. Za svaki izvor
+istom simuliranom skupu podataka `populacija_medija`. Za svaki izvor
 pitamo koliki je udio njegovih korisnika spreman platiti vijesti. Jedinica
-analize ostaje generirana osoba, a veličina skupine daje nazivnik. Time
+analize ostaje zamišljena osoba, a veličina skupine daje nazivnik. Time
 povezujemo pitanje s računom koji na njega odgovara. Rezultat će opisivati
 tu generiranu populaciju, bez objašnjenja uzroka razlika ili zaključka o
 stvarnim ljudima.
@@ -657,12 +656,12 @@ ispravljena analiza ne može primijeniti na stvarne stanovnike Hrvatske.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Berkeleyjski podaci iz prethodnog poglavlja sadržavali su prijave, ishode
-upisa, spol kandidata i odjel. Iz njih se nije moglo saznati koliko je prijava
+Isti berkeleyjski zapisi iz poglavlja Zašto statistika sadržavali su prijave,
+ishode upisa, spol kandidata i odjel. Iz njih se nije moglo saznati koliko je prijava
 bila kvalitetna, kakav je savjet kandidat dobio prije prijave ni kako je odjel
 odlučivao (Bickel, 1975). Tablica je pokazivala ishode, ali samo dio okolnosti
 koje su do njih dovele.
@@ -739,7 +738,7 @@ dnevno provode na mrežama, imamo 300 opažanja jedne varijable. Postavimo li
 svakome 10 pitanja, imamo 300 opažanja za svaku od 10 varijabli. Odabirom
 pitanja određujemo koje ćemo razlike među ljudima moći proučavati.
 
-Te odluke donosimo prije prikupljanja podataka. Ljestvica s pet stupnjeva čuva odgovore u pet ponuđenih kategorija; za razlikovanje deset stupnjeva trebalo bi primijeniti drukčiju ljestvicu. Usporedba grada i sela zahtijeva zabilježeno mjesto stanovanja. Mogućnosti analize ovise o onome što smo prikupili.
+Te odluke donosimo prije prikupljanja podataka. Ljestvica s pet stupnjeva čuva odgovore u pet ponuđenih kategorija. Za razlikovanje deset stupnjeva trebalo bi primijeniti drukčiju ljestvicu. Usporedba grada i sela zahtijeva zabilježeno mjesto stanovanja. Mogućnosti analize ovise o onome što smo prikupili.
 
 Pri čitanju istraživanja zato najprije tražimo opis mjerenja i jedinicu
 analize. Treba znati odnosi li se nalaz na osobu, objavu, kućanstvo ili,
@@ -761,13 +760,18 @@ neku inače prihvatljivu jedinicu ipak ne analiziramo. Filtrom ta pravila
 primjenjujemo na zapise. Time određujemo na koju će se populaciju moći
 odnositi zaključak.
 
-Pritom razlikujemo ono što je opaženo od onoga o čemu zaključujemo. Jedna
-osoba može dati više odgovora, jedna objava sadržavati više izjava, a
-kućanstvo imati više članova. Pet redaka s odgovorima iste osobe i dalje
-opisuje jednu osobu. Ako želimo zaključivati o ljudima, moramo objasniti kako
-njihove odgovore povezujemo. Pri izradi analitičke tablice svaki redak zato
-mora imati jasno značenje i pravilo po kojem je uključen. Taj ćemo postupak
-razraditi u poglavlju o sažimanju podataka.
+Na turizmu možemo vidjeti kako nastaju različite mjere iste šire pojave.
+U lokalnom administrativnom izvatku Državnog zavoda za statistiku (DZS) za
+`r s2_dzs_dolasci$godina`. domaćim turistima pripada
+`r hr_broj(s2_dzs_dolasci$dolasci, 0)` dolazaka u komercijalni smještaj
+(statistiku}, 2026). Izvadak anketne tablice T03 za istu godinu daje procjenu od
+`r hr_broj(s2_dzs_putovanja$putovanja, 0)` privatnih putovanja s noćenjem
+unutar Hrvatske (statistiku}, 2026). Anketa obuhvaća stanovnike od
+`r s2_dzs_dob_min` godina naviše u privatnim kućanstvima, a putovanja uključuju
+i nekomercijalni smještaj (statistiku}, 2025). Dolazak nastaje prijavom u smještaj,
+pa promjena objekta može istoga gosta ponovno ubrojiti (statistiku}, 2026).
+Brojevi zato opisuju različite jedinice i obuhvate. Prije usporedbe trebamo
+zapisati koji se događaj broji, koga izvor obuhvaća i kako podatak nastaje.
 
 Zamislimo plan istraživanja televizijskih vijesti o prosvjedu. To je primjer
 planiranja, bez stvarnog nalaza. Ovisno o pitanju, možemo proučavati priloge,
@@ -799,24 +803,35 @@ raspolažemo. Zaštita sudionika može opravdati izostavljanje osjetljivih
 zapisa, ali u izvještaju treba objasniti tko je time izostao i kako to
 ograničava zaključak.
 
-Zaštita sudionika počinje prije prikupljanja. Osobi treba razumljivo objasniti
-svrhu istraživanja, što se od nje traži, moguće neugodnosti, tko će pristupiti
-podacima i kako može odustati. Pristanak mora biti dobrovoljan, bez pritiska
-nastavnika, poslodavca ili druge osobe o kojoj sudionik ovisi. Potrebno
-odobrenje i posebne uvjete provjeravamo prema pravilima ustanove prije rada.
+Kad nekoga pozovemo u istraživanje, tražimo da nam povjeri dio svojega
+iskustva. Prije nego što pristane, treba razumjeti čemu istraživanje služi,
+što ćemo ga pitati, može li mu sudjelovanje biti neugodno i tko će vidjeti
+njegove odgovore. Objašnjavamo i kako može odustati. Ako poziv dolazi od
+nastavnika ili poslodavca, posebno pazimo da osoba može slobodno odbiti,
+bez osjećaja da mora sudjelovati. Prije početka provjeravamo i koja
+odobrenja i posebne uvjete traži naša ustanova.
 
-Pri zaštiti anonimnosti razmatramo i kombinacije obilježja. Dob, malo mjesto i rijetko zanimanje zajedno mogu otkriti osobu i nakon uklanjanja imena. Prikupljamo samo potrebna obilježja, ograničavamo pristup i unaprijed
-određujemo kako ćemo podatke čuvati i kada ih izbrisati. Zamjena imena šifrom uz sačuvan ključ jest pseudonimizacija. Ključ i dalje omogućuje povezivanje zapisa s osobom. Prije objave
-tablice provjeravamo otkrivaju li male ćelije pojedince. Ako se identifikacija
-ne može razumno spriječiti, mijenjamo način dijeljenja ili prikazujemo
-agregate. Ista zaštita vrijedi pri uporabi asistenta.
+Povjerenje te osobe trebamo sačuvati i nakon što ispuni upitnik.
+Uklonimo li ime, još uvijek može ostati prepoznatljiva. Zamislimo da u
+tablici pišu njezina dob, malo mjesto u kojem živi i rijetko zanimanje.
+Netko tko poznaje to mjesto mogao bi povezati odgovore s njom. Zato već pri
+sastavljanju upitnika razmišljamo koji su nam podaci doista potrebni,
+tko će im moći pristupiti, kako ćemo ih čuvati i kada izbrisati.
+
+Ponekad ime zamijenimo šifrom, a zasebno čuvamo ključ koji ih povezuje.
+Taj postupak zovemo pseudonimizacijom. On skriva ime u radnoj tablici,
+ali onaj tko ima ključ i dalje može prepoznati osobu. I prije dijeljenja
+zbirne tablice trebamo pogledati krije li se iza neke male skupine samo
+jedna prepoznatljiva osoba. Ako je ne možemo dovoljno zaštititi, biramo
+sigurniji način dijeljenja ili prikazujemo podatke za veće skupine.
+Na to mislimo i kad tražimo pomoć asistenta, jer slanjem tablice također
+otvaramo pristup odgovorima koje nam je netko povjerio.
 
 ## Razine mjerenja
 
 Kada svakom opažanju pridružimo vrijednost, još trebamo znati što s tim
-vrijednostima možemo smisleno uspoređivati. Oznakom izvora vijesti razlikujemo kategorije, a brojem minuta mjerimo trajanje uporabe. Stevens je predložio
-podjelu na četiri razine mjerenja, koja razlikuje oznake, poredak, jednake
-razmake i smislenu nulu (Stevens, 1946). Ta nam podjela pomaže razumjeti
+vrijednostima možemo smisleno uspoređivati. Oznakom izvora vijesti razlikujemo kategorije, a brojem minuta mjerimo trajanje uporabe. Uobičajena podjela na četiri razine mjerenja razlikuje oznake,
+poredak, jednake razmake i smislenu nulu (Stevens, 1946). Ta nam podjela pomaže razumjeti
 varijablu, premda sama ne određuje sve dopuštene analize.
 
 Vrsta medija, država prebivališta, stranačka bliskost i status zaposlenosti
@@ -841,14 +856,14 @@ koju vrijednost unutar raspona. Ta razlika utječe na izbor grafa i analize.
 Diskretne varijable s mnogo mogućih vrijednosti, poput broja bodova na nekim
 testovima, u praksi se katkad analiziraju kao kontinuirane.
 
-Sažimanjem podataka zadržavamo odabranu razinu pojedinosti. Dob u godinama možemo razvrstati u dobne skupine; nakon takva razvrstavanja sama oznaka skupine govori samo raspon dobi. Isto vrijedi za pretvaranje minuta uporabe u kategorije čestih i
+Sažimanjem podataka zadržavamo odabranu razinu pojedinosti. Dob u godinama možemo razvrstati u dobne skupine. Nakon takva razvrstavanja sama oznaka skupine govori samo raspon dobi. Isto vrijedi za pretvaranje minuta uporabe u kategorije čestih i
 rijetkih korisnika. Ako anketa od početka nudi samo razrede, točne vrijednosti
 ostaju nepoznate.
 
 Mjerenje zato planiramo prema istraživačkom pitanju i čuvamo potrebne
 pojedinosti. Za izbor analize zatim uz razinu mjerenja razmatramo dizajn,
 raspodjelu podataka, način izgradnje ljestvice i pretpostavke postupka.
-Stevensova podjela pruža polazište za tu širu prosudbu.
+Podjela na razine mjerenja pruža polazište za tu širu prosudbu.
 
 ## Pouzdanost i valjanost
 
@@ -1199,7 +1214,7 @@ može i zbuniti ispitanika, a pri računanju zahtijeva posebno kodiranje.
 
 Za račun smo ručno sastavili odgovore 12 zamišljenih osoba. Nema slučajnog
 uzorkovanja ni nedostajućih odgovora. Svih dvanaest redaka pokazuje vrijednosti
-prije ikakve promjene kodiranja.
+prije ikakve promjene kodiranja. Odgovori služe provjeri kodiranja i opisuju samo ovaj nastavni primjer.
 
 *Slika. Početni odgovori u namjerno konstruiranom instrumentu. Izrada autora.*
 
@@ -1345,7 +1360,7 @@ onoga što je u opisanoj anketi već učinjeno.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1379,8 +1394,8 @@ promjena osnovice ili raspona osi mijenja dojam, zašto postotna promjena nije
 isto što i promjena u postotnim bodovima te kako zanemarivanje rijetkosti neke
 pojave može zavesti. Pri čitanju ankete povezat ćemo objavljenu marginu
 pogreške s onime što smo naučili o obuhvatu i odazivu. Konstruirani anketni primjeri
-poslužit će nam da odvojeno mijenjamo veličinu uzorka i sustavnu pristranost;
-njihove rezultate nećemo čitati kao izbornu prognozu.
+poslužit će nam da odvojeno mijenjamo veličinu uzorka i sustavnu pristranost.
+Njihove rezultate nećemo čitati kao izbornu prognozu.
 
 Provjera završava povratkom izvoru i usporedbom računa s riječima kojima je opisan. To vrijedi i
 kada analizu sastavi asistent. Tražit ćemo trag do tablice, provjeriti račun
@@ -1769,11 +1784,11 @@ sada uz svako možemo navesti što smo u izbornom izvješću doista provjerili.
 
 | Revizijsko pitanje | Primjena na tvrdnju o odazivu |
 |---|---|
-| Koja je jedinica? | redak izborne jedinice; nacionalni je redak kontrolni zbroj |
-| Tko ili što nedostaje? | nema individualnih obilježja; obuhvat su birači na obrađenim biračkim mjestima, a izbor I.–X. ili I.–XII. mora biti vidljiv |
+| Koja je jedinica? | redak izborne jedinice. Nacionalni je redak kontrolni zbroj |
+| Tko ili što nedostaje? | nema individualnih obilježja. Obuhvat su birači na obrađenim biračkim mjestima, a izbor I.–X. ili I.–XII. mora biti vidljiv |
 | Koji je cilj tvrdnje? | opis zabilježenog odaziva, ne tvrdnja o pojedincu ili uzroku |
-| Gdje je neizvjesnost? | aritmetika je provjerena; obuhvat i moguća pogreška zapisa nisu svedeni na marginu ankete |
-| Koje drugo objašnjenje ostaje? | broj prema listićima za drugo operativno pitanje; uži obuhvat samo uz unaprijed obrazložen cilj |
+| Gdje je neizvjesnost? | aritmetika je provjerena. Obuhvat i moguća pogreška zapisa nisu svedeni na marginu ankete |
+| Koje drugo objašnjenje ostaje? | broj prema listićima za drugo operativno pitanje. Uži obuhvat samo uz unaprijed obrazložen cilj |
 | Tko snosi posljedice? | naslov može zamijeniti službene veličine i čitatelju pripisati zaključak koji tablica ne nosi |
 
 : Šest revizijskih pitanja primijenjenih na isti javni slučaj. Izrada autora.
@@ -1791,7 +1806,7 @@ ili uzrocima ponašanja pojedinaca.
 | Dimenzija tvrdnje | Što DIP-ov dokaz dopušta u ovom primjeru |
 |---|---|
 | opis | poduprti su objavljeni odaziv i usklađenje službenih veličina |
-| povezanost | samo na razini izbornih jedinica i tek nakon odgovarajuće analize; nacionalni ukupni redak sam nije povezanost |
+| povezanost | samo na razini izbornih jedinica i tek nakon odgovarajuće analize. Nacionalni ukupni redak sam nije povezanost |
 | generalizacija | ne izvan populacije i obuhvata službenog izvora |
 | predviđanje | nije poduprto jer tablica nije model budućih izbora |
 | uzročnost | nije poduprta jer iz tablice ne saznajemo zašto je netko pristupio |
@@ -1819,7 +1834,7 @@ Javni postotak možemo provjeriti kada znamo njegov izvor, jedinicu, brojnik,
 nazivnik i obuhvat. Promjena bilo koje od tih sastavnica mijenja značenje
 rezultata, a za tumačenje upozorenja o rijetkom ishodu trebamo i temeljnu
 stopu. Veći uzorak može smanjiti slučajnu promjenjivost ankete, ali ne uklanja
-sustavnu pristranost; račun margine pogreške slijedi u poglavljima o
+sustavnu pristranost. Račun margine pogreške slijedi u poglavljima o
 uzorkovanju i procjeni. Odgovore asistenta i sintetičke medije također pratimo
 do izvora i načina nastanka. Pritom razlikujemo simulaciju, sintetički zapis,
 hipotetski izlaz i izmišljeni dokaz. Šest revizijskih pitanja pomoći će nam i
@@ -1846,10 +1861,10 @@ pogrešnog označavanja.
 ### Računski
 
 Koristite zbirnu tablicu generiranog skupa `populacija_medija` iz datoteke `data/populacija-medija-agregat.csv`. U generiranom skupu
-portal je glavni izvor vijesti za 15.101 od 50.000 generiranih osoba, a
+portal je glavni izvor vijesti za 15.101 od 50.000 zamišljenih osoba, a
 televizija za 10.827. Izračunajte udjele, razliku u
 postotnim bodovima i relativnu razliku prema udjelu televizije. Uz rezultate
-napišite da opisuju simulaciju. Dopušten je kalkulator ili proračunska tablica; ne predaje se kod.
+napišite da opisuju simulaciju. Dopušten je kalkulator ili proračunska tablica. Ne predaje se kod.
 
 ### Kritički
 

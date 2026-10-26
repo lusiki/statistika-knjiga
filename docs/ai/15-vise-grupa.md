@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -30,12 +30,14 @@ tu provjeru s onime što smo u poglavlju o krizi i obnovi naučili o odabiru
 rezultata. Ovdje je skup usporedbi unaprijed poznat, pa možemo tražiti
 postupak koji uvažava cijeli skup odluka.
 
-Za glavnu analizu uzimamo 300 zamišljenih osoba iz `populacija_medija` i
-zadržavamo izvor vijesti zadan pri stvaranju podataka. Jedan
-redak sadrži osobu, njezin izvor i ocjenu povjerenja. Skupine televizije,
-radija, tiska, portala i društvenih mreža zato se sada mogu razlikovati. Ti
-rezultati opisuju nastavni skup i služe učenju usporedbe, bez tvrdnje o
-stvarnoj publici.
+Usporedba televizije i društvenih mreža opisala je jednu razliku u povjerenju.
+Sada nas zanimaju razlike među svim izvorima i nesigurnost tih procjena.
+
+Uzorak od 300 osoba s pet izvora vijesti zasebno izvlačimo iz nastavne
+populacije `populacija_medija`. To je novo izvlačenje, a ne podskup ranijeg
+uzorka. Jedan redak predstavlja zamišljenu osobu s glavnim izvorom vijesti i
+povjerenjem na ljestvici od jedan do deset. Rezultati opisuju taj nastavni
+skup, bez tvrdnje o stvarnoj publici.
 
 Umjesto jedne razlike sredina sada ispitujemo jesu li sve skupinske sredine
 jednake. Razlaganjem varijabilnosti usporedit ćemo razmake među sredinama s
@@ -145,7 +147,7 @@ njezine skupne sredine.
 
 Zbroj između skupina iznosi $864+0+864=1\,728$. Dijeljenjem s
 $3-1=2$ dobivamo srednji kvadrat 864. Uz standardnu devijaciju 6,
-zbroj unutar skupina iznosi $3\times23\times6^2=2\,484$; nakon dijeljenja
+zbroj unutar skupina iznosi $3\times23\times6^2=2\,484$. Nakon dijeljenja
 sa $72-3=69$ srednji kvadrat iznosi 36. Omjer je zato $F=864/36=24$.
 Srednji kvadrat u nazivniku ima istu mjernu jedinicu kao onaj u brojniku,
 pa je F bez mjerne jedinice.
@@ -194,8 +196,7 @@ izvora vijesti zadane pri stvaranju podataka i uspoređujemo povjerenje
 njihovih korisnika. Skupine zato mogu imati različite prosjeke
 i prije uzorkovanja.
 
-Uzorak od 300 osoba izvukli smo bez vraćanja iz pune populacije, zasebno
-od uzorka prethodnog poglavlja. tablica pokazuje broj odgovora i sredinu
+Uzorak od 300 osoba s pet izvora vijesti izvukli smo bez vraćanja iz pune populacije, zasebno od uzorka od 120 korisnika televizije i društvenih mreža. tablica pokazuje broj odgovora i sredinu
 koju model pridružuje svakoj osobi iste skupine.
 
 *Slika. Pet skupina u glavnom uzorku od 300 osoba. Izrada autora.*
@@ -242,7 +243,7 @@ Referentna F-raspodjela opisuje koje bismo omjere dobivali pod tim nultim
 modelom uz normalne pogreške. Njezina dva parametra ovdje iznose
 `r s15$df1` i `r s15$df2`. Gornjih 5 % raspodjele počinje kod
 `r hr_broj(qf(0.95, s15$df1, s15$df2), 2)`, dok naš opaženi omjer iznosi
-`r hr_broj(s15$f, 2)`. Tu usporedbu koristimo za test; veličinu i važnost
+`r hr_broj(s15$f, 2)`. Tu usporedbu koristimo za test. Veličinu i važnost
 razlika i dalje čitamo iz sredina, eta-kvadrata i intervala.
 
 Postupak se zove analiza varijance jer uspoređuje izvore varijabilnosti. Njime
@@ -276,7 +277,7 @@ drukčije računaju nesigurnost. Klasična analiza varijance, kao obični
 homoskedastični linearni model, procjenjuje zajedničku rezidualnu varijancu.
 Welch zadržava zasebne skupne varijance i prilagođava stupnjeve slobode. Zato se njihovi intervali i p-vrijednosti mogu razlikovati.
 
-Taj model sada primjenjujemo na pojedinačne zapise iz skupa `populacija_medija`.
+Taj model primjenjujemo na isti uzorak od 300 osoba s pet izvora vijesti.
 Svakoj osobi pridružujemo sredinu njezina izvora vijesti, pa odstupanja oko tih
 pet sredina uspoređujemo s odstupanjima oko jedne zajedničke sredine.
 
@@ -316,7 +317,7 @@ Za jedan par sada oduzmemo dvije sredine iz tablice. Razlici televizije
 prema mrežama pridružujemo marginu `r hr_broj((s15$tv_mreze_gornja - s15$tv_mreze_donja)/2, 2)`
 boda, izračunatu zajedničkom rezidualnom varijancom, brojnostima tih dviju
 skupina i Tukeyjevim pravilom za svih pet skupina. Oduzimanjem i dodavanjem
-te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz istoga izvornog uzorka.
+te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz uzorka od 300 osoba s pet izvora vijesti.
 
 Među `r s15$parova` parova statistički su razlučive četiri usporedbe s društvenim
 mrežama. Televizija se od njih razlikuje za `r hr_broj(s15$tv_mreze, 2)` boda, uz istodobni
@@ -326,8 +327,8 @@ uzorkom ne razlučujemo.
 
 Na zajedničkoj osi možemo pregledati svih deset razlika. U nazivu para
 prvu skupinu uspoređujemo s drugom, pa pozitivna vrijednost znači višu
-sredinu prve skupine. Crte su istodobni 95-postotni Tukeyjevi intervali;
-okomita crta označuje izostanak razlike.
+sredinu prve skupine. Crte su istodobni 95-postotni Tukeyjevi intervali.
+Okomita crta označuje izostanak razlike.
 
 *Slika. Svih deset parnih razlika iz istoga modela, uz istodobne intervale. Izrada autora.*
 
@@ -441,7 +442,7 @@ Sačuvajte ispravno određene skupine i broj usporedbi. Ne pišite zamjenski kod
 
 ## Razrađeni primjer
 
-U povjerenju korisnika pet izvora vijesti želimo razdvojiti dva pitanja. Prvo
+Na istom uzorku od 300 osoba s pet izvora vijesti želimo razdvojiti dva pitanja o povjerenju. Prvo
 se odnosi na ukupan obrazac skupnih sredina, a drugo na veličinu konkretnih
 razlika među izvorima. Najprije ćemo prikazati veličinu učinka i ukupni test, a
 zatim parne razlike s istodobnim intervalima. Tako će uz svaku usporedbu ostati

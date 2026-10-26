@@ -4,11 +4,11 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Anscombeove smo skupove već usporedili grafički. Njihova gotovo jednaka
+Iste konstruirane parove iz Anscombeovih skupova već smo grafički usporedili u poglavlju o vizualizaciji. Njihova gotovo jednaka
 Pearsonova korelacija sada postavlja preciznije pitanje. Koliko o odnosu
 znamo ako vidimo samo koeficijent (Anscombe, 1973)?
 
@@ -23,7 +23,7 @@ dob često promatrali odvojeno. Zanima nas i njihov odnos. Želimo ga opisati
 usporedivim brojem, a pritom sačuvati ono što smo iz grafova naučili o
 zakrivljenosti, podskupinama i izdvojenim opažanjima.
 
-Glavni primjer ostaje simulirana anketa `anketa_mreze` iz prethodnih poglavlja. Jedan redak predstavlja jednu zamišljenu osobu, pa njezinu dob
+Glavni primjer ostaju isti zapisi iz simulirane ankete `anketa_mreze`, koje smo sažimali i prikazivali grafovima. Jedan redak predstavlja jednu zamišljenu osobu, pa njezinu dob
 povezujemo s njezinim dnevnim vremenom na društvenim mrežama. Za pregled više
 parova uključit ćemo i povjerenje u sadržaj. Podaci su konstruirani za
 nastavu. Na njima učimo opisivati odnos, bez zaključka o stvarnim navikama ili
@@ -58,10 +58,10 @@ vrijednosti iste zamišljene osobe. Točke tvore silazni oblak.
 Pad je strmiji među mlađima i poslije se izravnava. Graf nam pokazuje taj
 oblik prije računanja koeficijenta.
 
-*Slika. Dob i dnevno vrijeme korištenja u simuliranoj anketi. Oblak pokazuje silazan, zakrivljen obrazac. Pearsonov koeficijent sažima samo njegov linearni dio. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Dob i dnevno vrijeme korištenja u simuliranoj anketi. Oblak pokazuje silazan, zakrivljen obrazac. Pearsonov koeficijent sažima samo njegov linearni dio. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Najprije uspoređujemo na koju stranu od prosjeka odstupa svaki ispitanik u
-objema varijablama. U generiranom nastavnom skupu `anketa_mreze` s `r s6_n`
+objema varijablama. U poznatoj tablici simulirane ankete `anketa_mreze` s `r s6_n`
 ispitanika, `r paste0(hr_broj(100 * s6_udio_slaganje, 0), " %")` odstupa na istu stranu u dobi i dnevnim minutama. Uz
 simetrične raspodjele i neovisna odstupanja očekivali bismo udio blizu
 polovine. Asimetrija ga može promijeniti i bez povezanosti, pa sam udio nije
@@ -94,7 +94,7 @@ anketi je sredina dobi `r hr_broj(mean(s6_dob), 3)`, a njezina standardna
 devijacija `r hr_broj(sd(s6_dob), 3)` godina. Za dnevne minute odgovarajuće
 vrijednosti iznose `r hr_broj(mean(s6_minute), 3)` i
 `r hr_broj(sd(s6_minute), 3)`. Račun u nastavku koristi nezaokružene
-vrijednosti; prikaz na tri decimale služi ručnoj približnoj provjeri.
+vrijednosti. Prikaz na tri decimale služi ručnoj približnoj provjeri.
 
 Na prvoj osobi iz poznate ankete možemo pregledati jedan član zbroja.
 Dob je `r s6_dob[1]`, a vrijeme `r s6_minute[1]` minuta. Odstupanja od
@@ -147,11 +147,10 @@ Kada je korelacija $+1$, sve točke leže na uzlaznom pravcu, a pri $-1$ na
 silaznom. Vrijednost nula znači da nema linearne veze. Međuvrijednosti opisuju
 koliko raspored točaka prati pravac. Nagib pravca odgovara na zasebno pitanje, za koliko se minuta vrijeme korištenja mijenja uz jednu godinu dobi. Uz korelaciju `r hr_broj(s6_r, 2)` za taj ćemo opis trebati i regresiju.
 
-Cohen je kao orijentaciju u društvenim znanostima predložio korelacije oko
-0,10, 0,30 i 0,50 za male, srednje i velike odnose (Cohen, 1988). Služe kao početna orijentacija koju prilagođavamo području i istraživačkom pitanju.
-
-Cohen ih preporučuje kada nemamo bolju osnovu u poznavanju područja
-(Cohen, 1988). Važnost koeficijenta zato procjenjujemo prema pojavi, načinu
+Kao gruba orijentacija u društvenim znanostima često se navode
+korelacije oko 0,10, 0,30 i 0,50 za male, srednje i velike odnose
+(Cohen, 1988). Te su vrijednosti predložene za situacije u kojima nemamo
+bolju osnovu u poznavanju područja (Cohen, 1988). Važnost koeficijenta zato procjenjujemo prema pojavi, načinu
 mjerenja, posljedicama i nalazima usporedivih istraživanja.
 
 U jednostavnom linearnom opisu kvadrat korelacije pokazuje udio varijance
@@ -304,7 +303,7 @@ Zadovoljstvo je ovdje konstruirana kontinuirana vrijednost bez unaprijed
 ograničenog raspona, a ne odgovor na stvarnu anketnu ljestvicu.
 Četiri polja sljedećeg grafa pregrupiraju istih 180 generiranih zapisa.
 
-*Slika. Konstruirani podaci u kojima zbirni oblak raste, a oblak unutar svakoga od triju odjela pada. To je konstruirani prikaz Simpsonova paradoksa. Četiri polja prikazuju iste točke bez regresijskih pravaca. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Konstruirani podaci u kojima zbirni oblak raste, a oblak unutar svakoga od triju odjela pada. To je konstruirani prikaz Simpsonova paradoksa. Četiri polja prikazuju iste točke bez regresijskih pravaca. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Zbirna korelacija staža i zadovoljstva je pozitivna, `r hr_broj(s6_r_zbirno, 2)`. Unutar odjela
 iznosi `r hr_broj(s6_r_odjeli$r[[1]], 2)`, `r hr_broj(s6_r_odjeli$r[[2]], 2)` i `r hr_broj(s6_r_odjeli$r[[3]], 2)`, pa su sve tri negativne. Svaki je
@@ -393,16 +392,23 @@ varijablama i razmotriti dizajn koji odvaja moguća objašnjenja. Ovaj presjek n
 trend, uzrok, odnos među pojedincima ili nalaz izvan EU-27
 ({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026).
 
+Iste države možemo usporediti prema zaposlenosti te riziku siromaštva ili
+socijalne isključenosti. Zaposlenost obuhvaća osobe od
+`r s6_dob_zaposlenosti[[1]]` do `r s6_dob_zaposlenosti[[2]]` godine, a rizik
+stanovništvo svih dobi ({Eurostat}, 2026; {Eurostat}, 2026).
+Sljedeći graf prikazuje `r nrow(s6_soc)` potpunih parova, po jednu točku za
+državu, uz izvorne oznake obaju pokazatelja [{Eurostat}, 2026;
+{Eurostat}, 2026]. Oblaci državnih udjela opisuju razlike među zemljama.
+Za vezu zaposlenosti i siromaštva pojedine osobe trebali bismo individualne
+podatke, a za uzročni zaključak odgovarajući dizajn.
+
+*Slika. Zaposlenost i rizik siromaštva ili socijalne isključenosti. Oznake d, p i b označavaju različitu definiciju, privremenu vrijednost i prekid serije [@eurostatemployment2026; @eurostatpoverty2026]. Izrada autora.*
+
 Moguća konfundirajuća varijabla mora prethoditi objema pojavama i utjecati na
 njih. To prosuđujemo prema sadržaju i dizajnu. U konstruiranom primjeru odjel
 tako oblikuje staž i zadovoljstvo. Razdvajanjem odjela vidimo promjenu
 povezanosti, ali sama ta promjena ne dokazuje uzročnost. O neizmjerenom
 čimbeniku koeficijent ne daje izravnu obavijest.
-
-Isti koeficijent može odgovarati različitim objašnjenjima. Prva varijabla može
-utjecati na drugu ili obrnuto, obje mogu ovisiti o trećoj, a obrazac može
-nastati slučajnom promjenjivošću uzorka. Za razlikovanje tih mogućnosti
-trebamo istraživački dizajn. Smjer uzroka procjenjujemo na temelju takvog dizajna i znanja o pojavi.
 
 ## Interakcija — Pogodi korelaciju
 
@@ -438,12 +444,12 @@ devijacije i Pearsonov koeficijent, ali nema grafa. Račun možemo
 ponoviti i dobiti iste brojeve. Prije nego što prihvatimo opis odnosa,
 još trebamo saznati kako su opažanja raspoređena.
 
-Matejka i Fitzmaurice pokazali su koliko toga takav sažetak može
-izostaviti. Njihov postupak sitnim pomacima točaka mijenja izgled skupa,
-a zadane sažetke čuva do druge decimale (Matejka, 2017). Polazeći od
-Cairova obrisa dinosaura, proizveli su skupove koji izgledaju poput
-zvijezde, kruga ili nizova crta, uz iste zaokružene sredine,
-standardne devijacije i korelaciju (Matejka, 2017). Podaci su namjerno konstruirani za tu demonstraciju.
+Jedna dojmljiva demonstracija pokazuje koliko toga takav sažetak može
+izostaviti. Sitnim pomacima točaka mijenja se izgled skupa podataka,
+a zadani sažeci ostaju jednaki do druge decimale (Matejka, 2017). Od
+početnog obrisa dinosaura tako su nastali skupovi nalik zvijezdi, krugu
+ili nizovima crta, uz iste zaokružene sredine, standardne devijacije i
+korelaciju (Matejka, 2017). Podaci su namjerno konstruirani za tu demonstraciju.
 
 Takva demonstracija mijenja našu procjenu izvještaja. Podudaranje
 sažetaka potvrđuje da smo ponovili račun, ali ne potvrđuje da je
@@ -523,14 +529,14 @@ o povezanosti i što usput treba provjeriti.
 | Koja je jedinica? | nakon spajanja pokazatelja, jedna država članica EU-a u 2025. |
 | Tko ili što nedostaje? | pojedinci unutar država, zemlje izvan EU-27 i druga razdoblja nisu jedinice ovoga presjeka |
 | Koji je cilj tvrdnje? | Pearsonov i Spearmanov koeficijent opisuju povezanost dvaju državnih udjela |
-| Gdje je neizvjesnost? | statusne oznake prenose upozorenja izvora; koeficijenti ne mjere uzoračku ni mjernu nesigurnost, a presjek ne pokazuje promjenu kroz vrijeme |
+| Gdje je neizvjesnost? | statusne oznake prenose upozorenja izvora. Koeficijenti ne mjere uzoračku ni mjernu nesigurnost, a presjek ne pokazuje promjenu kroz vrijeme |
 | Koje drugo objašnjenje ostaje? | druga dobna skupina ili pokazatelj, rangovi umjesto vrijednosti ili drukčije opravdano postupanje sa statusnim oznakama |
 | Tko snosi posljedice? | pogrešan opis stanovnika ili država može dovesti do neutemeljene uredničke ili javne odluke |
 
 : Šest revizijskih pitanja primijenjenih na povezanost službenih agregata. Izrada autora prema Eurostatu ({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026).
 
 Promjena jedinice mijenja i ono što procjenjujemo, moguća objašnjenja te
-posljedice zaključka. Statusna oznaka također traži prosudbu. O uključivanju retka odlučujemo prema značenju oznake; pravilo unaprijed obrazlažemo i navodimo u izvještaju.
+posljedice zaključka. Statusna oznaka također traži prosudbu. O uključivanju retka odlučujemo prema značenju oznake. Pravilo unaprijed obrazlažemo i navodimo u izvještaju.
 
 **Granica tvrdnje o povezanosti** ovisi o jedinici, obuhvatu i načinu
 mjerenja. Sljedeća tablica pokazuje koje vrste tvrdnji ti podaci podupiru.

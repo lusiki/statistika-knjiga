@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -26,7 +26,7 @@ Koja usporedba odgovara na pitanje koje nas zanima?
 
 Kad pročitamo da je jedna skupina uspješnija od druge, lako je preskočiti
 račun i odmah tražiti objašnjenje. Berkeleyjski slučaj poziva nas da zastanemo
-kod same usporedbe (Bickel, 1975). Prije odluke o tome što razlika znači
+kod same usporedbe (Bickel, 1975). Zapisi su nastali u postupku prijave na studij i čuvaju stvarni sastav prijava po odjelima (Bickel, 1975). Prije odluke o tome što razlika znači
 trebamo znati koga uspoređujemo, što je zabilježeno i prema kojoj cjelini
 računamo postotak. To su pitanja od kojih ćemo krenuti, bez pretpostavke da
 već poznajemo statističke postupke.
@@ -37,8 +37,10 @@ ali morat ćemo odlučiti odgovara li na pitanje koje smo postavili. Za početak
 su nam dovoljni poznati postoci, jednostavne tablice i spremnost da provjerimo
 što stoji iza broja. U središtu je sposobnost da objasnimo zašto smo nešto podijelili, koga smo izostavili i dokle dobiveni odgovor vrijedi. To možemo vježbati uz prikazane račune.
 
-Uz stvarni slučaj prijava koristit ćemo autorski skup `populacija_medija`,
-računalno stvorenu populaciju odraslih osoba iz zamišljenoga grada. Jedan zapis predstavlja jednu zamišljenu osobu. U prvom ćemo
+Uz stvarne prijave na studij koristit ćemo i skup podataka o medijskim
+navikama stanovnika zamišljenoga grada, nazvan `populacija_medija`.
+Stvorili smo ga računalnom simulacijom. Svaki redak njegove tablice opisuje
+jednu zamišljenu odraslu osobu. U prvom ćemo
 računu povezati njezin glavni izvor vijesti sa spremnošću na plaćanje vijesti.
 Usporedit ćemo broj osoba koje bi platile s njihovim udjelom unutar pojedinog
 izvora. Tako možemo pratiti svaki korak na populaciji čiji su odnosi unaprijed zadani.
@@ -89,10 +91,10 @@ i izvor vijesti, čije se vjerojatnosti mijenjaju s dobi. Povjerenje ovisi o
 dobi i izvoru uz slučajno odstupanje, a spremnost na plaćanje o povjerenju i
 obrazovanju. Tako nastaju namjerno povezane varijable. Jedna osoba može
 odstupati od zadanoga obrasca, a cjelina od 50.000 osoba pokazuje obrazac koji
-je autor ugradio u generator.
+je autor ugradio u generator. Ti zapisi ne opisuju stvarne stanovnike.
 
 Prva tri retka pokazuju kako taj skup izgleda prije sažimanja. Svaki redak
-čuva više obilježja iste generirane osobe.
+čuva više obilježja iste zamišljene osobe.
 
 *Slika. Tri zapisa iz generirane populacije medijskih navika. Izrada autora.*
 
@@ -231,9 +233,8 @@ opisivanju ili predviđanju, ali sam ne pokazuje što uzrokuje odnos.
 
 **Podatkovna znanost** obuhvaća rad kojim od izvora podataka dolazimo do
 analize koju možemo ponoviti. **Strojno učenje** ispituje koliko dobro obrazac
-naučen iz jednih podataka djeluje na novim opažanjima. Taj je pristup blizak
-algoritamskoj kulturi modeliranja koju je Breiman razlikovao od modeliranja
-usmjerenog na objašnjenje (Breiman, 2001). **Sustav umjetne inteligencije**
+naučen iz jednih podataka djeluje na novim opažanjima. Takav pristup stavlja uspješnost predviđanja u prvi plan, dok je drugi
+pristup modeliranju više usmjeren na objašnjenje odnosa (Breiman, 2001). **Sustav umjetne inteligencije**
 uključuje model, sučelje i način njegove uporabe u određenoj ustanovi ili
 postupku odlučivanja. Pri procjeni takvog sustava razmatramo tehnička
 svojstva, ali i pogreške te posljedice uporabe (Barocas, 2023).
@@ -269,10 +270,8 @@ nekoliko jednakih ishoda zaredom.
 Slično zaključujemo iz poznatih primjera. Ako susjed i dvoje kolega hvale novu
 aplikaciju za vijesti, mogli bismo pomisliti da je ona općenito dobro
 prihvaćena. Troje poznanika ipak ne predstavlja cijelu publiku. Možda se
-vijestima bave više od drugih pa su zato i isprobali aplikaciju. Tversky i
-Kahneman nazvali su heuristikom dostupnosti sklonost da učestalost
-procjenjujemo prema tome koliko se lako prisjetimo nekog primjera
-(Tversky, 1973). Živopisan ili nedavan slučaj tako može ostaviti pretjerano
+vijestima bave više od drugih pa su zato i isprobali aplikaciju. Sklonost da učestalost procjenjujemo prema tome koliko se lako prisjetimo
+nekog primjera poznata je kao heuristika dostupnosti (Tversky, 1973). Živopisan ili nedavan slučaj tako može ostaviti pretjerano
 snažan dojam.
 
 Zamislimo i usporedbu u kojoj portali s više objavljenih tekstova imaju više
@@ -288,7 +287,7 @@ s ostalim mogućim nizovima, pohvale aplikacije s iskustvima šire publike, a
 posjete portalima uzimajući u obzir njihovu veličinu. Time postaje vidljivo na
 čemu se zaključak temelji.
 
-Provjera obuhvata potrebna je i pri velikom broju zapisa. Milijuni interakcija na portalu opisuju zabilježene aktivnosti njegovih posjetitelja; za upoznavanje ostale publike trebalo bi prikupiti dodatne podatke.
+Provjera obuhvata potrebna je i pri velikom broju zapisa. Milijuni interakcija na portalu opisuju zabilježene aktivnosti njegovih posjetitelja. Za upoznavanje ostale publike trebalo bi prikupiti dodatne podatke.
 Odgovori većega broja zasebno odabranih ljudi obično daju stabilniji
 postotak od odgovora male skupine. Korist je manja kada se isti odgovori ponavljaju, a sustavno izostavljen dio publike ostaje izvan obuhvata.
 
@@ -398,7 +397,7 @@ Brojnosti pokazuju oba pogleda na Berkeley. Za cijelo sveučilište bilo je
 sačuvanih u skupu `UCBAdmissions`. Njihovih 4 526 prijava čini podskup,
 pa njegov zbirni postotak nije postotak cijeloga sveučilišta (Bickel, 1975).
 
-*Slika. Prijave i prijam u šest najvećih odjela Berkeleyja 1973. Podaci UCBAdmissions prema @bickel1975; postoci izračunati iz prikazanih brojnosti.*
+*Slika. Prijave i prijam u šest najvećih odjela Berkeleyja 1973. Podaci UCBAdmissions prema @bickel1975. Postoci izračunati iz prikazanih brojnosti.*
 
 U odjele A i B, koji imaju visoke stope prijma, prijavilo se
 `r sum(berkeley1$Prijave[berkeley1$Gender == "Male" & berkeley1$Dept %in% c("A", "B")])`
@@ -407,7 +406,7 @@ podskupa, a samo
 `r sum(berkeley1$Prijave[berkeley1$Gender == "Female" & berkeley1$Dept %in% c("A", "B")])`
 od `r sum(berkeley1$Prijave[berkeley1$Gender == "Female"])` žena (Bickel, 1975).
 Razlikuju se i stope unutar odjela i udjeli prijava usmjerenih u pojedine
-odjele. Zbirni postotak uključuje oboje; tablica sama ne objašnjava
+odjele. Zbirni postotak uključuje oboje. Tablica sama ne objašnjava
 zašto je izbor odjela bio tako raspoređen.
 
 **Simpsonov paradoks** je obrazac u kojem se smjer povezanosti u združenim
@@ -491,8 +490,8 @@ Kada su skupine jednako raspoređene po podskupinama, zbirna usporedba zadržava
 **Zbirna stopa i sumnja u pristranost.** Iza Berkeleyjske tablice stajalo
 je pitanje o postupanju prema kandidatima, a ne samo zadatak računanja
 postotaka. Niža ukupna stopa prijma žena potaknula je sumnju u upisni
-postupak (Bickel, 1975). Bickel i suradnici zato su ispitali kako se prijave i odluke
-raspoređuju po odjelima, koji su zasebno odlučivali o prijmu
+postupak (Bickel, 1975). Istraživanje se zato usmjerilo na pitanje kako su se prijave i odluke
+raspoređivale po odjelima, jer je svaki odjel zasebno odlučivao o prijmu
 (Bickel, 1975).
 
 Vratimo se toj sumnji nakon prikaza obrata. Kada bismo sastavljali izvještaj
@@ -546,9 +545,9 @@ tisak nije dovoljan za njezin zaključak.
 ## Razrađeni primjer
 
 Razliku između broja i udjela možemo provjeriti za sve izvore vijesti u
-poznatoj autorskoj simulaciji od 50.000 osoba. Za svaki izvor
+istom simuliranom skupu podataka `populacija_medija`. Za svaki izvor
 pitamo koliki je udio njegovih korisnika spreman platiti vijesti. Jedinica
-analize ostaje generirana osoba, a veličina skupine daje nazivnik. Time
+analize ostaje zamišljena osoba, a veličina skupine daje nazivnik. Time
 povezujemo pitanje s računom koji na njega odgovara. Rezultat će opisivati
 tu generiranu populaciju, bez objašnjenja uzroka razlika ili zaključka o
 stvarnim ljudima.

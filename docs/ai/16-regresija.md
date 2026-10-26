@@ -4,22 +4,19 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Breiman je 2001. opisao dva pristupa statističkom modeliranju (Breiman, 2001).
-U prvome istraživač postavlja model nastanka podataka i tumači njegove
-parametre. U drugome postupak procjenjuje prema tome koliko dobro predviđa
-nove ishode.
+Koliko je ekonomski položaj odrasle djece povezan s položajem njihovih
+roditelja i je li ta veza jednaka u različitim krajevima? U istraživanju međugeneracijske mobilnosti u Sjedinjenim Državama
+istraživači su povezali porezne zapise roditelja i djece (Chetty, 2014).
+Odabrana mjera prihoda i način sažimanja odnosa omogućili su im da
+usporede i različita područja (Chetty, 2014).
 
-Upozorio je da dobro pristajanje opaženim podacima nije dovoljno za procjenu
-modela. Model može dobro opisati postojeći skup, a slabo predviđati nove
-rezultate ili pogrešno prikazivati mehanizam nastanka podataka.
-
-Istom jednadžbom možemo opisivati odnos, predviđati novu osobu ili pokušati
-procijeniti uzročni učinak. Za ta tri cilja trebaju različiti dokazi. Kako
-prepoznati što model doista omogućuje?
+Regresija pomaže opisati takav obrazac, dok objašnjenje njegova nastanka
+traži dodatne dokaze. Razlika među područjima otvara pitanje uzročnog
+mehanizma. Kako prepoznati što model doista omogućuje zaključiti?
 
 Uspoređivali smo prosječno povjerenje među korisnicima različitih izvora
 vijesti. Sada nas zanima kako se ono razlikuje s dobi, bez razvrstavanja ljudi
@@ -34,11 +31,15 @@ kategorički prediktor promatrati zajedno. Pitanje iz poglavlja o mjerenju i
 dizajnu pritom ostaje otvoreno. Trebamo procijeniti opisuje li model odnos ili
 imamo i razloge za uzročno tumačenje.
 
-Polazimo od svih 50.000 zamišljenih odraslih osoba u skupu
-`populacija_medija`, koristeći dob, glavni izvor vijesti i povjerenje u medije. Jedan zapis pripada jednoj osobi. Budući da za ovaj opis
-koristimo cijelu konačnu simuliranu populaciju, ne procjenjujemo nepoznatu
-vrijednost iz uzorka. Koeficijenti će sažeti zabilježene odgovore, a od njih
-ćemo odvojiti pravila kojima su ti odgovori stvoreni. Pri povratku ranijim
+Usporedbe su pokazale razlike u povjerenju među izvorima, a dobne skupine
+različit sastav njihove publike. Dob i izvor sada promatramo zajedno. Polazimo
+od svih 50.000 zamišljenih odraslih osoba u nastavnom skupu `populacija_medija`,
+koristeći dob, glavni izvor vijesti i povjerenje u medije.
+
+Jedan zapis pripada jednoj osobi, a računalno stvoreni odgovori ne opisuju
+stvarne stanovnike. Koristimo cijelu konačnu simuliranu populaciju, pa ne
+procjenjujemo nepoznatu vrijednost iz uzorka. Koeficijenti će sažeti odgovore,
+a od njih ćemo odvojiti pravila kojima su stvoreni. Pri povratku ranijim
 uzorcima ponovno ćemo razmotriti i njihovu nesigurnost.
 
 Odabrani pravac usporedit ćemo s opažanjima preko njihovih odstupanja,
@@ -69,7 +70,7 @@ zaokruživanja i ograničavanja ljestvice. Njegove koeficijente trebamo
 razlikovati od koeficijenata za zabilježene odgovore. Procjenjivane veličine
 u ovom su poglavlju koeficijenti najmanjih kvadrata za cijelu konačnu populaciju.
 
-*Slika. Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata izračunatim na svih pedeset tisuća pojedinačnih odgovora. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata izračunatim na svih pedeset tisuća pojedinačnih odgovora. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Na slici jedna točka sažima sve osobe iste cijele godine dobi. Za nju
 zbrajamo njihove ocjene i dijelimo njihovim brojem. Pravac ipak računamo iz
@@ -181,7 +182,7 @@ zbirnom odnosu pretvaramo u skup uvjetnih usporedbi.
 
 **Višestruka regresija** procjenjuje modelnu povezanost svakog prediktora s
 ishodom pri zadanim jednakim vrijednostima svih ostalih prediktora u modelu.
-Koeficijent je uvjetna usporedba koju zadaje model; kao usporedba podataka
+Koeficijent je uvjetna usporedba koju zadaje model. Kao usporedba podataka
 obranjiv je samo ondje gdje postoji dovoljno potpore i preklapanja, pa ne mora
 označavati stvarno uparene jedinice.
 
@@ -288,7 +289,7 @@ nagib iznosi `r hr_broj(s16$heterogenost_zbirno, 1)` i ne opisuje nijednu skupin
 prikazuju razliku koju bi zajednički koeficijent sakrio. Ako je $B=1$
 za drugu skupinu, a $B=0$ za prvu, obje zapisujemo jednadžbom
 $\hat y=2+0,6x+6B-0,8xB$. Član $xB$ mijenja nagib iz 0,6 u −0,2.
-Taj namjerno izražen primjer služi učenju interakcije; ne tvrdi da su
+Taj namjerno izražen primjer služi učenju interakcije. Ne tvrdi da su
 takve razlike nagiba prisutne u prethodnoj medijskoj populaciji.
 
 *Slika. Predviđene vrijednosti u simuliranom primjeru s različitim skupnim nagibima. Deblja zbirna linija opisuje prosjek koji ne vrijedi ni za jednu skupinu. Izrada autora.*
@@ -338,7 +339,7 @@ Model s binarnim prediktorom daje razliku dviju sredina. Model s više
 kategorija daje razlike prema referentnoj skupini. Sada smo dodali brojčani
 prediktor. Provjerimo vezu s ranijim računima.
 
-Uzorak od sto dvadeset osoba iz poglavlja o dvjema grupama daje razliku
+Iste osobe iz uzorka od 120 korisnika televizije i društvenih mreža, iz poglavlja o dvjema grupama, daju razliku
 sredina `r hr_broj(s16$razlika_dvije, 2)` boda. Koeficijent uz izvor u modelu iznosi `r hr_broj(s16$koef_dvije, 2)`. To su
 dva zapisa iste točkaste procjene.
 
@@ -349,7 +350,7 @@ postupak dopušta različite varijance te daje t od `r hr_broj(s16$t_welch_dvije
 stupnja slobode. Procijenjena razlika ostaje jednaka, ali račun nesigurnosti
 se mijenja.
 
-Na tristo osoba iz poglavlja o više skupina klasični model daje F od
+Na istom uzorku od 300 osoba s pet izvora vijesti iz poglavlja o više skupina klasični model daje F od
 `r hr_broj(s16$f_pet, 2)`, uz `r s16$df1_pet` i `r s16$df2_pet` stupnjeva slobode. To je isti
 homoskedastični postupak kao `aov` iz poglavlja Više grupa. Welch daje F od `r hr_broj(s16$f_welch_pet, 2)`,
 uz `r hr_broj(s16$df1_welch_pet, 0)` i `r hr_broj(s16$df2_welch_pet, 1)` stupnja slobode. Zajednički model sredina ne znači
@@ -417,7 +418,7 @@ obzir broj prediktora i pada s `r hr_broj(100 * s16$prilagodeni_bez, 1)` % na `r
 pomaže pri usporedbi, ali sama ne provjerava predviđanje, uzročnost ni
 sadržajnu valjanost.
 
-Ograničenje raspona također mijenja ovu mjeru. Među osobama od trideset do
+Za provjeru ograničenja raspona vraćamo se cijeloj simuliranoj populaciji, zasebno od prethodnog uzorka od 200 osoba. Među osobama od trideset do
 pedeset godina nagib iznosi `r hr_broj(s16$nagib_usko, 4)`, gotovo kao prije. Objašnjeni udio ipak
 pada s `r hr_broj(100 * s16$r2_jedan, 1)` % na `r hr_broj(100 * s16$r2_usko, 1)` % u skupu od `r hr_broj(s16$n_usko, 0)` ljudi. Koeficijent
 determinacije zato ovisi o populaciji i rasponu podataka.
@@ -435,18 +436,16 @@ Regresija objava zato ne opisuje osobnu uporabu, a skupni obrazac ne možemo
 pripisati pojedincu. Trebamo usporediti konstrukt, jedinicu, populaciju i
 obuhvat mjerenja.
 
-Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo osobe od
-30 do 50 godina, a ne podskup prethodnih 200. Za sljedeći dijagnostički
-primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
+Za sljedeći dijagnostički primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
 povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu
 i očekivana vrijednost i raspršenost.
 
 Mjesta na kojima model slabije odgovara podacima tražimo pregledom pojedinačnih odstupanja, reziduala. Tako dopunjujemo ukupni opis objašnjenog udjela. U našoj populaciji
 linearni odnos dnevnog praćenja medija i dobi ima nagib `r hr_broj(s16$nagib_minute, 2)` minute
 po godini. Reziduali oko tog pravca nisu jednako raspršeni duž cijelog raspona,
-što možemo vidjeti na njihovu prikazu.
+što možemo vidjeti na njihovu prikazu. Model računamo na cijeloj populaciji, a slika prikazuje slučajni podskup od 2.000 osoba.
 
-*Slika. Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostima koje model predviđa, na slučajnom podskupu od dvije tisuće osoba. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostima koje model predviđa, na slučajnom podskupu od dvije tisuće osoba. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Od šestine s najnižim do šestine s najvišim predviđanjima raspršenost
 reziduala raste s `r hr_broj(s16$rasprsenost_dolje, 0)` na `r hr_broj(s16$rasprsenost_gore, 0)` minuta. Pogrešku zato trebamo opisati duž raspona predviđanja, uz ukupnu mjeru. Kada bismo imali uzorak, račun
@@ -564,12 +563,11 @@ provjeriti ovim podacima, trebamo je jasno navesti uz zaključak.
 iz istraživanja o društvenim mrežama pokušati zaključiti bi li
 ograničenje vremena uporabe smanjilo simptome depresije. U toj
 zamišljenoj primjeni nalaz treba pročitati prije nego što ga
-pretvorimo u preporuku. Kleppang i suradnici analizirali su
-samoprijavljene presječne podatke istraživanja Ungdata iz 2018.,
-koji obuhvaćaju 12.353 norveških adolescenata od 15 do 16 godina,
-uz ukupni odaziv od 85 % (Kleppang, 2021). Njihov je predmet
-povezanost uporabe medija i simptoma, a ne učinak provedene
-zabrane.
+pretvorimo u preporuku. Analiza se oslanja na presječne podatke istraživanja Ungdata iz 2018.,
+u kojem je 12.353 norveških adolescenata od 15 do 16 godina dalo
+podatke o vlastitim navikama i simptomima, uz ukupni odaziv od 85 % (Kleppang, 2021). Ti odgovori
+omogućuju proučavanje povezanosti uporabe medija i simptoma. Učinak
+provedene zabrane zahtijevao bi drukčije istraživanje.
 
 Ishod u modelu razlikuje rezultat na mjeri simptoma depresije
 na ili iznad 80. percentila od nižih rezultata
@@ -584,14 +582,14 @@ se društvene mreže i igranje uključe zasebno ili zajedno.
 | Igranje, do 3 sata | nije u modelu | 1 (ref.) | 1 (ref.) |
 | Igranje, više od 3 sata | nije u modelu | 1,57 (1,36–1,80) | 1,38 (1,19–1,59) |
 
-: Prilagođeni omjeri izgleda za simptome depresije prema uporabi društvenih mreža i igranju. Sadržajno skraćena, preoblikovana i na hrvatski prevedena prilagodba Tablice 3 iz rada Kleppang i suradnika (Kleppang, 2021).
+: Prilagođeni omjeri izgleda za simptome depresije prema uporabi društvenih mreža i igranju. Sadržajno skraćena, preoblikovana i na hrvatski prevedena prilagodba Tablice 3 iz istraživanja povezanosti uporabe medija i simptoma depresije (Kleppang, 2021).
 
 Binarni ishod u ovome radu analizira se logističkom regresijom. Taj model
 povezuje prediktore s logaritmom izgleda, a ne s neograničenom sredinom
 binarnoga ishoda. Izgledi su omjer vjerojatnosti ishoda i vjerojatnosti
 njegova izostanka. Eksponiranjem odgovarajućega koeficijenta dobiva se omjer
 izgleda uz ostale prediktore u modelu. Ovdje učimo čitati objavljeni
-rezultat; prilagodba i provjera logističkog modela izvan su opsega knjige
+rezultat. Prilagodba i provjera logističkog modela izvan su opsega knjige
 (Kleppang, 2021).
 
 AOR označuje prilagođeni omjer izgleda. Sva tri modela

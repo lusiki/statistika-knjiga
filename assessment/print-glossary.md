@@ -168,7 +168,7 @@ Tablica pomaže povezati njegove različite uporabe u knjizi.
 | pouzdanost | reliability | 2, str. \pageref{audit-terms02} |
 | prag značajnosti | significance threshold | 10, str. \pageref{audit-terms10} |
 | preciznost | precision | 9, str. \pageref{audit-terms09} |
-| preciznost odnosno pozitivna prediktivna vrijednost | precision; positive predictive value | 17, str. \pageref{audit-terms17} |
+| preciznost odnosno pozitivna prediktivna vrijednost | precision, positive predictive value | 17, str. \pageref{audit-terms17} |
 | precjenjivanje pri odabiru značajnih nalaza | selection-induced effect-size exaggeration | 11, str. \pageref{audit-terms11} |
 | prediktor | predictor | 14, str. \pageref{audit-terms14} |
 | predregistracija | preregistration | 12, str. \pageref{audit-terms12} |
@@ -265,10 +265,10 @@ Tablica pomaže povezati njegove različite uporabe u knjizi.
 | zbirna stopa | aggregate rate | 1, str. \pageref{audit-terms01} |
 | životni ciklus podataka | data lifecycle | 1, str. \pageref{audit-terms01} |
 
-## Dva nastavna skupa podataka {.unnumbered}
+## Dva skupa podataka za vježbu {.unnumbered}
 
-Skupovi su generirani odvojeno. Jedan redak u svakome predstavlja jednu
-zamišljenu osobu; isto ime varijable ne znači da oba skupa mjere isto
+Oba skupa podataka stvorili smo računalnom simulacijom, svaki zasebno.
+Jedan redak predstavlja jednu zamišljenu osobu. Isto ime varijable ne znači da oba skupa mjere isto
 obilježje ili obuhvaćaju iste osobe. Brojčani kodovi kategorija služe
 razmjeni datoteka i ne pretvaraju kategorije u brojčane mjere.
 
@@ -277,7 +277,7 @@ Anketa o društvenim mrežama ima 300 zapisa u datoteci
 
 | Varijabla | Značenje |
 |---|---|
-| `ispitanik` | jedinstvena oznaka generirane osobe |
+| `ispitanik` | jedinstvena oznaka zamišljene osobe |
 | `dob` | dob u godinama |
 | `dobna_skupina`, `dobna_skupina_sifra` | dobna kategorija i njezin brojčani kod |
 | `minute_dnevno` | dnevne minute na društvenim mrežama |
@@ -291,7 +291,7 @@ jer znamo vrijednosti za cijelu nastavnu populaciju.
 
 | Varijabla | Značenje |
 |---|---|
-| `osoba` | jedinstveni broj generirane osobe |
+| `osoba` | jedinstveni broj zamišljene osobe |
 | `dob`, `spol` | dob u godinama i generirana kategorija spola |
 | `obrazovanje`, `obrazovanje_sifra` | kategorija obrazovanja i njezin kod |
 | `izvor_vijesti`, `izvor_vijesti_sifra` | glavni izvor vijesti i njegov kod |

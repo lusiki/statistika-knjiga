@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -37,11 +37,12 @@ nekoj osobi ili tekstu. U zamišljenom uredničkom sustavu iz vinjete
 procijenjeni ton odlučuje koja će rečenica dobiti dodatni pregled. Za procjenu
 takva sustava trebamo pratiti i nastanak oznake i posljedice pogrešne odluke.
 
-Hrvatski dio ParlaSenta sadrži stvarne parlamentarne rečenice s ljudskim
-oznakama tona (Mochtak, 2023). Rečenica je jedinica na koju se odnose zabilježene oznake i naši zaključci. Pratit ćemo tekst, dostupne oznake kodera i
+U hrvatskom dijelu skupa podataka ParlaSent 1.0 nalaze se stvarne
+parlamentarne rečenice čiji su ton procijenili ljudi. Skup je objavljen
+u repozitoriju Instituta Jožef Stefan (Mochtak, 2023). Rečenica je jedinica na koju se odnose zabilježene oznake i naši zaključci. Pratit ćemo tekst, dostupne oznake kodera i
 podjelu podataka. U nastavnom primjeru iz tih ćemo oznaka izvesti jednostavan
 rezultat za usporedbu pravila slanja na pregled. Time provjeravamo kako izbor
-praga mijenja odluku. Uspješnost budućega uvježbanog klasifikatora zahtijevala bi zasebnu provjeru njegovih predviđanja.
+praga mijenja odluku. Uspješnost budućega uvježbanog klasifikatora zahtijevala bi zasebnu provjeru njegovih predviđanja. Stvarne oznake omogućuju nam da pregledamo neslaganje ljudskih kodera i pogrešivost reference prema kojoj prosuđujemo odluku.
 
 U tom se zadatku sastaju ranija pitanja o mjerenju, uzorkovanju i pogreškama.
 Ljudske oznake tona trebamo provjeriti prema pravilima kodiranja, a doseg korpusa prema načinu odabira rečenica. Razmotrit ćemo zašto podatke razdvajamo za
@@ -146,7 +147,7 @@ Takvo preklapanje dokumenata bilo bi još jedan oblik curenja informacija.
 pristajanje njima, ali pogoršava predviđanje novih jedinica." en="overfitting"
 ch="17"} nastaje kada model nauči posebnosti viđenih podataka pa njima
 bolje pristaje, ali lošije predviđa nove jedinice. Zato ga provjeravamo
-na odvojenim jedinicama. Populacijski doseg zasebno određujemo prema odabiru podataka. Dobar rezultat na pravilno izdvojenom skupu podržava prediktivnu uspješnost u obuhvaćenim uvjetima; prijenos na druge tekstove zahtijeva dodatnu provjeru. Ovdje različit odabir i označavanje ispitnog dijela
+na odvojenim jedinicama. Populacijski doseg zasebno određujemo prema odabiru podataka. Dobar rezultat na pravilno izdvojenom skupu podržava prediktivnu uspješnost u obuhvaćenim uvjetima. Prijenos na druge tekstove zahtijeva dodatnu provjeru. Ovdje različit odabir i označavanje ispitnog dijela
 dodatno ograničavaju usporedbu.
 
 ## Od vjerojatnosti do pravednosti
@@ -156,7 +157,7 @@ Mala razlika u broju tako mijenja postupanje. Izbor praga treba povezati s
 posljedicama obiju vrsta pogreške.
 
 **Klasifikacijski prag** jest unaprijed određena vrijednost koja predviđenu
-vjerojatnost pretvara u kategoričku odluku; njegovim se pomicanjem mijenja
+vjerojatnost pretvara u kategoričku odluku. Njegovim se pomicanjem mijenja
 odnos vrsta pogrešaka.
 
 Svaka rečenica sada završava među poslanima na pregled ili među
@@ -180,7 +181,7 @@ preciznost (*precision*), računa se kao $TP/(TP+FP)$. Točnost
 točno negativne odluke, a FP i FN lažno pozitivne i lažno negativne.
 Klasifikacijska preciznost zato nije isto što i uski interval procjene.
 
-Brojeve ćemo u razrađenom primjeru dobiti prebrojavanjem ljudskih glasova i usporedbom pravila koja se na njima temelje. Za prag od barem jednoga negativnog
+Brojeve ćemo u razrađenom primjeru dobiti na istim rečenicama izvedenog skupa za provjeru, prebrojavanjem ljudskih glasova i usporedbom pravila koja se na njima temelje. Za prag od barem jednoga negativnog
 glasa tablica daje $TP=122$, $FP=16$, $FN=0$ i $TN=134$.
 Osjetljivost je $122/122$, specifičnost $134/150$, pozitivna prediktivna
 vrijednost $122/138$, a točnost $256/272$. Svaki nazivnik izdvaja drugu skupinu rečenica, pa zajedno daju potpuniji opis odluke.
@@ -480,10 +481,10 @@ doseg ovog primjera.
 | Revizijsko pitanje | Primjena na odluku o ljudskom pregledu |
 |---|---|
 | Koja je jedinica? | jedna odabrana parlamentarna rečenica s putom nastanka zabilježene oznake, ne govor, govornik ili sjednica |
-| Tko ili što nedostaje? | rečenice moderatora i rečenice izvan srednjega raspona duljine isključene su uzvodno; paket nema govornika, cijeli govor ni obranjivu skupnu varijablu |
-| Koji je cilj tvrdnje? | tablica uspoređuje dva pravila slanja u pregled prema zabilježenom negativnom ishodu; riječ je o opisu i provjeri odluke, ne izvedbi postojećega klasifikatora |
-| Gdje je neizvjesnost? | osjetljivost na prag; ne provjeravamo reprezentativnost, valjanost oznake, pogrešku kodiranja ni budući pomak distribucije |
-| Koje drugo objašnjenje ostaje? | stroži prag mijenja pogreške; slučajni pregled ili kriterij relevantnosti mijenjaju i cilj odabira |
+| Tko ili što nedostaje? | rečenice moderatora i rečenice izvan srednjega raspona duljine isključene su uzvodno. Paket nema govornika, cijeli govor ni obranjivu skupnu varijablu |
+| Koji je cilj tvrdnje? | tablica uspoređuje dva pravila slanja u pregled prema zabilježenom negativnom ishodu. Riječ je o opisu i provjeri odluke, ne izvedbi postojećega klasifikatora |
+| Gdje je neizvjesnost? | osjetljivost na prag. Ne provjeravamo reprezentativnost, valjanost oznake, pogrešku kodiranja ni budući pomak distribucije |
+| Koje drugo objašnjenje ostaje? | stroži prag mijenja pogreške. Slučajni pregled ili kriterij relevantnosti mijenjaju i cilj odabira |
 | Tko snosi posljedice? | pregledavatelji troše vrijeme, važan tekst može izostati, a govornik i javnost mogu dobiti iskrivljen prikaz |
 
 : Šest revizijskih pitanja za odluku o ljudskom pregledu. Izrada autora prema Mochtak, 2023 i mochtakparlasent2024.
@@ -495,7 +496,7 @@ Sljedeća tablica razlikuje šest vrsta tvrdnji. Doseg analize određujemo prema
 | opis | opisuje brojnosti, put oznake i posljedice dvaju pravila unutar pripremljenoga paketa |
 | povezanost | pokazuje povezanost dvaju koderskih glasova s usklađenom oznakom, uz izričitu ovisnost jer su isti glasovi sudjelovali u njezinu nastanku |
 | generalizacija | ne podupire prijenos na sav parlamentarni govor, govornike ili tekstove izvan odabranih rečenica |
-| predviđanje | ne ocjenjuje postojeći model; buduća bi procjena tražila zaključan model, prag, usporediv referentni postupak i jedan izdvojeni ispitni skup |
+| predviđanje | ne ocjenjuje postojeći model. Buduća bi procjena tražila zaključan model, prag, usporediv referentni postupak i jedan izdvojeni ispitni skup |
 | uzročnost | ne pokazuje što uzrokuje ton, uredničku važnost ili bilo koju posljedicu za govornika |
 | odluka | podupire provjeru tereta dvaju pragova, ali ne dokazuje da je negativan sentiment legitiman cilj usmjeravanja pozornosti |
 
@@ -533,7 +534,7 @@ tečan.
 ## Pojmovi
 
 osjetljivost klasifikatora (*sensitivity*), specifičnost (*specificity*),
-preciznost odnosno pozitivna prediktivna vrijednost (*precision; positive predictive value*),
+preciznost odnosno pozitivna prediktivna vrijednost (*precision, positive predictive value*),
 ukupna točnost (*accuracy*),
 
 tekstna jedinica (*text unit*), granica korpusa (*corpus boundary*), okvir

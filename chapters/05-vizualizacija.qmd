@@ -50,9 +50,10 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-Anscombe je sastavio četiri skupa s gotovo jednakim uobičajenim brojčanim
-sažecima i jednakim prilagođenim pravcem, ali vrlo različitim grafovima
-[@anscombe1973]. U jednom se vidjela približno linearna veza, u drugom
+Četiri skupa podataka mogu imati gotovo jednake uobičajene brojčane
+sažetke i jednak prilagođeni pravac, a na grafovima izgledati sasvim
+drukčije. Poznati primjer, Anscombeov kvartet, sastavljen je upravo da
+bi pokazao koliko toga brojčani sažetak može sakriti [@anscombe1973]. U jednom se vidjela približno linearna veza, u drugom
 zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz
 jedno izdvojeno opažanje.
 
@@ -241,7 +242,7 @@ s5_mjesecni_prikaz <- s5_digikat_mjesecno |>
 
 U poglavlju o sažimanju birali smo mjeru prema obliku raspodjele i pitanju
 koje nas zanima. Pred grafom nas čeka slična odluka. Prikaz prosjeka može
-olakšati usporedbu skupina, ali sakriti razlike među osobama; prikaz svih
+olakšati usporedbu skupina, ali sakriti razlike među osobama. Prikaz svih
 opažanja čuva te razlike, no može otežati čitanje. Želimo naučiti odabrati
 prikaz iz kojega se tražena usporedba doista može vidjeti.
 
@@ -251,10 +252,10 @@ parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
 sažetke.
 
-Vraćamo se istim zamišljenim osobama iz autorske simulacije `anketa_mreze`,
-uvedene pri sažimanju podataka. Svaki redak ostaje jedna osoba, a prikaz dnevnih
-minuta na društvenim mrežama po dobnim skupinama opisuje taj nastavni skup. Uz nju ćemo
-čitati i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
+Vraćamo se poznatoj tablici simulirane ankete o društvenim mrežama,
+`anketa_mreze`, koju smo upoznali pri sažimanju podataka. Svaki redak i
+dalje opisuje jednu zamišljenu osobu. Sada ćemo njihove dnevne minute na
+mrežama prikazati po dobnim skupinama. Uz tu tablicu čitat ćemo i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
 njihovu obuhvatu [@digikat2026]. Primjeri se mijenjaju jer nas zanima ista
 odluka u različitim situacijama. Prije čitanja oznake trebamo znati
 predstavlja li ona osobu, skupinski sažetak ili zbroj objava.
@@ -283,8 +284,8 @@ predstavlja oznaka, koja joj je varijabla pridružena, koji je račun prethodio
 crtanju i kako se vrijednosti prenose u vizualne veličine.
 :::
 
-Wilkinson je tu ideju razradio u sustav [@wilkinson2005], a ggplot2 jedna je
-od njegovih poznatih programskih izvedbi [@wickham2016]. Istim se načinom
+Iz te je ideje razvijen sustav za sastavljanje grafova [@wilkinson2005].
+Jedna od njegovih poznatih programskih izvedbi jest ggplot2 [@wickham2016]. Istim se načinom
 razmišljanja možemo služiti pri čitanju tiskanog grafa, bez programiranja.
 
 Najprije provjeravamo jedinicu. Točka može predstavljati ispitanika, državu,
@@ -367,10 +368,10 @@ ggplot(s5_os_dugo) +
 
 ## Što oko može očitati
 
-Grafička percepcija jest način na koji iz položaja, duljina i drugih oznaka očitavamo podatke. Neke vizualne usporedbe čitamo točnije od drugih. Cleveland i McGill pokusima
-su potvrdili prednost položaja pred duljinom i kutom [@cleveland1984].
-Povezali su te rezultate s ranijim istraživanjima i predložili širi poredak
-kanala. Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na
+Grafička percepcija jest način na koji iz položaja, duljina i drugih oznaka očitavamo podatke. Neke vizualne usporedbe čitamo točnije od drugih. Pokusi s očitavanjem grafova potvrdili su prednost položaja pred
+duljinom i kutom [@cleveland1984]. Povezivanjem tih rezultata s ranijim
+istraživanjima nastao je prijedlog šireg poretka vizualnih kanala
+[@cleveland1984]. Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na
 istovjetnim, ali neporavnatim osima, pa duljina, kut, nagib i površina. Obujam,
 zakrivljenost i zasićenost boje nalaze se pri dnu [@cleveland1984]. Cijeli taj poredak predstavlja sintezu više izvora, s različitim stupnjem izravne pokusne provjere pojedinih usporedbi.
 
@@ -385,7 +386,7 @@ duljinu kombinira s površinom i prividnim obujmom, slabijim kanalima u
 predloženom poretku [@cleveland1984]. Zato prije dodavanja treće dimenzije
 provjeravamo donosi li novu informaciju ili samo mijenja dojam.
 
-Tufte predlaže da za svaki grafički element pitamo koju informaciju prenosi
+Pri oblikovanju grafa korisno je za svaki element razmotriti koju informaciju prenosi
 [@tufte2001]. Sjene, obrubi i preljevi mogu odvlačiti pozornost bez korisnog
 dodatka. Rešetka, razdjelna crta ili oznaka, s druge strane, mogu olakšati
 čitanje. Uklanjanjem elementa možemo provjeriti otežava li njegov izostanak usporedbu
@@ -537,7 +538,7 @@ vide i manje vrijednosti jer jednak prostor dodjeljuje jednakim omjerima.
 #| echo: false
 #| label: fig-digikat-log
 #| fig-cap: "Raspodjela broja objava među 3 604 imenovane domene na logaritamskoj osi. Izrada autora prema DigiKatu [@digikat2026]."
-#| fig-alt: "Histogram 3 604 imenovane domene na logaritamskoj vodoravnoj osi; većina domena ima malen broj objava, a rijetke domene protežu raspodjelu do 56.500 objava."
+#| fig-alt: "Histogram 3 604 imenovane domene na logaritamskoj vodoravnoj osi. Većina domena ima malen broj objava, a rijetke domene protežu raspodjelu do 56.500 objava."
 #| fig-width: 6.6
 #| fig-height: 3.8
 
@@ -618,8 +619,8 @@ imaju istu logaritamsku os.
 ```{r}
 #| echo: false
 #| label: fig-mala-polja
-#| fig-cap: "Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka; isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026]."
-#| fig-alt: "Pet malih prikaza na zajedničkoj logaritamskoj osi. Svaki ima odvojenu točku u siječnju, prazninu od veljače do svibnja, odvojenu lipanjsku točku te liniju od srpnja do prosinca; isprekidana okomita crta označuje lipanjski lom metode."
+#| fig-cap: "Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka. Isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026]."
+#| fig-alt: "Pet malih prikaza na zajedničkoj logaritamskoj osi. Svaki ima odvojenu točku u siječnju, prazninu od veljače do svibnja, odvojenu lipanjsku točku te liniju od srpnja do prosinca. Isprekidana okomita crta označuje lipanjski lom metode."
 #| fig-width: 6.8
 #| fig-height: 5.2
 
@@ -706,8 +707,8 @@ broji opažanja u razredu jednake širine, a drukčija širina razreda može
 promijeniti dojam o obliku. Krivulja gustoće zaglađuje raspodjelu, pa njezina
 visina nije broj osoba. Kutijasti prikaz čuva medijan i srednjih 50 %
 opažanja između prvoga i trećega kvartila. U sljedećem prikazu brkovi sežu
-do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije;
-udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.
+do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije.
+Udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.
 
 Sažimanje u dvije sredine skriva razlike među pojedincima. Zasebno pitanje jest nesigurnost procjene populacijske sredine. Nju procjenjujemo prema načinu odabira opažanja, što ćemo razraditi uz uzorkovanje i procjenu.
 
@@ -994,9 +995,9 @@ posjećenosti. Drugi ga odbacuje pozivajući se na pravilo da se takvi
 grafovi nikada ne koriste. Prije izbora valja razjasniti što čitatelj
 treba moći usporediti.
 
-Cleveland i McGill istraživali su upravo točnost očitavanja grafičkih
-prikaza. U njihovim su pokusima sudionici procjenjivali omjer dviju
-istaknutih vrijednosti. Položaj na zajedničkoj osi omogućavao je
+Točnost očitavanja može se provjeriti pokusom. U jednom takvom
+istraživanju sudionici su procjenjivali omjer dviju istaknutih vrijednosti
+na grafu [@cleveland1984]. Položaj na zajedničkoj osi omogućavao je
 preciznije usporedbe od kuta [@cleveland1984]. Nalaz daje razlog za
 izbor prikaza, ali taj je razlog vezan uz određeni zadatak.
 

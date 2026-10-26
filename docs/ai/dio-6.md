@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/18-vase-prvo-istrazivanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -34,8 +34,8 @@ U završnom projektu iskustvo čitanja tuđih zaključaka primjenjujemo na vlast
 odnositi na istu istraživačku namjeru. Te odluke povezujemo u jednom istraživanju i ostavljamo zapis koji omogućuje
 provjeru rezultata.
 
-Vraćamo se skupu `anketa_mreze`, simuliranoj anketi koju poznajemo iz
-sažimanja, vizualizacije i povezanosti. Svaki redak predstavlja
+Vraćamo se istim zapisima svih 300 zamišljenih osoba iz skupa `anketa_mreze`,
+koje poznajemo iz sažimanja, vizualizacije i povezanosti. Svaki redak predstavlja
 jednu zamišljenu osobu s dobi, dnevnim minutama na društvenim mrežama i
 povjerenjem u tamošnji sadržaj. To je zaseban skup od populacije iz koje smo
 izvlačili uzorke u inferencijalnim poglavljima. Istražit ćemo jesu li duže
@@ -208,7 +208,7 @@ nastanka. Za naš simulirani primjer zapis izgleda ovako.
 | prekodiranja | dob je sažeta u četiri skupine samo za opis i prikaz | položaj skupina na grafu, ne primarni model s dobi |
 | transformacije | nagib po minuti prikazuje se kao razlika povezana s 30 dodatnih minuta | mjerilo, ali ne i prilagodbu modela |
 | isključenja | nema isključenih redaka | doseg uzorka i moguću procjenu |
-| nedostajuće vrijednosti | nema ih; u stvarnom radu naveli bismo broj po varijabli i pravilo postupanja | uzorak koji ulazi u svaki račun |
+| nedostajuće vrijednosti | nema ih. U stvarnom radu naveli bismo broj po varijabli i pravilo postupanja | uzorak koji ulazi u svaki račun |
 
 : Revizija konstrukcije analitičke tablice prije gledanja procjene. Izrada autora.
 
@@ -276,7 +276,7 @@ Grafom provjeravamo oblik odnosa, utjecaj krajnjih opažanja i promjene
 raspršenosti. Time započinjemo dijagnostiku, ali još nismo provjerili sve
 pretpostavke višestrukog modela.
 
-*Slika. Dnevno vrijeme na mrežama i izjavljeno povjerenje u simuliranom uzorku, s pravcem najmanjih kvadrata i točkama razdvojenima po dobnoj skupini. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Dnevno vrijeme na mrežama i izjavljeno povjerenje u simuliranom uzorku, s pravcem najmanjih kvadrata i točkama razdvojenima po dobnoj skupini. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Zbirni pravac blago raste. Dobne oznake pokazuju da su mlađi uglavnom desno i
 više, a stariji lijevo i niže. Unutar dobnih skupina nema istog uzlaznog
@@ -347,7 +347,7 @@ Ovdje opisujemo povezanost uz prilagodbu za dob. Predviđanje novih osoba traži
 Izostavljanjem dobi ispitali smo njezinu važnost. Sada dodajemo ciljanu provjeru prikladnosti linearnoga dobnog člana. Dob zamjenjujemo
 dobnim skupinama koje koristi generator. Svaka skupina dobiva vlastiti
 odsječak, a nagib uz minute ostaje zajednički. Ta provjera koristi poznato
-pravilo nastavnih podataka; u stvarnom istraživanju takvo pravilo ne bismo
+pravilo nastavnih podataka. U stvarnom istraživanju takvo pravilo ne bismo
 znali unaprijed.
 
 Sljedeća tablica zadržava iste osobe i pokazuje promjenu procjene pri
@@ -368,12 +368,12 @@ $1-\sum_i(y_i-\hat y_i)^2/\sum_i(y_i-\bar y)^2$. Brojnik je zbroj kvadrata
 reziduala, a nazivnik zbroj kvadrata odstupanja od ukupne sredine. On
 opisuje prilagodbu ovim podacima, ne uzročni udio ni uspjeh predviđanja
 novih osoba. Ovaj završni primjer namjerno prati jedan regresijski model
-i njegovu dokumentaciju; ne pokušava primijeniti svaki postupak iz knjige.
+i njegovu dokumentaciju. Ne pokušava primijeniti svaki postupak iz knjige.
 
 U dijagramima ostataka kose usporedne trake nastaju zato što povjerenje ima
 cjelobrojne vrijednosti od jedan do deset. Za svaku od njih ostatak je ta vrijednost
 umanjena za predviđanje. Dobne skupine bolje prate poznato pravilo nastanka
-ovih simuliranih podataka; razlika dviju procjena za minute pokazuje koliko
+ovih simuliranih podataka. Razlika dviju procjena za minute pokazuje koliko
 linearna prilagodba dobi može ostaviti dio skupnog obrasca u tom koeficijentu.
 Ni jedan model time nije postao uzročna analiza.
 
@@ -433,7 +433,8 @@ planiran uzorak, i objasniti kako bismo je drukčije riješili.
 
 Simulacija nam je dopustila da zaključak usporedimo s poznatim pravilom
 nastanka podataka. Kako ćemo provjeriti vlastiti postupak kada to pravilo
-nemamo? Vraćamo se stvarnim rečenicama iz hrvatskog dijela ParlaSenta 1.0
+nemamo? Vraćamo se stvarnim rečenicama iz hrvatskog dijela skupa podataka
+ParlaSent 1.0, dostupnog u repozitoriju Instituta Jožef Stefan
 (Mochtak, 2023; Mochtak, 2024). Svaki redak predstavlja jednu
 parlamentarnu rečenicu s oznakom tona, pa trebamo drukčije pitanje od
 prethodnog odnosa vremena i povjerenja. Provjerit ćemo kako su rečenice
@@ -443,13 +444,13 @@ zaključiti.
 | Polje putovnice | Opis podataka |
 |---|---|
 | izvor i verzija | ParlaSent 1.0, hrvatski izvadak pripremljen 18. kolovoza 2026. |
-| prava | CC BY-SA 4.0; atribucija, oznaka promjena i obveza dijeljenja pod istim uvjetima putuju uz izvedenu datoteku |
+| prava | CC BY-SA 4.0. Atribucija, oznaka promjena i obveza dijeljenja pod istim uvjetima putuju uz izvedenu datoteku |
 | jedinica | jedna odabrana i označena parlamentarna rečenica |
-| obuhvat | `r hr_broj(s18_prijenos$n, 0)` redaka iz `r hr_broj(s18_prijenos$dokumenti, 0)` dokumenata; nije uzorak svih parlamentarnih rečenica, govornika ni stavova |
+| obuhvat | `r hr_broj(s18_prijenos$n, 0)` redaka iz `r hr_broj(s18_prijenos$dokumenti, 0)` dokumenata. Nije uzorak svih parlamentarnih rečenica, govornika ni stavova |
 | put oznake | `r hr_broj(s18_prijenos$dva_kodera, 0)` redaka ima dva koderska glasa i usklađenje, a `r hr_broj(s18_prijenos$jedan_koder, 0)` jedan uvježbani koderski zapis |
-| razdvajanje | `r hr_broj(s18_prijenos$ucenje, 0)` redaka za učenje, `r hr_broj(s18_prijenos$provjera, 0)` za provjeru i `r hr_broj(s18_prijenos$ispitivanje, 0)` za ispitivanje; preklopljeni dokumenti uklonjeni su s ulaznih podataka prije razdvajanja |
+| razdvajanje | `r hr_broj(s18_prijenos$ucenje, 0)` redaka za učenje, `r hr_broj(s18_prijenos$provjera, 0)` za provjeru i `r hr_broj(s18_prijenos$ispitivanje, 0)` za ispitivanje. Preklopljeni dokumenti uklonjeni su s ulaznih podataka prije razdvajanja |
 | nedostajanje | nedostupni drugi koder, usklađenje i izvorna podjela u ispitnim redcima nose izričit marker, a ne prazninu ili nulu |
-| provjerljivi put | `data/parlament_oznake.csv`, `data/parlament_tekst/PUTOVNICA.md` i `data/parlament-oznake.LICENCA.md` vode do izvora; ista CSV datoteka služi radu u R-u i bez koda te pripremi tiskanog izdanja |
+| provjerljivi put | `data/parlament_oznake.csv`, `data/parlament_tekst/PUTOVNICA.md` i `data/parlament-oznake.LICENCA.md` vode do izvora. Ista CSV datoteka služi radu u R-u i bez koda te pripremi tiskanog izdanja |
 
 : Podaci i njihovo podrijetlo u primjeru s ParlaSentom. Izrada autora prema Mochtak, 2023 i mochtakparlasent2024.
 
@@ -501,11 +502,11 @@ a zatim biramo alat koji ih smije primiti.
 |---|---|
 | sustav, inačica i datum | Codex, GPT-5, 19. kolovoza 2026. |
 | delegirani zadatak | provjera zbrojeva po oznaci i putu označivanja te nacrt granice tvrdnje |
-| podatkovna traka | javni alat; samo objavljeni agregati iz paketa s provjerenim pravima uporabe |
-| zadržani rezultat | aritmetička provjera zbrojeva; granicu tvrdnje odgovorna je osoba ponovno napisala |
+| podatkovna traka | javni alat. Samo objavljeni agregati iz paketa s provjerenim pravima uporabe |
+| zadržani rezultat | aritmetička provjera zbrojeva. Granicu tvrdnje odgovorna je osoba ponovno napisala |
 | neovisna provjera | lokalni račun iz `data/parlament_oznake.csv`, usporedba s putovnicom i otvaranje obaju citiranih izvora |
 | što je ostalo neprovjereno | valjanost oznake, uzvodna selekcija rečenica i prijenos izvan pripremljenoga paketa |
-| odgovorna osoba i mjesto objave | autor koji potpisuje paket; zapis uz putovnicu, dnevnik i izvještaj |
+| odgovorna osoba i mjesto objave | autor koji potpisuje paket. Zapis uz putovnicu, dnevnik i izvještaj |
 
 : Objava uporabe asistenta u primjeru s ParlaSentom. Izrada autora.
 
@@ -521,7 +522,7 @@ značajna, a nakon prilagodbe za dob više nije. Time bismo
 izostavili ono što smo istraživanjem doznali o veličini
 razlike i usporedbi koju pojedini model provodi.
 
-Cummingov prijedlog nove statistike stavlja procjenu
+Pristup poznat kao nova statistika stavlja procjenu
 učinka, njezin interval i povezivanje dokaza u središte
 izvještavanja (Cumming, 2014). Primijenimo taj prijedlog
 na naš simulirani skup, bez tvrdnje da smo otkrili
@@ -543,8 +544,8 @@ naručitelju zainteresiranom za povjerenje. Iz ove
 analize ne slijedi da bi skraćivanje vremena na
 mrežama promijenilo povjerenje. Za takvu odluku
 nedostaje uzročno opravdanje, a naš skup povrh toga
-služi nastavi. Cummingova preporuka pomaže prikazati
-ono što smo procijenili; interval ne može nadoknaditi
+služi nastavi. Usmjerenost na procjenu pomaže prikazati
+ono što smo procijenili. Interval ne može nadoknaditi
 ograničenje podataka i nacrta.
 
 Završni izvještaj zato povezuje veličinu u razumljivim
@@ -582,7 +583,7 @@ Potvrda u nastavku čitljiva je i bez koda, neovisno o korištenom alatu.
 | što je vraćeno | kod za dva modela i nacrt zaključka |
 | što je provjereno | broj redaka, procjene, intervali, podrijetlo podataka i granica tvrdnje |
 | kako je provjereno | čista lokalna sesija, usporedba s tablicom i otvaranje svakoga navedenog izvora |
-| uloga asistenta | pomaže u računu i nacrtu uz ljudsku provjeru; predmet je istraživanja samo kada proučavamo sam sustav |
+| uloga asistenta | pomaže u računu i nacrtu uz ljudsku provjeru. Predmet je istraživanja samo kada proučavamo sam sustav |
 | što je ostalo neprovjereno | valjanost mjere izvan generatora i prijenos na ljude izvan simuliranoga skupa |
 | odgovorna osoba | osoba koja potpisuje pitanje, provjeru i objavljenu tvrdnju |
 
@@ -596,11 +597,12 @@ Kao primjer služi politika kolegija uz ovaj udžbenik, inačica 1.0 od
 4. kolovoza 2026. Puni uvjeti nalaze se u [Dodatku
 F](../dodaci/f-ai-protokol.qmd#sec-politika-kolegija).
 
-U tom primjeru javni alati primaju dopuštene javne, simulirane ili zbirne
-podatke. Za dopuštene pseudonimizirane radne podatke traži se ugovorno
-zaštićen alat, a ograničeni podaci ostaju u institucionalno odobrenom
-lokalnom okruženju. Prije vlastitoga rada provjeravamo pravila svojega
-zadatka i ustanove.
+Prije slanja podataka asistentu zastanemo i provjerimo što smijemo
+podijeliti. U ovom primjeru javnom alatu možemo poslati dopuštene javne,
+simulirane ili zbirne podatke. Ako radimo s dopuštenim podacima u kojima
+su imena zamijenjena šiframa, trebamo alat s ugovorenom zaštitom podataka.
+Ograničeni podaci ostaju u lokalnom okruženju koje je odobrila ustanova.
+Odabir zato vežemo uz podatke koje imamo i pravila svojega zadatka i ustanove.
 
 Ta datirana politika nije propis Hrvatskoga katoličkog sveučilišta ni
 pravno tumačenje. Uklanjanje imena samo po sebi ne potvrđuje da osobu nije
@@ -629,7 +631,7 @@ Asistent je vratio sljedeći sažetak.
 > U simuliranom uzorku, nakon linearne prilagodbe za dob, trideset
 > minuta više dnevnog vremena povezano je s procijenjenom razlikom od
 > `r hr_broj(s18$uz_dob_30, 2)` boda u povjerenju. Zaključak ovisi o
-> linearnoj, aditivnoj prilagodbi za dob; drukčiji oblik dobnoga odnosa
+> linearnoj, aditivnoj prilagodbi za dob. Drukčiji oblik dobnoga odnosa
 > mogao bi promijeniti procjenu. 95 % interval od
 > `r hr_broj(s18$uz_dob_30_donja, 2)` do
 > `r hr_broj(s18$uz_dob_30_gornja, 2)` obuhvaća nulu, pa u ovom skupu
@@ -648,11 +650,11 @@ postoji li opravdanje ili ostaje izvan dosega projekta.
 | Dimenzija | Što završni paket podupire ili omeđuje |
 |---|---|
 | opis | opisuje 300 simuliranih osoba te brojnosti i put oznake 2.698 odabranih rečenica |
-| povezanost | procjenjuje prilagođenu povezanost vremena i povjerenja; razliku udjela po putu oznake ne tumači kao njegov učinak |
+| povezanost | procjenjuje prilagođenu povezanost vremena i povjerenja. Razliku udjela po putu oznake ne tumači kao njegov učinak |
 | generalizacija | ne prelazi sa simuliranoga skupa na stvarne korisnike ni s odabranoga korpusa na sav parlamentarni govor |
 | predviđanje | nema zaključanoga prediktivnog pravila ni rezultata na doista novim opažanjima |
 | uzročnost | presječna anketa i odabrani korpus ne podupiru intervencijsku tvrdnju |
-| odluka | ne opravdava postavljeni sustav; buduća bi odluka morala imenovati prag, teret pogrešaka, nadzor i put prigovora |
+| odluka | ne opravdava postavljeni sustav. Buduća bi odluka morala imenovati prag, teret pogrešaka, nadzor i put prigovora |
 
 : Šest dimenzija tvrdnje u završnom paketu dokaza. Izrada autora.
 
@@ -660,11 +662,11 @@ Zatim odgovaramo na šest revizijskih pitanja.
 
 | Revizijsko pitanje | Gdje je odgovor |
 |---|---|
-| Koja je jedinica? | osoba u glavnoj studiji; odabrana rečenica u ParlaSentu |
+| Koja je jedinica? | osoba u glavnoj studiji. Odabrana rečenica u ParlaSentu |
 | Tko ili što nedostaje? | stvarni ljudi i simulirane jedinice izvan zadanoga skupa te rečenice izvan odabira i bez hrvatske oznake |
-| Koji je cilj tvrdnje? | dobno prilagođena razlika u povjerenju povezana s 30 minuta više dnevnog vremena; opis oznaka i puta mjerenja unutar paketa |
-| Gdje je neizvjesnost? | interval kvantificira uzoračku varijaciju pod pretpostavljenim linearnim modelom; oblik modela, mjerenje, selekcija, kodiranje i odluka ostaju zasebni |
-| Koje drugo objašnjenje ostaje? | izostavljanje dobi; odvojeno čitanje dvaju putova nastanka oznake |
+| Koji je cilj tvrdnje? | dobno prilagođena razlika u povjerenju povezana s 30 minuta više dnevnog vremena. Opis oznaka i puta mjerenja unutar paketa |
+| Gdje je neizvjesnost? | interval kvantificira uzoračku varijaciju pod pretpostavljenim linearnim modelom. Oblik modela, mjerenje, selekcija, kodiranje i odluka ostaju zasebni |
+| Koje drugo objašnjenje ostaje? | izostavljanje dobi. Odvojeno čitanje dvaju putova nastanka oznake |
 | Tko snosi posljedice? | na ljude o kojima bi se neopravdano generaliziralo te na autore rečenica koje bi se slale u ljudski pregled |
 
 : Šest revizijskih pitanja prije predaje. Izrada autora.
@@ -702,8 +704,8 @@ Prije dijeljenja paketa s parlamentarnim rečenicama primjenjujemo pravila
 zaštite osoba iz poglavlja o mjerenju i dizajnu. Javna dostupnost zapisa ne
 uklanja mogućnost identifikacije ni štetu od povezivanja s drugim podacima.
 Provjeravamo svrhu dijeljenja, nužnost pojedinih obilježja i prikladnost alata
-za osjetljivost podataka. Pravila kolegija dodatni su uvjet u nastavi;
-odgovornost prema osobama o kojima podaci govore ostaje na nama.
+za osjetljivost podataka. Pravila kolegija dodatni su uvjet u nastavi.
+Odgovornost prema osobama o kojima podaci govore ostaje na nama.
 
 ## Sažetak
 

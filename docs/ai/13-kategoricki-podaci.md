@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -17,7 +17,7 @@ Kad jednom odaberemo usporedbu, preostaje procijeniti koliko se opaženi
 raspored razlikuje od onoga koji bismo očekivali bez povezanosti. Bi li sam
 nalaz povezanosti bio dovoljan za zaključak o pravednosti upisa?
 
-Zbirne i odjelne stope prijma na Sveučilište Berkeley pokazale su koliko
+Isti zapisi prijava i odluka o prijmu na Sveučilište Berkeley, prema spolu i odjelu, pokazali su koliko
 tumačenje postotka ovisi o nazivniku i okolnostima nastanka podataka
 (Bickel, 1975). Za analizu kategorija trebamo povezati taj uvid s opisom
 raspodjele i povezanosti, procjenom nesigurnosti te razlikom između
@@ -35,11 +35,13 @@ provesti na frekvencijama u kontingencijskoj tablici. Uz rezultat testa i
 dalje trebamo pokazati veličinu razlike, njezinu nesigurnost i nazivnike na
 kojima se temelje prikazani udjeli.
 
-Postupak ćemo razviti na uzorku od 800 zamišljenih osoba iz već poznatog skupa
-`populacija_medija`. Riječ je o računalno stvorenim podacima za nastavu, pa rezultate tumačimo unutar te zamišljene populacije.
-Iz svakog zapisa izdvojit ćemo dobnu skupinu i glavni izvor vijesti,
-televiziju, radio, tisak, portal ili društvene mreže. Želimo saznati kako se
-izbor izvora razlikuje među dobnim skupinama.
+Usporedbom tiska i portala procjenjivali smo razliku u povjerenju i njezinu
+nesigurnost. Sada nas zanima kako se sam izbor izvora vijesti razlikuje s dobi.
+
+Za tu usporedbu zasebno izvlačimo uzorak od 800 osoba iz poznate nastavne
+populacije `populacija_medija`. Svaki zapis pripada zamišljenoj osobi s dobnom
+skupinom i glavnim izvorom vijesti. Nalaz ostaje opis računalno stvorene
+populacije, bez zaključka o stvarnim stanovnicima.
 
 Najprije ćemo prebrojiti odgovore i usporediti postotke unutar skupina. Potom
 ćemo izračunati očekivane frekvencije pod pretpostavkom nezavisnosti i
@@ -98,7 +100,7 @@ svih korisnika televizije. Promijenilo se pitanje, pa isti zapisi traže
 postotak po stupcu. Duljine stupaca na sljedećoj slici ipak prikazuju prvo
 pitanje, udjele izvora unutar svake dobne skupine.
 
-*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama; udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora.*
+*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama. Udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora.*
 
 Društvene mreže bira `r hr_broj(s13_retci["18 do 29", "društvene mreže"])` % osoba od 18 do 29 godina, a `r hr_broj(s13_retci["60 i više", "društvene mreže"])` % osoba
 od 60 i više godina. Televiziju bira `r hr_broj(s13_retci["18 do 29", "TV"])` % najmlađih i `r hr_broj(s13_retci["60 i više", "TV"])` %
@@ -304,7 +306,7 @@ raspodjelom resursa. Uz V kao sažetak jačine veze čitamo pojedine udjele kako
 
 ## Referentna raspodjela je istraživačka odluka
 
-Dosad smo uspoređivali dob i izvor vijesti. Na istih 800 zapisa možemo
+Dosad smo uspoređivali dob i izvor vijesti. Na istom uzorku od 800 osoba možemo
 postaviti drukčije pitanje, odgovara li sastav uzorka prema obrazovanju
 poznatom sastavu naše simulirane populacije. Zadržavamo osobe, ali sada
 brojimo samo razine obrazovanja. Za svaku razinu očekivani broj dobivamo
@@ -344,7 +346,7 @@ kategorije nastale i koji je nazivnik svakog udjela.
 
 ## Kad je aproksimacija tanka
 
-U prethodnoj analizi 800 simuliranih osoba najmanja očekivana frekvencija
+U uzorku od 800 osoba najmanja očekivana frekvencija
 iznosi `r hr_broj(s13$min_ocekivana)` pa nijedna ćelija nije osobito rijetka.
 Da bismo vidjeli što se događa kada očekivani brojevi postanu mali, privremeno
 napuštamo taj uzorak i pojednostavljujemo pitanje. U zasebnom nastavnom
@@ -470,43 +472,25 @@ Odluka o spajanju kategorija traži i sadržajno opravdanje. Sljedeći
 primjer pokazuje što se pritom može izgubiti iz istraživačkog pitanja.
 
 **Statistika u divljini.**
-**Gdje su nestali slušatelji radija?**
+**Tri odgovora u jednoj kategoriji.** Pew Research Center u izvještaju o
+odraslim stanovnicima SAD-a bez religijske pripadnosti zajedno prikazuje
+ateiste, agnostike i osobe koje na pitanje o svojoj religiji biraju odgovor
+„ništa posebno” (Center}, 2024). Zajednička kategorija omogućuje usporedbu s
+osobama koje navode neku religiju. Izvorni odgovori pokazuju i razlike unutar
+nje. Prema procjeni s težinama iz ankete provedene 2023., u Boga ili neku višu
+silu vjeruje 67 % agnostika, uz objavljenu 95-postotnu marginu uzoračke
+pogreške za tu skupinu od ±6,0 postotnih bodova (Center}, 2024). Za osobe s
+odgovorom „ništa posebno” procjena iznosi 83 %, a odgovarajuća margina za tu
+skupinu ±3,5 postotnih bodova (Center}, 2024). Svaki se postotak odnosi na
+vlastitu skupinu. Jedan zajednički udio prikrio bi tu razliku.
 
-Zamislimo da gradska knjižnica želi saznati kako stanovnici doznaju za
-njezina događanja. Treba odlučiti gdje će objavljivati obavijesti i na koje
-će kanale usmjeriti ograničeno vrijeme zaposlenika. U anketi zato pita za
-dob i glavni izvor informacija. Među odgovorima su društvene mreže, portal,
-radio i tiskane obavijesti.
-
-Tim sastavlja tablicu i pokreće hi-kvadrat test. U nekim kombinacijama dobi
-i izvora očekivani su brojevi manji od pet. Netko predlaže da radio i
-tiskane obavijesti spoje u kategoriju „ostalo”. Nakon spajanja upozorenje programa nestaje i tim smatra da je analiza
-spremna za izvještaj.
-
-Ali vratimo se odluci zbog koje je anketa provedena. Knjižnica želi znati
-kojim kanalima može dosegnuti različite stanovnike. Ako su radio i tiskane
-obavijesti spojeni, nova tablica više ne pokazuje njihove zasebne obrasce.
-Čak i kada je takva podjela opravdana za određeni test, iz nje ne možemo
-odgovoriti treba li knjižnica nastaviti suradnju s radijem ili drukčije
-rasporediti tiskane obavijesti.
-
-Tako se tehničko pitanje o očekivanim frekvencijama pretvorilo u pitanje o
-sadržaju istraživanja. Preporuka o pragu pet služi procjeni hi-kvadrat
-aproksimacije (Cochran, 1954). Sama po sebi ne govori koje odgovore ima
-smisla spojiti niti koji je komunikacijski kanal važan za knjižnicu. Mali broj odgovora upozorava na oskudne informacije o navikama te skupine. Važnost tih ljudi za knjižnicu prosuđujemo prema njezinoj svrsi i njihovim potrebama.
-
-Tim zato najprije treba sačuvati pregled izvornih frekvencija i udjela.
-Zatim može procijeniti prikladnost postupka, razmotriti drugi način
-računanja p-vrijednosti ili obrazložiti podjelu kategorija koja odgovara
-istraživačkom pitanju. Ako podaci nisu dovoljni za odluku o pojedinom
-kanalu, i to treba jasno napisati.
-
-Prisjetimo se simulacije iz ovoga poglavlja. Provjeravali smo i lažne uzbune
-i sposobnost otkrivanja postojeće veze. Nakon tehničke provjere još trebamo procijeniti pružaju li podaci dovoljno informacija za odluku knjižnice.
-
-Prije spajanja kategorija zato pitajmo što ćemo nakon spajanja još moći
-saznati. U ovom slučaju to pitanje određuje hoće li slušatelji radija ostati
-vidljivi u zaključku istraživanja.
+Ako nas zanimaju uvjerenja agnostika i osoba koje su odabrale odgovor „ništa
+posebno”, trebamo sačuvati zasebne kategorije i podatak o vjerovanju. Izbor
+podjele određuje koje ćemo razlike moći opisati. O tome vodimo računa i kada u
+hi-kvadrat analizi razmatramo spajanje rijetkih kategorija. Veći očekivani
+brojevi mogu poboljšati hi-kvadrat aproksimaciju, ali ne vraćaju razlike koje
+smo spajanjem uklonili. Zato uz provjeru prikladnosti postupka čuvamo izvorne
+frekvencije i udjele te objašnjavamo na koje pitanje odgovara spojena tablica.
 
 **Nađite grešku.**
 Može li ovaj zaključak u izvještaj?
@@ -570,7 +554,7 @@ društvene mreže svrstavamo u digitalne, a televiziju, tisak i radio u
 tradicionalne izvore. Ta podjela odgovara novom pitanju i stvara novu varijablu. Najprije ćemo pročitati njezine
 udjele, a zatim ukupno odstupanje od nezavisnosti.
 
-Vraćamo se istim zapisima svih 800 osoba, a zasebni pokus s dvjema skupinama
+Vraćamo se istom uzorku od 800 osoba, a zasebni pokus s dvjema skupinama
 ovdje završava. Sve osobe ostaju uključene. Primjerice, u najmlađem retku
 zbrajamo `r s13_tablica[1, "portal"]` korisnika portala i
 `r s13_tablica[1, "društvene mreže"]` korisnika mreža, što daje
@@ -607,7 +591,7 @@ Iz dobivenih rezultata sada možemo sastaviti kratak izvještaj.
 > `r hr_broj(s13$ci_digitalni[[2]], 1)`. Za cijelu tablicu hi-kvadrat iznosi
 > `r hr_broj(s13$hi_spojena)`, uz `r s13$df_spojena` stupnja slobode
 > i p-vrijednost manju od 0,001, a Cramérovo V `r hr_broj(s13$v_spojena, 2)`. Rezultat opisuje
-> generirane osobe i ne daje procjenu medijskih navika stanovnika Hrvatske
+> zamišljene osobe i ne daje procjenu medijskih navika stanovnika Hrvatske
 > niti dokaz da dob uzrokuje izbor izvora.
 
 Prva rečenica određuje pitanje i podatke. Sljedeće daju opaženi obrazac
@@ -626,7 +610,7 @@ Kod preuzima uzorak i učitane pakete iz već pripremljene analize poglavlja. U 
 `chisq.test` sažima odstupanje od nezavisnosti u hi-kvadrat, određuje
 stupnjeve slobode i računa p-vrijednost prema referentnoj raspodjeli. Za tablicu 2 × 2 R zadano primjenjuje korekciju kontinuiteta, koja ublažava prijelaz s diskretnih brojanja na kontinuiranu krivulju. Za ovdje opisani nekorigirani račun treba navesti `correct = FALSE`.
 
-Vratimo se Berkeleyju. Zbirna tablica pokazivala je povezanost spola i ishoda
+Vratimo se istim berkeleyjskim prijavama. Zbirna tablica pokazivala je povezanost spola i ishoda
 prijave (Bickel, 1975). Hi-kvadrat, V i reziduali mogli bi opisati taj obrazac,
 ali ne i objasniti ga. Nedostajao je odjel prijave. Muškarci i žene nisu se
 jednako raspoređivali po odjelima, a odjeli su imali različite stope prijma. U

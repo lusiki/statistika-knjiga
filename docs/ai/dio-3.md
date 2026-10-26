@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,17 +14,17 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
 Košarkaši i navijači često govore o vrućoj ruci, uvjerenju da nakon nekoliko
-pogodaka raste vjerojatnost sljedećeg. Gilovich, Vallone i Tversky proučili su
-to vjerovanje kroz zapise utakmica i kontrolirani pokus. Zaključili su da
-ljudi u slučajnim nizovima vide obrazac koji ne postoji (Gilovich, 1985).
+pogodaka raste vjerojatnost sljedećeg. Jedno je istraživanje provjerilo to vjerovanje kroz zapise utakmica i
+kontrolirani pokus. Nalazi su protumačeni kao znak da ljudi u slučajnim
+nizovima vide obrazac koji ne postoji (Gilovich, 1985).
 
-Njihovo je tumačenje bilo da se prividni niz uspjeha može objasniti
-slučajnošću (Gilovich, 1985). Kasnija ponovna analiza, međutim, otkrila je
+Prema tom se tumačenju prividni niz uspjeha mogao objasniti slučajnošću
+(Gilovich, 1985). Kasnija ponovna analiza, međutim, otkrila je
 pristranost u samom načinu mjerenja tog obrasca (Miller, 2018).
 
 Kako procijeniti je li niz posljedica promjene u procesu ili slučajnosti?
@@ -43,7 +43,7 @@ Za pitanja o preklapanju događaja vratit ćemo se simuliranoj populaciji
 `populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti. Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
 uvjet ili oba. Tako ćemo provjeriti kada smijemo zbrajati ili množiti
 vjerojatnosti i zašto poznavanje jednog obilježja može promijeniti izglede za
-drugo. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
+drugo. Populacija medijskih navika stvorena je za nastavu, s jednim retkom za jednu zamišljenu osobu, pa njezini obrasci ne opisuju stvarne stanovnike. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
 pokušaj s dvama mogućim ishodima.
 
 Raspodjele koje smo dosad čitali kao opise podataka sada ćemo koristiti i kao
@@ -69,7 +69,7 @@ Simulirat ćemo bacanje poštenog novčića i nakon svakog bacanja zabilježiti
 udio glava. Ponavljamo postupak triput kako bismo usporedili moguće nizove.
 Kratki odsječci mogu izgledati neuravnoteženo i uz isti pošten novčić.
 
-*Slika. Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Nakon dvadeset bacanja udjeli se kreću od `r hr_broj(s7_rani$najmanji, 2)` do `r hr_broj(s7_rani$najveci, 2)`. Nakon dvije
 tisuće između `r hr_broj(s7_kasni$najmanji, 3)` i `r hr_broj(s7_kasni$najveci, 3)`. Nizovi su različiti, ali su u duljim
@@ -273,9 +273,9 @@ Sredina i standardna devijacija potpuno određuju položaj i širinu normalne
 raspodjele. Unutar jedne standardne devijacije od sredine leži oko 68 %
 vrijednosti, unutar dvije oko 95 %, a unutar tri oko 99,7 %.
 
-S raspodjele prosjeka sada prelazimo na pojedinačne vrijednosti u poznatoj populaciji. Njihov oblik trebamo zasebno provjeriti. Pogledat ćemo dnevno vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
+S raspodjele prosjeka sada prelazimo na pojedinačne vrijednosti u istoj populaciji `populacija_medija`. Njihov oblik trebamo zasebno provjeriti. Pogledat ćemo dnevno vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
 
-*Slika. Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Za dnevne minute unutar jedne standardne devijacije nalazi se `r hr_broj(s7_podrucja$minute[1])` %
 populacije, unutar dviju `r hr_broj(s7_podrucja$minute[2])` %, a unutar triju `r hr_broj(s7_podrucja$minute[3])` %. Te su
@@ -291,7 +291,7 @@ opažanja. Normalna raspodjela ne opisuje dobro te sirove vrijednosti.
 Promjena ljestvice zahtijeva dva odvojena koraka. Iz istih 50 000 zapisa
 prvo izdvajamo `r sum(s7_iznos > 0)` pozitivnih iznosa, a zatim na njih
 primjenjujemo prirodni logaritam. Primjerice, za prvi pozitivan iznos od
-`r hr_broj(s7_iznos[s7_iznos > 0][1], 1)` kuna nova vrijednost iznosi
+`r hr_broj(s7_iznos[s7_iznos > 0][1], 1)` eura nova vrijednost iznosi
 `r hr_broj(s7_log_iznos[1], 3)`. Nule nemaju konačan logaritam i nisu dio
 toga izračuna. Nazivnik svakoga sljedećeg udjela zato su samo platitelji.
 
@@ -316,7 +316,7 @@ a okomita poredane vrijednosti u jedinicama promatrane varijable. Referentni
 pravac ovdje prolazi kroz parove prvoga i trećega kvartila. Odstupanja od
 njega pokazuju gdje oblik podataka odstupa od normalnoga oblika.
 
-*Slika. Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Dnevne minute uglavnom prate pravac, uz odizanje desnog kraja zbog repa prema
 višim vrijednostima. Za spremnost na plaćanje točke najprije stoje vodoravno
@@ -392,17 +392,17 @@ niza. To je moguća odluka kojoj pitanje o vrućoj ruci daje smisao.
 Zanima nas govori li prethodni uspjeh nešto o sljedećem pokušaju ili
 promatramo niz kakav može nastati i bez promjene vjerojatnosti pogotka.
 
-Gilovich, Vallone i Tversky proučavali su vjerovanje u vruću ruku i
-svoje nalaze protumačili kao dokaz da ljudi u nizovima vide promjenu
-koje nema (Gilovich, 1985). Za provjeru takve tvrdnje naizgled je
+Izvorno istraživanje vruće ruke ponudilo je tumačenje da ljudi u
+nizovima vide promjenu koje nema (Gilovich, 1985). Za provjeru takve tvrdnje naizgled je
 dovoljno izdvojiti pokušaje nakon pogodaka i usporediti njihovu uspješnost s uspješnošću pokušaja nakon promašaja. No izdvajanjem
 mjesta unutar konačnih nizova već smo uveli postupak odabira koji
 može promijeniti očekivani rezultat.
 
-Upravo su taj problem razradili Miller i Sanjurjo. Pokazali su da je
-uobičajena mjera ovisnosti osjetljiva na pristranost odabira, a nakon
-ispravka ponovno su analizirali izvorni kontrolirani pokus i dobili
-zaključak u prilog vrućoj ruci (Miller, 2018). Do ispravka su došli promjenom referentnog računa s kojim su uspoređivali opaženi niz.
+Kasnija metodološka analiza pokazala je da je uobičajena mjera
+ovisnosti osjetljiva na tu pristranost odabira. Nakon ispravka, ponovna
+analiza izvornog kontroliranog pokusa dala je zaključak u prilog vrućoj
+ruci (Miller, 2018). Promijenio se referentni račun s kojim se uspoređuje
+opaženi niz.
 
 Naša simulacija pokazuje kako postupak odabira i prosječenja proizvodi pomak
 iako se zadana vjerojatnost ne mijenja. Prije tumačenja stvarnih pokušaja
@@ -547,7 +547,7 @@ neovisnost neopravdano smatra potvrđenom. Napišite zamjenu koja jasno ogranič
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -577,7 +577,7 @@ predstavlja jednu osobu, a pratit ćemo povjerenje u medije, dnevno praćenje
 medija, izvor vijesti i spremnost na plaćanje. To je ista zamišljena
 populacija kojom smo se već služili, odvojena od manje ankete `anketa_mreze`.
 Iz nje možemo izvlačiti uzorke i njihove rezultate uspoređivati s poznatom
-ciljnom vrijednošću. U stvarnom istraživanju tu vrijednost obično ne vidimo.
+ciljnom vrijednošću. Ti zapisi ne opisuju stvarne stanovnike. U stvarnom istraživanju ciljnu vrijednost obično ne vidimo.
 
 Ponavljanjem odabira dobit ćemo raspodjelu uzoračkih rezultata, čije ćemo
 središte i širinu opisati sredinom i standardnom devijacijom. Standardnu
@@ -658,7 +658,7 @@ koliko se ljudi razlikuju. Distribucija uzorkovanja pokazuje koliko se mijenja
 procjena kroz različite uzorke. Obje imaju sredinu i standardnu devijaciju, pa
 je važno svaki put navesti što raspodjela opisuje.
 
-*Slika. Raspodjela pojedinačnih ocjena povjerenja u simuliranoj populaciji i raspodjela sredina tri tisuće uzoraka od po sto osoba, na zajedničkoj osi. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Raspodjela pojedinačnih ocjena povjerenja u simuliranoj populaciji i raspodjela sredina tri tisuće uzoraka od po sto osoba, na zajedničkoj osi. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Uzoračke sredine ovdje su raspoređene oko populacijske sredine. Procjenitelj
 zato dugoročno ne promašuje sustavno naviše ili naniže i nazivamo ga
@@ -760,7 +760,7 @@ Za uzorke od pet osoba asimetrija raspodjele sredina je `r hr_broj(s8$clt_asimet
 pada na `r hr_broj(s8$clt_asimetrija[["15"]], 2)`, za trideset na `r hr_broj(s8$clt_asimetrija[["30"]], 2)`, a za sto na `r hr_broj(s8$clt_asimetrija[["100"]], 2)`. Mijenja se
 raspodjela sredina, dok izvorna populacija ostaje ista.
 
-*Slika. Izrazito asimetrična populacijska varijabla i raspodjele njezinih uzoračkih sredina pri četiri veličine uzorka. Svaki panel ima vlastitu os. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Izrazito asimetrična populacijska varijabla i raspodjele njezinih uzoračkih sredina pri četiri veličine uzorka. Svaki panel ima vlastitu os. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 **Središnji granični teorem** (*central limit theorem*) u ovom modelu opisuje
 približavanje distribucije sredine normalnoj raspodjeli s rastom jednostavnog
@@ -853,7 +853,7 @@ izračunati iz zajedničkoga nacrta.
 
 Veličina populacije izostaje iz jednostavne formule jer smo zanemarili
 korekciju za konačnu populaciju. To je opravdano kada uzimamo malen dio
-populacije. U simulaciji uzorak od osamsto osoba iz cijele populacije daje
+populacije. Manju populaciju čini slučajno izdvojenih `r length(s8_mala_pop)` vrijednosti povjerenja iz iste populacije `populacija_medija`. Iz tako određenih cjelina zasebno izvlačimo uzorke. U simulaciji uzorak od osamsto osoba iz cijele populacije daje
 standardnu pogrešku `r hr_broj(s8$se_velika, 4)`, a iz deset puta manje populacije `r hr_broj(s8$se_mala, 4)`.
 Uzorak u drugom slučaju obuhvaća veći dio cjeline, pa je precizniji.
 Populacijske devijacije iznose `r hr_broj(s8$sigma, 3)` i `r hr_broj(s8$sigma_mala, 3)`. Formula s korekcijom
@@ -861,7 +861,7 @@ uzima u obzir i tu malu razliku te daje `r hr_broj(s8$se_velika_fpc, 4)` i `r hr
 simuliranim rezultatima.
 
 Dovoljnu veličinu uzorka određujemo prema pitanju koje istražujemo. Trebamo znati procjenjujemo li ukupni udio, sredinu, rijetku pojavu ili razliku skupina.
-Trebamo i nacrt, način odabira i odaziva te željenu preciznost. Preciznost za podskupinu ovisi o broju njezinih članova. Oko tisuću može biti korisna orijentacija za jedan ukupni udio u jednostavnom nacrtu; za ostale ciljeve veličinu određujemo zasebno.
+Trebamo i nacrt, način odabira i odaziva te željenu preciznost. Preciznost za podskupinu ovisi o broju njezinih članova. Oko tisuću može biti korisna orijentacija za jedan ukupni udio u jednostavnom nacrtu. Za ostale ciljeve veličinu određujemo zasebno.
 
 Margina pogreške opisuje promjenjivost zbog slučajnog odabira. Ne uključuje
 ljude izvan okvira, neodaziv ni učinak formulacije i redoslijeda pitanja.
@@ -897,8 +897,8 @@ tvrdnje o stvarnim ljudima.
 
 Složeni uzorci traže dodatne prilagodbe. **Kalibracija težina** usklađuje
 ponderirane zbrojeve s poznatim obilježjima populacije. Pri **grupnom
-uzorkovanju** biramo skupine, primjerice škole, pa osobe unutar njih;
-sličnost tih osoba može smanjiti količinu neovisne informacije. **Učinak
+uzorkovanju** biramo skupine, primjerice škole, pa osobe unutar njih.
+Sličnost tih osoba može smanjiti količinu neovisne informacije. **Učinak
 nacrta** uspoređuje varijancu procjene s onom jednostavnoga slučajnog uzorka,
 a **efektivna veličina uzorka** izražava istu preciznost brojem jedinica
 takva uzorka.
@@ -968,7 +968,7 @@ odnositi.
 Iste granice odabira susrećemo kada umjesto ljudi prikupljamo njihove
 tekstove. I korpus tekstova zahtijeva ciljnu populaciju. Za opis političke rasprave
 trebamo navesti uključujemo li govore, intervjue ili objave, s kojih platformi
-ili arhiva, iz kojeg razdoblja, na kojim jezicima i od kojih govornika. Dostupnost tekstova tek je polazište; populaciju određujemo prema sadržajnom pitanju i navedenom obuhvatu.
+ili arhiva, iz kojeg razdoblja, na kojim jezicima i od kojih govornika. Dostupnost tekstova tek je polazište. Populaciju određujemo prema sadržajnom pitanju i navedenom obuhvatu.
 
 Obrisane i privatne objave mogu izostati iz arhiva, stariji sadržaj biti
 nedostupan, a odabrana ključna riječ propustiti relevantne tekstove. Veći broj
@@ -1059,8 +1059,8 @@ formule opisivat će ili približno izražavati rezultat takvog ponavljanja unut
 određenog modela.
 
 Jedan korak možemo pratiti na zasebnoj, namjerno sastavljenoj ilustraciji
-s iznosima 0, 0, 10, 20 i 70 kuna. Sredina je $100/5 = 20$
-kuna. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
+s iznosima 0, 0, 10, 20 i 70 eura. Sredina je $100/5 = 20$
+eura. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
 novim odabirom iz svih 50 000 osoba. Svaki novi uzorak ostavlja samo
 jednu sredinu u raspodjeli koju uspoređujemo.
 
@@ -1070,8 +1070,8 @@ predviđa odnos s korijenom veličine uzorka. Zasebno ćemo pregledati je li se
 promijenio i njezin oblik.
 
 `replicate` ponavlja izraz i sprema rezultate. Prosjek četiri tisuće sredina iz
-uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` kuna, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
-kuna. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` kuna. Obje veličine uzorka daju
+uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` eura, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
+eura. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` eura. Obje veličine uzorka daju
 procjene usredotočene blizu nje, u skladu s nepristranošću.
 
 Standardna pogreška pada s `r hr_broj(s8_p$se5, 2)` za pet osoba na `r hr_broj(s8_p$se60, 2)` za šezdeset,
@@ -1096,7 +1096,7 @@ Približenje $1/\sqrt{n}$ za 95-postotnu marginu udjela odnosi se na
 jednostavni slučajni uzorak, malu uzoračku frakciju i najnepovoljniji udio
 od 0,5. Nastaje iz $1,96\sqrt{0,25/n}$ uz zaokruživanje 0,98 na jedan.
 Nije opća formula za svaki udio i svaki nacrt. Kalibracija težina usklađuje
-ponderirane zbrojeve s poznatim obilježjima populacije; razlikuje se od
+ponderirane zbrojeve s poznatim obilježjima populacije. Razlikuje se od
 kalibracije prognoze, koja uspoređuje najavljene vjerojatnosti s ishodima.
 
 ## Sažetak
@@ -1190,12 +1190,12 @@ druge rečenice koja zadržava sve što je u njoj bilo točno.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Koliki je učinak i koliko smo ga precizno procijenili? Cumming predlaže da ta
-pitanja budu u središtu statističkog zaključivanja (Cumming, 2014). Procjena i
+Koliki je učinak i koliko smo ga precizno procijenili? Pristup koji u prvi plan stavlja procjenu polazi upravo od tih
+pitanja (Cumming, 2014). Procjena i
 interval opisuju veličinu učinka i nesigurnost procjene.
 
 Kako iz jednoga uzorka procijeniti koliko bi se rezultat mogao mijenjati?
@@ -1206,12 +1206,12 @@ mogućnost. Pred njim je jedan skup odgovora, a treba navesti koliko bi se
 njegova procjena mogla promijeniti s drugim sudionicima. Standardna pogreška
 iz prethodnog poglavlja daje nam polazište za takav opis nesigurnosti.
 
-Nastavljamo s populacijom `populacija_medija`, iz koje ćemo sada uzeti uzorak
-za procjenu prosječnog povjerenja u medije. Svako opažanje
-pripada jednoj računalno stvorenoj osobi i sadrži njezinu ocjenu povjerenja.
-Populaciju poznajemo samo zato što je riječ o nastavi. Pri izgradnji pojedine
-procjene koristit ćemo uzorak, a poznatu populacijsku vrijednost zatim
-iskoristiti za provjeru postupka.
+Nastavljamo s nastavnom populacijom `populacija_medija`. Uzorak od 200 osoba
+izvlačimo iz nje zasebno od ranijih uzoraka, za procjenu prosječnog povjerenja
+u medije. Svako opažanje pripada jednoj računalno stvorenoj osobi i sadrži
+njezinu ocjenu povjerenja na ljestvici od jedan do deset. Zapisi ne opisuju
+stvarne stanovnike. Pri izgradnji procjene koristit ćemo uzorak, a poznatu
+populacijsku vrijednost zatim iskoristiti za provjeru postupka.
 
 Oko procjene ćemo konstruirati interval i pratiti što se događa kroz
 ponovljena uzorkovanja. Pitanje je koliko često tako izrađen raspon obuhvaća
@@ -1221,8 +1221,8 @@ višu pouzdanost i što dobivamo prikupljanjem više podataka. Posebno ćemo
 odvojiti nesigurnost procijenjenog prosjeka od razlika među pojedinačnim
 odgovorima.
 
-Za procjenu medijana dnevnog praćenja medija poslužit će nam drugi, manji
-uzorak iz iste simulirane populacije. Njegove ćemo zapise ponovno
+Za procjenu medijana dnevnog praćenja medija poslužit će nam uzorak od 60 osoba,
+izvučen zasebno iz iste simulirane populacije. Njegove ćemo zapise ponovno
 izvlačiti, dopuštajući da ista osoba bude odabrana više puta. Taj postupak,
 bootstrap, omogućit će nam procijeniti promjenjivost i kada ne polazimo od
 gotove formule za odabranu mjeru. Razmotrit ćemo koliko takva provjera ovisi o
@@ -1234,7 +1234,7 @@ ograničenja mjerenja ili odabira ljudi koja smo upoznali ranije.
 
 ## Od točke prema rasponu
 
-Iz iste simulirane populacije medijskih navika uzimamo novi uzorak od `r hr_broj(s9$n, 0)` osoba. Za svaku osobu koristimo povjerenje u
+Uzorak od 200 osoba sada koristimo za procjenu povjerenja. Za svaku osobu koristimo povjerenje u
 medije na ljestvici od jedan do deset. Prosjek uzorka iznosi `r hr_broj(s9$sredina, 2)`. Tu vrijednost zovemo **točkasta procjena** (*point
 estimate*). Ona sažima rezultat, a njegovu nesigurnost opisujemo zasebno. Isti
 prosjek možemo dobiti na dvadeset i na dvadeset tisuća ljudi, iako bi se pri
@@ -1385,7 +1385,7 @@ Za zasebnu računsku provjeru na kraju poglavlja trebat će nam i sažetak cijel
 poznate sintetičke populacije po glavnom izvoru vijesti. Sljedeća tablica
 čuva točne cjelobrojne brojnosti i zbroj za portal, dok su udio i prosjek
 zaokruženi na pet decimala. Iz tih ćemo brojeva provjeriti dva dijeljenja.
-Provjera ne potvrđuje kako su pojedinačni zapisi zbrojeni; taj je dodatni
+Provjera ne potvrđuje kako su pojedinačni zapisi zbrojeni. Taj je dodatni
 korak moguć u dobrovoljnoj mrežnoj vježbi. Podaci služe vježbi i ne opisuju stvarne stanovnike.
 
 *Slika. Brojnici, nazivnici i agregatne vrijednosti za portal u sintetičkoj populaciji. Izrada autora prema javnom agregatnom prikazu sintetičkih podataka.*
@@ -1431,7 +1431,7 @@ li procjene povezane. Najizravnije je izračunati interval za samu razliku. To
 vjerojatnost da je razlika „stvarna”.
 
 Treba razlikovati i nesigurnost prosjeka od raspršenosti pojedinačnih
-vrijednosti. Interval za sredinu u našem uzorku od dvjesto osoba širok je
+vrijednosti. Interval za sredinu u uzorku od 200 osoba širok je
 `r hr_broj(s9$gornja - s9$donja, 2)` boda. Ako su ocjene približno normalno raspoređene, raspon sredine
 plus ili minus 1,96 uzoračkih standardnih devijacija opisivao bi oko 95 %
 pojedinačnih ocjena. Taj je raspon širok približno `r hr_broj(2 * s9$normalni_poluraspon, 1)` boda. Normalno
@@ -1440,7 +1440,7 @@ diskretne raspodjele. Taj opisni raspon nije ni interval predviđanja za novu
 osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti niti
 određuje populaciju buduće osobe. Veći uzorak sužava interval za sredinu, dok razlike među ljudima ostaju svojstvo populacije.
 
-*Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 ## Bootstrap kao vlastiti izum
 
@@ -1468,7 +1468,7 @@ Percentilni bootstrap interval uzima odabrane percentile ponovljenih
 procjena. Njegova je primjena najjednostavnija kada bootstrap raspodjela
 dobro oponaša raspršenost procjenitelja, bez izražene pristranosti ili
 asimetrije. Postoje i drugi bootstrap intervali koji korigiraju pomak ili
-asimetriju; ovdje učimo samo najjednostavniji percentilni postupak. Ni taj postupak ne jamči točno zadanu razinu obuhvata.
+asimetriju. Ovdje učimo samo najjednostavniji percentilni postupak. Ni taj postupak ne jamči točno zadanu razinu obuhvata.
 Mali ili diskretni uzorci, pristranost procjenitelja i vrlo asimetrične
 raspodjele mogu oslabiti približenje. Ponavljanje odabira iz postojećih
 redaka ne dodaje ljude koji su sustavno izostali iz početnog uzorka.
@@ -1490,14 +1490,14 @@ početnog uzorka, svaki put s novim izvlačenjem s vraćanjem. Sva su
 ponavljanja definirana. Poredamo 4 000 medijana i uzmemo percentile 2,5 i
 97,5, ostavljajući približno 100 vrijednosti sa svake strane.
 
-U uzorku od `r hr_broj(s9$mali_n, 0)` osoba medijan dnevnog praćenja medija iznosi `r hr_broj(s9$medijan_uzorak, 1)`
+U uzorku od 60 osoba medijan dnevnog praćenja medija iznosi `r hr_broj(s9$medijan_uzorak, 1)`
 minuta. Iz četiri tisuće bootstrap uzoraka dobivamo središnji percentilni
 raspon od `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta. On obuhvaća poznati populacijski
 medijan od `r hr_broj(s9$medijan_pop, 1)` minuta. Na slici vidimo kako nastaje raspon iz jednoga
 uzorka. Za provjeru dugoročnog obuhvata trebali bismo ponavljati cijeli
 postupak s novim početnim uzorcima.
 
-*Slika. Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Histogram je stubast jer medijan maloga, zaokruženog uzorka može poprimiti
 samo ograničen broj vrijednosti. Zato su i granice percentilnog raspona grube.
@@ -1535,9 +1535,9 @@ objašnjavamo koju nesigurnost interval uključuje.
 **Statistika u divljini.**
 **Šest tvrdnji o jednom intervalu.** Istraživač može uredno
 izračunati interval, a ipak pogrešno objasniti što iz njega slijedi.
-Hoekstra i suradnici to su provjerili zadatkom u kojem su studenti
-i istraživači prosuđivali šest tumačenja intervala iz zamišljenog
-istraživanja. Sve su tvrdnje bile netočne, ali su ih obje skupine
+U istraživanju razumijevanja intervala studenti i istraživači
+prosuđivali su šest tumačenja rezultata iz zamišljenog istraživanja
+(Hoekstra, 2014). Sve su tvrdnje bile netočne, ali su ih obje skupine
 u prosjeku prihvatile više od tri (Hoekstra, 2014). Pogreška se
 dogodila pri čitanju rezultata, nakon što je račun već bio zadan.
 
@@ -1594,7 +1594,7 @@ uzorak iz iste populacije.
 
 Zamislimo naručitelja koji želi procijeniti koliko vremena dnevno odrasli
 stanovnici grada provode uz medije i koji traži marginu ne veću od deset
-minuta. Za vježbu tog zadatka koristimo već uvedeni uzorak od šezdeset osoba iz
+minuta. Za vježbu tog zadatka koristimo već uvedeni uzorak od 60 osoba iz
 simuliranoga grada. Trebamo povezati izbor mjere s njegovim pitanjem, a zatim
 provjeriti daje li uzorak traženu preciznost.
 
@@ -1630,7 +1630,7 @@ U simulaciji znamo da populacijski medijan iznosi `r hr_broj(s9$medijan_pop, 1)`
 unutar dobivenih granica. Jedan pogodak ipak ne provjerava pouzdanost
 postupka. Ranijih deset tisuća ponavljanja odnosilo se na normalni interval za
 sredinu. Za provjeru bootstrap raspona medijana morali bismo svaki put izvući
-novi uzorak od šezdeset osoba, iz njega izračunati novi bootstrap raspon i
+novi uzorak od 60 osoba, iz njega izračunati novi bootstrap raspon i
 prebrojiti obuhvate populacijskog medijana. To ovdje nismo učinili, pa prikaz
 ne dokazuje zadanu razinu obuhvata.
 
@@ -1649,12 +1649,12 @@ bi ograničenje moglo promijeniti konačnu rečenicu.
 
 | Revizijsko pitanje | Primjena na bootstrap medijana |
 |---|---|
-| Koja je jedinica? | jedna generirana odrasla osoba s jednim zapisom dnevnih minuta |
+| Koja je jedinica? | jedna zamišljena odrasla osoba s jednim zapisom dnevnih minuta |
 | Tko ili što nedostaje? | uzorak je slučajno izvučen iz poznate sintetičke populacije, pa ne predstavlja stvarni grad ni osobe izvan te populacije |
 | Koji je cilj tvrdnje? | populacijski medijan dnevnih minuta, opisan procjenom i rasponom uzoračke nesigurnosti |
-| Gdje je neizvjesnost? | promjene sastava uzorka; ne provjerava dugoročni obuhvat, mjerenje minuta ni prijenos na stvarne stanovnike |
-| Koje drugo objašnjenje ostaje? | u stvarnoj anketi slab obuhvat, neodgovor ili pogrešno mjerenje mogli bi objasniti pomak procjene; bootstrap takve izvore pogreške ne uklanja |
-| Tko snosi posljedice? | ovdje nema stvarnih sudionika; u stvarnom projektu pretjerana preciznost mogla bi zavesti naručitelja i stanovnike |
+| Gdje je neizvjesnost? | promjene sastava uzorka. Ne provjerava dugoročni obuhvat, mjerenje minuta ni prijenos na stvarne stanovnike |
+| Koje drugo objašnjenje ostaje? | u stvarnoj anketi slab obuhvat, neodgovor ili pogrešno mjerenje mogli bi objasniti pomak procjene. Bootstrap takve izvore pogreške ne uklanja |
+| Tko snosi posljedice? | ovdje nema stvarnih sudionika. U stvarnom projektu pretjerana preciznost mogla bi zavesti naručitelja i stanovnike |
 
 : Šest revizijskih pitanja primijenjenih na procjenu iz simulirane populacije. Izrada autora.
 
@@ -1746,15 +1746,15 @@ dnevnih minuta, 83, 82, 134, 139 i 164. Zadajemo ponovno izvlačenje redaka
 medijanom početnih pet vrijednosti. Objasnite zašto jedno takvo izvlačenje
 još ne daje interval pouzdanosti.
 
-Iz tiskane tablice s trima postavkama izračunajte širinu svakog intervala kao
-$2z^*/\sqrt{n}$ i usporedite rezultat s objavljenom širinom. Broj promašaja
-očitajte iz tablice; on se ne dobiva iz formule za širinu.
-Objasnite što se mijenja između postavki A i B, a što između A i C.
-Iz tiskane agregatne tablice zatim podijelite broj korisnika portala ukupnim
-brojem osoba, a zbroj njihova povjerenja brojem korisnika portala.
-Usporedite udio i prosjek s objavljenim vrijednostima. Predajte tri računa
-širine, dva dijeljenja i objašnjenje granice provjere. Iz agregata možemo
-provjeriti račun, ali ne potvrditi kako su pojedinačni zapisi zbrojeni.
+U tiskanoj tablici s trima postavkama najprije promotrite samo veličinu uzorka
+i razinu pouzdanosti. Predvidite poredak širina i dugoročni obuhvat.
+Izračunajte širine kao $2z^*/\sqrt{n}$ i usporedite ih s tablicom. Očitajte
+promašaje i objasnite zašto njihov manji broj u C nego u A ne znači višu
+razinu pouzdanosti. Iz agregatne tablice podijelite broj korisnika portala
+ukupnim brojem osoba, a zbroj njihova povjerenja brojem korisnika portala.
+Predajte predviđanje, usporedbu s rezultatima, tri računa širine i dva
+dijeljenja uspoređena s objavljenim vrijednostima. Objasnite zašto iz agregata
+možemo provjeriti račun, ali ne potvrditi kako su pojedinačni zapisi zbrojeni.
 
 Za dobrovoljnu provjeru pojedinačnih zapisa mrežni dodaci A i B pokazuju
 kako otvoriti `data/populacija-medija.csv` i usporediti isti podskup s

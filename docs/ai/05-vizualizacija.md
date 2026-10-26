@@ -4,13 +4,14 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Anscombe je sastavio četiri skupa s gotovo jednakim uobičajenim brojčanim
-sažecima i jednakim prilagođenim pravcem, ali vrlo različitim grafovima
-(Anscombe, 1973). U jednom se vidjela približno linearna veza, u drugom
+Četiri skupa podataka mogu imati gotovo jednake uobičajene brojčane
+sažetke i jednak prilagođeni pravac, a na grafovima izgledati sasvim
+drukčije. Poznati primjer, Anscombeov kvartet, sastavljen je upravo da
+bi pokazao koliko toga brojčani sažetak može sakriti (Anscombe, 1973). U jednom se vidjela približno linearna veza, u drugom
 zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz
 jedno izdvojeno opažanje.
 
@@ -20,7 +21,7 @@ Svi su sažeci bili ispravno izračunati. Četiri različita rasporeda opažanja
 
 U poglavlju o sažimanju birali smo mjeru prema obliku raspodjele i pitanju
 koje nas zanima. Pred grafom nas čeka slična odluka. Prikaz prosjeka može
-olakšati usporedbu skupina, ali sakriti razlike među osobama; prikaz svih
+olakšati usporedbu skupina, ali sakriti razlike među osobama. Prikaz svih
 opažanja čuva te razlike, no može otežati čitanje. Želimo naučiti odabrati
 prikaz iz kojega se tražena usporedba doista može vidjeti.
 
@@ -30,9 +31,10 @@ parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
 sažetke.
 
-Poznatu simuliranu anketu `anketa_mreze` iskoristit ćemo za prikaz dnevnih
-minuta na društvenim mrežama po dobnim skupinama. Uz nju ćemo
-čitati i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
+Vraćamo se poznatoj tablici simulirane ankete o društvenim mrežama,
+`anketa_mreze`, koju smo upoznali pri sažimanju podataka. Svaki redak i
+dalje opisuje jednu zamišljenu osobu. Sada ćemo njihove dnevne minute na
+mrežama prikazati po dobnim skupinama. Uz tu tablicu čitat ćemo i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
 njihovu obuhvatu (Šikić, 2026). Primjeri se mijenjaju jer nas zanima ista
 odluka u različitim situacijama. Prije čitanja oznake trebamo znati
 predstavlja li ona osobu, skupinski sažetak ili zbroj objava.
@@ -57,8 +59,8 @@ provjeriti.
 predstavlja oznaka, koja joj je varijabla pridružena, koji je račun prethodio
 crtanju i kako se vrijednosti prenose u vizualne veličine.
 
-Wilkinson je tu ideju razradio u sustav (Wilkinson, 2005), a ggplot2 jedna je
-od njegovih poznatih programskih izvedbi (Wickham, 2016). Istim se načinom
+Iz te je ideje razvijen sustav za sastavljanje grafova (Wilkinson, 2005).
+Jedna od njegovih poznatih programskih izvedbi jest ggplot2 (Wickham, 2016). Istim se načinom
 razmišljanja možemo služiti pri čitanju tiskanog grafa, bez programiranja.
 
 Najprije provjeravamo jedinicu. Točka može predstavljati ispitanika, državu,
@@ -104,10 +106,10 @@ ali promjena ljestvice mijenja dojam njihovih razlika.
 
 ## Što oko može očitati
 
-Grafička percepcija jest način na koji iz položaja, duljina i drugih oznaka očitavamo podatke. Neke vizualne usporedbe čitamo točnije od drugih. Cleveland i McGill pokusima
-su potvrdili prednost položaja pred duljinom i kutom (Cleveland, 1984).
-Povezali su te rezultate s ranijim istraživanjima i predložili širi poredak
-kanala. Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na
+Grafička percepcija jest način na koji iz položaja, duljina i drugih oznaka očitavamo podatke. Neke vizualne usporedbe čitamo točnije od drugih. Pokusi s očitavanjem grafova potvrdili su prednost položaja pred
+duljinom i kutom (Cleveland, 1984). Povezivanjem tih rezultata s ranijim
+istraživanjima nastao je prijedlog šireg poretka vizualnih kanala
+(Cleveland, 1984). Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na
 istovjetnim, ali neporavnatim osima, pa duljina, kut, nagib i površina. Obujam,
 zakrivljenost i zasićenost boje nalaze se pri dnu (Cleveland, 1984). Cijeli taj poredak predstavlja sintezu više izvora, s različitim stupnjem izravne pokusne provjere pojedinih usporedbi.
 
@@ -122,7 +124,7 @@ duljinu kombinira s površinom i prividnim obujmom, slabijim kanalima u
 predloženom poretku (Cleveland, 1984). Zato prije dodavanja treće dimenzije
 provjeravamo donosi li novu informaciju ili samo mijenja dojam.
 
-Tufte predlaže da za svaki grafički element pitamo koju informaciju prenosi
+Pri oblikovanju grafa korisno je za svaki element razmotriti koju informaciju prenosi
 (Tufte, 2001). Sjene, obrubi i preljevi mogu odvlačiti pozornost bez korisnog
 dodatka. Rešetka, razdjelna crta ili oznaka, s druge strane, mogu olakšati
 čitanje. Uklanjanjem elementa možemo provjeriti otežava li njegov izostanak usporedbu
@@ -169,7 +171,7 @@ duljine točne, ali ih je teže usporediti bez zajedničkog početka
 prikazati zasebno.
 
 I riječi možemo uspoređivati kao kategorije, ali tek nakon što odredimo što
-ćemo smatrati istom riječju. U šest odabranih naslova o vizualizaciji ukupno je
+ćemo smatrati istom riječju. Usporedit ćemo riječi u namjerno odabranim naslovima. Za širi zaključak o literaturi o vizualizaciji ili znanstvenom pisanju trebali bismo odgovarajući izbor tekstova. U šest odabranih naslova o vizualizaciji ukupno je
 36 riječi i 28 različitih oblika [Anscombe, 1973; Cleveland, 1984; Tufte, 2001;
 Wilkinson, 2005; Wickham, 2016; Matejka, 2017]. Do tih brojeva dolazimo tako da
 sva slova pretvorimo u mala i uklonimo interpunkciju. Riječi ne svodimo na
@@ -187,7 +189,7 @@ Graf izdvaja šest oblika koji se ponavljaju. U zadnjem retku navedena je učest
 
 *Slika. Učestalost točnih oblika u šest namjerno odabranih bibliografskih naslova. Izrada autora prema objavljenim naslovima [@anscombe1973; @cleveland1984; @tufte2001; @wilkinson2005; @wickham2016; @matejka2017].*
 
-Rezultat opisuje odabranih šest naslova. Za širi zaključak o literaturi o vizualizaciji ili znanstvenom pisanju trebali bismo odgovarajući izbor tekstova. Pri tumačenju zato navodimo jedinicu,
+Pri tumačenju zato navodimo jedinicu,
 obradu teksta, nazivnik i obuhvat. Iste ćemo odluke ponovno razmotriti kada
 tekst postane ulaz algoritma.
 
@@ -231,8 +233,8 @@ Stupce zato crtamo od nule. Oznaka skraćene osi otkriva zahvat, ali ne vraća
 ispravan odnos duljina. Za linije i točke uži raspon može pomoći čitanju, uz
 jasno vidljiv početak i ljestvicu osi.
 
-Za sljedeći prikaz vraćamo se DigiKatovoj tablici internetskih domena. Svaki
-redak sadrži ukupan broj objava jedne domene u odabranom korpusu. Tablica ima
+Za sljedeći prikaz vraćamo se istim zapisima iz DigiKatove tablice internetskih domena koju smo upoznali pri sažimanju podataka. Svaki
+redak sadrži ukupan broj objava jedne domene u odabranom korpusu. Opisujemo samo domene u ovom korpusu, bez zaključivanja o svim hrvatskim medijima, korisnicima ili pojedinačnim objavama. Tablica ima
 `r hr_broj(s5_izvori_sazetak$izvora, 0)` domene i `r hr_broj(s5_izvori_sazetak$objava, 0)` objava (Šikić, 2026). Medijan je `r hr_broj(s5_izvori_sazetak$medijan, 0)` objave po domeni, a najveći broj `r hr_broj(s5_izvori_sazetak$najvise, 0)`. Na linearnoj bi osi većina domena bila
 stisnuta uz početak. Logaritamska os omogućuje da se bolje
 vide i manje vrijednosti jer jednak prostor dodjeljuje jednakim omjerima.
@@ -242,8 +244,7 @@ vide i manje vrijednosti jer jednak prostor dodjeljuje jednakim omjerima.
 Na logaritamskoj osi pomak od 10 do 100 jednak je pomaku od 100 do 1.000.
 Uspoređujemo omjere, dok apsolutne razlike nisu jednako velike. Promjena osi
 ne mijenja zapise, ali mijenja vizualni oblik raspodjele, pa je treba
-označiti. I dalje opisujemo samo domene u ovom korpusu, bez zaključivanja o
-svim hrvatskim medijima, korisnicima ili pojedinačnim objavama.
+označiti.
 
 ## Mala višestruka polja
 
@@ -259,7 +260,7 @@ Za usporedbu razina polja trebaju zajedničku ljestvicu. Ako svako ima svoj
 raspon, male i velike razlike mogu izgledati jednako. Različite osi mogu biti
 prikladne za usporedbu oblika, ali tu odluku treba jasno navesti.
 
-U DigiKatovu mjesečnom izvatku za 2024. nedostaju retci od veljače do svibnja.
+Iz iste mjesečne tablice projekta DigiKat izdvajamo zapise za promatranje prekida u mjerenju. U DigiKatovu mjesečnom izvatku za 2024. nedostaju retci od veljače do svibnja.
 Siječanj je djelomičan, a lipanj donosi promjenu metode i obuhvata
 (Šikić, 2026). Prazninu ne pretvaramo u nule niti linijom spajamo siječanj i
 lipanj. U tablici zadržavamo svih 12 mjeseci kako bi nedostajanje bilo
@@ -275,7 +276,7 @@ poljima](#fig-mala-polja) prikazujemo broj objava za četiri platforme s
 najviše objava u dostupnim mjesecima 2024. i za objedinjeni ostatak. Sva polja
 imaju istu logaritamsku os.
 
-*Slika. Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka; isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026].*
+*Slika. Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka. Isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026].*
 
 Linije ostavljaju četveromjesečnu prazninu, a lipanjska točka odvojena je od
 kasnijeg niza. Zbog nepotpunog siječnja i promjene metode ne zaključujemo o
@@ -321,8 +322,8 @@ broji opažanja u razredu jednake širine, a drukčija širina razreda može
 promijeniti dojam o obliku. Krivulja gustoće zaglađuje raspodjelu, pa njezina
 visina nije broj osoba. Kutijasti prikaz čuva medijan i srednjih 50 %
 opažanja između prvoga i trećega kvartila. U sljedećem prikazu brkovi sežu
-do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije;
-udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.
+do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije.
+Udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.
 
 Sažimanje u dvije sredine skriva razlike među pojedincima. Zasebno pitanje jest nesigurnost procjene populacijske sredine. Nju procjenjujemo prema načinu odabira opažanja, što ćemo razraditi uz uzorkovanje i procjenu.
 
@@ -358,9 +359,9 @@ posjećenosti. Drugi ga odbacuje pozivajući se na pravilo da se takvi
 grafovi nikada ne koriste. Prije izbora valja razjasniti što čitatelj
 treba moći usporediti.
 
-Cleveland i McGill istraživali su upravo točnost očitavanja grafičkih
-prikaza. U njihovim su pokusima sudionici procjenjivali omjer dviju
-istaknutih vrijednosti. Položaj na zajedničkoj osi omogućavao je
+Točnost očitavanja može se provjeriti pokusom. U jednom takvom
+istraživanju sudionici su procjenjivali omjer dviju istaknutih vrijednosti
+na grafu (Cleveland, 1984). Položaj na zajedničkoj osi omogućavao je
 preciznije usporedbe od kuta (Cleveland, 1984). Nalaz daje razlog za
 izbor prikaza, ali taj je razlog vezan uz određeni zadatak.
 

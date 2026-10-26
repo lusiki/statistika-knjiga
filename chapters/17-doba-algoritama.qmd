@@ -108,9 +108,9 @@ nekoj osobi ili tekstu. U zamišljenom uredničkom sustavu iz vinjete
 procijenjeni ton odlučuje koja će rečenica dobiti dodatni pregled. Za procjenu
 takva sustava trebamo pratiti i nastanak oznake i posljedice pogrešne odluke.
 
-Hrvatski dio ParlaSenta 1.0, koji su Mochtak i suradnici objavili u repozitoriju
-Instituta Jožef Stefan, sadrži stvarne parlamentarne rečenice s ljudskim
-oznakama tona [@mochtak2023]. Rečenica je jedinica na koju se odnose zabilježene oznake i naši zaključci. Pratit ćemo tekst, dostupne oznake kodera i
+U hrvatskom dijelu skupa podataka ParlaSent 1.0 nalaze se stvarne
+parlamentarne rečenice čiji su ton procijenili ljudi. Skup je objavljen
+u repozitoriju Instituta Jožef Stefan [@mochtak2023]. Rečenica je jedinica na koju se odnose zabilježene oznake i naši zaključci. Pratit ćemo tekst, dostupne oznake kodera i
 podjelu podataka. U nastavnom primjeru iz tih ćemo oznaka izvesti jednostavan
 rezultat za usporedbu pravila slanja na pregled. Time provjeravamo kako izbor
 praga mijenja odluku. Uspješnost budućega uvježbanog klasifikatora zahtijevala bi zasebnu provjeru njegovih predviđanja. Stvarne oznake omogućuju nam da pregledamo neslaganje ljudskih kodera i pogrešivost reference prema kojoj prosuđujemo odluku.
@@ -241,7 +241,7 @@ Takvo preklapanje dokumenata bilo bi još jedan oblik curenja informacija.
 pristajanje njima, ali pogoršava predviđanje novih jedinica." en="overfitting"
 ch="17"} nastaje kada model nauči posebnosti viđenih podataka pa njima
 bolje pristaje, ali lošije predviđa nove jedinice. Zato ga provjeravamo
-na odvojenim jedinicama. Populacijski doseg zasebno određujemo prema odabiru podataka. Dobar rezultat na pravilno izdvojenom skupu podržava prediktivnu uspješnost u obuhvaćenim uvjetima; prijenos na druge tekstove zahtijeva dodatnu provjeru. Ovdje različit odabir i označavanje ispitnog dijela
+na odvojenim jedinicama. Populacijski doseg zasebno određujemo prema odabiru podataka. Dobar rezultat na pravilno izdvojenom skupu podržava prediktivnu uspješnost u obuhvaćenim uvjetima. Prijenos na druge tekstove zahtijeva dodatnu provjeru. Ovdje različit odabir i označavanje ispitnog dijela
 dodatno ograničavaju usporedbu.
 
 ## Od vjerojatnosti do pravednosti
@@ -252,7 +252,7 @@ posljedicama obiju vrsta pogreške.
 
 ::: {#def-klasifikacijski-prag}
 **Klasifikacijski prag** jest unaprijed određena vrijednost koja predviđenu
-vjerojatnost pretvara u kategoričku odluku; njegovim se pomicanjem mijenja
+vjerojatnost pretvara u kategoričku odluku. Njegovim se pomicanjem mijenja
 odnos vrsta pogrešaka.
 :::
 
@@ -523,7 +523,7 @@ viewof w17_par = Inputs.form({
 #| echo: false
 #| label: fig-w17-print
 #| fig-width: 6.6
-#| fig-cap: "Istraživač pravednosti — jednake uvjetne stope pogreške ne daju jednaku prediktivnu vrijednost kada se temeljne stope razlikuju. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Istraživač pravednosti — jednake uvjetne stope pogreške ne daju jednaku prediktivnu vrijednost kada se temeljne stope razlikuju. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Pri zajedničkom pragu 0,60 dva okomito složena prikaza uspoređuju četiri stope u skupinama s temeljnim stopama 20 i 45 posto. Stope lažno pozitivnih i lažno negativnih odluka jednake su, dok se prediktivna vrijednost i točnost razlikuju."
 #| fig-height: 5.8
 #| fig-bg: transparent
@@ -874,10 +874,10 @@ doseg ovog primjera.
 | Revizijsko pitanje | Primjena na odluku o ljudskom pregledu |
 |---|---|
 | Koja je jedinica? | jedna odabrana parlamentarna rečenica s putom nastanka zabilježene oznake, ne govor, govornik ili sjednica |
-| Tko ili što nedostaje? | rečenice moderatora i rečenice izvan srednjega raspona duljine isključene su uzvodno; paket nema govornika, cijeli govor ni obranjivu skupnu varijablu |
-| Koji je cilj tvrdnje? | tablica uspoređuje dva pravila slanja u pregled prema zabilježenom negativnom ishodu; riječ je o opisu i provjeri odluke, ne izvedbi postojećega klasifikatora |
-| Gdje je neizvjesnost? | osjetljivost na prag; ne provjeravamo reprezentativnost, valjanost oznake, pogrešku kodiranja ni budući pomak distribucije |
-| Koje drugo objašnjenje ostaje? | stroži prag mijenja pogreške; slučajni pregled ili kriterij relevantnosti mijenjaju i cilj odabira |
+| Tko ili što nedostaje? | rečenice moderatora i rečenice izvan srednjega raspona duljine isključene su uzvodno. Paket nema govornika, cijeli govor ni obranjivu skupnu varijablu |
+| Koji je cilj tvrdnje? | tablica uspoređuje dva pravila slanja u pregled prema zabilježenom negativnom ishodu. Riječ je o opisu i provjeri odluke, ne izvedbi postojećega klasifikatora |
+| Gdje je neizvjesnost? | osjetljivost na prag. Ne provjeravamo reprezentativnost, valjanost oznake, pogrešku kodiranja ni budući pomak distribucije |
+| Koje drugo objašnjenje ostaje? | stroži prag mijenja pogreške. Slučajni pregled ili kriterij relevantnosti mijenjaju i cilj odabira |
 | Tko snosi posljedice? | pregledavatelji troše vrijeme, važan tekst može izostati, a govornik i javnost mogu dobiti iskrivljen prikaz |
 
 : Šest revizijskih pitanja za odluku o ljudskom pregledu. Izrada autora prema @mochtak2023 i @mochtakparlasent2024. {#tbl-revizijska-pitanja-dio-v}
@@ -889,7 +889,7 @@ Sljedeća tablica razlikuje šest vrsta tvrdnji. Doseg analize određujemo prema
 | opis | opisuje brojnosti, put oznake i posljedice dvaju pravila unutar pripremljenoga paketa |
 | povezanost | pokazuje povezanost dvaju koderskih glasova s usklađenom oznakom, uz izričitu ovisnost jer su isti glasovi sudjelovali u njezinu nastanku |
 | generalizacija | ne podupire prijenos na sav parlamentarni govor, govornike ili tekstove izvan odabranih rečenica |
-| predviđanje | ne ocjenjuje postojeći model; buduća bi procjena tražila zaključan model, prag, usporediv referentni postupak i jedan izdvojeni ispitni skup |
+| predviđanje | ne ocjenjuje postojeći model. Buduća bi procjena tražila zaključan model, prag, usporediv referentni postupak i jedan izdvojeni ispitni skup |
 | uzročnost | ne pokazuje što uzrokuje ton, uredničku važnost ili bilo koju posljedicu za govornika |
 | odluka | podupire provjeru tereta dvaju pragova, ali ne dokazuje da je negativan sentiment legitiman cilj usmjeravanja pozornosti |
 
@@ -937,7 +937,7 @@ tečan.
 ## Pojmovi {.pojmovi}
 
 osjetljivost klasifikatora (*sensitivity*), specifičnost (*specificity*),
-preciznost odnosno pozitivna prediktivna vrijednost (*precision; positive predictive value*),
+preciznost odnosno pozitivna prediktivna vrijednost (*precision, positive predictive value*),
 ukupna točnost (*accuracy*),
 
 tekstna jedinica (*text unit*), granica korpusa (*corpus boundary*), okvir

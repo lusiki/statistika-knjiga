@@ -495,7 +495,7 @@ dzs_table <- function(prefix) {
     paste(
       "Tablice BS_TU11 i BS_TU12 bilježe administrativne eVisitor dolaske,",
       "dok je T03 uzoračka anketa o procijenjenim putovanjima stanovnika.",
-      "Dolazak nije osoba, a putovanje nije dolazak; te se brojke ne zbrajaju",
+      "Dolazak nije osoba, a putovanje nije dolazak. Te se brojke ne zbrajaju",
       "i ne prikazuju kao usporedive serije."
     ),
     "",
@@ -690,7 +690,7 @@ editorial_note <- function(prefix) {
   target <- paste0(if (identical(prefix, "c")) "../" else "",
                    "notes/reports/p3-evidence12-2026-08-13.md")
   c(paste0(
-    "Laboratorijski zapis replikacijskog izvještaja Wagenmakersa i suradnika ",
+    "Sažetak laboratorijskih rezultata iz izvještaja o replikaciji ",
     "služi uredničkoj provjeri prikaza u poglavlju o krizi i obnovi ",
     "[@wagenmakers2016]. Sadrži izvedene sažetke laboratorija, dok izvorni ",
     "sudionički podaci ostaju kod pružatelja. Njegovo podrijetlo, granice ",

@@ -161,8 +161,8 @@ s9 <- list(
 ```
 
 ::: {.callout-vinjeta}
-Koliki je učinak i koliko smo ga precizno procijenili? Cumming predlaže da ta
-pitanja budu u središtu statističkog zaključivanja [@cumming2014]. Procjena i
+Koliki je učinak i koliko smo ga precizno procijenili? Pristup koji u prvi plan stavlja procjenu polazi upravo od tih
+pitanja [@cumming2014]. Procjena i
 interval opisuju veličinu učinka i nesigurnost procjene.
 
 Kako iz jednoga uzorka procijeniti koliko bi se rezultat mogao mijenjati?
@@ -527,7 +527,7 @@ w09_intervali = {
 ```{r}
 #| echo: false
 #| label: fig-w09-print
-#| fig-cap: "Pedeset intervala iz ponovljenih simuliranih uzoraka i fiksna populacijska sredina. Križići označuju intervale koji promašuju cilj. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Pedeset intervala iz ponovljenih simuliranih uzoraka i fiksna populacijska sredina. Križići označuju intervale koji promašuju cilj. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Pedeset vodoravnih intervala većinom presijeca okomitu crtu na nuli, a intervali koji je ne presijecaju označeni su križićem."
 #| fig-width: 6.6
 #| fig-height: 6.8
@@ -629,7 +629,7 @@ Za zasebnu računsku provjeru na kraju poglavlja trebat će nam i sažetak cijel
 poznate sintetičke populacije po glavnom izvoru vijesti. Sljedeća tablica
 čuva točne cjelobrojne brojnosti i zbroj za portal, dok su udio i prosjek
 zaokruženi na pet decimala. Iz tih ćemo brojeva provjeriti dva dijeljenja.
-Provjera ne potvrđuje kako su pojedinačni zapisi zbrojeni; taj je dodatni
+Provjera ne potvrđuje kako su pojedinačni zapisi zbrojeni. Taj je dodatni
 korak moguć u dobrovoljnoj mrežnoj vježbi. Podaci služe vježbi i ne opisuju stvarne stanovnike.
 
 ::: {.table-keep-words}
@@ -700,7 +700,7 @@ određuje populaciju buduće osobe. Veći uzorak sužava interval za sredinu, do
 
 ```{r}
 #| label: fig-dva-intervala
-#| fig-cap: "Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Dvije vodoravne crte sa zajedničkim središtem. Donji interval za prosjek uzorka kratak je, a gornji opisni raspon pojedinačnih ocjena proteže se preko gotovo cijele širine grafa."
 
 s9_usporedba <- tibble(
@@ -750,7 +750,7 @@ Percentilni bootstrap interval uzima odabrane percentile ponovljenih
 procjena. Njegova je primjena najjednostavnija kada bootstrap raspodjela
 dobro oponaša raspršenost procjenitelja, bez izražene pristranosti ili
 asimetrije. Postoje i drugi bootstrap intervali koji korigiraju pomak ili
-asimetriju; ovdje učimo samo najjednostavniji percentilni postupak. Ni taj postupak ne jamči točno zadanu razinu obuhvata.
+asimetriju. Ovdje učimo samo najjednostavniji percentilni postupak. Ni taj postupak ne jamči točno zadanu razinu obuhvata.
 Mali ili diskretni uzorci, pristranost procjenitelja i vrlo asimetrične
 raspodjele mogu oslabiti približenje. Ponavljanje odabira iz postojećih
 redaka ne dodaje ljude koji su sustavno izostali iz početnog uzorka.
@@ -793,7 +793,7 @@ postupak s novim početnim uzorcima.
 
 ```{r}
 #| label: fig-bootstrap-medijan
-#| fig-cap: "Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Histogram bootstrap medijana s izraženim stupčastim korakom jer medijan malog uzorka poprima ograničen broj vrijednosti. Dvije okomite crte označuju granice raspona, a treća pravu populacijsku vrijednost, koja leži unutar njih."
 
 ggplot(tibble(medijan = s9_boot_medijan), aes(medijan)) +
@@ -849,9 +849,9 @@ objašnjavamo koju nesigurnost interval uključuje.
 ::: {.callout-divljina}
 **Šest tvrdnji o jednom intervalu.** Istraživač može uredno
 izračunati interval, a ipak pogrešno objasniti što iz njega slijedi.
-Hoekstra i suradnici to su provjerili zadatkom u kojem su studenti
-i istraživači prosuđivali šest tumačenja intervala iz zamišljenog
-istraživanja. Sve su tvrdnje bile netočne, ali su ih obje skupine
+U istraživanju razumijevanja intervala studenti i istraživači
+prosuđivali su šest tumačenja rezultata iz zamišljenog istraživanja
+[@hoekstra2014]. Sve su tvrdnje bile netočne, ali su ih obje skupine
 u prosjeku prihvatile više od tri [@hoekstra2014]. Pogreška se
 dogodila pri čitanju rezultata, nakon što je račun već bio zadan.
 
@@ -993,12 +993,12 @@ bi ograničenje moglo promijeniti konačnu rečenicu.
 
 | Revizijsko pitanje | Primjena na bootstrap medijana |
 |---|---|
-| Koja je jedinica? | jedna generirana odrasla osoba s jednim zapisom dnevnih minuta |
+| Koja je jedinica? | jedna zamišljena odrasla osoba s jednim zapisom dnevnih minuta |
 | Tko ili što nedostaje? | uzorak je slučajno izvučen iz poznate sintetičke populacije, pa ne predstavlja stvarni grad ni osobe izvan te populacije |
 | Koji je cilj tvrdnje? | populacijski medijan dnevnih minuta, opisan procjenom i rasponom uzoračke nesigurnosti |
-| Gdje je neizvjesnost? | promjene sastava uzorka; ne provjerava dugoročni obuhvat, mjerenje minuta ni prijenos na stvarne stanovnike |
-| Koje drugo objašnjenje ostaje? | u stvarnoj anketi slab obuhvat, neodgovor ili pogrešno mjerenje mogli bi objasniti pomak procjene; bootstrap takve izvore pogreške ne uklanja |
-| Tko snosi posljedice? | ovdje nema stvarnih sudionika; u stvarnom projektu pretjerana preciznost mogla bi zavesti naručitelja i stanovnike |
+| Gdje je neizvjesnost? | promjene sastava uzorka. Ne provjerava dugoročni obuhvat, mjerenje minuta ni prijenos na stvarne stanovnike |
+| Koje drugo objašnjenje ostaje? | u stvarnoj anketi slab obuhvat, neodgovor ili pogrešno mjerenje mogli bi objasniti pomak procjene. Bootstrap takve izvore pogreške ne uklanja |
+| Tko snosi posljedice? | ovdje nema stvarnih sudionika. U stvarnom projektu pretjerana preciznost mogla bi zavesti naručitelja i stanovnike |
 
 : Šest revizijskih pitanja primijenjenih na procjenu iz simulirane populacije. Izrada autora.
 

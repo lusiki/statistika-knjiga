@@ -683,7 +683,7 @@ def unit_03_numerical_check(
 
     prompt_counts = re.search(
         r"portal je glavni izvor vijesti za\s+(\d{1,3}(?:\.\d{3})+)\s+od\s+"
-        r"(\d{1,3}(?:\.\d{3})+)\s+generiranih osoba,\s+a\s+"
+        r"(\d{1,3}(?:\.\d{3})+)\s+(?:generiranih|zamišljenih) osoba,\s+a\s+"
         r"televizija za\s+(\d{1,3}(?:\.\d{3})+)",
         numerical_prompt,
         flags=re.DOTALL,

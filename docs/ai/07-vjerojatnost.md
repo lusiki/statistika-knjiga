@@ -4,17 +4,17 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
 Košarkaši i navijači često govore o vrućoj ruci, uvjerenju da nakon nekoliko
-pogodaka raste vjerojatnost sljedećeg. Gilovich, Vallone i Tversky proučili su
-to vjerovanje kroz zapise utakmica i kontrolirani pokus. Zaključili su da
-ljudi u slučajnim nizovima vide obrazac koji ne postoji (Gilovich, 1985).
+pogodaka raste vjerojatnost sljedećeg. Jedno je istraživanje provjerilo to vjerovanje kroz zapise utakmica i
+kontrolirani pokus. Nalazi su protumačeni kao znak da ljudi u slučajnim
+nizovima vide obrazac koji ne postoji (Gilovich, 1985).
 
-Njihovo je tumačenje bilo da se prividni niz uspjeha može objasniti
-slučajnošću (Gilovich, 1985). Kasnija ponovna analiza, međutim, otkrila je
+Prema tom se tumačenju prividni niz uspjeha mogao objasniti slučajnošću
+(Gilovich, 1985). Kasnija ponovna analiza, međutim, otkrila je
 pristranost u samom načinu mjerenja tog obrasca (Miller, 2018).
 
 Kako procijeniti je li niz posljedica promjene u procesu ili slučajnosti?
@@ -33,7 +33,7 @@ Za pitanja o preklapanju događaja vratit ćemo se simuliranoj populaciji
 `populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti. Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
 uvjet ili oba. Tako ćemo provjeriti kada smijemo zbrajati ili množiti
 vjerojatnosti i zašto poznavanje jednog obilježja može promijeniti izglede za
-drugo. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
+drugo. Populacija medijskih navika stvorena je za nastavu, s jednim retkom za jednu zamišljenu osobu, pa njezini obrasci ne opisuju stvarne stanovnike. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
 pokušaj s dvama mogućim ishodima.
 
 Raspodjele koje smo dosad čitali kao opise podataka sada ćemo koristiti i kao
@@ -59,7 +59,7 @@ Simulirat ćemo bacanje poštenog novčića i nakon svakog bacanja zabilježiti
 udio glava. Ponavljamo postupak triput kako bismo usporedili moguće nizove.
 Kratki odsječci mogu izgledati neuravnoteženo i uz isti pošten novčić.
 
-*Slika. Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Nakon dvadeset bacanja udjeli se kreću od `r hr_broj(s7_rani$najmanji, 2)` do `r hr_broj(s7_rani$najveci, 2)`. Nakon dvije
 tisuće između `r hr_broj(s7_kasni$najmanji, 3)` i `r hr_broj(s7_kasni$najveci, 3)`. Nizovi su različiti, ali su u duljim
@@ -263,9 +263,9 @@ Sredina i standardna devijacija potpuno određuju položaj i širinu normalne
 raspodjele. Unutar jedne standardne devijacije od sredine leži oko 68 %
 vrijednosti, unutar dvije oko 95 %, a unutar tri oko 99,7 %.
 
-S raspodjele prosjeka sada prelazimo na pojedinačne vrijednosti u poznatoj populaciji. Njihov oblik trebamo zasebno provjeriti. Pogledat ćemo dnevno vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
+S raspodjele prosjeka sada prelazimo na pojedinačne vrijednosti u istoj populaciji `populacija_medija`. Njihov oblik trebamo zasebno provjeriti. Pogledat ćemo dnevno vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
 
-*Slika. Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Za dnevne minute unutar jedne standardne devijacije nalazi se `r hr_broj(s7_podrucja$minute[1])` %
 populacije, unutar dviju `r hr_broj(s7_podrucja$minute[2])` %, a unutar triju `r hr_broj(s7_podrucja$minute[3])` %. Te su
@@ -281,7 +281,7 @@ opažanja. Normalna raspodjela ne opisuje dobro te sirove vrijednosti.
 Promjena ljestvice zahtijeva dva odvojena koraka. Iz istih 50 000 zapisa
 prvo izdvajamo `r sum(s7_iznos > 0)` pozitivnih iznosa, a zatim na njih
 primjenjujemo prirodni logaritam. Primjerice, za prvi pozitivan iznos od
-`r hr_broj(s7_iznos[s7_iznos > 0][1], 1)` kuna nova vrijednost iznosi
+`r hr_broj(s7_iznos[s7_iznos > 0][1], 1)` eura nova vrijednost iznosi
 `r hr_broj(s7_log_iznos[1], 3)`. Nule nemaju konačan logaritam i nisu dio
 toga izračuna. Nazivnik svakoga sljedećeg udjela zato su samo platitelji.
 
@@ -306,7 +306,7 @@ a okomita poredane vrijednosti u jedinicama promatrane varijable. Referentni
 pravac ovdje prolazi kroz parove prvoga i trećega kvartila. Odstupanja od
 njega pokazuju gdje oblik podataka odstupa od normalnoga oblika.
 
-*Slika. Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Dnevne minute uglavnom prate pravac, uz odizanje desnog kraja zbog repa prema
 višim vrijednostima. Za spremnost na plaćanje točke najprije stoje vodoravno
@@ -382,17 +382,17 @@ niza. To je moguća odluka kojoj pitanje o vrućoj ruci daje smisao.
 Zanima nas govori li prethodni uspjeh nešto o sljedećem pokušaju ili
 promatramo niz kakav može nastati i bez promjene vjerojatnosti pogotka.
 
-Gilovich, Vallone i Tversky proučavali su vjerovanje u vruću ruku i
-svoje nalaze protumačili kao dokaz da ljudi u nizovima vide promjenu
-koje nema (Gilovich, 1985). Za provjeru takve tvrdnje naizgled je
+Izvorno istraživanje vruće ruke ponudilo je tumačenje da ljudi u
+nizovima vide promjenu koje nema (Gilovich, 1985). Za provjeru takve tvrdnje naizgled je
 dovoljno izdvojiti pokušaje nakon pogodaka i usporediti njihovu uspješnost s uspješnošću pokušaja nakon promašaja. No izdvajanjem
 mjesta unutar konačnih nizova već smo uveli postupak odabira koji
 može promijeniti očekivani rezultat.
 
-Upravo su taj problem razradili Miller i Sanjurjo. Pokazali su da je
-uobičajena mjera ovisnosti osjetljiva na pristranost odabira, a nakon
-ispravka ponovno su analizirali izvorni kontrolirani pokus i dobili
-zaključak u prilog vrućoj ruci (Miller, 2018). Do ispravka su došli promjenom referentnog računa s kojim su uspoređivali opaženi niz.
+Kasnija metodološka analiza pokazala je da je uobičajena mjera
+ovisnosti osjetljiva na tu pristranost odabira. Nakon ispravka, ponovna
+analiza izvornog kontroliranog pokusa dala je zaključak u prilog vrućoj
+ruci (Miller, 2018). Promijenio se referentni račun s kojim se uspoređuje
+opaženi niz.
 
 Naša simulacija pokazuje kako postupak odabira i prosječenja proizvodi pomak
 iako se zadana vjerojatnost ne mijenja. Prije tumačenja stvarnih pokušaja
