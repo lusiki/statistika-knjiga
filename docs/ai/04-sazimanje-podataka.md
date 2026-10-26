@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -32,16 +32,19 @@ trebamo riješiti još jedno pitanje. Provjerit ćemo usporedivost zapisa te raz
 
 Dosadašnja pitanja o jedinici, nazivniku i podrijetlu podataka sada
 primjenjujemo pri pripremi vlastite analize. Polazimo od stvarnih zbirnih
-tablica projekta DigiKat (Šikić, 2026). U njima redak predstavlja platformu u
+tablica projekta DigiKat Hrvatskoga katoličkog sveučilišta (Šikić, 2026). U njima redak predstavlja platformu u
 određenom razdoblju ili internetsku domenu tijekom obuhvata datoteke. Broj
 objava, doseg i interakcije različite su veličine, a njihova dostupnost nije
 jednaka. Provjerit ćemo koji se zapisi mogu spojiti, što pritom mora ostati
 nepromijenjeno i koje vrijednosti možemo uključiti u sažetak.
 
-Ponašanje pojedinih mjera zatim ćemo istražiti na skupu `anketa_mreze`,
-zasebnoj simuliranoj anketi u kojoj jedan redak predstavlja zamišljenu osobu s
-dobi, dnevnim minutama na društvenim mrežama i ocjenom povjerenja u tamošnji
-sadržaj. Nastao je zasebnom simulacijom, neovisno o ranije uvedenoj populaciji medijskih navika. Na njemu ćemo usporediti različite opise istih odgovora, a zaključci će se odnositi na te zamišljene osobe.
+Da bismo lakše pratili kako se računaju prosjek i druge mjere, poslužit
+ćemo se skupom podataka `anketa_mreze`. To je tablica koja izgleda kao
+rezultat ankete. Svaki redak opisuje zamišljenu osobu, njezinu dob, dnevne
+minute na društvenim mrežama i povjerenje u tamošnji sadržaj. Podatke smo
+stvorili računalnom simulacijom, zasebno od populacije medijskih navika iz
+ranijih poglavlja. Na istim ćemo odgovorima usporediti što nam pojedina
+mjera govori o tim zamišljenim osobama.
 
 Sredina i medijan opisuju središte raspodjele, a mjere raspršenosti razlike
 među opažanjima. Njihovu prikladnost provjeravamo prema obliku podataka i
@@ -76,7 +79,7 @@ jednog dijela ključa spojili bismo zapise koji ne pripadaju istoj jedinici.
 
 U mjesečnoj tablici, primjerice, jedan redak bilježi 11.701 obuhvaćenu
 objavu na webu u siječnju 2021. (Šikić, 2026). U tablici domena redak za `hkm.hr` bilježi
-56.500 objava kroz cijeli obuhvaćeni raspon (Šikić, 2026). Prvi broj opisuje platformu i mjesec, a drugi jednu domenu kroz više godina. Oba broje objave; za broj jedinstvenih čitatelja trebali bismo podatke o publici.
+56.500 objava kroz cijeli obuhvaćeni raspon (Šikić, 2026). Prvi broj opisuje platformu i mjesec, a drugi jednu domenu kroz više godina. Oba broje objave. Za broj jedinstvenih čitatelja trebali bismo podatke o publici.
 
 ### Ključ prije sažetka
 
@@ -126,7 +129,7 @@ samo za šest s dostupnom metrikom. Učinak sužavanja skupa provjeravamo na
 broju objava, koji poznajemo za sve platforme. Doseg i interakcije
 nedostajućih platformi ne možemo tako usporediti.
 
-*Slika. Osjetljivost medijana broja objava na nepotrebno izbacivanje platformi kojima nedostaje druga metrika. Presjek je potpuna 2025. godina; angažman i doseg ne uspoređuju se. Izvor: DigiKat [@digikat2026].*
+*Slika. Osjetljivost medijana broja objava na nepotrebno izbacivanje platformi kojima nedostaje druga metrika. Presjek je potpuna 2025. godina. Angažman i doseg ne uspoređuju se. Izvor: DigiKat [@digikat2026].*
 
 Medijan, središnja vrijednost u poredanom nizu, mijenja se s `r hr_broj(s4_medijan_sve_platforme, 1)` na `r hr_broj(s4_medijan_mjerene_platforme, 1)` objava. Usporedili smo svih devet
 vrsta platformi sa šest koje imaju metriku angažmana. Promijenio se skup na
@@ -165,7 +168,7 @@ minutu. Povjerenju također zadajemo niže prosjeke u starijim skupinama, uz
 slučajna odstupanja i granice ljestvice od 1 do 10.
 
 Nekoliko pojedinačnih zapisa omogućuje da prije prosjeka vidimo što se
-zbraja. Oznaka ispitanika služi razlikovanju redaka; dnevne minute i ocjena
+zbraja. Oznaka ispitanika služi razlikovanju redaka. Dnevne minute i ocjena
 povjerenja dvije su odvojene varijable.
 
 *Slika. Tri zapisa iz zasebne simulirane ankete o društvenim mrežama. Izrada autora.*
@@ -285,7 +288,7 @@ usporediti što se dugoročno događa s djeliteljima $n$ i $n-1$.
 Prva osoba ima `r s4_minute[1]` minuta. Odstupanje od sredine iznosi
 `r hr_broj(s4_minute[1] - s4$sredina, 2)`, a njegov kvadrat
 `r hr_broj((s4_minute[1] - s4$sredina)^2, 2)`. Takav kvadrat računamo za
-svaku osobu, zbrajamo svih 300 vrijednosti i dijelimo s 299. Pri kvadriranju zadržavamo punu preciznost odstupanja; prikaz na dvije decimale služi čitanju rezultata.
+svaku osobu, zbrajamo svih 300 vrijednosti i dijelimo s 299. Pri kvadriranju zadržavamo punu preciznost odstupanja. Prikaz na dvije decimale služi čitanju rezultata.
 
 Varijanca iznosi `r hr_broj(s4$varijanca, 1)` kvadriranih minuta. Kvadrira se i mjerna jedinica,
 zbog čega broj nije lako tumačiti u izvještaju. Kvadriranje također povećava
@@ -409,7 +412,7 @@ najstariju skupinu sredina iznosi
 `r hr_broj(mean(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
 minute, a standardna devijacija
 `r hr_broj(sd(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
-minuta; račun koristi nezaokružene vrijednosti.
+minuta. Račun koristi nezaokružene vrijednosti.
 
 *Slika. Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora.*
 
@@ -423,6 +426,7 @@ prema kojoj je skupini položaj izračunat.
 Tri raspodjele prikazuju utjecaj krajnjeg opažanja i raspršenosti ostalih
 vrijednosti. Usporedba sredine, medijana i mjera raspršenosti pokazuje koje
 mjere jače reagiraju na pojedinu vrijednost, a koje više ovise o poretku.
+Za tu smo usporedbu ručno zadali nizove vrijednosti. Svako je opažanje broj u nastavnoj konstrukciji, pa zaključak vrijedi za zadane nizove.
 
 *Slika. Reakcija mjera središta i raspršenosti na oblik konstruirane raspodjele.*
 
@@ -479,7 +483,7 @@ nakon povezivanja tablica. Sljedeći zapis omogućuje takav pregled.
 Prije sažimanja objava po platformi pregledajte zapis spajanja
 DigiKatovih tablica (Šikić, 2026). Redak mjesečne tablice predstavlja
 platformu u mjesecu, a redak godišnje platformu u godini. U mjesečnoj je
-tablici jedinstvena kombinacija `mjesec + platforma`; u godišnjoj se ista
+tablici jedinstvena kombinacija `mjesec + platforma`. U godišnjoj se ista
 godina pojavljuje uz više platformi.
 
 Asistent je spojio mjesečnu i godišnju tablicu te priložio provjeru.
@@ -579,8 +583,8 @@ standardnu devijaciju, koristeći djelitelj devet. U tablici raspršenosti
 usporedite promjene SD-a i IQR-a nakon zamjene krajnjeg opažanja. Koja se
 mjera više promijenila i zašto? Ako je standardizirana vrijednost neke osobe
 $z=1,5$, opišite njezin položaj prema sredini bez pretvaranja te vrijednosti
-u postotak osoba. Zadatak je jednak u digitalnoj i tiskanoj inačici;
-interakcija služi samo za dodatne pokuse.
+u postotak osoba. Zadatak je jednak u digitalnoj i tiskanoj inačici.
+Interakcija služi samo za dodatne pokuse.
 
 Za drugu provjeru koristimo agregate simulirane ankete, bez dodatnog
 zaokruživanja. U svakom su retku uz prosjek navedeni brojnik, nazivnik i
@@ -590,7 +594,7 @@ cjelobrojni zbroj.
 
 Za šifru 1 provjerite `7339 / 90` i `90 / 300`. Zatim zbrojite četiri brojnika i
 četiri zbroja minuta. Ako koristite datoteku `data/anketa-mreze.csv`, izdvojite šifru 1 i iz
-tih redaka ponovno izračunajte prvi redak zbirne tablice; zadatak ne zahtijeva
+tih redaka ponovno izračunajte prvi redak zbirne tablice. Zadatak ne zahtijeva
 pisanje koda. U tisku su svi potrebni brojnici, nazivnici i provjereni
 odgovori već u tablici.
 

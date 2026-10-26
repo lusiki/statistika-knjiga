@@ -4,12 +4,12 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Berkeleyjski podaci iz prethodnog poglavlja sadržavali su prijave, ishode
-upisa, spol kandidata i odjel. Iz njih se nije moglo saznati koliko je prijava
+Isti berkeleyjski zapisi iz poglavlja Zašto statistika sadržavali su prijave,
+ishode upisa, spol kandidata i odjel. Iz njih se nije moglo saznati koliko je prijava
 bila kvalitetna, kakav je savjet kandidat dobio prije prijave ni kako je odjel
 odlučivao (Bickel, 1975). Tablica je pokazivala ishode, ali samo dio okolnosti
 koje su do njih dovele.
@@ -86,7 +86,7 @@ dnevno provode na mrežama, imamo 300 opažanja jedne varijable. Postavimo li
 svakome 10 pitanja, imamo 300 opažanja za svaku od 10 varijabli. Odabirom
 pitanja određujemo koje ćemo razlike među ljudima moći proučavati.
 
-Te odluke donosimo prije prikupljanja podataka. Ljestvica s pet stupnjeva čuva odgovore u pet ponuđenih kategorija; za razlikovanje deset stupnjeva trebalo bi primijeniti drukčiju ljestvicu. Usporedba grada i sela zahtijeva zabilježeno mjesto stanovanja. Mogućnosti analize ovise o onome što smo prikupili.
+Te odluke donosimo prije prikupljanja podataka. Ljestvica s pet stupnjeva čuva odgovore u pet ponuđenih kategorija. Za razlikovanje deset stupnjeva trebalo bi primijeniti drukčiju ljestvicu. Usporedba grada i sela zahtijeva zabilježeno mjesto stanovanja. Mogućnosti analize ovise o onome što smo prikupili.
 
 Pri čitanju istraživanja zato najprije tražimo opis mjerenja i jedinicu
 analize. Treba znati odnosi li se nalaz na osobu, objavu, kućanstvo ili,
@@ -108,13 +108,18 @@ neku inače prihvatljivu jedinicu ipak ne analiziramo. Filtrom ta pravila
 primjenjujemo na zapise. Time određujemo na koju će se populaciju moći
 odnositi zaključak.
 
-Pritom razlikujemo ono što je opaženo od onoga o čemu zaključujemo. Jedna
-osoba može dati više odgovora, jedna objava sadržavati više izjava, a
-kućanstvo imati više članova. Pet redaka s odgovorima iste osobe i dalje
-opisuje jednu osobu. Ako želimo zaključivati o ljudima, moramo objasniti kako
-njihove odgovore povezujemo. Pri izradi analitičke tablice svaki redak zato
-mora imati jasno značenje i pravilo po kojem je uključen. Taj ćemo postupak
-razraditi u poglavlju o sažimanju podataka.
+Na turizmu možemo vidjeti kako nastaju različite mjere iste šire pojave.
+U lokalnom administrativnom izvatku Državnog zavoda za statistiku (DZS) za
+`r s2_dzs_dolasci$godina`. domaćim turistima pripada
+`r hr_broj(s2_dzs_dolasci$dolasci, 0)` dolazaka u komercijalni smještaj
+(statistiku}, 2026). Izvadak anketne tablice T03 za istu godinu daje procjenu od
+`r hr_broj(s2_dzs_putovanja$putovanja, 0)` privatnih putovanja s noćenjem
+unutar Hrvatske (statistiku}, 2026). Anketa obuhvaća stanovnike od
+`r s2_dzs_dob_min` godina naviše u privatnim kućanstvima, a putovanja uključuju
+i nekomercijalni smještaj (statistiku}, 2025). Dolazak nastaje prijavom u smještaj,
+pa promjena objekta može istoga gosta ponovno ubrojiti (statistiku}, 2026).
+Brojevi zato opisuju različite jedinice i obuhvate. Prije usporedbe trebamo
+zapisati koji se događaj broji, koga izvor obuhvaća i kako podatak nastaje.
 
 Zamislimo plan istraživanja televizijskih vijesti o prosvjedu. To je primjer
 planiranja, bez stvarnog nalaza. Ovisno o pitanju, možemo proučavati priloge,
@@ -146,24 +151,35 @@ raspolažemo. Zaštita sudionika može opravdati izostavljanje osjetljivih
 zapisa, ali u izvještaju treba objasniti tko je time izostao i kako to
 ograničava zaključak.
 
-Zaštita sudionika počinje prije prikupljanja. Osobi treba razumljivo objasniti
-svrhu istraživanja, što se od nje traži, moguće neugodnosti, tko će pristupiti
-podacima i kako može odustati. Pristanak mora biti dobrovoljan, bez pritiska
-nastavnika, poslodavca ili druge osobe o kojoj sudionik ovisi. Potrebno
-odobrenje i posebne uvjete provjeravamo prema pravilima ustanove prije rada.
+Kad nekoga pozovemo u istraživanje, tražimo da nam povjeri dio svojega
+iskustva. Prije nego što pristane, treba razumjeti čemu istraživanje služi,
+što ćemo ga pitati, može li mu sudjelovanje biti neugodno i tko će vidjeti
+njegove odgovore. Objašnjavamo i kako može odustati. Ako poziv dolazi od
+nastavnika ili poslodavca, posebno pazimo da osoba može slobodno odbiti,
+bez osjećaja da mora sudjelovati. Prije početka provjeravamo i koja
+odobrenja i posebne uvjete traži naša ustanova.
 
-Pri zaštiti anonimnosti razmatramo i kombinacije obilježja. Dob, malo mjesto i rijetko zanimanje zajedno mogu otkriti osobu i nakon uklanjanja imena. Prikupljamo samo potrebna obilježja, ograničavamo pristup i unaprijed
-određujemo kako ćemo podatke čuvati i kada ih izbrisati. Zamjena imena šifrom uz sačuvan ključ jest pseudonimizacija. Ključ i dalje omogućuje povezivanje zapisa s osobom. Prije objave
-tablice provjeravamo otkrivaju li male ćelije pojedince. Ako se identifikacija
-ne može razumno spriječiti, mijenjamo način dijeljenja ili prikazujemo
-agregate. Ista zaštita vrijedi pri uporabi asistenta.
+Povjerenje te osobe trebamo sačuvati i nakon što ispuni upitnik.
+Uklonimo li ime, još uvijek može ostati prepoznatljiva. Zamislimo da u
+tablici pišu njezina dob, malo mjesto u kojem živi i rijetko zanimanje.
+Netko tko poznaje to mjesto mogao bi povezati odgovore s njom. Zato već pri
+sastavljanju upitnika razmišljamo koji su nam podaci doista potrebni,
+tko će im moći pristupiti, kako ćemo ih čuvati i kada izbrisati.
+
+Ponekad ime zamijenimo šifrom, a zasebno čuvamo ključ koji ih povezuje.
+Taj postupak zovemo pseudonimizacijom. On skriva ime u radnoj tablici,
+ali onaj tko ima ključ i dalje može prepoznati osobu. I prije dijeljenja
+zbirne tablice trebamo pogledati krije li se iza neke male skupine samo
+jedna prepoznatljiva osoba. Ako je ne možemo dovoljno zaštititi, biramo
+sigurniji način dijeljenja ili prikazujemo podatke za veće skupine.
+Na to mislimo i kad tražimo pomoć asistenta, jer slanjem tablice također
+otvaramo pristup odgovorima koje nam je netko povjerio.
 
 ## Razine mjerenja
 
 Kada svakom opažanju pridružimo vrijednost, još trebamo znati što s tim
-vrijednostima možemo smisleno uspoređivati. Oznakom izvora vijesti razlikujemo kategorije, a brojem minuta mjerimo trajanje uporabe. Stevens je predložio
-podjelu na četiri razine mjerenja, koja razlikuje oznake, poredak, jednake
-razmake i smislenu nulu (Stevens, 1946). Ta nam podjela pomaže razumjeti
+vrijednostima možemo smisleno uspoređivati. Oznakom izvora vijesti razlikujemo kategorije, a brojem minuta mjerimo trajanje uporabe. Uobičajena podjela na četiri razine mjerenja razlikuje oznake,
+poredak, jednake razmake i smislenu nulu (Stevens, 1946). Ta nam podjela pomaže razumjeti
 varijablu, premda sama ne određuje sve dopuštene analize.
 
 Vrsta medija, država prebivališta, stranačka bliskost i status zaposlenosti
@@ -188,14 +204,14 @@ koju vrijednost unutar raspona. Ta razlika utječe na izbor grafa i analize.
 Diskretne varijable s mnogo mogućih vrijednosti, poput broja bodova na nekim
 testovima, u praksi se katkad analiziraju kao kontinuirane.
 
-Sažimanjem podataka zadržavamo odabranu razinu pojedinosti. Dob u godinama možemo razvrstati u dobne skupine; nakon takva razvrstavanja sama oznaka skupine govori samo raspon dobi. Isto vrijedi za pretvaranje minuta uporabe u kategorije čestih i
+Sažimanjem podataka zadržavamo odabranu razinu pojedinosti. Dob u godinama možemo razvrstati u dobne skupine. Nakon takva razvrstavanja sama oznaka skupine govori samo raspon dobi. Isto vrijedi za pretvaranje minuta uporabe u kategorije čestih i
 rijetkih korisnika. Ako anketa od početka nudi samo razrede, točne vrijednosti
 ostaju nepoznate.
 
 Mjerenje zato planiramo prema istraživačkom pitanju i čuvamo potrebne
 pojedinosti. Za izbor analize zatim uz razinu mjerenja razmatramo dizajn,
 raspodjelu podataka, način izgradnje ljestvice i pretpostavke postupka.
-Stevensova podjela pruža polazište za tu širu prosudbu.
+Podjela na razine mjerenja pruža polazište za tu širu prosudbu.
 
 ## Pouzdanost i valjanost
 
@@ -546,7 +562,7 @@ može i zbuniti ispitanika, a pri računanju zahtijeva posebno kodiranje.
 
 Za račun smo ručno sastavili odgovore 12 zamišljenih osoba. Nema slučajnog
 uzorkovanja ni nedostajućih odgovora. Svih dvanaest redaka pokazuje vrijednosti
-prije ikakve promjene kodiranja.
+prije ikakve promjene kodiranja. Odgovori služe provjeri kodiranja i opisuju samo ovaj nastavni primjer.
 
 *Slika. Početni odgovori u namjerno konstruiranom instrumentu. Izrada autora.*
 

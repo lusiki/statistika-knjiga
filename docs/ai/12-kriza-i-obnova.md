@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -37,7 +37,7 @@ samo rezultat koji je na kraju odabran za objavu? Razloge odabira rezultata tra�
 Pokus iz vinjete pratit ćemo kroz objavljene rezultate laboratorija koji su
 ponovili postupak (Wagenmakers, 2016). U tablicama s kojima radimo jedan redak sažima rezultate jednog laboratorija. Uspoređivat ćemo
 razlike u ocjenama zabavnosti između uvjeta držanja olovke, njihove intervale
-i brojnosti skupina. To su sažeci stvarnog istraživanja. Od njih ćemo jasno
+i brojnosti skupina. Ti sažeci pokazuju koliko se procjene razlikuju među stvarnim provedbama zajedničkog postupka (Wagenmakers, 2016). Od njih ćemo jasno
 odvojiti nastavne simulacije u kojima sami određujemo koliko se analiza
 iskušava.
 
@@ -67,7 +67,7 @@ procijeniti koliko je rezultat utjecao na izbor analize.
 dok se ne dobije poželjan rezultat." en="p-hacking" ch="12"} nastaje kada
 istraživač iskušava ishode, podskupine, pravila isključivanja ili trenutke
 zaustavljanja kako bi dobio poželjan nalaz, pa prikaže samo odabrani postupak.
-Simmons i suradnici pokazali su da takva neprikazana fleksibilnost povećava
+Metodološko istraživanje pokazalo je da takva neprikazana fleksibilnost povećava
 udio lažno pozitivnih zaključaka (Simmons, 2011). Uobičajena p-vrijednost
 vrijedi za unaprijed određen postupak. Nakon pretraživanja ne opisuje stopu
 pogreške cijelog procesa odabira.
@@ -93,11 +93,11 @@ pokušaje koji su ostali neobjavljeni.
 
 ## Analitička fleksibilnost prije modela
 
-Analitičke odluke počinju mnogo prije izbora testa. Obuhvaćaju prikupljanje i
-spajanje podataka, uključivanje jedinica, rekodiranje i obradu nedostajućih
-vrijednosti. Već smo vidjeli da izbor sredine ili medijana, grupiranja i
-raspona osi mijenja prikaz podataka. Dvije analize s istom završnom formulom
-zato mogu opisivati različite ljude i odgovarati na različita pitanja.
+U jednom je istraživanju 29 timova analiziralo iste početne podatke i
+dobilo različite procjene povezanosti boje kože nogometaša i crvenih kartona
+(Silberzahn, 2018). Razlike među rezultatima sada nastaju promjenom analize,
+dok smo pri uzorkovanju mijenjali uzorke. Uspoređujemo veličinu procijenjene
+veze, njezinu nesigurnost i opravdanost postupaka.
 
 **Analitička fleksibilnost** je prostor više obranjivih odluka duž cijeloga puta
 podataka, od prikupljanja, uključivanja i spajanja do rekodiranja, postupanja s
@@ -228,11 +228,14 @@ metodu prije nego što znaju je li nalaz velik, nov ili značajan
 kod i podaci. To je omogućilo neovisnu provjeru laboratorijskih procjena
 (Wagenmakers, 2016).
 
-Otvaranje istraživanja mora poštovati privatnost sudionika i uvjete korištenja
-materijala. U knjigu smo zato uključili samo izvedene, neidentificirajuće
-zapise na razini laboratorija. Nismo preuzeli sudioničke retke, službeni kod,
-plan ni izdavačev graf. Navodimo što je dostupno ovdje, a što se može
-provjeriti u službenom izvoru.
+Kad želimo da drugi provjere istraživanje, trebamo im pokazati kako
+smo došli do rezultata, a pritom sačuvati privatnost ljudi koji su u njemu
+sudjelovali i poštovati uvjete uporabe materijala. Za naše je usporedbe
+dovoljno imati rezultate pojedinih laboratorija. U knjigu smo zato
+uključili samo izvedene sažetke na toj razini, iz kojih se sudionici ne
+mogu prepoznati. Pojedinačne odgovore, službeni kod, plan i izdavačev graf
+nismo preuzeli. Uz prikaz razlikujemo što možemo provjeriti ovdje, a za
+što se trebamo vratiti službenom izvoru.
 
 Tvrdnje razlikujemo prema tome opisuju li, povezuju, uopćavaju, predviđaju,
 objašnjavaju uzrok ili podupiru odluku. Ovaj RRR omogućuje opis i usporedbu
@@ -293,8 +296,7 @@ moguće analize.
 **Statistika u divljini.**
 **Sedamnaest procjena nije referendum.** Nakon ponavljanja pokusa
 s olovkom i procjenom duhovitosti crteža trebalo je odlučiti što
-zajednički rezultati govore o izvornom nalazu. U izvještaju
-Wagenmakersa i suradnika devet je laboratorija dalo pozitivnu,
+zajednički rezultati govore o izvornom nalazu. Prema izvještaju o replikaciji, devet je laboratorija dalo pozitivnu,
 a osam negativnu točkastu procjenu (Wagenmakers, 2016). Kad bismo
 prebrojili samo predznake, mogli bismo zaključiti da su dokazi
 gotovo ravnomjerno podijeljeni.
@@ -316,7 +318,7 @@ razlike, a ostavljaju nesigurnost oko malih razlika u oba smjera.
 
 Za istraživača koji odlučuje na čemu graditi sljedeći pokus
 to znači da treba promijeniti očekivanje o veličini nalaza.
-Polaznu vrijednost za planiranje treba procijeniti u svjetlu novih, znatno manjih procjena. Rezultat pritom pripada određenoj manipulaciji, mjerenju i protokolu; drugi načini povezivanja izraza lica s doživljajem ostaju predmet zasebnih provjera.
+Polaznu vrijednost za planiranje treba procijeniti u svjetlu novih, znatno manjih procjena. Rezultat pritom pripada određenoj manipulaciji, mjerenju i protokolu. Drugi načini povezivanja izraza lica s doživljajem ostaju predmet zasebnih provjera.
 
 Pojedinačne procjene zato čitamo uz objedinjenu, a razlike
 među laboratorijima ne pretvaramo u objašnjenja bez dodatnih
@@ -389,7 +391,7 @@ Sljedeća tablica prikazuje obje rekonstrukcije iz istih 17 laboratorija.
 Intervali su normalni Waldovi intervali. Procjeni dodajemo i od nje
 oduzimamo $1,96\sqrt{1/\sum_i w_i}$. Taj račun tretira procijenjenu
 među-laboratorijsku varijancu kao zadanu, pa ne obuhvaća svu njezinu
-nesigurnost. U ovome poglavlju učimo čitati sintezu; procjena REML-a nije
+nesigurnost. U ovome poglavlju učimo čitati sintezu. Procjena REML-a nije
 zadatak za ručno računanje.
 
 *Slika. Autorska rekonstrukcija dviju sinteza iz laboratorijskih sažetaka prema @wagenmakers2016. Standardizirani redak nije zasebno objavljeni nalaz.*
@@ -402,7 +404,7 @@ uz interval od `r hr_broj(w12_standardna$donja, 2)` do
 `r sum(w12_rrr$raw_mean_difference > 0)` pozitivnih procjena,
 `r sum(w12_rrr$raw_ci_low > 0)` intervala u cijelosti iznad nule i
 `r sum(w12_rrr$raw_ci_low <= 0.82 & w12_rrr$raw_ci_high >= 0.82)` intervala
-koja obuhvaćaju 0,82. Ta brojanja opisuju raspored procjena; zaključak temeljimo na njihovoj veličini i nesigurnosti.
+koja obuhvaćaju 0,82. Ta brojanja opisuju raspored procjena. Zaključak temeljimo na njihovoj veličini i nesigurnosti.
 
 Prema zajedničkom protokolu prosječna razlika u replikacijama bila je blizu
 nule i mnogo manja od izvornih 0,82 boda (Wagenmakers, 2016). Sirovi i
@@ -428,7 +430,7 @@ dopuštenim zaključkom.
 | Koja je jedinica? | zapis za jedan laboratorij sa sažetkom razlike između eksperimentalnih uvjeta i njezine nesigurnosti |
 | Tko ili što nedostaje? | ljudi izvan uključenih uzoraka, drugi laboratoriji i drukčije operacionalizacije facijalne povratne sprege |
 | Koji je cilj tvrdnje? | prosječna razlika ocjena između uvjeta u zajedničkom postupku, opisana sirovom i standardiziranom sintezom |
-| Gdje je neizvjesnost? | preciznost laboratorijskih i objedinjenih procjena; ne obuhvaćaju sve probleme mjerenja, odabira i provedbe |
+| Gdje je neizvjesnost? | preciznost laboratorijskih i objedinjenih procjena. Ne obuhvaćaju sve probleme mjerenja, odabira i provedbe |
 | Koje drugo objašnjenje ostaje? | standardizacija mijenja ciljanu veličinu i doprinos laboratorija, pa rezultate uspoređujemo sadržajno |
 | Tko snosi posljedice? | istraživači, urednici i čitatelji koji procjenjuju koliko vjerovati izvornom nalazu |
 

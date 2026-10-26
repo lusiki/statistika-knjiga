@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -34,13 +34,17 @@ p-vrijednost. Da bismo taj broj mogli pročitati, trebamo promijeniti pitanje.
 Umjesto traženja raspona za nepoznatu veličinu, pitat ćemo kakve bi rezultate
 proizvodio određeni model u kojem nema povezanosti koju istražujemo.
 
-Uzimamo uzorak osoba iz poznate simulirane populacije `populacija_medija`
-kojima su tisak ili portal glavni izvor vijesti. Jedan redak
-pripada jednoj zamišljenoj osobi, a uspoređujemo njezinu ocjenu povjerenja u
-medije s ocjenama osoba iz druge skupine. Najprije ćemo prikazati opaženu
-razliku i njezin interval. Potom ćemo privremeno pretpostaviti da je
-raspodjela povjerenja jednaka među skupinama i provjeriti što bismo očekivali
-kada oznake izvora ne bi bile povezane s odgovorima.
+Pri procjeni povjerenja promatrali smo populaciju kao cjelinu. Sada nas zanima
+koliko se prosječno povjerenje razlikuje između čitatelja tiska i portala te
+koliko je ta procjena nesigurna.
+
+Uzorak od 300 čitatelja tiska i portala izvlačimo zasebno iz nastavne
+populacije `populacija_medija`, nakon ograničavanja na ta dva izvora. Svaki
+redak predstavlja zamišljenu osobu s izvorom vijesti i povjerenjem na ljestvici
+od jedan do deset, bez tvrdnje o stvarnim stanovnicima. Najprije ćemo
+prikazati razliku i njezin interval. Potom ćemo pretpostaviti jednaku
+raspodjelu povjerenja među skupinama i provjeriti što bismo očekivali kada
+oznake izvora ne bi bile povezane s odgovorima.
 
 I u ovoj usporedbi ponavljamo postupak, ali drukčije nego pri uzorkovanju
 ili bootstrapu. Ocjene ostaju zabilježene, a oznake skupina
@@ -80,9 +84,8 @@ Posljedice takvih prilagodbi razmotrit ćemo u poglavlju o krizi i obnovi.
 
 ## Kako se gradi svijet bez učinka
 
-U uzorku za usporedbu tiska i portala imamo `r s10$n` osoba iz
-`populacija_medija`. Njihove ocjene povjerenja najprije čitamo uz
-izvorne oznake skupina, prije bilo kakva premještanja.
+Uzorak od 300 čitatelja tiska i portala zadržava izvorne oznake skupina.
+Njihove ocjene povjerenja najprije čitamo prije bilo kakva premještanja.
 
 Odabir smo najprije ograničili na osobe kojima je glavni izvor tisak ili
 portal, a iz njih izabrali 300 zapisa bez vraćanja. Druge izvore nismo
@@ -105,7 +108,7 @@ $\sqrt{s_T^2/n_T+s_P^2/n_P}$, gdje su $s_T$ i $s_P$ uzoračke standardne
 devijacije tiska i portala, a $n_T$ i $n_P$ njihove brojnosti. Razlici
 dodajemo i od nje oduzimamo $1,96$ standardnih pogrešaka. Račun traži
 neovisne osobe i dovoljno stabilnu približno normalnu raspodjelu razlike.
-Interval se temelji na tom približnom računu standardne pogreške; premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
+Interval se temelji na tom približnom računu standardne pogreške. Premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
 o dvjema grupama razvija t-prilagodbu i Welchove stupnjeve slobode.
 
 Pretpostavimo da je cijela raspodjela povjerenja jednaka među čitateljima
@@ -114,7 +117,7 @@ odnosu na ishod. Možemo ih nasumično premjestiti među osobama, ponovno
 izračunati razliku sredina i to ponoviti mnogo puta. Dobivene razlike pokazuju
 što bismo mogli očekivati pod modelom u kojem oznaka nije povezana s ishodom.
 
-U tablici je prvih šest osoba iz istog uzorka prije i nakon prvoga
+U tablici je prvih šest osoba iz uzorka od 300 čitatelja tiska i portala prije i nakon prvoga
 nasumičnog preslagivanja svih 300 oznaka. Ocjena prvog retka ostaje
 `r s10_ishod[1]`, a uz nju sada stoji oznaka
 „`r s10_prva_permutacija[1]`”. Za novi račun grupiramo ocjene prema desnom
@@ -154,7 +157,7 @@ uspoređujemo apsolutnu opaženu razliku s apsolutnim razlikama nakon
 premještanja. Ova jednostavna permutacija ispituje opisani model jednakosti cijelih raspodjela, koji uključuje i njihove oblike i raspršenosti. Slika prikazuje razlike iz
 četiri tisuće premještanja i razliku iz izvornog rasporeda oznaka.
 
-*Slika. Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Nulta raspodjela ima sredinu u nuli i standardnu devijaciju od `r hr_broj(s10$sd_nulte, 2)` boda.
 U 95 % premještanja apsolutna razlika ne prelazi `r hr_broj(s10$granica, 2)` boda. Opažena
@@ -173,7 +176,7 @@ nazivniku račun postaje
 $(`r sum(abs(s10_nulte) >= abs(s10_razlika))` + 1)/(4\,000 + 1)$.
 Sva su preslagivanja valjana jer se brojnost obiju skupina čuva.
 
-U našem uzorku p-vrijednost iznosi `r hr_broj(s10$p, 3)`. To znači da, uz iste opažene
+U uzorku od 300 čitatelja tiska i portala p-vrijednost iznosi `r hr_broj(s10$p, 3)`. To znači da, uz iste opažene
 ishode i veličine skupina, nulti model daje apsolutnu razliku ovoliku ili veću
 u otprilike `r hr_broj(s10$p * 100, 1)` % simuliranih rasporeda oznaka. U tumačenju moramo
 zadržati uvjet da vrijedi nulti model.
@@ -272,10 +275,9 @@ razlika prema izvoru vijesti iznosi `r hr_broj(s10$istina_izvor, 2)` boda. Postu
 za odbacivanje nulte hipoteze, iako razlika postoji.
 
 Na zajedničkoj osi prikazane su raspodjela pod nultim modelom i raspodjela
-procijenjene razlike kada učinak postoji. Iste granične crte određuju odluku u
-oba slučaja.
+procijenjene razlike kada učinak postoji. Prva premješta oznake u istom uzorku od 300 čitatelja tiska i portala, a druga nastaje novim izvlačenjima iz iste podpopulacije. Iste granične crte određuju odluku u oba slučaja.
 
-*Slika. Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Pomaknemo li granične crte prema van, rjeđe odbacujemo istinitu nultu
 hipotezu. Istodobno veći dio raspodjele s postojećim učinkom ostaje između
@@ -346,7 +348,7 @@ procijenili.
 
 ## Što p-vrijednost nije
 
-U zasebnom uzorku pogledajmo nasumično dodijeljene oznake. Razlika iznosi
+Za kalibraciju zasebno uzimamo 300 vrijednosti povjerenja iz cijele simulirane populacije i nasumično im dodjeljujemo oznake A i B. Te oznake nisu izvori vijesti. Razlika iznosi
 `r hr_broj(s10$razlika_nulta, 2)` boda, interval ide od `r hr_broj(s10$donja_nulta, 2)` do `r hr_broj(s10$gornja_nulta, 2)`, a p-vrijednost je
 `r hr_broj(s10$p_nulta, 2)`. U ovoj simulaciji znamo da nulti model vrijedi jer oznake nastaju
 neovisno o ishodu.
@@ -398,10 +400,10 @@ dviju skupina čitatelja. Autor navodi malu p-vrijednost i predlaže
 naslov prema kojem je dokazao svoje objašnjenje razlike. Urednik
 treba odlučiti što od toga može prenijeti publici. Uz točnost prepisanog broja urednik treba utvrditi što je njime provjereno.
 
-Greenland i suradnici sastavili su pregled dvadeset pet pogrešnih
-tumačenja p-vrijednosti, intervala i snage upravo kako bi
-istraživačima i čitateljima pomogli prepoznati takve prijelaze
-(Greenland, 2016). Među njima je zamjena vjerojatnosti podataka pod
+Takve je prijelaze lakše prepoznati kad ih vidimo na konkretnim
+tumačenjima. Jedan pregled okuplja dvadeset pet pogrešnih tumačenja
+p-vrijednosti, intervala i snage, kao pomoć pri čitanju i pisanju
+istraživačkih zaključaka (Greenland, 2016). Među njima je zamjena vjerojatnosti podataka pod
 pretpostavljenim modelom vjerojatnošću da je sama hipoteza istinita.
 Mala p-vrijednost ne daje postotak sigurnosti u autorovo objašnjenje
 (Greenland, 2016).
@@ -450,7 +452,7 @@ uzročnog tumačenja.
 
 ## Razrađeni primjer
 
-Usporedbu povjerenja čitatelja tiska i portala sada možemo provesti od opažene
+Na istom uzorku od 300 čitatelja tiska i portala usporedbu povjerenja provodimo od opažene
 razlike do njezina položaja u nultoj raspodjeli. Najprije računamo razliku
 sredina s izvornim oznakama. Zatim zadržavamo ocjene, premještamo oznake
 skupina i svaki put računamo istu razliku. Prebrojavanjem odstupanja barem
@@ -546,30 +548,37 @@ slijedi i njezinu ispravljenu inačicu.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Cohen je 1994. kritizirao praksu u kojoj se statistička značajnost uzima kao
-dovoljan odgovor na istraživačko pitanje (Cohen, 1994). Čitatelju uz rezultat testa treba dati procjenu veličine učinka i obrazložiti njegovu važnost.
+Može li kratka poruka na društvenoj mreži potaknuti odlazak na izbore?
+U velikom pokusu tijekom američkih izbora istraživači su nasumično
+dodjeljivali različite poruke korisnicima mreže (Bond, 2012).
+Neke su prikazivale fotografije prijatelja koji su označili da su glasovali,
+a druge istu poruku bez tih fotografija (Bond, 2012). Glasovanje su mogli
+provjeriti u biračkim evidencijama samo za upareni podskup korisnika
+(Bond, 2012).
 
-Kada u radu pročitamo da je razlika značajna, još ne znamo bi li promijenila
-neku odluku. Možda je riječ o važnom pomaku, a možda o maloj razlici koju je
-otkrio velik uzorak. Autor treba dati podatke iz kojih to možemo procijeniti.
-
-Koliko podataka trebamo da bismo pouzdano uočili sadržajno važan učinak?
+Za odluku o takvoj poruci trebamo procijeniti veličinu učinka i što bi on
+značio pri širokoj primjeni, uz granice skupine za koju je ishod provjeren.
+Koliki bi pomak bio sadržajno važan i koliko podataka trebamo da bismo ga
+pouzdano uočili?
 
 Pri planiranju istraživanja polazimo od razlike koju bi vrijedilo uočiti. Zatim provjeravamo možemo li je planiranim postupkom dovoljno pouzdano razlikovati od slučajne promjenjivosti. Time
 pitanje iz prethodnog poglavlja okrećemo prema planiranju. Umjesto da tek
 nakon analize čitamo rezultat testa, unaprijed provjeravamo kakav bi nam
 odgovor istraživanje moglo dati.
 
-Zadržavamo usporedbu povjerenja u medije među korisnicima tiska i portala.
-Ovaj put koristimo cijelu simuliranu populaciju `populacija_medija`, u kojoj
-je svaki zapis jedna zamišljena osoba s izvorom vijesti i ocjenom povjerenja. Poznata razlika među skupinama poslužit će nam kao cilj pri
-ponovljenom izvlačenju uzoraka. Tako možemo prebrojiti koliko je često
-postupak uočava, umjesto da njegov uspjeh procjenjujemo prema jednom
-istraživanju.
+Razliku u povjerenju čitatelja tiska i portala već smo procijenili s
+intervalom. Sada nas zanima njezina veličina i koliko je često uzorak može
+uočiti. Za poznatu referencu služe svi čitatelji tiska i portala u populaciji
+`populacija_medija`, umjesto prethodnog uzorka od 300 čitatelja tiska i portala.
+
+Svaki redak predstavlja jednu zamišljenu osobu s izvorom vijesti i povjerenjem
+na ljestvici od jedan do deset. Podaci su stvoreni za nastavu i ne opisuju
+stvarne stanovnike. Poznatu razliku uspoređujemo s rezultatima ponovljenih
+izvlačenja kako bismo prebrojili koliko je često postupak uočava.
 
 Razliku najprije izražavamo u bodovima povjerenja, a zatim je uspoređujemo s
 raspršenošću odgovora i opisujemo Cohenovim d. Sredina i standardna
@@ -597,8 +606,8 @@ standardiziranu razliku, korelaciju ili omjer. Njezinu sadržajnu važnost procj
 Povjerenje u medije bilježimo bodovima na ljestvici, pa razliku među
 čitateljima tiska i portala prvo čitamo u tim jedinicama.
 
-Za ovu referencu zadržavamo sve zapise tiska i portala iz populacije,
-ukupno `r s11_N` osoba, a ne samo prethodni uzorak od 300. Zbroj ocjena
+Za ovu referencu služe svi čitatelji tiska i portala u populaciji,
+ukupno `r s11_N` osoba. Zbroj ocjena
 među `r s11_n2` čitatelja tiska iznosi
 `r sum(s11_skupine[["tisak"]])`, a među `r s11_n1` korisnika portala
 `r sum(s11_skupine[["portal"]])`. Dijeljenjem svakog zbroja njegovim
@@ -633,7 +642,7 @@ $$s_{\mathrm{zdr}}=\sqrt{\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}}.$$
 
 U ovom primjeru račun obavljamo na cijeloj poznatoj sintetičkoj populaciji.
 Zato dobivena razlika i njezina standardizacija opisuju te zapise bez
-uzoračke nesigurnosti; uzoračka procjena iste veličine zahtijevala bi i
+uzoračke nesigurnosti. Uzoračka procjena iste veličine zahtijevala bi i
 interval. U brojnik ulazi
 $(`r s11_n1`-1)\times `r hr_broj(var(s11_skupine[["portal"]]),3)` +
 (`r s11_n2`-1)\times `r hr_broj(var(s11_skupine[["tisak"]]),3)`$,
@@ -720,8 +729,7 @@ usporediti za nekoliko veličina uzorka.
 Zadržavamo permutacijski test iz prethodnog poglavlja. Nulti model
 pretpostavlja jednaku cijelu raspodjelu povjerenja u objema skupinama, pa su
 oznake zamjenjive u odnosu na ishod. Statistika je apsolutna razlika sredina,
-a osobe smatramo neovisnim jedinicama. Iz konačne simulirane populacije s
-postojećom razlikom izvlačimo uzorke bez vraćanja. Za svaku veličinu provodimo
+a osobe smatramo neovisnim jedinicama. Iz podskupa koji čine svi čitatelji tiska i portala u populaciji izvlačimo uzorke bez vraćanja. Za svaku veličinu provodimo
 tristo zamišljenih studija. U svakoj koristimo dvjesto nasumičnih premještanja
 i korekciju $(b + 1)/(B + 1)$, gdje je $B$ broj premještanja, a $b$ broj barem
 toliko ekstremnih rezultata kao opaženi. Krivulja procjenjuje snagu za taj
@@ -762,7 +770,7 @@ procjena koje objavljujemo ako zadržavamo samo značajne rezultate. To možemo
 provjeriti u simulaciji s poznatom populacijom.
 
 Za sljedeću usporedbu ponovno izvlačimo uzorke iz istoga podskupa
-tiska i portala. Svaka studija daje jednu procjenu razlike i jednu
+tiska i portala, svaki put po 60 osoba. Svaka studija daje jednu procjenu razlike i jednu
 permutacijsku p-vrijednost. Tablica donosi prvih pet valjanih studija u
 redoslijedu generiranja. Oznaka u posljednjem stupcu pokazuje bi li studija bila objavljena kada
 bismo zadržali samo rezultate ispod 0,05.
@@ -774,7 +782,7 @@ prosjek svih studija. U prosjek odabranih ulazi samo ako zadovolji prag.
 Od 3 000 pokušaja neprimjenjivo je `r s11_male_izostavljene`, pa prosjek
 svih računamo na `r nrow(s11_male)` valjanih studija, a prosjek značajnih
 na `r nrow(s11_znacajne)`. Isti manji nazivnik koristimo za udio značajnih
-procjena s pogrešnim predznakom. Kod zasebnih 1 000 većih studija
+procjena s pogrešnim predznakom. Kod zasebnih 1 000 studija s po 500 osoba
 izostavljeno je `r s11_velike_izostavljene`, a prag prolazi
 `r nrow(s11_znacajne_velike)` studija.
 
@@ -782,7 +790,7 @@ Proveli smo tri tisuće zamišljenih studija sa šezdeset osoba. Prosjek svih
 procjena iznosi `r hr_broj(s11$prosjek_svih, 2)` boda, blizu stvarne razlike od `r hr_broj(s11$razlika, 2)`. Prije
 odabira prema pragu procjene u ovoj simulaciji ne pokazuju pristranost.
 
-*Slika. Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Donji panel zadržava samo rezultate koji su prešli prag značajnosti. Njihov
 prosjek iznosi `r hr_broj(s11$prosjek_znacajnih, 2)` boda, odnosno `r hr_broj(s11$faktor, 1)` puta onoliko koliko iznosi stvarna razlika.
@@ -893,11 +901,10 @@ plan može izgledati izvedivo i uz skroman uzorak. No prije nego
 što tu brojku pretvorimo u obećanje budućeg istraživanja, trebamo
 razmotriti kako je dospjela u literaturu.
 
-Button i suradnici analizirali su problem niske snage u
-neuroznanosti. Pokazali su da mala istraživanja ne propuštaju
-samo postojeće učinke. Kada se nalazi odabiru prema značajnosti,
-objavljene procjene mogu precjenjivati njihovu veličinu
-(Button, 2013). U takvom izboru lakše prolaze rezultati koji su,
+Analiza istraživanja u neuroznanosti pokazala je i drugu posljedicu
+niske snage. Uz propuštanje postojećih učinaka, mala istraživanja mogu
+ostaviti i pretjeran dojam o njihovoj veličini ako se nalazi odabiru
+za objavu prema značajnosti (Button, 2013). U takvom izboru lakše prolaze rezultati koji su,
 uz postojeći učinak, dobili i povoljan slučajni pomak.
 
 Zamislimo tim koji na temelju jednoga takvog nalaza planira
@@ -1057,7 +1064,7 @@ napišite čime bi taj argument trebalo zamijeniti.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1090,7 +1097,7 @@ samo rezultat koji je na kraju odabran za objavu? Razloge odabira rezultata tra�
 Pokus iz vinjete pratit ćemo kroz objavljene rezultate laboratorija koji su
 ponovili postupak (Wagenmakers, 2016). U tablicama s kojima radimo jedan redak sažima rezultate jednog laboratorija. Uspoređivat ćemo
 razlike u ocjenama zabavnosti između uvjeta držanja olovke, njihove intervale
-i brojnosti skupina. To su sažeci stvarnog istraživanja. Od njih ćemo jasno
+i brojnosti skupina. Ti sažeci pokazuju koliko se procjene razlikuju među stvarnim provedbama zajedničkog postupka (Wagenmakers, 2016). Od njih ćemo jasno
 odvojiti nastavne simulacije u kojima sami određujemo koliko se analiza
 iskušava.
 
@@ -1120,7 +1127,7 @@ procijeniti koliko je rezultat utjecao na izbor analize.
 dok se ne dobije poželjan rezultat." en="p-hacking" ch="12"} nastaje kada
 istraživač iskušava ishode, podskupine, pravila isključivanja ili trenutke
 zaustavljanja kako bi dobio poželjan nalaz, pa prikaže samo odabrani postupak.
-Simmons i suradnici pokazali su da takva neprikazana fleksibilnost povećava
+Metodološko istraživanje pokazalo je da takva neprikazana fleksibilnost povećava
 udio lažno pozitivnih zaključaka (Simmons, 2011). Uobičajena p-vrijednost
 vrijedi za unaprijed određen postupak. Nakon pretraživanja ne opisuje stopu
 pogreške cijelog procesa odabira.
@@ -1146,11 +1153,11 @@ pokušaje koji su ostali neobjavljeni.
 
 ## Analitička fleksibilnost prije modela
 
-Analitičke odluke počinju mnogo prije izbora testa. Obuhvaćaju prikupljanje i
-spajanje podataka, uključivanje jedinica, rekodiranje i obradu nedostajućih
-vrijednosti. Već smo vidjeli da izbor sredine ili medijana, grupiranja i
-raspona osi mijenja prikaz podataka. Dvije analize s istom završnom formulom
-zato mogu opisivati različite ljude i odgovarati na različita pitanja.
+U jednom je istraživanju 29 timova analiziralo iste početne podatke i
+dobilo različite procjene povezanosti boje kože nogometaša i crvenih kartona
+(Silberzahn, 2018). Razlike među rezultatima sada nastaju promjenom analize,
+dok smo pri uzorkovanju mijenjali uzorke. Uspoređujemo veličinu procijenjene
+veze, njezinu nesigurnost i opravdanost postupaka.
 
 **Analitička fleksibilnost** je prostor više obranjivih odluka duž cijeloga puta
 podataka, od prikupljanja, uključivanja i spajanja do rekodiranja, postupanja s
@@ -1281,11 +1288,14 @@ metodu prije nego što znaju je li nalaz velik, nov ili značajan
 kod i podaci. To je omogućilo neovisnu provjeru laboratorijskih procjena
 (Wagenmakers, 2016).
 
-Otvaranje istraživanja mora poštovati privatnost sudionika i uvjete korištenja
-materijala. U knjigu smo zato uključili samo izvedene, neidentificirajuće
-zapise na razini laboratorija. Nismo preuzeli sudioničke retke, službeni kod,
-plan ni izdavačev graf. Navodimo što je dostupno ovdje, a što se može
-provjeriti u službenom izvoru.
+Kad želimo da drugi provjere istraživanje, trebamo im pokazati kako
+smo došli do rezultata, a pritom sačuvati privatnost ljudi koji su u njemu
+sudjelovali i poštovati uvjete uporabe materijala. Za naše je usporedbe
+dovoljno imati rezultate pojedinih laboratorija. U knjigu smo zato
+uključili samo izvedene sažetke na toj razini, iz kojih se sudionici ne
+mogu prepoznati. Pojedinačne odgovore, službeni kod, plan i izdavačev graf
+nismo preuzeli. Uz prikaz razlikujemo što možemo provjeriti ovdje, a za
+što se trebamo vratiti službenom izvoru.
 
 Tvrdnje razlikujemo prema tome opisuju li, povezuju, uopćavaju, predviđaju,
 objašnjavaju uzrok ili podupiru odluku. Ovaj RRR omogućuje opis i usporedbu
@@ -1346,8 +1356,7 @@ moguće analize.
 **Statistika u divljini.**
 **Sedamnaest procjena nije referendum.** Nakon ponavljanja pokusa
 s olovkom i procjenom duhovitosti crteža trebalo je odlučiti što
-zajednički rezultati govore o izvornom nalazu. U izvještaju
-Wagenmakersa i suradnika devet je laboratorija dalo pozitivnu,
+zajednički rezultati govore o izvornom nalazu. Prema izvještaju o replikaciji, devet je laboratorija dalo pozitivnu,
 a osam negativnu točkastu procjenu (Wagenmakers, 2016). Kad bismo
 prebrojili samo predznake, mogli bismo zaključiti da su dokazi
 gotovo ravnomjerno podijeljeni.
@@ -1369,7 +1378,7 @@ razlike, a ostavljaju nesigurnost oko malih razlika u oba smjera.
 
 Za istraživača koji odlučuje na čemu graditi sljedeći pokus
 to znači da treba promijeniti očekivanje o veličini nalaza.
-Polaznu vrijednost za planiranje treba procijeniti u svjetlu novih, znatno manjih procjena. Rezultat pritom pripada određenoj manipulaciji, mjerenju i protokolu; drugi načini povezivanja izraza lica s doživljajem ostaju predmet zasebnih provjera.
+Polaznu vrijednost za planiranje treba procijeniti u svjetlu novih, znatno manjih procjena. Rezultat pritom pripada određenoj manipulaciji, mjerenju i protokolu. Drugi načini povezivanja izraza lica s doživljajem ostaju predmet zasebnih provjera.
 
 Pojedinačne procjene zato čitamo uz objedinjenu, a razlike
 među laboratorijima ne pretvaramo u objašnjenja bez dodatnih
@@ -1442,7 +1451,7 @@ Sljedeća tablica prikazuje obje rekonstrukcije iz istih 17 laboratorija.
 Intervali su normalni Waldovi intervali. Procjeni dodajemo i od nje
 oduzimamo $1,96\sqrt{1/\sum_i w_i}$. Taj račun tretira procijenjenu
 među-laboratorijsku varijancu kao zadanu, pa ne obuhvaća svu njezinu
-nesigurnost. U ovome poglavlju učimo čitati sintezu; procjena REML-a nije
+nesigurnost. U ovome poglavlju učimo čitati sintezu. Procjena REML-a nije
 zadatak za ručno računanje.
 
 *Slika. Autorska rekonstrukcija dviju sinteza iz laboratorijskih sažetaka prema @wagenmakers2016. Standardizirani redak nije zasebno objavljeni nalaz.*
@@ -1455,7 +1464,7 @@ uz interval od `r hr_broj(w12_standardna$donja, 2)` do
 `r sum(w12_rrr$raw_mean_difference > 0)` pozitivnih procjena,
 `r sum(w12_rrr$raw_ci_low > 0)` intervala u cijelosti iznad nule i
 `r sum(w12_rrr$raw_ci_low <= 0.82 & w12_rrr$raw_ci_high >= 0.82)` intervala
-koja obuhvaćaju 0,82. Ta brojanja opisuju raspored procjena; zaključak temeljimo na njihovoj veličini i nesigurnosti.
+koja obuhvaćaju 0,82. Ta brojanja opisuju raspored procjena. Zaključak temeljimo na njihovoj veličini i nesigurnosti.
 
 Prema zajedničkom protokolu prosječna razlika u replikacijama bila je blizu
 nule i mnogo manja od izvornih 0,82 boda (Wagenmakers, 2016). Sirovi i
@@ -1481,7 +1490,7 @@ dopuštenim zaključkom.
 | Koja je jedinica? | zapis za jedan laboratorij sa sažetkom razlike između eksperimentalnih uvjeta i njezine nesigurnosti |
 | Tko ili što nedostaje? | ljudi izvan uključenih uzoraka, drugi laboratoriji i drukčije operacionalizacije facijalne povratne sprege |
 | Koji je cilj tvrdnje? | prosječna razlika ocjena između uvjeta u zajedničkom postupku, opisana sirovom i standardiziranom sintezom |
-| Gdje je neizvjesnost? | preciznost laboratorijskih i objedinjenih procjena; ne obuhvaćaju sve probleme mjerenja, odabira i provedbe |
+| Gdje je neizvjesnost? | preciznost laboratorijskih i objedinjenih procjena. Ne obuhvaćaju sve probleme mjerenja, odabira i provedbe |
 | Koje drugo objašnjenje ostaje? | standardizacija mijenja ciljanu veličinu i doprinos laboratorija, pa rezultate uspoređujemo sadržajno |
 | Tko snosi posljedice? | istraživači, urednici i čitatelji koji procjenjuju koliko vjerovati izvornom nalazu |
 

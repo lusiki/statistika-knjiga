@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -27,7 +27,7 @@ Kad jednom odaberemo usporedbu, preostaje procijeniti koliko se opaženi
 raspored razlikuje od onoga koji bismo očekivali bez povezanosti. Bi li sam
 nalaz povezanosti bio dovoljan za zaključak o pravednosti upisa?
 
-Zbirne i odjelne stope prijma na Sveučilište Berkeley pokazale su koliko
+Isti zapisi prijava i odluka o prijmu na Sveučilište Berkeley, prema spolu i odjelu, pokazali su koliko
 tumačenje postotka ovisi o nazivniku i okolnostima nastanka podataka
 (Bickel, 1975). Za analizu kategorija trebamo povezati taj uvid s opisom
 raspodjele i povezanosti, procjenom nesigurnosti te razlikom između
@@ -45,11 +45,13 @@ provesti na frekvencijama u kontingencijskoj tablici. Uz rezultat testa i
 dalje trebamo pokazati veličinu razlike, njezinu nesigurnost i nazivnike na
 kojima se temelje prikazani udjeli.
 
-Postupak ćemo razviti na uzorku od 800 zamišljenih osoba iz već poznatog skupa
-`populacija_medija`. Riječ je o računalno stvorenim podacima za nastavu, pa rezultate tumačimo unutar te zamišljene populacije.
-Iz svakog zapisa izdvojit ćemo dobnu skupinu i glavni izvor vijesti,
-televiziju, radio, tisak, portal ili društvene mreže. Želimo saznati kako se
-izbor izvora razlikuje među dobnim skupinama.
+Usporedbom tiska i portala procjenjivali smo razliku u povjerenju i njezinu
+nesigurnost. Sada nas zanima kako se sam izbor izvora vijesti razlikuje s dobi.
+
+Za tu usporedbu zasebno izvlačimo uzorak od 800 osoba iz poznate nastavne
+populacije `populacija_medija`. Svaki zapis pripada zamišljenoj osobi s dobnom
+skupinom i glavnim izvorom vijesti. Nalaz ostaje opis računalno stvorene
+populacije, bez zaključka o stvarnim stanovnicima.
 
 Najprije ćemo prebrojiti odgovore i usporediti postotke unutar skupina. Potom
 ćemo izračunati očekivane frekvencije pod pretpostavkom nezavisnosti i
@@ -108,7 +110,7 @@ svih korisnika televizije. Promijenilo se pitanje, pa isti zapisi traže
 postotak po stupcu. Duljine stupaca na sljedećoj slici ipak prikazuju prvo
 pitanje, udjele izvora unutar svake dobne skupine.
 
-*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama; udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora.*
+*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama. Udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora.*
 
 Društvene mreže bira `r hr_broj(s13_retci["18 do 29", "društvene mreže"])` % osoba od 18 do 29 godina, a `r hr_broj(s13_retci["60 i više", "društvene mreže"])` % osoba
 od 60 i više godina. Televiziju bira `r hr_broj(s13_retci["18 do 29", "TV"])` % najmlađih i `r hr_broj(s13_retci["60 i više", "TV"])` %
@@ -314,7 +316,7 @@ raspodjelom resursa. Uz V kao sažetak jačine veze čitamo pojedine udjele kako
 
 ## Referentna raspodjela je istraživačka odluka
 
-Dosad smo uspoređivali dob i izvor vijesti. Na istih 800 zapisa možemo
+Dosad smo uspoređivali dob i izvor vijesti. Na istom uzorku od 800 osoba možemo
 postaviti drukčije pitanje, odgovara li sastav uzorka prema obrazovanju
 poznatom sastavu naše simulirane populacije. Zadržavamo osobe, ali sada
 brojimo samo razine obrazovanja. Za svaku razinu očekivani broj dobivamo
@@ -354,7 +356,7 @@ kategorije nastale i koji je nazivnik svakog udjela.
 
 ## Kad je aproksimacija tanka
 
-U prethodnoj analizi 800 simuliranih osoba najmanja očekivana frekvencija
+U uzorku od 800 osoba najmanja očekivana frekvencija
 iznosi `r hr_broj(s13$min_ocekivana)` pa nijedna ćelija nije osobito rijetka.
 Da bismo vidjeli što se događa kada očekivani brojevi postanu mali, privremeno
 napuštamo taj uzorak i pojednostavljujemo pitanje. U zasebnom nastavnom
@@ -480,43 +482,25 @@ Odluka o spajanju kategorija traži i sadržajno opravdanje. Sljedeći
 primjer pokazuje što se pritom može izgubiti iz istraživačkog pitanja.
 
 **Statistika u divljini.**
-**Gdje su nestali slušatelji radija?**
+**Tri odgovora u jednoj kategoriji.** Pew Research Center u izvještaju o
+odraslim stanovnicima SAD-a bez religijske pripadnosti zajedno prikazuje
+ateiste, agnostike i osobe koje na pitanje o svojoj religiji biraju odgovor
+„ništa posebno” (Center}, 2024). Zajednička kategorija omogućuje usporedbu s
+osobama koje navode neku religiju. Izvorni odgovori pokazuju i razlike unutar
+nje. Prema procjeni s težinama iz ankete provedene 2023., u Boga ili neku višu
+silu vjeruje 67 % agnostika, uz objavljenu 95-postotnu marginu uzoračke
+pogreške za tu skupinu od ±6,0 postotnih bodova (Center}, 2024). Za osobe s
+odgovorom „ništa posebno” procjena iznosi 83 %, a odgovarajuća margina za tu
+skupinu ±3,5 postotnih bodova (Center}, 2024). Svaki se postotak odnosi na
+vlastitu skupinu. Jedan zajednički udio prikrio bi tu razliku.
 
-Zamislimo da gradska knjižnica želi saznati kako stanovnici doznaju za
-njezina događanja. Treba odlučiti gdje će objavljivati obavijesti i na koje
-će kanale usmjeriti ograničeno vrijeme zaposlenika. U anketi zato pita za
-dob i glavni izvor informacija. Među odgovorima su društvene mreže, portal,
-radio i tiskane obavijesti.
-
-Tim sastavlja tablicu i pokreće hi-kvadrat test. U nekim kombinacijama dobi
-i izvora očekivani su brojevi manji od pet. Netko predlaže da radio i
-tiskane obavijesti spoje u kategoriju „ostalo”. Nakon spajanja upozorenje programa nestaje i tim smatra da je analiza
-spremna za izvještaj.
-
-Ali vratimo se odluci zbog koje je anketa provedena. Knjižnica želi znati
-kojim kanalima može dosegnuti različite stanovnike. Ako su radio i tiskane
-obavijesti spojeni, nova tablica više ne pokazuje njihove zasebne obrasce.
-Čak i kada je takva podjela opravdana za određeni test, iz nje ne možemo
-odgovoriti treba li knjižnica nastaviti suradnju s radijem ili drukčije
-rasporediti tiskane obavijesti.
-
-Tako se tehničko pitanje o očekivanim frekvencijama pretvorilo u pitanje o
-sadržaju istraživanja. Preporuka o pragu pet služi procjeni hi-kvadrat
-aproksimacije (Cochran, 1954). Sama po sebi ne govori koje odgovore ima
-smisla spojiti niti koji je komunikacijski kanal važan za knjižnicu. Mali broj odgovora upozorava na oskudne informacije o navikama te skupine. Važnost tih ljudi za knjižnicu prosuđujemo prema njezinoj svrsi i njihovim potrebama.
-
-Tim zato najprije treba sačuvati pregled izvornih frekvencija i udjela.
-Zatim može procijeniti prikladnost postupka, razmotriti drugi način
-računanja p-vrijednosti ili obrazložiti podjelu kategorija koja odgovara
-istraživačkom pitanju. Ako podaci nisu dovoljni za odluku o pojedinom
-kanalu, i to treba jasno napisati.
-
-Prisjetimo se simulacije iz ovoga poglavlja. Provjeravali smo i lažne uzbune
-i sposobnost otkrivanja postojeće veze. Nakon tehničke provjere još trebamo procijeniti pružaju li podaci dovoljno informacija za odluku knjižnice.
-
-Prije spajanja kategorija zato pitajmo što ćemo nakon spajanja još moći
-saznati. U ovom slučaju to pitanje određuje hoće li slušatelji radija ostati
-vidljivi u zaključku istraživanja.
+Ako nas zanimaju uvjerenja agnostika i osoba koje su odabrale odgovor „ništa
+posebno”, trebamo sačuvati zasebne kategorije i podatak o vjerovanju. Izbor
+podjele određuje koje ćemo razlike moći opisati. O tome vodimo računa i kada u
+hi-kvadrat analizi razmatramo spajanje rijetkih kategorija. Veći očekivani
+brojevi mogu poboljšati hi-kvadrat aproksimaciju, ali ne vraćaju razlike koje
+smo spajanjem uklonili. Zato uz provjeru prikladnosti postupka čuvamo izvorne
+frekvencije i udjele te objašnjavamo na koje pitanje odgovara spojena tablica.
 
 **Nađite grešku.**
 Može li ovaj zaključak u izvještaj?
@@ -580,7 +564,7 @@ društvene mreže svrstavamo u digitalne, a televiziju, tisak i radio u
 tradicionalne izvore. Ta podjela odgovara novom pitanju i stvara novu varijablu. Najprije ćemo pročitati njezine
 udjele, a zatim ukupno odstupanje od nezavisnosti.
 
-Vraćamo se istim zapisima svih 800 osoba, a zasebni pokus s dvjema skupinama
+Vraćamo se istom uzorku od 800 osoba, a zasebni pokus s dvjema skupinama
 ovdje završava. Sve osobe ostaju uključene. Primjerice, u najmlađem retku
 zbrajamo `r s13_tablica[1, "portal"]` korisnika portala i
 `r s13_tablica[1, "društvene mreže"]` korisnika mreža, što daje
@@ -617,7 +601,7 @@ Iz dobivenih rezultata sada možemo sastaviti kratak izvještaj.
 > `r hr_broj(s13$ci_digitalni[[2]], 1)`. Za cijelu tablicu hi-kvadrat iznosi
 > `r hr_broj(s13$hi_spojena)`, uz `r s13$df_spojena` stupnja slobode
 > i p-vrijednost manju od 0,001, a Cramérovo V `r hr_broj(s13$v_spojena, 2)`. Rezultat opisuje
-> generirane osobe i ne daje procjenu medijskih navika stanovnika Hrvatske
+> zamišljene osobe i ne daje procjenu medijskih navika stanovnika Hrvatske
 > niti dokaz da dob uzrokuje izbor izvora.
 
 Prva rečenica određuje pitanje i podatke. Sljedeće daju opaženi obrazac
@@ -636,7 +620,7 @@ Kod preuzima uzorak i učitane pakete iz već pripremljene analize poglavlja. U 
 `chisq.test` sažima odstupanje od nezavisnosti u hi-kvadrat, određuje
 stupnjeve slobode i računa p-vrijednost prema referentnoj raspodjeli. Za tablicu 2 × 2 R zadano primjenjuje korekciju kontinuiteta, koja ublažava prijelaz s diskretnih brojanja na kontinuiranu krivulju. Za ovdje opisani nekorigirani račun treba navesti `correct = FALSE`.
 
-Vratimo se Berkeleyju. Zbirna tablica pokazivala je povezanost spola i ishoda
+Vratimo se istim berkeleyjskim prijavama. Zbirna tablica pokazivala je povezanost spola i ishoda
 prijave (Bickel, 1975). Hi-kvadrat, V i reziduali mogli bi opisati taj obrazac,
 ali ne i objasniti ga. Nedostajao je odjel prijave. Muškarci i žene nisu se
 jednako raspoređivali po odjelima, a odjeli su imali različite stope prijma. U
@@ -719,20 +703,21 @@ jačini univerzalnu oznaku bez sadržajnog obrazloženja.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Cumming predlaže da usporedbu skupina izvještavamo procjenom razlike i
-njezinim intervalom (Cumming, 2014). Tako čitatelj vidi više od oznake da je
-rezultat statistički značajan.
+Što bi se promijenilo kada bismo privremeno isključili Facebook?
+To je pitanje istraženo pokusom prije američkih izbora. Dobrovoljci
+koji su pristali na ponuđenu naknadu za deaktivaciju računa nasumično su
+raspoređeni u skupine (Allcott, 2020). Istraživači su pratili dobrobit i
+informiranost, uz usporedbu sa skupinom koja je nastavila koristiti
+Facebook (Allcott, 2020).
 
-Iz procjene saznajemo kolika je razlika, a iz intervala koliko smo je precizno
-odredili. Te brojke možemo usporediti s ranijim nalazima i s razlikom koja bi
-bila važna za odluku.
-
-Kako odabrati usporedbu koja odgovara istraživačkom nacrtu i iz nje napisati
-jasan zaključak?
+Za svaki ishod trebalo je procijeniti razliku među skupinama i njezinu
+nesigurnost. Randomizacija je oblikovala skupine, ali sudionici nisu bili
+slučajan uzorak svih korisnika (Allcott, 2020). Kako usporedbu uskladiti s
+istraživačkim nacrtom i obrazložiti na koga se zaključak odnosi?
 
 Oznaka glavnoga izvora vijesti u prethodnom nam je poglavlju služila za
 brojanje osoba u kategorijama. Sada uz oznaku skupine promatramo brojčani
@@ -740,11 +725,14 @@ odgovor. Zanima nas koliko se prosječno povjerenje u medije razlikuje među
 skupinama i koliko smo tu razliku precizno procijenili. Poznato pitanje o
 povezanosti time dobiva drukčiji oblik podataka i drukčiji račun.
 
-U glavnom primjeru koristimo uzorak od 120 zamišljenih osoba iz skupa
-`populacija_medija` kojima su televizija ili društvene mreže glavni izvor
-vijesti. Svaki redak predstavlja jednu osobu s ocjenom povjerenja
-u medije. Time mijenjamo skupine u odnosu na usporedbu tiska i portala iz
-poglavlja o testiranju. Podaci i dalje pripadaju nastavnoj simulaciji. Na njima možemo usporediti postupke za isti jasno određen odnos.
+Usporedba tiska i portala pokazala je razliku u povjerenju, a dobne skupine
+različit sastav publike izvora. Sada procjenjujemo razliku između korisnika
+televizije i društvenih mreža s njezinim intervalom.
+
+Iz iste nastavne populacije `populacija_medija` zasebno izvlačimo uzorak od
+120 korisnika televizije i društvenih mreža. Svaki redak predstavlja jednu
+zamišljenu osobu, njezin izvor i povjerenje na ljestvici od jedan do deset.
+Rezultati se odnose na tu simulaciju, bez zaključka o stvarnoj publici.
 
 Za izbor postupka vratit ćemo se nacrtu istraživanja. Razlika između rezultata različitih ljudi i promjena izmjerena na istim
 ljudima traže različite račune. Zasebno ćemo razmotriti i usporedbu jedne sredine s unaprijed
@@ -803,10 +791,10 @@ U izvještaju prvo navodimo razliku u izvornim jedinicama i njezin interval.
 Zatim prikazujemo test i standardiziranu razliku. Tako čitatelj prije odluke o
 nuli može procijeniti veličinu i nesigurnost opaženog odnosa.
 
-Nakon ograničavanja populacije na ta dva izvora izvukli smo 120 osoba bez
-ponavljanja. Uzorak je izvučen zasebno od ranijih 800 osoba. Broj korisnika
-svakog izvora nije unaprijed zadan. Zbrajanjem njihovih odgovora i dijeljenjem
-odgovarajućim brojem osoba dobivamo dvije sredine.
+Uzorak od 120 korisnika televizije i društvenih mreža izvučen je bez vraćanja
+iz populacije ograničene na ta dva izvora, zasebno od uzorka od 800 osoba.
+Broj korisnika svakog izvora nije unaprijed zadan. Zbrajanjem njihovih odgovora
+i dijeljenjem odgovarajućim brojem osoba dobivamo dvije sredine.
 
 *Slika. Od odgovora do sredina u novom uzorku od 120 osoba. Izrada autora.*
 
@@ -838,10 +826,10 @@ U ovome računu Welchovi stupnjevi slobode iznose
 `r hr_broj(qt(.975, s14$df_welch), 3)`. Za test nulte razlike dijelimo
 opaženu razliku njezinom standardnom pogreškom. Dobivenu t-statistiku
 uspoređujemo s oba repa iste t-raspodjele. Taj račun pretpostavlja neovisne
-skupine i jedinice te približno normalne sredine; za male skupine posebno
+skupine i jedinice te približno normalne sredine. Za male skupine posebno
 je važan oblik raspodjele bez dominantnih krajnjih vrijednosti.
 
-U našem uzorku prosječno povjerenje iznosi
+U uzorku od 120 korisnika televizije i društvenih mreža prosječno povjerenje iznosi
 `r hr_broj(s14_sazetak$sredina[s14_sazetak$izvor == "TV"], 2)` među onima koji
 navode TV kao glavni izvor vijesti i
 `r hr_broj(s14_sazetak$sredina[s14_sazetak$izvor == "društvene mreže"], 2)` među
@@ -858,7 +846,7 @@ Interval obuhvaća razlike ispod pola boda i blizu dva boda. Te vrijednosti
 mogu voditi različitim praktičnim odlukama. Širina intervala čini tu nepreciznost vidljivom uz oznaku značajnosti.
 
 U simulaciji znamo da stvarna razlika iznosi `r hr_broj(s14$pop_razlika, 2)` boda i da je interval
-obuhvaća. Dugoročni obuhvat provjeravamo ponavljanjima kakva smo koristili u poglavlju o procjeni; ovaj je pogodak samo jedno od mogućih ponavljanja.
+obuhvaća. Dugoročni obuhvat provjeravamo ponavljanjima kakva smo koristili u poglavlju o procjeni. Ovaj je pogodak samo jedno od mogućih ponavljanja.
 
 ## Interakcija — Uzorkivač dviju grupa
 
@@ -873,7 +861,7 @@ Raspodjelu tih razlika ovdje stvaramo kraćim računom. Za zadani normalni
 model poznajemo njezinu sredinu i standardnu pogrešku, pa razlike izvlačimo
 izravno iz te raspodjele, bez stvaranja svih pojedinaca svakoga novog
 uzorka. Digitalni prikaz koristi 1.500 takvih razlika, a tiskani 4.000 po
-nacrtu. Uključena su sva ponavljanja. Njihov raspon pokazuje preciznost procjene; za snagu testa ili obuhvat intervala trebali bismo u svakom ponavljanju provesti odgovarajući dodatni račun. Oblik histograma može
+nacrtu. Uključena su sva ponavljanja. Njihov raspon pokazuje preciznost procjene. Za snagu testa ili obuhvat intervala trebali bismo u svakom ponavljanju provesti odgovarajući dodatni račun. Oblik histograma može
 se malo promijeniti pri novom izvlačenju.
 
 Na slici uspoređujemo raspršenost pojedinačnih rezultata i preciznost
@@ -1008,8 +996,8 @@ kako smo učinili u poglavlju o veličini učinka.
 $$d = \frac{\bar{x}_2 - \bar{x}_1}{s_{\text{zdr}}}$$
 
 Združena varijanca ponderirani je prosjek dviju varijanci, s težinama
-$n_1-1$ i $n_2-1$; nakon korjenovanja dobivamo združenu standardnu devijaciju.
-Za `r s14$n_mreze` korisnika mreža i `r s14$n_tv` korisnika televizije
+$n_1-1$ i $n_2-1$. Nakon korjenovanja dobivamo združenu standardnu devijaciju.
+Vraćamo se istom uzorku od 120 korisnika televizije i društvenih mreža. Za `r s14$n_mreze` korisnika mreža i `r s14$n_tv` korisnika televizije
 račun iz nezaokruženih podataka daje `r hr_broj(s14_zdruzena, 4)`.
 Razlika sredina iznosi `r hr_broj(s14$razlika, 4)`, pa njihov omjer daje
 $d\approx$ `r hr_broj(s14$d, 4)`, odnosno `r hr_broj(s14$d, 2)`.
@@ -1033,7 +1021,7 @@ populaciji razlika iznosi `r hr_broj(s14$pop_razlika, 2)` boda. Među osobama od
 boda. Time smo promijenili ciljnu populaciju. Nismo izmjerili udio razlike
 koji je uzrokovan dobi niti odvojili uzročne učinke dobi i izvora vijesti.
 
-U našem uzorku tom dobnom rasponu pripada `r s14$uzak_n` od `r s14$n` osoba.
+U uzorku od 120 korisnika televizije i društvenih mreža tom dobnom rasponu pripada `r s14$uzak_n` od `r s14$n` osoba.
 Razlika sredina iznosi `r hr_broj(diff(s14_uzak_test$estimate), 2)` boda.
 Interval ide od `r hr_broj(s14$uzak_donja, 2)` do `r hr_broj(s14$uzak_gornja, 2)` i obuhvaća nulu. Ciljana razlika je
 manja, a zbog manjeg broja osoba procjena je manje precizna. Za planiranje
@@ -1098,9 +1086,9 @@ pogleda dodiruju li se crtice. Takav brz postupak može djelovati
 uvjerljivo dok ne saznamo što crtice prikazuju i kako su mjerenja
 nastala. Ista slika ne mora predstavljati istu usporedbu.
 
-Belia i suradnici taj su problem proučili s autorima znanstvenih
-radova. Internetski zadatak dovršila su 473 autora iz psihologije,
-bihevioralne neuroznanosti i medicine. Trebali su pomaknuti
+Problem se pokazao i u istraživanju u kojem su grafove čitali autori
+znanstvenih radova. Internetski zadatak dovršila su 473 autora iz
+psihologije, bihevioralne neuroznanosti i medicine (Belia, 2005). Trebali su pomaknuti
 prikazane sredine do razlike koju smatraju upravo statistički
 značajnom (Belia, 2005). Mnogi nisu dovoljno razlikovali standardne
 pogreške od intervala pouzdanosti ni neovisne skupine od
@@ -1157,7 +1145,7 @@ provjera postupka.
 
 ## Razrađeni primjer
 
-Za usporedbu televizije i društvenih mreža zadržavamo iste osobe, isto
+U uzorku od 120 korisnika televizije i društvenih mreža zadržavamo iste osobe, isto
 povjerenje i istu ciljanu razliku. Najprije ćemo je procijeniti Welchovim
 postupkom, a zatim zapisati kao koeficijent uz binarnu oznaku skupine. Budući
 da se točkasta procjena time ne mijenja, možemo se usredotočiti na pretpostavke
@@ -1172,7 +1160,7 @@ Za glavni zaključak zadržavamo Welchov postupak, dok drugi redak pokazuje
 
 *Slika. Ista procjena razlike i dva računa nesigurnosti u simuliranom uzorku. Izrada autora.*
 
-U izvještaju možemo navesti da u uzorku od 120 simuliranih osoba
+U izvještaju možemo navesti da u uzorku od 120 korisnika televizije i društvenih mreža
 korisnici televizije imaju prosječno `r hr_broj(s14$razlika, 2)` boda više
 povjerenja od korisnika društvenih mreža, uz Welchov 95-postotni interval
 od `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)` boda. To je razlika među skupinama koje same biraju izvor vijesti.
@@ -1279,7 +1267,7 @@ napišite rečenicu kojom bi je trebalo zamijeniti.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1305,12 +1293,14 @@ tu provjeru s onime što smo u poglavlju o krizi i obnovi naučili o odabiru
 rezultata. Ovdje je skup usporedbi unaprijed poznat, pa možemo tražiti
 postupak koji uvažava cijeli skup odluka.
 
-Za glavnu analizu uzimamo 300 zamišljenih osoba iz `populacija_medija` i
-zadržavamo izvor vijesti zadan pri stvaranju podataka. Jedan
-redak sadrži osobu, njezin izvor i ocjenu povjerenja. Skupine televizije,
-radija, tiska, portala i društvenih mreža zato se sada mogu razlikovati. Ti
-rezultati opisuju nastavni skup i služe učenju usporedbe, bez tvrdnje o
-stvarnoj publici.
+Usporedba televizije i društvenih mreža opisala je jednu razliku u povjerenju.
+Sada nas zanimaju razlike među svim izvorima i nesigurnost tih procjena.
+
+Uzorak od 300 osoba s pet izvora vijesti zasebno izvlačimo iz nastavne
+populacije `populacija_medija`. To je novo izvlačenje, a ne podskup ranijeg
+uzorka. Jedan redak predstavlja zamišljenu osobu s glavnim izvorom vijesti i
+povjerenjem na ljestvici od jedan do deset. Rezultati opisuju taj nastavni
+skup, bez tvrdnje o stvarnoj publici.
 
 Umjesto jedne razlike sredina sada ispitujemo jesu li sve skupinske sredine
 jednake. Razlaganjem varijabilnosti usporedit ćemo razmake među sredinama s
@@ -1420,7 +1410,7 @@ njezine skupne sredine.
 
 Zbroj između skupina iznosi $864+0+864=1\,728$. Dijeljenjem s
 $3-1=2$ dobivamo srednji kvadrat 864. Uz standardnu devijaciju 6,
-zbroj unutar skupina iznosi $3\times23\times6^2=2\,484$; nakon dijeljenja
+zbroj unutar skupina iznosi $3\times23\times6^2=2\,484$. Nakon dijeljenja
 sa $72-3=69$ srednji kvadrat iznosi 36. Omjer je zato $F=864/36=24$.
 Srednji kvadrat u nazivniku ima istu mjernu jedinicu kao onaj u brojniku,
 pa je F bez mjerne jedinice.
@@ -1469,8 +1459,7 @@ izvora vijesti zadane pri stvaranju podataka i uspoređujemo povjerenje
 njihovih korisnika. Skupine zato mogu imati različite prosjeke
 i prije uzorkovanja.
 
-Uzorak od 300 osoba izvukli smo bez vraćanja iz pune populacije, zasebno
-od uzorka prethodnog poglavlja. tablica pokazuje broj odgovora i sredinu
+Uzorak od 300 osoba s pet izvora vijesti izvukli smo bez vraćanja iz pune populacije, zasebno od uzorka od 120 korisnika televizije i društvenih mreža. tablica pokazuje broj odgovora i sredinu
 koju model pridružuje svakoj osobi iste skupine.
 
 *Slika. Pet skupina u glavnom uzorku od 300 osoba. Izrada autora.*
@@ -1517,7 +1506,7 @@ Referentna F-raspodjela opisuje koje bismo omjere dobivali pod tim nultim
 modelom uz normalne pogreške. Njezina dva parametra ovdje iznose
 `r s15$df1` i `r s15$df2`. Gornjih 5 % raspodjele počinje kod
 `r hr_broj(qf(0.95, s15$df1, s15$df2), 2)`, dok naš opaženi omjer iznosi
-`r hr_broj(s15$f, 2)`. Tu usporedbu koristimo za test; veličinu i važnost
+`r hr_broj(s15$f, 2)`. Tu usporedbu koristimo za test. Veličinu i važnost
 razlika i dalje čitamo iz sredina, eta-kvadrata i intervala.
 
 Postupak se zove analiza varijance jer uspoređuje izvore varijabilnosti. Njime
@@ -1551,7 +1540,7 @@ drukčije računaju nesigurnost. Klasična analiza varijance, kao obični
 homoskedastični linearni model, procjenjuje zajedničku rezidualnu varijancu.
 Welch zadržava zasebne skupne varijance i prilagođava stupnjeve slobode. Zato se njihovi intervali i p-vrijednosti mogu razlikovati.
 
-Taj model sada primjenjujemo na pojedinačne zapise iz skupa `populacija_medija`.
+Taj model primjenjujemo na isti uzorak od 300 osoba s pet izvora vijesti.
 Svakoj osobi pridružujemo sredinu njezina izvora vijesti, pa odstupanja oko tih
 pet sredina uspoređujemo s odstupanjima oko jedne zajedničke sredine.
 
@@ -1591,7 +1580,7 @@ Za jedan par sada oduzmemo dvije sredine iz tablice. Razlici televizije
 prema mrežama pridružujemo marginu `r hr_broj((s15$tv_mreze_gornja - s15$tv_mreze_donja)/2, 2)`
 boda, izračunatu zajedničkom rezidualnom varijancom, brojnostima tih dviju
 skupina i Tukeyjevim pravilom za svih pet skupina. Oduzimanjem i dodavanjem
-te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz istoga izvornog uzorka.
+te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz uzorka od 300 osoba s pet izvora vijesti.
 
 Među `r s15$parova` parova statistički su razlučive četiri usporedbe s društvenim
 mrežama. Televizija se od njih razlikuje za `r hr_broj(s15$tv_mreze, 2)` boda, uz istodobni
@@ -1601,8 +1590,8 @@ uzorkom ne razlučujemo.
 
 Na zajedničkoj osi možemo pregledati svih deset razlika. U nazivu para
 prvu skupinu uspoređujemo s drugom, pa pozitivna vrijednost znači višu
-sredinu prve skupine. Crte su istodobni 95-postotni Tukeyjevi intervali;
-okomita crta označuje izostanak razlike.
+sredinu prve skupine. Crte su istodobni 95-postotni Tukeyjevi intervali.
+Okomita crta označuje izostanak razlike.
 
 *Slika. Svih deset parnih razlika iz istoga modela, uz istodobne intervale. Izrada autora.*
 
@@ -1716,7 +1705,7 @@ Sačuvajte ispravno određene skupine i broj usporedbi. Ne pišite zamjenski kod
 
 ## Razrađeni primjer
 
-U povjerenju korisnika pet izvora vijesti želimo razdvojiti dva pitanja. Prvo
+Na istom uzorku od 300 osoba s pet izvora vijesti želimo razdvojiti dva pitanja o povjerenju. Prvo
 se odnosi na ukupan obrazac skupnih sredina, a drugo na veličinu konkretnih
 razlika među izvorima. Najprije ćemo prikazati veličinu učinka i ukupni test, a
 zatim parne razlike s istodobnim intervalima. Tako će uz svaku usporedbu ostati
@@ -1811,22 +1800,19 @@ njegovu zamjenu.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Breiman je 2001. opisao dva pristupa statističkom modeliranju (Breiman, 2001).
-U prvome istraživač postavlja model nastanka podataka i tumači njegove
-parametre. U drugome postupak procjenjuje prema tome koliko dobro predviđa
-nove ishode.
+Koliko je ekonomski položaj odrasle djece povezan s položajem njihovih
+roditelja i je li ta veza jednaka u različitim krajevima? U istraživanju međugeneracijske mobilnosti u Sjedinjenim Državama
+istraživači su povezali porezne zapise roditelja i djece (Chetty, 2014).
+Odabrana mjera prihoda i način sažimanja odnosa omogućili su im da
+usporede i različita područja (Chetty, 2014).
 
-Upozorio je da dobro pristajanje opaženim podacima nije dovoljno za procjenu
-modela. Model može dobro opisati postojeći skup, a slabo predviđati nove
-rezultate ili pogrešno prikazivati mehanizam nastanka podataka.
-
-Istom jednadžbom možemo opisivati odnos, predviđati novu osobu ili pokušati
-procijeniti uzročni učinak. Za ta tri cilja trebaju različiti dokazi. Kako
-prepoznati što model doista omogućuje?
+Regresija pomaže opisati takav obrazac, dok objašnjenje njegova nastanka
+traži dodatne dokaze. Razlika među područjima otvara pitanje uzročnog
+mehanizma. Kako prepoznati što model doista omogućuje zaključiti?
 
 Uspoređivali smo prosječno povjerenje među korisnicima različitih izvora
 vijesti. Sada nas zanima kako se ono razlikuje s dobi, bez razvrstavanja ljudi
@@ -1841,11 +1827,15 @@ kategorički prediktor promatrati zajedno. Pitanje iz poglavlja o mjerenju i
 dizajnu pritom ostaje otvoreno. Trebamo procijeniti opisuje li model odnos ili
 imamo i razloge za uzročno tumačenje.
 
-Polazimo od svih 50.000 zamišljenih odraslih osoba u skupu
-`populacija_medija`, koristeći dob, glavni izvor vijesti i povjerenje u medije. Jedan zapis pripada jednoj osobi. Budući da za ovaj opis
-koristimo cijelu konačnu simuliranu populaciju, ne procjenjujemo nepoznatu
-vrijednost iz uzorka. Koeficijenti će sažeti zabilježene odgovore, a od njih
-ćemo odvojiti pravila kojima su ti odgovori stvoreni. Pri povratku ranijim
+Usporedbe su pokazale razlike u povjerenju među izvorima, a dobne skupine
+različit sastav njihove publike. Dob i izvor sada promatramo zajedno. Polazimo
+od svih 50.000 zamišljenih odraslih osoba u nastavnom skupu `populacija_medija`,
+koristeći dob, glavni izvor vijesti i povjerenje u medije.
+
+Jedan zapis pripada jednoj osobi, a računalno stvoreni odgovori ne opisuju
+stvarne stanovnike. Koristimo cijelu konačnu simuliranu populaciju, pa ne
+procjenjujemo nepoznatu vrijednost iz uzorka. Koeficijenti će sažeti odgovore,
+a od njih ćemo odvojiti pravila kojima su stvoreni. Pri povratku ranijim
 uzorcima ponovno ćemo razmotriti i njihovu nesigurnost.
 
 Odabrani pravac usporedit ćemo s opažanjima preko njihovih odstupanja,
@@ -1876,7 +1866,7 @@ zaokruživanja i ograničavanja ljestvice. Njegove koeficijente trebamo
 razlikovati od koeficijenata za zabilježene odgovore. Procjenjivane veličine
 u ovom su poglavlju koeficijenti najmanjih kvadrata za cijelu konačnu populaciju.
 
-*Slika. Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata izračunatim na svih pedeset tisuća pojedinačnih odgovora. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata izračunatim na svih pedeset tisuća pojedinačnih odgovora. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Na slici jedna točka sažima sve osobe iste cijele godine dobi. Za nju
 zbrajamo njihove ocjene i dijelimo njihovim brojem. Pravac ipak računamo iz
@@ -1988,7 +1978,7 @@ zbirnom odnosu pretvaramo u skup uvjetnih usporedbi.
 
 **Višestruka regresija** procjenjuje modelnu povezanost svakog prediktora s
 ishodom pri zadanim jednakim vrijednostima svih ostalih prediktora u modelu.
-Koeficijent je uvjetna usporedba koju zadaje model; kao usporedba podataka
+Koeficijent je uvjetna usporedba koju zadaje model. Kao usporedba podataka
 obranjiv je samo ondje gdje postoji dovoljno potpore i preklapanja, pa ne mora
 označavati stvarno uparene jedinice.
 
@@ -2095,7 +2085,7 @@ nagib iznosi `r hr_broj(s16$heterogenost_zbirno, 1)` i ne opisuje nijednu skupin
 prikazuju razliku koju bi zajednički koeficijent sakrio. Ako je $B=1$
 za drugu skupinu, a $B=0$ za prvu, obje zapisujemo jednadžbom
 $\hat y=2+0,6x+6B-0,8xB$. Član $xB$ mijenja nagib iz 0,6 u −0,2.
-Taj namjerno izražen primjer služi učenju interakcije; ne tvrdi da su
+Taj namjerno izražen primjer služi učenju interakcije. Ne tvrdi da su
 takve razlike nagiba prisutne u prethodnoj medijskoj populaciji.
 
 *Slika. Predviđene vrijednosti u simuliranom primjeru s različitim skupnim nagibima. Deblja zbirna linija opisuje prosjek koji ne vrijedi ni za jednu skupinu. Izrada autora.*
@@ -2145,7 +2135,7 @@ Model s binarnim prediktorom daje razliku dviju sredina. Model s više
 kategorija daje razlike prema referentnoj skupini. Sada smo dodali brojčani
 prediktor. Provjerimo vezu s ranijim računima.
 
-Uzorak od sto dvadeset osoba iz poglavlja o dvjema grupama daje razliku
+Iste osobe iz uzorka od 120 korisnika televizije i društvenih mreža, iz poglavlja o dvjema grupama, daju razliku
 sredina `r hr_broj(s16$razlika_dvije, 2)` boda. Koeficijent uz izvor u modelu iznosi `r hr_broj(s16$koef_dvije, 2)`. To su
 dva zapisa iste točkaste procjene.
 
@@ -2156,7 +2146,7 @@ postupak dopušta različite varijance te daje t od `r hr_broj(s16$t_welch_dvije
 stupnja slobode. Procijenjena razlika ostaje jednaka, ali račun nesigurnosti
 se mijenja.
 
-Na tristo osoba iz poglavlja o više skupina klasični model daje F od
+Na istom uzorku od 300 osoba s pet izvora vijesti iz poglavlja o više skupina klasični model daje F od
 `r hr_broj(s16$f_pet, 2)`, uz `r s16$df1_pet` i `r s16$df2_pet` stupnjeva slobode. To je isti
 homoskedastični postupak kao `aov` iz poglavlja Više grupa. Welch daje F od `r hr_broj(s16$f_welch_pet, 2)`,
 uz `r hr_broj(s16$df1_welch_pet, 0)` i `r hr_broj(s16$df2_welch_pet, 1)` stupnja slobode. Zajednički model sredina ne znači
@@ -2224,7 +2214,7 @@ obzir broj prediktora i pada s `r hr_broj(100 * s16$prilagodeni_bez, 1)` % na `r
 pomaže pri usporedbi, ali sama ne provjerava predviđanje, uzročnost ni
 sadržajnu valjanost.
 
-Ograničenje raspona također mijenja ovu mjeru. Među osobama od trideset do
+Za provjeru ograničenja raspona vraćamo se cijeloj simuliranoj populaciji, zasebno od prethodnog uzorka od 200 osoba. Među osobama od trideset do
 pedeset godina nagib iznosi `r hr_broj(s16$nagib_usko, 4)`, gotovo kao prije. Objašnjeni udio ipak
 pada s `r hr_broj(100 * s16$r2_jedan, 1)` % na `r hr_broj(100 * s16$r2_usko, 1)` % u skupu od `r hr_broj(s16$n_usko, 0)` ljudi. Koeficijent
 determinacije zato ovisi o populaciji i rasponu podataka.
@@ -2242,18 +2232,16 @@ Regresija objava zato ne opisuje osobnu uporabu, a skupni obrazac ne možemo
 pripisati pojedincu. Trebamo usporediti konstrukt, jedinicu, populaciju i
 obuhvat mjerenja.
 
-Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo osobe od
-30 do 50 godina, a ne podskup prethodnih 200. Za sljedeći dijagnostički
-primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
+Za sljedeći dijagnostički primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
 povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu
 i očekivana vrijednost i raspršenost.
 
 Mjesta na kojima model slabije odgovara podacima tražimo pregledom pojedinačnih odstupanja, reziduala. Tako dopunjujemo ukupni opis objašnjenog udjela. U našoj populaciji
 linearni odnos dnevnog praćenja medija i dobi ima nagib `r hr_broj(s16$nagib_minute, 2)` minute
 po godini. Reziduali oko tog pravca nisu jednako raspršeni duž cijelog raspona,
-što možemo vidjeti na njihovu prikazu.
+što možemo vidjeti na njihovu prikazu. Model računamo na cijeloj populaciji, a slika prikazuje slučajni podskup od 2.000 osoba.
 
-*Slika. Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostima koje model predviđa, na slučajnom podskupu od dvije tisuće osoba. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostima koje model predviđa, na slučajnom podskupu od dvije tisuće osoba. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Od šestine s najnižim do šestine s najvišim predviđanjima raspršenost
 reziduala raste s `r hr_broj(s16$rasprsenost_dolje, 0)` na `r hr_broj(s16$rasprsenost_gore, 0)` minuta. Pogrešku zato trebamo opisati duž raspona predviđanja, uz ukupnu mjeru. Kada bismo imali uzorak, račun
@@ -2371,12 +2359,11 @@ provjeriti ovim podacima, trebamo je jasno navesti uz zaključak.
 iz istraživanja o društvenim mrežama pokušati zaključiti bi li
 ograničenje vremena uporabe smanjilo simptome depresije. U toj
 zamišljenoj primjeni nalaz treba pročitati prije nego što ga
-pretvorimo u preporuku. Kleppang i suradnici analizirali su
-samoprijavljene presječne podatke istraživanja Ungdata iz 2018.,
-koji obuhvaćaju 12.353 norveških adolescenata od 15 do 16 godina,
-uz ukupni odaziv od 85 % (Kleppang, 2021). Njihov je predmet
-povezanost uporabe medija i simptoma, a ne učinak provedene
-zabrane.
+pretvorimo u preporuku. Analiza se oslanja na presječne podatke istraživanja Ungdata iz 2018.,
+u kojem je 12.353 norveških adolescenata od 15 do 16 godina dalo
+podatke o vlastitim navikama i simptomima, uz ukupni odaziv od 85 % (Kleppang, 2021). Ti odgovori
+omogućuju proučavanje povezanosti uporabe medija i simptoma. Učinak
+provedene zabrane zahtijevao bi drukčije istraživanje.
 
 Ishod u modelu razlikuje rezultat na mjeri simptoma depresije
 na ili iznad 80. percentila od nižih rezultata
@@ -2391,14 +2378,14 @@ se društvene mreže i igranje uključe zasebno ili zajedno.
 | Igranje, do 3 sata | nije u modelu | 1 (ref.) | 1 (ref.) |
 | Igranje, više od 3 sata | nije u modelu | 1,57 (1,36–1,80) | 1,38 (1,19–1,59) |
 
-: Prilagođeni omjeri izgleda za simptome depresije prema uporabi društvenih mreža i igranju. Sadržajno skraćena, preoblikovana i na hrvatski prevedena prilagodba Tablice 3 iz rada Kleppang i suradnika (Kleppang, 2021).
+: Prilagođeni omjeri izgleda za simptome depresije prema uporabi društvenih mreža i igranju. Sadržajno skraćena, preoblikovana i na hrvatski prevedena prilagodba Tablice 3 iz istraživanja povezanosti uporabe medija i simptoma depresije (Kleppang, 2021).
 
 Binarni ishod u ovome radu analizira se logističkom regresijom. Taj model
 povezuje prediktore s logaritmom izgleda, a ne s neograničenom sredinom
 binarnoga ishoda. Izgledi su omjer vjerojatnosti ishoda i vjerojatnosti
 njegova izostanka. Eksponiranjem odgovarajućega koeficijenta dobiva se omjer
 izgleda uz ostale prediktore u modelu. Ovdje učimo čitati objavljeni
-rezultat; prilagodba i provjera logističkog modela izvan su opsega knjige
+rezultat. Prilagodba i provjera logističkog modela izvan su opsega knjige
 (Kleppang, 2021).
 
 AOR označuje prilagođeni omjer izgleda. Sva tri modela
@@ -2576,7 +2563,7 @@ potvrđuju uspješnost predviđanja na novim podacima.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -2609,11 +2596,12 @@ nekoj osobi ili tekstu. U zamišljenom uredničkom sustavu iz vinjete
 procijenjeni ton odlučuje koja će rečenica dobiti dodatni pregled. Za procjenu
 takva sustava trebamo pratiti i nastanak oznake i posljedice pogrešne odluke.
 
-Hrvatski dio ParlaSenta sadrži stvarne parlamentarne rečenice s ljudskim
-oznakama tona (Mochtak, 2023). Rečenica je jedinica na koju se odnose zabilježene oznake i naši zaključci. Pratit ćemo tekst, dostupne oznake kodera i
+U hrvatskom dijelu skupa podataka ParlaSent 1.0 nalaze se stvarne
+parlamentarne rečenice čiji su ton procijenili ljudi. Skup je objavljen
+u repozitoriju Instituta Jožef Stefan (Mochtak, 2023). Rečenica je jedinica na koju se odnose zabilježene oznake i naši zaključci. Pratit ćemo tekst, dostupne oznake kodera i
 podjelu podataka. U nastavnom primjeru iz tih ćemo oznaka izvesti jednostavan
 rezultat za usporedbu pravila slanja na pregled. Time provjeravamo kako izbor
-praga mijenja odluku. Uspješnost budućega uvježbanog klasifikatora zahtijevala bi zasebnu provjeru njegovih predviđanja.
+praga mijenja odluku. Uspješnost budućega uvježbanog klasifikatora zahtijevala bi zasebnu provjeru njegovih predviđanja. Stvarne oznake omogućuju nam da pregledamo neslaganje ljudskih kodera i pogrešivost reference prema kojoj prosuđujemo odluku.
 
 U tom se zadatku sastaju ranija pitanja o mjerenju, uzorkovanju i pogreškama.
 Ljudske oznake tona trebamo provjeriti prema pravilima kodiranja, a doseg korpusa prema načinu odabira rečenica. Razmotrit ćemo zašto podatke razdvajamo za
@@ -2718,7 +2706,7 @@ Takvo preklapanje dokumenata bilo bi još jedan oblik curenja informacija.
 pristajanje njima, ali pogoršava predviđanje novih jedinica." en="overfitting"
 ch="17"} nastaje kada model nauči posebnosti viđenih podataka pa njima
 bolje pristaje, ali lošije predviđa nove jedinice. Zato ga provjeravamo
-na odvojenim jedinicama. Populacijski doseg zasebno određujemo prema odabiru podataka. Dobar rezultat na pravilno izdvojenom skupu podržava prediktivnu uspješnost u obuhvaćenim uvjetima; prijenos na druge tekstove zahtijeva dodatnu provjeru. Ovdje različit odabir i označavanje ispitnog dijela
+na odvojenim jedinicama. Populacijski doseg zasebno određujemo prema odabiru podataka. Dobar rezultat na pravilno izdvojenom skupu podržava prediktivnu uspješnost u obuhvaćenim uvjetima. Prijenos na druge tekstove zahtijeva dodatnu provjeru. Ovdje različit odabir i označavanje ispitnog dijela
 dodatno ograničavaju usporedbu.
 
 ## Od vjerojatnosti do pravednosti
@@ -2728,7 +2716,7 @@ Mala razlika u broju tako mijenja postupanje. Izbor praga treba povezati s
 posljedicama obiju vrsta pogreške.
 
 **Klasifikacijski prag** jest unaprijed određena vrijednost koja predviđenu
-vjerojatnost pretvara u kategoričku odluku; njegovim se pomicanjem mijenja
+vjerojatnost pretvara u kategoričku odluku. Njegovim se pomicanjem mijenja
 odnos vrsta pogrešaka.
 
 Svaka rečenica sada završava među poslanima na pregled ili među
@@ -2752,7 +2740,7 @@ preciznost (*precision*), računa se kao $TP/(TP+FP)$. Točnost
 točno negativne odluke, a FP i FN lažno pozitivne i lažno negativne.
 Klasifikacijska preciznost zato nije isto što i uski interval procjene.
 
-Brojeve ćemo u razrađenom primjeru dobiti prebrojavanjem ljudskih glasova i usporedbom pravila koja se na njima temelje. Za prag od barem jednoga negativnog
+Brojeve ćemo u razrađenom primjeru dobiti na istim rečenicama izvedenog skupa za provjeru, prebrojavanjem ljudskih glasova i usporedbom pravila koja se na njima temelje. Za prag od barem jednoga negativnog
 glasa tablica daje $TP=122$, $FP=16$, $FN=0$ i $TN=134$.
 Osjetljivost je $122/122$, specifičnost $134/150$, pozitivna prediktivna
 vrijednost $122/138$, a točnost $256/272$. Svaki nazivnik izdvaja drugu skupinu rečenica, pa zajedno daju potpuniji opis odluke.
@@ -3052,10 +3040,10 @@ doseg ovog primjera.
 | Revizijsko pitanje | Primjena na odluku o ljudskom pregledu |
 |---|---|
 | Koja je jedinica? | jedna odabrana parlamentarna rečenica s putom nastanka zabilježene oznake, ne govor, govornik ili sjednica |
-| Tko ili što nedostaje? | rečenice moderatora i rečenice izvan srednjega raspona duljine isključene su uzvodno; paket nema govornika, cijeli govor ni obranjivu skupnu varijablu |
-| Koji je cilj tvrdnje? | tablica uspoređuje dva pravila slanja u pregled prema zabilježenom negativnom ishodu; riječ je o opisu i provjeri odluke, ne izvedbi postojećega klasifikatora |
-| Gdje je neizvjesnost? | osjetljivost na prag; ne provjeravamo reprezentativnost, valjanost oznake, pogrešku kodiranja ni budući pomak distribucije |
-| Koje drugo objašnjenje ostaje? | stroži prag mijenja pogreške; slučajni pregled ili kriterij relevantnosti mijenjaju i cilj odabira |
+| Tko ili što nedostaje? | rečenice moderatora i rečenice izvan srednjega raspona duljine isključene su uzvodno. Paket nema govornika, cijeli govor ni obranjivu skupnu varijablu |
+| Koji je cilj tvrdnje? | tablica uspoređuje dva pravila slanja u pregled prema zabilježenom negativnom ishodu. Riječ je o opisu i provjeri odluke, ne izvedbi postojećega klasifikatora |
+| Gdje je neizvjesnost? | osjetljivost na prag. Ne provjeravamo reprezentativnost, valjanost oznake, pogrešku kodiranja ni budući pomak distribucije |
+| Koje drugo objašnjenje ostaje? | stroži prag mijenja pogreške. Slučajni pregled ili kriterij relevantnosti mijenjaju i cilj odabira |
 | Tko snosi posljedice? | pregledavatelji troše vrijeme, važan tekst može izostati, a govornik i javnost mogu dobiti iskrivljen prikaz |
 
 : Šest revizijskih pitanja za odluku o ljudskom pregledu. Izrada autora prema Mochtak, 2023 i mochtakparlasent2024.
@@ -3067,7 +3055,7 @@ Sljedeća tablica razlikuje šest vrsta tvrdnji. Doseg analize određujemo prema
 | opis | opisuje brojnosti, put oznake i posljedice dvaju pravila unutar pripremljenoga paketa |
 | povezanost | pokazuje povezanost dvaju koderskih glasova s usklađenom oznakom, uz izričitu ovisnost jer su isti glasovi sudjelovali u njezinu nastanku |
 | generalizacija | ne podupire prijenos na sav parlamentarni govor, govornike ili tekstove izvan odabranih rečenica |
-| predviđanje | ne ocjenjuje postojeći model; buduća bi procjena tražila zaključan model, prag, usporediv referentni postupak i jedan izdvojeni ispitni skup |
+| predviđanje | ne ocjenjuje postojeći model. Buduća bi procjena tražila zaključan model, prag, usporediv referentni postupak i jedan izdvojeni ispitni skup |
 | uzročnost | ne pokazuje što uzrokuje ton, uredničku važnost ili bilo koju posljedicu za govornika |
 | odluka | podupire provjeru tereta dvaju pragova, ali ne dokazuje da je negativan sentiment legitiman cilj usmjeravanja pozornosti |
 
@@ -3105,7 +3093,7 @@ tečan.
 ## Pojmovi
 
 osjetljivost klasifikatora (*sensitivity*), specifičnost (*specificity*),
-preciznost odnosno pozitivna prediktivna vrijednost (*precision; positive predictive value*),
+preciznost odnosno pozitivna prediktivna vrijednost (*precision, positive predictive value*),
 ukupna točnost (*accuracy*),
 
 tekstna jedinica (*text unit*), granica korpusa (*corpus boundary*), okvir

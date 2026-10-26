@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -34,7 +34,7 @@ predstavlja jednu osobu, a pratit ćemo povjerenje u medije, dnevno praćenje
 medija, izvor vijesti i spremnost na plaćanje. To je ista zamišljena
 populacija kojom smo se već služili, odvojena od manje ankete `anketa_mreze`.
 Iz nje možemo izvlačiti uzorke i njihove rezultate uspoređivati s poznatom
-ciljnom vrijednošću. U stvarnom istraživanju tu vrijednost obično ne vidimo.
+ciljnom vrijednošću. Ti zapisi ne opisuju stvarne stanovnike. U stvarnom istraživanju ciljnu vrijednost obično ne vidimo.
 
 Ponavljanjem odabira dobit ćemo raspodjelu uzoračkih rezultata, čije ćemo
 središte i širinu opisati sredinom i standardnom devijacijom. Standardnu
@@ -115,7 +115,7 @@ koliko se ljudi razlikuju. Distribucija uzorkovanja pokazuje koliko se mijenja
 procjena kroz različite uzorke. Obje imaju sredinu i standardnu devijaciju, pa
 je važno svaki put navesti što raspodjela opisuje.
 
-*Slika. Raspodjela pojedinačnih ocjena povjerenja u simuliranoj populaciji i raspodjela sredina tri tisuće uzoraka od po sto osoba, na zajedničkoj osi. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Raspodjela pojedinačnih ocjena povjerenja u simuliranoj populaciji i raspodjela sredina tri tisuće uzoraka od po sto osoba, na zajedničkoj osi. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Uzoračke sredine ovdje su raspoređene oko populacijske sredine. Procjenitelj
 zato dugoročno ne promašuje sustavno naviše ili naniže i nazivamo ga
@@ -217,7 +217,7 @@ Za uzorke od pet osoba asimetrija raspodjele sredina je `r hr_broj(s8$clt_asimet
 pada na `r hr_broj(s8$clt_asimetrija[["15"]], 2)`, za trideset na `r hr_broj(s8$clt_asimetrija[["30"]], 2)`, a za sto na `r hr_broj(s8$clt_asimetrija[["100"]], 2)`. Mijenja se
 raspodjela sredina, dok izvorna populacija ostaje ista.
 
-*Slika. Izrazito asimetrična populacijska varijabla i raspodjele njezinih uzoračkih sredina pri četiri veličine uzorka. Svaki panel ima vlastitu os. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Izrazito asimetrična populacijska varijabla i raspodjele njezinih uzoračkih sredina pri četiri veličine uzorka. Svaki panel ima vlastitu os. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 **Središnji granični teorem** (*central limit theorem*) u ovom modelu opisuje
 približavanje distribucije sredine normalnoj raspodjeli s rastom jednostavnog
@@ -310,7 +310,7 @@ izračunati iz zajedničkoga nacrta.
 
 Veličina populacije izostaje iz jednostavne formule jer smo zanemarili
 korekciju za konačnu populaciju. To je opravdano kada uzimamo malen dio
-populacije. U simulaciji uzorak od osamsto osoba iz cijele populacije daje
+populacije. Manju populaciju čini slučajno izdvojenih `r length(s8_mala_pop)` vrijednosti povjerenja iz iste populacije `populacija_medija`. Iz tako određenih cjelina zasebno izvlačimo uzorke. U simulaciji uzorak od osamsto osoba iz cijele populacije daje
 standardnu pogrešku `r hr_broj(s8$se_velika, 4)`, a iz deset puta manje populacije `r hr_broj(s8$se_mala, 4)`.
 Uzorak u drugom slučaju obuhvaća veći dio cjeline, pa je precizniji.
 Populacijske devijacije iznose `r hr_broj(s8$sigma, 3)` i `r hr_broj(s8$sigma_mala, 3)`. Formula s korekcijom
@@ -318,7 +318,7 @@ uzima u obzir i tu malu razliku te daje `r hr_broj(s8$se_velika_fpc, 4)` i `r hr
 simuliranim rezultatima.
 
 Dovoljnu veličinu uzorka određujemo prema pitanju koje istražujemo. Trebamo znati procjenjujemo li ukupni udio, sredinu, rijetku pojavu ili razliku skupina.
-Trebamo i nacrt, način odabira i odaziva te željenu preciznost. Preciznost za podskupinu ovisi o broju njezinih članova. Oko tisuću može biti korisna orijentacija za jedan ukupni udio u jednostavnom nacrtu; za ostale ciljeve veličinu određujemo zasebno.
+Trebamo i nacrt, način odabira i odaziva te željenu preciznost. Preciznost za podskupinu ovisi o broju njezinih članova. Oko tisuću može biti korisna orijentacija za jedan ukupni udio u jednostavnom nacrtu. Za ostale ciljeve veličinu određujemo zasebno.
 
 Margina pogreške opisuje promjenjivost zbog slučajnog odabira. Ne uključuje
 ljude izvan okvira, neodaziv ni učinak formulacije i redoslijeda pitanja.
@@ -354,8 +354,8 @@ tvrdnje o stvarnim ljudima.
 
 Složeni uzorci traže dodatne prilagodbe. **Kalibracija težina** usklađuje
 ponderirane zbrojeve s poznatim obilježjima populacije. Pri **grupnom
-uzorkovanju** biramo skupine, primjerice škole, pa osobe unutar njih;
-sličnost tih osoba može smanjiti količinu neovisne informacije. **Učinak
+uzorkovanju** biramo skupine, primjerice škole, pa osobe unutar njih.
+Sličnost tih osoba može smanjiti količinu neovisne informacije. **Učinak
 nacrta** uspoređuje varijancu procjene s onom jednostavnoga slučajnog uzorka,
 a **efektivna veličina uzorka** izražava istu preciznost brojem jedinica
 takva uzorka.
@@ -425,7 +425,7 @@ odnositi.
 Iste granice odabira susrećemo kada umjesto ljudi prikupljamo njihove
 tekstove. I korpus tekstova zahtijeva ciljnu populaciju. Za opis političke rasprave
 trebamo navesti uključujemo li govore, intervjue ili objave, s kojih platformi
-ili arhiva, iz kojeg razdoblja, na kojim jezicima i od kojih govornika. Dostupnost tekstova tek je polazište; populaciju određujemo prema sadržajnom pitanju i navedenom obuhvatu.
+ili arhiva, iz kojeg razdoblja, na kojim jezicima i od kojih govornika. Dostupnost tekstova tek je polazište. Populaciju određujemo prema sadržajnom pitanju i navedenom obuhvatu.
 
 Obrisane i privatne objave mogu izostati iz arhiva, stariji sadržaj biti
 nedostupan, a odabrana ključna riječ propustiti relevantne tekstove. Veći broj
@@ -516,8 +516,8 @@ formule opisivat će ili približno izražavati rezultat takvog ponavljanja unut
 određenog modela.
 
 Jedan korak možemo pratiti na zasebnoj, namjerno sastavljenoj ilustraciji
-s iznosima 0, 0, 10, 20 i 70 kuna. Sredina je $100/5 = 20$
-kuna. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
+s iznosima 0, 0, 10, 20 i 70 eura. Sredina je $100/5 = 20$
+eura. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
 novim odabirom iz svih 50 000 osoba. Svaki novi uzorak ostavlja samo
 jednu sredinu u raspodjeli koju uspoređujemo.
 
@@ -527,8 +527,8 @@ predviđa odnos s korijenom veličine uzorka. Zasebno ćemo pregledati je li se
 promijenio i njezin oblik.
 
 `replicate` ponavlja izraz i sprema rezultate. Prosjek četiri tisuće sredina iz
-uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` kuna, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
-kuna. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` kuna. Obje veličine uzorka daju
+uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` eura, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
+eura. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` eura. Obje veličine uzorka daju
 procjene usredotočene blizu nje, u skladu s nepristranošću.
 
 Standardna pogreška pada s `r hr_broj(s8_p$se5, 2)` za pet osoba na `r hr_broj(s8_p$se60, 2)` za šezdeset,
@@ -553,7 +553,7 @@ Približenje $1/\sqrt{n}$ za 95-postotnu marginu udjela odnosi se na
 jednostavni slučajni uzorak, malu uzoračku frakciju i najnepovoljniji udio
 od 0,5. Nastaje iz $1,96\sqrt{0,25/n}$ uz zaokruživanje 0,98 na jedan.
 Nije opća formula za svaki udio i svaki nacrt. Kalibracija težina usklađuje
-ponderirane zbrojeve s poznatim obilježjima populacije; razlikuje se od
+ponderirane zbrojeve s poznatim obilježjima populacije. Razlikuje se od
 kalibracije prognoze, koja uspoređuje najavljene vjerojatnosti s ishodima.
 
 ## Sažetak

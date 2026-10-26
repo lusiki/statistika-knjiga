@@ -163,12 +163,12 @@ s7 <- list(
 
 ::: {.callout-vinjeta}
 Košarkaši i navijači često govore o vrućoj ruci, uvjerenju da nakon nekoliko
-pogodaka raste vjerojatnost sljedećeg. Gilovich, Vallone i Tversky proučili su
-to vjerovanje kroz zapise utakmica i kontrolirani pokus. Zaključili su da
-ljudi u slučajnim nizovima vide obrazac koji ne postoji [@gilovich1985].
+pogodaka raste vjerojatnost sljedećeg. Jedno je istraživanje provjerilo to vjerovanje kroz zapise utakmica i
+kontrolirani pokus. Nalazi su protumačeni kao znak da ljudi u slučajnim
+nizovima vide obrazac koji ne postoji [@gilovich1985].
 
-Njihovo je tumačenje bilo da se prividni niz uspjeha može objasniti
-slučajnošću [@gilovich1985]. Kasnija ponovna analiza, međutim, otkrila je
+Prema tom se tumačenju prividni niz uspjeha mogao objasniti slučajnošću
+[@gilovich1985]. Kasnija ponovna analiza, međutim, otkrila je
 pristranost u samom načinu mjerenja tog obrasca [@miller2018].
 
 Kako procijeniti je li niz posljedica promjene u procesu ili slučajnosti?
@@ -216,7 +216,7 @@ Kratki odsječci mogu izgledati neuravnoteženo i uz isti pošten novčić.
 
 ```{r}
 #| label: fig-veliki-brojevi
-#| fig-cap: "Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Tri linije počinju daleko jedna od druge i snažno kolebaju u prvih stotinjak bacanja, a zatim se sve tri postupno primiču vrijednosti pola i ostaju blizu nje do kraja niza."
 
 ggplot(s7_nizovi, aes(bacanje, udio, group = niz)) +
@@ -553,7 +553,7 @@ w07_rezultati = {
 ```{r}
 #| echo: false
 #| label: fig-w07-print
-#| fig-cap: "Simulirane stope uspjeha pri dvjema duljinama niza i istoj zadanoj vjerojatnosti modela. Dulji niz daje užu raspodjelu. Isprekidana okomita crta označuje zadanu vjerojatnost uspjeha od 0,30. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Simulirane stope uspjeha pri dvjema duljinama niza i istoj zadanoj vjerojatnosti modela. Dulji niz daje užu raspodjelu. Isprekidana okomita crta označuje zadanu vjerojatnost uspjeha od 0,30. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Dva okomito poredana histograma pokazuju da se stope uspjeha uz dvjesto pokušaja jače zbijaju oko trideset posto nego uz dvadeset pokušaja."
 #| fig-width: 6.6
 #| fig-height: 5.0
@@ -666,7 +666,7 @@ S raspodjele prosjeka sada prelazimo na pojedinačne vrijednosti u istoj populac
 
 ```{r}
 #| label: fig-pravilo-podrucja
-#| fig-cap: "Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Lijevi panel prikazuje blago desno nagnutu raspodjelu minuta u kojoj su obje crte unutar podataka. Desni panel prikazuje raspodjelu iznosa u kojoj golem stupac stoji na nuli, donja crta pada izvan mogućih vrijednosti, a desni rep se proteže daleko."
 
 s7_dvije <- bind_rows(
@@ -748,7 +748,7 @@ njega pokazuju gdje oblik podataka odstupa od normalnoga oblika.
 
 ```{r}
 #| label: fig-qq
-#| fig-cap: "Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "U prvom panelu točke za dnevne minute prate pravac uz blago odizanje na desnom kraju. U drugom panelu točke za spremnost na plaćanje leže vodoravno na nuli i zatim naglo skreću uvis. U trećem panelu logaritmirani iznosi ponovno prate pravac."
 
 set.seed(710)
@@ -864,17 +864,17 @@ niza. To je moguća odluka kojoj pitanje o vrućoj ruci daje smisao.
 Zanima nas govori li prethodni uspjeh nešto o sljedećem pokušaju ili
 promatramo niz kakav može nastati i bez promjene vjerojatnosti pogotka.
 
-Gilovich, Vallone i Tversky proučavali su vjerovanje u vruću ruku i
-svoje nalaze protumačili kao dokaz da ljudi u nizovima vide promjenu
-koje nema [@gilovich1985]. Za provjeru takve tvrdnje naizgled je
+Izvorno istraživanje vruće ruke ponudilo je tumačenje da ljudi u
+nizovima vide promjenu koje nema [@gilovich1985]. Za provjeru takve tvrdnje naizgled je
 dovoljno izdvojiti pokušaje nakon pogodaka i usporediti njihovu uspješnost s uspješnošću pokušaja nakon promašaja. No izdvajanjem
 mjesta unutar konačnih nizova već smo uveli postupak odabira koji
 može promijeniti očekivani rezultat.
 
-Upravo su taj problem razradili Miller i Sanjurjo. Pokazali su da je
-uobičajena mjera ovisnosti osjetljiva na pristranost odabira, a nakon
-ispravka ponovno su analizirali izvorni kontrolirani pokus i dobili
-zaključak u prilog vrućoj ruci [@miller2018]. Do ispravka su došli promjenom referentnog računa s kojim su uspoređivali opaženi niz.
+Kasnija metodološka analiza pokazala je da je uobičajena mjera
+ovisnosti osjetljiva na tu pristranost odabira. Nakon ispravka, ponovna
+analiza izvornog kontroliranog pokusa dala je zaključak u prilog vrućoj
+ruci [@miller2018]. Promijenio se referentni račun s kojim se uspoređuje
+opaženi niz.
 
 Naša simulacija pokazuje kako postupak odabira i prosječenja proizvodi pomak
 iako se zadana vjerojatnost ne mijenja. Prije tumačenja stvarnih pokušaja

@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -42,16 +42,19 @@ trebamo riješiti još jedno pitanje. Provjerit ćemo usporedivost zapisa te raz
 
 Dosadašnja pitanja o jedinici, nazivniku i podrijetlu podataka sada
 primjenjujemo pri pripremi vlastite analize. Polazimo od stvarnih zbirnih
-tablica projekta DigiKat (Šikić, 2026). U njima redak predstavlja platformu u
+tablica projekta DigiKat Hrvatskoga katoličkog sveučilišta (Šikić, 2026). U njima redak predstavlja platformu u
 određenom razdoblju ili internetsku domenu tijekom obuhvata datoteke. Broj
 objava, doseg i interakcije različite su veličine, a njihova dostupnost nije
 jednaka. Provjerit ćemo koji se zapisi mogu spojiti, što pritom mora ostati
 nepromijenjeno i koje vrijednosti možemo uključiti u sažetak.
 
-Ponašanje pojedinih mjera zatim ćemo istražiti na skupu `anketa_mreze`,
-zasebnoj simuliranoj anketi u kojoj jedan redak predstavlja zamišljenu osobu s
-dobi, dnevnim minutama na društvenim mrežama i ocjenom povjerenja u tamošnji
-sadržaj. Nastao je zasebnom simulacijom, neovisno o ranije uvedenoj populaciji medijskih navika. Na njemu ćemo usporediti različite opise istih odgovora, a zaključci će se odnositi na te zamišljene osobe.
+Da bismo lakše pratili kako se računaju prosjek i druge mjere, poslužit
+ćemo se skupom podataka `anketa_mreze`. To je tablica koja izgleda kao
+rezultat ankete. Svaki redak opisuje zamišljenu osobu, njezinu dob, dnevne
+minute na društvenim mrežama i povjerenje u tamošnji sadržaj. Podatke smo
+stvorili računalnom simulacijom, zasebno od populacije medijskih navika iz
+ranijih poglavlja. Na istim ćemo odgovorima usporediti što nam pojedina
+mjera govori o tim zamišljenim osobama.
 
 Sredina i medijan opisuju središte raspodjele, a mjere raspršenosti razlike
 među opažanjima. Njihovu prikladnost provjeravamo prema obliku podataka i
@@ -86,7 +89,7 @@ jednog dijela ključa spojili bismo zapise koji ne pripadaju istoj jedinici.
 
 U mjesečnoj tablici, primjerice, jedan redak bilježi 11.701 obuhvaćenu
 objavu na webu u siječnju 2021. (Šikić, 2026). U tablici domena redak za `hkm.hr` bilježi
-56.500 objava kroz cijeli obuhvaćeni raspon (Šikić, 2026). Prvi broj opisuje platformu i mjesec, a drugi jednu domenu kroz više godina. Oba broje objave; za broj jedinstvenih čitatelja trebali bismo podatke o publici.
+56.500 objava kroz cijeli obuhvaćeni raspon (Šikić, 2026). Prvi broj opisuje platformu i mjesec, a drugi jednu domenu kroz više godina. Oba broje objave. Za broj jedinstvenih čitatelja trebali bismo podatke o publici.
 
 ### Ključ prije sažetka
 
@@ -136,7 +139,7 @@ samo za šest s dostupnom metrikom. Učinak sužavanja skupa provjeravamo na
 broju objava, koji poznajemo za sve platforme. Doseg i interakcije
 nedostajućih platformi ne možemo tako usporediti.
 
-*Slika. Osjetljivost medijana broja objava na nepotrebno izbacivanje platformi kojima nedostaje druga metrika. Presjek je potpuna 2025. godina; angažman i doseg ne uspoređuju se. Izvor: DigiKat [@digikat2026].*
+*Slika. Osjetljivost medijana broja objava na nepotrebno izbacivanje platformi kojima nedostaje druga metrika. Presjek je potpuna 2025. godina. Angažman i doseg ne uspoređuju se. Izvor: DigiKat [@digikat2026].*
 
 Medijan, središnja vrijednost u poredanom nizu, mijenja se s `r hr_broj(s4_medijan_sve_platforme, 1)` na `r hr_broj(s4_medijan_mjerene_platforme, 1)` objava. Usporedili smo svih devet
 vrsta platformi sa šest koje imaju metriku angažmana. Promijenio se skup na
@@ -175,7 +178,7 @@ minutu. Povjerenju također zadajemo niže prosjeke u starijim skupinama, uz
 slučajna odstupanja i granice ljestvice od 1 do 10.
 
 Nekoliko pojedinačnih zapisa omogućuje da prije prosjeka vidimo što se
-zbraja. Oznaka ispitanika služi razlikovanju redaka; dnevne minute i ocjena
+zbraja. Oznaka ispitanika služi razlikovanju redaka. Dnevne minute i ocjena
 povjerenja dvije su odvojene varijable.
 
 *Slika. Tri zapisa iz zasebne simulirane ankete o društvenim mrežama. Izrada autora.*
@@ -295,7 +298,7 @@ usporediti što se dugoročno događa s djeliteljima $n$ i $n-1$.
 Prva osoba ima `r s4_minute[1]` minuta. Odstupanje od sredine iznosi
 `r hr_broj(s4_minute[1] - s4$sredina, 2)`, a njegov kvadrat
 `r hr_broj((s4_minute[1] - s4$sredina)^2, 2)`. Takav kvadrat računamo za
-svaku osobu, zbrajamo svih 300 vrijednosti i dijelimo s 299. Pri kvadriranju zadržavamo punu preciznost odstupanja; prikaz na dvije decimale služi čitanju rezultata.
+svaku osobu, zbrajamo svih 300 vrijednosti i dijelimo s 299. Pri kvadriranju zadržavamo punu preciznost odstupanja. Prikaz na dvije decimale služi čitanju rezultata.
 
 Varijanca iznosi `r hr_broj(s4$varijanca, 1)` kvadriranih minuta. Kvadrira se i mjerna jedinica,
 zbog čega broj nije lako tumačiti u izvještaju. Kvadriranje također povećava
@@ -419,7 +422,7 @@ najstariju skupinu sredina iznosi
 `r hr_broj(mean(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
 minute, a standardna devijacija
 `r hr_broj(sd(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
-minuta; račun koristi nezaokružene vrijednosti.
+minuta. Račun koristi nezaokružene vrijednosti.
 
 *Slika. Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora.*
 
@@ -433,6 +436,7 @@ prema kojoj je skupini položaj izračunat.
 Tri raspodjele prikazuju utjecaj krajnjeg opažanja i raspršenosti ostalih
 vrijednosti. Usporedba sredine, medijana i mjera raspršenosti pokazuje koje
 mjere jače reagiraju na pojedinu vrijednost, a koje više ovise o poretku.
+Za tu smo usporedbu ručno zadali nizove vrijednosti. Svako je opažanje broj u nastavnoj konstrukciji, pa zaključak vrijedi za zadane nizove.
 
 *Slika. Reakcija mjera središta i raspršenosti na oblik konstruirane raspodjele.*
 
@@ -489,7 +493,7 @@ nakon povezivanja tablica. Sljedeći zapis omogućuje takav pregled.
 Prije sažimanja objava po platformi pregledajte zapis spajanja
 DigiKatovih tablica (Šikić, 2026). Redak mjesečne tablice predstavlja
 platformu u mjesecu, a redak godišnje platformu u godini. U mjesečnoj je
-tablici jedinstvena kombinacija `mjesec + platforma`; u godišnjoj se ista
+tablici jedinstvena kombinacija `mjesec + platforma`. U godišnjoj se ista
 godina pojavljuje uz više platformi.
 
 Asistent je spojio mjesečnu i godišnju tablicu te priložio provjeru.
@@ -589,8 +593,8 @@ standardnu devijaciju, koristeći djelitelj devet. U tablici raspršenosti
 usporedite promjene SD-a i IQR-a nakon zamjene krajnjeg opažanja. Koja se
 mjera više promijenila i zašto? Ako je standardizirana vrijednost neke osobe
 $z=1,5$, opišite njezin položaj prema sredini bez pretvaranja te vrijednosti
-u postotak osoba. Zadatak je jednak u digitalnoj i tiskanoj inačici;
-interakcija služi samo za dodatne pokuse.
+u postotak osoba. Zadatak je jednak u digitalnoj i tiskanoj inačici.
+Interakcija služi samo za dodatne pokuse.
 
 Za drugu provjeru koristimo agregate simulirane ankete, bez dodatnog
 zaokruživanja. U svakom su retku uz prosjek navedeni brojnik, nazivnik i
@@ -600,7 +604,7 @@ cjelobrojni zbroj.
 
 Za šifru 1 provjerite `7339 / 90` i `90 / 300`. Zatim zbrojite četiri brojnika i
 četiri zbroja minuta. Ako koristite datoteku `data/anketa-mreze.csv`, izdvojite šifru 1 i iz
-tih redaka ponovno izračunajte prvi redak zbirne tablice; zadatak ne zahtijeva
+tih redaka ponovno izračunajte prvi redak zbirne tablice. Zadatak ne zahtijeva
 pisanje koda. U tisku su svi potrebni brojnici, nazivnici i provjereni
 odgovori već u tablici.
 
@@ -629,13 +633,14 @@ spajanje.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Anscombe je sastavio četiri skupa s gotovo jednakim uobičajenim brojčanim
-sažecima i jednakim prilagođenim pravcem, ali vrlo različitim grafovima
-(Anscombe, 1973). U jednom se vidjela približno linearna veza, u drugom
+Četiri skupa podataka mogu imati gotovo jednake uobičajene brojčane
+sažetke i jednak prilagođeni pravac, a na grafovima izgledati sasvim
+drukčije. Poznati primjer, Anscombeov kvartet, sastavljen je upravo da
+bi pokazao koliko toga brojčani sažetak može sakriti (Anscombe, 1973). U jednom se vidjela približno linearna veza, u drugom
 zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz
 jedno izdvojeno opažanje.
 
@@ -645,7 +650,7 @@ Svi su sažeci bili ispravno izračunati. Četiri različita rasporeda opažanja
 
 U poglavlju o sažimanju birali smo mjeru prema obliku raspodjele i pitanju
 koje nas zanima. Pred grafom nas čeka slična odluka. Prikaz prosjeka može
-olakšati usporedbu skupina, ali sakriti razlike među osobama; prikaz svih
+olakšati usporedbu skupina, ali sakriti razlike među osobama. Prikaz svih
 opažanja čuva te razlike, no može otežati čitanje. Želimo naučiti odabrati
 prikaz iz kojega se tražena usporedba doista može vidjeti.
 
@@ -655,9 +660,10 @@ parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
 sažetke.
 
-Poznatu simuliranu anketu `anketa_mreze` iskoristit ćemo za prikaz dnevnih
-minuta na društvenim mrežama po dobnim skupinama. Uz nju ćemo
-čitati i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
+Vraćamo se poznatoj tablici simulirane ankete o društvenim mrežama,
+`anketa_mreze`, koju smo upoznali pri sažimanju podataka. Svaki redak i
+dalje opisuje jednu zamišljenu osobu. Sada ćemo njihove dnevne minute na
+mrežama prikazati po dobnim skupinama. Uz tu tablicu čitat ćemo i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
 njihovu obuhvatu (Šikić, 2026). Primjeri se mijenjaju jer nas zanima ista
 odluka u različitim situacijama. Prije čitanja oznake trebamo znati
 predstavlja li ona osobu, skupinski sažetak ili zbroj objava.
@@ -682,8 +688,8 @@ provjeriti.
 predstavlja oznaka, koja joj je varijabla pridružena, koji je račun prethodio
 crtanju i kako se vrijednosti prenose u vizualne veličine.
 
-Wilkinson je tu ideju razradio u sustav (Wilkinson, 2005), a ggplot2 jedna je
-od njegovih poznatih programskih izvedbi (Wickham, 2016). Istim se načinom
+Iz te je ideje razvijen sustav za sastavljanje grafova (Wilkinson, 2005).
+Jedna od njegovih poznatih programskih izvedbi jest ggplot2 (Wickham, 2016). Istim se načinom
 razmišljanja možemo služiti pri čitanju tiskanog grafa, bez programiranja.
 
 Najprije provjeravamo jedinicu. Točka može predstavljati ispitanika, državu,
@@ -729,10 +735,10 @@ ali promjena ljestvice mijenja dojam njihovih razlika.
 
 ## Što oko može očitati
 
-Grafička percepcija jest način na koji iz položaja, duljina i drugih oznaka očitavamo podatke. Neke vizualne usporedbe čitamo točnije od drugih. Cleveland i McGill pokusima
-su potvrdili prednost položaja pred duljinom i kutom (Cleveland, 1984).
-Povezali su te rezultate s ranijim istraživanjima i predložili širi poredak
-kanala. Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na
+Grafička percepcija jest način na koji iz položaja, duljina i drugih oznaka očitavamo podatke. Neke vizualne usporedbe čitamo točnije od drugih. Pokusi s očitavanjem grafova potvrdili su prednost položaja pred
+duljinom i kutom (Cleveland, 1984). Povezivanjem tih rezultata s ranijim
+istraživanjima nastao je prijedlog šireg poretka vizualnih kanala
+(Cleveland, 1984). Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na
 istovjetnim, ali neporavnatim osima, pa duljina, kut, nagib i površina. Obujam,
 zakrivljenost i zasićenost boje nalaze se pri dnu (Cleveland, 1984). Cijeli taj poredak predstavlja sintezu više izvora, s različitim stupnjem izravne pokusne provjere pojedinih usporedbi.
 
@@ -747,7 +753,7 @@ duljinu kombinira s površinom i prividnim obujmom, slabijim kanalima u
 predloženom poretku (Cleveland, 1984). Zato prije dodavanja treće dimenzije
 provjeravamo donosi li novu informaciju ili samo mijenja dojam.
 
-Tufte predlaže da za svaki grafički element pitamo koju informaciju prenosi
+Pri oblikovanju grafa korisno je za svaki element razmotriti koju informaciju prenosi
 (Tufte, 2001). Sjene, obrubi i preljevi mogu odvlačiti pozornost bez korisnog
 dodatka. Rešetka, razdjelna crta ili oznaka, s druge strane, mogu olakšati
 čitanje. Uklanjanjem elementa možemo provjeriti otežava li njegov izostanak usporedbu
@@ -794,7 +800,7 @@ duljine točne, ali ih je teže usporediti bez zajedničkog početka
 prikazati zasebno.
 
 I riječi možemo uspoređivati kao kategorije, ali tek nakon što odredimo što
-ćemo smatrati istom riječju. U šest odabranih naslova o vizualizaciji ukupno je
+ćemo smatrati istom riječju. Usporedit ćemo riječi u namjerno odabranim naslovima. Za širi zaključak o literaturi o vizualizaciji ili znanstvenom pisanju trebali bismo odgovarajući izbor tekstova. U šest odabranih naslova o vizualizaciji ukupno je
 36 riječi i 28 različitih oblika [Anscombe, 1973; Cleveland, 1984; Tufte, 2001;
 Wilkinson, 2005; Wickham, 2016; Matejka, 2017]. Do tih brojeva dolazimo tako da
 sva slova pretvorimo u mala i uklonimo interpunkciju. Riječi ne svodimo na
@@ -812,7 +818,7 @@ Graf izdvaja šest oblika koji se ponavljaju. U zadnjem retku navedena je učest
 
 *Slika. Učestalost točnih oblika u šest namjerno odabranih bibliografskih naslova. Izrada autora prema objavljenim naslovima [@anscombe1973; @cleveland1984; @tufte2001; @wilkinson2005; @wickham2016; @matejka2017].*
 
-Rezultat opisuje odabranih šest naslova. Za širi zaključak o literaturi o vizualizaciji ili znanstvenom pisanju trebali bismo odgovarajući izbor tekstova. Pri tumačenju zato navodimo jedinicu,
+Pri tumačenju zato navodimo jedinicu,
 obradu teksta, nazivnik i obuhvat. Iste ćemo odluke ponovno razmotriti kada
 tekst postane ulaz algoritma.
 
@@ -856,8 +862,8 @@ Stupce zato crtamo od nule. Oznaka skraćene osi otkriva zahvat, ali ne vraća
 ispravan odnos duljina. Za linije i točke uži raspon može pomoći čitanju, uz
 jasno vidljiv početak i ljestvicu osi.
 
-Za sljedeći prikaz vraćamo se DigiKatovoj tablici internetskih domena. Svaki
-redak sadrži ukupan broj objava jedne domene u odabranom korpusu. Tablica ima
+Za sljedeći prikaz vraćamo se istim zapisima iz DigiKatove tablice internetskih domena koju smo upoznali pri sažimanju podataka. Svaki
+redak sadrži ukupan broj objava jedne domene u odabranom korpusu. Opisujemo samo domene u ovom korpusu, bez zaključivanja o svim hrvatskim medijima, korisnicima ili pojedinačnim objavama. Tablica ima
 `r hr_broj(s5_izvori_sazetak$izvora, 0)` domene i `r hr_broj(s5_izvori_sazetak$objava, 0)` objava (Šikić, 2026). Medijan je `r hr_broj(s5_izvori_sazetak$medijan, 0)` objave po domeni, a najveći broj `r hr_broj(s5_izvori_sazetak$najvise, 0)`. Na linearnoj bi osi većina domena bila
 stisnuta uz početak. Logaritamska os omogućuje da se bolje
 vide i manje vrijednosti jer jednak prostor dodjeljuje jednakim omjerima.
@@ -867,8 +873,7 @@ vide i manje vrijednosti jer jednak prostor dodjeljuje jednakim omjerima.
 Na logaritamskoj osi pomak od 10 do 100 jednak je pomaku od 100 do 1.000.
 Uspoređujemo omjere, dok apsolutne razlike nisu jednako velike. Promjena osi
 ne mijenja zapise, ali mijenja vizualni oblik raspodjele, pa je treba
-označiti. I dalje opisujemo samo domene u ovom korpusu, bez zaključivanja o
-svim hrvatskim medijima, korisnicima ili pojedinačnim objavama.
+označiti.
 
 ## Mala višestruka polja
 
@@ -884,7 +889,7 @@ Za usporedbu razina polja trebaju zajedničku ljestvicu. Ako svako ima svoj
 raspon, male i velike razlike mogu izgledati jednako. Različite osi mogu biti
 prikladne za usporedbu oblika, ali tu odluku treba jasno navesti.
 
-U DigiKatovu mjesečnom izvatku za 2024. nedostaju retci od veljače do svibnja.
+Iz iste mjesečne tablice projekta DigiKat izdvajamo zapise za promatranje prekida u mjerenju. U DigiKatovu mjesečnom izvatku za 2024. nedostaju retci od veljače do svibnja.
 Siječanj je djelomičan, a lipanj donosi promjenu metode i obuhvata
 (Šikić, 2026). Prazninu ne pretvaramo u nule niti linijom spajamo siječanj i
 lipanj. U tablici zadržavamo svih 12 mjeseci kako bi nedostajanje bilo
@@ -900,7 +905,7 @@ poljima](#fig-mala-polja) prikazujemo broj objava za četiri platforme s
 najviše objava u dostupnim mjesecima 2024. i za objedinjeni ostatak. Sva polja
 imaju istu logaritamsku os.
 
-*Slika. Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka; isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026].*
+*Slika. Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka. Isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026].*
 
 Linije ostavljaju četveromjesečnu prazninu, a lipanjska točka odvojena je od
 kasnijeg niza. Zbog nepotpunog siječnja i promjene metode ne zaključujemo o
@@ -946,8 +951,8 @@ broji opažanja u razredu jednake širine, a drukčija širina razreda može
 promijeniti dojam o obliku. Krivulja gustoće zaglađuje raspodjelu, pa njezina
 visina nije broj osoba. Kutijasti prikaz čuva medijan i srednjih 50 %
 opažanja između prvoga i trećega kvartila. U sljedećem prikazu brkovi sežu
-do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije;
-udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.
+do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije.
+Udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.
 
 Sažimanje u dvije sredine skriva razlike među pojedincima. Zasebno pitanje jest nesigurnost procjene populacijske sredine. Nju procjenjujemo prema načinu odabira opažanja, što ćemo razraditi uz uzorkovanje i procjenu.
 
@@ -983,9 +988,9 @@ posjećenosti. Drugi ga odbacuje pozivajući se na pravilo da se takvi
 grafovi nikada ne koriste. Prije izbora valja razjasniti što čitatelj
 treba moći usporediti.
 
-Cleveland i McGill istraživali su upravo točnost očitavanja grafičkih
-prikaza. U njihovim su pokusima sudionici procjenjivali omjer dviju
-istaknutih vrijednosti. Položaj na zajedničkoj osi omogućavao je
+Točnost očitavanja može se provjeriti pokusom. U jednom takvom
+istraživanju sudionici su procjenjivali omjer dviju istaknutih vrijednosti
+na grafu (Cleveland, 1984). Položaj na zajedničkoj osi omogućavao je
 preciznije usporedbe od kuta (Cleveland, 1984). Nalaz daje razlog za
 izbor prikaza, ali taj je razlog vezan uz određeni zadatak.
 
@@ -1130,11 +1135,11 @@ koda.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Anscombeove smo skupove već usporedili grafički. Njihova gotovo jednaka
+Iste konstruirane parove iz Anscombeovih skupova već smo grafički usporedili u poglavlju o vizualizaciji. Njihova gotovo jednaka
 Pearsonova korelacija sada postavlja preciznije pitanje. Koliko o odnosu
 znamo ako vidimo samo koeficijent (Anscombe, 1973)?
 
@@ -1149,7 +1154,7 @@ dob često promatrali odvojeno. Zanima nas i njihov odnos. Želimo ga opisati
 usporedivim brojem, a pritom sačuvati ono što smo iz grafova naučili o
 zakrivljenosti, podskupinama i izdvojenim opažanjima.
 
-Glavni primjer ostaje simulirana anketa `anketa_mreze` iz prethodnih poglavlja. Jedan redak predstavlja jednu zamišljenu osobu, pa njezinu dob
+Glavni primjer ostaju isti zapisi iz simulirane ankete `anketa_mreze`, koje smo sažimali i prikazivali grafovima. Jedan redak predstavlja jednu zamišljenu osobu, pa njezinu dob
 povezujemo s njezinim dnevnim vremenom na društvenim mrežama. Za pregled više
 parova uključit ćemo i povjerenje u sadržaj. Podaci su konstruirani za
 nastavu. Na njima učimo opisivati odnos, bez zaključka o stvarnim navikama ili
@@ -1184,10 +1189,10 @@ vrijednosti iste zamišljene osobe. Točke tvore silazni oblak.
 Pad je strmiji među mlađima i poslije se izravnava. Graf nam pokazuje taj
 oblik prije računanja koeficijenta.
 
-*Slika. Dob i dnevno vrijeme korištenja u simuliranoj anketi. Oblak pokazuje silazan, zakrivljen obrazac. Pearsonov koeficijent sažima samo njegov linearni dio. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Dob i dnevno vrijeme korištenja u simuliranoj anketi. Oblak pokazuje silazan, zakrivljen obrazac. Pearsonov koeficijent sažima samo njegov linearni dio. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Najprije uspoređujemo na koju stranu od prosjeka odstupa svaki ispitanik u
-objema varijablama. U generiranom nastavnom skupu `anketa_mreze` s `r s6_n`
+objema varijablama. U poznatoj tablici simulirane ankete `anketa_mreze` s `r s6_n`
 ispitanika, `r paste0(hr_broj(100 * s6_udio_slaganje, 0), " %")` odstupa na istu stranu u dobi i dnevnim minutama. Uz
 simetrične raspodjele i neovisna odstupanja očekivali bismo udio blizu
 polovine. Asimetrija ga može promijeniti i bez povezanosti, pa sam udio nije
@@ -1220,7 +1225,7 @@ anketi je sredina dobi `r hr_broj(mean(s6_dob), 3)`, a njezina standardna
 devijacija `r hr_broj(sd(s6_dob), 3)` godina. Za dnevne minute odgovarajuće
 vrijednosti iznose `r hr_broj(mean(s6_minute), 3)` i
 `r hr_broj(sd(s6_minute), 3)`. Račun u nastavku koristi nezaokružene
-vrijednosti; prikaz na tri decimale služi ručnoj približnoj provjeri.
+vrijednosti. Prikaz na tri decimale služi ručnoj približnoj provjeri.
 
 Na prvoj osobi iz poznate ankete možemo pregledati jedan član zbroja.
 Dob je `r s6_dob[1]`, a vrijeme `r s6_minute[1]` minuta. Odstupanja od
@@ -1273,11 +1278,10 @@ Kada je korelacija $+1$, sve točke leže na uzlaznom pravcu, a pri $-1$ na
 silaznom. Vrijednost nula znači da nema linearne veze. Međuvrijednosti opisuju
 koliko raspored točaka prati pravac. Nagib pravca odgovara na zasebno pitanje, za koliko se minuta vrijeme korištenja mijenja uz jednu godinu dobi. Uz korelaciju `r hr_broj(s6_r, 2)` za taj ćemo opis trebati i regresiju.
 
-Cohen je kao orijentaciju u društvenim znanostima predložio korelacije oko
-0,10, 0,30 i 0,50 za male, srednje i velike odnose (Cohen, 1988). Služe kao početna orijentacija koju prilagođavamo području i istraživačkom pitanju.
-
-Cohen ih preporučuje kada nemamo bolju osnovu u poznavanju područja
-(Cohen, 1988). Važnost koeficijenta zato procjenjujemo prema pojavi, načinu
+Kao gruba orijentacija u društvenim znanostima često se navode
+korelacije oko 0,10, 0,30 i 0,50 za male, srednje i velike odnose
+(Cohen, 1988). Te su vrijednosti predložene za situacije u kojima nemamo
+bolju osnovu u poznavanju područja (Cohen, 1988). Važnost koeficijenta zato procjenjujemo prema pojavi, načinu
 mjerenja, posljedicama i nalazima usporedivih istraživanja.
 
 U jednostavnom linearnom opisu kvadrat korelacije pokazuje udio varijance
@@ -1430,7 +1434,7 @@ Zadovoljstvo je ovdje konstruirana kontinuirana vrijednost bez unaprijed
 ograničenog raspona, a ne odgovor na stvarnu anketnu ljestvicu.
 Četiri polja sljedećeg grafa pregrupiraju istih 180 generiranih zapisa.
 
-*Slika. Konstruirani podaci u kojima zbirni oblak raste, a oblak unutar svakoga od triju odjela pada. To je konstruirani prikaz Simpsonova paradoksa. Četiri polja prikazuju iste točke bez regresijskih pravaca. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Konstruirani podaci u kojima zbirni oblak raste, a oblak unutar svakoga od triju odjela pada. To je konstruirani prikaz Simpsonova paradoksa. Četiri polja prikazuju iste točke bez regresijskih pravaca. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Zbirna korelacija staža i zadovoljstva je pozitivna, `r hr_broj(s6_r_zbirno, 2)`. Unutar odjela
 iznosi `r hr_broj(s6_r_odjeli$r[[1]], 2)`, `r hr_broj(s6_r_odjeli$r[[2]], 2)` i `r hr_broj(s6_r_odjeli$r[[3]], 2)`, pa su sve tri negativne. Svaki je
@@ -1519,16 +1523,23 @@ varijablama i razmotriti dizajn koji odvaja moguća objašnjenja. Ovaj presjek n
 trend, uzrok, odnos među pojedincima ili nalaz izvan EU-27
 ({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026).
 
+Iste države možemo usporediti prema zaposlenosti te riziku siromaštva ili
+socijalne isključenosti. Zaposlenost obuhvaća osobe od
+`r s6_dob_zaposlenosti[[1]]` do `r s6_dob_zaposlenosti[[2]]` godine, a rizik
+stanovništvo svih dobi ({Eurostat}, 2026; {Eurostat}, 2026).
+Sljedeći graf prikazuje `r nrow(s6_soc)` potpunih parova, po jednu točku za
+državu, uz izvorne oznake obaju pokazatelja [{Eurostat}, 2026;
+{Eurostat}, 2026]. Oblaci državnih udjela opisuju razlike među zemljama.
+Za vezu zaposlenosti i siromaštva pojedine osobe trebali bismo individualne
+podatke, a za uzročni zaključak odgovarajući dizajn.
+
+*Slika. Zaposlenost i rizik siromaštva ili socijalne isključenosti. Oznake d, p i b označavaju različitu definiciju, privremenu vrijednost i prekid serije [@eurostatemployment2026; @eurostatpoverty2026]. Izrada autora.*
+
 Moguća konfundirajuća varijabla mora prethoditi objema pojavama i utjecati na
 njih. To prosuđujemo prema sadržaju i dizajnu. U konstruiranom primjeru odjel
 tako oblikuje staž i zadovoljstvo. Razdvajanjem odjela vidimo promjenu
 povezanosti, ali sama ta promjena ne dokazuje uzročnost. O neizmjerenom
 čimbeniku koeficijent ne daje izravnu obavijest.
-
-Isti koeficijent može odgovarati različitim objašnjenjima. Prva varijabla može
-utjecati na drugu ili obrnuto, obje mogu ovisiti o trećoj, a obrazac može
-nastati slučajnom promjenjivošću uzorka. Za razlikovanje tih mogućnosti
-trebamo istraživački dizajn. Smjer uzroka procjenjujemo na temelju takvog dizajna i znanja o pojavi.
 
 ## Interakcija — Pogodi korelaciju
 
@@ -1564,12 +1575,12 @@ devijacije i Pearsonov koeficijent, ali nema grafa. Račun možemo
 ponoviti i dobiti iste brojeve. Prije nego što prihvatimo opis odnosa,
 još trebamo saznati kako su opažanja raspoređena.
 
-Matejka i Fitzmaurice pokazali su koliko toga takav sažetak može
-izostaviti. Njihov postupak sitnim pomacima točaka mijenja izgled skupa,
-a zadane sažetke čuva do druge decimale (Matejka, 2017). Polazeći od
-Cairova obrisa dinosaura, proizveli su skupove koji izgledaju poput
-zvijezde, kruga ili nizova crta, uz iste zaokružene sredine,
-standardne devijacije i korelaciju (Matejka, 2017). Podaci su namjerno konstruirani za tu demonstraciju.
+Jedna dojmljiva demonstracija pokazuje koliko toga takav sažetak može
+izostaviti. Sitnim pomacima točaka mijenja se izgled skupa podataka,
+a zadani sažeci ostaju jednaki do druge decimale (Matejka, 2017). Od
+početnog obrisa dinosaura tako su nastali skupovi nalik zvijezdi, krugu
+ili nizovima crta, uz iste zaokružene sredine, standardne devijacije i
+korelaciju (Matejka, 2017). Podaci su namjerno konstruirani za tu demonstraciju.
 
 Takva demonstracija mijenja našu procjenu izvještaja. Podudaranje
 sažetaka potvrđuje da smo ponovili račun, ali ne potvrđuje da je
@@ -1649,14 +1660,14 @@ o povezanosti i što usput treba provjeriti.
 | Koja je jedinica? | nakon spajanja pokazatelja, jedna država članica EU-a u 2025. |
 | Tko ili što nedostaje? | pojedinci unutar država, zemlje izvan EU-27 i druga razdoblja nisu jedinice ovoga presjeka |
 | Koji je cilj tvrdnje? | Pearsonov i Spearmanov koeficijent opisuju povezanost dvaju državnih udjela |
-| Gdje je neizvjesnost? | statusne oznake prenose upozorenja izvora; koeficijenti ne mjere uzoračku ni mjernu nesigurnost, a presjek ne pokazuje promjenu kroz vrijeme |
+| Gdje je neizvjesnost? | statusne oznake prenose upozorenja izvora. Koeficijenti ne mjere uzoračku ni mjernu nesigurnost, a presjek ne pokazuje promjenu kroz vrijeme |
 | Koje drugo objašnjenje ostaje? | druga dobna skupina ili pokazatelj, rangovi umjesto vrijednosti ili drukčije opravdano postupanje sa statusnim oznakama |
 | Tko snosi posljedice? | pogrešan opis stanovnika ili država može dovesti do neutemeljene uredničke ili javne odluke |
 
 : Šest revizijskih pitanja primijenjenih na povezanost službenih agregata. Izrada autora prema Eurostatu ({Eurostat}, 2026; {Eurostat}, 2026; {Eurostat}, 2026).
 
 Promjena jedinice mijenja i ono što procjenjujemo, moguća objašnjenja te
-posljedice zaključka. Statusna oznaka također traži prosudbu. O uključivanju retka odlučujemo prema značenju oznake; pravilo unaprijed obrazlažemo i navodimo u izvještaju.
+posljedice zaključka. Statusna oznaka također traži prosudbu. O uključivanju retka odlučujemo prema značenju oznake. Pravilo unaprijed obrazlažemo i navodimo u izvještaju.
 
 **Granica tvrdnje o povezanosti** ovisi o jedinici, obuhvatu i načinu
 mjerenja. Sljedeća tablica pokazuje koje vrste tvrdnji ti podaci podupiru.

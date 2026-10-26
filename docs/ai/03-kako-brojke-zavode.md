@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -38,8 +38,8 @@ promjena osnovice ili raspona osi mijenja dojam, zašto postotna promjena nije
 isto što i promjena u postotnim bodovima te kako zanemarivanje rijetkosti neke
 pojave može zavesti. Pri čitanju ankete povezat ćemo objavljenu marginu
 pogreške s onime što smo naučili o obuhvatu i odazivu. Konstruirani anketni primjeri
-poslužit će nam da odvojeno mijenjamo veličinu uzorka i sustavnu pristranost;
-njihove rezultate nećemo čitati kao izbornu prognozu.
+poslužit će nam da odvojeno mijenjamo veličinu uzorka i sustavnu pristranost.
+Njihove rezultate nećemo čitati kao izbornu prognozu.
 
 Provjera završava povratkom izvoru i usporedbom računa s riječima kojima je opisan. To vrijedi i
 kada analizu sastavi asistent. Tražit ćemo trag do tablice, provjeriti račun
@@ -428,11 +428,11 @@ sada uz svako možemo navesti što smo u izbornom izvješću doista provjerili.
 
 | Revizijsko pitanje | Primjena na tvrdnju o odazivu |
 |---|---|
-| Koja je jedinica? | redak izborne jedinice; nacionalni je redak kontrolni zbroj |
-| Tko ili što nedostaje? | nema individualnih obilježja; obuhvat su birači na obrađenim biračkim mjestima, a izbor I.–X. ili I.–XII. mora biti vidljiv |
+| Koja je jedinica? | redak izborne jedinice. Nacionalni je redak kontrolni zbroj |
+| Tko ili što nedostaje? | nema individualnih obilježja. Obuhvat su birači na obrađenim biračkim mjestima, a izbor I.–X. ili I.–XII. mora biti vidljiv |
 | Koji je cilj tvrdnje? | opis zabilježenog odaziva, ne tvrdnja o pojedincu ili uzroku |
-| Gdje je neizvjesnost? | aritmetika je provjerena; obuhvat i moguća pogreška zapisa nisu svedeni na marginu ankete |
-| Koje drugo objašnjenje ostaje? | broj prema listićima za drugo operativno pitanje; uži obuhvat samo uz unaprijed obrazložen cilj |
+| Gdje je neizvjesnost? | aritmetika je provjerena. Obuhvat i moguća pogreška zapisa nisu svedeni na marginu ankete |
+| Koje drugo objašnjenje ostaje? | broj prema listićima za drugo operativno pitanje. Uži obuhvat samo uz unaprijed obrazložen cilj |
 | Tko snosi posljedice? | naslov može zamijeniti službene veličine i čitatelju pripisati zaključak koji tablica ne nosi |
 
 : Šest revizijskih pitanja primijenjenih na isti javni slučaj. Izrada autora.
@@ -450,7 +450,7 @@ ili uzrocima ponašanja pojedinaca.
 | Dimenzija tvrdnje | Što DIP-ov dokaz dopušta u ovom primjeru |
 |---|---|
 | opis | poduprti su objavljeni odaziv i usklađenje službenih veličina |
-| povezanost | samo na razini izbornih jedinica i tek nakon odgovarajuće analize; nacionalni ukupni redak sam nije povezanost |
+| povezanost | samo na razini izbornih jedinica i tek nakon odgovarajuće analize. Nacionalni ukupni redak sam nije povezanost |
 | generalizacija | ne izvan populacije i obuhvata službenog izvora |
 | predviđanje | nije poduprto jer tablica nije model budućih izbora |
 | uzročnost | nije poduprta jer iz tablice ne saznajemo zašto je netko pristupio |
@@ -478,7 +478,7 @@ Javni postotak možemo provjeriti kada znamo njegov izvor, jedinicu, brojnik,
 nazivnik i obuhvat. Promjena bilo koje od tih sastavnica mijenja značenje
 rezultata, a za tumačenje upozorenja o rijetkom ishodu trebamo i temeljnu
 stopu. Veći uzorak može smanjiti slučajnu promjenjivost ankete, ali ne uklanja
-sustavnu pristranost; račun margine pogreške slijedi u poglavljima o
+sustavnu pristranost. Račun margine pogreške slijedi u poglavljima o
 uzorkovanju i procjeni. Odgovore asistenta i sintetičke medije također pratimo
 do izvora i načina nastanka. Pritom razlikujemo simulaciju, sintetički zapis,
 hipotetski izlaz i izmišljeni dokaz. Šest revizijskih pitanja pomoći će nam i
@@ -505,10 +505,10 @@ pogrešnog označavanja.
 ### Računski
 
 Koristite zbirnu tablicu generiranog skupa `populacija_medija` iz datoteke `data/populacija-medija-agregat.csv`. U generiranom skupu
-portal je glavni izvor vijesti za 15.101 od 50.000 generiranih osoba, a
+portal je glavni izvor vijesti za 15.101 od 50.000 zamišljenih osoba, a
 televizija za 10.827. Izračunajte udjele, razliku u
 postotnim bodovima i relativnu razliku prema udjelu televizije. Uz rezultate
-napišite da opisuju simulaciju. Dopušten je kalkulator ili proračunska tablica; ne predaje se kod.
+napišite da opisuju simulaciju. Dopušten je kalkulator ili proračunska tablica. Ne predaje se kod.
 
 ### Kritički
 

@@ -40,22 +40,24 @@ lecturer would not say it to a room, it does not belong on the page.
 | H8 | Bold only for first-mention concept anchors and definition terms |
 | H9 | Notation discipline: no symbol without a prose gloss, no formula without an intuition before it |
 | H10 | Code discipline: the reader may read code but assessed work never requires code production |
+| H11 | No semicolons joining clauses in prose |
 | S8 | Simulation before formalism |
 | S9 | Honesty about uncertainty, and about the assistant |
 | S10 | Affirmative explanation and natural sentence flow |
+| S11 | Concrete data introductions, study-led attribution, and a welcoming voice |
 
 ---
 
 ## Voice
 
 The book speaks as one author: a seasoned lecturer writing, not talking —
-confident, analytical, warm but impersonal. It never condescends about
+confident, analytical, warm and attentive to the reader. It never condescends about
 mathematics and never pretends the reader will enjoy it automatically.
 
-- **Person.** Authorial *mi* ("pokazali smo", "vraćamo se na"). The reader is
-  addressed directly only in exercises, in the `Što isprobati` blocks beside
-  widgets, and in the capstone chapter, which is deliberately first-person
-  plural throughout because it walks through a study together.
+- **Person.** Inclusive *mi* ("usporedimo", "vraćamo se", "zamislimo") walks
+  through the reasoning with the reader. Direct address may be used where it
+  helps the reader find their place, especially in the preface, exercises,
+  widget guidance and capstone. Do not turn explanations into commands.
 - **Tense.** Present for methods and models, past for historical episodes,
   studies and the replication crisis narrative.
 - **Distance.** No chatty asides, no exclamation marks, no irony markers.
@@ -256,6 +258,14 @@ alternatives, provenance, and responsibility rather than syntax.
 
 ---
 
+### H11 — No semicolons in paragraph prose
+
+Do not join clauses with semicolons. Use a full stop, a conjunction or a
+rewritten sentence that makes their relation clear. Apply this to paragraphs,
+callouts, exercise wording, self-study explanations and caption prose.
+Citation syntax, mathematical delimiters, code and literal source strings
+retain punctuation required by their format.
+
 ## Soft conventions
 
 ### S1 — Indirect questions over direct questions
@@ -306,8 +316,12 @@ let the prose use it.
 
 - `[@key]` sits at the end of the claim's sentence, before the full stop.
   Multiple keys in one bracket, chronological.
-- Narrative attribution is for landmark works whose author matters to the
-  argument — use sparingly, not as default.
+- Lead with the study's question, procedure or finding. Prefer "istraživanje",
+  "pokus", "analiza" or "pregled" with enough context to identify the work,
+  rather than "Prezime i suradnici" or a succession of author names.
+  Keep the citation at the end of the claim. Name an author in running prose
+  only when their identity or historical role matters to the explanation.
+  Established method names and bibliographic attribution remain intact.
 - No footnotes for sourcing; margin citations render automatically.
 
 ### S6 — Cross-references between chapters
@@ -423,6 +437,22 @@ unutar iste jedinice." This develops the reason more naturally than a detached
 warning that seven rows do not give seven independent confirmations.
 
 ---
+
+### S11 — Concrete explanations and a welcoming voice
+
+Introduce a dataset as a **skup podataka** and explain what the reader can
+picture, usually a table whose rows describe people, answers or events and
+whose columns record their characteristics. Avoid unexplained "autorski
+nastavni skup" and "generirana osoba". For the two teaching datasets, say
+plainly that the data were created by computer simulation and describe
+imagined people. Preserve their separate origins, names and limits of use.
+
+Begin procedural passages with the situation that makes the procedure useful.
+Connect each check to what we want to understand or to the person affected.
+For privacy, start from the participant who entrusted us with answers, then
+explain protection in concrete terms. Avoid a string of detached duties or
+technical nouns. Warmth comes from shared reasoning and context, without
+loosening a statistical qualification or adding an unsupported claim.
 
 ## Structural elements
 
@@ -659,6 +689,14 @@ written, the chapter is not done.
 ---
 
 ## Provenance
+
+- **2026-10-26** — At the author's request, added H11 and S11, revised the
+  voice and S5 attribution rule, and changed the PDF subtitle to "Uvod u
+  analizu podataka za društvene znanosti". The preface's dataset introduction,
+  Chapter 1's Berkeley attribution and Chapter 2's participant-protection
+  passage triggered a book-wide pass through similar prose and punctuation.
+  This is a separate author-directed editorial revision. Comprehensive-review
+  packet status and release gates remain unchanged.
 
 - **2026-10-25** — Added S10 at the author's request after the repeated negative
   formulations in Chapter 1 prompted a manuscript-wide editorial pass. The

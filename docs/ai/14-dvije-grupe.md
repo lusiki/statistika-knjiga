@@ -4,20 +4,21 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Cumming predlaže da usporedbu skupina izvještavamo procjenom razlike i
-njezinim intervalom (Cumming, 2014). Tako čitatelj vidi više od oznake da je
-rezultat statistički značajan.
+Što bi se promijenilo kada bismo privremeno isključili Facebook?
+To je pitanje istraženo pokusom prije američkih izbora. Dobrovoljci
+koji su pristali na ponuđenu naknadu za deaktivaciju računa nasumično su
+raspoređeni u skupine (Allcott, 2020). Istraživači su pratili dobrobit i
+informiranost, uz usporedbu sa skupinom koja je nastavila koristiti
+Facebook (Allcott, 2020).
 
-Iz procjene saznajemo kolika je razlika, a iz intervala koliko smo je precizno
-odredili. Te brojke možemo usporediti s ranijim nalazima i s razlikom koja bi
-bila važna za odluku.
-
-Kako odabrati usporedbu koja odgovara istraživačkom nacrtu i iz nje napisati
-jasan zaključak?
+Za svaki ishod trebalo je procijeniti razliku među skupinama i njezinu
+nesigurnost. Randomizacija je oblikovala skupine, ali sudionici nisu bili
+slučajan uzorak svih korisnika (Allcott, 2020). Kako usporedbu uskladiti s
+istraživačkim nacrtom i obrazložiti na koga se zaključak odnosi?
 
 Oznaka glavnoga izvora vijesti u prethodnom nam je poglavlju služila za
 brojanje osoba u kategorijama. Sada uz oznaku skupine promatramo brojčani
@@ -25,11 +26,14 @@ odgovor. Zanima nas koliko se prosječno povjerenje u medije razlikuje među
 skupinama i koliko smo tu razliku precizno procijenili. Poznato pitanje o
 povezanosti time dobiva drukčiji oblik podataka i drukčiji račun.
 
-U glavnom primjeru koristimo uzorak od 120 zamišljenih osoba iz skupa
-`populacija_medija` kojima su televizija ili društvene mreže glavni izvor
-vijesti. Svaki redak predstavlja jednu osobu s ocjenom povjerenja
-u medije. Time mijenjamo skupine u odnosu na usporedbu tiska i portala iz
-poglavlja o testiranju. Podaci i dalje pripadaju nastavnoj simulaciji. Na njima možemo usporediti postupke za isti jasno određen odnos.
+Usporedba tiska i portala pokazala je razliku u povjerenju, a dobne skupine
+različit sastav publike izvora. Sada procjenjujemo razliku između korisnika
+televizije i društvenih mreža s njezinim intervalom.
+
+Iz iste nastavne populacije `populacija_medija` zasebno izvlačimo uzorak od
+120 korisnika televizije i društvenih mreža. Svaki redak predstavlja jednu
+zamišljenu osobu, njezin izvor i povjerenje na ljestvici od jedan do deset.
+Rezultati se odnose na tu simulaciju, bez zaključka o stvarnoj publici.
 
 Za izbor postupka vratit ćemo se nacrtu istraživanja. Razlika između rezultata različitih ljudi i promjena izmjerena na istim
 ljudima traže različite račune. Zasebno ćemo razmotriti i usporedbu jedne sredine s unaprijed
@@ -88,10 +92,10 @@ U izvještaju prvo navodimo razliku u izvornim jedinicama i njezin interval.
 Zatim prikazujemo test i standardiziranu razliku. Tako čitatelj prije odluke o
 nuli može procijeniti veličinu i nesigurnost opaženog odnosa.
 
-Nakon ograničavanja populacije na ta dva izvora izvukli smo 120 osoba bez
-ponavljanja. Uzorak je izvučen zasebno od ranijih 800 osoba. Broj korisnika
-svakog izvora nije unaprijed zadan. Zbrajanjem njihovih odgovora i dijeljenjem
-odgovarajućim brojem osoba dobivamo dvije sredine.
+Uzorak od 120 korisnika televizije i društvenih mreža izvučen je bez vraćanja
+iz populacije ograničene na ta dva izvora, zasebno od uzorka od 800 osoba.
+Broj korisnika svakog izvora nije unaprijed zadan. Zbrajanjem njihovih odgovora
+i dijeljenjem odgovarajućim brojem osoba dobivamo dvije sredine.
 
 *Slika. Od odgovora do sredina u novom uzorku od 120 osoba. Izrada autora.*
 
@@ -123,10 +127,10 @@ U ovome računu Welchovi stupnjevi slobode iznose
 `r hr_broj(qt(.975, s14$df_welch), 3)`. Za test nulte razlike dijelimo
 opaženu razliku njezinom standardnom pogreškom. Dobivenu t-statistiku
 uspoređujemo s oba repa iste t-raspodjele. Taj račun pretpostavlja neovisne
-skupine i jedinice te približno normalne sredine; za male skupine posebno
+skupine i jedinice te približno normalne sredine. Za male skupine posebno
 je važan oblik raspodjele bez dominantnih krajnjih vrijednosti.
 
-U našem uzorku prosječno povjerenje iznosi
+U uzorku od 120 korisnika televizije i društvenih mreža prosječno povjerenje iznosi
 `r hr_broj(s14_sazetak$sredina[s14_sazetak$izvor == "TV"], 2)` među onima koji
 navode TV kao glavni izvor vijesti i
 `r hr_broj(s14_sazetak$sredina[s14_sazetak$izvor == "društvene mreže"], 2)` među
@@ -143,7 +147,7 @@ Interval obuhvaća razlike ispod pola boda i blizu dva boda. Te vrijednosti
 mogu voditi različitim praktičnim odlukama. Širina intervala čini tu nepreciznost vidljivom uz oznaku značajnosti.
 
 U simulaciji znamo da stvarna razlika iznosi `r hr_broj(s14$pop_razlika, 2)` boda i da je interval
-obuhvaća. Dugoročni obuhvat provjeravamo ponavljanjima kakva smo koristili u poglavlju o procjeni; ovaj je pogodak samo jedno od mogućih ponavljanja.
+obuhvaća. Dugoročni obuhvat provjeravamo ponavljanjima kakva smo koristili u poglavlju o procjeni. Ovaj je pogodak samo jedno od mogućih ponavljanja.
 
 ## Interakcija — Uzorkivač dviju grupa
 
@@ -158,7 +162,7 @@ Raspodjelu tih razlika ovdje stvaramo kraćim računom. Za zadani normalni
 model poznajemo njezinu sredinu i standardnu pogrešku, pa razlike izvlačimo
 izravno iz te raspodjele, bez stvaranja svih pojedinaca svakoga novog
 uzorka. Digitalni prikaz koristi 1.500 takvih razlika, a tiskani 4.000 po
-nacrtu. Uključena su sva ponavljanja. Njihov raspon pokazuje preciznost procjene; za snagu testa ili obuhvat intervala trebali bismo u svakom ponavljanju provesti odgovarajući dodatni račun. Oblik histograma može
+nacrtu. Uključena su sva ponavljanja. Njihov raspon pokazuje preciznost procjene. Za snagu testa ili obuhvat intervala trebali bismo u svakom ponavljanju provesti odgovarajući dodatni račun. Oblik histograma može
 se malo promijeniti pri novom izvlačenju.
 
 Na slici uspoređujemo raspršenost pojedinačnih rezultata i preciznost
@@ -293,8 +297,8 @@ kako smo učinili u poglavlju o veličini učinka.
 $$d = \frac{\bar{x}_2 - \bar{x}_1}{s_{\text{zdr}}}$$
 
 Združena varijanca ponderirani je prosjek dviju varijanci, s težinama
-$n_1-1$ i $n_2-1$; nakon korjenovanja dobivamo združenu standardnu devijaciju.
-Za `r s14$n_mreze` korisnika mreža i `r s14$n_tv` korisnika televizije
+$n_1-1$ i $n_2-1$. Nakon korjenovanja dobivamo združenu standardnu devijaciju.
+Vraćamo se istom uzorku od 120 korisnika televizije i društvenih mreža. Za `r s14$n_mreze` korisnika mreža i `r s14$n_tv` korisnika televizije
 račun iz nezaokruženih podataka daje `r hr_broj(s14_zdruzena, 4)`.
 Razlika sredina iznosi `r hr_broj(s14$razlika, 4)`, pa njihov omjer daje
 $d\approx$ `r hr_broj(s14$d, 4)`, odnosno `r hr_broj(s14$d, 2)`.
@@ -318,7 +322,7 @@ populaciji razlika iznosi `r hr_broj(s14$pop_razlika, 2)` boda. Među osobama od
 boda. Time smo promijenili ciljnu populaciju. Nismo izmjerili udio razlike
 koji je uzrokovan dobi niti odvojili uzročne učinke dobi i izvora vijesti.
 
-U našem uzorku tom dobnom rasponu pripada `r s14$uzak_n` od `r s14$n` osoba.
+U uzorku od 120 korisnika televizije i društvenih mreža tom dobnom rasponu pripada `r s14$uzak_n` od `r s14$n` osoba.
 Razlika sredina iznosi `r hr_broj(diff(s14_uzak_test$estimate), 2)` boda.
 Interval ide od `r hr_broj(s14$uzak_donja, 2)` do `r hr_broj(s14$uzak_gornja, 2)` i obuhvaća nulu. Ciljana razlika je
 manja, a zbog manjeg broja osoba procjena je manje precizna. Za planiranje
@@ -383,9 +387,9 @@ pogleda dodiruju li se crtice. Takav brz postupak može djelovati
 uvjerljivo dok ne saznamo što crtice prikazuju i kako su mjerenja
 nastala. Ista slika ne mora predstavljati istu usporedbu.
 
-Belia i suradnici taj su problem proučili s autorima znanstvenih
-radova. Internetski zadatak dovršila su 473 autora iz psihologije,
-bihevioralne neuroznanosti i medicine. Trebali su pomaknuti
+Problem se pokazao i u istraživanju u kojem su grafove čitali autori
+znanstvenih radova. Internetski zadatak dovršila su 473 autora iz
+psihologije, bihevioralne neuroznanosti i medicine (Belia, 2005). Trebali su pomaknuti
 prikazane sredine do razlike koju smatraju upravo statistički
 značajnom (Belia, 2005). Mnogi nisu dovoljno razlikovali standardne
 pogreške od intervala pouzdanosti ni neovisne skupine od
@@ -442,7 +446,7 @@ provjera postupka.
 
 ## Razrađeni primjer
 
-Za usporedbu televizije i društvenih mreža zadržavamo iste osobe, isto
+U uzorku od 120 korisnika televizije i društvenih mreža zadržavamo iste osobe, isto
 povjerenje i istu ciljanu razliku. Najprije ćemo je procijeniti Welchovim
 postupkom, a zatim zapisati kao koeficijent uz binarnu oznaku skupine. Budući
 da se točkasta procjena time ne mijenja, možemo se usredotočiti na pretpostavke
@@ -457,7 +461,7 @@ Za glavni zaključak zadržavamo Welchov postupak, dok drugi redak pokazuje
 
 *Slika. Ista procjena razlike i dva računa nesigurnosti u simuliranom uzorku. Izrada autora.*
 
-U izvještaju možemo navesti da u uzorku od 120 simuliranih osoba
+U izvještaju možemo navesti da u uzorku od 120 korisnika televizije i društvenih mreža
 korisnici televizije imaju prosječno `r hr_broj(s14$razlika, 2)` boda više
 povjerenja od korisnika društvenih mreža, uz Welchov 95-postotni interval
 od `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)` boda. To je razlika među skupinama koje same biraju izvor vijesti.

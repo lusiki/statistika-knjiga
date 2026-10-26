@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -24,13 +24,17 @@ p-vrijednost. Da bismo taj broj mogli pročitati, trebamo promijeniti pitanje.
 Umjesto traženja raspona za nepoznatu veličinu, pitat ćemo kakve bi rezultate
 proizvodio određeni model u kojem nema povezanosti koju istražujemo.
 
-Uzimamo uzorak osoba iz poznate simulirane populacije `populacija_medija`
-kojima su tisak ili portal glavni izvor vijesti. Jedan redak
-pripada jednoj zamišljenoj osobi, a uspoređujemo njezinu ocjenu povjerenja u
-medije s ocjenama osoba iz druge skupine. Najprije ćemo prikazati opaženu
-razliku i njezin interval. Potom ćemo privremeno pretpostaviti da je
-raspodjela povjerenja jednaka među skupinama i provjeriti što bismo očekivali
-kada oznake izvora ne bi bile povezane s odgovorima.
+Pri procjeni povjerenja promatrali smo populaciju kao cjelinu. Sada nas zanima
+koliko se prosječno povjerenje razlikuje između čitatelja tiska i portala te
+koliko je ta procjena nesigurna.
+
+Uzorak od 300 čitatelja tiska i portala izvlačimo zasebno iz nastavne
+populacije `populacija_medija`, nakon ograničavanja na ta dva izvora. Svaki
+redak predstavlja zamišljenu osobu s izvorom vijesti i povjerenjem na ljestvici
+od jedan do deset, bez tvrdnje o stvarnim stanovnicima. Najprije ćemo
+prikazati razliku i njezin interval. Potom ćemo pretpostaviti jednaku
+raspodjelu povjerenja među skupinama i provjeriti što bismo očekivali kada
+oznake izvora ne bi bile povezane s odgovorima.
 
 I u ovoj usporedbi ponavljamo postupak, ali drukčije nego pri uzorkovanju
 ili bootstrapu. Ocjene ostaju zabilježene, a oznake skupina
@@ -70,9 +74,8 @@ Posljedice takvih prilagodbi razmotrit ćemo u poglavlju o krizi i obnovi.
 
 ## Kako se gradi svijet bez učinka
 
-U uzorku za usporedbu tiska i portala imamo `r s10$n` osoba iz
-`populacija_medija`. Njihove ocjene povjerenja najprije čitamo uz
-izvorne oznake skupina, prije bilo kakva premještanja.
+Uzorak od 300 čitatelja tiska i portala zadržava izvorne oznake skupina.
+Njihove ocjene povjerenja najprije čitamo prije bilo kakva premještanja.
 
 Odabir smo najprije ograničili na osobe kojima je glavni izvor tisak ili
 portal, a iz njih izabrali 300 zapisa bez vraćanja. Druge izvore nismo
@@ -95,7 +98,7 @@ $\sqrt{s_T^2/n_T+s_P^2/n_P}$, gdje su $s_T$ i $s_P$ uzoračke standardne
 devijacije tiska i portala, a $n_T$ i $n_P$ njihove brojnosti. Razlici
 dodajemo i od nje oduzimamo $1,96$ standardnih pogrešaka. Račun traži
 neovisne osobe i dovoljno stabilnu približno normalnu raspodjelu razlike.
-Interval se temelji na tom približnom računu standardne pogreške; premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
+Interval se temelji na tom približnom računu standardne pogreške. Premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
 o dvjema grupama razvija t-prilagodbu i Welchove stupnjeve slobode.
 
 Pretpostavimo da je cijela raspodjela povjerenja jednaka među čitateljima
@@ -104,7 +107,7 @@ odnosu na ishod. Možemo ih nasumično premjestiti među osobama, ponovno
 izračunati razliku sredina i to ponoviti mnogo puta. Dobivene razlike pokazuju
 što bismo mogli očekivati pod modelom u kojem oznaka nije povezana s ishodom.
 
-U tablici je prvih šest osoba iz istog uzorka prije i nakon prvoga
+U tablici je prvih šest osoba iz uzorka od 300 čitatelja tiska i portala prije i nakon prvoga
 nasumičnog preslagivanja svih 300 oznaka. Ocjena prvog retka ostaje
 `r s10_ishod[1]`, a uz nju sada stoji oznaka
 „`r s10_prva_permutacija[1]`”. Za novi račun grupiramo ocjene prema desnom
@@ -144,7 +147,7 @@ uspoređujemo apsolutnu opaženu razliku s apsolutnim razlikama nakon
 premještanja. Ova jednostavna permutacija ispituje opisani model jednakosti cijelih raspodjela, koji uključuje i njihove oblike i raspršenosti. Slika prikazuje razlike iz
 četiri tisuće premještanja i razliku iz izvornog rasporeda oznaka.
 
-*Slika. Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Nulta raspodjela ima sredinu u nuli i standardnu devijaciju od `r hr_broj(s10$sd_nulte, 2)` boda.
 U 95 % premještanja apsolutna razlika ne prelazi `r hr_broj(s10$granica, 2)` boda. Opažena
@@ -163,7 +166,7 @@ nazivniku račun postaje
 $(`r sum(abs(s10_nulte) >= abs(s10_razlika))` + 1)/(4\,000 + 1)$.
 Sva su preslagivanja valjana jer se brojnost obiju skupina čuva.
 
-U našem uzorku p-vrijednost iznosi `r hr_broj(s10$p, 3)`. To znači da, uz iste opažene
+U uzorku od 300 čitatelja tiska i portala p-vrijednost iznosi `r hr_broj(s10$p, 3)`. To znači da, uz iste opažene
 ishode i veličine skupina, nulti model daje apsolutnu razliku ovoliku ili veću
 u otprilike `r hr_broj(s10$p * 100, 1)` % simuliranih rasporeda oznaka. U tumačenju moramo
 zadržati uvjet da vrijedi nulti model.
@@ -262,10 +265,9 @@ razlika prema izvoru vijesti iznosi `r hr_broj(s10$istina_izvor, 2)` boda. Postu
 za odbacivanje nulte hipoteze, iako razlika postoji.
 
 Na zajedničkoj osi prikazane su raspodjela pod nultim modelom i raspodjela
-procijenjene razlike kada učinak postoji. Iste granične crte određuju odluku u
-oba slučaja.
+procijenjene razlike kada učinak postoji. Prva premješta oznake u istom uzorku od 300 čitatelja tiska i portala, a druga nastaje novim izvlačenjima iz iste podpopulacije. Iste granične crte određuju odluku u oba slučaja.
 
-*Slika. Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora; podaci i postupak opisani su u tekstu.*
+*Slika. Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora. Podaci i postupak opisani su u tekstu.*
 
 Pomaknemo li granične crte prema van, rjeđe odbacujemo istinitu nultu
 hipotezu. Istodobno veći dio raspodjele s postojećim učinkom ostaje između
@@ -336,7 +338,7 @@ procijenili.
 
 ## Što p-vrijednost nije
 
-U zasebnom uzorku pogledajmo nasumično dodijeljene oznake. Razlika iznosi
+Za kalibraciju zasebno uzimamo 300 vrijednosti povjerenja iz cijele simulirane populacije i nasumično im dodjeljujemo oznake A i B. Te oznake nisu izvori vijesti. Razlika iznosi
 `r hr_broj(s10$razlika_nulta, 2)` boda, interval ide od `r hr_broj(s10$donja_nulta, 2)` do `r hr_broj(s10$gornja_nulta, 2)`, a p-vrijednost je
 `r hr_broj(s10$p_nulta, 2)`. U ovoj simulaciji znamo da nulti model vrijedi jer oznake nastaju
 neovisno o ishodu.
@@ -388,10 +390,10 @@ dviju skupina čitatelja. Autor navodi malu p-vrijednost i predlaže
 naslov prema kojem je dokazao svoje objašnjenje razlike. Urednik
 treba odlučiti što od toga može prenijeti publici. Uz točnost prepisanog broja urednik treba utvrditi što je njime provjereno.
 
-Greenland i suradnici sastavili su pregled dvadeset pet pogrešnih
-tumačenja p-vrijednosti, intervala i snage upravo kako bi
-istraživačima i čitateljima pomogli prepoznati takve prijelaze
-(Greenland, 2016). Među njima je zamjena vjerojatnosti podataka pod
+Takve je prijelaze lakše prepoznati kad ih vidimo na konkretnim
+tumačenjima. Jedan pregled okuplja dvadeset pet pogrešnih tumačenja
+p-vrijednosti, intervala i snage, kao pomoć pri čitanju i pisanju
+istraživačkih zaključaka (Greenland, 2016). Među njima je zamjena vjerojatnosti podataka pod
 pretpostavljenim modelom vjerojatnošću da je sama hipoteza istinita.
 Mala p-vrijednost ne daje postotak sigurnosti u autorovo objašnjenje
 (Greenland, 2016).
@@ -440,7 +442,7 @@ uzročnog tumačenja.
 
 ## Razrađeni primjer
 
-Usporedbu povjerenja čitatelja tiska i portala sada možemo provesti od opažene
+Na istom uzorku od 300 čitatelja tiska i portala usporedbu povjerenja provodimo od opažene
 razlike do njezina položaja u nultoj raspodjeli. Najprije računamo razliku
 sredina s izvornim oznakama. Zatim zadržavamo ocjene, premještamo oznake
 skupina i svaki put računamo istu razliku. Prebrojavanjem odstupanja barem

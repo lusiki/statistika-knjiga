@@ -186,8 +186,8 @@ s11 <- list(
 
 ::: {.callout-vinjeta}
 Može li kratka poruka na društvenoj mreži potaknuti odlazak na izbore?
-Bond i suradnici nasumično su dodjeljivali poruke tijekom američkih izbora
-[@bond2012].
+U velikom pokusu tijekom američkih izbora istraživači su nasumično
+dodjeljivali različite poruke korisnicima mreže [@bond2012].
 Neke su prikazivale fotografije prijatelja koji su označili da su glasovali,
 a druge istu poruku bez tih fotografija [@bond2012]. Glasovanje su mogli
 provjeriti u biračkim evidencijama samo za upareni podskup korisnika
@@ -278,7 +278,7 @@ $$s_{\mathrm{zdr}}=\sqrt{\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}}.$$
 
 U ovom primjeru račun obavljamo na cijeloj poznatoj sintetičkoj populaciji.
 Zato dobivena razlika i njezina standardizacija opisuju te zapise bez
-uzoračke nesigurnosti; uzoračka procjena iste veličine zahtijevala bi i
+uzoračke nesigurnosti. Uzoračka procjena iste veličine zahtijevala bi i
 interval. U brojnik ulazi
 $(`r s11_n1`-1)\times `r hr_broj(var(s11_skupine[["portal"]]),3)` +
 (`r s11_n2`-1)\times `r hr_broj(var(s11_skupine[["tisak"]]),3)`$,
@@ -450,7 +450,7 @@ odabira prema pragu procjene u ovoj simulaciji ne pokazuju pristranost.
 
 ```{r}
 #| label: fig-pretjerivanje
-#| fig-cap: "Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Gornji histogram obuhvaća sve studije i centriran je na stvarnoj razlici. Donji obuhvaća samo studije koje su prešle prag i ima dva odvojena nakupljanja, veliko desno od stvarne razlike i vrlo malo lijevo od nule."
 
 s11_usporedba <- bind_rows(
@@ -743,7 +743,7 @@ viewof w11_par = Inputs.form({
 #| echo: false
 #| cache: false
 #| label: fig-w11-print
-#| fig-cap: "Simulirana snaga kroz veličine uzorka pri trima standardiziranim razlikama. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Simulirana snaga kroz veličine uzorka pri trima standardiziranim razlikama. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Tri rastuće krivulje pokazuju da veća stvarna razlika postiže jednaku snagu s manjim uzorkom."
 #| fig-width: 6.6
 #| fig-height: 4.8
@@ -843,11 +843,10 @@ plan može izgledati izvedivo i uz skroman uzorak. No prije nego
 što tu brojku pretvorimo u obećanje budućeg istraživanja, trebamo
 razmotriti kako je dospjela u literaturu.
 
-Button i suradnici analizirali su problem niske snage u
-neuroznanosti. Pokazali su da mala istraživanja ne propuštaju
-samo postojeće učinke. Kada se nalazi odabiru prema značajnosti,
-objavljene procjene mogu precjenjivati njihovu veličinu
-[@button2013]. U takvom izboru lakše prolaze rezultati koji su,
+Analiza istraživanja u neuroznanosti pokazala je i drugu posljedicu
+niske snage. Uz propuštanje postojećih učinaka, mala istraživanja mogu
+ostaviti i pretjeran dojam o njihovoj veličini ako se nalazi odabiru
+za objavu prema značajnosti [@button2013]. U takvom izboru lakše prolaze rezultati koji su,
 uz postojeći učinak, dobili i povoljan slučajni pomak.
 
 Zamislimo tim koji na temelju jednoga takvog nalaza planira

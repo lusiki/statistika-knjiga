@@ -280,7 +280,7 @@ $\sqrt{s_T^2/n_T+s_P^2/n_P}$, gdje su $s_T$ i $s_P$ uzoračke standardne
 devijacije tiska i portala, a $n_T$ i $n_P$ njihove brojnosti. Razlici
 dodajemo i od nje oduzimamo $1,96$ standardnih pogrešaka. Račun traži
 neovisne osobe i dovoljno stabilnu približno normalnu raspodjelu razlike.
-Interval se temelji na tom približnom računu standardne pogreške; premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
+Interval se temelji na tom približnom računu standardne pogreške. Premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
 o dvjema grupama razvija t-prilagodbu i Welchove stupnjeve slobode.
 
 Pretpostavimo da je cijela raspodjela povjerenja jednaka među čitateljima
@@ -343,7 +343,7 @@ premještanja. Ova jednostavna permutacija ispituje opisani model jednakosti cij
 
 ```{r}
 #| label: fig-nulta-raspodjela
-#| fig-cap: "Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Histogram permutiranih razlika simetričan je oko nule i proteže se otprilike jedan bod u svakom smjeru, s najvišim stupcima uz samu nulu. Opažena razlika označena je crtom koja leži izvan glavnine tog raspona, u njegovoj desnoj četvrtini."
 
 ggplot(tibble(razlika = s10_nulte), aes(razlika)) +
@@ -617,7 +617,7 @@ viewof w10_par = Inputs.form({
 #| echo: false
 #| cache: false
 #| label: fig-w10-print
-#| fig-cap: "Raspodjele p-vrijednosti pod nultim modelom i uz standardiziranu razliku 0,35. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Raspodjele p-vrijednosti pod nultim modelom i uz standardiziranu razliku 0,35. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Gornji histogram ravnomjerno ispunjava raspon p-vrijednosti, a donji se uz stvarnu razliku nakuplja blizu nule."
 #| fig-width: 6.6
 #| fig-height: 5.2
@@ -742,7 +742,7 @@ procijenjene razlike kada učinak postoji. Prva premješta oznake u istom uzorku
 
 ```{r}
 #| label: fig-dvije-pogreske
-#| fig-cap: "Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Gornji panel prikazuje raspodjelu razlika oko nule s dvjema graničnim crtama koje odsijecaju uske repove. Donji panel prikazuje raspodjelu oko stvarne razlike, čiji lijevi dio prelazi preko desne granične crte i zalazi u područje neodbacivanja."
 
 s10_pogreske <- bind_rows(
@@ -887,10 +887,10 @@ dviju skupina čitatelja. Autor navodi malu p-vrijednost i predlaže
 naslov prema kojem je dokazao svoje objašnjenje razlike. Urednik
 treba odlučiti što od toga može prenijeti publici. Uz točnost prepisanog broja urednik treba utvrditi što je njime provjereno.
 
-Greenland i suradnici sastavili su pregled dvadeset pet pogrešnih
-tumačenja p-vrijednosti, intervala i snage upravo kako bi
-istraživačima i čitateljima pomogli prepoznati takve prijelaze
-[@greenland2016]. Među njima je zamjena vjerojatnosti podataka pod
+Takve je prijelaze lakše prepoznati kad ih vidimo na konkretnim
+tumačenjima. Jedan pregled okuplja dvadeset pet pogrešnih tumačenja
+p-vrijednosti, intervala i snage, kao pomoć pri čitanju i pisanju
+istraživačkih zaključaka [@greenland2016]. Među njima je zamjena vjerojatnosti podataka pod
 pretpostavljenim modelom vjerojatnošću da je sama hipoteza istinita.
 Mala p-vrijednost ne daje postotak sigurnosti u autorovo objašnjenje
 [@greenland2016].

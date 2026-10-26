@@ -193,10 +193,11 @@ s14 <- list(
 
 ::: {.callout-vinjeta}
 Što bi se promijenilo kada bismo privremeno isključili Facebook?
-Allcott i suradnici prije američkih izbora nasumično su rasporedili u skupine
-dobrovoljce koji su pristali na ponuđenu naknadu za deaktivaciju računa
-[@allcott2020]. Pratili su dobrobit i informiranost, uz usporedbu sa skupinom
-koja je nastavila koristiti Facebook [@allcott2020].
+To je pitanje istraženo pokusom prije američkih izbora. Dobrovoljci
+koji su pristali na ponuđenu naknadu za deaktivaciju računa nasumično su
+raspoređeni u skupine [@allcott2020]. Istraživači su pratili dobrobit i
+informiranost, uz usporedbu sa skupinom koja je nastavila koristiti
+Facebook [@allcott2020].
 
 Za svaki ishod trebalo je procijeniti razliku među skupinama i njezinu
 nesigurnost. Randomizacija je oblikovala skupine, ali sudionici nisu bili
@@ -322,7 +323,7 @@ U ovome računu Welchovi stupnjevi slobode iznose
 `r hr_broj(qt(.975, s14$df_welch), 3)`. Za test nulte razlike dijelimo
 opaženu razliku njezinom standardnom pogreškom. Dobivenu t-statistiku
 uspoređujemo s oba repa iste t-raspodjele. Taj račun pretpostavlja neovisne
-skupine i jedinice te približno normalne sredine; za male skupine posebno
+skupine i jedinice te približno normalne sredine. Za male skupine posebno
 je važan oblik raspodjele bez dominantnih krajnjih vrijednosti.
 
 U uzorku od 120 korisnika televizije i društvenih mreža prosječno povjerenje iznosi
@@ -342,7 +343,7 @@ Interval obuhvaća razlike ispod pola boda i blizu dva boda. Te vrijednosti
 mogu voditi različitim praktičnim odlukama. Širina intervala čini tu nepreciznost vidljivom uz oznaku značajnosti.
 
 U simulaciji znamo da stvarna razlika iznosi `r hr_broj(s14$pop_razlika, 2)` boda i da je interval
-obuhvaća. Dugoročni obuhvat provjeravamo ponavljanjima kakva smo koristili u poglavlju o procjeni; ovaj je pogodak samo jedno od mogućih ponavljanja.
+obuhvaća. Dugoročni obuhvat provjeravamo ponavljanjima kakva smo koristili u poglavlju o procjeni. Ovaj je pogodak samo jedno od mogućih ponavljanja.
 
 ## Interakcija — Uzorkivač dviju grupa
 
@@ -357,7 +358,7 @@ Raspodjelu tih razlika ovdje stvaramo kraćim računom. Za zadani normalni
 model poznajemo njezinu sredinu i standardnu pogrešku, pa razlike izvlačimo
 izravno iz te raspodjele, bez stvaranja svih pojedinaca svakoga novog
 uzorka. Digitalni prikaz koristi 1.500 takvih razlika, a tiskani 4.000 po
-nacrtu. Uključena su sva ponavljanja. Njihov raspon pokazuje preciznost procjene; za snagu testa ili obuhvat intervala trebali bismo u svakom ponavljanju provesti odgovarajući dodatni račun. Oblik histograma može
+nacrtu. Uključena su sva ponavljanja. Njihov raspon pokazuje preciznost procjene. Za snagu testa ili obuhvat intervala trebali bismo u svakom ponavljanju provesti odgovarajući dodatni račun. Oblik histograma može
 se malo promijeniti pri novom izvlačenju.
 
 Na slici uspoređujemo raspršenost pojedinačnih rezultata i preciznost
@@ -645,7 +646,7 @@ viewof w14_par = Inputs.form({
 #| echo: false
 #| cache: false
 #| label: fig-w14-print
-#| fig-cap: "Preklapanje ishoda u jednom uzorku te raspodjele procijenjene razlike u neovisnom i uparenom dizajnu. Izrada autora; podaci i postupak opisani su u tekstu."
+#| fig-cap: "Preklapanje ishoda u jednom uzorku te raspodjele procijenjene razlike u neovisnom i uparenom dizajnu. Izrada autora. Podaci i postupak opisani su u tekstu."
 #| fig-alt: "Skupine A i B u jednom uzorku znatno se preklapaju. Obje raspodjele procijenjene razlike centrirane su oko pet, ali je ona u uparenom dizajnu uža."
 #| fig-width: 6.6
 #| fig-height: 5.5
@@ -871,7 +872,7 @@ kako smo učinili u poglavlju o veličini učinka.
 $$d = \frac{\bar{x}_2 - \bar{x}_1}{s_{\text{zdr}}}$$
 
 Združena varijanca ponderirani je prosjek dviju varijanci, s težinama
-$n_1-1$ i $n_2-1$; nakon korjenovanja dobivamo združenu standardnu devijaciju.
+$n_1-1$ i $n_2-1$. Nakon korjenovanja dobivamo združenu standardnu devijaciju.
 Vraćamo se istom uzorku od 120 korisnika televizije i društvenih mreža. Za `r s14$n_mreze` korisnika mreža i `r s14$n_tv` korisnika televizije
 račun iz nezaokruženih podataka daje `r hr_broj(s14_zdruzena, 4)`.
 Razlika sredina iznosi `r hr_broj(s14$razlika, 4)`, pa njihov omjer daje
@@ -961,9 +962,9 @@ pogleda dodiruju li se crtice. Takav brz postupak može djelovati
 uvjerljivo dok ne saznamo što crtice prikazuju i kako su mjerenja
 nastala. Ista slika ne mora predstavljati istu usporedbu.
 
-Belia i suradnici taj su problem proučili s autorima znanstvenih
-radova. Internetski zadatak dovršila su 473 autora iz psihologije,
-bihevioralne neuroznanosti i medicine. Trebali su pomaknuti
+Problem se pokazao i u istraživanju u kojem su grafove čitali autori
+znanstvenih radova. Internetski zadatak dovršila su 473 autora iz
+psihologije, bihevioralne neuroznanosti i medicine [@belia2005]. Trebali su pomaknuti
 prikazane sredine do razlike koju smatraju upravo statistički
 značajnom [@belia2005]. Mnogi nisu dovoljno razlikovali standardne
 pogreške od intervala pouzdanosti ni neovisne skupine od
