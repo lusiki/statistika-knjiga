@@ -20,6 +20,7 @@ const server=http.createServer((req,res)=>{let file=path.resolve(root,'.'+decode
    assert(!/NaN|undefined/.test(await p.locator('.experiment-live').innerText()),w.id+' interpretation');
    await p.getByRole('button',{name:'Usporedi s ovim rezultatom',exact:true}).click();assert(await p.locator('.experiment-comparison').isVisible());
    if(['w08','w09','w11'].includes(w.id))assert.equal(await p.locator('.experiment-comparison svg').count(),2,w.id+' paired plots');
+   await p.locator('.experiment-lesson > summary').click();
    await p.locator('.experiment-lesson textarea').fill('PRIVATE-PREDICTION');
    await p.getByRole('button',{name:'Kopiraj poveznicu na ovaj prikaz'}).click();const url=await p.evaluate(()=>navigator.clipboard.readText());assert(!url.includes('PRIVATE-PREDICTION'));
    const fresh=await browser.newContext({viewport:{width:1280,height:1000}});const q=await fresh.newPage();q.on('pageerror',e=>errors.push(e.message));await q.goto(url);await q.locator('.experiment-live').waitFor();await q.waitForTimeout(900);

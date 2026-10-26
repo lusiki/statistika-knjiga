@@ -922,7 +922,7 @@ async function runSmokeAudit() {
     const atlasNode = atlas.locator('.atlas-node').first();
     await atlasNode.focus();
     const beforeKey = await atlasNode.boundingBox();
-    await atlasNode.press('ArrowRight');
+    await atlasNode.press('Shift+ArrowRight');
     const afterKey = await atlasNode.boundingBox();
     if (afterKey.x <= beforeKey.x + 10) throw new Error('atlas keyboard movement failed');
     await page.mouse.move(afterKey.x + afterKey.width / 2, afterKey.y + afterKey.height / 2);

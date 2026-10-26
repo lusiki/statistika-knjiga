@@ -133,6 +133,9 @@ jobs:
       - name: Verify learning tools and reproducible experiment links
         run: node scripts/audit-learning-tools.cjs docs
 
+      - name: Check website tasks and every page at desktop and mobile widths
+        run: node scripts/audit-site-review.cjs docs
+
       - name: Prove browser smoke fails closed
         run: python scripts/check-browser-smoke-fixtures.py
 

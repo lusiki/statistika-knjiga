@@ -50,7 +50,7 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
   const stage = element('div', 'atlas-stage');
   const network = element('div', 'atlas-network');
   network.setAttribute('role', 'group');
-  network.setAttribute('aria-label', 'Mreža svih pojmova. Tipke strelica pomiču fokusirani pojam; Enter otvara definiciju.');
+  network.setAttribute('aria-label', 'Mreža pojmova. Strelice biraju sljedeći pojam; Enter otvara definiciju. Shift i strelica pomiču pojam.');
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.classList.add('atlas-links');
   svg.setAttribute('aria-hidden', 'true');
@@ -73,6 +73,11 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
   index.append(element('summary', '', `Svi pojmovi A–Ž (${available.length})`));
   const indexList = element('div', 'atlas-index-list');
   index.append(indexList);
+  intro.append(button('Otvori popis A–Ž', 'atlas-list-shortcut', () => {
+    index.open = true;
+    indexList.querySelector('button')?.focus();
+    index.scrollIntoView({block: 'center'});
+  }));
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let moving = !motion.matches;
   let selectedId = availableIds.has(selected) ? selected : '';
@@ -82,7 +87,7 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
   let searchIds = null;
   let visible = true, disposed = false, raf = 0, time = 0, last = 0;
   const pause = button('', 'atlas-pause', () => { moving = !moving; updateMotion(); });
-  const note = element('p', 'atlas-edge-note', 'Veća točka: više spominjanja. Crta: zajednička uporaba.');
+  const note = element('p', 'atlas-edge-note', 'Veća točka: više spominjanja. Crta: zajednička uporaba, ne redoslijed učenja.');
   const notes = document.getElementById('o-nazivlju');
   const notesButton = button('O nazivlju', 'atlas-notes-toggle', () => {
     if (!notes) return;
@@ -188,7 +193,10 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
     part = 0;
     updateLegend();
     draw();
-    if (focus) heading.focus({preventScroll: true});
+    if (focus) {
+      heading.focus({preventScroll: true});
+      if (matchMedia('(max-width: 800px)').matches) panel.scrollIntoView({block: 'start'});
+    }
   }
   panel.addEventListener('keydown', event => { if (event.key === 'Escape') closePanel(); });
 
@@ -230,7 +238,12 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
   [...new Set(available.map(n => n.dio))].sort((a, b) => a - b).forEach(dio => {
     const data = available.find(n => n.dio === dio);
     const b = button('', 'atlas-part', () => {
+      selectedId = ''; hoveredId = '';
+      panel.hidden = true; invitation.hidden = false;
+      stage.classList.remove('has-selection');
       part = part === dio ? 0 : dio;
+      const entry = marks.find(n => !part || n.dio === part);
+      marks.forEach(n => { n.button.tabIndex = n === entry ? 0 : -1; });
       updateLegend(); draw();
     });
     b.dataset.part = dio;
@@ -277,6 +290,7 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
       choose(n.id);
     });
     n.button = b; b.dataset.part = n.dio; b.dataset.id = n.id;
+    b.tabIndex = n === marks[0] ? 0 : -1;
     b.setAttribute('aria-label', `${n.term} — otvori definiciju`);
     n.label = element('span', 'atlas-node-label', n.term);
     b.append(element('span', 'atlas-node-shape'));
@@ -285,6 +299,7 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
     b.addEventListener('pointerenter', () => { hoveredId = n.id; draw(); });
     b.addEventListener('pointerleave', () => { hoveredId = ''; draw(); });
     b.addEventListener('focus', () => {
+      marks.forEach(other => { other.button.tabIndex = other === n ? 0 : -1; });
       n.fx = n.x; n.fy = n.y;
       const x = n.x * scale + offsetX, y = n.y * scale + offsetY;
       if (x < 24 || x > width - 24 || y < 24 || y > height - 60) {
@@ -325,6 +340,13 @@ export function createAtlas(graph, {d3, href, chapter = '', selected = ''} = {})
       const delta = {ArrowLeft: [-16,0], ArrowRight: [16,0], ArrowUp: [0,-16], ArrowDown: [0,16]}[event.key];
       if (!delta) return;
       event.preventDefault();
+      if (!event.shiftKey) {
+        const candidates = marks.filter(other => other !== n && (!part || other.dio === part));
+        const forward = candidates.filter(other => (other.x - n.x) * delta[0] + (other.y - n.y) * delta[1] > 0);
+        const target = (forward.length ? forward : candidates).sort((a,b) => Math.hypot(a.x-n.x,a.y-n.y)-Math.hypot(b.x-n.x,b.y-n.y))[0];
+        target?.button.focus({preventScroll:true});
+        return;
+      }
       n.x += delta[0] / scale; n.y += delta[1] / scale;
       n.fx = n.x; n.fy = n.y;
       anchors.set(n.id, {x: n.x, y: n.y}); draw();

@@ -1,0 +1,435 @@
+<script>
+  (() => {
+    "use strict";
+    const el = (tag, cls, text) => {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text) n.textContent = text;
+      return n;
+    };
+    const link = (text, href, cls = "") => {
+      const a = el("a", cls, text);
+      a.href = href;
+      return a;
+    };
+    const fold = (text) =>
+      text
+        .toLocaleLowerCase("hr")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d");
+    function init() {
+      const main = document.querySelector("main");
+      if (!main) return;
+      const brand = document.querySelector(".navbar-brand");
+      const base = new URL(brand?.getAttribute("href") || "./", location.href);
+      const url = (path) => new URL(path, base).href;
+      function revealHash() {
+        let id;
+        try {
+          id = decodeURIComponent(location.hash.slice(1));
+        } catch {
+          return;
+        }
+        const target = document.getElementById(id);
+        if (!target) return;
+        let parent = target.parentElement;
+        while (parent) {
+          if (parent.tagName === "DETAILS") parent.open = true;
+          parent = parent.parentElement;
+        }
+      }
+      const skip = link(
+        "Preskoči na sadržaj",
+        "#quarto-document-content",
+        "site-skip",
+      );
+      document.body.prepend(skip);
+      main.tabIndex = -1;
+      const reader = document.querySelector(".quarto-reader-toggle");
+      if (reader) {
+        const syncReader = () => {
+          const active =
+            reader.classList.contains("reader") &&
+            !document.body.classList.contains("standalone-page");
+          document.body.classList.toggle("site-reading-focus", active);
+          reader.setAttribute("aria-pressed", String(active));
+        };
+        new MutationObserver(syncReader).observe(reader, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
+        syncReader();
+      }
+      const footer = document.querySelector(".nav-footer-center");
+      if (footer) {
+        const nav = el("nav", "site-footer-links");
+        nav.setAttribute("aria-label", "Poveznice uz knjigu");
+        nav.append(
+          link("PDF · radna verzija", url("pdf/Statistika.pdf")),
+          link("Ispravci", url("errata.html")),
+          link("Kako citirati", url("index.html#kako-citirati")),
+        );
+        footer.prepend(nav);
+      }
+      const share = document.querySelector(
+        '[aria-labelledby^="quarto-navigation-tool-dropdown"]',
+      );
+      if (share) {
+        const li = el("li"),
+          b = el("button", "dropdown-item", "Kopiraj poveznicu");
+        b.type = "button";
+        b.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(location.href);
+            b.textContent = "Poveznica je kopirana";
+          } catch {
+            b.textContent = "Kopirajte adresu iz preglednika";
+          }
+          setTimeout(() => (b.textContent = "Kopiraj poveznicu"), 2000);
+        });
+        li.append(b);
+        share.prepend(li);
+      }
+      const current = location.pathname;
+      if (/\/dodaci\/[ab]-/.test(current)) {
+        document.querySelectorAll(".navbar-nav .active").forEach((a) => {
+          a.classList.remove("active");
+          a.removeAttribute("aria-current");
+        });
+        const a = [...document.querySelectorAll(".navbar-nav a")].find((a) =>
+          a.href.endsWith("/dodaci/a-praktikum.html"),
+        );
+        if (a) {
+          a.classList.add("active");
+          a.setAttribute("aria-current", "page");
+        }
+        const nav = el("nav", "practice-paths");
+        nav.setAttribute("aria-label", "Odaberite put kroz praktikum");
+        nav.append(
+          link("Rad u R-u", url("dodaci/a-praktikum.html"), "btn-knjiga"),
+          link("Bez koda · jamovi", url("dodaci/b-jamovi.html"), "btn-knjiga"),
+        );
+        main.querySelector("#title-block-header")?.after(nav);
+        const jumps = el("nav", "practice-jumps");
+        jumps.setAttribute("aria-label", "Brzi ulazi u praktikum");
+        const ids = current.includes("/a-praktikum")
+          ? [
+              "alat-i-radni-prostor",
+              "sec-a-ucitavanje",
+              "grafovi",
+              "sec-a-rute-06-16",
+            ]
+          : ["sec-b-priprema", "sec-b-rute", "sec-b-granica"];
+        ids.forEach((id) => {
+          const s = document.getElementById(id),
+            h = s?.querySelector("h2,h3");
+          if (h) jumps.append(link(h.textContent.trim(), "#" + id));
+        });
+        nav.after(jumps);
+      }
+      const citation = document.querySelector(".draft-citation");
+      if (citation) {
+        const b = el("button", "btn-knjiga", "Kopiraj navod");
+        b.type = "button";
+        b.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(
+              citation.textContent
+                .trim()
+                .replace(
+                  "[upišite datum]",
+                  new Date().toLocaleDateString("hr-HR"),
+                ),
+            );
+            b.textContent = "Navod je kopiran";
+          } catch {
+            b.textContent = "Označite i kopirajte navod iznad";
+          }
+        });
+        citation.after(b);
+      }
+      if (document.body.classList.contains("podaci-page")) setupData(main);
+      if (current.endsWith("/rjesenja.html")) setupSolutions(main);
+      // Unpublished routes remain valid for old links, with ready alternatives.
+      if (/\/(predavanja|silabus|resursi)\.html$/.test(current)) {
+        const nav = el("nav", "practice-paths");
+        nav.setAttribute("aria-label", "Dostupni materijali");
+        nav.append(
+          link("Plan učenja", url("raspored.html"), "btn-knjiga"),
+          link("Interakcije", url("interakcije.html"), "btn-knjiga"),
+          link("Praktikum", url("dodaci/a-praktikum.html"), "btn-knjiga"),
+        );
+        main.append(nav);
+      }
+      document.querySelectorAll(".author-profile button").forEach((b) => {
+        if (b.textContent.includes("Presloži"))
+          b.textContent = "Presloži oblike";
+      });
+      document.querySelectorAll(".author-profile a").forEach((a) => {
+        if (/cv-(luka|petra)\.html$/.test(a.href))
+          a.textContent = a.textContent.replace("↗", "→");
+      });
+      revealHash();
+      window.addEventListener("hashchange", revealHash);
+      // Display math scrolls locally; prose and the whole page continue to reflow.
+      const mathRegions = [...document.querySelectorAll("span.math")];
+      const mathHints = new Map();
+      let mathQueued = false;
+      const refreshMath = () => {
+        mathQueued = false;
+        mathRegions.forEach((math) => {
+          const inline = math.classList.contains("inline");
+          if (inline) {
+            const parent = math.closest("p,li,td,th") || math.parentElement;
+            const natural =
+              math.querySelector("mjx-container")?.getBoundingClientRect()
+                .width || math.getBoundingClientRect().width;
+            math.classList.toggle(
+              "math-inline-wide",
+              natural > parent.clientWidth + 1,
+            );
+          }
+          const wide = inline
+            ? math.classList.contains("math-inline-wide")
+            : math.scrollWidth > math.clientWidth + 1;
+          if (wide && !mathHints.has(math)) {
+            const hint = el(
+              "span",
+              "math-scroll-hint",
+              "↔ Pomaknite formulu za cijeli izraz",
+            );
+            math.after(hint);
+            mathHints.set(math, hint);
+          }
+          if (mathHints.has(math)) mathHints.get(math).hidden = !wide;
+          if (wide) {
+            math.tabIndex = 0;
+            math.setAttribute("role", "region");
+            math.setAttribute(
+              "aria-label",
+              "Formula; pomaknite vodoravno za cijeli izraz",
+            );
+          } else {
+            math.removeAttribute("tabindex");
+            math.removeAttribute("role");
+            math.removeAttribute("aria-label");
+          }
+        });
+      };
+      const queueMath = () => {
+        if (!mathQueued) {
+          mathQueued = true;
+          requestAnimationFrame(refreshMath);
+        }
+      };
+      const mathObserver = new ResizeObserver(queueMath);
+      mathObserver.observe(main);
+      mathRegions.forEach((math) => {
+        mathObserver.observe(math);
+        new MutationObserver(queueMath).observe(math, {
+          childList: true,
+          subtree: true,
+        });
+      });
+      queueMath();
+    }
+    function setupData(main) {
+      const records = [...main.querySelectorAll('section[id^="podaci-"]')];
+      if (!records.length) return;
+      // Quarto does not number tables in this standalone catalogue. Use the
+      // actual caption for valid local references instead of exposing raw IDs.
+      main
+        .querySelectorAll("a.quarto-xref:has(.quarto-unresolved-ref)")
+        .forEach((a) => {
+          const target = document.getElementById(new URL(a.href).hash.slice(1));
+          const caption = target?.querySelector("figcaption");
+          if (caption)
+            a.textContent =
+              "tablici „" + caption.textContent.trim().replace(/\.$/, "") + "”";
+        });
+      const use = new Map();
+      main
+        .querySelectorAll("#sec-podaci-karta-uporabe tbody tr")
+        .forEach((row) => {
+          const cells = row.querySelectorAll("td");
+          const a = cells[1]?.querySelector("a");
+          if (cells[0] && a) {
+            const id = cells[0].textContent.trim();
+            if (!use.has(id)) use.set(id, []);
+            use.get(id).push(a);
+          }
+        });
+      const catalogue = el("details", "catalogue-reference");
+      catalogue.append(el("summary", "", "Cjeloviti katalog i dokumentacija"));
+      const existing = [...main.children].filter(
+        (n) => n.id !== "title-block-header" && !n.matches("h1.title"),
+      );
+      existing.forEach((n) => catalogue.append(n));
+      const intro = el(
+        "p",
+        "",
+        "Preuzmite podatke za primjere i vježbe. Uz svaki skup dostupni su opis podrijetla, način uporabe i ograničenja zaključivanja.",
+      );
+      const controls = el("div", "catalogue-controls"),
+        label = el("label", "", "Pronađi skup"),
+        search = el("input");
+      search.type = "search";
+      search.placeholder = "Naziv ili tema…";
+      label.append(search);
+      const chapterLabel = el("label", "", "Poglavlje"),
+        select = el("select");
+      select.append(new Option("Sva poglavlja", ""));
+      chapterLabel.append(select);
+      controls.append(label, chapterLabel);
+      const count = el("p", "catalogue-count");
+      count.setAttribute("role", "status");
+      const list = el("div", "dataset-list");
+      const cards = [],
+        chapterOptions = new Map();
+      records.forEach((record) => {
+        const fields = new Map(
+          [...record.querySelectorAll("tbody tr")].map((row) => {
+            const c = row.querySelectorAll("td");
+            return [c[0]?.textContent.trim(), c[1]];
+          }),
+        );
+        const files = [
+          ...(fields.get("Datoteke")?.querySelectorAll("a[href]") || []),
+        ].filter((a) => /\.csv(?:$|[?#])/.test(a.href));
+        if (!files.length) return;
+        const id = fields.get("Identifikator")?.textContent.trim(),
+          title = record.querySelector("h3")?.textContent.trim();
+        if (!title) return;
+        const card = el("section", "dataset-entry");
+        card.id = "skup-" + id;
+        card.append(
+          el("h2", "", title),
+          el("p", "", fields.get("Pitanje")?.textContent.trim() || ""),
+        );
+        const actions = el("div", "dataset-downloads");
+        files.forEach((a) => {
+          const file = decodeURIComponent(
+            new URL(a.href).pathname.split("/").pop(),
+          );
+          const download = link("Preuzmi " + file, a.href, "btn-knjiga");
+          download.setAttribute("download", "");
+          actions.append(download);
+        });
+        card.append(actions);
+        const source = record.querySelector('a[href*="c-katalog-podataka"]');
+        if (source)
+          card.append(
+            link(
+              "Podrijetlo, opis i uvjeti uporabe →",
+              source.href,
+              "dataset-source",
+            ),
+          );
+        const chapters = use.get(id) || [];
+        const paths = [];
+        if (chapters.length) {
+          const links = el("div", "dataset-chapters");
+          links.append(el("span", "", "U knjizi: "));
+          chapters.forEach((a) => {
+            const key = new URL(a.href).pathname;
+            paths.push(key);
+            chapterOptions.set(key, a.textContent.trim());
+            links.append(link(a.textContent.trim(), a.href));
+          });
+          card.append(links);
+        }
+        cards.push({ card, paths, text: fold(card.textContent) });
+        list.append(card);
+      });
+      [...chapterOptions]
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .forEach(([value, text]) => select.append(new Option(text, value)));
+      const empty = el(
+        "p",
+        "",
+        "Nema skupova za taj odabir. Promijenite naziv ili poglavlje.",
+      );
+      empty.hidden = true;
+      function filter() {
+        let shown = 0;
+        const q = fold(search.value);
+        cards.forEach(({ card, paths, text }) => {
+          card.hidden = !(
+            text.includes(q) &&
+            (!select.value || paths.includes(select.value))
+          );
+          if (!card.hidden) shown++;
+        });
+        count.textContent = `Prikazano: ${shown} od ${cards.length} skupova za preuzimanje.`;
+        empty.hidden = shown > 0;
+      }
+      search.addEventListener("input", filter);
+      select.addEventListener("change", filter);
+      filter();
+      const more = el(
+        "p",
+        "",
+        "Za skupove koji se preuzimaju od pružatelja i za ostale izvore pogledajte cjeloviti katalog ispod.",
+      );
+      main.append(intro, controls, count, list, empty, more, catalogue);
+    }
+    function setupSolutions(main) {
+      const sections = [...main.querySelectorAll(":scope > section.level1")];
+      if (!sections.length) return;
+      const nav = el("nav", "solution-picker");
+      nav.setAttribute("aria-label", "Odabir provjere rješenja");
+      const label = el("label", "", "Odaberite poglavlje"),
+        select = el("select"),
+        tasks = el("div", "solution-tasks");
+      label.append(select);
+      nav.append(label, tasks);
+      sections.forEach((s) => {
+        const h = s.querySelector(":scope > h1");
+        if (h) {
+          select.append(new Option(h.textContent.trim(), s.id));
+          const replacement = el("h2", "", h.textContent.trim());
+          replacement.id = h.id;
+          h.replaceWith(replacement);
+        }
+      });
+      main.querySelector("#title-block-header")?.after(nav);
+      function show(id, scroll = false) {
+        const section = sections.find((s) => s.id === id) || sections[0];
+        select.value = section.id;
+        sections.forEach((s) => (s.hidden = s !== section));
+        tasks.replaceChildren();
+        section.querySelectorAll(":scope > section[id]").forEach((task) => {
+          const h = task.querySelector("h2,h3");
+          if (h) tasks.append(link(h.textContent.trim(), "#" + task.id));
+        });
+        if (scroll) {
+          section.scrollIntoView({ block: "start" });
+          section.tabIndex = -1;
+          section.focus({ preventScroll: true });
+        }
+      }
+      function fromHash() {
+        let id;
+        try {
+          id = decodeURIComponent(location.hash.slice(1));
+        } catch {
+          return;
+        }
+        const section = document
+          .getElementById(id)
+          ?.closest("main > section.level1");
+        show(section?.id || select.value || sections[0].id);
+      }
+      select.addEventListener("change", () => {
+        show(select.value, true);
+        history.replaceState(null, "", "#" + select.value);
+      });
+      window.addEventListener("hashchange", fromHash);
+      fromHash();
+    }
+    if (document.readyState === "loading")
+      document.addEventListener("DOMContentLoaded", init);
+    else init();
+  })();
+</script>

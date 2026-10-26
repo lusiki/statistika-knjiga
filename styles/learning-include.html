@@ -59,19 +59,20 @@
     frame.dataset.learningReady='true';
     const getParams=()=>landing?{n:+frame.querySelector('input[type=range]').value}:JSON.parse(frame.querySelector('[data-experiment-state]').dataset.experimentState);
     const initial=getParams();let pinned=null,restored=false;
-    const lesson=el('div','experiment-lesson');
+    const lesson=el('details','experiment-lesson');
+    lesson.append(el('summary','','Predvidite i provjerite svoje objašnjenje'));
     const question=el('p','experiment-question',lessons[id][0]);
     const label=el('label','', 'Vaše predviđanje');
     const prediction=el('textarea');prediction.rows=2;prediction.maxLength=600;prediction.placeholder='Zapišite što očekujete prije promjene postavki.';label.append(prediction);
     const reveal=el('details','experiment-reveal');reveal.append(el('summary','', 'Otkrij objašnjenje'),el('p','',lessons[id][1]));
     lesson.append(el('span','experiment-step','Predvidite · isprobajte · objasnite'),question,label,reveal);
-    if(landing)frame.prepend(lesson);else {const before=frame.querySelector('.widget-first-step');if(before)before.replaceWith(lesson);else frame.prepend(lesson);}
+    const before=frame.querySelector('.widget-first-step');if(before)before.remove();
     const live=el('p','experiment-live');live.setAttribute('role','status');live.setAttribute('aria-live','polite');
     const actions=el('div','experiment-actions');const pin=button('Usporedi s ovim rezultatom'),clear=button('Ukloni usporedbu'),share=button('Kopiraj poveznicu na ovaj prikaz');clear.hidden=true;actions.append(pin,clear,share);
     const feedback=el('p','experiment-feedback');feedback.setAttribute('role','status');
     const fallback=el('input','experiment-share-url');fallback.readOnly=true;fallback.hidden=true;fallback.setAttribute('aria-label','Poveznica na pokus');
     const comparison=el('div','experiment-comparison');comparison.hidden=true;
-    frame.append(live,actions,feedback,fallback,comparison);
+    frame.append(live,actions,feedback,fallback,comparison,lesson);
     const plots=()=>[...frame.querySelectorAll('[id^="fig-w"] svg')].filter(s=>!s.closest('.experiment-comparison'));
     function snapshot(){return plots().map(s=>{const c=s.cloneNode(true);c.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));c.removeAttribute('id');c.setAttribute('aria-label','Spremljeni graf');return c;});}
     function update(){

@@ -153,7 +153,7 @@ check(grepl("G-A5c", term_policy, fixed = TRUE) &&
         grepl("G-A6-DEPLOY", term_policy, fixed = TRUE),
       "Term-freeze policy lacks its owner and activation gates.")
 check(grepl("4. kolovoza 2026.", errata_page, fixed = TRUE) &&
-        grepl("Luka Sikic", errata_page, fixed = TRUE) &&
+        grepl("Luka Šikić", errata_page, fixed = TRUE) &&
         grepl("nije javno aktiviran", errata_page, fixed = TRUE),
       "Errata page lacks its date, owner, or inactive-state warning.")
 check(grepl('text: "Ispravci"', quarto_text, fixed = TRUE) &&
