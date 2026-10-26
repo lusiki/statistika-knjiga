@@ -34,8 +34,8 @@ subtitle: "Od pravca do općeg linearnog modela"
      udaljenost, APA predložak izvještaja i ručna dijagnostika kroz
      `plot(model)`. Multikolinearnost je zadržana kao jedna rečenica o
      tome što uzorak ne može razdvojiti, bez mjere i bez pragova.
-  4. Okvir divljine nosi [@westreich2013], a ne Breimana, jer Breiman nosi
-     vinjetu. Odjeljak o objašnjenju i predviđanju nosi [@shmueli2010].
+  4. Okvir divljine nosi [@kleppang2021], a vinjeta [@chetty2014].
+     Odjeljak o objašnjenju i predviđanju nosi [@shmueli2010].
   5. Zasijani pojam uzročnosti iz poglavlja o mjerenju požnjeven je u
      odjeljku o granici prema uzroku, kako concept-ledger.json bilježi uz
      unos o konfundirajućoj varijabli.
@@ -265,18 +265,15 @@ s16 <- list(
 ```
 
 ::: {.callout-vinjeta}
-Breiman je 2001. opisao dva pristupa statističkom modeliranju [@breiman2001].
-U prvome istraživač postavlja model nastanka podataka i tumači njegove
-parametre. U drugome postupak procjenjuje prema tome koliko dobro predviđa
-nove ishode.
+Koliko je ekonomski položaj odrasle djece povezan s položajem njihovih
+roditelja i je li ta veza jednaka u različitim krajevima? Chetty i suradnici
+povezali su porezne zapise roditelja i djece kako bi opisali međugeneracijsku
+mobilnost u Sjedinjenim Državama [@chetty2014]. Odabirom mjere prihoda i
+načina sažimanja odnosa istražili su i razlike među područjima [@chetty2014].
 
-Upozorio je da dobro pristajanje opaženim podacima nije dovoljno za procjenu
-modela. Model može dobro opisati postojeći skup, a slabo predviđati nove
-rezultate ili pogrešno prikazivati mehanizam nastanka podataka.
-
-Istom jednadžbom možemo opisivati odnos, predviđati novu osobu ili pokušati
-procijeniti uzročni učinak. Za ta tri cilja trebaju različiti dokazi. Kako
-prepoznati što model doista omogućuje?
+Regresija pomaže opisati takav obrazac, dok objašnjenje njegova nastanka
+traži dodatne dokaze. Razlika među područjima otvara pitanje uzročnog
+mehanizma. Kako prepoznati što model doista omogućuje zaključiti?
 :::
 
 Uspoređivali smo prosječno povjerenje među korisnicima različitih izvora
@@ -292,11 +289,15 @@ kategorički prediktor promatrati zajedno. Pitanje iz poglavlja o mjerenju i
 dizajnu pritom ostaje otvoreno. Trebamo procijeniti opisuje li model odnos ili
 imamo i razloge za uzročno tumačenje.
 
-Polazimo od svih 50.000 zamišljenih odraslih osoba u skupu
-`populacija_medija`, koristeći dob, glavni izvor vijesti i povjerenje u medije. Jedan zapis pripada jednoj osobi. Budući da za ovaj opis
-koristimo cijelu konačnu simuliranu populaciju, ne procjenjujemo nepoznatu
-vrijednost iz uzorka. Koeficijenti će sažeti zabilježene odgovore, a od njih
-ćemo odvojiti pravila kojima su ti odgovori stvoreni. Pri povratku ranijim
+Usporedbe su pokazale razlike u povjerenju među izvorima, a dobne skupine
+različit sastav njihove publike. Dob i izvor sada promatramo zajedno. Polazimo
+od svih 50.000 zamišljenih odraslih osoba u nastavnom skupu `populacija_medija`,
+koristeći dob, glavni izvor vijesti i povjerenje u medije.
+
+Jedan zapis pripada jednoj osobi, a računalno stvoreni odgovori ne opisuju
+stvarne stanovnike. Koristimo cijelu konačnu simuliranu populaciju, pa ne
+procjenjujemo nepoznatu vrijednost iz uzorka. Koeficijenti će sažeti odgovore,
+a od njih ćemo odvojiti pravila kojima su stvoreni. Pri povratku ranijim
 uzorcima ponovno ćemo razmotriti i njihovu nesigurnost.
 
 Odabrani pravac usporedit ćemo s opažanjima preko njihovih odstupanja,
@@ -1095,7 +1096,7 @@ Model s binarnim prediktorom daje razliku dviju sredina. Model s više
 kategorija daje razlike prema referentnoj skupini. Sada smo dodali brojčani
 prediktor. Provjerimo vezu s ranijim računima.
 
-Uzorak od sto dvadeset osoba iz poglavlja o dvjema grupama daje razliku
+Iste osobe iz uzorka od 120 korisnika televizije i društvenih mreža, iz poglavlja o dvjema grupama, daju razliku
 sredina `r hr_broj(s16$razlika_dvije, 2)` boda. Koeficijent uz izvor u modelu iznosi `r hr_broj(s16$koef_dvije, 2)`. To su
 dva zapisa iste točkaste procjene.
 
@@ -1106,7 +1107,7 @@ postupak dopušta različite varijance te daje t od `r hr_broj(s16$t_welch_dvije
 stupnja slobode. Procijenjena razlika ostaje jednaka, ali račun nesigurnosti
 se mijenja.
 
-Na tristo osoba iz poglavlja o više skupina klasični model daje F od
+Na istom uzorku od 300 osoba s pet izvora vijesti iz poglavlja o više skupina klasični model daje F od
 `r hr_broj(s16$f_pet, 2)`, uz `r s16$df1_pet` i `r s16$df2_pet` stupnjeva slobode. To je isti
 homoskedastični postupak kao `aov` iz poglavlja Više grupa. Welch daje F od `r hr_broj(s16$f_welch_pet, 2)`,
 uz `r hr_broj(s16$df1_welch_pet, 0)` i `r hr_broj(s16$df2_welch_pet, 1)` stupnja slobode. Zajednički model sredina ne znači
@@ -1177,7 +1178,7 @@ obzir broj prediktora i pada s `r hr_broj(100 * s16$prilagodeni_bez, 1)` % na `r
 pomaže pri usporedbi, ali sama ne provjerava predviđanje, uzročnost ni
 sadržajnu valjanost.
 
-Ograničenje raspona također mijenja ovu mjeru. Među osobama od trideset do
+Za provjeru ograničenja raspona vraćamo se cijeloj simuliranoj populaciji, zasebno od prethodnog uzorka od 200 osoba. Među osobama od trideset do
 pedeset godina nagib iznosi `r hr_broj(s16$nagib_usko, 4)`, gotovo kao prije. Objašnjeni udio ipak
 pada s `r hr_broj(100 * s16$r2_jedan, 1)` % na `r hr_broj(100 * s16$r2_usko, 1)` % u skupu od `r hr_broj(s16$n_usko, 0)` ljudi. Koeficijent
 determinacije zato ovisi o populaciji i rasponu podataka.
@@ -1195,16 +1196,14 @@ Regresija objava zato ne opisuje osobnu uporabu, a skupni obrazac ne možemo
 pripisati pojedincu. Trebamo usporediti konstrukt, jedinicu, populaciju i
 obuhvat mjerenja.
 
-Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo osobe od
-30 do 50 godina, a ne podskup prethodnih 200. Za sljedeći dijagnostički
-primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
+Za sljedeći dijagnostički primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
 povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu
 i očekivana vrijednost i raspršenost.
 
 Mjesta na kojima model slabije odgovara podacima tražimo pregledom pojedinačnih odstupanja, reziduala. Tako dopunjujemo ukupni opis objašnjenog udjela. U našoj populaciji
 linearni odnos dnevnog praćenja medija i dobi ima nagib `r hr_broj(s16$nagib_minute, 2)` minute
 po godini. Reziduali oko tog pravca nisu jednako raspršeni duž cijelog raspona,
-što možemo vidjeti na njihovu prikazu.
+što možemo vidjeti na njihovu prikazu. Model računamo na cijeloj populaciji, a slika prikazuje slučajni podskup od 2.000 osoba.
 
 ```{r}
 #| label: fig-dijagnostika

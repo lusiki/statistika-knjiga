@@ -655,6 +655,50 @@ overview_rows <- vapply(packages, function(package) {
   )
 }, character(1))
 
+# Project declared consumers and named retained variants into both reader views.
+usage_map <- function(prefix) {
+  rows <- character()
+  for (package in packages) {
+    sources <- unlist(package$consumer_sources, use.names = FALSE)
+    sources <- sources[grepl("^(chapters/|dodaci/[ab]-)", sources)]
+    for (source in sources) {
+      variants <- Filter(function(v) identical(v$source, source), package$teaching_variants)
+      records <- if (length(variants)) {
+        paste(vapply(variants, function(v) paste0(escape_cell(v$prose_name), " (", code(v$id), ")"), character(1)), collapse = "; ")
+      } else {
+        "Uporaba bez zasebno registrirane nastavne varijante."
+      }
+      stem <- sub("\\.qmd$", "", basename(source))
+      label <- restore_hr_diacritics(gsub("-", " ", stem))
+      label <- gsub("sazimanje", "sažimanje", label, fixed = TRUE)
+      label <- gsub("vase", "vaše", label, fixed = TRUE)
+      if (startsWith(source, "dodaci/")) {
+        label <- paste("Dodatak", paste0(toupper(substr(label, 1L, 1L)), substring(label, 2L)))
+      }
+      target <- paste0(if (identical(prefix, "c")) "../" else "", source)
+      rows <- c(rows, paste0("| ", code(package$id), " | [", escape_cell(label), "](", target, ") | ", records, " |"))
+    }
+  }
+  c(paste0("## Karta uporabe {#sec-", prefix, "-karta-uporabe}"), "",
+    "Karta povezuje registrirane skupove s poglavljima i praktikumima u kojima se spominju ili koriste. Naziv uzorka i oznaka varijante pokazuju koje zapise ponovno susrećemo kada katalog bilježi zasebnu nastavnu varijantu. Konstrukcije zadane samo u tekstu i urednički dokazni zapisi nisu podatkovni paketi ove karte.", "",
+    table_lines(c("Skup", "Mjesto uporabe", "Zapisi i varijanta"), rows,
+      caption = ": Karta uporabe registriranih skupova. {tbl-colwidths=\"[28,28,44]\"}"), "")
+}
+
+# P5: zasebna urednička poveznica, bez novog paketa ili promjene portfelja.
+editorial_note <- function(prefix) {
+  target <- paste0(if (identical(prefix, "c")) "../" else "",
+                   "notes/reports/p3-evidence12-2026-08-13.md")
+  c(paste0(
+    "Laboratorijski zapis replikacijskog izvještaja Wagenmakersa i suradnika ",
+    "služi uredničkoj provjeri prikaza u poglavlju o krizi i obnovi ",
+    "[@wagenmakers2016]. Sadrži izvedene sažetke laboratorija, dok izvorni ",
+    "sudionički podaci ostaju kod pružatelja. Njegovo podrijetlo, granice ",
+    "uporabe i neovisna provjera dokumentirani su u [dokaznom izvještaju](",
+    target, "). Taj zapis ostaje izvan kataloga podatkovnih paketa."
+  ), "")
+}
+
 public_lines <- c(
   "---",
   "title: \"Podaci\"",
@@ -692,6 +736,8 @@ public_lines <- c(
     ": Sažeti popis paketa iz kanonskoga kataloga. {#tbl-podaci-paketi}"
   ),
   "",
+  usage_map("podaci"),
+  editorial_note("podaci"),
   "## Provjerljivi redci generiranih skupova {#sec-podaci-provjera}",
   "",
   paste(
@@ -735,6 +781,8 @@ appendix_lines <- c(
   "Zapis za provjeru podrijetla i ponovne izrade ovoga kataloga nalazi se u datoteci",
   "[`config/appendix-c-data-route.json`](../config/appendix-c-data-route.json).",
   "",
+  usage_map("c"),
+  editorial_note("c"),
   "## Provjerljivi redci generiranih skupova {#sec-c-provjera}",
   "",
   aggregate_tables(package_by_id("anketa_mreze"), "c"),

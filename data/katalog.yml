@@ -225,9 +225,11 @@ packages:
     question: "Koliko vremena ljudi provode na mrezama i kako to ide uz povjerenje?"
     role: "Poznata populacija za ponovljeno uzorkovanje i za citanje procjene s intervalom."
     consumers:
+      - "WA-C00"
       - "WB-C04"
       - "WB-C05"
       - "WB-C06"
+      - "WC-C08"
       - "WE-C18"
       - "P5-A"
       - "P5-B"
@@ -249,7 +251,8 @@ packages:
             "dobna_skupina",
             "minute_dnevno",
             "povjerenje"
-          ]
+          ],
+          "prose_name": "zasebna nastavna anketa od 300 osoba"
         },
         {
           "id": "c18-anketa-300",
@@ -264,10 +267,12 @@ packages:
             "dob",
             "minute_dnevno",
             "povjerenje"
-          ]
+          ],
+          "prose_name": "isti zapisi ankete od 300 osoba"
         }
       ]
     consumer_sources:
+      - "chapters/00-predgovor.qmd"
       - "chapters/04-sazimanje-podataka.qmd"
       - "chapters/05-vizualizacija.qmd"
       - "chapters/06-povezanost.qmd"
@@ -535,6 +540,51 @@ packages:
             "povjerenje_medijima",
             "obrazovanje",
             "minute_medija"
+          ],
+          "prose_name": "cijela nastavna populacija medijskih navika"
+        },
+        {
+          "id": "c10-300",
+          "prose_name": "uzorak od 300 čitatelja tiska i portala",
+          "source": "chapters/10-logika-testiranja.qmd",
+          "symbol": "s10_uzorak",
+          "kind": "sample",
+          "parent": "mediji-50000",
+          "rows": 300,
+          "seed": 1011,
+          "transformation": "Najprije filter na portal i tisak, zatim slice_sample(s10_podskup, n = 300) bez vraćanja. Novo izvlačenje iz iste populacije, nije podskup ranijeg uzorka.",
+          "variables": [
+            "izvor",
+            "povjerenje_medijima"
+          ]
+        },
+        {
+          "id": "c10-kalibracija-300",
+          "prose_name": "kalibracijski uzorak od 300 vrijednosti povjerenja",
+          "source": "chapters/10-logika-testiranja.qmd",
+          "symbol": "s10_ishod_nulta / s10_skupina_nulta",
+          "kind": "sample",
+          "parent": "mediji-50000",
+          "rows": 300,
+          "seed": 1010,
+          "transformation": "sample(populacija_medija$povjerenje_medijima, 300) bez vraćanja, zatim sample(rep(c(\"A\", \"B\"), each = 150)). Zaseban uzorak iz cijele populacije; nasumične oznake nisu izvori vijesti i ne ovise o ishodu.",
+          "variables": [
+            "s10_ishod_nulta",
+            "s10_skupina_nulta"
+          ]
+        },
+        {
+          "id": "c11-tisak-portal",
+          "prose_name": "svi čitatelji tiska i portala u populaciji",
+          "source": "chapters/11-velicina-ucinka-i-snaga.qmd",
+          "symbol": "s11_pod",
+          "kind": "subset",
+          "parent": "mediji-50000",
+          "rows": 19956,
+          "transformation": "filter(populacija_medija, izvor_vijesti %in% c(\"portal\", \"tisak\")); svi odgovarajući zapisi, bez novog izvlačenja. Poznata populacijska razlika služi kao referenca veličine učinka i snage.",
+          "variables": [
+            "izvor_vijesti",
+            "povjerenje_medijima"
           ]
         },
         {
@@ -551,7 +601,8 @@ packages:
             "dobna_skupina",
             "izvor_vijesti",
             "obrazovanje"
-          ]
+          ],
+          "prose_name": "uzorak od 800 osoba"
         },
         {
           "id": "c13-digitalni",
@@ -565,7 +616,8 @@ packages:
             "dobna_skupina",
             "izvor_vijesti",
             "skupina_medija"
-          ]
+          ],
+          "prose_name": "isti uzorak od 800 osoba sa spojenim izvorima"
         },
         {
           "id": "c14-120",
@@ -576,6 +628,22 @@ packages:
           "rows": 120,
           "seed": 1414,
           "transformation": "Najprije filter na TV i društvene mreže, zatim slice_sample(n = 120) bez vraćanja. Novi uzorak, nije podskup c13-800. Droplevels uklanja neupotrijebljene kategorije.",
+          "variables": [
+            "dob",
+            "izvor",
+            "povjerenje_medijima"
+          ],
+          "prose_name": "uzorak od 120 korisnika televizije i društvenih mreža"
+        },
+        {
+          "id": "c14-dob-30-49",
+          "prose_name": "dobni podskup uzorka od 120 korisnika televizije i društvenih mreža",
+          "source": "chapters/14-dvije-grupe.qmd",
+          "symbol": "s14_uzak",
+          "kind": "subset",
+          "parent": "c14-120",
+          "rows": 55,
+          "transformation": "filter(dvije_skupine, dob >= 30, dob <= 49). Isti zapisi iz c14-120 u užem dobnom rasponu, bez novog izvlačenja; usporedba osjetljivosti na dobni raspon.",
           "variables": [
             "dob",
             "izvor",
@@ -594,7 +662,8 @@ packages:
             "s14_prije",
             "s14_poslije",
             "s14_razlike"
-          ]
+          ],
+          "prose_name": "zasebna simulacija 60 parova mjerenja"
         },
         {
           "id": "c15-300",
@@ -608,7 +677,8 @@ packages:
           "variables": [
             "izvor_vijesti",
             "povjerenje_medijima"
-          ]
+          ],
+          "prose_name": "uzorak od 300 osoba s pet izvora vijesti"
         },
         {
           "id": "c16-populacija",
@@ -622,7 +692,8 @@ packages:
             "dob",
             "izvor_vijesti",
             "povjerenje_medijima"
-          ]
+          ],
+          "prose_name": "cijela nastavna populacija medijskih navika"
         },
         {
           "id": "c16-dvije",
@@ -636,7 +707,8 @@ packages:
           "variables": [
             "izvor_vijesti",
             "povjerenje_medijima"
-          ]
+          ],
+          "prose_name": "isti uzorak od 120 korisnika televizije i društvenih mreža"
         },
         {
           "id": "c16-pet",
@@ -650,7 +722,8 @@ packages:
           "variables": [
             "izvor_vijesti",
             "povjerenje_medijima"
-          ]
+          ],
+          "prose_name": "isti uzorak od 300 osoba s pet izvora vijesti"
         },
         {
           "id": "c16-ucenje",
@@ -666,7 +739,8 @@ packages:
             "izvor_vijesti",
             "povjerenje_medijima",
             "z1–z25"
-          ]
+          ],
+          "prose_name": "uzorak od 150 osoba za učenje"
         },
         {
           "id": "c16-provjera",
@@ -682,7 +756,8 @@ packages:
             "izvor_vijesti",
             "povjerenje_medijima",
             "z1–z25"
-          ]
+          ],
+          "prose_name": "nepreklapajući uzorak od 2.000 osoba za provjeru"
         }
       ]
     consumer_sources:
@@ -1146,6 +1221,13 @@ packages:
     question: "Kako se dolasci i nocenja mijenjaju kroz godinu i po zupanijama?"
     role: "Sluzbeni agregat s potiskivanjem, revizijama i opasnoscu dvostrukoga brojanja."
     consumers: []
+    consumer_markers:
+      - "dzs-turizam-godisnje.csv"
+      - "dzs-putovanja-stanovnistva-2024.csv"
+    consumer_sources:
+      - "chapters/02-mjerenje-i-dizajn.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "podaci.qmd"
     source: >-
       Drzavni zavod za statistiku, podrucje Turizam; tablice BS_TU11
       (Tablica 1.1), BS_TU12 (Tablica 1.2) i T03 (Tablica 3., Turisticka
@@ -2048,12 +2130,15 @@ packages:
     question: "Kako se isti pokazatelj razlikuje medju zemljama u istoj godini?"
     role: "Usporedivost, oznake kvalitete i granica ekoloske interpretacije."
     consumers:
+      - "WA-C00"
       - "WB-C06"
       - "P5-C"
     consumer_markers:
+      - "Eurostatove pokazatelje"
       - "eurostat_drustvo"
       - "eurostat-drustvo-2025.csv"
     consumer_sources:
+      - "chapters/00-predgovor.qmd"
       - "chapters/06-povezanost.qmd"
       - "dodaci/c-katalog-podataka.qmd"
       - "podaci.qmd"
@@ -2534,6 +2619,7 @@ packages:
       razdvajanje bez curenja za omeđeni recenicni zadatak u poglavlju 17 te
       prijenos paketa dokaza u poglavlju 18 bez nove metode.
     consumers:
+      - "WA-C00"
       - "WD-C17"
       - "WE-C18"
       - "P5-A"
@@ -2543,6 +2629,7 @@ packages:
       - "parlament_oznake.csv"
       - "ParlaSent"
     consumer_sources:
+      - "chapters/00-predgovor.qmd"
       - "chapters/17-doba-algoritama.qmd"
       - "chapters/18-vase-prvo-istrazivanje.qmd"
       - "dodaci/a-praktikum.qmd"
@@ -2820,6 +2907,7 @@ packages:
     question: "Kako se objavljivanje i vidljivost razlikuju medju platformama i medju izvorima?"
     role: "Zakosena raspodjela izvora i mjerni instrument koji ne pokriva sve platforme jednako."
     consumers:
+      - "WA-C00"
       - "WB-C04"
       - "WB-C05"
       - "WB-C06"
@@ -2830,6 +2918,7 @@ packages:
       - "digikat-izvori"
       - "DigiKat"
     consumer_sources:
+      - "chapters/00-predgovor.qmd"
       - "chapters/04-sazimanje-podataka.qmd"
       - "chapters/05-vizualizacija.qmd"
       - "chapters/06-povezanost.qmd"

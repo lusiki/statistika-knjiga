@@ -216,7 +216,7 @@ predstavlja jednu osobu, a pratit ćemo povjerenje u medije, dnevno praćenje
 medija, izvor vijesti i spremnost na plaćanje. To je ista zamišljena
 populacija kojom smo se već služili, odvojena od manje ankete `anketa_mreze`.
 Iz nje možemo izvlačiti uzorke i njihove rezultate uspoređivati s poznatom
-ciljnom vrijednošću. U stvarnom istraživanju tu vrijednost obično ne vidimo.
+ciljnom vrijednošću. Ti zapisi ne opisuju stvarne stanovnike. U stvarnom istraživanju ciljnu vrijednost obično ne vidimo.
 
 Ponavljanjem odabira dobit ćemo raspodjelu uzoračkih rezultata, čije ćemo
 središte i širinu opisati sredinom i standardnom devijacijom. Standardnu
@@ -496,7 +496,7 @@ ggplot(s8_clt_okvir, aes(vrijednost)) +
   ) +
   facet_wrap(~ panel, ncol = 1, scales = "free") +
   scale_x_continuous(labels = hr_broj) +
-  labs(x = "Spremnost na plaćanje (kn mjesečno)", y = "Broj") +
+  labs(x = "Spremnost na plaćanje (eura mjesečno)", y = "Broj") +
   theme_knjiga(base_size = 11)
 ```
 
@@ -890,7 +890,7 @@ izračunati iz zajedničkoga nacrta.
 
 Veličina populacije izostaje iz jednostavne formule jer smo zanemarili
 korekciju za konačnu populaciju. To je opravdano kada uzimamo malen dio
-populacije. U simulaciji uzorak od osamsto osoba iz cijele populacije daje
+populacije. Manju populaciju čini slučajno izdvojenih `r length(s8_mala_pop)` vrijednosti povjerenja iz iste populacije `populacija_medija`. Iz tako određenih cjelina zasebno izvlačimo uzorke. U simulaciji uzorak od osamsto osoba iz cijele populacije daje
 standardnu pogrešku `r hr_broj(s8$se_velika, 4)`, a iz deset puta manje populacije `r hr_broj(s8$se_mala, 4)`.
 Uzorak u drugom slučaju obuhvaća veći dio cjeline, pa je precizniji.
 Populacijske devijacije iznose `r hr_broj(s8$sigma, 3)` i `r hr_broj(s8$sigma_mala, 3)`. Formula s korekcijom
@@ -1115,8 +1115,8 @@ formule opisivat će ili približno izražavati rezultat takvog ponavljanja unut
 određenog modela.
 
 Jedan korak možemo pratiti na zasebnoj, namjerno sastavljenoj ilustraciji
-s iznosima 0, 0, 10, 20 i 70 kuna. Sredina je $100/5 = 20$
-kuna. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
+s iznosima 0, 0, 10, 20 i 70 eura. Sredina je $100/5 = 20$
+eura. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
 novim odabirom iz svih 50 000 osoba. Svaki novi uzorak ostavlja samo
 jednu sredinu u raspodjeli koju uspoređujemo.
 
@@ -1159,8 +1159,8 @@ s8_p$omjer <- s8_p$se5 / s8_p$se60
 ```
 
 `replicate` ponavlja izraz i sprema rezultate. Prosjek četiri tisuće sredina iz
-uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` kuna, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
-kuna. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` kuna. Obje veličine uzorka daju
+uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` eura, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
+eura. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` eura. Obje veličine uzorka daju
 procjene usredotočene blizu nje, u skladu s nepristranošću.
 
 Standardna pogreška pada s `r hr_broj(s8_p$se5, 2)` za pet osoba na `r hr_broj(s8_p$se60, 2)` za šezdeset,

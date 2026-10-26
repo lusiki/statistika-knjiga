@@ -174,12 +174,12 @@ mogućnost. Pred njim je jedan skup odgovora, a treba navesti koliko bi se
 njegova procjena mogla promijeniti s drugim sudionicima. Standardna pogreška
 iz prethodnog poglavlja daje nam polazište za takav opis nesigurnosti.
 
-Nastavljamo s populacijom `populacija_medija`, iz koje ćemo sada uzeti uzorak
-za procjenu prosječnog povjerenja u medije. Svako opažanje
-pripada jednoj računalno stvorenoj osobi i sadrži njezinu ocjenu povjerenja.
-Populaciju poznajemo samo zato što je riječ o nastavi. Pri izgradnji pojedine
-procjene koristit ćemo uzorak, a poznatu populacijsku vrijednost zatim
-iskoristiti za provjeru postupka.
+Nastavljamo s nastavnom populacijom `populacija_medija`. Uzorak od 200 osoba
+izvlačimo iz nje zasebno od ranijih uzoraka, za procjenu prosječnog povjerenja
+u medije. Svako opažanje pripada jednoj računalno stvorenoj osobi i sadrži
+njezinu ocjenu povjerenja na ljestvici od jedan do deset. Zapisi ne opisuju
+stvarne stanovnike. Pri izgradnji procjene koristit ćemo uzorak, a poznatu
+populacijsku vrijednost zatim iskoristiti za provjeru postupka.
 
 Oko procjene ćemo konstruirati interval i pratiti što se događa kroz
 ponovljena uzorkovanja. Pitanje je koliko često tako izrađen raspon obuhvaća
@@ -189,8 +189,8 @@ višu pouzdanost i što dobivamo prikupljanjem više podataka. Posebno ćemo
 odvojiti nesigurnost procijenjenog prosjeka od razlika među pojedinačnim
 odgovorima.
 
-Za procjenu medijana dnevnog praćenja medija poslužit će nam drugi, manji
-uzorak iz iste simulirane populacije. Njegove ćemo zapise ponovno
+Za procjenu medijana dnevnog praćenja medija poslužit će nam uzorak od 60 osoba,
+izvučen zasebno iz iste simulirane populacije. Njegove ćemo zapise ponovno
 izvlačiti, dopuštajući da ista osoba bude odabrana više puta. Taj postupak,
 bootstrap, omogućit će nam procijeniti promjenjivost i kada ne polazimo od
 gotove formule za odabranu mjeru. Razmotrit ćemo koliko takva provjera ovisi o
@@ -202,7 +202,7 @@ ograničenja mjerenja ili odabira ljudi koja smo upoznali ranije.
 
 ## Od točke prema rasponu
 
-Iz iste simulirane populacije medijskih navika uzimamo novi uzorak od `r hr_broj(s9$n, 0)` osoba. Za svaku osobu koristimo povjerenje u
+Uzorak od 200 osoba sada koristimo za procjenu povjerenja. Za svaku osobu koristimo povjerenje u
 medije na ljestvici od jedan do deset. Prosjek uzorka iznosi `r hr_broj(s9$sredina, 2)`. Tu vrijednost zovemo **točkasta procjena** (*point
 estimate*). Ona sažima rezultat, a njegovu nesigurnost opisujemo zasebno. Isti
 prosjek možemo dobiti na dvadeset i na dvadeset tisuća ljudi, iako bi se pri
@@ -689,7 +689,7 @@ li procjene povezane. Najizravnije je izračunati interval za samu razliku. To
 vjerojatnost da je razlika „stvarna”.
 
 Treba razlikovati i nesigurnost prosjeka od raspršenosti pojedinačnih
-vrijednosti. Interval za sredinu u našem uzorku od dvjesto osoba širok je
+vrijednosti. Interval za sredinu u uzorku od 200 osoba širok je
 `r hr_broj(s9$gornja - s9$donja, 2)` boda. Ako su ocjene približno normalno raspoređene, raspon sredine
 plus ili minus 1,96 uzoračkih standardnih devijacija opisivao bi oko 95 %
 pojedinačnih ocjena. Taj je raspon širok približno `r hr_broj(2 * s9$normalni_poluraspon, 1)` boda. Normalno
@@ -784,7 +784,7 @@ početnog uzorka, svaki put s novim izvlačenjem s vraćanjem. Sva su
 ponavljanja definirana. Poredamo 4 000 medijana i uzmemo percentile 2,5 i
 97,5, ostavljajući približno 100 vrijednosti sa svake strane.
 
-U uzorku od `r hr_broj(s9$mali_n, 0)` osoba medijan dnevnog praćenja medija iznosi `r hr_broj(s9$medijan_uzorak, 1)`
+U uzorku od 60 osoba medijan dnevnog praćenja medija iznosi `r hr_broj(s9$medijan_uzorak, 1)`
 minuta. Iz četiri tisuće bootstrap uzoraka dobivamo središnji percentilni
 raspon od `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta. On obuhvaća poznati populacijski
 medijan od `r hr_broj(s9$medijan_pop, 1)` minuta. Na slici vidimo kako nastaje raspon iz jednoga
@@ -920,7 +920,7 @@ uzorak iz iste populacije.
 
 Zamislimo naručitelja koji želi procijeniti koliko vremena dnevno odrasli
 stanovnici grada provode uz medije i koji traži marginu ne veću od deset
-minuta. Za vježbu tog zadatka koristimo već uvedeni uzorak od šezdeset osoba iz
+minuta. Za vježbu tog zadatka koristimo već uvedeni uzorak od 60 osoba iz
 simuliranoga grada. Trebamo povezati izbor mjere s njegovim pitanjem, a zatim
 provjeriti daje li uzorak traženu preciznost.
 
@@ -974,7 +974,7 @@ U simulaciji znamo da populacijski medijan iznosi `r hr_broj(s9$medijan_pop, 1)`
 unutar dobivenih granica. Jedan pogodak ipak ne provjerava pouzdanost
 postupka. Ranijih deset tisuća ponavljanja odnosilo se na normalni interval za
 sredinu. Za provjeru bootstrap raspona medijana morali bismo svaki put izvući
-novi uzorak od šezdeset osoba, iz njega izračunati novi bootstrap raspon i
+novi uzorak od 60 osoba, iz njega izračunati novi bootstrap raspon i
 prebrojiti obuhvate populacijskog medijana. To ovdje nismo učinili, pa prikaz
 ne dokazuje zadanu razinu obuhvata.
 
