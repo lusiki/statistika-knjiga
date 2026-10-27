@@ -5602,7 +5602,7 @@ def main() -> int:
     source_lines: dict[str, list[str]] = {}
     protected_strings: list[str] = []
 
-    check(bool(solution_records), "At least one canonical solution record must exist from P5-CLOSURE-00 onward.")
+    check(bool(solution_records), "Canonical solution records must exist for chapters 1–18.")
     for path, record in solution_records:
         relative = path.relative_to(ROOT).as_posix()
         record_errors = validate_solution_schema(record, solution_schema, solution_schema, relative)
@@ -5673,20 +5673,9 @@ def main() -> int:
             f"Unit {unit_id} must have exactly one record for callout-greska and each of the four Zadaci tiers.",
         )
     check(
-        "00" in records_by_unit and len(records_by_unit["00"]) == 5,
-        "P5-CLOSURE-00 must author exactly five canonical unit 00 records.",
+        set(records_by_unit) == {f"{unit:02d}" for unit in range(1, 19)},
+        "Active assessment records must cover exactly chapters 1–18; the preface has no exercises.",
     )
-    unit_00_numerical: dict[str, str] = {}
-    if (
-        "00" in records_by_unit
-        and len(records_by_unit["00"]) == 5
-        and {record["task_class"] for record in records_by_unit["00"]} == expected_task_classes
-        and "chapters/00-predgovor.qmd" in source_lines
-    ):
-        numerical_errors, unit_00_numerical = unit_00_numerical_check(
-            source_lines["chapters/00-predgovor.qmd"], records_by_unit["00"]
-        )
-        errors.extend(numerical_errors)
     unit_01_numerical: dict[str, str] = {}
     if (
         "01" in records_by_unit
@@ -6118,15 +6107,7 @@ def main() -> int:
         f"- protected rubric/alternative/instructor strings checked: {len(protected_strings)}; "
         "public export leaks: 0"
     )
-    print(
-        "- unit 00 independent numerics: "
-        f"total={unit_00_numerical.get('total')} "
-        f"portal={unit_00_numerical.get('portal_share')}% "
-        f"networks={unit_00_numerical.get('network_share')}% "
-        f"gap={unit_00_numerical.get('gap_pp')}pp "
-        f"count_gap={unit_00_numerical.get('count_gap')} "
-        f"records={unit_00_numerical.get('applicable_records')}"
-    )
+    print("- preface: reader introduction; former exercises retired on 2026-10-27")
     if unit_01_numerical:
         print(
             "- unit 01 independent numerics: "

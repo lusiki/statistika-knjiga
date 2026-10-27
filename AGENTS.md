@@ -139,8 +139,10 @@ These are binding on every chapter, not a manifesto.
 
 ## Chapter skeleton (fixed core)
 
-Every retained chapter file already carries this shared core. Numbered chapters
-1–17 use all seven parts. The preface has no widget; chapter 18 has no widget
+Numbered chapters 1–17 use all seven parts of this shared core. The online
+preface is a reader introduction, exempt from the teaching skeleton and
+exercises by the author's 2026-10-27 decision recorded in STYLE.md; its PDF
+text is unchanged. Chapter 18 has no widget
 and deliberately turns its central body into one extended worked example. Do
 not reorder the applicable parts or add a section outside them without
 recording the decision in STYLE.md.

@@ -248,8 +248,9 @@ def main() -> int:
         actual_solution = (ROOT / "rjesenja.qmd").read_text(encoding="utf-8")
         check(actual_solution == expected_solution, "rjesenja.qmd nije čista projekcija kanonskih zapisa")
         records = generator.read_records(ROOT)
-        check(len(records) == 95, "kanonsko spremište ne sadrži 95 zapisa")
-        check(len({record["unit_id"] for _, record in records}) == 19, "zapisi ne pokrivaju svih 19 jedinica")
+        check(len(records) == routes["solution_projection"]["record_count"] == 90, "kanonsko spremište ne sadrži 90 zapisa")
+        check(sorted({record["unit_id"] for _, record in records}) == expected_units, "zapisi ne pokrivaju točno poglavlja 1–18")
+        check(routes["solution_projection"]["unit_count"] == 18, "ugovor rješenja ne obuhvaća 18 poglavlja")
         frozen_records = [
             record
             for _, record in records
@@ -257,8 +258,8 @@ def main() -> int:
         ]
         frozen_contract = routes["solution_projection"]
         check(
-            len(frozen_records) == frozen_contract.get("graded_frozen_outputs") == 38,
-            "datirani artefakt ne obuhvaća svih 38 ocjenjivanih AI izlaza",
+            len(frozen_records) == frozen_contract.get("graded_frozen_outputs") == 36,
+            "datirani artefakt ne obuhvaća svih 36 ocjenjivanih AI izlaza",
         )
         check(
             frozen_contract.get("frozen_snapshot_date") == "2026-08-26"
@@ -348,13 +349,17 @@ def main() -> int:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         profile = (ROOT / "_quarto-kolegij.yml").read_text(encoding="utf-8")
         exporter = (ROOT / "R/build-ai-exports.R").read_text(encoding="utf-8")
+        # The author replaced the online preface's chapter apparatus with a
+        # flowing introduction on 2026-10-27. Reading routes remain above and
+        # in README; the preface explains progression and learning resources.
+        online_preface = preface.split('::::: {.content-hidden when-format="pdf"}', 1)[1]
         for fragment in (
-            "### Kritičko-čitalački put",
-            "### Analitički put",
-            "Poglavlja 1–18",
-            "[Provjere rješenja](../rjesenja.qmd)",
+            "Knjiga počinje pitanjem kako nastaje znanje o društvu.",
+            "Poglavlja se nadovezuju pa ih pri prvom čitanju vrijedi pratiti redom",
+            "zadaci i odvojene provjere rješenja",
+            "R praktikum te opisani postupci u jamoviju",
         ):
-            check(normalize(fragment) in normalize(preface), f"predgovor ne objavljuje put: {fragment}")
+            check(normalize(fragment) in normalize(online_preface), f"predgovor ne objavljuje put: {fragment}")
         for fragment in (
             "19 podržanih mjerila",
             "provjera na čistoj instalaciji ostaje nepotvrđena",
@@ -362,20 +367,20 @@ def main() -> int:
             "Poglavlje 6 ostaje u nacrtu",
         ):
             check(normalize(fragment) in normalize(readme), f"README javno obećanje nije pomireno: {fragment}")
-        check("NIJE proveden" not in profile and "95 kanonskih zapisa" in profile, "kolegijski profil još opisuje neproveden D06 sustav")
+        check("NIJE proveden" not in profile and "90 kanonskih zapisa" in profile, "kolegijski profil nema aktualni opseg rješenja")
         check("INVENTORY_JSON" in exporter and "solution_sources" in exporter, "AI izvoz ne troši solution_routes granicu")
 
         if errors:
             raise AssertionError("\n- ".join(errors))
         print(
             "PATHWAYS_CHECK_OK "
-            "reading_routes=2 prerequisites=19 units=19 records=95 "
-            "public_checks=95 protected_rubrics=95 legacy_answer_sources=0 "
+            "reading_routes=2 prerequisites=19 units=18 records=90 "
+            "public_checks=90 protected_rubrics=90 legacy_answer_sources=0 "
             f"routes=self-study,R,no-code,print,AI-output pages={len(inventory['pages'])} solutions=1 "
             "no_code_supported=19 guarded=7 clean_install=pending-owner "
-            "frozen_outputs=38 dated=2026-08-26 live_repetition=optional "
+            "frozen_outputs=36 dated=2026-08-26 live_repetition=optional "
             "retrieval_replacements=18/18 public_promises=reconciled "
-            "xrefs=95 print_projection=present"
+            "xrefs=90 print_projection=present"
         )
         return 0
     except (AssertionError, OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as error:

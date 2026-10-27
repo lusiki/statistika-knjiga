@@ -16,7 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 RECORD_ROOT = ROOT / "assessment/solution-records"
 OUTPUT = ROOT / "rjesenja.qmd"
 PRINT_OUTPUT = ROOT / "assessment/print-checks.md"
-UNIT_ORDER = [f"{number:02d}" for number in range(19)]
+# The preface became an introduction without exercises on 2026-10-27.
+UNIT_ORDER = [f"{number:02d}" for number in range(1, 19)]
 TASK_ORDER = [
     "callout_greska",
     "konceptualni",
@@ -346,7 +347,7 @@ def render(root: Path = ROOT) -> str:
     for _, record in records:
         by_unit.setdefault(record["unit_id"], []).append(record)
     if list(by_unit) != UNIT_ORDER or any(len(by_unit[unit]) != 5 for unit in UNIT_ORDER):
-        raise ValueError("kanonsko spremište mora sadržavati pet zapisa u svakoj od 19 jedinica")
+        raise ValueError("kanonsko spremište mora sadržavati pet zapisa za svako poglavlje 1–18")
 
     lines = [
         "---",
@@ -370,7 +371,7 @@ def render(root: Path = ROOT) -> str:
     for unit in UNIT_ORDER:
         records_for_unit = by_unit[unit]
         title = source_title(root, records_for_unit[0]["source_anchor"]["path"])
-        heading = "Predgovor" if unit == "00" else f"Poglavlje {int(unit)} — {title}"
+        heading = f"Poglavlje {int(unit)} — {title}"
         lines.extend([f"# {heading}", ""])
         for record in records_for_unit:
             source = record["source_anchor"]
@@ -398,11 +399,11 @@ def main() -> int:
                 raise ValueError("rjesenja.qmd ne odgovara kanonskim zapisima; pokrenite generator")
             if not PRINT_OUTPUT.exists() or PRINT_OUTPUT.read_text(encoding="utf-8") != expected_print:
                 raise ValueError("assessment/print-checks.md ne odgovara kanonskim zapisima")
-            print("SOLUTION_ROUTES_GENERATED_OK records=95 units=19 public=95 protected=95 drift=0")
+            print("SOLUTION_ROUTES_GENERATED_OK records=90 units=18 public=90 protected=90 drift=0")
             return 0
         OUTPUT.write_text(expected, encoding="utf-8", newline="\n")
         PRINT_OUTPUT.write_text(expected_print, encoding="utf-8", newline="\n")
-        print("SOLUTION_ROUTES_WRITE_OK records=95 units=19 output=rjesenja.qmd")
+        print("SOLUTION_ROUTES_WRITE_OK records=90 units=18 output=rjesenja.qmd")
         return 0
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:
         print(f"solution routes: {error}", file=sys.stderr)

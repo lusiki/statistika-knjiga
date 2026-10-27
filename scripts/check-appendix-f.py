@@ -331,23 +331,23 @@ def validate(base: Path, fixture: str = "", check_git_boundary: bool = False) ->
     if store_source != {
         "path": builder.SOLUTION_ROOT.as_posix(),
         "sha256": store_hash,
-        "records": 95,
+        "records": 90,
     }:
         fail("assessment solution store state is stale")
     expected_counts = {
-        "records": 95,
-        "units": 19,
+        "records": 90,
+        "units": 18,
         "task_classes": sorted(builder.TASK_CLASSES),
-        "prompt_fingerprints_verified": 95,
+        "prompt_fingerprints_verified": 90,
         "assistant_transfer_required": 0,
         "prohibited_data_required": 0,
-        "safe_routes_present": 95,
+        "safe_routes_present": 90,
         "safe_alternatives_missing": 0,
     }
     for key, expected in expected_counts.items():
         if audit_block.get(key) != expected:
             fail(f"exercise audit count={key}")
-    if len({route["record_id"] for route in audit}) != 95:
+    if len({route["record_id"] for route in audit}) != 90:
         fail("exercise audit record identities")
     for route in audit_block["routes"]:
         if route.get("assistant_transfer_required") is not False:
@@ -380,9 +380,9 @@ def validate(base: Path, fixture: str = "", check_git_boundary: bool = False) ->
     for phrase in (
         "politika kolegija uz ovaj udžbenik, inačica 1.0 od 4. kolovoza 2026.",
         "Ta datirana politika nije propis Hrvatskoga katoličkog sveučilišta ni pravno tumačenje.",
-        "javni alati primaju dopuštene javne, simulirane ili zbirne podatke",
-        "Za dopuštene pseudonimizirane radne podatke traži se ugovorno zaštićen alat",
-        "ograničeni podaci ostaju u institucionalno odobrenom lokalnom okruženju",
+        "javnom alatu možemo poslati dopuštene javne, simulirane ili zbirne podatke",
+        "Ako radimo s dopuštenim podacima u kojima su imena zamijenjena šiframa, trebamo alat s ugovorenom zaštitom podataka.",
+        "Ograničeni podaci ostaju u lokalnom okruženju koje je odobrila ustanova.",
     ):
         if phrase not in " ".join(chapter18.split()):
             fail(f"Chapter 18 policy reconciliation={phrase}")
@@ -507,7 +507,7 @@ def main() -> int:
             "APPENDIX_F_CHECK_OK "
             f"lanes={result['lanes']} exercises={result['exercises']} "
             f"units={result['units']} closure_reports={result['closure_reports']} "
-            "prohibited_required=0 safe_routes=95/95 disclosure=verified "
+            "prohibited_required=0 safe_routes=90/90 disclosure=verified "
             f"protocol=8/8 xrefs={result['xrefs']} clean_pathway=verified "
             "print_source=present chapter18_edited=false"
         )

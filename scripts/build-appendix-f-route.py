@@ -293,8 +293,8 @@ def route_category(record_id: str, prompt: str) -> str:
 
 def load_records(root: Path) -> tuple[list[dict[str, Any]], str, list[dict[str, str]]]:
     record_paths = sorted((root / SOLUTION_ROOT).glob("unit-*/*.json"))
-    if len(record_paths) != 95:
-        raise ValueError(f"expected 95 solution records, found {len(record_paths)}")
+    if len(record_paths) != 90:
+        raise ValueError(f"expected 90 solution records, found {len(record_paths)}")
     audit: list[dict[str, Any]] = []
     record_hashes: list[dict[str, str]] = []
     units: set[str] = set()
@@ -343,7 +343,7 @@ def load_records(root: Path) -> tuple[list[dict[str, Any]], str, list[dict[str, 
                 "safe_alternative_present": True,
             }
         )
-    if units != {f"{value:02d}" for value in range(19)}:
+    if units != {f"{value:02d}" for value in range(1, 19)}:
         raise ValueError(f"assessment units are incomplete: {sorted(units)}")
     if classes != TASK_CLASSES:
         raise ValueError(f"task classes disagree: {sorted(classes)}")

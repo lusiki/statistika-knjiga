@@ -20,7 +20,7 @@ objavljeno izdanje. Opseg i plan knjige opisani su u
 ## Putovi u radnom nacrtu
 
 Kritičko-čitalački i analitički put prolaze Poglavlja 1–18 kanonskim
-redoslijedom, ali ističu različite dionice. Sažete javne provjere za 95 zadataka
+redoslijedom, ali ističu različite dionice. Sažete javne provjere za 90 zadataka
 generiraju se u `rjesenja.qmd` iz jednoga spremišta zapisa. Puni kriteriji,
 alternative i bilješke nastavniku vidljivi su samo u kolegijskom profilu, a
 stranica rješenja ne ulazi u javne AI izvoze.

@@ -79,15 +79,20 @@ def check_structure(root: Path) -> None:
 
     for record in records:
         name = record["file"]
+        # Author-approved preface exception, STYLE.md provenance 2026-10-27.
+        # Keep the opening, but forbid the retired chapter/exercise apparatus.
+        preface = name == "00-predgovor.qmd"
+        expected_callouts = "0" if preface else "1"
+        expected_tasks = "0/4" if preface else "4/4"
         if record["vinjeta"] != "yes":
             failures.append(f"{name}: vinjeta missing or empty ({record['vinjeta']})")
-        if record["divljina"] != "1":
+        if record["divljina"] != expected_callouts:
             failures.append(f"{name}: callout-divljina count/content is {record['divljina']}")
         # Current AGENTS.md fixed core requires one analytical error exercise.
         # The former pair of AI boxes was retired in the October manuscript.
-        if record["ai"] != "1":
+        if record["ai"] != expected_callouts:
             failures.append(f"{name}: model/error callout count/content is {record['ai']}")
-        if record["tasks"] != "4/4":
+        if record["tasks"] != expected_tasks:
             failures.append(f"{name}: exercise tiers are {record['tasks']}")
         placeholder = re.search(r"placeholder\s+(\d+)", record["figures"])
         if not placeholder:

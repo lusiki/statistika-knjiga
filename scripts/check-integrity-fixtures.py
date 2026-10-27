@@ -105,6 +105,30 @@ def main() -> int:
                 ROOT,
             )
 
+            # The preface is an introduction, not an unchecked chapter:
+            # reintroducing its retired teaching apparatus must also fail.
+            preface_root = base / "preface"
+            preface_root.mkdir()
+            copy_manuscript(preface_root)
+            preface_file = preface_root / "chapters/00-predgovor.qmd"
+            preface_file.write_text(
+                preface_file.read_text(encoding="utf-8")
+                + "\n::: {.callout-greska}\nRetired preface exercise fixture.\n:::\n",
+                encoding="utf-8",
+            )
+            run_expected_failure(
+                "preface",
+                [
+                    sys.executable,
+                    str(ROOT / "scripts/check-manuscript-integrity.py"),
+                    "--root",
+                    str(preface_root),
+                    "--lane",
+                    "structure",
+                ],
+                ROOT,
+            )
+
             figure_root = base / "figure"
             figure_root.mkdir()
             shutil.copytree(ROOT / "chapters", figure_root / "chapters")
@@ -195,7 +219,7 @@ def main() -> int:
             ],
             ROOT,
         )
-        print("INTEGRITY_NEGATIVE_FIXTURES_OK lanes=7")
+        print("INTEGRITY_NEGATIVE_FIXTURES_OK lanes=8")
         return 0
     except (OSError, RuntimeError, json.JSONDecodeError) as error:
         print(f"integrity fixture proof: {error}", file=sys.stderr)
