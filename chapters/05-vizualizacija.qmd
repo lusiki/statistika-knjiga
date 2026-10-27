@@ -36,8 +36,8 @@ subtitle: "Graf pokazuje ono što brojčani sažetak ne može"
   5. Dva duga iz plana su podmirena. Cleveland i McGill dobili su unos
      cleveland1984, Wilkinson unos wilkinson2005, oba provjerena preko
      Crossrefa.
-  6. Okvir divljine više ne nosi Anscombea, jer ga nose vinjeta i razrađeni
-     primjer. Sada rastavlja pop-verziju nalaza o grafičkoj percepciji.
+  6. Vinjeta koristi Datasaurus, a razrađeni primjer Anscombeov kvartet.
+     Okvir divljine rastavlja pop-verziju nalaza o grafičkoj percepciji.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
@@ -50,17 +50,67 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-Četiri skupa podataka mogu imati gotovo jednake uobičajene brojčane
-sažetke i jednak prilagođeni pravac, a na grafovima izgledati sasvim
-drukčije. Poznati primjer, Anscombeov kvartet, sastavljen je upravo da
-bi pokazao koliko toga brojčani sažetak može sakriti [@anscombe1973]. U jednom se vidjela približno linearna veza, u drugom
-zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz
-jedno izdvojeno opažanje.
+Netko vam pošalje sažetke dvaju skupova, svakog sa 142 para vrijednosti.
+Zaokružene na jednu decimalu, sredine su u oba skupa 54,3 za $x$ i 47,8 za
+$y$, a standardne devijacije 16,8 i 26,9 [@matejka2017]. Upravo smo naučili
+čitati te mjere. Kakav raspored točaka zamišljate iza njih?
 
-Svi su sažeci bili ispravno izračunati. Četiri različita rasporeda opažanja ipak su opisali gotovo istim brojevima. Razliku među njima vidimo tek na grafovima.
-
-Što graf otkriva o podacima, a što izborom prikaza možemo sakriti?
+Brojevi dolaze iz primjera Datasaurus Dozen, u kojem su podaci namjerno
+konstruirani da bi ispitali koliko se možemo osloniti na sažetke
+[@matejka2017]. Nijedna točka ne predstavlja stvarnu osobu. Prije nego što
+pogledate graf, pokušajte skicirati dva rasporeda koja bi odgovarala tim
+brojevima. Koliko različiti smiju biti?
 :::
+
+Na slici je svaki par prikazan jednom točkom, na jednakim osima u oba
+polja. Pogledajte što možemo prepoznati u rasporedu, a što nismo mogli
+naslutiti iz navedenih sredina i standardnih devijacija.
+
+::::: {#fig-datasaurus}
+
+:::: {.content-visible when-format="html"}
+::: {.figure-theme-light}
+```{r}
+#| echo: false
+#| fig-alt: "Skup A oblikuje obris dinosaura, a skup B prsten, premda imaju gotovo jednake sredine i standardne devijacije."
+#| out-width: "100%"
+stopifnot(file.exists("images/datasaurus/reveal-light.svg"))
+knitr::include_graphics("../images/datasaurus/reveal-light.svg", error = FALSE)
+```
+:::
+::: {.figure-theme-dark}
+```{r}
+#| echo: false
+#| fig-alt: "Skup A oblikuje obris dinosaura, a skup B prsten, premda imaju gotovo jednake sredine i standardne devijacije."
+#| out-width: "100%"
+stopifnot(file.exists("images/datasaurus/reveal-dark.svg"))
+knitr::include_graphics("../images/datasaurus/reveal-dark.svg", error = FALSE)
+```
+:::
+::::
+
+::: {.content-visible when-format="pdf"}
+```{r}
+#| echo: false
+#| fig-alt: "Skup A oblikuje obris dinosaura, a skup B prsten."
+#| out-width: "100%"
+stopifnot(file.exists("images/datasaurus/reveal-print.pdf"))
+knitr::include_graphics("../images/datasaurus/reveal-print.pdf", error = FALSE)
+```
+:::
+
+Dva konstruirana skupa iz primjera Datasaurus Dozen. Izrada autora prema
+@matejka2017 i podacima paketa datasauRus, MIT licenca. Izvorni Datasaurus
+oblikovao je Alberto Cairo.
+
+:::::
+
+Dinosaur i prsten stanu iza gotovo istih brojčanih sažetaka. Podaci su
+namjerno oblikovani za tu demonstraciju [@matejka2017], pa iz njih ne
+izvodimo tvrdnju o stvarnoj populaciji. U razrađenom primjeru vratit ćemo
+se istom pitanju kroz Anscombeov kvartet. Ondje ćemo vidjeti kako
+zakrivljenost i pojedino izdvojeno opažanje mogu promijeniti čitanje veze
+koju smo saželi brojevima [@anscombe1973].
 
 ```{r}
 #| include: false
@@ -246,7 +296,7 @@ olakšati usporedbu skupina, ali sakriti razlike među osobama. Prikaz svih
 opažanja čuva te razlike, no može otežati čitanje. Želimo naučiti odabrati
 prikaz iz kojega se tražena usporedba doista može vidjeti.
 
-Anscombeovim ćemo se skupovima iz vinjete vraćati kao provjeri onoga što
+Uz Datasaurus ćemo upoznati i Anscombeove skupove kao provjeru onoga što
 brojčani sažetak izostavlja [@anscombe1973]. To su namjerno konstruirani
 parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani par. Služe nam za ispitivanje prikaza, a doseg zaključka ograničen je na taj nastavni primjer. Usporedbom tablica i
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
@@ -1067,9 +1117,9 @@ Objasnite na kojem dijelu prikaza temeljite izmjenu. Ne trebate pisati kod.
 
 ## Razrađeni primjer
 
-Za odgovor na pitanje iz vinjete trebamo usporedbu koja čuva pojedinačna
-opažanja. Anscombeov kvartet već smo upoznali kao četiri konstruirana skupa s
-gotovo jednakim sažecima [@anscombe1973]. Sada ćemo njihove točke rasporediti u
+Datasaurus nas je iznenadio oblicima koje sažeci nisu otkrili. Sada ćemo
+istu pouku provjeriti na Anscombeovu kvartetu, četirima konstruiranim
+skupovima s gotovo jednakim sažecima [@anscombe1973]. Njihove ćemo točke rasporediti u
 mala višestruka polja i provjeriti što zajedničke osi otkrivaju. R-ovi ugrađeni
 podaci `anscombe` reproduciraju taj objavljeni primjer.
 
