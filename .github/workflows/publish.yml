@@ -32,6 +32,11 @@ jobs:
       # dies with "error testing if 'rsvg' can be loaded".
       - name: Install system libraries required by pinned R packages
         run: |
+          # The Azure mirror throttled package downloads in the preface release.
+          # Use Ubuntu's primary archive, retaining apt's signed-package checks.
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            sudo sed -i -E 's#https?://azure.archive.ubuntu.com/ubuntu#https://archive.ubuntu.com/ubuntu#g' /etc/apt/apt-mirrors.txt
+          fi
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends librsvg2-dev
 
