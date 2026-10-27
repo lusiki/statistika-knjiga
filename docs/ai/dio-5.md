@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -703,16 +703,26 @@ jačini univerzalnu oznaku bez sadržajnog obrazloženja.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Što bi se promijenilo kada bismo privremeno isključili Facebook?
-To je pitanje istraženo pokusom prije američkih izbora. Dobrovoljci
+Što biste dobili, a što propustili kada biste nakratko isključili
+Facebook? Možda biste oslobodili vrijeme, ali biste drukčije dolazili
+do vijesti i obavijesti ljudi koje pratite. U poglavlju o povezanosti
+razmatrali smo odnos digitalnih navika i dobrobiti. Ovdje nas zanima
+posljedica promjene navike.
+
+Deaktivacija računa tijekom četiri tjedna istražena je pokusom prije
+američkih izbora 2018. godine (Allcott, 2020). Dobrovoljci
 koji su pristali na ponuđenu naknadu za deaktivaciju računa nasumično su
 raspoređeni u skupine (Allcott, 2020). Istraživači su pratili dobrobit i
 informiranost, uz usporedbu sa skupinom koja je nastavila koristiti
 Facebook (Allcott, 2020).
+
+U odnosu na istraživanje adolescenata iz poglavlja o povezanosti ovdje se
+mijenjaju i sudionici i pitanje. Pratimo određenu skupinu korisnika i
+privremenu deaktivaciju jedne platforme.
 
 Za svaki ishod trebalo je procijeniti razliku među skupinama i njezinu
 nesigurnost. Randomizacija je oblikovala skupine, ali sudionici nisu bili
@@ -1032,6 +1042,23 @@ dosegnuti. Za odluku trebamo i sadržajni kriterij. Interval od nepunih pola do 
 razlika, a nedovoljan kada tražimo najmanje dva boda. Taj kriterij moramo
 obrazložiti prije čitanja rezultata.
 
+Što se onda promijenilo nakon deaktivacije Facebooka? Objavljena
+analiza pokusa s početka poglavlja pokazala je porast subjektivne
+dobrobiti, uz smanjenje poznavanja činjenica iz vijesti
+(Allcott, 2020). Ista je intervencija, dakle, imala različite posljedice
+za dva ishoda do kojih nam može biti stalo. Savjet osobi koja razmatra
+prekid uporabe ovisio bi i o tome koji joj je ishod važniji te kako
+bi nadomjestila ono što gubi.
+
+Procjena se odnosi na sudionike uključene u taj pokus i razdoblje
+deaktivacije, uz usporedbu omogućenu nasumičnom dodjelom
+(Allcott, 2020). Prosječna razlika ne obećava jednaku promjenu svakom
+korisniku. Za pitanje kome je korist bila najveća trebala bi unaprijed
+obrazložena usporedba učinaka među podskupinama i njezina nesigurnost.
+U našim simuliranim medijskim podacima korisnici su sami odabrali izvor
+vijesti. Zato dvije analize mogu obje uspoređivati sredine, a pružati
+različitu osnovu za zaključak o tome što bi promjena navike izazvala.
+
 ## Pretpostavke i njihove granice
 
 Za neovisnu usporedbu provjeravamo da jedinice nisu povezane i da svaka osoba
@@ -1267,23 +1294,29 @@ napišite rečenicu kojom bi je trebalo zamijeniti.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Simmons, Nelson i Simonsohn pokazali su kako niz uobičajenih istraživačkih
-odluka može dovesti do značajnog rezultata za nemoguću tvrdnju (Simmons, 2011).
-Istraživač može birati koji će ishod prikazati, koju podskupinu analizirati i
-kada će zaustaviti prikupljanje podataka. Svaki izbor otvara novu mogućnost za
-poželjan rezultat.
+Pred vama je tekst koji trebate razumjeti i zapamtiti za ispit. Možete ga
+ponovno pročitati, nacrtati veze među pojmovima ili zatvoriti knjigu i
+pokušati zapisati čega se sjećate. Posljednji je pokušaj možda najmanje
+ugodan jer odmah otkriva praznine. Ipak, osjećaj lakoće tijekom učenja
+ne mora nam reći koliko ćemo znati poslije.
 
-Pojedinačni testovi pritom mogu biti ispravno izračunati. Problem nastaje kada
-izvještaj prikaže samo odabrani nalaz, a prešuti koliko je usporedbi i odluka
-do njega dovelo.
+U jednom pokusu studenti su učili prirodoznanstveni tekst u četiri
+uvjeta. Jedni su ga pročitali jednom, drugi više puta, treći su uz
+otvoren tekst izrađivali pojmovnu mapu, a četvrti izmjenjivali čitanje i
+prisjećanje bez teksta. Nakon tjedan dana svi su rješavali provjeru
+znanja (Karpicke, 2011). Zastanimo i predvidimo koja bi skupina najbolje
+odgovorila na pitanja koja traže povezivanje ideja.
 
-Kako usporediti više skupina, uzeti u obzir broj usporedbi i utvrditi gdje su
-razlike?
+Kako usporediti sve te načine učenja i utvrditi između kojih je skupina
+razlika dovoljno uvjerljiva da bismo zbog nje promijenili vlastitu naviku?
 
+Četiri načina učenja otvaraju šest parnih usporedbi. S većim brojem
+skupina broj pitanja brzo raste. Ista se poteškoća pojavljuje kad proširimo
+poznati primjer medijskih navika.
 Usporedba televizije i društvenih mreža ostavila je izvan analize korisnike
 ostalih izvora vijesti. Ako želimo obuhvatiti sve skupine, mogli bismo
 ponavljati postupak iz prethodnog poglavlja za svaki par. Tada donosimo niz povezanih odluka, pa moramo razmotriti koliko prilika za lažni nalaz nastaje kroz sve usporedbe koje ćemo pregledati. Tu ćemo poteškoću najprije
@@ -1603,6 +1636,23 @@ deset naknadno odabranih parova. Interval može biti uži, ali samo ako je
 pitanje doista određeno prije pregleda sredina. Naknadni izbor ne smijemo
 prikazati kao unaprijed planiran.
 
+U pokusu s početka poglavlja najbolji rezultat na provjeri nakon tjedan
+dana postigla je skupina koja je vježbala prisjećanje. Prednost se
+pojavila i na pitanjima koja su tražila povezivanje ideja iz teksta
+(Karpicke, 2011). Studenti su tijekom učenja, međutim, predviđali najveću
+korist od ponovljenog čitanja, a najmanju od prisjećanja
+(Karpicke, 2011). Vrijedi usporediti taj nalaz s vlastitim početnim
+predviđanjem.
+
+Sada preciznije vidimo i što bi bilo potrebno za savjet o učenju. Ukupni
+test jednakosti četiriju sredina još ne bi pokazao da je prisjećanje
+bolje od izrade pojmovne mape. Ta tvrdnja traži upravo njihovu usporedbu,
+uz veličinu razlike i njezinu nesigurnost. U objavljenom pokusu vrijeme
+učenja bilo je izjednačeno za te dvije skupine (Karpicke, 2011). Pri
+primjeni nalaza na vlastiti ispit dodatno razmatramo gradivo, način
+provjere i vrijeme do ispita. Možemo iskušati prisjećanje, a njegovu
+korist prosuđivati prema onome što kasnije uspijemo objasniti.
+
 ## Granice pretpostavki
 
 Najprije provjeravamo neovisnost jedinica. Ponovljena mjerenja istih ljudi i
@@ -1800,19 +1850,24 @@ njegovu zamjenu.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Koliko je ekonomski položaj odrasle djece povezan s položajem njihovih
-roditelja i je li ta veza jednaka u različitim krajevima? U istraživanju međugeneracijske mobilnosti u Sjedinjenim Državama
-istraživači su povezali porezne zapise roditelja i djece (Chetty, 2014).
-Odabrana mjera prihoda i način sažimanja odnosa omogućili su im da
-usporede i različita područja (Chetty, 2014).
+Kad razmišljamo o vlastitoj budućnosti, želimo vjerovati da naš trud otvara
+mogućnosti. Ipak, obitelji se razlikuju po onome što mogu pružiti djeci, a
+odrastanje u različitim mjestima donosi različite prilike. Koliko se
+ekonomski položaj roditelja prepoznaje u položaju njihove odrasle djece?
 
-Regresija pomaže opisati takav obrazac, dok objašnjenje njegova nastanka
-traži dodatne dokaze. Razlika među područjima otvara pitanje uzročnog
-mehanizma. Kako prepoznati što model doista omogućuje zaključiti?
+U istraživanju međugeneracijske mobilnosti u Sjedinjenim Državama
+istraživači su povezali porezne zapise roditelja i djece te usporedili
+njihove položaje u raspodjeli prihoda u različitim područjima
+(Chetty, 2014). Tako se pitanje koje često promatramo kroz vlastitu obitelj
+moglo postaviti za mnoge obitelji zajedno.
+
+Zamislimo da u jednom gradu djeca iz obitelji s nižim prihodima kao odrasli
+stoje bolje nego u drugome. Što bismo trebali znati prije nego što obitelji
+preporučimo preseljenje?
 
 Uspoređivali smo prosječno povjerenje među korisnicima različitih izvora
 vijesti. Sada nas zanima kako se ono razlikuje s dobi, bez razvrstavanja ljudi
@@ -2354,6 +2409,26 @@ Prije riječi „učinak” korisno je zapisati koja bi druga objašnjenja proiz
 isti obrazac i kako ih nacrt isključuje. Ako se ključna pretpostavka ne može
 provjeriti ovim podacima, trebamo je jasno navesti uz zaključak.
 
+Sada možemo preciznije pročitati priču o ekonomskim prilikama s početka
+poglavlja. Istraživanje međugeneracijske mobilnosti pokazalo je da se odnos
+između položaja roditelja i njihove odrasle djece razlikuje među područjima
+(Chetty, 2014). Nagib pravca koji povezuje njihove položaje u raspodjeli
+prihoda opisuje koliko je položaj djece vezan uz položaj roditelja. Za
+obitelj s nižim prihodima važno je i na kojoj se visini nalazi taj pravac
+pri njezinu položaju. Dva područja možemo uspoređivati prema jačini veze,
+ali i prema predviđenom položaju djece iz obitelji s jednakim početnim
+položajem.
+
+Autori su veću mobilnost povezali, među ostalim, s manjom segregacijom i
+boljim osnovnim školama, uz izričito ograničenje da njihova opisna analiza
+ne utvrđuje uzročne mehanizme (Chetty, 2014). Obitelji koje žive u tim
+područjima mogu se razlikovati i po onome što nismo izmjerili. Za preporuku
+o preseljenju trebalo bi istražiti što se događa usporedivim obiteljima
+nakon promjene sredine i obrazložiti zašto razliku pripisujemo toj
+promjeni. Karta mobilnosti može pokazati gdje tražiti objašnjenje, a
+regresijski pravac sažeti obrazac. Nijedno od toga samo po sebi ne određuje
+budućnost pojedinog djeteta.
+
 **Statistika u divljini.**
 **Od omjera do dopuštene rečenice.** Školski stručni tim mogao bi
 iz istraživanja o društvenim mrežama pokušati zaključiti bi li
@@ -2460,7 +2535,7 @@ usporedio s unaprijed zadanim kriterijem.
 
 ## Razrađeni primjer
 
-Vratimo se pitanju s početka poglavlja. Koliko se povjerenje razlikuje s dobi i
+Vratimo se našim simuliranim podacima. Koliko se povjerenje razlikuje s dobi i
 što se u tom odgovoru promijeni kada uspoređujemo osobe s jednakim izvorom
 vijesti? Izračunat ćemo oba nagiba na istim zabilježenim odgovorima svih
 pedeset tisuća osoba. Tako razliku među koeficijentima možemo povezati s
@@ -2563,19 +2638,15 @@ potvrđuju uspješnost predviđanja na novim podacima.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-ParlaSent je skup rečenica iz parlamentarnih rasprava kojima su ljudi označili
-ton. Koristimo njegov hrvatski dio kako bismo pratili što
-model uči iz takvih oznaka i kako provjeravamo njegove pogreške
-(Mochtak, 2023). Jedan redak sadrži jednu rečenicu i njezinu oznaku, pa se analiza odnosi na ton tog izdvojenog dijela govora.
-
 „Da li je pošteno da se ukida prethodna stopa i da se povećava u odnosu na
-prethodnu?” Tako glasi prvi hrvatski redak nastavne datoteke ParlaSent 1.0.
-Jedan ga je koder označio neutralnim uz negativan ton, a drugi negativnim.
-Nakon usklađenja zabilježena je oznaka `Negative` (Mochtak, 2023).
+prethodnu?” Ta je rečenica iz hrvatske parlamentarne rasprave zabilježena
+u skupu ParlaSent (Mochtak, 2023). Zastanite prije nastavka i procijenite
+njezin ton. Čujete li neutralno pitanje, kritiku ili nešto između?
+Zapišite što je u rečenici presudilo za vaš izbor.
 
 Zamislimo da urednički sustav šalje negativno označene rečenice na ljudski
 pregled prije mogućeg javnog sažetka. Oznaka se ne objavljuje automatski, ali
@@ -2583,12 +2654,8 @@ određuje koji tekst dobiva dodatnu pozornost. Pogrešno uključivanje može
 neopravdano istaknuti rečenicu, a pogrešno izostavljanje sakriti važan dio
 govora.
 
-Prije primjene trebamo opravdati zašto negativan ton uopće daje prednost pri
-pregledu. To je urednička odluka. Možemo je usporediti sa slučajnim pregledom
-ili izborom prema javnoj relevantnosti neovisno o tonu.
-
-Treba li početnu rečenicu poslati na pregled? Najprije trebamo znati što je
-jedinica analize, kako je odabrana i označena te tko može osporiti oznaku.
+Treba li početnu rečenicu poslati na pregled? Ako se dvoje ljudi oko toga
+ne složi, čiju ćemo prosudbu pretvoriti u odgovor iz kojega model uči?
 
 Kod regresije smo razlikovali opis postojećih podataka od predviđanja novih
 ishoda. Sada nas zanima što se događa kada predviđanje pokrene postupak prema
@@ -2674,6 +2741,13 @@ dijela imaju stupac `recorded_label`, oznake nisu nastale jednakim postupkom.
 **Zabilježeni referentni ishod** jest ishod ili oznaka zapisana određenim
 postupkom mjerenja, prema kojoj se vrednuje klasifikator, ali koja može
 sadržavati pogrešku.
+
+Vratimo se vašoj prvoj procjeni. U nastavnoj datoteci početnu je rečenicu
+jedan koder označio neutralnom uz negativan ton, a drugi negativnom.
+Nakon usklađenja zabilježena je oznaka `Negative` (Mochtak, 2023). Usporedite
+to sa svojim razlogom. Je li vas na kritiku navela riječ „pošteno”, oblik
+pitanja ili pretpostavka o okolnom govoru koji ovdje nemamo? Slaganje s
+konačnom oznakom samo po sebi još ne objašnjava zašto je ona opravdana.
 
 Neslaganje kodera može upozoriti na nejasan pojam ili teško primjenjivo
 pravilo. Drukčije upute ili usklađivanje mogu promijeniti referentnu oznaku.
@@ -2852,6 +2926,27 @@ nepregledane tekstove, sporne oznake, vrijeme ispravka i promjene korpusa. Za
 procjenu lažno negativnih odluka trebamo zasebno i usporedivo označiti
 slučajni ili unaprijed stratificirani uzorak nepregledanih rečenica. Ranija
 uspješnost ne jamči trajno dobar rad ni valjano mjerenje tona.
+
+Posljedice takvih odluka lakše je zamisliti kada ocjena određuje vlastitu
+priliku za nastavak školovanja. Nakon otkazivanja ispita u Engleskoj 2020.
+Ofqual je primijenio statistički postupak standardizacije ocjena, oslonjen
+na nastavničke procjene i poredak učenika unutar predmeta
+({Ofqual}, 2020). U izvještaju je posebno razmotrio učenike čije se
+prethodno postignuće znatno razlikovalo od postignuća ostalih u njihovoj
+školi, zbog čega im izračunana ocjena može biti nepouzdana
+({Ofqual}, 2020). Zamislite da upravo vama ocjena zatvori željeni
+studij. Slaganje ukupne raspodjele s očekivanjem ne odgovara na pitanje
+je li vaša ocjena opravdana.
+
+Nakon gubitka javnog povjerenja konačno se dodjeljivala viša od
+nastavničke procjene i standardizirane izračunane ocjene
+({Ofqual}, 2020). Taj slučaj statističke standardizacije pokazuje
+zašto uz rad algoritma trebamo razmotriti mogućnost obrazloženja, ispravka
+i žalbe. Budući da ispiti nisu održani, ne možemo jednostavno usporediti
+svaku dodijeljenu ocjenu s ocjenom koju bi učenik na njima ostvario.
+U parlamentarnom primjeru također trebamo provjeriti što referenca doista
+bilježi. Posljedice su drukčije, ali u oba slučaja kvaliteta zajedničkog
+pravila uključuje i postupak za osobu koju ono pogrešno opisuje.
 
 ## Jezični modeli kao sustavi predikcije
 

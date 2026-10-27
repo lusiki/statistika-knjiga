@@ -4,15 +4,23 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Koliki je učinak i koliko smo ga precizno procijenili? Pristup koji u prvi plan stavlja procjenu polazi upravo od tih
-pitanja (Cumming, 2014). Procjena i
-interval opisuju veličinu učinka i nesigurnost procjene.
+Zamislimo da otvaramo ljestvicu školskih postignuća i odmah tražimo
+Hrvatsku. Iznad nje nekoliko poznatih zemalja, ispod nje neke druge.
+Takav je poredak lako pročitati kao ocjenu škole koju smo pohađali ili
+u koju ćemo upisati dijete. Svako mjesto izgleda određeno.
 
-Kako iz jednoga uzorka procijeniti koliko bi se rezultat mogao mijenjati?
+U istraživanju PISA 2022. postignuća petnaestogodišnjaka procijenjena su
+iz uzoraka učenika, pa OECD uz prosječne rezultate objavljuje intervale
+pouzdanosti i raspone mogućih mjesta na ljestvici ({OECD}, 2023).
+Zemlje s bliskim prosjecima tako mogu zauzimati više mogućih mjesta,
+ovisno o nesigurnosti procjene ({OECD}, 2023).
+
+Koliko zapravo znamo o nečijem mjestu na ljestvici kad znamo samo njegov
+procijenjeni prosjek?
 
 U simulacijama uzorkovanja mogli smo iznova odabirati ljude iz poznate
 populacije i pratiti kako se mijenjaju uzoračke sredine. Istraživač obično nema tu
@@ -20,6 +28,7 @@ mogućnost. Pred njim je jedan skup odgovora, a treba navesti koliko bi se
 njegova procjena mogla promijeniti s drugim sudionicima. Standardna pogreška
 iz prethodnog poglavlja daje nam polazište za takav opis nesigurnosti.
 
+Za razumijevanje intervala poslužit će nam jednostavniji nacrt od PISA-ina.
 Nastavljamo s nastavnom populacijom `populacija_medija`. Uzorak od 200 osoba
 izvlačimo iz nje zasebno od ranijih uzoraka, za procjenu prosječnog povjerenja
 u medije. Svako opažanje pripada jednoj računalno stvorenoj osobi i sadrži
@@ -255,6 +264,24 @@ osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti niti
 određuje populaciju buduće osobe. Veći uzorak sužava interval za sredinu, dok razlike među ljudima ostaju svojstvo populacije.
 
 *Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora. Podaci i postupak opisani su u tekstu.*
+
+U PISA-inoj tablici prirodoslovne pismenosti za Hrvatsku je objavljena
+procjena od 483 boda, uz 95-postotni interval od 478 do 487 bodova i
+raspon mjesta od osamnaestoga do trideset petoga među sudionicama
+istraživanja ({OECD}, 2023). Taj raspon mjesta uzima u obzir nesigurnost
+procjena i višestruke usporedbe zemalja sličnih rezultata
+({OECD}, 2023). Iz njega možemo vidjeti zašto jedno precizno ispisano
+mjesto prenosi više sigurnosti nego što je imamo. Raspon se odnosi na
+položaj procijenjenoga nacionalnog prosjeka. Za iskustvo pojedinoga
+učenika trebali bismo pogledati i razlike unutar zemlje.
+
+Kad bismo pripremali naslov o tim rezultatima, uz procjenu bismo zadržali
+njezinu nesigurnost i imenovali područje koje je ispitano. PISA pritom
+koristi složen uzorak škola i učenika te postupke procjene postignuća
+koje račun nesigurnosti mora uvažiti ({OECD}, 2023). Ovdje čitamo
+objavljene rezultate. Jednostavno ponovno izvlačenje pojedinačnih
+redaka, koje ćemo sada upoznati na našim simuliranim podacima, ne bi
+sačuvalo taj istraživački nacrt.
 
 ## Bootstrap kao vlastiti izum
 

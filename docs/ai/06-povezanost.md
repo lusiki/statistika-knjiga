@@ -4,18 +4,26 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Iste konstruirane parove iz Anscombeovih skupova već smo grafički usporedili u poglavlju o vizualizaciji. Njihova gotovo jednaka
-Pearsonova korelacija sada postavlja preciznije pitanje. Koliko o odnosu
-znamo ako vidimo samo koeficijent (Anscombe, 1973)?
+Zamislimo večer u kojoj se nakon duljeg pregledavanja objava osjećamo
+lošije nego prije. Možda nas je uznemirio sadržaj. Možda smo već bili
+neraspoloženi pa smo zato ostali uz ekran. Kad bismo pitali prijatelje
+koliko vremena provode uz digitalne medije i kako se osjećaju, bismo li
+iz njihovih odgovora mogli razlučiti što se događa?
 
-Korelacija je u svakom skupu točno izračunata. Razlike su ostale skrivene jer
-je sažela samo jedan aspekt odnosa.
+Analiza triju velikih skupova podataka o adolescentima povezala je
+uporabu digitalne tehnologije s pokazateljima njihove psihološke
+dobrobiti. Istraživači su usporedili niz opravdanih analitičkih izbora,
+uključujući različite mjere i varijable uključene u račun
+(Orben, 2019). Jedno široko pitanje tako je postalo skup konkretnih
+usporedbi, od kojih svaka nešto zadržava, a nešto izostavlja.
 
-Što bismo propustili kada bismo povezanost opisali samo tim brojem?
+Što nam povezanost vremena uz tehnologiju i dobrobiti može reći o
+adolescentima, a što bismo još trebali znati da nekome savjetujemo
+promjenu navike?
 
 Sada kada znamo pročitati raspršeni dijagram, možemo preciznije pitati kako se
 dvije varijable mijenjaju zajedno. U dosadašnjim smo sažecima dnevne minute i
@@ -438,37 +446,22 @@ Predznak je lakše uočiti nego točnu jačinu veze. Pri usporedbi oblaka A i D
 trebamo i jednake ljestvice. Uz dobro procijenjen koeficijent potreban je i pregled oblika oblaka.
 
 **Statistika u divljini.**
-**Dinosaur s urednim sažetkom.** Zamislimo da na pregled dobijemo analizu
-povezanosti dviju varijabli. Priložene su njihove sredine, standardne
-devijacije i Pearsonov koeficijent, ali nema grafa. Račun možemo
-ponoviti i dobiti iste brojeve. Prije nego što prihvatimo opis odnosa,
-još trebamo saznati kako su opažanja raspoređena.
+**Vrijeme uz ekran i dobrobit.** U istraživanju s početka poglavlja
+povezanost uporabe digitalne tehnologije i dobrobiti adolescenata bila
+je u cjelini negativna i mala, a usporedba mnogih opravdanih analiza
+pokazala je zašto zaključak treba čitati uz odabrane mjere i postupke
+(Orben, 2019). To nam daje određeniji odgovor od tvrdnje da su „ekrani
+štetni”. Govorimo o odnosu izmjerenih obilježja u obuhvaćenim skupovima
+podataka. Za razumijevanje nečije večeri trebali bismo znati i što je
+osoba radila, s kim je bila u kontaktu te kako se osjećala prije toga.
 
-Jedna dojmljiva demonstracija pokazuje koliko toga takav sažetak može
-izostaviti. Sitnim pomacima točaka mijenja se izgled skupa podataka,
-a zadani sažeci ostaju jednaki do druge decimale (Matejka, 2017). Od
-početnog obrisa dinosaura tako su nastali skupovi nalik zvijezdi, krugu
-ili nizovima crta, uz iste zaokružene sredine, standardne devijacije i
-korelaciju (Matejka, 2017). Podaci su namjerno konstruirani za tu demonstraciju.
-
-Takva demonstracija mijenja našu procjenu izvještaja. Podudaranje
-sažetaka potvrđuje da smo ponovili račun, ali ne potvrđuje da je
-koeficijent dovoljan opis. Slaba linearna povezanost može pratiti
-uređen zakrivljeni oblik. Može se pojaviti i u skupu s odvojenim
-nakupinama. Te razlike traže različita daljnja pitanja, iako se ne
-vide u jednome broju.
-
-U zamišljenoj analizi zato bismo zatražili raspršeni dijagram svih
-parova. Ako on pokaže zakrivljenost, rečenicu o slaboj vezi trebali
-bismo ograničiti na linearnu povezanost. Ako pokaže skupine ili
-izdvojena opažanja, provjerili bismo što predstavljaju prije
-izračunavanja novih koeficijenata. Njihovo bi eventualno uklanjanje zahtijevalo obrazloženje povezano s kvalitetom podataka ili istraživačkim pitanjem.
-
-Dinosaur je pamtljiv zato što radikalno razdvaja ono što vidimo od
-onoga što koeficijent sažima. U stvarnim podacima raspored će rijetko
-biti tako upadljiv, ali odluka ostaje ista. Uz provjeru je li broj
-točan trebamo provjeriti i koju bi važnu osobinu odnosa čitatelj
-propustio kada bismo mu pokazali samo taj broj.
+Takva povezanost sama ne govori koliko bi se dobrobit iste osobe
+promijenila kad bi smanjila uporabu. Za to trebamo usporedbu koja
+razdvaja promjenu navike od drugih mogućih objašnjenja. U poglavlju o
+dvjema grupama upoznat ćemo pokus s deaktivacijom Facebooka. On će
+postaviti uže pitanje o određenoj intervenciji, određenim korisnicima i
+određenom razdoblju. Razlika između tih pitanja pomoći će nam povezati
+opis navika s dokazom o njihovoj promjeni.
 
 **Nađite grešku.**
 U simuliranoj anketi od 300 osoba provjeravamo odnos dobi i dnevnih

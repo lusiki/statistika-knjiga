@@ -4,20 +4,35 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Četiri skupa podataka mogu imati gotovo jednake uobičajene brojčane
-sažetke i jednak prilagođeni pravac, a na grafovima izgledati sasvim
-drukčije. Poznati primjer, Anscombeov kvartet, sastavljen je upravo da
-bi pokazao koliko toga brojčani sažetak može sakriti (Anscombe, 1973). U jednom se vidjela približno linearna veza, u drugom
-zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz
-jedno izdvojeno opažanje.
+Netko vam pošalje sažetke dvaju skupova, svakog sa 142 para vrijednosti.
+Zaokružene na jednu decimalu, sredine su u oba skupa 54,3 za $x$ i 47,8 za
+$y$, a standardne devijacije 16,8 i 26,9 (Matejka, 2017). Upravo smo naučili
+čitati te mjere. Kakav raspored točaka zamišljate iza njih?
 
-Svi su sažeci bili ispravno izračunati. Četiri različita rasporeda opažanja ipak su opisali gotovo istim brojevima. Razliku među njima vidimo tek na grafovima.
+Brojevi dolaze iz primjera Datasaurus Dozen, u kojem su podaci namjerno
+konstruirani da bi ispitali koliko se možemo osloniti na sažetke
+(Matejka, 2017). Nijedna točka ne predstavlja stvarnu osobu. Prije nego što
+pogledate graf, pokušajte skicirati dva rasporeda koja bi odgovarala tim
+brojevima. Koliko različiti smiju biti?
 
-Što graf otkriva o podacima, a što izborom prikaza možemo sakriti?
+Na slici je svaki par prikazan jednom točkom, na jednakim osima u oba
+polja. Pogledajte što možemo prepoznati u rasporedu, a što nismo mogli
+naslutiti iz navedenih sredina i standardnih devijacija.
+
+Dva konstruirana skupa iz primjera Datasaurus Dozen. Izrada autora prema
+Matejka, 2017 i podacima paketa datasauRus, MIT licenca. Izvorni Datasaurus
+oblikovao je Alberto Cairo.
+
+Dinosaur i prsten stanu iza gotovo istih brojčanih sažetaka. Podaci su
+namjerno oblikovani za tu demonstraciju (Matejka, 2017), pa iz njih ne
+izvodimo tvrdnju o stvarnoj populaciji. U razrađenom primjeru vratit ćemo
+se istom pitanju kroz Anscombeov kvartet. Ondje ćemo vidjeti kako
+zakrivljenost i pojedino izdvojeno opažanje mogu promijeniti čitanje veze
+koju smo saželi brojevima (Anscombe, 1973).
 
 U poglavlju o sažimanju birali smo mjeru prema obliku raspodjele i pitanju
 koje nas zanima. Pred grafom nas čeka slična odluka. Prikaz prosjeka može
@@ -25,7 +40,7 @@ olakšati usporedbu skupina, ali sakriti razlike među osobama. Prikaz svih
 opažanja čuva te razlike, no može otežati čitanje. Želimo naučiti odabrati
 prikaz iz kojega se tražena usporedba doista može vidjeti.
 
-Anscombeovim ćemo se skupovima iz vinjete vraćati kao provjeri onoga što
+Uz Datasaurus ćemo upoznati i Anscombeove skupove kao provjeru onoga što
 brojčani sažetak izostavlja (Anscombe, 1973). To su namjerno konstruirani
 parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani par. Služe nam za ispitivanje prikaza, a doseg zaključka ograničen je na taj nastavni primjer. Usporedbom tablica i
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
@@ -404,9 +419,9 @@ Objasnite na kojem dijelu prikaza temeljite izmjenu. Ne trebate pisati kod.
 
 ## Razrađeni primjer
 
-Za odgovor na pitanje iz vinjete trebamo usporedbu koja čuva pojedinačna
-opažanja. Anscombeov kvartet već smo upoznali kao četiri konstruirana skupa s
-gotovo jednakim sažecima (Anscombe, 1973). Sada ćemo njihove točke rasporediti u
+Datasaurus nas je iznenadio oblicima koje sažeci nisu otkrili. Sada ćemo
+istu pouku provjeriti na Anscombeovu kvartetu, četirima konstruiranim
+skupovima s gotovo jednakim sažecima (Anscombe, 1973). Njihove ćemo točke rasporediti u
 mala višestruka polja i provjeriti što zajedničke osi otkrivaju. R-ovi ugrađeni
 podaci `anscombe` reproduciraju taj objavljeni primjer.
 

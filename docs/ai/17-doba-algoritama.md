@@ -4,19 +4,15 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-ParlaSent je skup rečenica iz parlamentarnih rasprava kojima su ljudi označili
-ton. Koristimo njegov hrvatski dio kako bismo pratili što
-model uči iz takvih oznaka i kako provjeravamo njegove pogreške
-(Mochtak, 2023). Jedan redak sadrži jednu rečenicu i njezinu oznaku, pa se analiza odnosi na ton tog izdvojenog dijela govora.
-
 „Da li je pošteno da se ukida prethodna stopa i da se povećava u odnosu na
-prethodnu?” Tako glasi prvi hrvatski redak nastavne datoteke ParlaSent 1.0.
-Jedan ga je koder označio neutralnim uz negativan ton, a drugi negativnim.
-Nakon usklađenja zabilježena je oznaka `Negative` (Mochtak, 2023).
+prethodnu?” Ta je rečenica iz hrvatske parlamentarne rasprave zabilježena
+u skupu ParlaSent (Mochtak, 2023). Zastanite prije nastavka i procijenite
+njezin ton. Čujete li neutralno pitanje, kritiku ili nešto između?
+Zapišite što je u rečenici presudilo za vaš izbor.
 
 Zamislimo da urednički sustav šalje negativno označene rečenice na ljudski
 pregled prije mogućeg javnog sažetka. Oznaka se ne objavljuje automatski, ali
@@ -24,12 +20,8 @@ određuje koji tekst dobiva dodatnu pozornost. Pogrešno uključivanje može
 neopravdano istaknuti rečenicu, a pogrešno izostavljanje sakriti važan dio
 govora.
 
-Prije primjene trebamo opravdati zašto negativan ton uopće daje prednost pri
-pregledu. To je urednička odluka. Možemo je usporediti sa slučajnim pregledom
-ili izborom prema javnoj relevantnosti neovisno o tonu.
-
-Treba li početnu rečenicu poslati na pregled? Najprije trebamo znati što je
-jedinica analize, kako je odabrana i označena te tko može osporiti oznaku.
+Treba li početnu rečenicu poslati na pregled? Ako se dvoje ljudi oko toga
+ne složi, čiju ćemo prosudbu pretvoriti u odgovor iz kojega model uči?
 
 Kod regresije smo razlikovali opis postojećih podataka od predviđanja novih
 ishoda. Sada nas zanima što se događa kada predviđanje pokrene postupak prema
@@ -115,6 +107,13 @@ dijela imaju stupac `recorded_label`, oznake nisu nastale jednakim postupkom.
 **Zabilježeni referentni ishod** jest ishod ili oznaka zapisana određenim
 postupkom mjerenja, prema kojoj se vrednuje klasifikator, ali koja može
 sadržavati pogrešku.
+
+Vratimo se vašoj prvoj procjeni. U nastavnoj datoteci početnu je rečenicu
+jedan koder označio neutralnom uz negativan ton, a drugi negativnom.
+Nakon usklađenja zabilježena je oznaka `Negative` (Mochtak, 2023). Usporedite
+to sa svojim razlogom. Je li vas na kritiku navela riječ „pošteno”, oblik
+pitanja ili pretpostavka o okolnom govoru koji ovdje nemamo? Slaganje s
+konačnom oznakom samo po sebi još ne objašnjava zašto je ona opravdana.
 
 Neslaganje kodera može upozoriti na nejasan pojam ili teško primjenjivo
 pravilo. Drukčije upute ili usklađivanje mogu promijeniti referentnu oznaku.
@@ -293,6 +292,27 @@ nepregledane tekstove, sporne oznake, vrijeme ispravka i promjene korpusa. Za
 procjenu lažno negativnih odluka trebamo zasebno i usporedivo označiti
 slučajni ili unaprijed stratificirani uzorak nepregledanih rečenica. Ranija
 uspješnost ne jamči trajno dobar rad ni valjano mjerenje tona.
+
+Posljedice takvih odluka lakše je zamisliti kada ocjena određuje vlastitu
+priliku za nastavak školovanja. Nakon otkazivanja ispita u Engleskoj 2020.
+Ofqual je primijenio statistički postupak standardizacije ocjena, oslonjen
+na nastavničke procjene i poredak učenika unutar predmeta
+({Ofqual}, 2020). U izvještaju je posebno razmotrio učenike čije se
+prethodno postignuće znatno razlikovalo od postignuća ostalih u njihovoj
+školi, zbog čega im izračunana ocjena može biti nepouzdana
+({Ofqual}, 2020). Zamislite da upravo vama ocjena zatvori željeni
+studij. Slaganje ukupne raspodjele s očekivanjem ne odgovara na pitanje
+je li vaša ocjena opravdana.
+
+Nakon gubitka javnog povjerenja konačno se dodjeljivala viša od
+nastavničke procjene i standardizirane izračunane ocjene
+({Ofqual}, 2020). Taj slučaj statističke standardizacije pokazuje
+zašto uz rad algoritma trebamo razmotriti mogućnost obrazloženja, ispravka
+i žalbe. Budući da ispiti nisu održani, ne možemo jednostavno usporediti
+svaku dodijeljenu ocjenu s ocjenom koju bi učenik na njima ostvario.
+U parlamentarnom primjeru također trebamo provjeriti što referenca doista
+bilježi. Posljedice su drukčije, ali u oba slučaja kvaliteta zajedničkog
+pravila uključuje i postupak za osobu koju ono pogrešno opisuje.
 
 ## Jezični modeli kao sustavi predikcije
 

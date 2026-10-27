@@ -4,19 +4,24 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Koliko je ekonomski položaj odrasle djece povezan s položajem njihovih
-roditelja i je li ta veza jednaka u različitim krajevima? U istraživanju međugeneracijske mobilnosti u Sjedinjenim Državama
-istraživači su povezali porezne zapise roditelja i djece (Chetty, 2014).
-Odabrana mjera prihoda i način sažimanja odnosa omogućili su im da
-usporede i različita područja (Chetty, 2014).
+Kad razmišljamo o vlastitoj budućnosti, želimo vjerovati da naš trud otvara
+mogućnosti. Ipak, obitelji se razlikuju po onome što mogu pružiti djeci, a
+odrastanje u različitim mjestima donosi različite prilike. Koliko se
+ekonomski položaj roditelja prepoznaje u položaju njihove odrasle djece?
 
-Regresija pomaže opisati takav obrazac, dok objašnjenje njegova nastanka
-traži dodatne dokaze. Razlika među područjima otvara pitanje uzročnog
-mehanizma. Kako prepoznati što model doista omogućuje zaključiti?
+U istraživanju međugeneracijske mobilnosti u Sjedinjenim Državama
+istraživači su povezali porezne zapise roditelja i djece te usporedili
+njihove položaje u raspodjeli prihoda u različitim područjima
+(Chetty, 2014). Tako se pitanje koje često promatramo kroz vlastitu obitelj
+moglo postaviti za mnoge obitelji zajedno.
+
+Zamislimo da u jednom gradu djeca iz obitelji s nižim prihodima kao odrasli
+stoje bolje nego u drugome. Što bismo trebali znati prije nego što obitelji
+preporučimo preseljenje?
 
 Uspoređivali smo prosječno povjerenje među korisnicima različitih izvora
 vijesti. Sada nas zanima kako se ono razlikuje s dobi, bez razvrstavanja ljudi
@@ -558,6 +563,26 @@ Prije riječi „učinak” korisno je zapisati koja bi druga objašnjenja proiz
 isti obrazac i kako ih nacrt isključuje. Ako se ključna pretpostavka ne može
 provjeriti ovim podacima, trebamo je jasno navesti uz zaključak.
 
+Sada možemo preciznije pročitati priču o ekonomskim prilikama s početka
+poglavlja. Istraživanje međugeneracijske mobilnosti pokazalo je da se odnos
+između položaja roditelja i njihove odrasle djece razlikuje među područjima
+(Chetty, 2014). Nagib pravca koji povezuje njihove položaje u raspodjeli
+prihoda opisuje koliko je položaj djece vezan uz položaj roditelja. Za
+obitelj s nižim prihodima važno je i na kojoj se visini nalazi taj pravac
+pri njezinu položaju. Dva područja možemo uspoređivati prema jačini veze,
+ali i prema predviđenom položaju djece iz obitelji s jednakim početnim
+položajem.
+
+Autori su veću mobilnost povezali, među ostalim, s manjom segregacijom i
+boljim osnovnim školama, uz izričito ograničenje da njihova opisna analiza
+ne utvrđuje uzročne mehanizme (Chetty, 2014). Obitelji koje žive u tim
+područjima mogu se razlikovati i po onome što nismo izmjerili. Za preporuku
+o preseljenju trebalo bi istražiti što se događa usporedivim obiteljima
+nakon promjene sredine i obrazložiti zašto razliku pripisujemo toj
+promjeni. Karta mobilnosti može pokazati gdje tražiti objašnjenje, a
+regresijski pravac sažeti obrazac. Nijedno od toga samo po sebi ne određuje
+budućnost pojedinog djeteta.
+
 **Statistika u divljini.**
 **Od omjera do dopuštene rečenice.** Školski stručni tim mogao bi
 iz istraživanja o društvenim mrežama pokušati zaključiti bi li
@@ -664,7 +689,7 @@ usporedio s unaprijed zadanim kriterijem.
 
 ## Razrađeni primjer
 
-Vratimo se pitanju s početka poglavlja. Koliko se povjerenje razlikuje s dobi i
+Vratimo se našim simuliranim podacima. Koliko se povjerenje razlikuje s dobi i
 što se u tom odgovoru promijeni kada uspoređujemo osobe s jednakim izvorom
 vijesti? Izračunat ćemo oba nagiba na istim zabilježenim odgovorima svih
 pedeset tisuća osoba. Tako razliku među koeficijentima možemo povezati s

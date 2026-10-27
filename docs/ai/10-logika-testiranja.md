@@ -4,19 +4,25 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Američko statističko udruženje objavilo je 2016. izjavu o tome kako tumačiti
-p-vrijednost (Wasserstein, 2016). Razlog je bila raširena praksa da se iz
-jednoga broja automatski odlučuje postoji li učinak. Izjava je trebala
-razjasniti što taj račun dopušta zaključiti.
+Šaljete prijavu za prvi posao i čekate odgovor. Ako poziv izostane,
+teško možete znati je li presudilo iskustvo, obrazovanje ili nešto što
+poslodavac zaključuje već iz vašeg imena. Vlastita prijava pokazuje samo
+jedan ishod. Ne možete vidjeti što bi se dogodilo s drukčijim imenom na
+usporedivu životopisu.
 
-U izvještajima se prag značajnosti često čitao kao granica između učinaka koji
-„postoje” i onih kojih „nema”. Test uspoređuje podatke s određenim modelom, a zaključak o postojanju učinka traži i procjenu njegove veličine, nesigurnosti i ostalih dokaza.
+U terenskom pokusu u Bostonu i Chicagu istraživači su na oglase za posao
+slali izmišljene životopise. Nasumično su im dodjeljivali imena
+odabrana da zvuče bjelački ili afroamerički,
+a zatim bilježili pozive na razgovor (Bertrand, 2004). Tako su mogli
+usporediti reakcije poslodavaca na nasumično dodijeljen signal
+percipirane rasne pripadnosti (Bertrand, 2004).
 
-Što mala p-vrijednost govori o podacima, a što ne može reći o hipotezi?
+Ako jednoj skupini prijava stigne više poziva, koliko bi takva razlika
+bila uvjerljiv dokaz da je ime utjecalo na odgovor?
 
 Procjena s intervalom već nam govori koliku smo razliku našli i koliko smo je
 precizno odredili. U istraživačkim izvještajima uz nju često stoji i
@@ -24,6 +30,9 @@ p-vrijednost. Da bismo taj broj mogli pročitati, trebamo promijeniti pitanje.
 Umjesto traženja raspona za nepoznatu veličinu, pitat ćemo kakve bi rezultate
 proizvodio određeni model u kojem nema povezanosti koju istražujemo.
 
+Pitanje iz pokusa odnosi se na razliku udjela poziva. Logiku usporedbe s
+nultim modelom najprije ćemo pratiti na poznatim simuliranim podacima,
+gdje možemo vidjeti svaki korak premještanja oznaka.
 Pri procjeni povjerenja promatrali smo populaciju kao cjelinu. Sada nas zanima
 koliko se prosječno povjerenje razlikuje između čitatelja tiska i portala te
 koliko je ta procjena nesigurna.
@@ -295,6 +304,23 @@ Neslaganje s referencom zato može potjecati i od postupka koji ispitujemo i od
 same reference. U izvještaju navodimo kako su referentne oznake nastale i jesu
 li neslaganja ponovno pregledana. To će biti posebno važno pri procjeni
 algoritama. Uz precizno izračunatu stopu neslaganja potrebna je i provjera kvalitete same reference.
+
+Vratimo se prijavama za posao. U objavljenom pokusu životopisi s imenima
+prepoznatima kao bjelačka dobivali su više poziva na razgovor od
+životopisa s imenima prepoznatima kao afroamerička (Bertrand, 2004).
+Nulta pretpostavka bez učinka dodijeljenog imena dopuštala bi razlike
+nastale samom nasumičnom dodjelom. Test bi pitao koliko su odstupanja
+barem toliko velika kao opaženo česta pod takvim postupkom. Račun mora
+pritom pratiti stvarnu dodjelu prijava i njihovo slanje na iste oglase,
+umjesto da sve retke automatski smatra neovisnima.
+
+Nasumična dodjela daje osnovu da razliku u odgovorima povežemo s
+dodijeljenim imenima. Izmjereni ishod ipak je bio poziv na razgovor
+na obuhvaćenim oglasima, a ne kasnije zaposlenje ili plaća
+(Bertrand, 2004). Za osobu koja traži posao i ta je prva prepreka važna.
+Zaključak o njoj zahtijeva zajedno opis pokusa, veličinu razlike i
+njezinu nesigurnost. Mala p-vrijednost sama ne bi opravdala tvrdnju o
+svakom poslodavcu ili o drugom tržištu rada.
 
 ## Prag je konvencija, a ne mjera
 

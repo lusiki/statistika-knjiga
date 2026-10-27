@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -547,26 +547,26 @@ neovisnost neopravdano smatra potvrđenom. Napišite zamjenu koja jasno ogranič
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Ismay i Kim uvode statističko zaključivanje ponovljenim uzorkovanjem, prije
-formula (Ismay, 2019). Tako najprije vidimo kako se procjene mijenjaju, a tek
-zatim njihov raspon opisujemo računom. Formula za standardnu pogrešku postaje
-sažetak postupka koji već razumijemo.
+Kad uz internetsku anketu vidimo velik broj odgovora, lako joj pripišemo
+veću uvjerljivost. Zamislimo dvije prognoze istih izbora, jednu s nekoliko
+stotina sudionika i drugu s milijunima. Prije nego što pročitamo kako su
+prikupljene, koja nam ulijeva više povjerenja?
 
-Zamislimo tim koji želi opisati sve odrasle stanovnike grada, a anketirao je
-osamsto ljudi. Izračun točno opisuje odgovore tih ljudi. Za zaključak o
-ostalima treba procijeniti koliko rezultat ovisi o odabranom uzorku.
+Časopis *Literary Digest* pred američke predsjedničke izbore 1936. poslao
+je milijune probnih listića i iz vraćenih odgovora predvidio pobjedu Alfa
+Landona. Pobijedio je Franklin Roosevelt (Squire, 1988). Pogrešna prognoza
+imala je iza sebe golemu količinu odgovora stvarnih ljudi.
 
-Drugi uzorak iste veličine, odabran istim postupkom, dao bi nešto drukčiju
-sredinu ili udio.
+Kako toliki broj odgovora može promašiti čak i pobjednika, a znatno manji
+uzorak ipak pružiti korisnu procjenu?
 
-Kako iz jednoga uzorka doznati koliko bi se rezultat mijenjao da smo uzorkovali
-ponovno?
-
-Slučajnost iz prethodnog poglavlja sada ulazi u sam odabir ljudi koje
+Da bismo razumjeli taj promašaj, trebamo odvojiti dvije stvari. Jedna je
+koliko bi se rezultat mijenjao pri ponavljanju odabira, a druga kamo nas
+sam postupak odabira sustavno usmjerava. Slučajnost iz prethodnog poglavlja sada ulazi u sam odabir ljudi koje
 promatramo. Ako iz iste populacije uzmemo drugi uzorak, promijenit će se
 sastav sudionika, a s njime i izračunati prosjek. Uz razlike među ljudima sada istražujemo koliko bi se mijenjao naš odgovor na istraživačko pitanje kada bismo odabir mogli ponavljati.
 
@@ -946,6 +946,16 @@ vrijednosti. Standardna pogreška prikazuje slučajnu promjenjivost pod nacrtom,
 ali ne i svu pristranost odabira. Povećanje uzorka uz isti pristrani postupak
 zato ne jamči točniju procjenu.
 
+Sada možemo objasniti promašaj časopisa *Literary Digest*. Na temelju
+naknadne Gallupove ankete Squire je utvrdio da su pogrešnoj prognozi
+pridonijeli i sastav primatelja i njihov nejednak odaziv (Squire, 1988).
+Njegova analiza upućuje na to da bi potpuni odaziv izabranih primatelja,
+unatoč problemu njihova odabira, barem ispravno imenovao Roosevelta kao
+pobjednika (Squire, 1988). Zato popis onih kojima smo poslali pitanje i
+popis onih koji su odgovorili pregledavamo zasebno. Još odgovora
+prikupljenih na isti način može smanjiti slučajno kolebanje, dok
+sustavno odstupanje ostaje.
+
 Zadržavamo sedam polja kartice za čitanje ankete iz poglavlja o mjerenju.
 Sada pitanja unutar tih polja preciziramo znanjem o procjeni i margini.
 Svako polje pokazuje dio postupka koji određuje na koga se rezultat može
@@ -991,36 +1001,22 @@ tekstovima i govornicima. Prediktivna provjera i populacijsko uopćavanje
 zahtijevaju zasebna obrazloženja.
 
 **Statistika u divljini.**
-**Milijuni odgovora i pogrešan pobjednik.** Časopis *Literary Digest*
-želio je prije američkih predsjedničkih izbora predvidjeti komu će
-birači dati glas. Godine 1936. poslao je milijune probnih listića i
-iz vraćenih odgovora najavio pobjedu Alfa Landona. Pobijedio je
-Franklin Roosevelt (Squire, 1988). Velik broj odgovora nije bio
-dovoljan da časopis točno prepozna ni pobjednika.
+**Isti upitnik, različiti putovi do sudionika.** Usporedba Pew Research
+Centera, objavljena 2023., koristila je isti upitnik u šest internetskih
+uzoraka odraslih stanovnika SAD-a. Tri su nastala iz panela s
+vjerojatnosnim početnim odabirom, a tri dobrovoljnim pristupanjem.
+Procjene su uspoređene s vanjskim referentnim vrijednostima, među kojima
+su bili službeni izborni rezultati i podaci kvalitetnih državnih anketa
+(Mercer, 2023). Ispunjavanje obrasca na internetu bilo je zajedničko
+svima. Put kojim je osoba došla do obrasca razlikovao se.
 
-U tom slučaju postoje dva različita mjesta na kojima se slika
-biračkog tijela mogla promijeniti. Najprije je trebalo dospjeti na
-popis primatelja. Zatim je primatelj trebao odlučiti hoće li odgovor
-vratiti. Squire je na temelju naknadne Gallupove ankete zaključio
-da su i sastav primatelja i njihov nejednak odaziv pridonijeli
-pogrešnoj prognozi (Squire, 1988).
-
-Ta je razlika važna za razumijevanje mogućeg popravka. Squireova
-analiza upućuje na to da bi potpuni odaziv izabranih primatelja,
-unatoč problemu njihova odabira, barem ispravno imenovao Roosevelta
-kao pobjednika (Squire, 1988). Uz kvalitetu popisa adresa zato treba istražiti i razliku između onih koji su odgovorili i onih koji su ostali tihi.
-
- Slanje još poziva istom vrstom kontakta može povećati broj
-odgovora, a zadržati isti problem. Korisnije bi moglo biti provjeriti
-koji dio ciljne populacije popis propušta i pokušati doznati po čemu
-se neodazvani razlikuju. Korekciju zatim treba obrazložiti dostupnim
-informacijama. Iste informacije omogućuju procjenu koliko je popravak uspio.
-
-Standardna pogreška iz ovog poglavlja opisuje slučajno mijenjanje
-procjene pod pretpostavljenim nacrtom. Ona ne pokriva automatski
-izostavljene skupine i selektivni odaziv. Prije nego što milijun
-odgovora prihvatimo kao jači dokaz od manjeg uzorka, trebamo
-provjeriti čiji su to odgovori i tko je mogao ostati izvan računa.
+Procjene iz panela s vjerojatnosnim odabirom u toj su usporedbi u prosjeku
+manje odstupale od referentnih vrijednosti, uz isti postupak ponderiranja
+svih uzoraka (Mercer, 2023). Referentne vrijednosti također mogu imati
+pogrešku, pa ih čitamo kao najbolju dostupnu usporedbu (Mercer, 2023).
+Kad sljedeći put otvorimo mrežnu anketu, vrijedi pogledati kako smo dobili
+poziv i tko ga uopće može dobiti. Oznaka „internetska anketa” sama po sebi
+još ništa ne govori o tom odabiru.
 
 Pri objašnjavanju koristi većeg uzorka brojčani rezultat treba povezati
 s onim što je u postupku uzorkovanja doista postalo preciznije.
@@ -1190,15 +1186,23 @@ druge rečenice koja zadržava sve što je u njoj bilo točno.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Koliki je učinak i koliko smo ga precizno procijenili? Pristup koji u prvi plan stavlja procjenu polazi upravo od tih
-pitanja (Cumming, 2014). Procjena i
-interval opisuju veličinu učinka i nesigurnost procjene.
+Zamislimo da otvaramo ljestvicu školskih postignuća i odmah tražimo
+Hrvatsku. Iznad nje nekoliko poznatih zemalja, ispod nje neke druge.
+Takav je poredak lako pročitati kao ocjenu škole koju smo pohađali ili
+u koju ćemo upisati dijete. Svako mjesto izgleda određeno.
 
-Kako iz jednoga uzorka procijeniti koliko bi se rezultat mogao mijenjati?
+U istraživanju PISA 2022. postignuća petnaestogodišnjaka procijenjena su
+iz uzoraka učenika, pa OECD uz prosječne rezultate objavljuje intervale
+pouzdanosti i raspone mogućih mjesta na ljestvici ({OECD}, 2023).
+Zemlje s bliskim prosjecima tako mogu zauzimati više mogućih mjesta,
+ovisno o nesigurnosti procjene ({OECD}, 2023).
+
+Koliko zapravo znamo o nečijem mjestu na ljestvici kad znamo samo njegov
+procijenjeni prosjek?
 
 U simulacijama uzorkovanja mogli smo iznova odabirati ljude iz poznate
 populacije i pratiti kako se mijenjaju uzoračke sredine. Istraživač obično nema tu
@@ -1206,6 +1210,7 @@ mogućnost. Pred njim je jedan skup odgovora, a treba navesti koliko bi se
 njegova procjena mogla promijeniti s drugim sudionicima. Standardna pogreška
 iz prethodnog poglavlja daje nam polazište za takav opis nesigurnosti.
 
+Za razumijevanje intervala poslužit će nam jednostavniji nacrt od PISA-ina.
 Nastavljamo s nastavnom populacijom `populacija_medija`. Uzorak od 200 osoba
 izvlačimo iz nje zasebno od ranijih uzoraka, za procjenu prosječnog povjerenja
 u medije. Svako opažanje pripada jednoj računalno stvorenoj osobi i sadrži
@@ -1441,6 +1446,24 @@ osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti niti
 određuje populaciju buduće osobe. Veći uzorak sužava interval za sredinu, dok razlike među ljudima ostaju svojstvo populacije.
 
 *Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora. Podaci i postupak opisani su u tekstu.*
+
+U PISA-inoj tablici prirodoslovne pismenosti za Hrvatsku je objavljena
+procjena od 483 boda, uz 95-postotni interval od 478 do 487 bodova i
+raspon mjesta od osamnaestoga do trideset petoga među sudionicama
+istraživanja ({OECD}, 2023). Taj raspon mjesta uzima u obzir nesigurnost
+procjena i višestruke usporedbe zemalja sličnih rezultata
+({OECD}, 2023). Iz njega možemo vidjeti zašto jedno precizno ispisano
+mjesto prenosi više sigurnosti nego što je imamo. Raspon se odnosi na
+položaj procijenjenoga nacionalnog prosjeka. Za iskustvo pojedinoga
+učenika trebali bismo pogledati i razlike unutar zemlje.
+
+Kad bismo pripremali naslov o tim rezultatima, uz procjenu bismo zadržali
+njezinu nesigurnost i imenovali područje koje je ispitano. PISA pritom
+koristi složen uzorak škola i učenika te postupke procjene postignuća
+koje račun nesigurnosti mora uvažiti ({OECD}, 2023). Ovdje čitamo
+objavljene rezultate. Jednostavno ponovno izvlačenje pojedinačnih
+redaka, koje ćemo sada upoznati na našim simuliranim podacima, ne bi
+sačuvalo taj istraživački nacrt.
 
 ## Bootstrap kao vlastiti izum
 

@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -656,23 +656,26 @@ ispravljena analiza ne može primijeniti na stvarne stanovnike Hrvatske.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Isti berkeleyjski zapisi iz poglavlja Zašto statistika sadržavali su prijave,
-ishode upisa, spol kandidata i odjel. Iz njih se nije moglo saznati koliko je prijava
-bila kvalitetna, kakav je savjet kandidat dobio prije prijave ni kako je odjel
-odlučivao (Bickel, 1975). Tablica je pokazivala ishode, ali samo dio okolnosti
-koje su do njih dovele.
+Koliko ste vremena jučer proveli na mobitelu? Prije nego što pogledate
+zapis uređaja, pokušajte procijeniti. Možda se sjećate dugog razgovora, a
+teže prizivate kratka provjeravanja poruka između drugih obveza. I što
+biste ubrojili u odgovor, razgovor s prijateljem, slušanje glazbe sa
+zaključanim zaslonom ili samo vrijeme dok gledate u njega?
 
-Prije tumačenja razlike zato je trebalo provjeriti što zapisi predstavljaju i
-koje su usporedbe opravdane. Bez podataka o ostalim okolnostima neka su
-objašnjenja morala ostati otvorena.
+Sličan se problem pojavljuje u istraživanjima digitalnih medija. Sustavni
+pregled usporedio je samoprocjene uporabe sa zapisima uređaja i aplikacija,
+a pokazalo se da se ta dva načina mjerenja često razilaze (Parry, 2021).
+Za istraživača koji vrijeme uz ekran želi povezati s učenjem ili
+zadovoljstvom životom to je važno već prije prvog računa.
 
-Kako društvenu pojavu pretvoriti u podatke i pritom sačuvati ono što želimo
-razumjeti?
+Ako se vaša procjena i zapis uređaja razlikuju, koji broj odgovara onome
+što zapravo želite saznati o svojem danu?
 
+Broj minuta dobiva značenje tek kada odredimo koje aktivnosti obuhvaća.
 Povjerenje u medije možemo pokušati mjeriti anketnim odgovorom, a izloženost
 medijima vremenom provedenim uz sadržaj. Prije nego što usporedimo takve
 brojeve, moramo odlučiti što bi oni trebali predstavljati. Ako dvije osobe pod povjerenjem razumiju različite stvari, njihovi uredno zabilježeni odgovori mogu predstavljati različite pojave. U ovom ćemo poglavlju istražiti kako od društvenog
@@ -928,6 +931,20 @@ razmotriti i uvjete istraživanja. Reakcija na neistinitu vijest na praznom
 zaslonu može se razlikovati od reakcije na istu vijest među porukama
 prijatelja. Pojmovi interne i eksterne valjanosti, koje ćemo uskoro uvesti,
 odnose se na taj dizajn i doseg zaključka.
+
+Vratimo se jučerašnjoj uporabi mobitela. Za usporedbu samoprocjene i zapisa
+trebali bismo uskladiti dan, uređaj i aktivnosti koje brojimo. Ako nas
+zanima gledanje sadržaja, zapis trajanja uključenog zaslona može biti
+koristan pokazatelj. Ako nas zanima pažnja posvećena učenju, trebamo znati
+i što smo za to vrijeme radili. Zamislimo otvoren tekst pokraj kojeg
+razgovaramo s prijateljem. Uređaj može dosljedno bilježiti trajanje, dok
+naše pitanje traži nešto više od trajanja.
+
+Neslaganje samoprocjene i zapisa tako postaje početak provjere mjerenja.
+Pregled istraživanja pokazao je i da su upitničke mjere problematične
+uporabe još slabije povezane sa zapisanim vremenom uporabe (Parry, 2021).
+Trajanje aktivnosti i teškoće koje osoba uz nju doživljava različita su
+obilježja. Izbor među njima ovisi o pitanju na koje želimo odgovoriti.
 
 ## Treći čimbenik i logika eksperimenta
 
@@ -1360,22 +1377,22 @@ onoga što je u opisanoj anketi već učinjeno.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Službeno izvješće o izborima za Hrvatski sabor 2024. navodi odaziv od 62,30 %
-(Hrvatske}, 2024). Do njega dolazimo dijeljenjem 2.216.763 birača koji su
-pristupili glasovanju s 3.558.089 birača na obrađenim biračkim mjestima
-(Hrvatske}, 2024). Račun potvrđuje objavljeni postotak.
+Pripremate kratku vijest o odazivu. U službenom izvješću
+o izborima za Hrvatski sabor 2024. nalazite 62,30 % (Hrvatske}, 2024).
+Rečenica da je toliko birača glasovalo djeluje jasna. Podatak dolazi iz
+službenog izvora, a račun možete provjeriti.
 
-Izvješće navodi i 2.154.733 važeća te 60.476 nevažećih listića [Hrvatske}, 2024, str.
-124]. Zajedno ih je 2.215.209, odnosno 1.554 manje od broja pristupilih
-(Hrvatske}, 2024). Kada kažemo da je glasovalo 62,30 % birača, moramo zato
-razjasniti mislimo li na pristupanje glasovanju ili broj prema listićima
-(Hrvatske}, 2024).
+No u istoj tablici broj pristupilih glasovanju nije jednak broju birača
+prema glasačkim listićima (Hrvatske}, 2024). Obje biste veličine u
+razgovoru mogli nazvati brojem ljudi koji su glasovali. Za vijest ipak
+trebate odabrati riječi koje odgovaraju upravo onome što izvor broji.
 
-Što trebamo provjeriti prije nego što točan broj pretvorimo u naslov?
+Što zapravo potvrđuje provjera postotka? Može li naslov sadržavati točan
+broj, a čitatelju ipak prenijeti pogrešno značenje?
 
 Iza postotka iz izbornog izvješća stoji nekoliko odluka o tome što se broji
 (Hrvatske}, 2024). One lako nestanu kada tablicu skratimo u naslov. U prvim

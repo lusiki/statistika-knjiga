@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,19 +14,25 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Američko statističko udruženje objavilo je 2016. izjavu o tome kako tumačiti
-p-vrijednost (Wasserstein, 2016). Razlog je bila raširena praksa da se iz
-jednoga broja automatski odlučuje postoji li učinak. Izjava je trebala
-razjasniti što taj račun dopušta zaključiti.
+Šaljete prijavu za prvi posao i čekate odgovor. Ako poziv izostane,
+teško možete znati je li presudilo iskustvo, obrazovanje ili nešto što
+poslodavac zaključuje već iz vašeg imena. Vlastita prijava pokazuje samo
+jedan ishod. Ne možete vidjeti što bi se dogodilo s drukčijim imenom na
+usporedivu životopisu.
 
-U izvještajima se prag značajnosti često čitao kao granica između učinaka koji
-„postoje” i onih kojih „nema”. Test uspoređuje podatke s određenim modelom, a zaključak o postojanju učinka traži i procjenu njegove veličine, nesigurnosti i ostalih dokaza.
+U terenskom pokusu u Bostonu i Chicagu istraživači su na oglase za posao
+slali izmišljene životopise. Nasumično su im dodjeljivali imena
+odabrana da zvuče bjelački ili afroamerički,
+a zatim bilježili pozive na razgovor (Bertrand, 2004). Tako su mogli
+usporediti reakcije poslodavaca na nasumično dodijeljen signal
+percipirane rasne pripadnosti (Bertrand, 2004).
 
-Što mala p-vrijednost govori o podacima, a što ne može reći o hipotezi?
+Ako jednoj skupini prijava stigne više poziva, koliko bi takva razlika
+bila uvjerljiv dokaz da je ime utjecalo na odgovor?
 
 Procjena s intervalom već nam govori koliku smo razliku našli i koliko smo je
 precizno odredili. U istraživačkim izvještajima uz nju često stoji i
@@ -34,6 +40,9 @@ p-vrijednost. Da bismo taj broj mogli pročitati, trebamo promijeniti pitanje.
 Umjesto traženja raspona za nepoznatu veličinu, pitat ćemo kakve bi rezultate
 proizvodio određeni model u kojem nema povezanosti koju istražujemo.
 
+Pitanje iz pokusa odnosi se na razliku udjela poziva. Logiku usporedbe s
+nultim modelom najprije ćemo pratiti na poznatim simuliranim podacima,
+gdje možemo vidjeti svaki korak premještanja oznaka.
 Pri procjeni povjerenja promatrali smo populaciju kao cjelinu. Sada nas zanima
 koliko se prosječno povjerenje razlikuje između čitatelja tiska i portala te
 koliko je ta procjena nesigurna.
@@ -306,6 +315,23 @@ same reference. U izvještaju navodimo kako su referentne oznake nastale i jesu
 li neslaganja ponovno pregledana. To će biti posebno važno pri procjeni
 algoritama. Uz precizno izračunatu stopu neslaganja potrebna je i provjera kvalitete same reference.
 
+Vratimo se prijavama za posao. U objavljenom pokusu životopisi s imenima
+prepoznatima kao bjelačka dobivali su više poziva na razgovor od
+životopisa s imenima prepoznatima kao afroamerička (Bertrand, 2004).
+Nulta pretpostavka bez učinka dodijeljenog imena dopuštala bi razlike
+nastale samom nasumičnom dodjelom. Test bi pitao koliko su odstupanja
+barem toliko velika kao opaženo česta pod takvim postupkom. Račun mora
+pritom pratiti stvarnu dodjelu prijava i njihovo slanje na iste oglase,
+umjesto da sve retke automatski smatra neovisnima.
+
+Nasumična dodjela daje osnovu da razliku u odgovorima povežemo s
+dodijeljenim imenima. Izmjereni ishod ipak je bio poziv na razgovor
+na obuhvaćenim oglasima, a ne kasnije zaposlenje ili plaća
+(Bertrand, 2004). Za osobu koja traži posao i ta je prva prepreka važna.
+Zaključak o njoj zahtijeva zajedno opis pokusa, veličinu razlike i
+njezinu nesigurnost. Mala p-vrijednost sama ne bi opravdala tvrdnju o
+svakom poslodavcu ili o drugom tržištu rada.
+
 ## Prag je konvencija, a ne mjera
 
 Rezultat nazivamo statistički značajnim kada mu p-vrijednost ne prelazi
@@ -548,11 +574,15 @@ slijedi i njezinu ispravljenu inačicu.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Može li kratka poruka na društvenoj mreži potaknuti odlazak na izbore?
+Otvaramo društvenu mrežu i uz poziv na izbore ugledamo lica prijatelja
+koji su označili da su već glasovali. Možda smo ionako namjeravali izaći,
+a možda nas baš taj podsjetnik pokrene. Kako bismo prepoznali njegov
+doprinos među svim razlozima zbog kojih ljudi odlaze na biralište?
+
 U velikom pokusu tijekom američkih izbora istraživači su nasumično
 dodjeljivali različite poruke korisnicima mreže (Bond, 2012).
 Neke su prikazivale fotografije prijatelja koji su označili da su glasovali,
@@ -706,6 +736,25 @@ U malom uzorku možemo propustiti i razliku koja bi bila važna za uredničku
 odluku. Izostanak značajnosti zato ne dokazuje da je učinak nevažan. Procjenu
 i interval izvještavamo prije testa kako bi čitatelj mogao razmotriti i
 veličinu i nesigurnost rezultata.
+
+Poruka s fotografijama prijatelja iz početnog pokusa pokazuje zašto i
+malen pomak zaslužuje sadržajno tumačenje. Među korisnicima čije je
+glasovanje provjereno u evidenciji procijenjena razlika prema poruci
+bez fotografija iznosila je 0,39 postotnog boda, uz standardnu pogrešku
+0,17 postotnog boda (Bond, 2012). Normalnim približenjem
+$0,39 \pm 1,96 \times 0,17$ iz tih objavljenih vrijednosti dobivamo
+približan 95-postotni interval od 0,06 do 0,72 postotnog boda
+(Bond, 2012). Procjena je mala za pojedinca, a njezina nesigurnost ostaje
+važna i uz vrlo mnogo korisnika.
+
+U zamišljenoj primjeni na milijun usporedivih ljudi pomak od 0,39
+postotnog boda odgovarao bi približno 3.900 dodatnih izlazaka. To je
+ilustracija razmjera, uz pretpostavku da se učinak može prenijeti na
+tu skupinu. Za stvarnu odluku trebalo bi provjeriti taj prijenos,
+trošak poruke i prihvatljivost korištenja prijateljskih veza za
+poticanje ponašanja. U samom su pokusu istraživači zasebno proučavali
+i širenje učinka kroz mrežu prijatelja (Bond, 2012). Jednostavno
+množenje izravnog učinka zato još ne daje ukupan društveni učinak.
 
 ## Snaga kao svojstvo plana
 
@@ -1064,34 +1113,30 @@ napišite čime bi taj argument trebalo zamijeniti.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
+Možemo li se oraspoložiti tako da najprije promijenimo izraz lica? Ta je
+zamisao privlačna jer nam daje nešto jednostavno što možemo pokušati u
+lošem danu. Za njezinu znanstvenu provjeru ipak treba smisliti kako
+promijeniti izraz lica, a da sudionicima ne sugeriramo kako bi se trebali
+osjećati.
+
 U poznatom pokusu sudionici su ocjenjivali stripove držeći olovku zubima ili
-usnama. Razlika je protumačena kao potpora tvrdnji da položaj mišića lica može
-utjecati na doživljaj zabave (Wagenmakers, 2016). Izvorna studija izvijestila
-je razliku od 0,82 boda na ljestvici od 0 do 9. Gotovo tri desetljeća poslije
-17 laboratorija ponovilo je postupak prema zajedničkom protokolu. Plan i
-analitički kod pripremili su prije uvida u podatke (Wagenmakers, 2016).
+usnama. Razlika u ocjenama protumačena je kao potpora tvrdnji da položaj
+mišića lica može utjecati na doživljaj zabave (Wagenmakers, 2016). Gotovo tri
+desetljeća poslije 17 laboratorija ponovilo je postupak prema zajedničkom
+protokolu, s planom i analitičkim kodom pripremljenima prije uvida u podatke
+(Wagenmakers, 2016).
 
-Replikacije su obuhvatile 1.894 sudionika (Wagenmakers, 2016). Objedinjena
-sirova razlika iznosila je 0,03 boda, uz 95-postotni interval od −0,11 do 0,16
-(Wagenmakers, 2016). Rezultat je bio mnogo bliži nuli od izvornoga. Odnosi se
-na ponovljeni postupak i ne rješava svako pitanje o utjecaju izraza lica na
-osjećaje.
-
-Iz tih rezultata možemo procijeniti razliku među eksperimentalnim uvjetima u
-provedenim replikacijama i preispitati koliko vjerujemo izvornoj veličini
-učinka. Ne možemo objasniti zašto su se izvorni i novi nalazi razlikovali niti
-pouzdano predvidjeti rezultat nekog budućeg postupka.
-
-Kako je došlo do tako različitih procjena? Što trebamo znati o istraživačkim
-odlukama da bismo mogli procijeniti nalaz i njegovu replikaciju?
+Što bismo trebali promijeniti u svojem uvjerenju ako takvo ponavljanje
+pruži drukčiju sliku? Možemo li iz njega naučiti nešto određenije od toga
+da je jedna studija bila „uspješna”, a druga „neuspješna”?
 
 Procjenu i njezin interval sada znamo čitati uz veličinu učinka, snagu i
-pogreške testiranja. Ipak, pred izvornim nalazom i njegovom replikacijom
-ostaje novo pitanje. Vidimo li sve što je istraživač mogao analizirati ili
+pogreške testiranja. Pri usporedbi izvornog nalaza s replikacijom otvara se
+i novo pitanje. Vidimo li sve što je istraživač mogao analizirati ili
 samo rezultat koji je na kraju odabran za objavu? Razloge odabira rezultata tražimo u zapisima istraživačkih odluka, uz provjeru samoga računa.
 
 Pokus iz vinjete pratit ćemo kroz objavljene rezultate laboratorija koji su
@@ -1307,6 +1352,21 @@ Prije prihvaćanja zaključka provjeravamo jedinicu opažanja, izostavljene
 jedinice, ciljanu veličinu i vrstu tvrdnje. Pitamo koju nesigurnost interval
 uključuje, mijenja li razumna alternativa zaključak i tko snosi posljedice
 pogreške. Reformirani postupci trebaju te odgovore učiniti dostupnima za provjeru, a njihovu kvalitetu zatim procjenjujemo na temelju priloženih dokaza.
+
+Priča o izrazu lica nastavila se i nakon replikacije s olovkom. Suradnja
+Many Smiles okupila je istraživače različitih polazišta u unaprijed
+registriranom istraživanju s 3.878 sudionika iz 19 zemalja
+(Coles, 2022). Usporedili su više načina izazivanja izraza lica. Oponašanje
+osmijeha i namjerno pomicanje mišića lica pružili su potporu utjecaju na
+osjećaj sreće, dok su nalazi za olovku u ustima bili manje uvjerljivi
+(Coles, 2022). Različiti postupci nisu dali jednak odgovor.
+
+Na početno pitanje sada možemo odgovoriti preciznije. Slabija potpora
+učinku pri ponavljanju traži promjenu uvjerenja o tom postupku i veličini njegova
+učinka. Drukčija manipulacija otvara zasebnu provjeru, s vlastitim ishodom
+i ograničenjima. Ocjena zabavnosti stripa i procjena vlastite sreće nisu
+ista mjera. Istraživanje napreduje kada tu razliku pretvorimo u jasno
+pitanje, unaprijed dogovorimo provjeru i dopustimo da nas rezultat iznenadi.
 
 ## Interakcija — Pješčanik p-hakiranja
 

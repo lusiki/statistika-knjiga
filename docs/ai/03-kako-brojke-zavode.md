@@ -4,22 +4,22 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Službeno izvješće o izborima za Hrvatski sabor 2024. navodi odaziv od 62,30 %
-(Hrvatske}, 2024). Do njega dolazimo dijeljenjem 2.216.763 birača koji su
-pristupili glasovanju s 3.558.089 birača na obrađenim biračkim mjestima
-(Hrvatske}, 2024). Račun potvrđuje objavljeni postotak.
+Pripremate kratku vijest o odazivu. U službenom izvješću
+o izborima za Hrvatski sabor 2024. nalazite 62,30 % (Hrvatske}, 2024).
+Rečenica da je toliko birača glasovalo djeluje jasna. Podatak dolazi iz
+službenog izvora, a račun možete provjeriti.
 
-Izvješće navodi i 2.154.733 važeća te 60.476 nevažećih listića [Hrvatske}, 2024, str.
-124]. Zajedno ih je 2.215.209, odnosno 1.554 manje od broja pristupilih
-(Hrvatske}, 2024). Kada kažemo da je glasovalo 62,30 % birača, moramo zato
-razjasniti mislimo li na pristupanje glasovanju ili broj prema listićima
-(Hrvatske}, 2024).
+No u istoj tablici broj pristupilih glasovanju nije jednak broju birača
+prema glasačkim listićima (Hrvatske}, 2024). Obje biste veličine u
+razgovoru mogli nazvati brojem ljudi koji su glasovali. Za vijest ipak
+trebate odabrati riječi koje odgovaraju upravo onome što izvor broji.
 
-Što trebamo provjeriti prije nego što točan broj pretvorimo u naslov?
+Što zapravo potvrđuje provjera postotka? Može li naslov sadržavati točan
+broj, a čitatelju ipak prenijeti pogrešno značenje?
 
 Iza postotka iz izbornog izvješća stoji nekoliko odluka o tome što se broji
 (Hrvatske}, 2024). One lako nestanu kada tablicu skratimo u naslov. U prvim

@@ -4,16 +4,26 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Što bi se promijenilo kada bismo privremeno isključili Facebook?
-To je pitanje istraženo pokusom prije američkih izbora. Dobrovoljci
+Što biste dobili, a što propustili kada biste nakratko isključili
+Facebook? Možda biste oslobodili vrijeme, ali biste drukčije dolazili
+do vijesti i obavijesti ljudi koje pratite. U poglavlju o povezanosti
+razmatrali smo odnos digitalnih navika i dobrobiti. Ovdje nas zanima
+posljedica promjene navike.
+
+Deaktivacija računa tijekom četiri tjedna istražena je pokusom prije
+američkih izbora 2018. godine (Allcott, 2020). Dobrovoljci
 koji su pristali na ponuđenu naknadu za deaktivaciju računa nasumično su
 raspoređeni u skupine (Allcott, 2020). Istraživači su pratili dobrobit i
 informiranost, uz usporedbu sa skupinom koja je nastavila koristiti
 Facebook (Allcott, 2020).
+
+U odnosu na istraživanje adolescenata iz poglavlja o povezanosti ovdje se
+mijenjaju i sudionici i pitanje. Pratimo određenu skupinu korisnika i
+privremenu deaktivaciju jedne platforme.
 
 Za svaki ishod trebalo je procijeniti razliku među skupinama i njezinu
 nesigurnost. Randomizacija je oblikovala skupine, ali sudionici nisu bili
@@ -332,6 +342,23 @@ Zaključak vrijedi za ovdje korištene mjere i populaciju koju nacrt može
 dosegnuti. Za odluku trebamo i sadržajni kriterij. Interval od nepunih pola do gotovo dva boda može biti dovoljno informativan kada nas zanima bilo koja pozitivna
 razlika, a nedovoljan kada tražimo najmanje dva boda. Taj kriterij moramo
 obrazložiti prije čitanja rezultata.
+
+Što se onda promijenilo nakon deaktivacije Facebooka? Objavljena
+analiza pokusa s početka poglavlja pokazala je porast subjektivne
+dobrobiti, uz smanjenje poznavanja činjenica iz vijesti
+(Allcott, 2020). Ista je intervencija, dakle, imala različite posljedice
+za dva ishoda do kojih nam može biti stalo. Savjet osobi koja razmatra
+prekid uporabe ovisio bi i o tome koji joj je ishod važniji te kako
+bi nadomjestila ono što gubi.
+
+Procjena se odnosi na sudionike uključene u taj pokus i razdoblje
+deaktivacije, uz usporedbu omogućenu nasumičnom dodjelom
+(Allcott, 2020). Prosječna razlika ne obećava jednaku promjenu svakom
+korisniku. Za pitanje kome je korist bila najveća trebala bi unaprijed
+obrazložena usporedba učinaka među podskupinama i njezina nesigurnost.
+U našim simuliranim medijskim podacima korisnici su sami odabrali izvor
+vijesti. Zato dvije analize mogu obje uspoređivati sredine, a pružati
+različitu osnovu za zaključak o tome što bi promjena navike izazvala.
 
 ## Pretpostavke i njihove granice
 

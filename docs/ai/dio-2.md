@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,31 +14,29 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-DigiKat je istraživački projekt iz kojega koristimo podatke o internetskim
-objavama s katoličkim pojmovima. U odabrani korpus, odnosno skup tekstova za
-analizu, ulaze praćene objave koje sadrže najmanje dva različita pojma s
-projektnog popisa (Šikić, 2026). Pred nama su tri zbirne tablice. Dvije
-prikazuju objave po platformama, mjesečno i godišnje, a treća po internetskim
-domenama (Šikić, 2026). Zamislimo urednika koji iz njih želi saznati koliko
-objava ima tipičan izvor.
+Zamislimo da pratite temu koja vas zanima i stalno nailazite na objave
+istih nekoliko portala. Znači li to da se tom temom bavi malen broj izvora
+ili da nekoliko velikih izvora zaklanja mnoštvo manjih? Za urednika koji
+želi opisati prisutnost neke teme na internetu ta razlika mijenja priču.
 
-Prije tumačenja treba provjeriti što je zapravo uspoređeno. Redak u prvim
-dvjema tablicama predstavlja platformu u određenom razdoblju, a u trećoj
-domenu tijekom cijelog obuhvata. Mjesečnu i godišnju tablicu povezujemo prema
-dvama poljima. Neke nule angažmana označuju nedostupnu metriku. Uz to tablica
-domena obuhvaća 551.712 objava, a platformske 710.307. Pogrešan spoj ili
-nazivnik zato može promijeniti odgovor i uz točnu aritmetiku.
+Takvo ćemo pitanje postaviti podacima projekta DigiKat. U odabrani korpus,
+odnosno skup tekstova za analizu, ulaze praćene objave s najmanje dva
+različita katolička pojma s projektnog popisa (Šikić, 2026). Zamišljeni
+urednik iz njihovih brojnosti želi doznati koliko objava ima tipičan izvor
+i gdje se objave najviše koncentriraju.
 
-Kako provjeriti tablicu prije računanja sažetaka?
+Kad bismo sve objave ravnomjerno podijelili među izvorima, dobili bismo
+jedan broj. Bi li nam taj broj pomogao zamisliti izvor na koji ćemo naići
+među mnogim manjima? I što prije računanja moramo znati o tablici koju smo
+dobili?
 
-Što bismo uredniku odgovorili o tipičnom izvoru kada bismo smjeli pokazati
-samo jedan broj? Prosjek broja objava čini se prirodnim izborom, ali možda
-prikriva da najveći dio objava dolazi iz malog dijela izvora. Prije izračuna
-trebamo riješiti još jedno pitanje. Provjerit ćemo usporedivost zapisa te razlikovati odsutno mjerenje od izmjerene nule.
+Urednikovo pitanje zahtijeva izbor mjere, ali i pripremu podataka iz kojih
+ćemo je izračunati. Prije usporedbe prosjeka s drugim sažecima provjerit
+ćemo usporedivost zapisa te razlikovati odsutno mjerenje od izmjerene nule.
 
 Dosadašnja pitanja o jedinici, nazivniku i podrijetlu podataka sada
 primjenjujemo pri pripremi vlastite analize. Polazimo od stvarnih zbirnih
@@ -633,20 +631,35 @@ spajanje.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Četiri skupa podataka mogu imati gotovo jednake uobičajene brojčane
-sažetke i jednak prilagođeni pravac, a na grafovima izgledati sasvim
-drukčije. Poznati primjer, Anscombeov kvartet, sastavljen je upravo da
-bi pokazao koliko toga brojčani sažetak može sakriti (Anscombe, 1973). U jednom se vidjela približno linearna veza, u drugom
-zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz
-jedno izdvojeno opažanje.
+Netko vam pošalje sažetke dvaju skupova, svakog sa 142 para vrijednosti.
+Zaokružene na jednu decimalu, sredine su u oba skupa 54,3 za $x$ i 47,8 za
+$y$, a standardne devijacije 16,8 i 26,9 (Matejka, 2017). Upravo smo naučili
+čitati te mjere. Kakav raspored točaka zamišljate iza njih?
 
-Svi su sažeci bili ispravno izračunati. Četiri različita rasporeda opažanja ipak su opisali gotovo istim brojevima. Razliku među njima vidimo tek na grafovima.
+Brojevi dolaze iz primjera Datasaurus Dozen, u kojem su podaci namjerno
+konstruirani da bi ispitali koliko se možemo osloniti na sažetke
+(Matejka, 2017). Nijedna točka ne predstavlja stvarnu osobu. Prije nego što
+pogledate graf, pokušajte skicirati dva rasporeda koja bi odgovarala tim
+brojevima. Koliko različiti smiju biti?
 
-Što graf otkriva o podacima, a što izborom prikaza možemo sakriti?
+Na slici je svaki par prikazan jednom točkom, na jednakim osima u oba
+polja. Pogledajte što možemo prepoznati u rasporedu, a što nismo mogli
+naslutiti iz navedenih sredina i standardnih devijacija.
+
+Dva konstruirana skupa iz primjera Datasaurus Dozen. Izrada autora prema
+Matejka, 2017 i podacima paketa datasauRus, MIT licenca. Izvorni Datasaurus
+oblikovao je Alberto Cairo.
+
+Dinosaur i prsten stanu iza gotovo istih brojčanih sažetaka. Podaci su
+namjerno oblikovani za tu demonstraciju (Matejka, 2017), pa iz njih ne
+izvodimo tvrdnju o stvarnoj populaciji. U razrađenom primjeru vratit ćemo
+se istom pitanju kroz Anscombeov kvartet. Ondje ćemo vidjeti kako
+zakrivljenost i pojedino izdvojeno opažanje mogu promijeniti čitanje veze
+koju smo saželi brojevima (Anscombe, 1973).
 
 U poglavlju o sažimanju birali smo mjeru prema obliku raspodjele i pitanju
 koje nas zanima. Pred grafom nas čeka slična odluka. Prikaz prosjeka može
@@ -654,7 +667,7 @@ olakšati usporedbu skupina, ali sakriti razlike među osobama. Prikaz svih
 opažanja čuva te razlike, no može otežati čitanje. Želimo naučiti odabrati
 prikaz iz kojega se tražena usporedba doista može vidjeti.
 
-Anscombeovim ćemo se skupovima iz vinjete vraćati kao provjeri onoga što
+Uz Datasaurus ćemo upoznati i Anscombeove skupove kao provjeru onoga što
 brojčani sažetak izostavlja (Anscombe, 1973). To su namjerno konstruirani
 parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani par. Služe nam za ispitivanje prikaza, a doseg zaključka ograničen je na taj nastavni primjer. Usporedbom tablica i
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
@@ -1033,9 +1046,9 @@ Objasnite na kojem dijelu prikaza temeljite izmjenu. Ne trebate pisati kod.
 
 ## Razrađeni primjer
 
-Za odgovor na pitanje iz vinjete trebamo usporedbu koja čuva pojedinačna
-opažanja. Anscombeov kvartet već smo upoznali kao četiri konstruirana skupa s
-gotovo jednakim sažecima (Anscombe, 1973). Sada ćemo njihove točke rasporediti u
+Datasaurus nas je iznenadio oblicima koje sažeci nisu otkrili. Sada ćemo
+istu pouku provjeriti na Anscombeovu kvartetu, četirima konstruiranim
+skupovima s gotovo jednakim sažecima (Anscombe, 1973). Njihove ćemo točke rasporediti u
 mala višestruka polja i provjeriti što zajedničke osi otkrivaju. R-ovi ugrađeni
 podaci `anscombe` reproduciraju taj objavljeni primjer.
 
@@ -1135,18 +1148,26 @@ koda.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Iste konstruirane parove iz Anscombeovih skupova već smo grafički usporedili u poglavlju o vizualizaciji. Njihova gotovo jednaka
-Pearsonova korelacija sada postavlja preciznije pitanje. Koliko o odnosu
-znamo ako vidimo samo koeficijent (Anscombe, 1973)?
+Zamislimo večer u kojoj se nakon duljeg pregledavanja objava osjećamo
+lošije nego prije. Možda nas je uznemirio sadržaj. Možda smo već bili
+neraspoloženi pa smo zato ostali uz ekran. Kad bismo pitali prijatelje
+koliko vremena provode uz digitalne medije i kako se osjećaju, bismo li
+iz njihovih odgovora mogli razlučiti što se događa?
 
-Korelacija je u svakom skupu točno izračunata. Razlike su ostale skrivene jer
-je sažela samo jedan aspekt odnosa.
+Analiza triju velikih skupova podataka o adolescentima povezala je
+uporabu digitalne tehnologije s pokazateljima njihove psihološke
+dobrobiti. Istraživači su usporedili niz opravdanih analitičkih izbora,
+uključujući različite mjere i varijable uključene u račun
+(Orben, 2019). Jedno široko pitanje tako je postalo skup konkretnih
+usporedbi, od kojih svaka nešto zadržava, a nešto izostavlja.
 
-Što bismo propustili kada bismo povezanost opisali samo tim brojem?
+Što nam povezanost vremena uz tehnologiju i dobrobiti može reći o
+adolescentima, a što bismo još trebali znati da nekome savjetujemo
+promjenu navike?
 
 Sada kada znamo pročitati raspršeni dijagram, možemo preciznije pitati kako se
 dvije varijable mijenjaju zajedno. U dosadašnjim smo sažecima dnevne minute i
@@ -1569,37 +1590,22 @@ Predznak je lakše uočiti nego točnu jačinu veze. Pri usporedbi oblaka A i D
 trebamo i jednake ljestvice. Uz dobro procijenjen koeficijent potreban je i pregled oblika oblaka.
 
 **Statistika u divljini.**
-**Dinosaur s urednim sažetkom.** Zamislimo da na pregled dobijemo analizu
-povezanosti dviju varijabli. Priložene su njihove sredine, standardne
-devijacije i Pearsonov koeficijent, ali nema grafa. Račun možemo
-ponoviti i dobiti iste brojeve. Prije nego što prihvatimo opis odnosa,
-još trebamo saznati kako su opažanja raspoređena.
+**Vrijeme uz ekran i dobrobit.** U istraživanju s početka poglavlja
+povezanost uporabe digitalne tehnologije i dobrobiti adolescenata bila
+je u cjelini negativna i mala, a usporedba mnogih opravdanih analiza
+pokazala je zašto zaključak treba čitati uz odabrane mjere i postupke
+(Orben, 2019). To nam daje određeniji odgovor od tvrdnje da su „ekrani
+štetni”. Govorimo o odnosu izmjerenih obilježja u obuhvaćenim skupovima
+podataka. Za razumijevanje nečije večeri trebali bismo znati i što je
+osoba radila, s kim je bila u kontaktu te kako se osjećala prije toga.
 
-Jedna dojmljiva demonstracija pokazuje koliko toga takav sažetak može
-izostaviti. Sitnim pomacima točaka mijenja se izgled skupa podataka,
-a zadani sažeci ostaju jednaki do druge decimale (Matejka, 2017). Od
-početnog obrisa dinosaura tako su nastali skupovi nalik zvijezdi, krugu
-ili nizovima crta, uz iste zaokružene sredine, standardne devijacije i
-korelaciju (Matejka, 2017). Podaci su namjerno konstruirani za tu demonstraciju.
-
-Takva demonstracija mijenja našu procjenu izvještaja. Podudaranje
-sažetaka potvrđuje da smo ponovili račun, ali ne potvrđuje da je
-koeficijent dovoljan opis. Slaba linearna povezanost može pratiti
-uređen zakrivljeni oblik. Može se pojaviti i u skupu s odvojenim
-nakupinama. Te razlike traže različita daljnja pitanja, iako se ne
-vide u jednome broju.
-
-U zamišljenoj analizi zato bismo zatražili raspršeni dijagram svih
-parova. Ako on pokaže zakrivljenost, rečenicu o slaboj vezi trebali
-bismo ograničiti na linearnu povezanost. Ako pokaže skupine ili
-izdvojena opažanja, provjerili bismo što predstavljaju prije
-izračunavanja novih koeficijenata. Njihovo bi eventualno uklanjanje zahtijevalo obrazloženje povezano s kvalitetom podataka ili istraživačkim pitanjem.
-
-Dinosaur je pamtljiv zato što radikalno razdvaja ono što vidimo od
-onoga što koeficijent sažima. U stvarnim podacima raspored će rijetko
-biti tako upadljiv, ali odluka ostaje ista. Uz provjeru je li broj
-točan trebamo provjeriti i koju bi važnu osobinu odnosa čitatelj
-propustio kada bismo mu pokazali samo taj broj.
+Takva povezanost sama ne govori koliko bi se dobrobit iste osobe
+promijenila kad bi smanjila uporabu. Za to trebamo usporedbu koja
+razdvaja promjenu navike od drugih mogućih objašnjenja. U poglavlju o
+dvjema grupama upoznat ćemo pokus s deaktivacijom Facebooka. On će
+postaviti uže pitanje o određenoj intervenciji, određenim korisnicima i
+određenom razdoblju. Razlika između tih pitanja pomoći će nam povezati
+opis navika s dokazom o njihovoj promjeni.
 
 **Nađite grešku.**
 U simuliranoj anketi od 300 osoba provjeravamo odnos dobi i dnevnih

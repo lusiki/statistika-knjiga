@@ -4,34 +4,30 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
+Možemo li se oraspoložiti tako da najprije promijenimo izraz lica? Ta je
+zamisao privlačna jer nam daje nešto jednostavno što možemo pokušati u
+lošem danu. Za njezinu znanstvenu provjeru ipak treba smisliti kako
+promijeniti izraz lica, a da sudionicima ne sugeriramo kako bi se trebali
+osjećati.
+
 U poznatom pokusu sudionici su ocjenjivali stripove držeći olovku zubima ili
-usnama. Razlika je protumačena kao potpora tvrdnji da položaj mišića lica može
-utjecati na doživljaj zabave (Wagenmakers, 2016). Izvorna studija izvijestila
-je razliku od 0,82 boda na ljestvici od 0 do 9. Gotovo tri desetljeća poslije
-17 laboratorija ponovilo je postupak prema zajedničkom protokolu. Plan i
-analitički kod pripremili su prije uvida u podatke (Wagenmakers, 2016).
+usnama. Razlika u ocjenama protumačena je kao potpora tvrdnji da položaj
+mišića lica može utjecati na doživljaj zabave (Wagenmakers, 2016). Gotovo tri
+desetljeća poslije 17 laboratorija ponovilo je postupak prema zajedničkom
+protokolu, s planom i analitičkim kodom pripremljenima prije uvida u podatke
+(Wagenmakers, 2016).
 
-Replikacije su obuhvatile 1.894 sudionika (Wagenmakers, 2016). Objedinjena
-sirova razlika iznosila je 0,03 boda, uz 95-postotni interval od −0,11 do 0,16
-(Wagenmakers, 2016). Rezultat je bio mnogo bliži nuli od izvornoga. Odnosi se
-na ponovljeni postupak i ne rješava svako pitanje o utjecaju izraza lica na
-osjećaje.
-
-Iz tih rezultata možemo procijeniti razliku među eksperimentalnim uvjetima u
-provedenim replikacijama i preispitati koliko vjerujemo izvornoj veličini
-učinka. Ne možemo objasniti zašto su se izvorni i novi nalazi razlikovali niti
-pouzdano predvidjeti rezultat nekog budućeg postupka.
-
-Kako je došlo do tako različitih procjena? Što trebamo znati o istraživačkim
-odlukama da bismo mogli procijeniti nalaz i njegovu replikaciju?
+Što bismo trebali promijeniti u svojem uvjerenju ako takvo ponavljanje
+pruži drukčiju sliku? Možemo li iz njega naučiti nešto određenije od toga
+da je jedna studija bila „uspješna”, a druga „neuspješna”?
 
 Procjenu i njezin interval sada znamo čitati uz veličinu učinka, snagu i
-pogreške testiranja. Ipak, pred izvornim nalazom i njegovom replikacijom
-ostaje novo pitanje. Vidimo li sve što je istraživač mogao analizirati ili
+pogreške testiranja. Pri usporedbi izvornog nalaza s replikacijom otvara se
+i novo pitanje. Vidimo li sve što je istraživač mogao analizirati ili
 samo rezultat koji je na kraju odabran za objavu? Razloge odabira rezultata tražimo u zapisima istraživačkih odluka, uz provjeru samoga računa.
 
 Pokus iz vinjete pratit ćemo kroz objavljene rezultate laboratorija koji su
@@ -247,6 +243,21 @@ Prije prihvaćanja zaključka provjeravamo jedinicu opažanja, izostavljene
 jedinice, ciljanu veličinu i vrstu tvrdnje. Pitamo koju nesigurnost interval
 uključuje, mijenja li razumna alternativa zaključak i tko snosi posljedice
 pogreške. Reformirani postupci trebaju te odgovore učiniti dostupnima za provjeru, a njihovu kvalitetu zatim procjenjujemo na temelju priloženih dokaza.
+
+Priča o izrazu lica nastavila se i nakon replikacije s olovkom. Suradnja
+Many Smiles okupila je istraživače različitih polazišta u unaprijed
+registriranom istraživanju s 3.878 sudionika iz 19 zemalja
+(Coles, 2022). Usporedili su više načina izazivanja izraza lica. Oponašanje
+osmijeha i namjerno pomicanje mišića lica pružili su potporu utjecaju na
+osjećaj sreće, dok su nalazi za olovku u ustima bili manje uvjerljivi
+(Coles, 2022). Različiti postupci nisu dali jednak odgovor.
+
+Na početno pitanje sada možemo odgovoriti preciznije. Slabija potpora
+učinku pri ponavljanju traži promjenu uvjerenja o tom postupku i veličini njegova
+učinka. Drukčija manipulacija otvara zasebnu provjeru, s vlastitim ishodom
+i ograničenjima. Ocjena zabavnosti stripa i procjena vlastite sreće nisu
+ista mjera. Istraživanje napreduje kada tu razliku pretvorimo u jasno
+pitanje, unaprijed dogovorimo provjeru i dopustimo da nas rezultat iznenadi.
 
 ## Interakcija — Pješčanik p-hakiranja
 

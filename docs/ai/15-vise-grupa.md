@@ -4,23 +4,29 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-27 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
-Simmons, Nelson i Simonsohn pokazali su kako niz uobičajenih istraživačkih
-odluka može dovesti do značajnog rezultata za nemoguću tvrdnju (Simmons, 2011).
-Istraživač može birati koji će ishod prikazati, koju podskupinu analizirati i
-kada će zaustaviti prikupljanje podataka. Svaki izbor otvara novu mogućnost za
-poželjan rezultat.
+Pred vama je tekst koji trebate razumjeti i zapamtiti za ispit. Možete ga
+ponovno pročitati, nacrtati veze među pojmovima ili zatvoriti knjigu i
+pokušati zapisati čega se sjećate. Posljednji je pokušaj možda najmanje
+ugodan jer odmah otkriva praznine. Ipak, osjećaj lakoće tijekom učenja
+ne mora nam reći koliko ćemo znati poslije.
 
-Pojedinačni testovi pritom mogu biti ispravno izračunati. Problem nastaje kada
-izvještaj prikaže samo odabrani nalaz, a prešuti koliko je usporedbi i odluka
-do njega dovelo.
+U jednom pokusu studenti su učili prirodoznanstveni tekst u četiri
+uvjeta. Jedni su ga pročitali jednom, drugi više puta, treći su uz
+otvoren tekst izrađivali pojmovnu mapu, a četvrti izmjenjivali čitanje i
+prisjećanje bez teksta. Nakon tjedan dana svi su rješavali provjeru
+znanja (Karpicke, 2011). Zastanimo i predvidimo koja bi skupina najbolje
+odgovorila na pitanja koja traže povezivanje ideja.
 
-Kako usporediti više skupina, uzeti u obzir broj usporedbi i utvrditi gdje su
-razlike?
+Kako usporediti sve te načine učenja i utvrditi između kojih je skupina
+razlika dovoljno uvjerljiva da bismo zbog nje promijenili vlastitu naviku?
 
+Četiri načina učenja otvaraju šest parnih usporedbi. S većim brojem
+skupina broj pitanja brzo raste. Ista se poteškoća pojavljuje kad proširimo
+poznati primjer medijskih navika.
 Usporedba televizije i društvenih mreža ostavila je izvan analize korisnike
 ostalih izvora vijesti. Ako želimo obuhvatiti sve skupine, mogli bismo
 ponavljati postupak iz prethodnog poglavlja za svaki par. Tada donosimo niz povezanih odluka, pa moramo razmotriti koliko prilika za lažni nalaz nastaje kroz sve usporedbe koje ćemo pregledati. Tu ćemo poteškoću najprije
@@ -339,6 +345,23 @@ digitalnih izvora, možemo je izravno planirati. Tada ne štitimo obitelj od
 deset naknadno odabranih parova. Interval može biti uži, ali samo ako je
 pitanje doista određeno prije pregleda sredina. Naknadni izbor ne smijemo
 prikazati kao unaprijed planiran.
+
+U pokusu s početka poglavlja najbolji rezultat na provjeri nakon tjedan
+dana postigla je skupina koja je vježbala prisjećanje. Prednost se
+pojavila i na pitanjima koja su tražila povezivanje ideja iz teksta
+(Karpicke, 2011). Studenti su tijekom učenja, međutim, predviđali najveću
+korist od ponovljenog čitanja, a najmanju od prisjećanja
+(Karpicke, 2011). Vrijedi usporediti taj nalaz s vlastitim početnim
+predviđanjem.
+
+Sada preciznije vidimo i što bi bilo potrebno za savjet o učenju. Ukupni
+test jednakosti četiriju sredina još ne bi pokazao da je prisjećanje
+bolje od izrade pojmovne mape. Ta tvrdnja traži upravo njihovu usporedbu,
+uz veličinu razlike i njezinu nesigurnost. U objavljenom pokusu vrijeme
+učenja bilo je izjednačeno za te dvije skupine (Karpicke, 2011). Pri
+primjeni nalaza na vlastiti ispit dodatno razmatramo gradivo, način
+provjere i vrijeme do ispita. Možemo iskušati prisjećanje, a njegovu
+korist prosuđivati prema onome što kasnije uspijemo objasniti.
 
 ## Granice pretpostavki
 
