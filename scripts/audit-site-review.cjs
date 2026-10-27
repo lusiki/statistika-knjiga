@@ -206,6 +206,15 @@ const server = http.createServer((req, res) => {
     for (let theme = 0; theme < 2; theme++) {
       const category = p.getByRole("button", { name: "Modeli", exact: true });
       await category.hover();
+      // Theme/hover colors transition for 150 ms. Measure the settled state;
+      // sampling mid-transition makes this assertion depend on runner timing.
+      await p.waitForFunction(
+        (element) => element.getAnimations().every(
+          (animation) => animation.playState !== "running" && !animation.pending,
+        ),
+        await category.elementHandle(),
+        { timeout: 2000 },
+      );
       const contrast = await category.evaluate((e) => {
         const luminance = (color) => {
           const rgb = color
