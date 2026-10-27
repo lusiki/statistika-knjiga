@@ -690,6 +690,12 @@ written, the chapter is not done.
 
 ## Provenance
 
+- **2026-10-27** — At the author's request, the online preface now keeps its
+  approved three-paragraph opening and continues as a reader introduction to
+  the book's progression, disciplines, recurring data, interactive features
+  and learning principles. It is exempt from the chapter teaching skeleton
+  (worked example, summary, terms and exercises). The PDF preface is unchanged.
+
 - **2026-10-26** — At the author's request, added H11 and S11, revised the
   voice and S5 attribution rule, and changed the PDF subtitle to "Uvod u
   analizu podataka za društvene znanosti". The preface's dataset introduction,
