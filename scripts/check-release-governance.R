@@ -129,7 +129,7 @@ check(length(errata$entries) == 0L,
       "The pre-release errata log must not invent entries.")
 
 changelog <- read_text("CHANGELOG.md")
-index <- read_text("index.qmd")
+citation_page <- read_text(sub("#.*$", "", governance$citation$landing_page))
 colophon <- read_text(file.path("tex", "colophon.tex"))
 archive_plan <- read_text(file.path("release", "archive-plan.md"))
 term_policy <- read_text(file.path("release", "term-freeze-policy.md"))
@@ -139,10 +139,10 @@ quarto_text <- read_text("_quarto.yml")
 check(grepl("## Neobjavljeno", changelog, fixed = TRUE) &&
         grepl("4. kolovoza 2026.", changelog, fixed = TRUE),
       "Croatian changelog lacks its dated unpublished entry.")
-check(grepl("## Kako citirati ovu knjigu {#kako-citirati}", index,
+check(grepl("## Kako citirati ovu knjigu {#kako-citirati}", citation_page,
             fixed = TRUE) &&
-        grepl("predobjavni radni nacrt", index, fixed = TRUE),
-      "Landing page lacks the explicit pre-release citation block.")
+        grepl("predobjavni radni nacrt", citation_page, fixed = TRUE),
+      "Citation page lacks the explicit pre-release citation block.")
 check(grepl("Predobjavni nacrt", colophon, fixed = TRUE) &&
         grepl("P8-META", colophon, fixed = TRUE),
       "Colophon lacks the non-final citation boundary.")

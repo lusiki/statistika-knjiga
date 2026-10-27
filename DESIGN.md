@@ -266,7 +266,9 @@ održavati.
 Naslovnica zadržava statičnu naslovnu traku, potpis `sikic . palic` i
 izravan ulaz „Počni čitati”. Pokus s raspodjelom, klizač i pregled svih
 poglavlja uklonjeni su; sadržaj knjige ostaje u knjižnoj navigaciji.
-Podaci o citiranju dostupni su kroz zatvoreni `details` pri dnu stranice.
+Naslovnica završava potpisima autora i sažetim podnožjem, bez prisilne
+visine sadržaja. Podaci o citiranju dostupni su na stranici Resursi,
+kroz poveznicu u podnožju.
 Stilske prilagodbe nalaze se u `_landing.scss`.
 
 **Pojmovnik.** Živi atlas prikazuje sve pojmove u povezanoj, pomičnoj

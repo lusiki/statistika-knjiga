@@ -24,6 +24,11 @@
       const brand = document.querySelector(".navbar-brand");
       const base = new URL(brand?.getAttribute("href") || "./", location.href);
       const url = (path) => new URL(path, base).href;
+      if (document.body.classList.contains("landing-page") &&
+          location.hash === "#kako-citirati") {
+        location.replace(url("resursi.html#kako-citirati"));
+        return;
+      }
       function revealHash() {
         let id;
         try {
@@ -68,7 +73,7 @@
         nav.append(
           link("PDF · radna verzija", url("pdf/Statistika.pdf")),
           link("Ispravci", url("errata.html")),
-          link("Kako citirati", url("index.html#kako-citirati")),
+          link("Kako citirati", url("resursi.html#kako-citirati")),
         );
         footer.prepend(nav);
       }

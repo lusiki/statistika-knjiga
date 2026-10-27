@@ -966,15 +966,19 @@ async function runSmokeAudit() {
     if (!(await startReading.getAttribute('href')).endsWith(pageById.get('ch01').output)) {
       throw new Error('landing reading action does not enter the first chapter');
     }
-    const citation = page.locator('.landing-about');
-    await citation.locator('summary').focus();
-    await citation.locator('summary').press('Enter');
-    if (!(await citation.evaluate(el => el.open))) throw new Error('citation disclosure failed');
-    await citation.locator('summary').press('Enter');
+    if (await page.locator('.landing-about, .draft-citation').count()) {
+      throw new Error('landing page still contains the citation section');
+    }
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({width, height: 1000});
       if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) {
         throw new Error(`landing page overflows at ${width}px`);
+      }
+      const footerGap = await page.evaluate(() =>
+        document.querySelector('.nav-footer').getBoundingClientRect().top -
+        document.querySelector('.landing-byline').getBoundingClientRect().bottom);
+      if (footerGap > 32 || footerGap < -1) {
+        throw new Error(`landing footer gap is ${footerGap}px at ${width}px`);
       }
       if (outDir && width !== 320) {
         await page.locator('h1.hero-title').evaluate(el => el.scrollIntoView({block: 'start'}));
@@ -983,11 +987,15 @@ async function runSmokeAudit() {
         await page.screenshot({path: path.join(outDir, `landing-${width}.png`), fullPage: true});
       }
     }
+    await page.locator('.site-footer-links a[href$="resursi.html#kako-citirati"]').click();
+    await page.locator('.draft-citation').waitFor({state: 'visible'});
+    await page.goto(`${baseUrl}/index.html#kako-citirati`);
+    await page.waitForURL('**/resursi.html#kako-citirati');
     const noJsContext = await browser.newContext({javaScriptEnabled: false});
     const noJsPage = await noJsContext.newPage();
     await noJsPage.goto(`${baseUrl}/index.html`);
     await noJsPage.locator('.hero-cta .primarni').waitFor({state: 'visible'});
-    await noJsPage.locator('.landing-about summary').click();
+    await noJsPage.goto(`${baseUrl}/resursi.html#kako-citirati`);
     await noJsPage.locator('#kako-citirati').waitFor({state: 'visible'});
     await noJsContext.close();
     if (pageErrors.length) throw new Error(`landing page error: ${pageErrors.join(' | ')}`);

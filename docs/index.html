@@ -47,9 +47,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-6c4d70d1e0afdc309140318c2265c22d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7a1143c2b0c1b37902e099d2011fb1ce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-fed47069f3f69a2fa219275b9e1f914b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-7a1143c2b0c1b37902e099d2011fb1ce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d390b71a01a01df812d61614a187284e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-2d8e66af4980bb8cb856f601a75a9144.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-d390b71a01a01df812d61614a187284e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -811,19 +811,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="landing-byline">
 <p><span class="landing-authors"><a href="cv-luka.html" class="author-link author-link-luka" aria-label="Luka Šikić — osobni profil">sikic</a> <span class="author-separator" aria-hidden="true">·</span> <a href="cv-petra.html" class="author-link author-link-petra" aria-label="Petra Palić — osobni profil">palic</a></span></p>
 </div>
-<details class="landing-about">
-<summary>
-Kako citirati knjigu
-</summary>
-<section id="kako-citirati" class="level2">
-<h2 class="anchored" data-anchor-id="kako-citirati">Kako citirati ovu knjigu</h2>
-<p>Ovo je predobjavni radni nacrt koji se mijenja. Za navođenje trenutačnog mrežnog prikaza možete kopirati ovaj predložak i dopuniti datum pristupa.</p>
-<div class="draft-citation">
-<p>Šikić, Luka i Petra Palić. <em>Statistika 101: Uvod u analizu podataka za društvene znanosti</em>. Radni nacrt. https://lusiki.github.io/statistika-knjiga/. Pristupljeno: [upišite datum].</p>
-</div>
-<p>Za točno ponovljiv navod zabilježite i <a href="https://github.com/lusiki/statistika-knjiga/commits/main/">inačicu izvornog koda</a>. Konačni podaci o izdanju i trajni identifikator još nisu potvrđeni.</p>
-</section></details>
-
 
 
 
@@ -3618,6 +3605,16 @@ Kako citirati knjigu
 
       const url = (path) => new URL(path, base).href;
 
+      if (document.body.classList.contains("landing-page") &&
+
+          location.hash === "#kako-citirati") {
+
+        location.replace(url("resursi.html#kako-citirati"));
+
+        return;
+
+      }
+
       function revealHash() {
 
         let id;
@@ -3706,7 +3703,7 @@ Kako citirati knjigu
 
           link("Ispravci", url("errata.html")),
 
-          link("Kako citirati", url("index.html#kako-citirati")),
+          link("Kako citirati", url("resursi.html#kako-citirati")),
 
         );
 
