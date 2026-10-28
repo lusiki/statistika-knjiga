@@ -693,6 +693,10 @@ strip_chapter <- function(lines, bib_map, xref_map) {
       next
     }
 
+    # Preface navigation and learning diagrams repeat the surrounding prose.
+    # Keep their build directives out of the plain-text reader export.
+    if (str_detect(ln, "^\\s*\\{\\{< include \\.\\./includes/preface-(journey|learning)\\.html >\\}\\}\\s*$")) next
+
     # --- bilješka (definicija) -> sakupi, ne ispisuj na mjestu ---
     fm <- str_match(ln, fnote_def_re)
     if (!is.na(fm[1, 1])) {

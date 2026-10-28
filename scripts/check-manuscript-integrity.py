@@ -79,13 +79,21 @@ def check_structure(root: Path) -> None:
 
     for record in records:
         name = record["file"]
-        # Author-approved preface exception, STYLE.md provenance 2026-10-27.
+        # Author-approved preface exception, STYLE.md 2026-10-27 and 2026-10-28.
         # Keep the opening, but forbid the retired chapter/exercise apparatus.
         preface = name == "00-predgovor.qmd"
         expected_callouts = "0" if preface else "1"
         expected_tasks = "0/4" if preface else "4/4"
-        if record["vinjeta"] != "yes":
-            failures.append(f"{name}: vinjeta missing or empty ({record['vinjeta']})")
+        expected_vignette = "NO" if preface else "yes"
+        if record["vinjeta"] != expected_vignette:
+            failures.append(f"{name}: unexpected vignette state ({record['vinjeta']})")
+        if preface:
+            opening = re.search(
+                r"(?ms)^:::\s*\{\.preface-opening\}\s*\n(.*?)^:::\s*$",
+                (root / "chapters" / name).read_text(encoding="utf-8"),
+            )
+            if not opening or not opening.group(1).strip():
+                failures.append(f"{name}: reader introduction missing or empty")
         if record["divljina"] != expected_callouts:
             failures.append(f"{name}: callout-divljina count/content is {record['divljina']}")
         # Current AGENTS.md fixed core requires one analytical error exercise.

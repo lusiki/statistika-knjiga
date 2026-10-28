@@ -271,6 +271,15 @@ visine sadržaja. Podaci o citiranju dostupni su na stranici Resursi,
 kroz poveznicu u podnožju.
 Stilske prilagodbe nalaze se u `_landing.scss`.
 
+**Mrežni predgovor.** Uvodni odlomci čitaju se kao obična proza, bez vinjetnog
+okvira i naglašenoga zadnjeg odlomka. Tri nenumerirana prikaza daju ritam
+čitanju: povezana karta pet dijelova i završnice, dva mala grafa iz odvojeno
+generiranih nastavnih skupova te put predviđanje–pokus–tumačenje. Karta je
+navigacija i na uskom zaslonu postaje okomita. Grafovi se računaju iz istih
+skupova kao poglavlja, imaju opis za čitače zaslona i poveznice na katalog.
+Nema novoga nastavnog widgeta ni promjene tiskanog predgovora. Komponente su
+u `includes/preface-*.html`, `R/preface-previews.R` i `_preface.scss`.
+
 **Pojmovnik.** Živi atlas prikazuje sve pojmove u povezanoj, pomičnoj
 mreži. Veličina točke prati broj spominjanja, a boja dio knjige; završnica
 ima prsten umjesto pune točke. Vide se najjače veze i samo dio naziva.

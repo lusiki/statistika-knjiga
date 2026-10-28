@@ -690,6 +690,13 @@ written, the chapter is not done.
 
 ## Provenance
 
+- **2026-10-28** — At the author's request, the online preface gains a visual
+  reading route, previews of its existing simulated data and a short visual
+  learning sequence. Labels and navigation lists belong to these visual
+  components, not running prose. The approved paragraphs retain their wording;
+  the opening is ordinary prose instead of a vignette with an emphasised ending.
+  The PDF preface remains unchanged.
+
 - **2026-10-27** — At the author's request, the online preface now keeps its
   approved three-paragraph opening and continues as a reader introduction to
   the book's progression, disciplines, recurring data, interactive features
