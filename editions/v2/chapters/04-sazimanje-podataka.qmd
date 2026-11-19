@@ -1,0 +1,1256 @@
+---
+title: "Sažimanje podataka"
+subtitle: "Što sredina otkriva, a što raspodjela skriva"
+---
+
+<!-- =====================================================================
+  STATUS:  cjelovit nacrt — prijenos tjedna 5 proveden u punom opsegu
+  IZVOR:   tjedan 5, opsežan prijenos
+  OPSEG:   ~5000 riječi
+  WIDGET:  w04 · Oblikovanje distribucije
+  FAZA:    2 (plan proizvodnje, notes/struktura-knjige.md)
+
+  SADRŽAJ (iz plana):
+  Mjere središnje tendencije, raspršenost, standardizacija i z-vrijednosti, kada prosjek zavarava, oblik distribucije i asimetrija, intuicija logaritamske transformacije.
+
+  NAPOMENE ZA REVIZIJU:
+  1. Notacijska odluka poglavlja. Uzorak nosi latinicu (x, s, n), populacija
+     grčka slova (mu, sigma), a N je rezerviran za veličinu populacije. Zapisano
+     u concept-ledger.json; poglavlje o uzorkovanju to nasljeđuje.
+  2. Okvir „Statistika u divljini" koristi provjerene DigiKatove agregate i
+     izričito čuva jedinicu, nazivnik i granicu generalizacije.
+  3. Kandidati povezani s Navarrom pregledani su i uklonjeni u P1B-NAVARRO.
+     Definicija skraćene sredine i objašnjenje umanjenog djelitelja izgrađeni
+     su iznova, a slijed raspršenosti sada prati vlastiti par sredina i
+     standardna devijacija nasuprot medijanu i interkvartilnom rasponu. Trag
+     provjere čuva notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md.
+
+  Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
+  Kostur se ne mijenja bez zapisa u STYLE.md.
+===================================================================== -->
+
+```{r}
+#| include: false
+#| cache: false
+source("R/setup.R")
+```
+
+```{r}
+#| include: false
+#| label: s4-vrijednosti
+
+# Svaka brojka u prozi ovog poglavlja dolazi odavde, pa se tekst i podaci ne
+# mogu razići. Skup dolazi iz R/podaci-nastavni.R i simuliran je.
+s4_minute <- anketa_mreze$minute_dnevno
+
+# Tri provjerene datotečne snimke nose empirijski trag poglavlja. Datoteke
+# platformi smiju se spajati samo na zajedničkom ključu godina + platforma;
+# datoteka izvora ima drugu jedinicu i ne spaja se s njima.
+s4_ucitaj_csv <- function(path) {
+  utils::read.csv(
+    path,
+    check.names = FALSE,
+    stringsAsFactors = FALSE,
+    fileEncoding = "UTF-8"
+  )
+}
+s4_mjesecno <- s4_ucitaj_csv(
+  "data/digikat-platforme-mjesecno.csv"
+) |>
+  rename(objave_mjesec = objave)
+s4_godisnje <- s4_ucitaj_csv("data/digikat-platforme-godisnje.csv")
+s4_izvori <- s4_ucitaj_csv("data/digikat-izvori.csv")
+s4_anketa_analiza <- s4_ucitaj_csv("data/anketa-mreze.csv")
+s4_anketa_agregat <- s4_ucitaj_csv("data/anketa-mreze-agregat.csv")
+
+s4_godisnje_lookup <- s4_godisnje |>
+  select(
+    godina,
+    platforma,
+    objave_godina_ukupno,
+    godina_potpuna,
+    lom_metode_godisnje = lom_metode
+  )
+
+s4_spoj_ispravan <- s4_mjesecno |>
+  left_join(s4_godisnje_lookup, by = c("godina", "platforma"))
+s4_spoj_pogresan <- s4_mjesecno |>
+  left_join(s4_godisnje_lookup, by = "godina")
+
+s4_usporedba_datoteka <- s4_mjesecno |>
+  group_by(godina, platforma) |>
+  summarise(objave_mjesecno = sum(objave_mjesec), .groups = "drop") |>
+  full_join(
+    s4_godisnje |>
+      select(godina, platforma, objave_godisnje = objave),
+    by = c("godina", "platforma")
+  ) |>
+  mutate(razlika = objave_mjesecno - objave_godisnje)
+s4_broj_odstupanja <- sum(s4_usporedba_datoteka$razlika != 0)
+s4_neto_odstupanje <- sum(s4_usporedba_datoteka$razlika)
+
+s4_broj_kljuceva <- function(x, stupac_platforme = "platforma") {
+  n_distinct(paste(x$mjesec, x[[stupac_platforme]], sep = "|"))
+}
+s4_spoj_audit <- tibble(
+  Postupak = c(
+    "Mjesečna datoteka prije spajanja",
+    "Ispravno: godina + platforma",
+    "Pogrešno: samo godina"
+  ),
+  Redaka = c(
+    nrow(s4_mjesecno),
+    nrow(s4_spoj_ispravan),
+    nrow(s4_spoj_pogresan)
+  ),
+  `Jedinstvenih mjesečnih ključeva` = c(
+    s4_broj_kljuceva(s4_mjesecno),
+    s4_broj_kljuceva(s4_spoj_ispravan),
+    s4_broj_kljuceva(s4_spoj_pogresan, "platforma.x")
+  ),
+  `Zbroj objava` = c(
+    sum(s4_mjesecno$objave_mjesec),
+    sum(s4_spoj_ispravan$objave_mjesec),
+    sum(s4_spoj_pogresan$objave_mjesec)
+  )
+)
+s4_pogresni_redci <- s4_spoj_audit$Redaka[3]
+s4_pogresni_kljucevi <- s4_spoj_audit[["Jedinstvenih mjesečnih ključeva"]][3]
+s4_pogresni_zbroj <- s4_spoj_audit[["Zbroj objava"]][3]
+
+s4_2025 <- s4_spoj_ispravan |>
+  filter(godina == 2025, godina_potpuna == "da") |>
+  mutate(
+    interakcije_za_analizu = if_else(
+      metrika_dostupna == "da",
+      as.numeric(interakcije),
+      NA_real_
+    ),
+    doseg_za_analizu = if_else(
+      metrika_dostupna == "da",
+      as.numeric(doseg),
+      NA_real_
+    )
+  )
+
+s4_2025_platforme <- s4_2025 |>
+  distinct(platforma, metrika_dostupna, objave_godina_ukupno) |>
+  left_join(
+    s4_godisnje |>
+      filter(godina == 2025) |>
+      select(platforma, objave_platforme = objave),
+    by = "platforma"
+  )
+
+s4_osjetljivost <- tibble(
+  Pravilo = c(
+    "Sve platforme za broj objava",
+    "Samo platforme s metrikom angažmana"
+  ),
+  Platformi = c(
+    nrow(s4_2025_platforme),
+    sum(s4_2025_platforme$metrika_dostupna == "da")
+  ),
+  `Medijan objava` = c(
+    median(s4_2025_platforme$objave_platforme),
+    median(
+      s4_2025_platforme$objave_platforme[
+        s4_2025_platforme$metrika_dostupna == "da"
+      ]
+    )
+  )
+)
+s4_2025_objave_nemjerene <- sum(
+  s4_2025_platforme$objave_platforme[
+    s4_2025_platforme$metrika_dostupna == "ne"
+  ]
+)
+s4_medijan_sve_platforme <- s4_osjetljivost[["Medijan objava"]][1]
+s4_medijan_mjerene_platforme <- s4_osjetljivost[["Medijan objava"]][2]
+
+s4_izvori_sazetak <- s4_izvori |>
+  summarise(
+    izvori = n(),
+    sredina = mean(objave),
+    medijan = median(objave),
+    najveci = max(objave),
+    jedan = sum(objave == 1),
+    prvih_deset = sum(sort(objave, decreasing = TRUE)[1:10]),
+    objave = sum(objave),
+    udio_prvih_deset = prvih_deset / objave
+  )
+
+s4_w04_preseti <- tibble(
+  Stanje = c("Zbijena", "Krajnje opažanje", "Raširena"),
+  Vrijednosti = c(
+    "8, 9, 10, 10, 11, 11, 12, 12, 13, 14",
+    "8, 9, 10, 10, 11, 12, 12, 13, 14, 70",
+    "2, 5, 8, 8, 11, 11, 14, 14, 17, 20"
+  ),
+  Sredina = c(11, 16.9, 11),
+  Medijan = c(11, 11.5, 11)
+)
+
+stopifnot(
+  nrow(s4_mjesecno) == 438,
+  nrow(s4_godisnje) == 49,
+  nrow(s4_izvori) == 3604,
+  nrow(s4_spoj_ispravan) == 438,
+  nrow(s4_spoj_pogresan) == 3571,
+  s4_pogresni_kljucevi == 438,
+  s4_pogresni_zbroj == 5959081,
+  s4_broj_odstupanja == 17,
+  s4_neto_odstupanje == 0,
+  sum(s4_mjesecno$objave_mjesec) == 710307,
+  s4_izvori_sazetak$objave == 551712,
+  abs(s4_izvori_sazetak$sredina - 153.0832) < 0.0001,
+  s4_izvori_sazetak$medijan == 4,
+  s4_izvori_sazetak$prvih_deset == 148748,
+  nrow(s4_2025_platforme) == 9,
+  sum(s4_2025_platforme$metrika_dostupna == "ne") == 3,
+  unique(s4_2025_platforme$objave_godina_ukupno) == 236166
+)
+
+s4_asimetrija <- function(x) mean(((x - mean(x)) / sd(x))^3)
+s4_zaobljenost <- function(x) mean(((x - mean(x)) / sd(x))^4)
+
+s4 <- list(
+  n = length(s4_minute),
+  sredina = mean(s4_minute),
+  medijan = median(s4_minute),
+  skracena5 = mean(s4_minute, trim = 0.05),
+  skracena10 = mean(s4_minute, trim = 0.10),
+  iznad = 100 * mean(s4_minute > mean(s4_minute)),
+  najmanje = min(s4_minute),
+  najvise = max(s4_minute),
+  raspon = diff(range(s4_minute)),
+  aad = mean(abs(s4_minute - mean(s4_minute))),
+  varijanca = var(s4_minute),
+  sd = sd(s4_minute),
+  q1 = quantile(s4_minute, 0.25, names = FALSE),
+  q3 = quantile(s4_minute, 0.75, names = FALSE),
+  iqr = IQR(s4_minute),
+  u_jednoj_sd = 100 * mean(abs(s4_minute - mean(s4_minute)) <= sd(s4_minute)),
+  u_dvije_sd = 100 * mean(abs(s4_minute - mean(s4_minute)) <= 2 * sd(s4_minute)),
+  donja_dvije = mean(s4_minute) - 2 * sd(s4_minute),
+  gornja_dvije = mean(s4_minute) + 2 * sd(s4_minute),
+  asimetrija = s4_asimetrija(s4_minute),
+  visak_zaobljenosti = s4_zaobljenost(s4_minute) - 3,
+  asimetrija_log = s4_asimetrija(log(s4_minute)),
+  sredina_log = mean(log(s4_minute)),
+  medijan_log = median(log(s4_minute)),
+  mod_povjerenja = as.numeric(
+    names(sort(table(anketa_mreze$povjerenje), decreasing = TRUE))[1]
+  )
+)
+```
+
+::: {.callout-vinjeta}
+Zamislimo da pratite temu koja vas zanima i stalno nailazite na objave istih nekoliko portala. Znači li to da se tom temom bavi malen broj izvora ili da nekoliko velikih izvora zaklanja mnoštvo manjih? Za urednika koji želi opisati prisutnost neke teme na internetu ta razlika mijenja priču. Takvo ćemo pitanje postaviti podacima iz korpusa digitalnih medija. U taj odabrani skup tekstova za analizu ulaze praćene objave s najmanje dva različita pojma s unaprijed određenoga tematskog popisa [@digikat2026]. Zamišljeni urednik iz njihovih brojnosti želi doznati koliko objava ima tipičan izvor i gdje se objave najviše koncentriraju. Kad bismo sve objave ravnomjerno podijelili među izvorima, dobili bismo jedan broj. Bi li nam taj broj pomogao zamisliti izvor na koji ćemo naići među mnogim manjima? I što prije računanja moramo znati o tablici koju smo dobili?
+:::
+
+Urednikovo pitanje zahtijeva izbor mjere, ali i pripremu podataka iz kojih ćemo je izračunati. Prije usporedbe prosjeka s drugim sažecima provjerit ćemo usporedivost zapisa te razlikovati odsutno mjerenje od izmjerene nule. Dosadašnja pitanja o jedinici, nazivniku i podrijetlu podataka sada primjenjujemo pri pripremi vlastite analize. Polazimo od stvarnih zbirnih tablica korpusa digitalnih medija [@digikat2026]. U njima redak predstavlja platformu u određenom razdoblju ili internetsku domenu tijekom obuhvata datoteke. Broj objava, doseg i interakcije različite su veličine, a njihova dostupnost nije jednaka. Provjerit ćemo koji se zapisi mogu spojiti, što pritom mora ostati nepromijenjeno i koje vrijednosti možemo uključiti u sažetak.
+
+Da bismo lakše pratili kako se računaju prosjek i druge mjere, poslužit
+ćemo se skupom podataka `anketa_mreze`. To je tablica koja izgleda kao
+rezultat ankete. Svaki redak opisuje zamišljenu osobu, njezinu dob, dnevne
+minute na društvenim mrežama i povjerenje u tamošnji sadržaj. Podatke smo
+stvorili računalnom simulacijom, zasebno od populacije medijskih navika iz
+ranijih poglavlja. Na istim ćemo odgovorima usporediti što nam pojedina
+mjera govori o tim zamišljenim osobama.
+
+Sredina i medijan opisuju središte raspodjele, a mjere raspršenosti razlike
+među opažanjima. Njihovu prikladnost provjeravamo prema obliku podataka i
+reakciji na pomicanje krajnjih vrijednosti. Standardizacijom opisujemo
+položaj opažanja u odnosu na ostala. Na kraju se vraćamo domenama medijskog korpusa i sastavljamo brojčani opis s jasno navedenim značenjem i granicom
+svake mjere.
+
+## Od izvora do sažetka
+
+Za vlastitu analizu trebamo [analitičku tablicu]{.pojam def="Tablica čiji
+svaki red predstavlja unaprijed imenovanu jedinicu analize i nosi samo
+provjerene varijable potrebne za pitanje." en="analysis table" ch="4"}. Pri
+njezinoj izradi određujemo što predstavlja redak, kojim ključem povezujemo
+zapise i kako tumačimo kodove. Bilježimo filtre i pravila za nedostajuće
+vrijednosti kako bi druga osoba mogla ponoviti postupak.
+
+### Tri tablice, tri jedinice
+
+Izbor tekstova u korpusu određuje i granicu našeg zaključka. Tablice opisuju
+objave obuhvaćene pravilima odabira, a ne slučajan uzorak hrvatskih medija,
+publike ili korisnika [@digikat2026]. Raspolažemo već izračunatim zbrojevima,
+bez pojedinačnih objava. Prije računanja zato provjeravamo predstavljaju li
+retci različitih datoteka usporedive jedinice.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-s4-jedinice
+#| tbl-cap: "Tri pogleda na korpus digitalnih medija imaju različite jedinice i ključeve. Izvor: korpus digitalnih medija, agregatni izvadak, CC BY 4.0 [@digikat2026]."
+#| echo: false
+
+tibble(
+  Datoteka = c("mjesečna", "godišnja", "izvori"),
+  `Što predstavlja redak` = c(
+    "platforma u mjesecu",
+    "platforma u godini",
+    "imenovana domena kroz cijeli raspon"
+  ),
+  Ključ = c("mjesec + platforma", "godina + platforma", "izvor"),
+  Redaka = c(nrow(s4_mjesecno), nrow(s4_godisnje), nrow(s4_izvori))
+) |>
+  mutate(Redaka = hr_broj(Redaka, 0)) |>
+  knitr::kable(align = c("l", "l", "l", "r"))
+```
+:::
+
+Datoteku domena analiziramo zasebno jer pokazuje raspored objava među domenama i nema zajednički ključ s platformskim tablicama. Mjesečne i godišnje podatke o platformama možemo povezati parom `godina + platforma`. Izostavljanjem jednog dijela ključa spojili bismo zapise koji ne pripadaju istoj jedinici. U mjesečnoj tablici, primjerice, jedan redak bilježi 11.701 obuhvaćenu objavu na webu u siječnju 2021. [@digikat2026]. U tablici domena redak za `hkm.hr` bilježi 56.500 objava kroz cijeli obuhvaćeni raspon [@digikat2026]. Iako prvi broj opisuje platformu i mjesec, a drugi jednu domenu kroz više godina, oba broje objave, dok bismo za broj jedinstvenih čitatelja trebali podatke o publici.
+
+### Ključ prije sažetka
+
+Mjesečna tablica ima `r hr_broj(nrow(s4_mjesecno), 0)` redaka, svaki s jedinstvenim ključem `mjesec + platforma`. Iz godišnje joj tablice pridružujemo godišnji nazivnik i oznaku potpunosti. Nakon ispravnog spajanja broj redaka i ukupan broj objava moraju ostati isti. Ako spojimo samo po godini, svaki mjesečni redak dobit će par sa svim platformama te godine i pojavit će se više puta. Za dva mjesečna zapisa weba vidimo što je spoj dodao. Mjesec i njegov broj objava dolaze iz mjesečne datoteke, a ukupni godišnji nazivnik iz godišnje. Tražimo podudaranje i godine i platforme. Oba mjesečna zapisa tako dobivaju isti godišnji nazivnik, bez ponovnog brojanja njihovih objava.
+
+```{r}
+#| label: tbl-s4-dva-spojena-retka
+#| echo: false
+#| tbl-cap: "Dva mjesečna retka nakon pridruživanja godišnjeg nazivnika. Izrada autora prema @digikat2026."
+s4_spoj_ispravan |> filter(godina == 2021, platforma == "web") |>
+  slice_head(n = 2) |>
+  transmute(Mjesec = mjesec, Platforma = platforma,
+    `Mjesečne objave` = hr_broj(objave_mjesec, 0),
+    `Godišnji nazivnik` = hr_broj(objave_godina_ukupno, 0)) |>
+  knitr::kable()
+```
+
+U sljedećoj tablici uspoređujemo broj redaka, jedinstvene mjesečne ključeve
+i zbroj objava prije i nakon ispravnog spajanja.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-s4-audit-spoja
+#| tbl-cap: "Kontrola retka, ključa i zbroja prije i nakon ispravnog spajanja medijskih agregata. Izvor: korpus digitalnih medija [@digikat2026]."
+#| echo: false
+
+s4_spoj_audit |>
+  slice(1:2) |>
+  mutate(
+    Redaka = hr_broj(Redaka, 0),
+    `Jedinstvenih mjesečnih ključeva` = hr_broj(
+      `Jedinstvenih mjesečnih ključeva`, 0
+    ),
+    `Zbroj objava` = hr_broj(`Zbroj objava`, 0)
+  ) |>
+  knitr::kable(align = c("l", "r", "r", "r"))
+```
+:::
+
+Provjeravamo i pojedine ćelije, jer jednak ukupan zbroj ne jamči njihovo
+slaganje. Mjesečni i godišnji izvadak razlikuju se u `r hr_broj(s4_broj_odstupanja, 0)` od 49
+kombinacija platforme i godine, a odstupanja se u ukupnom zbroju poništavaju.
+Zato ne zamjenjujemo mjesečne vrijednosti godišnjima i ne gradimo neprekinut
+trend. Za daljnju analizu koristimo potpunu 2025. godinu, uz isključenje 2024.
+zbog praznine i promjene metode. U 2024. nedostaju mjesečni retci od veljače
+do svibnja, siječanj je djelomičan, a lipanj označuje promjenu metode i
+obuhvata [@digikat2026].
+
+### Kada nula znači da mjera nije dostupna
+
+Iako u podacima za 2025. svih devet platformi ima zabilježen broj objava, za tri od njih nema usporedivog podatka o dosegu i interakcijama. Ondje zapisana nula, uz oznaku `metrika_dostupna = ne`, znači da mjerenje nije dostupno. Izvorni stupac čuvamo, a za analizu izrađujemo novi u kojem te nule označujemo kao nedostajuće vrijednosti. Primjerice, u mjesečnom retku za `reddit` izvorno je uz interakcije zapisana nula, ali oznaka dostupnosti glasi `ne`. Analitički zapis zato čuva broj objava, a interakcije pretvara u oznaku nedostajanja. Tako redak ostaje dostupan za analizu objava, a prosjek interakcija računamo samo iz dostupnih mjerenja. To se odnosi na platforme `reddit`, `forum` i `comment`, koje zajedno imaju `r hr_broj(s4_2025_objave_nemjerene, 0)` objava. Metapodaci potvrđuju da metrika nedostaje zbog načina mjerenja. Broj objava zato možemo sažeti za svih devet platformi, a angažman samo za šest s dostupnom metrikom. Učinak sužavanja skupa provjeravamo na broju objava, koji poznajemo za sve platforme. Doseg i interakcije nedostajućih platformi ne možemo tako usporediti.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-s4-osjetljivost
+#| tbl-cap: "Osjetljivost medijana broja objava na nepotrebno izbacivanje platformi kojima nedostaje druga metrika. Presjek je potpuna 2025. godina. Angažman i doseg ne uspoređuju se. Izvor: korpus digitalnih medija [@digikat2026]."
+#| echo: false
+
+s4_osjetljivost |>
+  mutate(
+    Platformi = hr_broj(Platformi, 0),
+    `Medijan objava` = hr_broj(`Medijan objava`, 1)
+  ) |>
+  knitr::kable(align = c("l", "r", "r"))
+```
+:::
+
+Medijan, središnja vrijednost u poredanom nizu, mijenja se s `r hr_broj(s4_medijan_sve_platforme, 1)` na `r hr_broj(s4_medijan_mjerene_platforme, 1)` objava. Usporedbom svih devet vrsta platformi sa šest koje imaju metriku angažmana promijenili smo skup na koji se rezultat odnosi. O dosegu i interakcijama preostalih triju platformi i dalje nemamo podatke. Za ručnu provjeru poredani brojevi objava po platformama u 2025. iznose 231, 1.641, 1.779, 2.122, 2.724, 4.228, 26.891, 44.502 i 152.048 [@digikat2026]. Izbacivanjem platformi bez metrike angažmana uklanjamo vrijednosti 1.641, 1.779 i 4.228 [@digikat2026].
+
+### Nazivnik je dio tvrdnje
+
+Za udio trebamo znati i ukupnu količinu. Ako riječi brojimo prema razmacima,
+ne razlikujući velika i mala slova, *Analysis* se u naslovu *Exploratory Data
+Analysis* pojavljuje jednom među trima riječima [@tukey1977]. U naslovu
+*Statistical Power Analysis for the Behavioral Sciences* također se pojavljuje
+jednom, ali među sedam riječi [@cohen1988]. Učestalost je ista, dok se udjeli
+razlikuju zbog duljine naslova.
+
+Tablica imenovanih domena ima `r hr_broj(nrow(s4_izvori), 0)` redaka i ukupno `r hr_broj(s4_izvori_sazetak$objave, 0)` objava. Za
+udjele objava među tim domenama zato koristimo nazivnik 551.712. Nazivnik
+710.307 iz platformskih tablica odnosi se na drugi obuhvat.
+
+Ponašanje sredine i drugih mjera lakše ćemo pratiti na tablici pojedinačnih
+odgovora. Zato prelazimo na skup `anketa_mreze`, simuliranu anketu s `r s4$n`
+ispitanika. Jedan redak predstavlja jednu zamišljenu osobu. Za
+nju su zadani dob, dnevne minute na društvenim mrežama i povjerenje u tamošnji
+sadržaj na ljestvici od 1 do 10. Skup je generiran zasebno, neovisno o ranije uvedenoj populaciji medijskih navika.
+
+Generator je zadao četiri dobne skupine s 90, 84, 66 i 60 osoba. Unutar
+svake dob je slučajno odabrana iz njezina raspona, a minute nastaju zasebnim
+izvlačenjem pozitivnih, desno asimetričnih vrijednosti. Tipična vrijednost
+minuta niža je u starijim skupinama. Zaokruživanjem zadržavamo barem jednu
+minutu. Povjerenju također zadajemo niže prosjeke u starijim skupinama, uz
+slučajna odstupanja i granice ljestvice od 1 do 10.
+
+Nekoliko pojedinačnih zapisa omogućuje da prije prosjeka vidimo što se
+zbraja. Oznaka ispitanika služi razlikovanju redaka. Dnevne minute i ocjena
+povjerenja dvije su odvojene varijable.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-s4-primjer-ankete
+#| tbl-cap: "Tri zapisa iz zasebne simulirane ankete o društvenim mrežama. Izrada autora."
+#| echo: false
+
+s4_anketa_analiza |>
+  slice_head(n = 3) |>
+  transmute(
+    Ispitanik = ispitanik,
+    Dob = dob,
+    `Minute dnevno` = minute_dnevno,
+    `Povjerenje (1–10)` = povjerenje
+  ) |>
+  knitr::kable(align = c("l", "r", "r", "r"))
+```
+:::
+
+Na istoj ćemo anketi poslije usporediti grafove, izračunati povezanost i
+sastaviti završno istraživanje. Vrijednosti su stvorene tako da većina osoba
+provodi kraće vrijeme na mrežama, a manji dio znatno dulje. Takav
+oblik omogućuje da vidimo zašto sredina i medijan daju različite opise. Tumačenje zato ostaje unutar zadanog nastavnog primjera.
+
+**Dnevnik transformacija** bilježi što smo promijenili između izvora i
+analize, prema kojem pravilu i s kakvim učinkom na broj redaka ili rezultat.
+Ovdje u njega pripadaju ključ spajanja, isključeno razdoblje i razlikovanje
+nedostupne metrike od nule. **Osjetljivost na odluku o podacima** znači da
+provjerimo mijenja li se zaključak uz drugu opravdanu odluku, primjerice uz
+drukčiji obuhvat dostupnih platformi.
+
+**Poštena rečenica izvještaja** imenuje jedinicu, obuhvat, mjeru i granicu
+zaključka. Rečenica o medijanu objava po domeni zato mora reći odnosi li se
+na sve domene ili samo one s dostupnom metrikom. Uz uzoračku procjenu dodaje
+se odgovarajući opis nesigurnosti. Precizan broj bez tih podataka ostavlja
+čitatelju da sam izmisli doseg tvrdnje.
+
+### Mjere središta
+
+Prosjek dobivamo kada ukupno vrijeme ravnomjerno rasporedimo među
+ispitanicima. U formuli $n$ označuje broj opažanja, a $x_i$ vrijednost za
+pojedinog ispitanika. Crta iznad slova označuje aritmetičku sredinu tih
+vrijednosti.
+
+$$
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+$$
+
+::: {#def-aritmeticka-sredina}
+**Aritmetička sredina** je zbroj svih izmjerenih vrijednosti podijeljen njihovim
+brojem.
+:::
+
+Zbroj minuta svih 300 osoba iznosi `r hr_broj(sum(s4_minute), 0)`. Dijeljenjem toga zbroja s 300 dobivamo `r hr_broj(s4$sredina, 2)` minuta. Tri prikazana retka samo su početak toga zbrajanja. Svih 300 odgovora ovdje je dostupno. Sredina iznosi `r hr_broj(s4$sredina, 1)` minuta dnevno, ali samo `r paste0(hr_broj(s4$iznad, 0), " %")` ljudi provodi više vremena od toga. Ukupno smo vrijeme ravnomjerno podijelili među svim ispitanicima, pa su i rijetke velike vrijednosti podigle dobiveni broj. Ako nas zanima osoba u sredini poretka, trebamo drukčiji sažetak. Do njega ćemo doći promatrajući što se događa kada krajnjim vrijednostima postupno smanjujemo utjecaj.
+
+Utjecaj krajnjih vrijednosti možemo ublažiti **skraćenom sredinom** (*trimmed
+mean*). Poredamo opažanja, uklonimo unaprijed zadan jednak udio s oba kraja i
+izračunamo sredinu ostatka. U našem uzorku po 5 % znači 15 najmanjih i 15
+najvećih vrijednosti, pa novi zbroj dijelimo s 270. Uz po 10 % ostaje 240
+vrijednosti. Nakon uklanjanja po 5 % s oba kraja ovdje dobivamo
+`r hr_broj(s4$skracena5, 1)` minuta, a uz po 10 % dobivamo `r hr_broj(s4$skracena10, 1)`.
+
+Nastavimo li uklanjati vrijednosti s oba kraja, približavamo se medijanu,
+središtu poredanog niza. Različit odnos prema krajnjim vrijednostima možemo
+izraziti i računom odstupanja. Zbroj kvadriranih odstupanja najmanji je kada ih računamo od sredine.
+Kvadriranjem velika odstupanja dobivaju veću težinu. Medijan pak daje
+najmanji zbroj apsolutnih odstupanja, bez njihova kvadriranja. Zato te dvije mjere mogu dati različite vrijednosti središta podataka.
+
+::: {#def-medijan}
+**Medijan** je vrijednost koja poredani niz opažanja dijeli na dvije jednako
+velike polovine.
+:::
+
+U poredanih 300 odgovora središnja su mjesta 150 i 151. Na njima su `r sort(s4_minute)[150]` i `r sort(s4_minute)[151]` minuta. Njihov prosjek daje medijan. Poredak nam omogućuje pronalaženje središnjih mjesta među zapisima istih osoba. Medijan je `r hr_broj(s4$medijan, 0)` minuta, što je `r hr_broj(s4$sredina - s4$medijan, 1)` minuta manje od sredine. Takav razmak potiče nas da pogledamo graf. Može nastati zbog repa prema velikim vrijednostima, ali i zbog mješavine skupina ili složenijeg oblika raspodjele. Još jedna mjera središta, mod, označuje najčešću vrijednost. Za kontinuirano vrijeme korištenja ovdje nam malo koristi, dok za cjelobrojne odgovore o povjerenju iznosi `r hr_broj(s4$mod_povjerenja, 0)`. Kod kategorija mod pokazuje koja je najčešća, bez računanja prosjeka kategorijskih oznaka.
+
+## Mjere raspršenosti
+
+Uz središte trebamo opisati koliko se vrijednosti razlikuju. Zamislimo dva portala s istim prosjekom komentara po članku. Na prvom svaki članak ima između 45 i 55 komentara. Na drugom neki nemaju nijedan, a poneki imaju 200. Tu razliku u raspodjeli trebamo prikazati uz zajednički prosjek. Raspon je razlika najveće i najmanje vrijednosti. Vrijeme u našem uzorku kreće se od `r hr_broj(s4$najmanje, 0)` do `r hr_broj(s4$najvise, 0)` minuta, uz raspon od `r hr_broj(s4$raspon, 0)` minuta. Budući da raspon ovisi samo o dvama krajnjim opažanjima, za raspored ostalih vrijednosti trebamo dodatne mjere.
+
+Za potpuniji opis razmatramo odstupanje svake vrijednosti od sredine. Njegova
+apsolutna vrijednost daje udaljenost bez obzira na smjer. Prosjek tih
+udaljenosti, prosječno apsolutno odstupanje, govori koliko se opažanja u
+prosjeku udaljavaju od sredine.
+
+$$
+\text{PAO} = \frac{1}{n} \sum_{i=1}^{n} |x_i - \bar{x}|
+$$
+
+Ovdje prosječno apsolutno odstupanje iznosi `r hr_broj(s4$aad, 1)` minuta. Umjesto
+apsolutnih odstupanja mnogi postupci koriste kvadrirana jer ih je lakše
+povezati s kasnijim modelima. Tako dolazimo do varijance, koju je nešto teže
+izravno protumačiti.
+
+$$
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+$$
+
+Za varijancu uzorka zbroj kvadriranih odstupanja dijelimo s $n-1$, što nazivamo Besselovom korekcijom i povezujemo s time što smo sredinu procijenili iz istog uzorka. U poglavlju o uzorkovanju simulacijom ćemo vidjeti zašto takvo dijeljenje uklanja dugoročnu pristranost procjene. Uzoračke veličine zapisujemo latiničnim slovima. Sredina je $\bar{x}$, a varijanca $s^2$. Populacijsku sredinu označujemo grčkim slovom $\mu$, a populacijsku varijancu oznakom $\sigma^2$. Veličina uzorka je $n$, dok $N$ označuje veličinu populacije. U toj ćemo simulaciji mnogo puta izvući uzorak iz iste poznate populacije i usporediti što se dugoročno događa s djeliteljima $n$ i $n-1$.
+
+Prva osoba ima `r s4_minute[1]` minuta. Odstupanje od sredine iznosi `r hr_broj(s4_minute[1] - s4$sredina, 2)`, a njegov kvadrat `r hr_broj((s4_minute[1] - s4$sredina)^2, 2)`. Takav kvadrat računamo za svaku osobu, zbrajamo svih 300 vrijednosti i dijelimo s 299. Pri kvadriranju zadržavamo punu preciznost odstupanja. Prikaz na dvije decimale služi čitanju rezultata. Varijanca iznosi `r hr_broj(s4$varijanca, 1)` kvadriranih minuta. Kvadrira se i mjerna jedinica, zbog čega broj nije lako tumačiti u izvještaju. Kvadriranje također povećava utjecaj krajnjih vrijednosti jer dvostruko veće odstupanje pridonosi zbroju četverostruko više.
+
+## Standardna devijacija i kvartili
+
+Vađenjem korijena iz varijance vraćamo se na izvornu mjernu jedinicu, ovdje
+minute.
+
+::: {#def-standardna-devijacija}
+**Standardna devijacija** uzorka korijen je varijance. Varijancu računamo
+dijeljenjem zbroja kvadriranih odstupanja od sredine s $n-1$, a korijen vraća
+raspršenost u jedinice izvornih vrijednosti.
+:::
+
+$$
+s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
+$$
+
+Standardna devijacija ovdje iznosi `r hr_broj(s4$sd, 1)` minuta i veća je od prosječnog
+apsolutnog odstupanja od `r hr_broj(s4$aad, 1)` minuta. Kvadriranje daje veću težinu
+velikim odstupanjima. Zato standardnu devijaciju možemo samo približno opisati
+kao tipičnu udaljenost od sredine.
+
+Za normalnu raspodjelu, koju ćemo razraditi u poglavlju o vjerojatnosti, postoji korisno pravilo. U približno normalnoj raspodjeli oko 68 % opažanja nalazi se unutar jedne standardne devijacije od sredine, oko 95 % unutar dviju, a oko 99,7 % unutar triju. U našem je uzorku unutar jedne devijacije `r paste0(hr_broj(s4$u_jednoj_sd, 1), " %")` ispitanika. Raspon dviju devijacija ide od minus `r hr_broj(abs(s4$donja_dvije), 1)` do `r hr_broj(s4$gornja_dvije, 1)` minuta. Budući da trajanje ne može biti negativno, taj raspon upozorava da trebamo provjeriti odgovara li normalno pravilo podacima. Sam po sebi ipak ne određuje oblik raspodjele. Unutar dviju devijacija ovdje se nalazi `r paste0(hr_broj(s4$u_dvije_sd, 1), " %")` ispitanika, gotovo kao prema normalnom pravilu. Procjena približne normalnosti traži pregled cijele raspodjele, uz ovo pojedinačno podudaranje.
+
+Ako želimo opis raspršenosti koji manje ovisi o krajnjim vrijednostima,
+možemo se, kao kod medijana, osloniti na položaje u poredanom nizu. **Percentil** je
+vrijednost ispod koje se nalazi zadani postotak opažanja, pa je medijan
+pedeseti percentil. Prvi kvartil odvaja donjih 25 %, a treći gornjih 25 %.
+Njihova razlika obuhvaća raspon središnje polovine podataka.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-percentili
+#| tbl-cap: "Percentili dnevnog vremena korištenja u simuliranoj anketi. Izrada autora."
+
+s4_p <- c(0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95)
+
+tibble(
+  Percentil = paste0(hr_broj(100 * s4_p, 0), "."),
+  Minuta = hr_broj(quantile(s4_minute, s4_p, names = FALSE), 1)
+) |>
+  knitr::kable(align = c("l", "r"))
+```
+:::
+
+Taj interkvartilni raspon ovdje iznosi `r hr_broj(s4$iqr, 1)` minuta, od `r hr_broj(s4$q1, 1)` do
+`r hr_broj(s4$q3, 1)` minuta. Pomicanje opažanja koje već leži daleko izvan središnje
+polovine obično ga ne mijenja. Promjena poretka oko kvartila ipak može
+utjecati na rezultat. Interkvartilni raspon često navodimo uz medijan, a
+standardnu devijaciju uz sredinu. Druge kombinacije mogu biti korisne ako
+objasnimo čemu služe.
+
+## Oblik raspodjele i položaj opažanja
+
+Graf nam pokazuje i oblik raspodjele. U simetričnoj raspodjeli dvije strane
+približno su zrcalne i sredina je često blizu medijana. Dugi rep prema većim
+vrijednostima može povući sredinu naviše. Njihov razmak ipak nije dovoljan
+opis oblika. [Asimetrija]{.pojam def="Mjera nesimetričnosti raspodjele,
+pozitivna kada je rep okrenut prema većim vrijednostima." en="skewness"
+ch="4"} uzima u obzir cijelu raspodjelu.
+
+Dugi rep koji smo naslutili iz razmaka sredine i medijana želimo opisati i
+brojem koji razlikuje dvije strane raspodjele. Zato odstupanja najprije
+izražavamo u standardnim devijacijama, a zatim ih dižemo na treću potenciju.
+Neparna potencija čuva njihov predznak. Velika pozitivna odstupanja tako vuku
+zbroj prema pozitivnome, a velika negativna prema negativnome.
+
+$$
+\text{asimetrija} = \frac{1}{n} \sum_{i=1}^{n}
+  \left( \frac{x_i - \bar{x}}{s} \right)^3
+$$
+
+Asimetrija simuliranog uzorka iznosi `r hr_broj(s4$asimetrija, 2)` i proizlazi iz načina
+generiranja podataka. Opisuje oblik koji smo zadali simulacijom. Ako u izrazu
+upotrijebimo četvrtu potenciju, dobivamo koeficijent zaobljenosti
+(*kurtosis*). Njegov višak nad referentnom normalnom vrijednošću ovdje je
+`r hr_broj(s4$visak_zaobljenosti, 2)`. On pomaže pri pregledu repova raspodjele, ali ne objašnjava njihov
+uzrok ni broj krajnjih slučajeva. Ovdje koristimo prosjek trećih odnosno
+četvrtih potencija odstupanja standardiziranih uzoračkom standardnom
+devijacijom, bez korekcije za mali uzorak. Od četvrtog momenta oduzimamo tri.
+Drugi programski postupci mogu koristiti drukčiju korekciju, pa uz usporedbu
+vrijednosti treba provjeriti i definiciju.
+
+::: {#podsjetnik-logaritamska-skala .column-margin}
+**Podsjetnik.** [Logaritamska skala](../dodaci/g-numericki-podsjetnik.qmd#sec-ag-logaritamska-skala)
+:::
+
+Za strogo pozitivne vrijednosti možemo razmotriti logaritamsku ljestvicu. Ona
+sabija velike vrijednosti i jednake omjere prikazuje jednakim razmacima.
+Omjeri 20 prema 10 i 120 prema 60 zato imaju isti razmak. Nulu ne možemo
+logaritmirati. Dodavanje jedinice svim vrijednostima mijenja analizu i traži
+obrazloženje.
+
+```{r}
+#| label: fig-oblik-raspodjele
+#| fig-cap: "Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom. Logaritamska ljestvica sažima dugi desni rep. Izrada autora."
+#| fig-alt: "Lijevi panel pokazuje raspodjelu s izraženim repom prema većim vrijednostima, u kojoj sredina leži znatno desno od medijana. Desni panel prikazuje logaritmirane vrijednosti, gdje je raspodjela približno simetrična a sredina i medijan gotovo se poklapaju."
+
+s4_oblik <- bind_rows(
+  anketa_mreze |>
+    transmute(Ljestvica = "Minute", Vrijednost = minute_dnevno),
+  anketa_mreze |>
+    transmute(Ljestvica = "Logaritam minuta", Vrijednost = log(minute_dnevno))
+) |>
+  mutate(
+    Ljestvica = factor(
+      Ljestvica,
+      levels = c("Minute", "Logaritam minuta")
+    )
+  )
+
+s4_crte <- s4_oblik |>
+  group_by(Ljestvica) |>
+  summarise(
+    Sredina = mean(Vrijednost),
+    Medijan = median(Vrijednost),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(Sredina, Medijan),
+    names_to = "Mjera",
+    values_to = "Vrijednost"
+  )
+
+ggplot(s4_oblik, aes(x = Vrijednost)) +
+  geom_histogram(bins = 26, fill = tok_boja("data-5"),
+                 colour = tok_boja("surface"), linewidth = 0.2) +
+  geom_vline(
+    data = s4_crte,
+    aes(xintercept = Vrijednost, colour = Mjera, linetype = Mjera),
+    linewidth = 0.8
+  ) +
+  facet_wrap(vars(Ljestvica), nrow = 1, scales = "free_x") +
+  scale_color_knjiga() +
+  scale_x_continuous(
+    labels = function(x) hr_broj(x, 0),
+    n.breaks = 4,
+    expand = expansion(mult = 0.04)
+  ) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
+  labs(x = NULL, y = "Broj ispitanika") +
+  theme(legend.position = "top")
+```
+
+Isti se odgovor sada zapisuje na drugoj ljestvici. Prvih `r s4_minute[1]` minuta postaje $\ln(`r s4_minute[1]`) = `r hr_broj(log(s4_minute[1]), 2)`$. Sve su minute pozitivne, pa transformiramo svih 300 odgovora bez izostavljanja. Svaki transformirani zapis i dalje pripada istom izvornom odgovoru iste osobe. Nakon logaritmiranja asimetrija iznosi `r hr_broj(s4$asimetrija_log, 2)`, a sredina i medijan bliski su, `r hr_broj(s4$sredina_log, 2)` i `r hr_broj(s4$medijan_log, 2)`. Sada, međutim, tumačimo drugu ljestvicu, na kojoj eksponenciranjem razlike logaritama dobivamo omjer izvornih vrijednosti. Rezultat stoga tumačimo kao višekratnik izvorne vrijednosti.
+
+Uz oblik raspodjele zanima nas i položaj pojedine osobe u njoj. Dnevnih 100 minuta može biti mnogo u skupini s prosjekom od 15 minuta, a manje
+neobično u skupini s prosjekom od 80. Da bismo opisali položaj, udaljenost od
+sredine izražavamo brojem standardnih devijacija.
+
+::: {#def-standardizirana-vrijednost}
+**Standardizirana vrijednost** kaže koliko standardnih devijacija pojedino
+opažanje leži iznad ili ispod aritmetičke sredine.
+:::
+
+$$
+z_i = \frac{x_i - \bar{x}}{s}
+$$
+<!--
+
+položaja ipak ne uklanjava oblik raspodjele. U desno nagnutim podacima ostaje
+nemoguće da neko opažanje bude tri standardne devijacije ispod sredine, dok ih
+iznad nje može biti pet.
+
+
+Standardizirana varijabla ima sredinu nula i standardnu devijaciju jedan, pa
+položaji vrijednosti izmjerenih u minutama i na ljestvici povjerenja postaju
+usporedivi u odnosu na vlastite referentne raspodjele. Time sami konstrukti ne
+postaju zamjenjivi. Standardizacija ne uklanja oblik raspodjele ni ograničenja
+izvorne ljestvice, pa se krajnji položaj uvijek tumači uz prikaz podataka.
+
+Odluka koja se lako preskoči jest odluka o skupini prema kojoj se položaj mjeri.
+Standardizacija u cijelom uzorku i standardizacija unutar dobne skupine
+odgovaraju na različita pitanja, a njihovi se odgovori mogu razlikovati i u
+predznaku.
+
+-->
+
+Standardizirana varijabla ima sredinu nula i standardnu devijaciju jedan. Tako možemo usporediti relativni položaj osobe prema vremenu korištenja i prema povjerenju, svako unutar njegove raspodjele. Vrijeme i povjerenje pritom zadržavaju svako svoje značenje. Standardizacija čuva oblik raspodjele i ograničenja ljestvice, pa uz krajnje vrijednosti i dalje gledamo graf. Također moramo navesti referentnu skupinu jer se položaj u cijelom uzorku može razlikovati od položaja unutar dobne skupine, čak i po predznaku. Za najstariju skupinu sredina iznosi `r hr_broj(mean(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)` minute, a standardna devijacija `r hr_broj(sd(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)` minuta. Račun koristi nezaokružene vrijednosti.
+
+```{r}
+#| label: tbl-standardizacija
+#| tbl-cap: "Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora."
+
+s4_z <- anketa_mreze |>
+  mutate(z_ukupno = (minute_dnevno - mean(minute_dnevno)) /
+           sd(minute_dnevno)) |>
+  group_by(dobna_skupina) |>
+  mutate(z_skupina = (minute_dnevno - mean(minute_dnevno)) /
+           sd(minute_dnevno)) |>
+  ungroup()
+
+s4_z |>
+  filter(dobna_skupina == "45 i više") |>
+  arrange(desc(z_skupina)) |>
+  slice(1:3) |>
+  transmute(
+    Ispitanik = ispitanik,
+    Minuta = hr_broj(minute_dnevno, 0),
+    `U uzorku` = hr_broj(z_ukupno, 2),
+    `U skupini` = hr_broj(z_skupina, 2)
+  ) |>
+  knitr::kable(align = c("l", "r", "r", "r"))
+```
+
+Osobe iz tablice provode manje vremena od prosjeka cijelog uzorka, a u svojoj
+su dobnoj skupini među najintenzivnijim korisnicima. Obje tvrdnje mogu biti
+točne jer koriste različite referentne skupine. U izvještaju zato navodimo
+prema kojoj je skupini položaj izračunat.
+
+## Interakcija — Oblikovanje distribucije
+
+Tri raspodjele prikazuju utjecaj krajnjeg opažanja i raspršenosti ostalih
+vrijednosti. Usporedba sredine, medijana i mjera raspršenosti pokazuje koje
+mjere jače reagiraju na pojedinu vrijednost, a koje više ovise o poretku.
+Za tu smo usporedbu ručno zadali nizove vrijednosti. Svako je opažanje broj u nastavnoj konstrukciji, pa zaključak vrijedi za zadane nizove.
+
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Oblikovanje distribucije" data-oznaka="Widget 04.1 · interaktivno"}
+```{ojs}
+//| echo: false
+viewof w04_par = Inputs.form({
+  krajnja: Inputs.range(
+    [11, 70],
+    {value: 70, step: 1, label: "Vrijednost krajnjeg opažanja"}
+  ),
+  faktor: Inputs.range(
+    [1, 3],
+    {
+      value: 1,
+      step: 0.25,
+      label: "Faktor raspršenosti preostalih opažanja"
+    }
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  const form = viewof w04_par;
+  form.dataset.learningForm = "w04";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w04_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
+w04_tema = Generators.observe(obavijesti => {
+  let revizija = 0;
+  const osvjezi = () => obavijesti(++revizija);
+  const promatrac = new MutationObserver(osvjezi);
+  const postavke = {
+    attributes: true,
+    attributeFilter: ["class", "data-bs-theme"]
+  };
+  promatrac.observe(document.documentElement, postavke);
+  promatrac.observe(document.body, postavke);
+  osvjezi();
+  return () => promatrac.disconnect();
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w04
+//| fig-cap: "Reakcija mjera središta i raspršenosti na oblik konstruirane raspodjele."
+//| fig-alt: "Pri početnim vrijednostima devet opažanja leži između 8 i 14, a jedno na 70. Aritmetička sredina iznosi 16,9, dok medijan iznosi 11,5."
+{
+  w04_tema;
+  const css = getComputedStyle(document.documentElement);
+  const tocke = css.getPropertyValue("--tok-data-1").trim();
+  const sredinaBoja = css.getPropertyValue("--tok-data-2").trim();
+  const medijanBoja = css.getPropertyValue("--tok-data-4").trim();
+  const prigusena = css.getPropertyValue("--tok-ink-mute").trim();
+  const linija = css.getPropertyValue("--tok-rule").trim();
+  const sans = css.getPropertyValue("--tok-font-sans").trim();
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+
+  const odstupanja = [-3, -2, -1, -1, 0, 1, 1, 2, 3];
+  const vrijednosti = [
+    ...odstupanja.map(d => 11 + d * w04_par.faktor),
+    w04_par.krajnja
+  ].sort((a, b) => a - b);
+
+  const sredina = d3.mean(vrijednosti);
+  const medijan = d3.median(vrijednosti);
+  const sd = Math.sqrt(
+    d3.sum(vrijednosti, d => (d - sredina) ** 2) /
+      (vrijednosti.length - 1)
+  );
+  const iqr =
+    d3.quantileSorted(vrijednosti, 0.75) -
+    d3.quantileSorted(vrijednosti, 0.25);
+
+  const brojPonavljanja = new Map();
+  const slozene = vrijednosti.map(vrijednost => {
+    const kljuc = vrijednost.toFixed(4);
+    const red = (brojPonavljanja.get(kljuc) || 0) + 1;
+    brojPonavljanja.set(kljuc, red);
+    return {vrijednost, red};
+  });
+  const najvisiRed = d3.max(slozene, d => d.red);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+  const sazetakRasprsenosti = usko
+    ? [
+        {
+          x: 0,
+          y: najvisiRed + 2.4,
+          oznaka: `standardna devijacija ${broj.format(sd)}`
+        },
+        {
+          x: 0,
+          y: najvisiRed + 1.8,
+          oznaka: `interkvartilni raspon ${broj.format(iqr)}`
+        }
+      ]
+    : [{
+        x: 0,
+        y: najvisiRed + 1.7,
+        oznaka:
+          `standardna devijacija ${broj.format(sd)} · ` +
+          `interkvartilni raspon ${broj.format(iqr)}`
+      }];
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 370 : 310,
+    marginLeft: usko ? 40 : 34,
+    marginRight: usko ? 16 : 28,
+    marginTop: usko ? 82 : 62,
+    marginBottom: 48,
+    style: {
+      background: "transparent",
+      fontFamily: sans,
+      fontSize: usko ? "12px" : "13px"
+    },
+    color: {
+      domain: ["Sredina", "Medijan"],
+      range: [sredinaBoja, medijanBoja],
+      legend: false
+    },
+    x: {label: "Vrijednost", domain: [0, 75], grid: true},
+    y: {axis: null, domain: [0, najvisiRed + (usko ? 2.8 : 2.1)]},
+    marks: [
+      Plot.ruleY([0], {stroke: linija}),
+      Plot.dot(slozene, {
+        x: "vrijednost",
+        y: "red",
+        r: 6,
+        fill: tocke
+      }),
+      Plot.ruleX([sredina], {
+        stroke: sredinaBoja,
+        strokeWidth: 2
+      }),
+      Plot.ruleX([medijan], {
+        stroke: medijanBoja,
+        strokeWidth: 2,
+        strokeDasharray: "6,4"
+      }),
+      Plot.text(
+        [
+          {
+            x: sredina,
+            y: najvisiRed + 0.8,
+            oznaka: `sredina ${broj.format(sredina)}`,
+            vrsta: "Sredina"
+          },
+          {
+            x: medijan,
+            y: najvisiRed + 0.3,
+            oznaka: `medijan ${broj.format(medijan)}`,
+            vrsta: "Medijan"
+          }
+        ],
+        {
+          x: "x",
+          y: "y",
+          text: "oznaka",
+          fill: "vrsta"
+        }
+      ),
+      Plot.text(
+        sazetakRasprsenosti,
+        {
+          x: "x",
+          y: "y",
+          text: "oznaka",
+          textAnchor: "start",
+          fill: prigusena
+        }
+      )
+    ]
+  });
+}
+```
+:::
+::::
+
+::: {.content-visible when-format="pdf"}
+Svaka točka predstavlja jedno opažanje. Jednake vrijednosti slažemo okomito
+kako bi sve ostale vidljive. U zbijenom i raširenom stanju sredina i medijan
+podudaraju se, pa njihove crte leže na istome mjestu.
+
+```{r}
+#| echo: false
+#| label: fig-w04-print
+#| fig-height: 4.5
+#| fig-cap: "Tri raspodjele pokazuju odvojene učinke krajnjeg opažanja i raspršenosti. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Zbijena raspodjela ima sredinu i medijan blizu 11. Krajnje opažanje na 70 povlači sredinu udesno, dok medijan ostaje blizu 11. Raširena simetrična raspodjela čuva sredinu i medijan na 11 uz veću raspršenost."
+w04_odstupanja <- c(-3, -2, -1, -1, 0, 1, 1, 2, 3)
+w04_stanja <- bind_rows(
+  tibble(
+    Stanje = "Zbijena",
+    Vrijednost = c(11 + w04_odstupanja, 11)
+  ),
+  tibble(
+    Stanje = "Krajnje opažanje",
+    Vrijednost = c(11 + w04_odstupanja, 70)
+  ),
+  tibble(
+    Stanje = "Raširena",
+    Vrijednost = c(11 + 3 * w04_odstupanja, 11)
+  )
+) |>
+  mutate(
+    Stanje = factor(
+      Stanje,
+      levels = c("Zbijena", "Krajnje opažanje", "Raširena")
+    )
+  ) |>
+  group_by(Stanje, Vrijednost) |>
+  mutate(Red = 0.7 + 0.18 * (row_number() - 1)) |>
+  ungroup()
+
+w04_sazeci <- w04_stanja |>
+  group_by(Stanje) |>
+  summarise(
+    Sredina = mean(Vrijednost),
+    Medijan = median(Vrijednost),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(Sredina, Medijan),
+    names_to = "Mjera",
+    values_to = "Vrijednost"
+  )
+
+ggplot(w04_stanja, aes(x = Vrijednost, y = Red)) +
+  geom_point(size = 1.8, colour = sivo[[1]]) +
+  geom_segment(
+    data = w04_sazeci,
+    aes(x = Vrijednost, xend = Vrijednost, y = 0.15, yend = 1.1,
+        colour = Mjera, linetype = Mjera),
+    inherit.aes = FALSE, linewidth = 0.7
+  ) +
+  facet_wrap(vars(Stanje), ncol = 1) +
+  scale_color_manual(values = c(sivo[[2]], sivo[[4]])) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_y_continuous(NULL, breaks = NULL, limits = c(0, 1.3)) +
+  labs(x = "Vrijednost") +
+  theme(
+    legend.position = "top",
+    panel.grid.major.y = element_blank()
+  )
+```
+
+Raspršenost možemo usporediti i brojčano. Standardna devijacija koristi
+djelitelj n − 1, a kvartili linearnu interpolaciju R-ova postupka tipa 7.
+
+```{r}
+#| echo: false
+#| label: tbl-w04-rasprsenost
+#| tbl-cap: "Središte i raspršenost istih triju prikazanih skupova. Izrada autora."
+w04_stanja |> group_by(Stanje) |>
+  summarise(Sredina = mean(Vrijednost), Medijan = median(Vrijednost),
+            SD = sd(Vrijednost), IQR = IQR(Vrijednost, type = 7), .groups = "drop") |>
+  mutate(across(where(is.numeric), ~hr_broj(.x, 2))) |> knitr::kable()
+```
+:::
+
+::: {.content-visible when-format="html"}
+**Što isprobati.**
+
+1. Spustite krajnje opažanje sa 70 na 14 i usporedite sredinu s medijanom.
+2. Vratite ga na 70 i provjerite koja se mjera središta više pomaknula.
+3. Postavite krajnje opažanje na 11 pa povećajte faktor raspršenosti i
+   usporedite dvije raspodjele iste sredine.
+:::
+
+Uz graf su u tablici navedene vrijednosti za sva tri stanja i njihovi sažeci.
+Na njima se račun može provjeriti ručno.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-w04-preseti
+#| tbl-cap: "Točne vrijednosti i sažeci triju prikazanih raspodjela. Izrada autora."
+#| echo: false
+
+s4_w04_preseti |>
+  mutate(
+    Sredina = hr_broj(Sredina, 1),
+    Medijan = hr_broj(Medijan, 1)
+  ) |>
+  knitr::kable(align = c("l", "l", "r", "r"))
+```
+:::
+
+::: {.callout-divljina}
+**Prosječan izvor i tipična domena.** Urednik iz uvodnog primjera želi
+opisati kako su obuhvaćene digitalne objave raspoređene među praćenim izvorima. Za naslov razmatra rečenicu da prosječan izvor ima 153 objave.
+Odluka i predloženi naslov zamišljeni su za ovaj primjer, a tablica domena preuzeta je iz stvarnog izvora.
+
+Sredina tablice iznosi `r hr_broj(s4_izvori_sazetak$sredina, 1)` objave,
+dok je medijan `r hr_broj(s4_izvori_sazetak$medijan, 0)`
+[@digikat2026]. Razlika proizlazi iz dvaju načina sažimanja iste tablice. Kada bi svaka
+domena nosila jednak dio svih objava, dobila bi vrijednost sredine.
+Kada domene poredamo prema broju objava i pogledamo sredinu toga niza,
+dobivamo medijan. Urednik treba odlučiti koju od tih dviju slika želi
+prenijeti čitatelju.
+
+Raspored objava objašnjava zašto je odluka važna. Prvih deset domena
+ima `r hr_broj(s4_izvori_sazetak$prvih_deset, 0)` od ukupno 551.712
+objava, odnosno `r paste0(hr_broj(100 * s4_izvori_sazetak$udio_prvih_deset, 2), " %")`
+[@digikat2026]. Ako naslov treba približiti tipičnu domenu, sama
+sredina mogla bi stvoriti dojam da je mnogo objava uobičajeno za većinu
+izvora. Ako istraživanje zanima gdje se objave koncentriraju, samo
+medijan ne bi pokazao ulogu najvećih domena.
+
+Urednik zato može uz opis tipične domene prikazati koliko objava nose najveći izvori, čime se te informacije dopunjuju. Pritom treba zadržati ograničenje da opisujemo 3.604 imenovane domene uključene prema pravilima odabira korpusa, a ne sve hrvatske medije [@digikat2026]. Broj objava također nije broj čitatelja. Iz ovih sažetaka ne zaključujemo koji izvor ima najveći utjecaj ili doseg. Izbor mjere tako mijenja priču koju ista tablica podržava. Za pitanje o tipičnom izvoru tražimo njegov položaj u raspodjeli. Za pitanje o koncentraciji trebamo pogledati koliko ukupnog broja objava pripada malom dijelu izvora. Za ta dva pitanja biramo različite, jasno imenovane sažetke.
+:::
+
+
+Prije računanja sažetaka trebamo provjeriti što jedan redak predstavlja
+nakon povezivanja tablica. Sljedeći zapis omogućuje takav pregled.
+
+::: {#ex-04-callout-greska-01 .callout-greska}
+Prije sažimanja objava po platformi pregledajte zapis spajanja
+tablica medijskog korpusa [@digikat2026]. Redak mjesečne tablice predstavlja
+platformu u mjesecu, a redak godišnje platformu u godini. U mjesečnoj je
+tablici jedinstvena kombinacija `mjesec + platforma`. U godišnjoj se ista
+godina pojavljuje uz više platformi.
+
+Asistent je spojio mjesečnu i godišnju tablicu te priložio provjeru.
+Zbroj se odnosi na broj objava iz mjesečne tablice.
+
+| Provjera | Prije spajanja | Nakon spajanja |
+|---|---:|---:|
+| Broj redaka | 438 | `r hr_broj(s4_pogresni_redci, 0)` |
+| Različite kombinacije mjeseca i platforme | 438 | `r hr_broj(s4_pogresni_kljucevi, 0)` |
+| Zbroj objava | 710.307 | `r hr_broj(s4_pogresni_zbroj, 0)` |
+
+: Provjera ulazne i spojene tablice. Izrada autora prema @digikat2026.
+
+> Sve početne kombinacije mjeseca i platforme ostale su u rezultatu.
+> Zbroj objava točno odgovara dobivenim redcima. Spoj je zato valjan i
+> tablicu možemo sažeti po platformi.
+
+Odlučite može li tablica u sljedeći korak analize. Pokažite koji podatak
+podupire vašu odluku, navedite potpuni ključ spajanja i zapišite broj
+redaka te zbroj objava koje treba dobiti nakon popravka. Zadržite ono što
+je u asistentovoj provjeri doista točno.
+
+:::
+
+## Razrađeni primjer
+
+Na simuliranim minutama vidjeli smo zašto uz sredinu trebamo i druge opise
+raspodjele. Sada se vraćamo urednikovu pitanju o tipičnom izvoru u medijskom izvatku. Redak predstavlja domenu tijekom cijelog obuhvaćenog razdoblja, a
+ključ je `izvor`. Datoteka već sadržava samo internetske domene
+zapisane malim slovima, bez stranica, kanala i osobnih računa. Najprije
+provjeravamo jedinstvenost domena i ukupan broj objava, a zatim biramo sažetke
+za opis ovog korpusa. Doseg procjene određen je uključenim domenama i razdobljem korpusa.
+
+Sljedeći programski račun služi dodatnoj provjeri. Objekt `s4_izvori`
+sadržava retke tablice izvora iz medijskog korpusa, a funkcije za sažimanje
+pripadaju paketu dplyr. Priprema podataka opisana je u mrežnom R praktikumu.
+Račun i bez pokretanja koda možemo pratiti prema brojčanim provjerama u tekstu.
+
+```{r}
+#| echo: true
+#| label: s4-digikat-sazetak-racun
+
+s4_rezultat <- s4_izvori |>
+  summarise(
+    izvori = n(),
+    jedinstveni_izvori = n_distinct(izvor),
+    sredina = mean(objave),
+    medijan = median(objave),
+    prvih_deset = sum(sort(objave, decreasing = TRUE)[1:10]),
+    objave = sum(objave)
+  )
+
+stopifnot(s4_rezultat$izvori == s4_rezultat$jedinstveni_izvori,
+          s4_rezultat$objave == 551712)
+```
+
+Ako se domena ponovi ili zbroj odstupi od 551.712, zaustavljamo račun i
+provjeravamo razlog. Nakon uspješne provjere možemo sažeti 3.604 različite
+domene. Sredina i medijan opisuju različite aspekte raspodjele, a udio objava
+prvih deset domena računamo prema ukupnom broju objava u datoteci.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-s4-digikat-sazetak
+#| tbl-cap: "Provjereni sažetak objava po imenovanoj domeni. Izvor: korpus digitalnih medija, datoteka izvora, CC BY 4.0 [@digikat2026]."
+#| echo: false
+
+tibble(
+  Provjera = c(
+    "Jedinstvene domene",
+    "Objave u datoteci",
+    "Sredina objava po domeni",
+    "Medijan objava po domeni",
+    "Prvih deset domena"
+  ),
+  Vrijednost = c(
+    hr_broj(s4_rezultat$jedinstveni_izvori, 0),
+    hr_broj(s4_rezultat$objave, 0),
+    hr_broj(s4_rezultat$sredina, 1),
+    hr_broj(s4_rezultat$medijan, 0),
+    paste0(
+      hr_broj(s4_rezultat$prvih_deset, 0),
+      " / ",
+      hr_broj(s4_rezultat$objave, 0),
+      " = ",
+      hr_broj(100 * s4_rezultat$prvih_deset / s4_rezultat$objave, 2),
+      " %"
+    )
+  )
+) |>
+  knitr::kable(align = c("l", "r"))
+```
+:::
+
+Sredina je više od 38 puta veća od medijana. To nije formalna mjera asimetrije, ali uz koncentraciju objava u prvih deset domena pokazuje zašto treba pregledati raspodjelu. Prosjek ne predstavlja tipičnu domenu. Doseg i interakcije izostavljamo jer njihove nule u ovoj datoteci ne možemo pouzdano protumačiti. Rezultat možemo opisati ovako. U odabranom korpusu digitalnih medija od 3.604 imenovane domene medijan je četiri objave po domeni. Prvih deset domena ima `r paste0(hr_broj(100 * s4_rezultat$prvih_deset / s4_rezultat$objave, 2), " %")` od 551.712 objava. Opis vrijedi za domene uključene prema pravilima korpusa i ne prenosimo ga na ostale hrvatske medije, objave ili publiku.
+
+## Sažetak {.sazetak}
+
+Sažetak može odgovoriti na naše pitanje tek kada znamo što predstavlja svaki
+redak, jesu li zapisi ispravno spojeni, kako su označene nedostajuće
+vrijednosti i koji nazivnik koristimo. Pogrešan spoj može umnožiti zapise, a
+isključivanje redaka mijenja skup koji opisujemo, pa ni točan račun ne može
+nadomjestiti te provjere. Na provjerenoj tablici biramo mjere središta i raspršenosti prema obliku
+raspodjele. Standardizacijom opisujemo relativni položaj opažanja, a
+transformacijom mijenjamo ljestvicu. Uz odabrane mjere zato zadržavamo
+jedinicu i obuhvat, kao i ono što se jednim brojem ne može opisati. U poglavlju
+o vizualizaciji graf će nam pomoći vidjeti upravo te pojedinosti.
+
+## Pojmovi {.pojmovi}
+
+analitička tablica (*analysis table*), spajanje (*join*), nedostajuća vrijednost
+(*missing value*), osjetljivost na odluku o podacima (*data-decision
+sensitivity*), nazivnik (*denominator*), dnevnik transformacija (*transformation log*), poštena rečenica izvještaja (*honest reporting sentence*), aritmetička
+sredina (*mean*), skraćena sredina (*trimmed mean*), medijan (*median*), mod
+(*mode*), varijanca (*variance*), standardna devijacija (*standard deviation*),
+interkvartilni raspon (*interquartile range*), standardizirana vrijednost
+(*z-score*), asimetrija (*skewness*), zaobljenost (*kurtosis*)
+
+## Zadaci
+
+::: {.content-visible when-format="pdf"}
+Za odabrane zadatke ovoga poglavlja na kraju knjige dostupne su
+[naznake](#samostalne-naznake) i odvojena [objašnjenja](#samostalna-objasnjenja).
+Najprije pokušajte samostalno odgovoriti.
+:::
+
+::: {.content-visible when-format="html"}
+Nakon vlastitog pokušaja otvorite [naznake i provjere rješenja](../rjesenja.qmd#sol-04-konceptualni-01).
+:::
+
+### Konceptualni {#ex-04-konceptualni-01 .zadaci-razina}
+
+Mjesečna datoteka ima ključ `mjesec + platforma`, a godišnja `godina +
+platforma`. Objasnite zašto spoj samo po godini može zadržati sva popunjena
+polja, a ipak promijeniti jedinicu retka. Uz pomoć kontrolne tablice objasnite što provjeravaju broj redaka,
+broj jedinstvenih mjesečnih ključeva i zbroj objava. Zatim navedite koju od te tri provjere nijedna druga ne može
+zamijeniti.
+
+### Računski {#ex-04-racunski-01 .zadaci-razina}
+
+Iz [tablice zadanih vrijednosti](#tbl-w04-preseti) uzmite stanja *Zbijena* i *Krajnje opažanje*. Iz svih
+deset vrijednosti ručno izračunajte sredine i medijane te ih usporedite s
+posljednjim dvama stupcima. U dvije rečenice objasnite zašto se sredina
+promijenila više od medijana. Za stanje *Zbijena* izračunajte i uzoračku
+standardnu devijaciju, koristeći djelitelj devet. U tablici raspršenosti
+usporedite promjene SD-a i IQR-a nakon zamjene krajnjeg opažanja. Koja se
+mjera više promijenila i zašto? Ako je standardizirana vrijednost neke osobe
+$z=1,5$, opišite njezin položaj prema sredini bez pretvaranja te vrijednosti
+u postotak osoba. Zadatak je jednak u digitalnoj i tiskanoj inačici.
+Interakcija služi samo za dodatne pokuse.
+
+Za drugu provjeru koristimo agregate simulirane ankete, bez dodatnog
+zaokruživanja. U svakom su retku uz prosjek navedeni brojnik, nazivnik i
+cjelobrojni zbroj.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-s4-agregat-zadatak
+#| tbl-cap: "Kontrolni agregat simulirane ankete za ručnu i tiskanu provjeru. Izvor: data/anketa-mreze-agregat.csv, CC BY 4.0."
+#| echo: false
+
+s4_anketa_agregat |>
+  transmute(
+    Šifra = dobna_skupina_sifra,
+    `Dobna skupina` = dobna_skupina,
+    Broj = hr_broj(broj, 0),
+    Ukupno = hr_broj(ukupno, 0),
+    `Zbroj minuta` = hr_broj(zbroj_minuta, 0),
+    `Prosjek minuta` = hr_broj(prosjek_minuta, 4),
+    Udio = paste0(hr_broj(100 * udio, 0), " %")
+  ) |>
+  knitr::kable(align = c("r", "l", "r", "r", "r", "r", "r"))
+```
+:::
+
+Za šifru 1 provjerite `7339 / 90` i `90 / 300`. Zatim zbrojite četiri brojnika i
+četiri zbroja minuta. Ako koristite datoteku `data/anketa-mreze.csv`, izdvojite šifru 1 i iz
+tih redaka ponovno izračunajte prvi redak zbirne tablice. Zadatak ne zahtijeva
+pisanje koda. U tisku su svi potrebni brojnici, nazivnici i provjereni
+odgovori već u tablici.
+
+### Kritički {#ex-04-kriticki-01 .zadaci-razina}
+
+Urednik objavljuje naslov „Prosječan izvor ima 153 objave”. Na temelju
+razrađenog primjera s medijskim podacima napišite tri rečenice. Prva objašnjava što
+medijan mijenja u čitanju naslova, druga imenuje 551.712 kao nazivnik udjela
+prvih deset domena, a treća je poštena rečenica s jedinicom, obuhvatom i
+granicom generalizacije. Ne dodajte tvrdnju o hrvatskim medijima, dosegu ili
+interakcijama.
+
+### Revizija modela {#ex-04-revizija-modela-01 .zadaci-razina}
+
+Provjerite modelsku analizu iz okvira. Najprije potvrdite zbroj u tablici koju
+je model proizveo. Zatim usporedite 3.571 redak s 438 jedinstvenih ključeva i
+navedite koji dio ključa nedostaje. Napišite ukupan broj objava koji bi dao
+ispravan spoj. Završite objašnjenjem zašto točan zbroj ne potvrđuje ispravno
+spajanje.

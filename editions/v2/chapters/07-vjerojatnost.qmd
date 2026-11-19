@@ -1,0 +1,915 @@
+---
+title: "Vjerojatnost koliko treba"
+subtitle: "Vjerojatnost povezuje model, ponavljanje i neizvjesnost"
+---
+
+<!-- =====================================================================
+  STATUS:  cjelovit nacrt — prijenos tjedna 7, runda 5
+  IZVOR:   tjedan 7, odjeljci 1 do 11, skraćeni prijenos
+  OPSEG:   ~4500 riječi
+  WIDGET:  w07 · Simulator novčića i kampanje
+  FAZA:    2 (plan proizvodnje, notes/struktura-knjige.md)
+  NAPOMENA: Sve što se poslije ne koristi izbacuje se. Poglavlje je alat, ne pregled.
+
+  SADRŽAJ (iz plana):
+  Vjerojatnost kao dugoročna učestalost i kao stupanj vjerovanja, tri osnovna pravila, binomne situacije, normalna krivulja i pravilo 68, 95, 99,7, intuicija QQ prikaza.
+
+  PODRIJETLO (runda 5, notes/plan-prijenosa.md):
+  1. Nastavni skup tjedna 7 (social_posts.csv) knjizi nije dostupan. Sva
+     empirijska pitanja preračunata su na `populacija_medija` iz
+     R/podaci-nastavni.R. Skup je simuliran i tako je označen prije prve
+     brojke. Ovisnost izvora vijesti o dobi ugrađena je u generator, pa je
+     nezavisnost koju poglavlje odbacuje provjerljivo lažna.
+  2. IZOSTAVLJENI odjeljak 9 (z-vrijednost) i odjeljak 12 (pragovi i krajnja
+     opažanja), jer ih poglavlje o sažimanju podataka već nosi. Ovdje ostaje
+     samo uputnica.
+  3. IZOSTAVLJEN cijeli obrazac d/p/q/r kao gradivo. Poglavlje koristi
+     `dbinom`, `pbinom` i `rbinom` bez ijedne rečenice o tome kako je obrazac
+     složen. Sintaksa pripada Dodatku A.
+  4. IZOSTAVLJENE mehanike crtanja iz tjedna 7 (stat_function, patchwork,
+     ručno bojenje područja pod krivuljom).
+  5. Vinjeta i okvir divljine nose dva različita rada o istoj epizodi.
+     [@gilovich1985] nosi tvrdnju, [@miller2018] njezin ispravak. Poglavlje
+     pristranost odabira niza mjeri vlastitom simulacijom, pa okvir ne
+     preuzima nijednu brojku iz izvora.
+  6. Simmons i suradnici izlaze iz ovog poglavlja. Analitička fleksibilnost je
+     gradivo poglavlja o krizi i obnovi, a ne poglavlja o vjerojatnosti.
+
+  Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
+  Kostur se ne mijenja bez zapisa u STYLE.md.
+===================================================================== -->
+
+```{r}
+#| include: false
+#| cache: false
+source("R/setup.R")
+```
+
+```{r}
+#| include: false
+#| label: s7-vrijednosti
+
+# Svaka brojka u prozi ovog poglavlja dolazi odavde, pa se tekst i podaci ne
+# mogu razići. Populacija dolazi iz R/podaci-nastavni.R i simulirana je.
+set.seed(707)
+
+# Zakon velikih brojeva. Tri neovisna niza bacanja poštenog novčića.
+s7_bacanja <- 2000
+s7_nizovi <- tibble(
+  niz = rep(paste("Niz", 1:3), each = s7_bacanja),
+  bacanje = rep(seq_len(s7_bacanja), times = 3),
+  glava = as.integer(runif(3 * s7_bacanja) < 0.5)
+) |>
+  group_by(niz) |>
+  mutate(udio = cumsum(glava) / bacanje) |>
+  ungroup()
+
+s7_rani <- s7_nizovi |>
+  filter(bacanje == 20) |>
+  summarise(najmanji = min(udio), najveci = max(udio))
+s7_kasni <- s7_nizovi |>
+  filter(bacanje == s7_bacanja) |>
+  summarise(najmanji = min(udio), najveci = max(udio))
+
+# Vjerojatnosti u simuliranoj populaciji. Mladi su definirani do 29 godina.
+s7_pop <- populacija_medija |> mutate(mlad = dob <= 29)
+s7_mreze <- s7_pop$izvor_vijesti == "društvene mreže"
+s7_p_mreze <- mean(s7_mreze)
+s7_p_mlad <- mean(s7_pop$mlad)
+s7_p_oboje <- mean(s7_pop$mlad & s7_mreze)
+s7_p_umnozak <- s7_p_mlad * s7_p_mreze
+s7_p_mreze_mlad <- mean(s7_mreze[s7_pop$mlad])
+s7_p_mreze_ostali <- mean(s7_mreze[!s7_pop$mlad])
+s7_p_portal <- mean(s7_pop$izvor_vijesti == "portal")
+s7_p_portal_ili_mlad <- mean(
+  s7_pop$izvor_vijesti == "portal" | s7_pop$mlad
+)
+s7_p_portal_i_mlad <- mean(s7_pop$izvor_vijesti == "portal" & s7_pop$mlad)
+s7_p_tv <- mean(s7_pop$izvor_vijesti == "TV")
+s7_p_tv_stariji <- mean(s7_pop$izvor_vijesti[s7_pop$dob >= 60] == "TV")
+
+# Pravilo područja. Ista provjera na dvjema varijablama iste populacije.
+udio_unutar <- function(x, k) {
+  sredina <- mean(x)
+  raspon <- sd(x)
+  mean(x >= sredina - k * raspon & x <= sredina + k * raspon) * 100
+}
+
+s7_minute <- populacija_medija$minute_medija
+s7_iznos <- populacija_medija$spremnost_platiti
+s7_log_iznos <- log(s7_iznos[s7_iznos > 0])
+
+s7_podrucja <- tibble(
+  k = 1:3,
+  minute = vapply(1:3, function(k) udio_unutar(s7_minute, k), numeric(1)),
+  iznos = vapply(1:3, function(k) udio_unutar(s7_iznos, k), numeric(1)),
+  log_iznos = vapply(1:3, function(k) udio_unutar(s7_log_iznos, k), numeric(1))
+)
+
+s7_bez_platnika <- mean(s7_iznos == 0) * 100
+
+# Odabir pokušaja koji slijede niz pogodaka. Postupak nema nikakvu memoriju,
+# pa je svako odstupanje od zadane vjerojatnosti posljedica samog odabira.
+udio_nakon_niza <- function(duljina, duljina_niza, p, ponavljanja) {
+  vrijednosti <- replicate(ponavljanja, {
+    niz <- runif(duljina) < p
+    mjesta <- which(vapply(
+      seq_len(duljina - duljina_niza),
+      function(i) all(niz[i:(i + duljina_niza - 1)]),
+      logical(1)
+    ))
+    if (length(mjesta) == 0) NA_real_ else mean(niz[mjesta + duljina_niza])
+  })
+  structure(mean(vrijednosti, na.rm = TRUE),
+    ukljuceni = sum(!is.na(vrijednosti)), izostavljeni = sum(is.na(vrijednosti)))
+}
+
+set.seed(708)
+s7_odabir <- bind_rows(lapply(c(20, 50, 100), function(n) {
+  jedan <- udio_nakon_niza(n, 1, 0.5, 8000)
+  tri <- udio_nakon_niza(n, 3, 0.5, 8000)
+  tibble(duljina = n, nakon_jednog = as.numeric(jedan), nakon_tri = as.numeric(tri),
+    bez_jednog = attr(jedan, "izostavljeni"), bez_tri = attr(tri, "izostavljeni"))
+}))
+
+# Kampanja iz razrađenog primjera.
+s7_tocno <- 1 - pbinom(13, size = 50, prob = 0.22)
+set.seed(709)
+s7_kampanje <- rbinom(20000, size = 50, prob = 0.22)
+s7_simulirano <- mean(s7_kampanje >= 14)
+
+s7 <- list(
+  p_mreze = s7_p_mreze * 100,
+  p_mlad = s7_p_mlad * 100,
+  p_oboje = s7_p_oboje * 100,
+  p_umnozak = s7_p_umnozak * 100,
+  p_mreze_mlad = s7_p_mreze_mlad * 100,
+  p_mreze_ostali = s7_p_mreze_ostali * 100,
+  p_portal = s7_p_portal * 100,
+  p_portal_ili_mlad = s7_p_portal_ili_mlad * 100,
+  p_portal_i_mlad = s7_p_portal_i_mlad * 100,
+  p_zbroj = (s7_p_portal + s7_p_mlad) * 100,
+  p_tv = s7_p_tv * 100,
+  p_tv_stariji = s7_p_tv_stariji * 100,
+  bez_platnika = s7_bez_platnika,
+  nakon_tri_20 = s7_odabir$nakon_tri[s7_odabir$duljina == 20],
+  nakon_tri_100 = s7_odabir$nakon_tri[s7_odabir$duljina == 100],
+  nakon_jednog_100 = s7_odabir$nakon_jednog[s7_odabir$duljina == 100],
+  tocno = s7_tocno * 100,
+  simulirano = s7_simulirano * 100,
+  nijedna = dbinom(0, size = 20, prob = 0.02) * 100
+)
+```
+
+::: {.callout-vinjeta}
+Košarkaši i navijači često govore o vrućoj ruci, uvjerenju da nakon nekoliko pogodaka raste vjerojatnost sljedećeg. Jedno je istraživanje provjerilo to vjerovanje kroz zapise utakmica i kontrolirani pokus, a nalazi su protumačeni kao znak da ljudi u slučajnim nizovima vide obrazac koji ne postoji [@gilovich1985]. Prema tom se tumačenju prividni niz uspjeha mogao objasniti slučajnošću [@gilovich1985]. Kasnija ponovna analiza, međutim, otkrila je pristranost u samom načinu mjerenja tog obrasca [@miller2018]. Kako procijeniti je li niz posljedica promjene u procesu ili slučajnosti?
+:::
+
+Niz pogodaka može izgledati uvjerljivije od raspršenih uspjeha. Da bismo procijenili taj dojam, trebamo najprije upoznati nizove koje proizvodi proces sa stalnim izgledima za uspjeh. Nakon opisivanja
+raspodjela i povezanosti trebamo način da odredimo što bismo očekivali pod
+jasno zadanim uvjetima. Vjerojatnost će nam omogućiti da opaženi rezultat
+usporedimo s drugim rezultatima koje isti model može proizvesti.
+
+Počet ćemo simuliranim bacanjima novčića. Jedno opažanje bit će ishod bacanja,
+a nizovi će pokazati kako se udio glava mijenja kada ponavljamo isti postupak.
+Budući da sami zadajemo izglede, možemo provjeriti koliko kratki niz odstupa
+od onoga što vrijedi za proces. Jednostavan model služi kao polazište za usporedbu. Tvrdnju o ponašanju košarkaša zatim bismo trebali provjeriti na stvarnim sportskim zapisima.
+
+Za pitanja o preklapanju događaja vratit ćemo se simuliranoj populaciji
+`populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti. Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
+uvjet ili oba. Tako ćemo provjeriti kada smijemo zbrajati ili množiti
+vjerojatnosti i zašto poznavanje jednog obilježja može promijeniti izglede za
+drugo. Populacija medijskih navika stvorena je za nastavu, s jednim retkom za jednu zamišljenu osobu, pa njezini obrasci ne opisuju stvarne stanovnike. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
+pokušaj s dvama mogućim ishodima.
+
+Raspodjele koje smo dosad čitali kao opise podataka sada ćemo koristiti i kao modele mogućih ishoda. Binomna raspodjela opisat će broj uspjeha pod određenim pretpostavkama, a normalna krivulja otvoriti pitanje kada je zvonasti oblik opravdan. Uz svaki ćemo račun zadržati uvjete koji ga omogućuju. Usporedbom izračuna i ponovljenih simulacija iste kampanje utvrdit ćemo koliko je rezultat neobičan pod zadanim modelom. Taj račun treba razlikovati od provjere opisuje li model dobro stvarni svijet.
+
+## Što vjerojatnost opisuje
+
+Računalni model svakom bacanju neovisno daje glavu s vjerojatnošću 0,5.
+U prvom generiranom nizu početnih pet ishoda, s jedinicom za glavu i nulom
+za pismo, glasi `r paste(head(s7_nizovi$glava, 5), collapse = ", ")`.
+Nakon petog bacanja imamo `r sum(head(s7_nizovi$glava, 5))` glava od pet,
+pa je udio `r hr_broj(s7_nizovi$udio[5], 2)`. Svaka sljedeća točka iste
+linije dodaje jedno bacanje i ponovno dijeli dotadašnji broj glava brojem
+svih dotadašnjih bacanja. Cijela linija ima 2 000 takvih koraka.
+
+Simulirat ćemo bacanje poštenog novčića i nakon svakog bacanja zabilježiti
+udio glava. Ponavljamo postupak triput kako bismo usporedili moguće nizove.
+Kratki odsječci mogu izgledati neuravnoteženo i uz isti pošten novčić.
+
+```{r}
+#| label: fig-veliki-brojevi
+#| fig-cap: "Kumulativni udio glava u trima neovisnim nizovima bacanja poštenog novčića. Vodoravna crta označuje vrijednost pola. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Tri linije počinju daleko jedna od druge i snažno kolebaju u prvih stotinjak bacanja, a zatim se sve tri postupno primiču vrijednosti pola i ostaju blizu nje do kraja niza."
+
+ggplot(s7_nizovi, aes(bacanje, udio, group = niz)) +
+  geom_hline(yintercept = 0.5, colour = tok_boja("ink-mute"),
+             linetype = "dashed") +
+  geom_line(colour = tok_boja("data-4"), linewidth = 0.5) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 0)) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.25),
+                     labels = function(x) hr_broj(x, 2)) +
+  labs(x = "Broj bacanja", y = "Kumulativni udio glava") +
+  theme_knjiga(base_size = 12)
+```
+
+Nakon dvadeset bacanja udjeli se kreću od `r hr_broj(s7_rani$najmanji, 2)` do `r hr_broj(s7_rani$najveci, 2)`. Nakon dvije
+tisuće između `r hr_broj(s7_kasni$najmanji, 3)` i `r hr_broj(s7_kasni$najveci, 3)`. Nizovi su različiti, ali su u duljim
+nizovima njihovi udjeli bliži polovini. Sam kratki neuravnotežen niz zato nije
+dovoljan da novčić proglasimo nepoštenim.
+
+::: {#def-vjerojatnost}
+**Vjerojatnost** je broj od nule do jedinice koji događaju pridružuje
+razinu neizvjesnosti unutar jasno opisanoga modela, pri čemu veći broj označuje
+veće izglede za taj događaj.
+:::
+
+Model može opisivati ponovljiv postupak ili jedinstven događaj. Za ponovljiv
+postupak vjerojatnost uspoređujemo s učestalošću kroz mnogo ponavljanja. Za
+jedinstven događaj, poput uspjeha reprezentacije na sljedećem prvenstvu, broj
+opisuje neizvjesnost uz dostupne informacije. U oba slučaja trebamo znati
+odakle procjena dolazi.
+
+Zakon velikih brojeva opisuje približavanje relativne učestalosti vjerojatnosti kada raste broj neovisnih ponavljanja sa stabilnom vjerojatnošću. Iako svako neovisno bacanje zadržava iste izglede, približavanje udjela polovini objašnjavamo rastom nazivnika. Kako niz raste, početna neravnoteža čini sve manji dio ukupnog broja bacanja. Kasniji ishodi pritom nastaju po istom pravilu kao raniji. Očekivanje da nakon četiri glave pošten novčić duguje pismo nazivamo kockarskom zabludom. U modelu neovisnih bacanja niz glava ne povećava ni izglede za novu glavu. Kod košarke je pitanje drukčije jer se mogu mijenjati forma, težina šuta, obrana ili odabir pokušaja. Fiksna neovisna vjerojatnost služi nam kao polazni model za usporedbu, bez pretpostavke da potpuno opisuje igru.
+
+Razlikujemo modelnu vjerojatnost, opaženu učestalost i osobnu sigurnost. Modelna vjerojatnost proizlazi iz pretpostavki i informacija. Učestalošću kroz ponavljanja možemo provjeravati model. Za osobno uvjerenje izraženo postotkom tek treba pokazati na čemu se temelji i kako se slaže s ishodima. **Kalibrirana nesigurnost** znači da se prognozirani izgledi slažu s učestalostima u mnogo usporedivih prognoza. Među događajima kojima smo pripisali sedamdeset posto izgleda, približno sedamdeset posto trebalo bi se ostvariti. Dok za pojedinu prognozu navodimo njezine informacije i pretpostavke, ocjena kalibracije zahtijeva niz usporedivih prognoza i njihovih ishoda.
+
+## Tri pravila i jedna pretpostavka
+
+Da bismo iz poznatih vjerojatnosti dobili novu, najprije razjašnjavamo koje
+ishode ubrajamo u događaj koji nas zanima. Vjerojatnost da se taj događaj ne
+dogodi dobivamo oduzimanjem njegove vjerojatnosti od jedan. To je pravilo
+komplementa. Kada povezujemo
+dva događaja
+riječju „ili”, njihove vjerojatnosti zbrajamo, ali eventualni preklop oduzimamo
+kako iste ishode ne bismo prebrojili dvaput. Za zajedničko nastupanje množimo
+vjerojatnost prvog događaja uvjetnom vjerojatnošću drugog. Tek kada saznanje o
+prvome ne mijenja izglede drugoga, događaji su neovisni i možemo izravno
+pomnožiti njihove pojedinačne vjerojatnosti. Na izboru izvora vijesti vidjet
+ćemo zašto je taj uvjet važan.
+
+Brojnosti u tablici omogućuju da nazivnike provjerimo prije računanja
+postotaka. Retci razlikuju dob do 29 godina od ostalih, a stupci glavni
+izvor vijesti u poznatoj simuliranoj populaciji.
+
+```{r}
+#| echo: false
+#| label: tbl-vjerojatnost-brojnosti
+#| tbl-cap: "Dob i glavni izvor vijesti u simuliranoj populaciji. Izrada autora."
+brojnosti7 <- s7_pop |> mutate(Dob = if_else(mlad, "Do 29 godina", "30 i više"),
+  Izvor = case_when(izvor_vijesti == "portal" ~ "Portal",
+    izvor_vijesti == "društvene mreže" ~ "Mreže", TRUE ~ "Ostalo")) |>
+  xtabs(~Dob + Izvor, data = _) |> addmargins()
+rownames(brojnosti7)[nrow(brojnosti7)] <- "Ukupno"
+colnames(brojnosti7)[ncol(brojnosti7)] <- "Ukupno"
+knitr::kable(brojnosti7, format.args = list(big.mark = " "))
+```
+
+U simuliranoj populaciji `populacija_medija` portal bira `r hr_broj(s7$p_portal)` % ljudi, a do
+dvadeset devet godina ima ih `r hr_broj(s7$p_mlad)` %. Zbrajanjem dobivamo
+`r hr_broj(s7$p_zbroj)` %. No udio ljudi koji su mladi ili biraju portal jest `r hr_broj(s7$p_portal_ili_mlad)` %.
+Razlika nastaje jer je `r hr_broj(s7$p_portal_i_mlad)` % ljudi istodobno mlado i bira portal, pa smo
+ih u zbroju računali dvaput.
+
+Za pojednostavnjeno pravilo množenja trebamo opravdati neovisnost.
+
+::: {#def-neovisnost}
+**Neovisnost** dvaju događaja znači da saznanje o tome je li se jedan dogodio
+ne mijenja vjerojatnost drugoga.
+:::
+
+Koristimo potpuno poznatu simuliranu populaciju od pedeset tisuća odraslih osoba. Društvene mreže kao glavni izvor vijesti bira `r hr_broj(s7$p_mreze)` %, a do dvadeset devet godina ima `r hr_broj(s7$p_mlad)` % ljudi. Uz neovisnost bismo množenjem dobili `r hr_broj(s7$p_umnozak)` % ljudi koji zadovoljavaju oba uvjeta. U generiranim podacima taj je udio `r hr_broj(s7$p_oboje)` %, znatno veći. Iako je množenje točno, pretpostavka neovisnosti ovdje ne vrijedi. Općenito je neovisnost potrebno opravdati načinom nastanka podataka i dizajnom. Podaci mogu pokazati odstupanje od neovisnosti, dok odsutnost uočljive razlike sama ne potvrđuje pretpostavku. U ovom skupu trebamo razlikovati udio u cijeloj populaciji od udjela unutar određene skupine.
+
+::: {#def-uvjetna-vjerojatnost}
+**Uvjetna vjerojatnost** je vjerojatnost događaja izračunata unutar skupine u
+kojoj je neki drugi događaj već nastupio.
+:::
+
+Među mlađima od trideset godina mreže bira `r hr_broj(s7$p_mreze_mlad)` %, a među ostalima `r hr_broj(s7$p_mreze_ostali)` %. Televiziju bira `r hr_broj(s7$p_tv)` % cijele populacije i `r hr_broj(s7$p_tv_stariji)` % onih od šezdeset godina naviše. Ukupne i uvjetne vrijednosti razlikuju se jer su dob i izbor izvora povezani. Uvjetna vjerojatnost ovisi o smjeru pitanja, pa se udio upozorenja među ciljanim zapisima računa s drugim nazivnikom od udjela ciljanih zapisa među upozorenjima. Taj smo problem susreli u poglavlju o zavaravanju brojkama. Za drugi smjer trebamo i temeljnu stopu te stopu pogrešnih upozorenja. Udio konverzija među ljudima koji su kliknuli oglas ili udio otvaranja među poslanim porukama također su uvjetne vjerojatnosti. Vrijede za skupinu iz svojeg nazivnika. Pri usporedbi segmenata zato svaki put jasno određujemo na koga se udio odnosi.
+
+## Ponovljeni pokušaji s dva ishoda
+
+Pravila za pojedine događaje možemo povezati kada se isti pokušaj ponavlja.
+Često pratimo unaprijed zadan broj pokušaja s dvama ishodima. Zanima nas,
+primjerice, koliko je ljudi kliknulo, odgovorilo na poziv ili otvorilo poruku.
+Za takve situacije možemo razmotriti binomni model.
+
+::: {#def-binomna-raspodjela}
+**Binomna raspodjela** opisuje broj uspjeha u zadanom broju pokušaja kad svaki
+pokušaj ima samo dva ishoda, jednaku vjerojatnost uspjeha i nikakvu vezu s
+ostalim pokušajima.
+:::
+
+U hipotetskom modelu promatramo dvadeset objava, od kojih svaka ima zadanu vjerojatnost od dva posto da u sedam dana prijeđe dogovoreni prag dijeljenja. Prag, razdoblje i broj izloženih korisnika dio su definicije viralnosti. Vjerojatnost smo zadali kao pretpostavku modela. Prema binomnom modelu, nijedna objava ne bi prešla prag u `r hr_broj(s7$nijedna)` % takvih zamišljenih mjeseci. Time opisujemo ponavljanja modela, bez jamstva za određeni mjesec. Za pojedinu objavu izostanak viralnosti ima vjerojatnost $1-0,02=0,98$. Uz neovisnost dvadeset takvih izostanaka množimo, pa je vjerojatnost nijedne viralne objave $0,98^{20}$. Za barem jednu koristimo suprotni događaj i računamo $1-0,98^{20}$, odnosno `r hr_broj(100 * (1 - 0.98^20), 1)` %.
+
+Prije primjene provjeravamo uvjete. Različit doseg objava može značiti različite vjerojatnosti uspjeha. Ako jedno dijeljenje povećava vidljivost sljedeće objave, pokušaji nisu neovisni. Slično, odgovori dviju osoba iz istog kućanstva mogu biti povezani zbog zajedničkih okolnosti, premda ih zapisujemo u zasebne retke. Kada uvjeti vrijede, očekivani broj uspjeha jednak je broju pokušaja pomnoženom vjerojatnošću uspjeha. S više pokušaja raste raspršenost broja uspjeha, ali sporije od samog broja pokušaja, zbog čega udio uspjeha postaje stabilniji. Veći raspon ukupnog broja ne znači nužno i nestabilniji udio. Model pojednostavnjuje proces i jasno određuje što može nastati slučajno, pa stvarni rezultat imamo s čime usporediti.
+
+## Interakcija — Simulator novčića i kampanje
+
+Sada jednu vrijednost dobivamo tek nakon cijeloga niza. Ako u mogućem
+nizu od 20 pokušaja dobijemo šest uspjeha, u histogram unosimo jedan udio
+$6/20 = 0,30$. Taj smo niz odabrali radi ilustracije računa.
+Za svaki histogram ponavljamo cijele neovisne nizove, a vjerojatnost uspjeha
+zadržavamo. Visina stupca broji nizove čiji su udjeli u istom rasponu.
+
+Prikaz uspoređuje ishode ponovljenih nizova uz istu zadanu
+vjerojatnost. Duljina niza mijenja raspon simuliranih udjela. Kratki
+nizovi daju raspršenije rezultate iako postupak koji ih stvara ostaje isti.
+U tiskanom prikazu vjerojatnost uspjeha iznosi 0,30, a za svaku duljinu
+ponavljamo cijeli niz 2 000 puta.
+
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Simulator novčića i kampanje" data-oznaka="Widget 07.1 · interaktivno"}
+
+```{ojs}
+//| echo: false
+viewof w07_par = Inputs.form({
+  scenarij: Inputs.select(
+    ["Novčić", "Kampanja"],
+    {value: "Novčić", label: "Scenarij"}
+  ),
+  p: Inputs.range(
+    [0.10, 0.90],
+    {value: 0.50, step: 0.05, label: "Zadana vjerojatnost modela"}
+  ),
+  n: Inputs.range(
+    [10, 300],
+    {value: 50, step: 10, label: "Broj pokušaja"}
+  ),
+  k: Inputs.range(
+    [200, 3000],
+    {value: 1000, step: 200, label: "Broj ponovljenih nizova"}
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  const form = viewof w07_par;
+  form.dataset.learningForm = "w07";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w07_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
+w07_rezultati = {
+  const rng = d3.randomLcg(707);
+  return Array.from({length: w07_par.k}, () => {
+    let uspjesi = 0;
+    for (let i = 0; i < w07_par.n; i += 1) {
+      if (rng() < w07_par.p) uspjesi += 1;
+    }
+    return uspjesi / w07_par.n;
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w07
+//| fig-cap: "Raspodjela stopa uspjeha kroz mnoge deterministički simulirane nizove. Okomita crta označuje zadanu vjerojatnost modela."
+//| fig-alt: "Pri zadanoj vjerojatnosti od pedeset posto i pedeset pokušaja histogram tisuću simuliranih stopa zbijen je oko polovice."
+{
+  const tinta = "var(--tok-ink)";
+  const ispuna = "var(--tok-data-4)";
+  const naglasak = "var(--tok-accent)";
+  const naziv = w07_par.scenarij === "Novčić"
+    ? "Udio glava u nizu"
+    : "Stopa odgovora u kampanji";
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+  const naslovGrafa = "Raspodjela simuliranih stopa uspjeha";
+  const opisGrafa = `Histogram prikazuje ${w07_par.k} simuliranih nizova od po ${w07_par.n} pokušaja uz zadanu vjerojatnost modela ${w07_par.p}. Okomita crta označuje tu zadanu vrijednost.`;
+
+  const graf = Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 430 : 370,
+    marginLeft: usko ? 60 : 68,
+    marginBottom: usko ? 54 : 58,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: usko ? "12px" : "13px"
+    },
+    x: {
+      label: naziv,
+      domain: [0, 1],
+      tickFormat: d => `${(100 * d).toLocaleString("hr-HR", {
+        maximumFractionDigits: 0
+      })} %`
+    },
+    y: {label: "Broj ponovljenih nizova", grid: true},
+    marks: [
+      Plot.rectY(
+        w07_rezultati,
+        Plot.binX(
+          {y: "count"},
+          {x: d => d, fill: ispuna, thresholds: 25, inset: 0.5}
+        )
+      ),
+      Plot.ruleX([w07_par.p], {
+        stroke: naglasak,
+        strokeWidth: 2,
+        strokeDasharray: "5,3"
+      }),
+      Plot.ruleY([0], {stroke: tinta})
+    ]
+  });
+
+  const svgNs = "http://www.w3.org/2000/svg";
+  const naslov = document.createElementNS(svgNs, "title");
+  naslov.id = "w07-plot-title";
+  naslov.textContent = naslovGrafa;
+  const opis = document.createElementNS(svgNs, "desc");
+  opis.id = "w07-plot-desc";
+  opis.textContent = opisGrafa;
+  graf.prepend(opis);
+  graf.prepend(naslov);
+  graf.setAttribute("role", "img");
+  graf.setAttribute("aria-labelledby", `${naslov.id} ${opis.id}`);
+  return graf;
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const prosjek = d3.mean(w07_rezultati);
+  const poredane = [...w07_rezultati].sort(d3.ascending);
+  const donja = d3.quantileSorted(poredane, 0.05);
+  const gornja = d3.quantileSorted(poredane, 0.95);
+  const postotak = (100 * prosjek).toLocaleString("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+  const zapis = v => (100 * v).toLocaleString("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+  return html`<p class="widget-foot" role="status" aria-live="polite">Prosječna simulirana stopa kroz ${w07_par.k.toLocaleString("hr-HR")} nizova iznosi ${postotak} %, a središnjih 90 % stopa nalazi se između ${zapis(donja)} % i ${zapis(gornja)} %.</p>`;
+}
+```
+
+:::
+
+::::
+
+::: {.content-visible when-format="pdf"}
+
+```{r}
+#| echo: false
+#| label: fig-w07-print
+#| fig-cap: "Simulirane stope uspjeha pri dvjema duljinama niza i istoj zadanoj vjerojatnosti modela. Dulji niz daje užu raspodjelu. Isprekidana okomita crta označuje zadanu vjerojatnost uspjeha od 0,30. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Dva okomito poredana histograma pokazuju da se stope uspjeha uz dvjesto pokušaja jače zbijaju oko trideset posto nego uz dvadeset pokušaja."
+#| fig-width: 6.6
+#| fig-height: 5.0
+set.seed(707)
+
+w07_tisak <- bind_rows(
+  tibble(
+    duljina = "20 pokušaja",
+    stopa = rbinom(2000, size = 20, prob = 0.30) / 20
+  ),
+  tibble(
+    duljina = "200 pokušaja",
+    stopa = rbinom(2000, size = 200, prob = 0.30) / 200
+  )
+)
+
+ggplot(w07_tisak, aes(stopa)) +
+  geom_histogram(
+    binwidth = 0.025,
+    fill = tok_boja("data-4"),
+    boundary = 0
+  ) +
+  geom_vline(
+    xintercept = 0.30,
+    linetype = "dashed",
+    colour = tok_boja("ink-mute")
+  ) +
+  facet_wrap(~ duljina, ncol = 1) +
+  scale_x_continuous(
+    limits = c(0, 0.65),
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
+  ) +
+  labs(x = "Simulirana stopa uspjeha", y = "Broj nizova") +
+  theme_knjiga(base_size = 13)
+```
+
+:::
+
+::: {.content-visible when-format="html"}
+**Što isprobati.**
+
+1. Postavite pošten novčić i dvadeset pokušaja pa opišite raspon simuliranih udjela glava.
+2. Povećajte niz na dvjesto pokušaja bez promjene vjerojatnosti.
+3. Prebacite scenarij na kampanju i postavite zadanu stopu uspjeha na trideset posto.
+4. Usporedite jednu krajnju simuliranu stopu s cijelom raspodjelom ponovljenih kampanja.
+:::
+
+Rezultat jedne kampanje uspoređujemo s cijelom raspodjelom koju proizvodi isti
+postupak. Ako je raspodjela široka, jedan ishod teže razlikuje moguća
+objašnjenja. Ishod daleko u repu može dovesti model u pitanje, ali ne govori
+sam što je uzrok odstupanja.
+
+Uži histogram duljih nizova pokazuje promjenu raspršenosti. Za opis njegova
+oblika vratit ćemo se standardiziranoj ljestvici iz poglavlja o sažimanju
+podataka. Na njoj nula označuje sredinu, a jedan i minus jedan položaje po
+jednu standardnu devijaciju iznad i ispod nje. Taj će nam poznati način
+opisivanja položaja pomoći da raspodjelu usporedimo sa zvonastom krivuljom.
+
+## Zvonasta krivulja i njezino područje
+
+Raspodjela mnogih ponovljenih udjela može poprimiti približno simetričan oblik
+s najviše vrijednosti oko sredine. Taj zvonasti oblik susrećemo u normalnoj
+raspodjeli.
+
+::: {#def-normalna-raspodjela}
+**Normalna raspodjela** je simetrična zvonasta raspodjela koju u cijelosti
+određuju njezino središte i njezina standardna devijacija.
+:::
+
+Na nacrtanoj normalnoj krivulji udaljenost mjerimo standardnim devijacijama.
+Okomite granice omeđuju srednjih približno 68 %, 95 % i 99,7 % površine.
+Površina predstavlja udio mogućih vrijednosti, a visina krivulje gustoću.
+
+```{r}
+#| echo: false
+#| label: fig-normalna-podrucja
+#| fig-cap: "Pravilo 68–95–99,7 za standardnu normalnu raspodjelu. Izrada autora iz matematičkog modela."
+#| fig-alt: "Tri panela pokazuju normalnu krivulju i osjenčana područja unutar jedne, dviju i triju standardnih devijacija."
+#| fig-height: 3
+normalna7 <- tidyr::expand_grid(z = seq(-4, 4, length.out = 801), k = 1:3) |>
+  mutate(gustoca = dnorm(z), panel = factor(k, levels = 1:3,
+    labels = c("±1 SD · oko 68 %", "±2 SD · oko 95 %", "±3 SD · oko 99,7 %")))
+ggplot(normalna7, aes(z, gustoca)) +
+  geom_area(data = filter(normalna7, abs(z) <= k), fill = tok_boja("data-2")) +
+  geom_line() + facet_wrap(~panel, ncol = 3) +
+  scale_x_continuous(breaks = c(-3, 0, 3)) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 1)) +
+  labs(x = "Udaljenost od sredine u SD-ima", y = "Gustoća") + theme_knjiga(base_size = 9)
+```
+
+Standardizirana vrijednost određuje položaj na krivulji. Nula je sredina,
+pozitivan predznak označuje vrijednost iznad nje, a negativan ispod. Apsolutna
+vrijednost govori koliko je standardnih devijacija udaljena od sredine. Na
+normalnoj krivulji taj položaj možemo povezati s udjelom površine.
+
+Svaki simulirani udio prosjek je nula za neuspjehe i jedinica za uspjehe u jednom nizu. Histogram stoga prikazuje raspodjelu udjela iz ponovljenih nizova. Jedna vrijednost u njemu sažima cijeli niz pojedinačnih nula i jedinica. U našoj simulaciji pokušaji slijede isto stabilno pravilo i međusobno su neovisni. S duljim nizovima udjeli se manje rasipaju i njihov se histogram približava zvonastom obliku. Pojedinačni ishodi i dalje ostaju nule ili jedinice. Razlog tom obrascu i uvjete pod kojima vrijedi razradit ćemo u poglavlju o uzorkovanju, uz središnji granični teorem.
+
+Sredina i standardna devijacija potpuno određuju položaj i širinu normalne
+raspodjele. Unutar jedne standardne devijacije od sredine leži oko 68 %
+vrijednosti, unutar dvije oko 95 %, a unutar tri oko 99,7 %.
+
+S raspodjele prosjeka sada prelazimo na pojedinačne vrijednosti u istoj populaciji `populacija_medija`. Njihov oblik trebamo zasebno provjeriti. Pogledat ćemo dnevno vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
+
+```{r}
+#| label: fig-pravilo-podrucja
+#| fig-cap: "Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Lijevi panel prikazuje blago desno nagnutu raspodjelu minuta u kojoj su obje crte unutar podataka. Desni panel prikazuje raspodjelu iznosa u kojoj golem stupac stoji na nuli, donja crta pada izvan mogućih vrijednosti, a desni rep se proteže daleko."
+
+s7_dvije <- bind_rows(
+  tibble(varijabla = "Dnevne minute", vrijednost = s7_minute),
+  tibble(varijabla = "Spremnost platiti", vrijednost = s7_iznos)
+) |>
+  mutate(varijabla = factor(
+    varijabla,
+    levels = c("Dnevne minute", "Spremnost platiti")
+  ))
+
+s7_crte <- s7_dvije |>
+  group_by(varijabla) |>
+  summarise(
+    sredina = mean(vrijednost),
+    raspon = sd(vrijednost),
+    .groups = "drop"
+  ) |>
+  tidyr::crossing(k = 1:2) |>
+  mutate(donja = sredina - k * raspon, gornja = sredina + k * raspon) |>
+  tidyr::pivot_longer(c(donja, gornja), values_to = "granica") |>
+  select(varijabla, granica)
+
+ggplot(s7_dvije, aes(vrijednost)) +
+  geom_histogram(bins = 40, fill = tok_boja("data-5"),
+                 colour = tok_boja("surface"), linewidth = 0.2) +
+  geom_vline(
+    data = s7_crte,
+    aes(xintercept = granica),
+    colour = tok_boja("ink-mute"),
+    linetype = "dashed",
+    linewidth = 0.4
+  ) +
+  facet_wrap(vars(varijabla), nrow = 1, scales = "free") +
+  scale_x_continuous(labels = function(x) hr_broj(x, 0), n.breaks = 4) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
+  labs(x = NULL, y = "Broj osoba") +
+  theme_knjiga(base_size = 12)
+```
+
+Za dnevne minute unutar jedne standardne devijacije nalazi se `r hr_broj(s7_podrucja$minute[1])` %
+populacije, unutar dviju `r hr_broj(s7_podrucja$minute[2])` %, a unutar triju `r hr_broj(s7_podrucja$minute[3])` %. Te su
+vrijednosti blizu normalnom pravilu. Blaga asimetrija udesno stvara manja
+odstupanja.
+
+Za spremnost na plaćanje odstupanja su mnogo veća. Unutar jedne devijacije
+nalazi se `r hr_broj(s7_podrucja$iznos[1])` %, a unutar triju `r hr_broj(s7_podrucja$iznos[3])` % populacije. Graf pokazuje da
+`r hr_broj(s7$bez_platnika)` % ljudi navodi nulu, uz dugi rep prema velikim iznosima. Jedna
+devijacija ispod sredine već daje negativan iznos, pa ispod te granice nema
+opažanja. Normalna raspodjela ne opisuje dobro te sirove vrijednosti.
+
+Promjena ljestvice zahtijeva dva odvojena koraka. Iz istih 50 000 zapisa
+prvo izdvajamo `r sum(s7_iznos > 0)` pozitivnih iznosa, a zatim na njih
+primjenjujemo prirodni logaritam. Primjerice, za prvi pozitivan iznos od
+`r hr_broj(s7_iznos[s7_iznos > 0][1], 1)` eura nova vrijednost iznosi
+`r hr_broj(s7_log_iznos[1], 3)`. Nule nemaju konačan logaritam i nisu dio
+toga izračuna. Nazivnik svakoga sljedećeg udjela zato su samo platitelji.
+
+Ako izdvojimo osobe spremne nešto platiti i logaritmiramo njihove iznose,
+oblik postaje bliži zvonastom. Unutar odgovarajućih raspona sada je `r hr_broj(s7_podrucja$log_iznos[1])`
+%, `r hr_broj(s7_podrucja$log_iznos[2])` % i `r hr_broj(s7_podrucja$log_iznos[3])` %. Izdvajanjem smo, međutim, promijenili
+populaciju, a logaritmiranjem ljestvicu. Bolje slaganje s normalnom
+raspodjelom samo po sebi ne opravdava izostavljanje neplatitelja.
+
+## Kad podaci ne pristaju krivulji
+
+Za sljedeći prikaz uzimamo po 1 200 vrijednosti iz svakoga od triju
+prethodno opisanih skupova. Svaki panel ima zaseban slučajni odabir bez
+vraćanja, pa se točke ne odnose nužno na iste osobe. Poredak unutar panela
+omogućuje usporedbu oblika raspodjele.
+
+Postotci unutar raspona mogu sakriti mjesto odstupanja. QQ prikaz zato poreda
+opažene vrijednosti i usporedi ih s vrijednostima koje bismo na istim
+položajima očekivali iz normalne raspodjele. Ako se oblici podudaraju, točke
+prate pravac. Vodoravna os prikazuje kvantile standardne normalne raspodjele,
+a okomita poredane vrijednosti u jedinicama promatrane varijable. Referentni
+pravac ovdje prolazi kroz parove prvoga i trećega kvartila. Odstupanja od
+njega pokazuju gdje oblik podataka odstupa od normalnoga oblika.
+
+```{r}
+#| label: fig-qq
+#| fig-cap: "Poredane vrijednosti triju varijabli nasuprot kvantilima standardne normalne raspodjele. Referentni pravac određen je prvim i trećim kvartilom. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "U prvom panelu točke za dnevne minute prate pravac uz blago odizanje na desnom kraju. U drugom panelu točke za spremnost na plaćanje leže vodoravno na nuli i zatim naglo skreću uvis. U trećem panelu logaritmirani iznosi ponovno prate pravac."
+
+set.seed(710)
+s7_qq <- bind_rows(
+  tibble(varijabla = "Dnevne minute", vrijednost = s7_minute),
+  tibble(varijabla = "Spremnost platiti", vrijednost = s7_iznos),
+  tibble(varijabla = "Logaritam iznosa", vrijednost = s7_log_iznos)
+) |>
+  mutate(varijabla = factor(
+    varijabla,
+    levels = c("Dnevne minute", "Spremnost platiti", "Logaritam iznosa")
+  )) |>
+  group_by(varijabla) |>
+  slice_sample(n = 1200) |>
+  ungroup()
+
+ggplot(s7_qq, aes(sample = vrijednost)) +
+  stat_qq(size = 0.5, alpha = 0.35, colour = tok_boja("data-4")) +
+  stat_qq_line(colour = tok_boja("ink-mute"), linewidth = 0.5) +
+  facet_wrap(vars(varijabla), nrow = 1, scales = "free_y",
+             labeller = label_wrap_gen(width = 10)) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 0)) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
+  labs(x = "Očekivana vrijednost prema normalnoj raspodjeli",
+       y = "Opažena vrijednost") +
+  theme_knjiga(base_size = 12)
+```
+
+Dnevne minute uglavnom prate pravac, uz odizanje desnog kraja zbog repa prema
+višim vrijednostima. Za spremnost na plaćanje točke najprije stoje vodoravno
+zbog nula, a zatim skreću prema gore. Nakon izdvajanja platitelja i
+logaritmiranja iznosa opet su blizu pravca.
+
+QQ prikaz pokazuje gdje podaci odstupaju od pretpostavke. Prikladnost analize procjenjujemo prema tome koliko su ta odstupanja važna za odabrani postupak. Posljedice blagog odstupanja u repu ovise o
+ciljnoj veličini, postupku i utjecajnim opažanjima. Velika skupina nula jasno
+pokazuje da normalna raspodjela nije dobar opis sirovih iznosa.
+
+Poznata vjerojatnost i učenje o nepoznatoj stopi različita su pitanja.
+Ako smo sami zadali pošten novčić, pet glava ne mijenja sljedeću
+vjerojatnost 0,5. Ako ne znamo udio uspješnih objava, pet uspjeha postaje
+informacija za njegovu procjenu. Tada nesigurnost proizlazi i iz toga što
+pravilo nastanka podataka tek trebamo naučiti.
+
+## Nizovi koje slučajnost proizvodi
+
+Usporedbom s normalnom krivuljom provjeravali smo odgovara li model obliku
+podataka. U pitanju o vrućoj ruci trebamo provjeriti i način na koji iz niza
+biramo opažanja. **Slučajni niz** nastaje procesom sa slučajnom sastavnicom i ne mora u kratkom
+odsječku izgledati pravilno. Za provjeru vruće ruke simuliramo neovisne
+pokušaje s fiksnom vjerojatnošću pogotka, kao kod poštenog novčića. Ne
+pretpostavljamo da je stvarna košarka takva. Iz svakog niza izdvajamo pokušaje
+neposredno nakon triju pogodaka. Želimo vidjeti mijenja li samo to pravilo
+odabira prosječan udio pogodaka među izdvojenim pokušajima.
+
+Pravilo odabira možemo vidjeti na namjerno složenom nizu
+1, 1, 1, 0, 1, 1, 1, 1. Nakon triju jedinica stoje četvrti i osmi pokušaj,
+s ishodima 0 i 1. Udio na odabranim mjestima zato je $1/2$, iako u cijelom
+nizu ima sedam jedinica od osam. Posljednja tri pogotka ne stvaraju dodatno
+opažanje jer deveti pokušaj ne postoji. U simulaciji umjesto ovoga
+ilustrativnog niza svaki put generiramo novi niz neovisnih pokušaja s
+vjerojatnošću 0,5.
+
+Za svaku kombinaciju duljine i uvjeta generiramo 8 000 nizova. Najprije
+računamo udio odabranih pogodaka unutar svakog niza, a zatim prosjek tih
+udjela, dajući svakom uključenom nizu jednaku težinu. Niz bez ijednog
+prikladnog mjesta nema definiran udio i izostavljamo ga iz toga prosjeka.
+U stupcima „Bez mjesta” prikazujemo koliko je takvih nizova, pa je
+nazivnik prosjeka 8 000 umanjeno za taj broj.
+
+```{r}
+#| label: tbl-odabir-niza
+#| tbl-cap: "Prosječan udio pogodaka na pokušajima koji slijede zadani niz pogodaka, u simulaciji poštenog novčića bez ikakve memorije. Izrada autora."
+
+s7_odabir |>
+  transmute(
+    `Duljina niza pokušaja` = hr_broj(duljina, 0),
+    `Nakon jednog` = hr_broj(nakon_jednog, 3),
+    `Bez mjesta nakon jednog` = bez_jednog,
+    `Nakon tri` = hr_broj(nakon_tri, 3),
+    `Bez mjesta nakon tri` = bez_tri
+  ) |>
+  knitr::kable(align = "r")
+```
+
+U nizovima od stotinu pokušaja taj prosječni udio iznosi `r hr_broj(s7$nakon_tri_100, 3)`, a u
+nizovima od dvadeset `r hr_broj(s7$nakon_tri_20, 3)`. Oba su ispod polovine, iako smo simulirali
+proces bez memorije. Odstupanje stvara odabir mjesta i računanje udjela po
+konačnim nizovima.
+
+Mehanizam se vidi već u trima bacanjima, kada tražimo ishod nakon jedne
+jedinice. Od osam jednako vjerojatnih nizova šest ima takvo mjesto.
+To su 010, 011, 100, 101, 110 i 111. Njihovi udjeli uspjeha na odabranim
+mjestima redom su 0, 1, 0, 0, 1/2 i 1. Prosjek tih šest udjela iznosi
+5/12, približno 0,417. Nizovi s jednim i dvama odabranim mjestima dobivaju
+jednaku težinu. Takvo pridavanje težina spušta prosjek ispod 1/2 uz stalne izglede pri svakom bacanju.
+Pristranost je veća u kraćim nizovima i uz dulji uvjet. Nakon samo jednog
+pogotka u nizovima od stotinu pokušaja prosječni udio je `r hr_broj(s7$nakon_jednog_100, 3)`, blizu
+polovine.
+
+Za niz od stotinu pokušaja odstupanje je oko četiri postotna boda. Takav je pomak usporediv s razlikom koju bi istraživač mogao tražiti kao dokaz promjene forme. Zato treba provjeriti koliki dio rezultata nastaje samim postupkom mjerenja. Kada iz podataka odabiremo jedinice prema obilježjima tih istih podataka, pravilo odabira postaje dio analize. Njegov učinak možemo provjeriti na procesu čije je pravilo poznato, ali tada moramo simulirati i odabir jedinica i završni izračun.
+
+::: {.callout-divljina}
+**Vruća ruka i njezin ispravak.** Kada igrač nekoliko puta uzastopno
+pogodi, suigrač bi mu mogao ponovno dodati loptu jer očekuje nastavak
+niza. To je moguća odluka kojoj pitanje o vrućoj ruci daje smisao.
+Zanima nas govori li prethodni uspjeh nešto o sljedećem pokušaju ili
+promatramo niz kakav može nastati i bez promjene vjerojatnosti pogotka.
+
+Izvorno istraživanje vruće ruke ponudilo je tumačenje da ljudi u
+nizovima vide promjenu koje nema [@gilovich1985]. Za provjeru takve tvrdnje naizgled je
+dovoljno izdvojiti pokušaje nakon pogodaka i usporediti njihovu uspješnost s uspješnošću pokušaja nakon promašaja. No izdvajanjem
+mjesta unutar konačnih nizova već smo uveli postupak odabira koji
+može promijeniti očekivani rezultat.
+
+Kasnija metodološka analiza pokazala je da je uobičajena mjera ovisnosti osjetljiva na tu pristranost odabira. Nakon ispravka, ponovna analiza izvornog kontroliranog pokusa dala je zaključak u prilog vrućoj ruci [@miller2018]. Promijenio se referentni račun s kojim se uspoređuje opaženi niz. Naša simulacija pokazuje kako postupak odabira i prosječenja proizvodi pomak iako se zadana vjerojatnost ne mijenja. Prije tumačenja stvarnih pokušaja zato treba provjeriti cijeli postupak na procesu čije je pravilo poznato. Tako znamo koliki pomak mogu proizvesti sam odabir i računanje. Odluka na terenu ipak traži dodatnu prosudbu jer uz moguću promjenu forme treba razmotriti težinu sljedećeg šuta, obranu i raspoložive suigrače. Zato provjeravamo i dojam o vrućoj ruci i mjerni postupak kojim ga pokušavamo osporiti.
+:::
+
+
+Za planiranje kampanje zanima nas barem jedna objava koja prijeđe prag.
+Provjerimo koje informacije taj račun traži uz vjerojatnost jedne objave.
+
+::: {#ex-07-callout-greska-01 .callout-greska .greska-zadrzi}
+U nastavnom modelu svakoj objavi zadajemo vjerojatnost od dva posto
+da u sedam dana prijeđe dogovoreni prag dijeljenja. To je pretpostavka
+vježbe, a ne izmjeren udio. Urednik pita kolika je vjerojatnost da barem
+jedna od pet objava iste kampanje prijeđe prag.
+
+U opisu kampanje piše da objave mogu doći do istih pratitelja i da se
+dijele tijekom istog tjedna. Nema podataka o tome pojavljuju li se
+njihovi uspjesi zajedno. Asistent je predložio račun komplementom.
+
+```r
+p_viral <- 0.02
+p_barem_jedna <- 1 - (1 - p_viral)^5
+```
+
+> Za jednu objavu vjerojatnost ostanka ispod praga iznosi 0,98.
+> Za svih pet ona iznosi 0,98 na petu potenciju, pa komplement daje
+> približno 9,6 %. Budući da je svaka objava zasebna jedinica,
+> taj broj možemo upotrijebiti kao vjerojatnost uspjeha kampanje.
+
+Napišite uredniku može li broj preuzeti bez dodatnog uvjeta. U odgovoru
+zadržite valjan račun, imenujte pretpostavku koju traži jedan njegov
+korak i navedite koju bi informaciju o objavama trebalo pribaviti.
+Ne morate izračunati novu vjerojatnost ako podaci za nju nisu zadani.
+
+:::
+
+## Razrađeni primjer
+
+Zamislimo da je e-bilten poslan na pedeset adresa i otvoren četrnaest puta.
+Zadajemo hipotetski model s poznatom vjerojatnošću otvaranja od dvadeset dva
+posto za svaku poruku i neovisnim otvaranjima. Koliko je pod tim modelom
+vjerojatno četrnaest ili više otvaranja? Rezultat ćemo izračunati binomnom
+raspodjelom i provjeriti kroz dvadeset tisuća simuliranih kampanja. Primjer
+nije mjerenje stvarne kampanje. Za traženu vjerojatnost koristimo već poznato
+pravilo komplementa. Od svih mogućih ishoda izostavit ćemo one s najviše
+trinaest otvaranja, pa ostaju četrnaest ili više.
+
+Jedna simulirana kampanja sadrži 50 neovisnih odgovora „otvoreno” ili
+„nije otvoreno”, s istih 22 % izgleda za svaku poruku. Njihov zbroj daje
+broj otvaranja jedne kampanje. Prvih pet generiranih zbrojeva iznosi
+`r paste(s7_kampanje[1:5], collapse = ", ")`. Svaki uspoređujemo s 14,
+a među svih 20 000 kampanja taj prag doseže njih
+`r sum(s7_kampanje >= 14)`. Dijeljenjem s 20 000 dobit ćemo simuliranu
+vjerojatnost. Sva ponavljanja imaju definiran rezultat i ulaze u nazivnik.
+
+```{r}
+#| echo: true
+
+1 - pbinom(13, size = 50, prob = 0.22)
+
+set.seed(709)
+kampanje <- rbinom(20000, size = 50, prob = 0.22)
+mean(kampanje >= 14)
+```
+
+Poziv `pbinom` provodi prvi dio tog računa, zbraja vjerojatnosti od nula
+do trinaest otvaranja. Oduzimanje od jedan ostavlja traženi dio raspodjele.
+Poziv `rbinom` zatim simulira kampanje prema istim pretpostavkama. Udio
+kampanja s najmanje četrnaest otvaranja trebao bi biti blizu izračunatoj
+vjerojatnosti, pa možemo usporediti računski rezultat s ponavljanjem postupka.
+
+Izračun daje `r hr_broj(s7$tocno)` %, a simulacija `r hr_broj(s7$simulirano)` %. Razlikuju se malo jer smo simulirali konačan broj kampanja. Podudaranje provjerava račun u zadanom modelu, bez neovisne potvrde modela u stvarnosti. Četrnaest ili više otvaranja nastalo bi otprilike u jednom od pet ponavljanja. Ishod zato nije posebno neobičan pod modelom, ali to ne potvrđuje sve njegove pretpostavke. Ni mnogo rjeđi ishod sam ne bi dokazao učinak naslova jer bi publika, vrijeme slanja i doseg ostali moguća objašnjenja. Za učinak naslova trebali bismo usporediti nasumično dodijeljene inačice. Za uredničku odluku uz to trebamo cilj i troškove pogreške. Izračunali smo vjerojatnost ishoda u jednom repu raspodjele pod izričitim modelom.
+
+## Sažetak {.sazetak}
+
+Vjerojatnost nam omogućuje da opaženi rezultat usporedimo s ishodima koje
+proizvodi jasno zadan model, a kalibraciju prognoza provjeravamo kroz mnogo
+usporedivih predviđanja. Prije zbrajanja i množenja određujemo događaje,
+njihove preklape i uvjete, kao što binomni model traži neovisne binarne
+pokušaje s jednakom vjerojatnošću. Ponavljanjem vidimo i zašto raspodjela
+prosjeka pod uvjetima središnjega graničnog teorema može postati približno
+normalna, iako pojedinačni podaci to nisu. Pravilo o 68, 95 i 99,7 %
+primjenjujemo na onu raspodjelu koja je doista približno normalna. Simulacija
+vruće ruke pokazala je da u provjeru treba uključiti i pravilo odabira, jer i
+ono može promijeniti rezultat. U poglavlju o uzorkovanju istim ćemo
+ponavljanjem proučiti procjene iz različitih uzoraka.
+
+## Pojmovi {.pojmovi}
+
+vjerojatnost (*probability*), zakon velikih brojeva (*law of large numbers*),
+kalibrirana nesigurnost (*calibrated uncertainty*), neovisnost
+(*independence*), uvjetna vjerojatnost (*conditional probability*), binomna
+raspodjela (*binomial distribution*), normalna raspodjela (*normal
+distribution*), QQ prikaz (*Q–Q plot*), slučajni niz (*random sequence*)
+
+## Zadaci
+
+### Konceptualni {#ex-07-konceptualni-01 .zadaci-razina}
+
+Usporedite niz od pet glava iz modela poštenoga novčića s poznatom
+vjerojatnošću i pet uspješnih objava kampanje čija stopa uspjeha nije poznata.
+Objasnite zašto zadana vjerojatnost sljedećeg bacanja ostaje ista, dok uspjesi
+mogu promijeniti uvjerenje o nepoznatoj stopi kampanje čak i kada uspjeh jedne
+objave ne mijenja izglede sljedeće. Odvojeno navedite koji bi dokaz bio potreban
+za tvrdnju da takva promjena ipak postoji. Na kraju prosudite smije li se pravilo
+68–95–99,7 primijeniti na raspodjelu s velikom skupinom nula i navedite što bi u
+QQ prikazu poduprlo vaš odgovor.
+
+### Računski {#ex-07-racunski-01 .zadaci-razina}
+
+Vratite se na hipotetsku provjeru zapisa iz poglavlja o tome kako brojke
+zavode. Od 10 000 zapisa njih 100 stvorio je program. Provjera označuje 90 od
+tih 100 i pogrešno označuje 495 od preostalih 9 900. Na tvrdnju da je provjera
+pouzdana jer pronalazi devedeset posto ciljanih zapisa primijenite svih šest
+revizijskih pitanja. Iz navedenih brojnosti izračunajte udio upozorenja među
+ciljanim zapisima, udio ciljanih zapisa među svim upozorenjima i temeljnu
+stopu. Predajte kratku revizijsku tablicu, račun i dvije rečenice o tome što
+rezultati dopuštaju zaključiti.
+
+Vraćamo se hipotetskom modelu dvadeset neovisnih objava, od kojih svaka ima
+vjerojatnost uspjeha 0,02. Najprije izračunajte vjerojatnost da nijedna ne
+uspije, a zatim pravilom komplementa vjerojatnost barem jednoga uspjeha.
+Navedite zašto isti račun nije opravdan ako uspjeh jedne objave mijenja
+vjerojatnost uspjeha sljedeće.
+
+
+### Kritički {#ex-07-kriticki-01 .zadaci-razina}
+
+Prosudite kako je nalaz o vrućoj ruci prešao put od mjerenja do općenite tvrdnje
+o ljudskoj procjeni slučajnosti, i što se u toj tvrdnji promijenilo nakon
+ispravka mjere [@gilovich1985; @miller2018]. Predajte jedan odlomak i imenujte
+rečenicu koju bi popularni prikaz smio zadržati.
+
+### Revizija modela {#ex-07-revizija-modela-01 .zadaci-razina}
+
+Provjerite analizu iz okvira. Izdvojite ispravne računske korake i
+označite račun koji vrijedi samo uz neovisnost. Zatim izdvojite rečenicu koja
+neovisnost neopravdano smatra potvrđenom. Napišite zamjenu koja jasno ograničava zaključak.

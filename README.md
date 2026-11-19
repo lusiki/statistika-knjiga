@@ -5,6 +5,18 @@ razumjeti istraživanje, a ne postati analitičari.
 
 ### 📖 &nbsp;Radna mrežna inačica → **<https://lusiki.github.io/statistika-knjiga/>**
 
+## Dvije radne inačice teksta
+
+| Inačica | PDF | Opis |
+|---------|-----|------|
+| **Prva inačica — sačuvani tekst** | [Otvori prvi PDF](https://github.com/lusiki/statistika-knjiga/blob/e240baee664772257895ccd388672d65e25c3911/pdf/Statistika.pdf) | Poveznica je vezana uz nepromjenjivu Git snimku. |
+| **Druga inačica — 19. studenoga 2026.** | [Otvori drugi PDF](pdf/Statistika-v2.pdf) | Povezaniji odlomci i rečenice; opisna oznaka korpusa digitalnih medija. Podaci, računi i brojčani sadržaj tablica ostaju isti. |
+
+Druga inačica ima [zasebne izvore i zapis provjera](editions/v2/README.md).
+Prvi PDF i njegovi izvori nisu prepisani. Obje su inačice radni nacrti;
+ova stilska revizija ne označuje završetak stručne recenzije. Mrežna knjiga
+na gornjoj poveznici zadržava prethodnu inačicu.
+
 [![Render and deploy](https://github.com/lusiki/statistika-knjiga/actions/workflows/publish.yml/badge.svg)](https://github.com/lusiki/statistika-knjiga/actions/workflows/publish.yml)
 
 Workflow je podešen da pri svakom pushu na `main` ponovno izgradi radnu

@@ -1,0 +1,1157 @@
+---
+title: "Uzorkovanje"
+subtitle: "Jedan uzorak skriva raspodjelu mogućih rezultata"
+---
+
+<!-- =====================================================================
+  STATUS:  cjelovit nacrt — prijenos tjedna 8, prvi dio
+  IZVOR:   tjedan 8, odjeljci 1–9 i 14, izgrađeno oko simulacije
+  OPSEG:   ~4500 riječi
+  WIDGET:  w08 · CLT stroj
+  FAZA:    3 (plan proizvodnje, notes/struktura-knjige.md)
+  NAPOMENA: Pedagoški zglob knjige. Registar Dijela III je demonstracija,
+            pa vidljivi kod ovdje nosi samu simulacijsku petlju.
+
+  SADRŽAJ (iz plana):
+  Populacija nasuprot uzorku, distribucija uzorkovanja generirana uživo, središnji granični teorem kao opažena činjenica, standardna pogreška, intuicija veličine uzorka, zašto ankete na 800 ljudi rade.
+
+  NAPOMENE ZA REVIZIJU:
+  1. Notacija je naslijeđena iz poglavlja o sažimanju podataka. Uzorak nosi
+     latinicu (x, s, n), populacija grčka slova (mu, sigma), N je veličina
+     populacije. Zapisano u concept-ledger.json.
+  2. Besselov djelitelj uveden je u poglavlju o sažimanju podataka kao tvrdnja,
+     a concept-ledger.json bilježi da ga ovo poglavlje duguje simulacijom. Dug
+     je podmiren u odjeljku o standardnoj pogrešci.
+  3. Podjela tjedna 8 odstupa od plana prijenosa u jednoj točki. Margina
+     pogreške i planiranje uzorka (izvorni odjeljak 14) ostaju ovdje, jer je
+     „zašto ankete na 800 ljudi rade" opseg ovog poglavlja, a ne poglavlja o
+     procjeni.
+  4. Funkcije t.test() i prop.test() iz izvornog predavanja nisu prenesene.
+     Prema ljestvici izlaganja poziv modela pripada Dijelu V.
+
+  Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
+  Kostur se ne mijenja bez zapisa u STYLE.md.
+===================================================================== -->
+
+```{r}
+#| include: false
+#| cache: false
+source("R/setup.R")
+```
+
+```{r}
+#| include: false
+#| label: s8-vrijednosti
+
+# Svaka brojka u prozi ovog poglavlja dolazi odavde, pa se tekst i podaci ne
+# mogu razići. Populacija dolazi iz R/podaci-nastavni.R i simulirana je.
+set.seed(808)
+
+s8_pov <- populacija_medija$povjerenje_medijima
+s8_platiti <- populacija_medija$spremnost_platiti
+s8_sigma <- sqrt(mean((s8_pov - mean(s8_pov))^2))
+
+s8_uzmi <- function(n, varijabla = s8_pov) {
+  mean(sample(varijabla, n))
+}
+
+s8_tri <- replicate(3, s8_uzmi(100))
+s8_sredine100 <- replicate(3000, s8_uzmi(100))
+
+s8_velicine <- c(10, 25, 50, 100, 200, 500, 1000, 2000)
+s8_se_tablica <- tibble(
+  n = s8_velicine,
+  empirijska = vapply(
+    s8_velicine,
+    function(n) sd(replicate(1500, s8_uzmi(n))),
+    numeric(1)
+  ),
+  teorijska = s8_sigma / sqrt(s8_velicine)
+)
+
+# Dug prema concept-ledger.json. Djelitelj n sustavno podcjenjuje sigma^2,
+# djelitelj n-1 ne podcjenjuje ga.
+s8_var_uzorci <- replicate(
+  4000,
+  {
+    u <- sample(s8_pov, 10)
+    c(sum((u - mean(u))^2) / 10, var(u))
+  }
+)
+
+s8_clt_n <- c(5, 15, 30, 100)
+s8_clt <- lapply(
+  s8_clt_n,
+  function(n) replicate(4000, s8_uzmi(n, s8_platiti))
+)
+names(s8_clt) <- as.character(s8_clt_n)
+
+s8_prigodni <- populacija_medija |>
+  filter(dob <= 24, obrazovanje %in% c("viša", "diplomska"))
+
+s8_online <- populacija_medija |>
+  mutate(
+    vjerojatnost = case_when(
+      dob < 30 & izvor_vijesti == "društvene mreže" ~ 0.15,
+      dob < 30 ~ 0.08,
+      dob < 50 & izvor_vijesti %in% c("portal", "društvene mreže") ~ 0.06,
+      dob < 50 ~ 0.03,
+      izvor_vijesti %in% c("portal", "društvene mreže") ~ 0.02,
+      .default = 0.005
+    )
+  ) |>
+  filter(runif(n()) < vjerojatnost)
+
+s8_jedan <- slice_sample(populacija_medija, n = 100)
+
+s8 <- list(
+  N = nrow(populacija_medija),
+  mu = mean(s8_pov),
+  sigma = s8_sigma,
+  mu_minuta = mean(populacija_medija$minute_medija),
+  udio_portal = mean(populacija_medija$izvor_vijesti == "portal"),
+  udio_mreze = mean(populacija_medija$izvor_vijesti == "društvene mreže"),
+  dob = mean(populacija_medija$dob),
+  uzorak_sredina = mean(s8_jedan$povjerenje_medijima),
+  uzorak_sd = sd(s8_jedan$povjerenje_medijima),
+  uzorak_portal = mean(s8_jedan$izvor_vijesti == "portal"),
+  tri = s8_tri,
+  raspon_tri = diff(range(s8_tri)),
+  se_empirijska = sd(s8_sredine100),
+  se_teorijska = s8_sigma / sqrt(100),
+  omjer = s8_sigma / sd(s8_sredine100),
+  var_n = mean(s8_var_uzorci[1, ]),
+  var_n1 = mean(s8_var_uzorci[2, ]),
+  var_prava = mean((s8_pov - mean(s8_pov))^2),
+  platiti_nula = 100 * mean(s8_platiti == 0),
+  platiti_sredina = mean(s8_platiti),
+  platiti_asimetrija = mean(
+    ((s8_platiti - mean(s8_platiti)) / sd(s8_platiti))^3
+  ),
+  clt_asimetrija = vapply(
+    s8_clt,
+    function(x) mean(((x - mean(x)) / sd(x))^3),
+    numeric(1)
+  ),
+  prigodni_n = nrow(s8_prigodni),
+  prigodni_sredina = mean(s8_prigodni$povjerenje_medijima),
+  online_n = nrow(s8_online),
+  online_dob = mean(s8_online$dob),
+  online_sredina = mean(s8_online$povjerenje_medijima),
+  online_mreze = mean(s8_online$izvor_vijesti == "društvene mreže")
+)
+
+s8$moe <- function(n) 1.96 * sqrt(0.25 / n)
+s8$n_za <- function(moe) ceiling(1.96^2 * 0.25 / moe^2)
+
+# Kada je uzorak malen dio populacije, korekcija za konačnu populaciju blizu je
+# jedan. Uspoređujemo SRS od 800 osoba iz populacija različite veličine.
+s8_mala_pop <- sample(s8_pov, 5000)
+s8$se_velika <- sd(replicate(1200, mean(sample(s8_pov, 800))))
+s8$se_mala <- sd(replicate(1200, mean(sample(s8_mala_pop, 800))))
+s8$omjer_pop <- s8$se_velika / s8$se_mala
+s8$sigma_mala <- sqrt(mean((s8_mala_pop - mean(s8_mala_pop))^2))
+s8$fpc_velika <- sqrt((length(s8_pov) - 800) / (length(s8_pov) - 1))
+s8$fpc_mala <- sqrt((length(s8_mala_pop) - 800) /
+  (length(s8_mala_pop) - 1))
+s8$se_velika_fpc <- s8$sigma / sqrt(800) * s8$fpc_velika
+s8$se_mala_fpc <- s8$sigma_mala / sqrt(800) * s8$fpc_mala
+
+# Zasebna sintetička konačna populacija za obveznu tablicu i zadatak. Ovo nisu
+# ESS mikropodaci. U populaciji je po osam jedinica u svakom sloju; prikazano
+# je šest opaženih jedinica s poznatim vjerojatnostima uključivanja.
+s8_tezine <- tibble(
+  jedinica = c("A1", "A2", "A3", "A4", "B1", "B2"),
+  sloj = c(rep("češće uključeni", 4), rep("rjeđe uključeni", 2)),
+  vjerojatnost_ukljucivanja = c(rep(0.50, 4), rep(0.25, 2)),
+  odgovor = c(1, 1, 1, 0, 0, 0)
+) |>
+  mutate(tezina_uzorkovanja = 1 / vjerojatnost_ukljucivanja)
+
+s8_tezine_rez <- s8_tezine |>
+  summarise(
+    brojnik_bez_tezina = sum(odgovor),
+    nazivnik_bez_tezina = n(),
+    procjena_bez_tezina = mean(odgovor),
+    brojnik_s_tezinama = sum(tezina_uzorkovanja * odgovor),
+    nazivnik_s_tezinama = sum(tezina_uzorkovanja),
+    procjena_s_tezinama = brojnik_s_tezinama / nazivnik_s_tezinama
+  )
+
+stopifnot(
+  s8_tezine_rez$brojnik_bez_tezina == 3,
+  s8_tezine_rez$nazivnik_bez_tezina == 6,
+  s8_tezine_rez$brojnik_s_tezinama == 6,
+  s8_tezine_rez$nazivnik_s_tezinama == 16,
+  s8_tezine_rez$procjena_bez_tezina == 0.50,
+  s8_tezine_rez$procjena_s_tezinama == 0.375
+)
+```
+
+::: {.callout-vinjeta}
+Kad uz internetsku anketu vidimo velik broj odgovora, lako joj pripišemo veću uvjerljivost. Zamislimo dvije prognoze istih izbora, jednu s nekoliko stotina sudionika i drugu s milijunima. Prije nego što pročitamo kako su prikupljene, koja nam ulijeva više povjerenja? Časopis *Literary Digest* pred američke predsjedničke izbore 1936. poslao je milijune probnih listića i iz vraćenih odgovora predvidio pobjedu Alfa Landona. Pobijedio je Franklin Roosevelt [@squire1988]. Pogrešna prognoza imala je iza sebe golemu količinu odgovora stvarnih ljudi. Kako toliki broj odgovora može promašiti čak i pobjednika, a znatno manji uzorak ipak pružiti korisnu procjenu?
+:::
+
+Da bismo razumjeli taj promašaj, trebamo odvojiti dvije stvari. Jedna je
+koliko bi se rezultat mijenjao pri ponavljanju odabira, a druga kamo nas
+sam postupak odabira sustavno usmjerava. Slučajnost iz prethodnog poglavlja sada ulazi u sam odabir ljudi koje
+promatramo. Ako iz iste populacije uzmemo drugi uzorak, promijenit će se
+sastav sudionika, a s njime i izračunati prosjek. Uz razlike među ljudima sada istražujemo koliko bi se mijenjao naš odgovor na istraživačko pitanje kada bismo odabir mogli ponavljati.
+
+Za tu ćemo provjeru iskoristiti prednost nastavne simulacije. Skup
+`populacija_medija` sadrži 50.000 računalno stvorenih odraslih osoba i
+omogućuje nam da poznajemo cijelu populaciju. Jedan redak
+predstavlja jednu osobu, a pratit ćemo povjerenje u medije, dnevno praćenje
+medija, izvor vijesti i spremnost na plaćanje. To je ista zamišljena
+populacija kojom smo se već služili, odvojena od manje ankete `anketa_mreze`.
+Iz nje možemo izvlačiti uzorke i njihove rezultate uspoređivati s poznatom
+ciljnom vrijednošću. Ti zapisi ne opisuju stvarne stanovnike. U stvarnom istraživanju ciljnu vrijednost obično ne vidimo.
+
+Ponavljanjem odabira dobit ćemo raspodjelu uzoračkih rezultata, čije ćemo
+središte i širinu opisati sredinom i standardnom devijacijom. Standardnu
+pogrešku procjene pritom ćemo razlikovati od raspršenosti pojedinačnih
+odgovora. Mijenjanjem veličine uzorka i oblika populacije ispitat ćemo kada
+raspodjela sredina postaje približno zvonasta i zašto se njezina širina
+smanjuje sporije nego što raste broj sudionika.
+
+Ta promjenjivost samo je dio problema ankete. Vratit ćemo se okviru
+uzorkovanja, odazivu i istraživačkom nacrtu iz poglavlja o mjerenju te
+provjeriti što veći uzorak može popraviti, a što ostaje izvan računa. Ista
+pitanja postavit ćemo i izboru tekstova u korpus. Pri procjeni uvjerljivosti
+istraživanja moći ćemo razlikovati slučajnu nesigurnost od sustavnog
+izostavljanja jedinica. Za to najprije trebamo jasno odvojiti populaciju koju
+želimo opisati od uzorka koji nam je dostupan.
+
+## Populacija, uzorak i pogreška uzorkovanja
+
+**Populacija** je skup jedinica o kojima želimo zaključivati, a **uzorak** dio koji smo promatrali. Postupak odabira povezuje ih tako što određuje koje populacijske jedinice mogu ući u uzorak i s kojim izgledima. **Parametar** je vrijednost koja opisuje populaciju, pri čemu populacijsku sredinu označujemo s $\mu$, a standardnu devijaciju s $\sigma$. **Statistika** je vrijednost izračunata iz uzorka, primjerice sredina $\bar{x}$ ili standardna devijacija $s$. Veličine uzorka i populacije označujemo s $n$ i $N$. Statistiku koristimo za procjenu parametra, uz očekivanje da se mogu razlikovati.
+
+Prije izvlačenja uzoraka izračunajmo parametre cijele `populacija_medija`. Te će nam vrijednosti služiti kao cilj s kojim uspoređujemo svaku uzoračku procjenu. Prosječno povjerenje u medije je `r hr_broj(s8$mu, 2)` na ljestvici od 1 do 10, uz standardnu devijaciju `r hr_broj(s8$sigma, 2)`. Prosječno dnevno praćenje medija iznosi `r hr_broj(s8$mu_minuta, 1)` minuta, a portal kao glavni izvor bira `r paste0(hr_broj(100 * s8$udio_portal, 1), " %")` osoba. To su svojstva naše simulirane populacije, bez tvrdnje o stvarnom gradu.
+
+Za jedan od tih računa nasumično odabiremo 100 različitih osoba bez
+vraćanja. Početak izvučenog uzorka prikazan je u tablici. Prvi odgovor
+povjerenja iznosi `r s8_jedan$povjerenje_medijima[1]`, ali se sredina
+računa iz svih 100 odgovora. Njihov zbroj
+`r sum(s8_jedan$povjerenje_medijima)` dijelimo sa 100. Za udio portala
+umjesto zbroja ocjena brojimo `r sum(s8_jedan$izvor_vijesti == "portal")`
+osoba s tom oznakom izvora, uz isti nazivnik.
+
+```{r}
+#| label: tbl-s8-jedan-uzorak
+#| tbl-pos: "H"
+#| tbl-cap: "Prvih pet zapisa jednog uzorka od 100 osoba. Izrada autora."
+knitr::kable(data.frame(Redak = 1:5,
+  Povjerenje = s8_jedan$povjerenje_medijima[1:5],
+  Izvor = s8_jedan$izvor_vijesti[1:5]),
+  format = if (knitr::is_latex_output()) "latex" else "pipe",
+  booktabs = TRUE, longtable = FALSE)
+```
+
+U jednom uzorku od stotinu osoba prosječno povjerenje iznosi `r hr_broj(s8$uzorak_sredina, 2)`, a udio
+korisnika portala `r paste0(hr_broj(100 * s8$uzorak_portal, 1), " %")`. Vrijednosti su bliske populacijskima, ali nisu
+jednake.
+
+::: {#def-pogreska-uzorkovanja}
+**Pogreška uzorkovanja** je razlika između vrijednosti izračunate na uzorku i
+vrijednosti koju ima cijela populacija, a nastaje zato što je izmjeren dio
+umjesto cjeline.
+:::
+
+Pogreška ovdje označuje razliku koja nastaje zato što promatramo samo dio populacije, zbog čega je moguća i uz potpuno ispravan unos podataka i postavljanje pitanja. Tu slučajnu promjenjivost treba razlikovati od sustavnog odstupanja zbog pristranog odabira. Pri novom odabiru ponovno je dostupna cijela populacija. Unutar jednog uzorka osoba ulazi najviše jednom, ali može ući u više različitih uzoraka. Svako novo izvlačenje ponovno kreće iz cijele populacije, a prethodnih 100 zapisa čini samo jedan od mogućih uzoraka. Populacija i pravilo odabira ostaju fiksni, mijenjaju se odabrane osobe. Tri neovisna uzorka od po stotinu osoba daju sredine `r hr_broj(s8$tri[1], 2)`, `r hr_broj(s8$tri[2], 2)` i `r hr_broj(s8$tri[3], 2)`. Dobivene su iz iste populacije istim postupkom, uz raspon od `r hr_broj(s8$raspon_tri, 2)` boda. Nakon tri tisuće ponavljanja sredine možemo prikazati kao raspodjelu koja pokazuje gdje se procjene skupljaju i koliko se međusobno razlikuju. Njezine jedinice su procjene iz uzoraka.
+
+::: {#def-distribucija-uzorkovanja}
+**Distribucija uzorkovanja** je raspodjela vrijednosti koje bi neka statistika
+poprimila kroz mnogo ponovljenih uzoraka iste veličine iz iste populacije.
+:::
+
+Dvije raspodjele odgovaraju na različita pitanja. Dok raspodjela opažanja pokazuje koliko se ljudi razlikuju, distribucija uzorkovanja pokazuje koliko se mijenja procjena kroz različite uzorke. Obje imaju sredinu i standardnu devijaciju, pa
+je važno svaki put navesti što raspodjela opisuje.
+
+```{r}
+#| label: fig-dvije-raspodjele
+#| fig-cap: "Raspodjela pojedinačnih ocjena povjerenja u simuliranoj populaciji i raspodjela sredina tri tisuće uzoraka od po sto osoba, na zajedničkoj osi. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Gornji panel prikazuje široku raspodjelu pojedinačnih ocjena od jedan do deset. Donji panel prikazuje mnogo užu raspodjelu uzoračkih sredina, zbijenu oko iste vrijednosti, koja zauzima tek mali dio širine gornjeg panela."
+
+s8_usporedba <- bind_rows(
+  tibble(
+    panel = "Pojedinačne ocjene u populaciji",
+    vrijednost = s8_pov
+  ),
+  tibble(
+    panel = "Sredine uzoraka od po 100 osoba",
+    vrijednost = s8_sredine100
+  )
+) |>
+  mutate(
+    panel = factor(
+      panel,
+      levels = c(
+        "Pojedinačne ocjene u populaciji",
+        "Sredine uzoraka od po 100 osoba"
+      )
+    )
+  )
+
+ggplot(s8_usporedba, aes(vrijednost)) +
+  geom_histogram(bins = 46, fill = tok_boja("data-4")) +
+  geom_vline(
+    xintercept = s8$mu,
+    linetype = "dashed",
+    colour = tok_boja("ink-mute")
+  ) +
+  facet_wrap(~ panel, ncol = 1, scales = "free_y") +
+  scale_x_continuous(labels = hr_broj) +
+  labs(x = "Povjerenje u medije", y = "Broj") +
+  theme_knjiga(base_size = 12)
+```
+
+Uzoračke sredine ovdje su raspoređene oko populacijske sredine. Procjenitelj
+zato dugoročno ne promašuje sustavno naviše ili naniže i nazivamo ga
+**nepristranim**. Uži donji panel pokazuje manju promjenjivost sredina
+uzoraka. Pojedinačne ocjene ljudi ostaju jednako raspršene.
+
+## Standardna pogreška
+
+Uži donji panel sada želimo opisati brojem. Raspršenost procjena također
+mjerimo standardnom devijacijom. Da bismo je
+razlikovali od raspršenosti pojedinačnih opažanja, nazivamo je standardnom
+pogreškom.
+
+::: {#def-standardna-pogreska}
+**Standardna pogreška** je standardna devijacija distribucije uzorkovanja, pa
+opisuje koliko bi tipično varirala procjena kroz ponovljene uzorke.
+:::
+
+Pojedinačne ocjene imaju standardnu devijaciju `r hr_broj(s8$sigma, 2)`, dok standardna devijacija sredina iz tri tisuće uzoraka iznosi `r hr_broj(s8$se_empirijska, 3)`. Potonja je standardna pogreška, a prva je od nje `r hr_broj(s8$omjer, 1)` puta veća. Uzorci imaju po stotinu osoba, a korijen iz sto jest deset. U rezultatima se tako već nazire odnos koji će opisati formula. U sredini malog uzorka svaka osoba ima veću težinu. Jedan odgovor u uzorku od deset ljudi čini desetinu računa, a u uzorku od tisuću ljudi tisućinu. U većem se uzorku neovisna pozitivna i negativna odstupanja više poništavaju, pa sredina manje varira. Dobitak u preciznosti raste s korijenom broja opažanja.
+
+Dosad koristimo **jednostavni slučajni uzorak** (*simple random sample*), u
+kojem svaki mogući skup od $n$ jedinica ima jednaku vjerojatnost odabira.
+Jedinice iz konačne populacije biramo bez vraćanja. Sljedeća formula točna je
+za neovisne odabire s vraćanjem, a dobra je aproksimacija za odabir bez
+vraćanja ako je $n$ malen prema $N$. Za druge nacrte slučajnog uzorkovanja
+može trebati drukčiji račun.
+
+$$
+SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
+$$
+
+Oznaka $SE_{\bar{x}}$ znači standardnu pogrešku sredine, $\sigma$ populacijsku
+standardnu devijaciju, a $n$ veličinu uzorka. Formula ovdje daje `r hr_broj(s8$se_teorijska, 4)`,
+dok iz ponavljanja dobivamo `r hr_broj(s8$se_empirijska, 4)`. Rezultati se slažu na tri decimale,
+iako su dobiveni različitim postupcima.
+
+Odabir bez vraćanja dodatno smanjuje nesigurnost. Ako uključimo cijelu
+populaciju, pogreške uzorkovanja više nema. **Korekcija za konačnu
+populaciju** (*finite-population correction*) uzima u obzir taj dobitak
+množenjem početnog izraza korijenskim faktorom.
+
+$$
+SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
+  \sqrt{\frac{N-n}{N-1}}
+$$
+
+Kada je uzorkovan malen dio populacije, drugi korijen blizu je jedan i malo
+mijenja rezultat. Kako se $n$ približava $N$, faktor se smanjuje do nule.
+Simulacija bez vraćanja već uključuje taj učinak. U sljedećoj tablici stupac s
+formulom koristi aproksimaciju za veliku populaciju, bez te korekcije.
+
+Svaka simulacijska standardna pogreška u tablici ispod nastaje iz
+1 500 uzoračkih sredina za navedeni broj osoba. Računamo standardnu
+devijaciju tih 1 500 brojeva, bez izostavljenih ponavljanja. To mjeri
+preciznost, dok udaljenost njihova prosjeka od poznate populacijske sredine
+služi provjeri pristranosti. Konačan broj ponavljanja donosi i malo
+simulacijsko kolebanje, pa sitne razlike prema formuli ne tumačimo kao
+dokaz sustavnoga odstupanja.
+
+U praksi nepoznatu $\sigma$ procjenjujemo uzoračkom standardnom devijacijom
+$s$. Sada možemo provjeriti i
+raniji izbor djelitelja $n-1$ za varijancu. U četiri tisuće uzoraka od po
+deset osoba dijeljenje kvadriranih odstupanja s deset daje prosječno
+`r hr_broj(s8$var_n, 2)`, dok je populacijska varijanca `r hr_broj(s8$var_prava, 2)`. Dijeljenje s devet daje
+`r hr_broj(s8$var_n1, 2)`. Djelitelj $n$ sustavno podcjenjuje varijancu jer odstupanja
+računamo od sredine istog uzorka, koja tim vrijednostima pristaje bliže od
+populacijske sredine.
+
+Tablica pokazuje kako preciznost raste s veličinom uzorka. Za svako dodatno
+smanjenje standardne pogreške trebamo sve više opažanja.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-se-po-velicini
+#| tbl-cap: "Standardna pogreška sredine povjerenja pri osam veličina uzorka, izračunata formulom i izmjerena na tisuću i petsto ponovljenih uzoraka. Izrada autora."
+
+s8_se_tablica |>
+  transmute(
+    `Veličina uzorka` = hr_broj(n, 0),
+    `Formula` = hr_broj(teorijska, 3),
+    `Simulacija` = hr_broj(empirijska, 3),
+    `Raspon ±1,96 SE` = paste0("±", hr_broj(1.96 * teorijska, 2))
+  ) |>
+  knitr::kable(align = c("r", "r", "r", "r"))
+```
+:::
+
+Svako deseterostruko povećanje uzorka smanjuje standardnu pogrešku za faktor
+$\sqrt{10}$, približno 3,16. Da bi se standardna pogreška prepolovila, uzorak se
+mora učetverostručiti. Za svako daljnje smanjenje slučajne raspršenosti zato treba prikupiti sve
+više opažanja.
+
+## Oblik koji se pojavljuje
+
+Zadržavamo istu populaciju osoba, ali povjerenje zamjenjujemo iznosom
+spremnosti na plaćanje. Za svaku od veličina 5, 15, 30 i 100 izvučemo
+4 000 novih uzoraka bez vraćanja i za svaki spremimo jednu sredinu.
+Nule su valjani odgovori i ostaju u svim računima. Tako promjena oblika
+koju ćemo gledati nastaje usrednjavanjem, bez uklanjanja neplatitelja.
+
+Uz širinu treba pogledati i oblik distribucije uzorkovanja. Spremnost na plaćanje u populaciji ima `r paste0(hr_broj(s8$platiti_nula, 1), " %")` nula i dug desni rep, uz asimetriju `r hr_broj(s8$platiti_asimetrija, 1)`. Izvorne vrijednosti izrazito odstupaju od normalne raspodjele. Za uzorke od pet osoba asimetrija raspodjele sredina je `r hr_broj(s8$clt_asimetrija[["5"]], 2)`. Za petnaest pada na `r hr_broj(s8$clt_asimetrija[["15"]], 2)`, za trideset na `r hr_broj(s8$clt_asimetrija[["30"]], 2)`, a za sto na `r hr_broj(s8$clt_asimetrija[["100"]], 2)`. Mijenja se raspodjela sredina, dok izvorna populacija ostaje ista.
+
+```{r}
+#| label: fig-clt-platiti
+#| fig-cap: "Izrazito asimetrična populacijska varijabla i raspodjele njezinih uzoračkih sredina pri četiri veličine uzorka. Svaki panel ima vlastitu os. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Prvi panel prikazuje raspodjelu s velikim stupcem na nuli i dugim repom udesno. Sljedeća četiri panela prikazuju raspodjele uzoračkih sredina, koje s porastom veličine uzorka postaju sve simetričnije i sve uže, a posljednja je gotovo zvonasta."
+#| fig-height: 6.2
+
+s8_clt_okvir <- bind_rows(
+  tibble(panel = "Populacija", vrijednost = s8_platiti),
+  bind_rows(lapply(
+    as.character(s8_clt_n),
+    function(oznaka) tibble(
+      panel = paste("Sredine · n =", oznaka),
+      vrijednost = s8_clt[[oznaka]]
+    )
+  ))
+) |>
+  mutate(
+    panel = factor(
+      panel,
+      levels = c("Populacija", paste("Sredine · n =", s8_clt_n))
+    )
+  )
+
+ggplot(s8_clt_okvir, aes(vrijednost)) +
+  geom_histogram(bins = 44, fill = tok_boja("data-4")) +
+  geom_vline(
+    xintercept = s8$platiti_sredina,
+    linetype = "dashed",
+    colour = tok_boja("ink-mute")
+  ) +
+  facet_wrap(~ panel, ncol = 1, scales = "free") +
+  scale_x_continuous(labels = hr_broj) +
+  labs(x = "Spremnost na plaćanje (eura mjesečno)", y = "Broj") +
+  theme_knjiga(base_size = 11)
+```
+
+**Središnji granični teorem** (*central limit theorem*) u ovom modelu opisuje
+približavanje distribucije sredine normalnoj raspodjeli s rastom jednostavnog
+slučajnog uzorka. Potrebna je konačna varijanca i raspodjela u kojoj
+nekolicina jedinica ne nosi gotovo cijeli zbroj. Dovoljna veličina uzorka
+ovisi o obliku i repovima populacije. U našem je primjeru i pri trideset osoba
+ostalo dosta asimetrije, dok za gotovo simetričnu populaciju manji uzorak može
+biti dovoljan.
+
+Mnogi se postupci zato oslanjaju na približnu normalnost raspodjele procjene, dok pojedinačna opažanja mogu imati drukčiji oblik. Primjena teorema i dalje zahtijeva odgovarajuće uvjete odabira i neovisnosti. Kod složenijeg uzorkovanja
+težine i zajednički odabir skupina mogu promijeniti i oblik i širinu
+raspodjele procjene. Račun mora pratiti taj nacrt.
+
+Dva prikaza empirijske standardne pogreške potječu iz zasebnih simulacija.
+Raspodjela sredina pri stotinu osoba ima 3 000 ponavljanja, a usporedna
+tablica za svaku veličinu uzorka koristi 1 500 novih ponavljanja. Male razlike
+njihovih procjena SE-a zato odražavaju i konačan broj simulacija.
+
+## Interakcija — CLT stroj
+
+Za interaktivni pokus napuštamo mjerne jedinice medijskih podataka i
+koristimo zasebne umjetne raspodjele. Tiskani prikaz polazi od 5 000
+generiranih vrijednosti između nule i jedinice, s mnogo malih vrijednosti
+i sve manje velikih. Iz tog fiksnog skupa izvlačimo s vraćanjem, po 2 000
+uzoraka veličine pet i četrdeset. Jedno izvlačenje daje jedan broj, a
+prosjek cijelog uzorka jednu vrijednost donjeg histograma. Ovdje je
+vraćanje dio zadanoga modela uzorkovanja iz poznate populacije.
+
+Uz populacijsku raspodjelu prikazane su raspodjele uzoračkih
+sredina za dvije veličine uzorka. Populacija je u oba slučaja ista.
+Usporedba pokazuje kako veći uzorak mijenja oblik raspodjele sredina i
+smanjuje njezinu širinu. Pri fiksnoj populaciji standardna pogreška
+smanjuje se s korijenom veličine uzorka.
+
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="CLT stroj" data-oznaka="Widget 08.1 · interaktivno"}
+
+```{ojs}
+//| echo: false
+viewof w08_par = Inputs.form({
+  oblik: Inputs.select(
+    ["Simetrična", "Desno asimetrična", "Dvovršna"],
+    {value: "Desno asimetrična", label: "Oblik populacije"}
+  ),
+  n: Inputs.range(
+    [2, 100],
+    {value: 25, step: 1, label: "Veličina uzorka"}
+  ),
+  k: Inputs.range(
+    [200, 3000],
+    {value: 1000, step: 200, label: "Broj uzoraka"}
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  const form = viewof w08_par;
+  form.dataset.learningForm = "w08";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w08_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
+w08_simulacija = {
+  const rng = d3.randomLcg(808);
+  const normalna = d3.randomNormal.source(rng)(0, 1);
+
+  function izvuci() {
+    if (w08_par.oblik === "Simetrična") return normalna();
+    if (w08_par.oblik === "Desno asimetrična") {
+      return -Math.log(1 - rng()) - 1;
+    }
+    return (rng() < 0.5 ? -2 : 2) + 0.60 * normalna();
+  }
+
+  const populacija = Array.from({length: 3000}, izvuci);
+  const sredine = Array.from({length: w08_par.k}, () => {
+    let zbroj = 0;
+    for (let i = 0; i < w08_par.n; i += 1) zbroj += izvuci();
+    return zbroj / w08_par.n;
+  });
+
+  return {populacija, sredine};
+}
+```
+
+```{ojs}
+//| echo: false
+w08_binovi = {
+  const [minimum, maksimum] = d3.extent(w08_simulacija.populacija);
+  const brojBinova = 80;
+  const korak = (maksimum - minimum) / brojBinova;
+
+  function razvrstaj(vrijednosti, panel) {
+    const brojevi = Array(brojBinova).fill(0);
+    for (const vrijednost of vrijednosti) {
+      const sirovi = Math.floor((vrijednost - minimum) / korak);
+      const indeks = Math.max(0, Math.min(brojBinova - 1, sirovi));
+      brojevi[indeks] += 1;
+    }
+    return brojevi.map((broj, i) => ({
+      panel,
+      x1: minimum + i * korak,
+      x2: minimum + (i + 1) * korak,
+      udio: broj / vrijednosti.length
+    }));
+  }
+
+  return [
+    ...razvrstaj(w08_simulacija.populacija, "Populacija"),
+    ...razvrstaj(
+      w08_simulacija.sredine,
+      `Sredine · n = ${w08_par.n}`
+    )
+  ];
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w08
+//| fig-cap: "Izvorna populacija i raspodjela sredina mnogih uzoraka na zajedničkoj osi. Okomita crta označuje populacijsku sredinu simulacije."
+//| fig-alt: "Početna desno asimetrična populacija proteže se udesno, dok je raspodjela sredina uzoraka veličine dvadeset i pet mnogo uža i približno simetrična oko iste vrijednosti."
+{
+  const tinta = "var(--tok-ink)";
+  const ispunaPopulacije = "var(--tok-data-4)";
+  const ispunaSredina = "var(--tok-data-2)";
+  const naglasak = "var(--tok-accent)";
+  const panelSredina = `Sredine · n = ${w08_par.n}`;
+  const binoviPopulacije = w08_binovi.filter(
+    d => d.panel === "Populacija"
+  );
+  const binoviSredina = w08_binovi.filter(
+    d => d.panel === panelSredina
+  );
+  const reference = [
+    {panel: "Populacija", x: 0},
+    {panel: panelSredina, x: 0}
+  ];
+  const oznake = [
+    {
+      panel: "Populacija",
+      x: d3.min(binoviPopulacije, d => d.x1),
+      y: 1.08 * d3.max(binoviPopulacije, d => d.udio),
+      tekst: "Populacija"
+    },
+    {
+      panel: panelSredina,
+      x: d3.min(binoviSredina, d => d.x1),
+      y: 1.08 * d3.max(binoviSredina, d => d.udio),
+      tekst: `Sredine uzoraka · n = ${w08_par.n}`
+    }
+  ];
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(280, Math.min(width, lokalnaSirina));
+  const mobilno = sirinaGrafa < 480;
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: mobilno ? 620 : 540,
+    marginLeft: mobilno ? 66 : 64,
+    marginBottom: mobilno ? 54 : 48,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: mobilno ? "15px" : "12px"
+    },
+    x: {label: "Vrijednost", domain: [-6, 12], nice: false, grid: true},
+    y: {
+      label: "Udio u razredu",
+      domain: [0, 0.8], nice: false,
+      grid: true,
+      tickFormat: d => `${(100 * d).toLocaleString("hr-HR", {
+        maximumFractionDigits: 0
+      })} %`
+    },
+    fy: {
+      label: null,
+      axis: null,
+      domain: ["Populacija", panelSredina]
+    },
+    marks: [
+      Plot.rectY(binoviPopulacije, {
+        x1: "x1",
+        x2: "x2",
+        y: "udio",
+        fy: "panel",
+        fill: ispunaPopulacije,
+        inset: 0.35
+      }),
+      Plot.rectY(binoviSredina, {
+        x1: "x1",
+        x2: "x2",
+        y: "udio",
+        fy: "panel",
+        fill: ispunaSredina,
+        inset: 0.35
+      }),
+      Plot.ruleX(reference, {
+        x: "x",
+        fy: "panel",
+        stroke: naglasak,
+        strokeWidth: 2,
+        strokeDasharray: "5,3"
+      }),
+      Plot.text(oznake, {
+        x: "x",
+        y: "y",
+        fy: "panel",
+        text: "tekst",
+        textAnchor: "start",
+        dx: 4,
+        dy: -4,
+        fill: tinta,
+        fontSize: mobilno ? 15 : 13
+      }),
+      Plot.ruleY([0], {stroke: tinta})
+    ]
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const sdPopulacije = d3.deviation(w08_simulacija.populacija);
+  const sdSredina = d3.deviation(w08_simulacija.sredine);
+  const zapis = v => v.toLocaleString("hr-HR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+  return html`<p class="widget-foot" role="status" aria-live="polite">Standardna devijacija populacijskih opažanja iznosi ${zapis(sdPopulacije)}, a standardna devijacija uzoračkih sredina ${zapis(sdSredina)}.</p>`;
+}
+```
+
+:::
+
+::::
+
+::: {.content-visible when-format="pdf"}
+
+```{r}
+#| echo: false
+#| label: fig-w08-print
+#| fig-cap: "Desno asimetrična simulirana populacija i raspodjele sredina pri dvjema veličinama uzorka. Veći uzorak daje pravilniju i užu raspodjelu sredina. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Tri okomito poredana histograma prikazuju asimetričnu populaciju, širu raspodjelu sredina uzoraka veličine pet i užu raspodjelu sredina uzoraka veličine četrdeset."
+#| fig-width: 6.6
+#| fig-height: 7.4
+set.seed(808)
+
+w08_populacija_r <- rbeta(5000, shape1 = 1, shape2 = 5)
+w08_tisak <- bind_rows(
+  tibble(
+    panel = "Populacijska opažanja",
+    vrijednost = w08_populacija_r
+  ),
+  tibble(
+    panel = "Uzoračke sredine · n = 5",
+    vrijednost = replicate(
+      2000,
+      mean(sample(w08_populacija_r, 5, replace = TRUE))
+    )
+  ),
+  tibble(
+    panel = "Uzoračke sredine · n = 40",
+    vrijednost = replicate(
+      2000,
+      mean(sample(w08_populacija_r, 40, replace = TRUE))
+    )
+  )
+) |>
+  mutate(
+    panel = factor(
+      panel,
+      levels = c(
+        "Populacijska opažanja",
+        "Uzoračke sredine · n = 5",
+        "Uzoračke sredine · n = 40"
+      )
+    )
+  )
+
+ggplot(w08_tisak, aes(vrijednost)) +
+  geom_histogram(
+    bins = 45,
+    fill = tok_boja("data-4")
+  ) +
+  geom_vline(
+    xintercept = mean(w08_populacija_r),
+    linetype = "dashed",
+    colour = tok_boja("ink-mute")
+  ) +
+  facet_wrap(~ panel, ncol = 1, scales = "free_y") +
+  scale_x_continuous(labels = hr_broj) +
+  labs(x = "Vrijednost", y = "Broj") +
+  theme_knjiga(base_size = 13)
+```
+
+:::
+
+::: {.content-visible when-format="html"}
+**Što isprobati.**
+
+1. Odaberite simetričnu populaciju i uzorak veličine dva pa usporedite širine dvaju histograma.
+2. Promijenite populaciju u desno asimetričnu bez povećanja uzorka.
+3. Povećajte uzorak na četrdeset i odvojeno opišite promjenu oblika i širine raspodjele sredina.
+4. Odaberite dvovršnu populaciju i pronađite veličinu uzorka pri kojoj se dvije populacijske skupine više ne vide u sredinama.
+:::
+
+## Preciznost ankete od osamsto ljudi
+
+U anketi često želimo procijeniti udio, primjerice koliko ljudi bira portal,
+umjesto prosječne ocjene povjerenja. Za to možemo iskoristiti poznati račun.
+Izbor portala označimo jedinicom, a ostale izbore nulom, pa sredina tih
+vrijednosti daje **uzorački udio**, označen s $\hat{p}$. Njime
+procjenjujemo populacijski udio, uz istu logiku uzorkovanja sredine koju smo
+upravo upoznali. Raspršenost binarne varijable određena je njezinim udjelom.
+Najveća je kada je populacija podijeljena napola, a manja blizu nule ili jedan.
+
+Standardnu pogrešku ukupnog udjela u velikoj populaciji procjenjujemo
+sljedećim izrazom za jednostavni slučajni uzorak. Nepoznati populacijski udio
+zamjenjujemo procjenom $\hat{p}$, pa je i standardna pogreška procijenjena.
+
+$$
+SE_{\hat{p}} = \sqrt{\frac{\hat{p}\,(1 - \hat{p})}{n}}
+$$
+
+Kod jednostavnoga slučajnog uzorka bez vraćanja izraz se množi istom korekcijom
+za konačnu populaciju kao i standardna pogreška sredine. Kod nejednakih
+vjerojatnosti odabira ili grupnog uzorkovanja ne smije se prenijeti bez
+prilagodbe nacrtu.
+
+**Margina pogreške** (*margin of error*) polovica je širine intervala oko
+procjene. U prikazanom računu najveća je za udio od 50 %, jer je tada
+raspršenost najveća. Za razinu od 95 % i veliku populaciju približno iznosi
+jedan podijeljen korijenom veličine uzorka.
+
+U sljedećem računu marginu dobivamo množenjem procijenjene standardne pogreške
+s 1,96. Obrnutim računom određujemo potreban uzorak za željenu marginu.
+Vrijede pretpostavke jednostavnog slučajnog uzorka i velike populacije te
+razumna normalna aproksimacija. Ona može biti neprikladna ako je očekivan broj
+jedne kategorije malen.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-margina
+#| tbl-cap: "Najveća margina pogreške za udio pri razini od 95 % i uzorak potreban za zadanu marginu. Izrada autora."
+
+tibble(
+  `Veličina uzorka` = hr_broj(c(400, 800, 1000, 2000), 0),
+  `Margina pogreške` = paste0(
+    "±", hr_broj(100 * s8$moe(c(400, 800, 1000, 2000)), 1), " %"
+  ),
+  `Ciljana margina` = paste0(
+    "±", hr_broj(c(5, 4, 3, 2), 0), " %"
+  ),
+  `Potreban uzorak` = hr_broj(
+    s8$n_za(c(0.05, 0.04, 0.03, 0.02)), 0
+  )
+) |>
+  knitr::kable(align = c("r", "r", "r", "r"))
+```
+:::
+
+Tablica se odnosi na jedan ukupni udio, jednostavni slučajni uzorak i razinu od 95 %, bez korekcije za konačnu populaciju. Za osamsto ljudi najveća margina je približno `r paste0("±", hr_broj(100 * s8$moe(800), 1), " %")`. Takva procjena razlikuje veličine udaljene desetak postotnih bodova bolje nego one udaljene dva ili tri. Drugi cilj procjene, nacrt ili zahtjev za preciznošću traži novi račun. Kada izvještaj navodi da prva opcija ima 32 %, a druga 29 %, same dvije procjene i njihove pojedinačne margine nisu dovoljne za tvrdnju da je prva opcija ispred druge. Razlika dvaju udjela ima vlastitu nesigurnost, koju treba izračunati iz zajedničkoga nacrta.
+
+Veličina populacije izostaje iz jednostavne formule jer smo zanemarili
+korekciju za konačnu populaciju. To je opravdano kada uzimamo malen dio
+populacije. Manju populaciju čini slučajno izdvojenih `r length(s8_mala_pop)` vrijednosti povjerenja iz iste populacije `populacija_medija`. Iz tako određenih cjelina zasebno izvlačimo uzorke. U simulaciji uzorak od osamsto osoba iz cijele populacije daje
+standardnu pogrešku `r hr_broj(s8$se_velika, 4)`, a iz deset puta manje populacije `r hr_broj(s8$se_mala, 4)`.
+Uzorak u drugom slučaju obuhvaća veći dio cjeline, pa je precizniji.
+Populacijske devijacije iznose `r hr_broj(s8$sigma, 3)` i `r hr_broj(s8$sigma_mala, 3)`. Formula s korekcijom
+uzima u obzir i tu malu razliku te daje `r hr_broj(s8$se_velika_fpc, 4)` i `r hr_broj(s8$se_mala_fpc, 4)`, blizu
+simuliranim rezultatima.
+
+Dovoljnu veličinu uzorka određujemo prema pitanju koje istražujemo, pa trebamo znati procjenjujemo li ukupni udio, sredinu, rijetku pojavu ili razliku skupina. Trebamo i nacrt, način odabira i odaziva te željenu preciznost. Preciznost za podskupinu ovisi o broju njezinih članova. Oko tisuću može biti korisna orijentacija za jedan ukupni udio u jednostavnom nacrtu. Za ostale ciljeve veličinu određujemo zasebno. Iako margina pogreške opisuje promjenjivost zbog slučajnog odabira, ne uključuje ljude izvan okvira, neodaziv ni učinak formulacije i redoslijeda pitanja. Oznaka ±3 % u tom kontekstu znači tri postotna boda margine za uzorkovnu promjenjivost. Tvrdnja da je razlika unutar margine zato ne potvrđuje kvalitetu svih ostalih dijelova istraživanja.
+
+## Nacrt uzorka i pristranost odabira
+
+Dosadašnji račun polazio je od jednakih izgleda za odabir. U stvarnoj anketi
+neke osobe mogu imati veće izglede od drugih, pa njihov doprinos procjeni
+trebamo prilagoditi. U **vjerojatnosnom uzorkovanju** svaka jedinica ima poznatu pozitivnu
+vjerojatnost uključivanja, ali ona ne mora biti jednaka za sve. Jedinici s
+upola manjom vjerojatnošću dajemo približno dvostruk doprinos procjeni.
+Početna **težina uzorkovanja** računa se kao obrnuta vjerojatnost
+uključivanja. Bez težina bismo previše zastupali češće birane jedinice. Ni
+pravilne težine, međutim, ne vraćaju ljude koji su potpuno izostali iz okvira.
+
+Učinak težina prikazat ćemo na šest odabranih jedinica iz zasebne sintetičke
+populacije od šesnaest osoba. U svakom od dvaju slojeva ima osam osoba.
+Jedinica označuje potporu zamišljenoj mjeri, a nula izostanak potpore.
+Vjerojatnosti uključivanja su 0,50 u prvom i 0,25 u drugom sloju, pa su težine
+dva i četiri.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-sinteticke-tezine
+#| tbl-cap: "Opaženi uzorak iz sintetičke konačne populacije s poznatim vjerojatnostima uključivanja. Izrada autora."
+
+s8_tezine |>
+  transmute(
+    Jedinica = jedinica,
+    Sloj = sloj,
+    `Vjerojatnost uključivanja` = hr_broj(vjerojatnost_ukljucivanja, 2),
+    Odgovor = odgovor,
+    `Težina uzorkovanja` = hr_broj(tezina_uzorkovanja, 0)
+  ) |>
+  knitr::kable(align = c("l", "l", "r", "r", "r"))
+```
+:::
+
+Bez težina dijelimo brojnik `r hr_broj(s8_tezine_rez$brojnik_bez_tezina, 0)` nazivnikom `r hr_broj(s8_tezine_rez$nazivnik_bez_tezina, 0)` i dobivamo
+`r paste0(hr_broj(100 * s8_tezine_rez$procjena_bez_tezina, 1), " %")`. S težinama dobivamo brojnik `r hr_broj(s8_tezine_rez$brojnik_s_tezinama, 0)`, nazivnik `r hr_broj(s8_tezine_rez$nazivnik_s_tezinama, 0)` i udio
+`r paste0(hr_broj(100 * s8_tezine_rez$procjena_s_tezinama, 1), " %")`. Procjena pada jer dvije nule iz rjeđe biranog sloja više pridonose
+nazivniku. Dobivenih 37,5 % i dalje je procjena, s mogućom pogreškom
+uzorkovanja. Primjer provjerava račun na vidljivoj sintetičkoj tablici, bez
+tvrdnje o stvarnim ljudima.
+
+Složeni uzorci traže dodatne prilagodbe. **Kalibracija težina** usklađuje ponderirane zbrojeve s poznatim obilježjima populacije. Pri **grupnom uzorkovanju** biramo skupine, primjerice škole, pa osobe unutar njih. Sličnost tih osoba može smanjiti količinu neovisne informacije. **Učinak nacrta** uspoređuje varijancu procjene s onom jednostavnoga slučajnog uzorka, a **efektivna veličina uzorka** izražava istu preciznost brojem jedinica takva uzorka. Pri čitanju izvještaja provjeravamo uključuje li račun nesigurnosti težine, skupine i slojeve. Neodaziv i potpunost okvira zahtijevaju zasebnu provjeru i obrazložene prilagodbe. [Neobvezni odjeljak praktikuma](../dodaci/a-praktikum.qmd#sec-a-slozeni-uzorci) podrobnije objašnjava te prilagodbe.
+
+## Pokrivenost, odabir i odaziv
+
+Težinama smo uzeli u obzir različite izglede uključenih jedinica. One ipak
+ne rješavaju problem ljudi koji uopće nisu mogli biti odabrani.
+**Pogreška pokrivenosti** nastaje kada okvir iz kojega se bira ne dopušta svim
+jedinicama ciljne populacije da uopće uđu u uzorak. Povećanje broja odabranih
+jedinica unutar istoga okvira ne doseže one koji u njemu nedostaju.
+
+U prigodnom uzorku biramo dostupne ljude, bez poznatih vjerojatnosti odabira.
+U našoj populaciji mlađih od dvadeset pet godina s višim obrazovanjem ima
+`r hr_broj(s8$prigodni_n, 0)`. Njihovo prosječno povjerenje iznosi `r hr_broj(s8$prigodni_sredina, 2)`, dok je populacijsko
+`r hr_broj(s8$mu, 2)`. Razlika nadmašuje cijelu marginu ankete s tisuću ljudi.
+Uključivanjem svih članova te uske skupine točno bismo opisali upravo nju, uz istu razliku prema cijeloj populaciji.
+
+U sljedećem modelu samoodabira ponovno razmatramo svih 50 000 osoba.
+Osobi mlađoj od 30 koja bira mreže dajemo 15 % izgleda za uključivanje,
+a ostalima te dobi 8 %. U dobi od 30 do 49 godina izgledi su 6 % za
+portal ili mreže i 3 % za ostale izvore. Od 50 godina naviše odgovarajući
+izgledi iznose 2 % i 0,5 %. Svakoj osobi zatim neovisno odredimo ulazi li
+u anketu. Ta smo pravila zadali za ovu ilustraciju samoodabira.
+
+U dobrovoljnu mrežnu anketu ulaze ljudi koji su na internetu, vide poziv i
+odluče odgovoriti. Svaki korak može mijenjati sastav. Simulacija takvog
+odabira daje `r hr_broj(s8$online_n, 0)` odgovora, mnogo više od početnog slučajnog uzorka od
+sto osoba. Prosječna dob je `r hr_broj(s8$online_dob, 1)`, umjesto populacijskih `r hr_broj(s8$dob, 1)` godina.
+Mreže bira `r paste0(hr_broj(100 * s8$online_mreze, 1), " %")`, naspram `r paste0(hr_broj(100 * s8$udio_mreze, 1), " %")`, a povjerenje je `r hr_broj(s8$online_sredina, 2)`, naspram
+`r hr_broj(s8$mu, 2)`.
+
+Čak i uz dobar okvir i slučajni odabir dio pozvanih može izostati. **Neodgovor** smanjuje uzorak i preciznost, a može donijeti i pristranost. Ako se odazvani i neodazvani razlikuju u obilježju koje procjenjujemo, primjerice zbog interesa za temu ili povjerenja u istraživača, sam slučajni odabir nije dovoljan. Provjeravamo i odabir i odaziv. Velik pristran uzorak može dati uzak interval oko sustavno pogrešne vrijednosti. Standardna pogreška prikazuje slučajnu promjenjivost pod nacrtom, ali ne i svu pristranost odabira. Povećanje uzorka uz isti pristrani postupak zato ne jamči točniju procjenu.
+
+Sada možemo objasniti promašaj časopisa *Literary Digest*. Na temelju
+naknadne Gallupove ankete Squire je utvrdio da su pogrešnoj prognozi
+pridonijeli i sastav primatelja i njihov nejednak odaziv [@squire1988].
+Njegova analiza upućuje na to da bi potpuni odaziv izabranih primatelja,
+unatoč problemu njihova odabira, barem ispravno imenovao Roosevelta kao
+pobjednika [@squire1988]. Zato popis onih kojima smo poslali pitanje i
+popis onih koji su odgovorili pregledavamo zasebno. Još odgovora
+prikupljenih na isti način može smanjiti slučajno kolebanje, dok
+sustavno odstupanje ostaje.
+
+Zadržavamo sedam polja kartice za čitanje ankete iz poglavlja o mjerenju.
+Sada pitanja unutar tih polja preciziramo znanjem o procjeni i margini.
+Svako polje pokazuje dio postupka koji određuje na koga se rezultat može
+odnositi.
+
+| Polje kartice | Pitanje nakon ovoga poglavlja |
+|---|---|
+| okvir i pozivanje | Koja je ciljna populacija, tko je mogao ući u uzorak i je li odabir vjerojatnosan? |
+| odaziv i nedostajanje | Koliko je pozvanih odgovorilo i kako bi se neodazvani mogli razlikovati? |
+| procjena s težinama | Kako su uključivanje i sastav prilagođeni težinama i što ostaje neprilagođeno? |
+| mjerenje | Kako glasi pitanje i koji odgovor ulazi u brojnik i nazivnik? |
+| provedba | Kada i kako je anketa provedena te tko ju je naručio? |
+| doseg | Na koju se podskupinu procjena odnosi i koga okvir, odaziv ili filtri izostavljaju? |
+| nesigurnost | Uvažava li račun težine, slojeve i skupine stvarnoga nacrta? |
+
+: Kartica za čitanje ankete nakon poglavlja o uzorkovanju. Izrada autora. {#tbl-anketna-kartica}
+
+## Korpus kao uzorak
+
+Iste granice odabira susrećemo kada umjesto ljudi prikupljamo njihove tekstove jer i korpus tekstova zahtijeva ciljnu populaciju. Za opis političke rasprave trebamo navesti uključujemo li govore, intervjue ili objave, s kojih platformi ili arhiva, iz kojeg razdoblja, na kojim jezicima i od kojih govornika. Dostupnost tekstova tek je polazište. Populaciju određujemo prema sadržajnom pitanju i navedenom obuhvatu. Obrisane i privatne objave mogu izostati iz arhiva, stariji sadržaj biti nedostupan, a odabrana ključna riječ propustiti relevantne tekstove. Veći broj riječi ne uklanja takve propuste ni činjenicu da su se neki govornici sami odlučili oglasiti. Zaključak zato ograničavamo na obuhvaćene vrste tekstova, platforme, datume, jezike i govornike.
+
+Treba odrediti i jedinicu brojanja. Brojanje riječi daje više težine duljim
+tekstovima, a brojanje objava aktivnijim govornicima. Udio govornika odgovara
+na drugo pitanje. Uz zastupljenost zato navodimo brojimo li riječi, tekstove,
+istupe ili ljude, ponavljaju li se jedinice istog govornika i koji nazivnik
+koristimo.
+
+Jedan dio korpusa možemo upotrijebiti za izradu pravila, a drugi sačuvati za
+provjeru na jedinicama koje pri izradi nismo vidjeli. Ista osoba ili gotovo
+isti tekst ne smije se naći s obiju strana takve provjere. Time provjeravamo
+predviđanje na novim jedinicama iz sličnog procesa prikupljanja. Ta podjela ne
+popravlja pokrivenost korpusa niti opravdava zaključak o izostavljenim
+tekstovima i govornicima. Prediktivna provjera i populacijsko uopćavanje
+zahtijevaju zasebna obrazloženja.
+
+::: {.callout-divljina}
+**Isti upitnik, različiti putovi do sudionika.** Usporedba Pew Research
+Centera, objavljena 2023., koristila je isti upitnik u šest internetskih
+uzoraka odraslih stanovnika SAD-a. Tri su nastala iz panela s
+vjerojatnosnim početnim odabirom, a tri dobrovoljnim pristupanjem.
+Procjene su uspoređene s vanjskim referentnim vrijednostima, među kojima
+su bili službeni izborni rezultati i podaci kvalitetnih državnih anketa
+[@mercer2023]. Ispunjavanje obrasca na internetu bilo je zajedničko
+svima. Put kojim je osoba došla do obrasca razlikovao se.
+
+Procjene iz panela s vjerojatnosnim odabirom u toj su usporedbi u prosjeku
+manje odstupale od referentnih vrijednosti, uz isti postupak ponderiranja
+svih uzoraka [@mercer2023]. Referentne vrijednosti također mogu imati
+pogrešku, pa ih čitamo kao najbolju dostupnu usporedbu [@mercer2023].
+Kad sljedeći put otvorimo mrežnu anketu, vrijedi pogledati kako smo dobili
+poziv i tko ga uopće može dobiti. Oznaka „internetska anketa” sama po sebi
+još ništa ne govori o tom odabiru.
+:::
+
+
+Pri objašnjavanju koristi većeg uzorka brojčani rezultat treba povezati
+s onim što je u postupku uzorkovanja doista postalo preciznije.
+
+::: {#ex-08-callout-greska-01 .callout-greska}
+Za objašnjenje standardne pogreške pripremamo nastavnu usporedbu
+dviju veličina uzorka. U zadanom modelu nasumično i neovisno izvlačimo
+osobe iz iste zamišljene populacije. Standardna devijacija njihova
+dnevnog vremena uz medije iznosi 20 minuta. Tablica sadrži teorijske
+vrijednosti prema tom modelu, a ne rezultate provedene ankete.
+
+| Veličina uzorka | Standardna devijacija u populaciji | Standardna pogreška sredine |
+|---|---:|---:|
+| 25 osoba | 20 minuta | 4 minute |
+| 100 osoba | 20 minuta | 2 minute |
+
+: Dvije veličine uzorka iz iste populacije. Konstruirana nastavna vježba, izrada autora.
+
+Asistent je ispod usporedbe napisao objašnjenje.
+
+> Veći nasumični uzorak daje užu distribuciju uzoračkih sredina.
+> Standardna pogreška pada s četiri na dvije minute, pa se i vremena
+> pojedinaca u većem uzorku međusobno razlikuju upola manje.
+
+Uz svaki od posljednjih dvaju stupaca dopišite čiju raspršenost
+opisuje. Provjerite račune standardne pogreške, a zatim preoblikujte
+drugu rečenicu objašnjenja tako da zadrži točan podatak iz tablice.
+
+:::
+
+## Razrađeni primjer
+
+Za spremnost na plaćanje sada povezujemo dvije provjere koje smo dosad
+promatrali odvojeno. Želimo znati gdje su procjene usredotočene i koliko su
+raspršene, iako izvorna varijabla ima mnogo nula i dug desni rep. Odaberemo
+uzorak, izračunamo sredinu i postupak ponovimo mnogo puta. Mnoge kasnije
+formule opisivat će ili približno izražavati rezultat takvog ponavljanja unutar
+određenog modela.
+
+Jedan korak možemo pratiti na zasebnoj, namjerno sastavljenoj ilustraciji
+s iznosima 0, 0, 10, 20 i 70 eura. Sredina je $100/5 = 20$
+eura. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
+novim odabirom iz svih 50 000 osoba. Svaki novi uzorak ostavlja samo
+jednu sredinu u raspodjeli koju uspoređujemo.
+
+Isti ćemo postupak provesti s dvjema veličinama uzorka. Ako veći uzorak daje
+užu raspodjelu sredina, provjerit ćemo smanjuje li se njezina širina onako kako
+predviđa odnos s korijenom veličine uzorka. Zasebno ćemo pregledati je li se
+promijenio i njezin oblik.
+
+```{r}
+#| echo: true
+
+uzmi_sredinu <- function(n) {
+  mean(sample(populacija_medija$spremnost_platiti, n))
+}
+
+sredine_5 <- replicate(4000, uzmi_sredinu(5))
+sredine_60 <- replicate(4000, uzmi_sredinu(60))
+
+c(
+  populacija = mean(populacija_medija$spremnost_platiti),
+  sredina_5 = mean(sredine_5),
+  sredina_60 = mean(sredine_60),
+  se_5 = sd(sredine_5),
+  se_60 = sd(sredine_60)
+)
+```
+
+```{r}
+#| include: false
+#| label: s8-primjer
+
+s8_p <- list(
+  mu = mean(populacija_medija$spremnost_platiti),
+  m5 = mean(sredine_5),
+  m60 = mean(sredine_60),
+  se5 = sd(sredine_5),
+  se60 = sd(sredine_60)
+)
+s8_p$omjer <- s8_p$se5 / s8_p$se60
+```
+
+`replicate` ponavlja izraz i sprema rezultate. Prosjek četiri tisuće sredina iz uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` eura, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)` eura. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` eura. Obje veličine uzorka daju procjene usredotočene blizu nje, u skladu s nepristranošću. Standardna pogreška pada s `r hr_broj(s8_p$se5, 2)` za pet osoba na `r hr_broj(s8_p$se60, 2)` za šezdeset, odnosno `r hr_broj(s8_p$omjer, 1)` puta. To je približno korijen iz dvanaest, koliko smo puta povećali uzorak. Budući da raspodjela sredina za pet osoba ipak ostaje vidljivo asimetrična, nepristranost procjenitelja treba razlikovati od normalnog oblika njegove raspodjele.
+
+Provjeru smo mogli napraviti jer poznajemo cijelu generiranu `populacija_medija`. U
+stvarnom istraživanju obično raspolažemo samo jednim uzorkom i ne možemo
+ponavljati odabir iz potpuno poznate cjeline. Zato svojstva distribucije
+uzorkovanja procjenjujemo iz tog uzorka, uz pretpostavke. U poglavlju o
+procjeni uzorak će privremeno preuzeti ulogu populacije i omogućiti novo
+ponavljanje postupka.
+
+Za računsku provjeru pretpostavimo neovisna opažanja i standardnu devijaciju
+od 12 minuta. Pri 36 opažanja standardna pogreška sredine iznosi
+$12/\sqrt{36}=2$ minute, a pri 144 opažanja jednu minutu. Raspršenost
+pojedinačnih odgovora ostaje 12 minuta. Četverostruko veći uzorak prepolovio je nesigurnost sredine, uz istu raspršenost odgovora pojedinačnih ljudi.
+
+Približenje $1/\sqrt{n}$ za 95-postotnu marginu udjela odnosi se na
+jednostavni slučajni uzorak, malu uzoračku frakciju i najnepovoljniji udio
+od 0,5. Nastaje iz $1,96\sqrt{0,25/n}$ uz zaokruživanje 0,98 na jedan.
+Nije opća formula za svaki udio i svaki nacrt. Kalibracija težina usklađuje
+ponderirane zbrojeve s poznatim obilježjima populacije. Razlikuje se od
+kalibracije prognoze, koja uspoređuje najavljene vjerojatnosti s ishodima.
+
+## Sažetak {.sazetak}
+
+Ponavljanjem odabira dobili smo distribuciju uzorkovanja i razdvojili
+promjenjivost procjene od razlika među pojedinačnim osobama. Standardna
+devijacija te distribucije jest standardna pogreška, koja za sredinu u
+jednostavnom slučajnom uzorku pada približno s korijenom veličine uzorka, uz
+dodatnu korekciju kada obuhvaćamo znatan dio populacije. Kad nacrt uključuje
+težine, skupine i slojeve, račun mora pratiti te odluke, a njihove posljedice
+za preciznost opisujemo učinkom nacrta i efektivnom veličinom uzorka. Takav
+račun ne obuhvaća automatski probleme pokrivenosti, neodaziva ili samoodabira,
+koje ni veći uzorak ni kalibracija sami ne uklanjaju. I za korpus tekstova zato
+odvojeno obrazlažemo odabir i procijenjenu nesigurnost. U poglavlju o procjeni
+iz te nesigurnosti gradimo interval za nepoznatu populacijsku vrijednost.
+
+Distribucija i raspodjela ovdje su sinonimi. Statistika kao broj iz uzorka razlikuje se od statistike kao znanstvene discipline. Ponderiranje znači primjenu težina. Neodaziv, nazvan i neodgovor, znači da za pozvane jedinice nedostaju odgovori.
+
+## Pojmovi {.pojmovi}
+
+populacija (*population*), uzorak (*sample*), parametar (*parameter*),
+statistika (*statistic*), pogreška uzorkovanja (*sampling error*), distribucija
+uzorkovanja (*sampling distribution*), nepristranost (*unbiasedness*),
+standardna pogreška (*standard error*), središnji granični teorem (*central
+limit theorem*), uzorački udio (*sample proportion*), margina pogreške (*margin
+of error*), jednostavni slučajni uzorak (*simple random sample*), korekcija za
+konačnu populaciju (*finite-population correction*), vjerojatnosno uzorkovanje
+(*probability sampling*), težina uzorkovanja (*sampling weight*), procjena s
+težinama (*weighted estimate*), kalibracija (*calibration*), grupno uzorkovanje
+(*cluster sampling*), učinak nacrta (*design effect*), efektivna veličina uzorka
+(*effective sample size*), pokrivenost (*coverage*), neodgovor (*nonresponse*),
+prigodni uzorak (*convenience sample*), samoodabir (*self-selection*)
+
+## Zadaci
+
+### Konceptualni {#ex-08-konceptualni-01 .zadaci-razina}
+
+Razlikujte raspodjelu pojedinačnih opažanja od distribucije uzoračkih sredina.
+Za svaku navedite što joj je jedinica, što mjeri njezina širina i što se s njom
+događa kada uzorak naraste. Predajte skicu obiju raspodjela i dva popratna
+objašnjenja.
+
+### Računski {#ex-08-racunski-01 .zadaci-razina}
+
+Upotrijebite tablicu opaženoga uzorka iz sintetičke konačne populacije. Bez
+programa izračunajte brojnik, nazivnik i postotak prvo bez težina, a zatim s
+težinama uzorkovanja. Objasnite zašto se procjena pomaknula prema dolje i
+navedite jednu pogrešku koju taj pomak ne može ispraviti. Predajte oba računa i
+dvije rečenice tumačenja.
+
+U zasebnom jednostavnom slučajnom uzorku iz velike populacije standardna
+devijacija obilježja iznosi 12. Izračunajte standardnu pogrešku sredine za
+uzorke od 64 i 256 osoba. Koliko se puta mora povećati uzorak da se pogreška
+prepolovi? Za udio 0,5 u uzorku od 400 osoba procijenite 95-postotnu marginu
+pravilom $1/\sqrt{n}$ i navedite pretpostavke toga pravila.
+
+Za obje veličine uzorka izračunajte i 1,96 standardnih pogrešaka te navedite
+približan raspon odstupanja uzoračke sredine od populacijske sredine kada
+vrijedi normalno približenje. Riječima protumačite dobivenu marginu udjela.
+
+Neobvezna nadogradnja dostupna je samo čitatelju s vlastitom službeno preuzetom
+kopijom ESS Round 11, edition 3.0. Slijedeći portalnu putovnicu iz kataloga,
+ograničite podatke na Hrvatsku, za `vote` primijenite njegov službeni valjani
+nazivnik te usporedite procjenu bez težina s procjenom uz zadani `anweight`.
+Navedite i jednu pogrešku odabira ili mjerenja koju ta težina ne može ukloniti.
+Rezultat tumačite kao samoprijavu, ne kao provjeru službene izlaznosti. ESS
+mikropodaci i rezultat te provjere nisu dio knjige ni obveznoga zadatka.
+
+### Kritički {#ex-08-kriticki-01 .zadaci-razina}
+
+Vratite se na karticu za čitanje ankete iz poglavlja o mjerenju i dizajnu i primijenite je
+na slučaj časopisa *Literary Digest* [@squire1988]. Za ciljnu populaciju, okvir,
+regrutiranje, broj pozvanih i odgovora, datume, formulaciju pitanja, težine,
+naručitelja i marginu pogreške označite što je iz prikazanoga slučaja poznato,
+a što nije. Zatim odvojite pogrešku pokrivenosti i neodgovor od slučajne
+promjenjivosti te objasnite zašto veći broj poslanih listića ne rješava prva dva
+problema. Ne dopunjujte nepoznata polja pretpostavkama. Predajte ispunjenu
+karticu i jedan odlomak zaključka.
+
+### Revizija modela {#ex-08-revizija-modela-01 .zadaci-razina}
+
+Ocijenite analizu modela iz okvira o pogrešci. Izdvojite tvrdnju koja je točna,
+imenujte zamjenu dviju razina varijabilnosti i napišite ispravljenu verziju
+druge rečenice koja zadržava sve što je u njoj bilo točno.

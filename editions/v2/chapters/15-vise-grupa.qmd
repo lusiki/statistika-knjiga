@@ -1,0 +1,872 @@
+---
+title: "Uspoređivanje više grupa"
+subtitle: "Jedan model za razlike među skupinama"
+---
+
+<!-- =====================================================================
+  STATUS:  cjelovit nacrt — prijenos tjedna 12, runda 4
+  IZVOR:   tjedan 12, odjeljci 1 do 10, rez oko trećine
+  OPSEG:   ~4000 riječi
+  WIDGET:  w15 · Dekompozicija varijance
+  FAZA:    3 (plan proizvodnje, notes/struktura-knjige.md)
+  NAPOMENA: Nastavak poglavlja o dvjema grupama. Referentna skupina i zapis
+  modela uvedeni su tamo i ovdje se samo proširuju.
+
+  SADRŽAJ (iz plana):
+  Zašto deset t-testova diže stopu pogreške, ANOVA kao linearni model s kategoričkim prediktorom, logika F-a kao omjer varijanci, Tukeyjev HSD, eta kvadrat, Kruskal-Wallis.
+
+  PODRIJETLO (runda 4, notes/plan-prijenosa.md):
+  1. Nastavni skup tjedna 12 (news_credibility.csv) knjizi nije dostupan.
+     Pitanje o vjerodostojnosti izvora preračunato je na `populacija_medija`
+     iz R/podaci-nastavni.R, gdje povjerenje ovisi o izvoru po konstrukciji.
+     Skup je simuliran i tako je označen prije prve brojke.
+  2. NALAZ KOJI NIJE PRENESEN KAKO GLASI. Predavanje inflaciju pogreške
+     računa formulom 1 - 0,95^10 i dobiva oko 40 %. Ta formula pretpostavlja
+     neovisne testove, a deset parnih usporedbi pet skupina dijeli skupine i
+     nisu neovisne. Simulacija u ovom poglavlju mjeri obje veličine i
+     pokazuje da parne usporedbe daju osjetno nižu stopu od formule.
+     Poglavlje zato navodi izmjereno, a formulu prikazuje kao referentnu
+     vrijednost koja vrijedi za neovisne testove.
+  3. IZOSTAVLJENI prema planu i ljestvici izlaganja: ručna implementacija
+     Levenova testa, compact letter display, Dunnov test i parni Wilcoxon u
+     detalje, Games-Howell, dvosmjerna ANOVA i ANOVA ponovljenih mjerenja,
+     APA predložak izvještaja i tablice odlučivanja.
+  4. Okvir divljine nosi [@nieuwenhuis2011]. Autorska revizija od
+     27. listopada 2026. otvara poglavlje usporedbom načina učenja.
+     Analitička fleksibilnost ostaje obrađena u poglavlju o obnovi.
+
+  Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
+  Kostur se ne mijenja bez zapisa u STYLE.md.
+===================================================================== -->
+
+```{r}
+#| include: false
+#| cache: false
+source("R/setup.R")
+```
+
+```{r}
+#| include: false
+#| label: s15-vrijednosti
+
+# Svaka brojka u prozi ovog poglavlja dolazi odavde. Populacija je simulirana i
+# dolazi iz R/podaci-nastavni.R, pa povjerenje u njoj doista ovisi o izvoru.
+set.seed(1515)
+
+pet_izvora <- slice_sample(populacija_medija, n = 300)
+
+s15_sazetak <- pet_izvora |>
+  group_by(izvor_vijesti) |>
+  summarise(
+    n = n(),
+    sredina = mean(povjerenje_medijima),
+    sd = sd(povjerenje_medijima),
+    .groups = "drop"
+  ) |>
+  arrange(desc(sredina))
+
+s15_model <- aov(povjerenje_medijima ~ izvor_vijesti,
+             data = pet_izvora)
+s15_tablica <- summary(s15_model)[[1]]
+s15_ss_izmedu <- s15_tablica$`Sum Sq`[1]
+s15_ss_unutar <- s15_tablica$`Sum Sq`[2]
+s15_ms_unutar <- s15_tablica$`Mean Sq`[2]
+s15_k <- nlevels(droplevels(pet_izvora$izvor_vijesti))
+
+s15_tukey <- as.data.frame(TukeyHSD(s15_model)$izvor_vijesti)
+s15_welch <- oneway.test(
+  povjerenje_medijima ~ izvor_vijesti,
+  data = pet_izvora,
+  var.equal = FALSE
+)
+s15_kw <- kruskal.test(povjerenje_medijima ~ izvor_vijesti, data = pet_izvora)
+s15_varijance <- tapply(pet_izvora$povjerenje_medijima, pet_izvora$izvor_vijesti, var)
+
+# Koliko puta postupak nađe razliku kad je po konstrukciji nema. Skupine se
+# izvlače iz istog izvora, pa je svaka nađena razlika pogreška.
+set.seed(1516)
+s15_prvo_skupine <- replicate(5,
+  sample(populacija_medija$povjerenje_medijima, 40), simplify = FALSE)
+s15_prvo_parovi <- combn(5, 2)
+s15_prvo_p <- apply(s15_prvo_parovi, 2, function(ij)
+  t.test(s15_prvo_skupine[[ij[1]]], s15_prvo_skupine[[ij[2]]])$p.value)
+set.seed(1516)
+s15_pod_nultom <- replicate(2000, {
+  skupine <- replicate(5, sample(populacija_medija$povjerenje_medijima, 40),
+                       simplify = FALSE)
+  parovi <- combn(5, 2)
+  p_parni <- apply(parovi, 2, function(ij) {
+    t.test(skupine[[ij[1]]], skupine[[ij[2]]])$p.value
+  })
+  p_ukupni <- summary(aov(
+    unlist(skupine) ~ factor(rep(1:5, each = 40))
+  ))[[1]]$`Pr(>F)`[1]
+  stopifnot(all(is.finite(p_parni)), is.finite(p_ukupni))
+  c(barem_jedan = any(p_parni < 0.05), ukupni = p_ukupni < 0.05)
+})
+
+set.seed(1517)
+s15_neovisnih_deset <- replicate(2000, {
+  p <- replicate(10, t.test(
+    sample(populacija_medija$povjerenje_medijima, 40),
+    sample(populacija_medija$povjerenje_medijima, 40)
+  )$p.value)
+  stopifnot(all(is.finite(p)))
+  any(p < 0.05)
+})
+
+s15 <- list(
+  n = nrow(pet_izvora),
+  k = s15_k,
+  f = s15_tablica$`F value`[1],
+  df1 = s15_tablica$Df[1],
+  df2 = s15_tablica$Df[2],
+  p = s15_tablica$`Pr(>F)`[1],
+  ms_izmedu = s15_tablica$`Mean Sq`[1],
+  ms_unutar = s15_ms_unutar,
+  ss_izmedu = s15_ss_izmedu,
+  ss_unutar = s15_ss_unutar,
+  eta2 = s15_ss_izmedu / (s15_ss_izmedu + s15_ss_unutar),
+  omega2 = (s15_ss_izmedu - (s15_k - 1) * s15_ms_unutar) /
+    (s15_ss_izmedu + s15_ss_unutar + s15_ms_unutar),
+  welch_f = unname(s15_welch$statistic),
+  welch_df2 = unname(s15_welch$parameter[2]),
+  kw = unname(s15_kw$statistic),
+  var_omjer = max(s15_varijance) / min(s15_varijance),
+  stopa_parne = mean(s15_pod_nultom["barem_jedan", ]) * 100,
+  stopa_ukupni = mean(s15_pod_nultom["ukupni", ]) * 100,
+  stopa_neovisne = mean(s15_neovisnih_deset) * 100,
+  formula_neovisnih = (1 - 0.95^10) * 100,
+  tv_mreze = s15_tukey["TV-društvene mreže", "diff"],
+  tv_mreze_p = s15_tukey["TV-društvene mreže", "p adj"],
+  tv_mreze_donja = s15_tukey["TV-društvene mreže", "lwr"],
+  tv_mreze_gornja = s15_tukey["TV-društvene mreže", "upr"],
+  tv_tisak = s15_tukey["tisak-TV", "diff"],
+  tv_tisak_p = s15_tukey["tisak-TV", "p adj"],
+  tv_tisak_donja = s15_tukey["tisak-TV", "lwr"],
+  tv_tisak_gornja = s15_tukey["tisak-TV", "upr"],
+  znacajnih = sum(s15_tukey[["p adj"]] < 0.05),
+  parova = nrow(s15_tukey)
+)
+```
+
+::: {.callout-vinjeta}
+Pred vama je tekst koji trebate razumjeti i zapamtiti za ispit. Možete ga ponovno pročitati, nacrtati veze među pojmovima ili zatvoriti knjigu i pokušati zapisati čega se sjećate. Posljednji je pokušaj možda najmanje ugodan jer odmah otkriva praznine. Ipak, osjećaj lakoće tijekom učenja ne mora nam reći koliko ćemo znati poslije. U jednom pokusu studenti su učili prirodoznanstveni tekst u četiri uvjeta, pri čemu su ga jedni pročitali jednom, drugi više puta, treći su uz otvoren tekst izrađivali pojmovnu mapu, a četvrti izmjenjivali čitanje i prisjećanje bez teksta. Nakon tjedan dana svi su rješavali provjeru znanja [@karpicke2011]. Zastanimo i predvidimo koja bi skupina najbolje odgovorila na pitanja koja traže povezivanje ideja. Kako usporediti sve te načine učenja i utvrditi između kojih je skupina razlika dovoljno uvjerljiva da bismo zbog nje promijenili vlastitu naviku?
+:::
+
+Četiri načina učenja otvaraju šest parnih usporedbi. S većim brojem
+skupina broj pitanja brzo raste. Ista se poteškoća pojavljuje kad proširimo
+poznati primjer medijskih navika.
+Usporedba televizije i društvenih mreža ostavila je izvan analize korisnike
+ostalih izvora vijesti. Ako želimo obuhvatiti sve skupine, mogli bismo
+ponavljati postupak iz prethodnog poglavlja za svaki par. Tada donosimo niz povezanih odluka, pa moramo razmotriti koliko prilika za lažni nalaz nastaje kroz sve usporedbe koje ćemo pregledati. Tu ćemo poteškoću najprije
+ispitati u simulaciji u kojoj skupine dolaze iz iste raspodjele povjerenja.
+Svaku pronađenu razliku tada možemo prepoznati kao lažni nalaz. Povezat ćemo
+tu provjeru s onime što smo u poglavlju o krizi i obnovi naučili o odabiru
+rezultata. Ovdje je skup usporedbi unaprijed poznat, pa možemo tražiti
+postupak koji uvažava cijeli skup odluka.
+
+Nakon što je usporedba televizije i društvenih mreža opisala jednu razliku u povjerenju, sada nas zanimaju razlike među svim izvorima i nesigurnost tih procjena. Uzorak od 300 osoba s pet izvora vijesti zasebno izvlačimo iz nastavne populacije `populacija_medija`. To je novo izvlačenje, a ne podskup ranijeg uzorka. Jedan redak predstavlja zamišljenu osobu s glavnim izvorom vijesti i povjerenjem na ljestvici od jedan do deset. Rezultati opisuju taj nastavni skup, bez tvrdnje o stvarnoj publici.
+
+Umjesto jedne razlike sredina sada ispitujemo jesu li sve skupinske sredine
+jednake. Razlaganjem varijabilnosti usporedit ćemo razmake među sredinama s
+raspršenošću osoba unutar skupina. Iz te ćemo usporedbe razviti analizu
+varijance i F-test, uz mjeru veličine učinka. Ukupni nalaz još neće odrediti
+koji se parovi razlikuju. Za njih ćemo prikazati procjene i intervale koji
+uzimaju u obzir višestruke usporedbe, pa razmotriti i granice pretpostavki.  Tako možemo sastaviti odgovor koji razlikuje ukupni obrazac,
+konkretne razlike i nesigurnost svake opravdane usporedbe.
+
+## Cijena mnogih usporedbi
+
+Među pet skupina postoji deset parova. Mogli bismo svaki usporediti zasebnim
+testom iz prethodnog poglavlja. Simulacijom ćemo provjeriti koliko često taj
+niz testova daje barem jedan lažni nalaz.
+
+Iz poznate simulirane populacije medijskih navika nasumično sastavljamo pet
+skupina po četrdeset osoba. Pri tome zanemarujemo njihov izvor vijesti. Sve
+skupine nastaju odabirom iz iste raspodjele povjerenja, pa među njima nema
+unaprijed zadane razlike. U svakom ponavljanju provodimo deset usporedbi i
+bilježimo je li barem jedna značajna. Svako takvo odbacivanje ovdje je
+pogrešno. Poslije ćemo se vratiti skupinama prema izvoru vijesti, među kojima
+razlike mogu postojati.
+
+Jedno ponavljanje stvara pet skupina po 40 odgovora. Unutar svake skupine
+biramo bez vraćanja, ali svaku novu skupinu ponovno izvlačimo iz pune
+populacije. Ista osoba zato može biti odabrana u različitim skupinama.
+U prvom stvarno izvedenom ponavljanju sredine su
+`r paste(hr_broj(vapply(s15_prvo_skupine, mean, numeric(1)), 2), collapse = ", ")`.
+Među deset obostranih Welchovih usporedbi najmanja p-vrijednost iznosi
+`r hr_broj(min(s15_prvo_p), 3)`, a prag 0,05 prelazi u smjeru odbacivanja
+`r sum(s15_prvo_p < 0.05)` usporedbi. Za zbirni rezultat zapisujemo samo
+ima li barem jedne takve usporedbe. Dva lažna nalaza u istom ponavljanju
+i dalje znače jedno ponavljanje s pogreškom.
+
+Ponovno izvlačimo svih pet skupina 2.000 puta, zadržavajući istu populaciju, veličine i pravila testiranja. Barem jedan lažni nalaz dobivamo u `r sum(s15_pod_nultom["barem_jedan", ])` od 2.000 ponavljanja. Svi su testovi definirani i sva ponavljanja ulaze u račun. U dvije tisuće ponavljanja barem jedna usporedba bila je značajna u `r hr_broj(s15$stopa_parne)` % slučajeva. Svaki test koristi prag pet posto, ali cijeli skup daje lažni nalaz u više od četvrtine ponavljanja. Prikaz samo značajnog para sakrio bi tu veću stopu pogreške.
+
+::: {#def-stopa-obiteljske-pogreske}
+**Stopa obiteljske pogreške** je vjerojatnost da će barem jedan test u
+unaprijed određenom skupu testova dati lažno pozitivan rezultat, odnosno
+pogrešno odbaciti barem jednu istinitu nultu hipotezu.
+:::
+
+U našoj su simulaciji sve nulte hipoteze istinite. Kada neke razlike postoje, pratimo vjerojatnost da pogrešno odbacimo barem jednu od preostalih istinitih nultih hipoteza. Dok postupak koji kontrolira pogrešku samo kada su sve nulte hipoteze istinite ima slabu kontrolu, jaka kontrola mora vrijediti i kada dio razlika doista postoji. Tukeyjev postupak u odgovarajućem normalnom modelu sa zajedničkom varijancom štiti obitelj parnih usporedbi i u tom drugom slučaju. Primjerice, ako se samo prva od pet skupina razlikuje od ostalih, ukupni test može lako odbaciti jednakost svih sredina. Među preostalim četirima ipak postoji šest usporedbi jednakih populacijskih sredina. Njihovo zasebno testiranje bez korekcije i dalje otvara mogućnost barem jednoga lažno pozitivnog zaključka.
+
+Za deset neovisnih testova vjerojatnost da nijedan ne pogriješi iznosi $0,95^{10}$. Suprotni događaj, barem jedna pogreška, zato ima vjerojatnost $1-0,95^{10}$, približno 0,401. Za deset neovisnih testova račun daje stopu `r hr_broj(s15$formula_neovisnih)` %. U parnim usporedbama pet skupina ista se opažanja koriste više puta, pa usporedbe nisu neovisne i u našoj simulaciji daju nižu stopu. Zasebna simulacija deset doista neovisnih usporedbi daje `r hr_broj(s15$stopa_neovisne)` %, blizu računu.
+
+U zasebnom pokusu svaki od deset testova dobiva svoja dva nova uzorka po
+40 osoba, pa testovi više ne dijele iste uzorke. Od 2.000 ponavljanja
+`r sum(s15_neovisnih_deset)` sadrži barem jedno odbacivanje, bez isključenih
+ponavljanja. Uspoređujemo stope pogreške dviju organizacija testiranja pod nulom. Za usporedbu snage trebali bismo zadati model s razlikom. Novi niz izvlačenja dao bi malo drukčije udjele.
+
+Iako formula za neovisne testove nije opća gornja granica za ovisne usporedbe, oba simulirana skupa daleko prelaze pet posto. Zato uz najmanju p-vrijednost trebamo znati koliko je usporedbi provedeno i kako su povezane. Za stopu blizu 5 % uz 2.000 ponavljanja standardna pogreška samoga simulacijskog postotka iznosi oko 0,49 postotnih bodova. Mala odstupanja od 5 % zato nisu sama po sebi dokaz pogrešno podešena postupka.
+
+Možemo postaviti i jedno ukupno pitanje o jednakosti svih pet sredina. U istoj
+simulaciji takav test odbacuje u `r hr_broj(s15$stopa_ukupni)` % slučajeva. Uz dvije tisuće
+ponavljanja taj je udio u skladu s planiranih pet posto.
+
+## Varijanca između i unutar
+
+Ukupni test treba prepoznati jesu li razmaci među skupnim sredinama veliki u odnosu na raspršenost koju već imamo među ljudima. Taj smo odnos susreli pri usporedbi dviju skupina. Razlika od jednoga boda jače ih statistički razdvaja kada su osobe unutar skupina slične nego kada su jako raspršene. Sada istu logiku primjenjujemo na sve skupine zajedno. Ukupnu varijabilnost zato razdvajamo na odstupanja među skupnim sredinama i odstupanja pojedinaca unutar skupina, pri čemu model sa skupinama opisuje prvi dio, dok drugi ostaje neobjašnjen.
+
+Da bismo razlaganje vidjeli na manjem prikazu, prelazimo na tri skupine po
+24 točke bez stvarne mjerne jedinice. Počinjemo normalnim slučajnim
+vrijednostima, ali ih zatim u svakoj skupini centriramo i skaliramo tako da
+njihova ostvarena sredina i standardna devijacija budu točno zadane.
+Tako dobivamo ilustraciju razlaganja s točno zadanim sažecima.
+Pri sredinama 46, 52 i 58 zajednička je sredina 52. Skupina A pridonosi
+zbroju između skupina s $24(46-52)^2 = 864$. Isti račun radimo za B i C,
+dok unutar skupina zbrajamo kvadrate udaljenosti svake od 72 točke od
+njezine skupne sredine.
+
+Zbroj između skupina iznosi $864+0+864=1\,728$. Dijeljenjem s
+$3-1=2$ dobivamo srednji kvadrat 864. Uz standardnu devijaciju 6,
+zbroj unutar skupina iznosi $3\times23\times6^2=2\,484$. Nakon dijeljenja
+sa $72-3=69$ srednji kvadrat iznosi 36. Omjer je zato $F=864/36=24$.
+Srednji kvadrat u nazivniku ima istu mjernu jedinicu kao onaj u brojniku,
+pa je F bez mjerne jedinice.
+
+Kad su sve tri sredine 52, zbroj između skupina iznosi nula, zbroj unutar
+ostaje $2\,484$ i F je nula. U trećem stanju zbroj između ostaje $1\,728$,
+a uz standardnu devijaciju 11 zbroj unutar iznosi
+$3\times23\times11^2=8\,349$. Srednji kvadrat unutar skupina tada je 121,
+pa je $F=864/121\approx7,14$.
+
+Okomite trake prikazuju udaljenost skupnih sredina od zajedničke sredine.
+Točke prikazuju raspršenost osoba oko sredine njihove skupine. Usporedba
+stanja pokazuje kako isti razmak sredina izgleda uz različitu raspršenost
+unutar skupina.
+
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Dekompozicija varijance" data-oznaka="Widget 15.1 · interaktivno"}
+```{ojs}
+//| echo: false
+viewof w15_par = Inputs.form({
+  sredina_a: Inputs.range([35, 65], {
+    value: 46, step: 1, label: "Sredina skupine A:"
+  }),
+  sredina_b: Inputs.range([35, 65], {
+    value: 52, step: 1, label: "Sredina skupine B:"
+  }),
+  sredina_c: Inputs.range([35, 65], {
+    value: 58, step: 1, label: "Sredina skupine C:"
+  }),
+  rasprsenost: Inputs.range([2, 14], {
+    value: 6, step: 1, label: "Standardna devijacija unutar skupina:"
+  })
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  const form = viewof w15_par;
+  form.dataset.learningForm = "w15";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w15_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w15
+//| fig-cap: "Dekompozicija varijance — skupne sredine, zajednička sredina i raspršenost pojedinačnih opažanja."
+//| fig-alt: "Tri skupine imaju sredine 46, 52 i 58 te standardnu devijaciju 6. Opažanja su prikazana oko skupnih sredina, a okomite crte povezuju skupne sredine sa zajedničkom sredinom."
+{
+  const tinta = "var(--widget-ink)";
+  const priguseno = "var(--tok-ink-mute)";
+  const pravilo = "var(--widget-grid)";
+  const povrsina = "var(--tok-surface)";
+  const podatak = "var(--widget-fill)";
+  const naglasak = "var(--widget-emphasis)";
+  const formatBroj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+
+  const n = 24;
+  const sredine = [
+    {skupina: "A", x: 1, sredina: w15_par.sredina_a},
+    {skupina: "B", x: 2, sredina: w15_par.sredina_b},
+    {skupina: "C", x: 3, sredina: w15_par.sredina_c}
+  ];
+  const rng = d3.randomLcg(1515);
+  const normalna = d3.randomNormal.source(rng)(0, 1);
+
+  const opazanja = sredine.flatMap(s => {
+    const sirovo = Array.from({length: n}, normalna);
+    const m = d3.mean(sirovo);
+    const sd = d3.deviation(sirovo);
+    return sirovo.map(v => ({
+      skupina: s.skupina,
+      x: s.x,
+      xPomak: s.x + (rng() - 0.5) * 0.34,
+      ishod: s.sredina + w15_par.rasprsenost * (v - m) / sd
+    }));
+  });
+
+  const zajednicka = d3.mean(opazanja, d => d.ishod);
+  const sazeci = sredine.map(s => ({
+    ...s,
+    zajednicka
+  }));
+  const ssIzmedu = n * d3.sum(sredine, s =>
+    (s.sredina - zajednicka) ** 2);
+  const ssUnutar = d3.sum(opazanja, d => {
+    const m = sredine[d.x - 1].sredina;
+    return (d.ishod - m) ** 2;
+  });
+  const msIzmedu = ssIzmedu / (sredine.length - 1);
+  const msUnutar = ssUnutar / (sredine.length * (n - 1));
+  const fOmjer = msIzmedu / msUnutar;
+  const raspon = d3.extent(opazanja, d => d.ishod);
+  const odmak = Math.max(3, (raspon[1] - raspon[0]) * 0.08);
+  const celija =
+    document.getElementById("fig-w15")?.closest(".cell") ??
+    document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      (parseFloat(stilCelije.paddingLeft) || 0) -
+      (parseFloat(stilCelije.paddingRight) || 0)
+    : width;
+  const sirinaGrafa = Math.max(
+    1,
+    Math.floor(Math.min(width, lokalnaSirina))
+  );
+  const mobilno = sirinaGrafa < 480;
+  const sazetakTekst =
+    `omjer ${formatBroj.format(fOmjer)} · prosjek između ${formatBroj.format(msIzmedu)} · prosjek unutar ${formatBroj.format(msUnutar)}`;
+
+  const graf = Plot.plot({
+    width: sirinaGrafa,
+    height: mobilno ? 400 : 360,
+    marginTop: mobilno ? 28 : 20,
+    marginRight: 18,
+    marginBottom: mobilno ? 50 : 44,
+    marginLeft: mobilno ? 58 : 56,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: mobilno ? "15px" : "13px"
+    },
+    x: {
+      label: null,
+      domain: [0.55, 3.45],
+      ticks: [1, 2, 3],
+      tickFormat: d => mobilno
+        ? ["A", "B", "C"][d - 1]
+        : `Skupina ${["A", "B", "C"][d - 1]}`
+    },
+    y: {
+      label: "Simulirani ishod",
+      domain: [raspon[0] - odmak, raspon[1] + odmak],
+      grid: true
+    },
+    marks: [
+      Plot.ruleY([zajednicka], {
+        stroke: priguseno,
+        strokeDasharray: "5,4"
+      }),
+      Plot.ruleX(sazeci, {
+        x: "x",
+        y1: "zajednicka",
+        y2: "sredina",
+        stroke: naglasak,
+        strokeWidth: 5,
+        strokeOpacity: 0.5
+      }),
+      Plot.dot(opazanja, {
+        x: "xPomak",
+        y: "ishod",
+        r: 3.2,
+        fill: podatak,
+        stroke: povrsina,
+        strokeWidth: 0.7
+      }),
+      Plot.dot(sazeci, {
+        x: "x",
+        y: "sredina",
+        r: 6,
+        fill: tinta,
+        stroke: povrsina,
+        strokeWidth: 1.2
+      }),
+      Plot.text(sazeci, {
+        x: "x",
+        y: "sredina",
+        text: d => formatBroj.format(d.sredina),
+        dy: -13,
+        fill: tinta,
+        fontWeight: 600
+      }),
+      Plot.ruleY([raspon[0] - odmak], {stroke: pravilo})
+    ]
+  });
+  return html`<div>
+    ${graf}
+    <p class="widget-foot" role="status" aria-live="polite">${sazetakTekst}.</p>
+  </div>`;
+}
+```
+:::
+::::
+
+::: {.content-visible when-format="pdf"}
+```{r}
+#| echo: false
+#| label: fig-w15-print
+#| fig-cap: "Dekompozicija varijance — razmak sredina povećava omjer raspršenosti između i unutar skupina, a veća raspršenost unutar skupina smanjuje ga. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Tri okomito složena prikaza uspoređuju jednake sredine, razdvojene sredine i razdvojene sredine uz veću raspršenost. Točke prikazuju opažanja, a rombovi skupne sredine."
+#| fig-height: 7.2
+#| fig-bg: transparent
+set.seed(1515)
+
+stanja_w15 <- tibble::tribble(
+  ~stanje, ~sredina_a, ~sredina_b, ~sredina_c, ~rasprsenost,
+  "Jednake sredine",          52, 52, 52,  6,
+  "Razdvojene sredine",       46, 52, 58,  6,
+  "Veća raspršenost unutar",  46, 52, 58, 11
+)
+
+sim_w15_print <- stanja_w15 |>
+  tidyr::crossing(
+    skupina = factor(c("A", "B", "C"), levels = c("A", "B", "C")),
+    red = seq_len(24)
+  ) |>
+  mutate(
+    sredina = case_when(
+      skupina == "A" ~ sredina_a,
+      skupina == "B" ~ sredina_b,
+      TRUE ~ sredina_c
+    ),
+    ishod = rnorm(n(), sredina, rasprsenost)
+  ) |>
+  group_by(stanje, skupina) |>
+  mutate(ishod = sredina + (ishod - mean(ishod)) / sd(ishod) * rasprsenost) |>
+  ungroup()
+
+sazeci_w15 <- sim_w15_print |>
+  group_by(stanje) |>
+  mutate(zajednicka = mean(ishod)) |>
+  group_by(stanje, skupina) |>
+  summarise(
+    sredina = mean(ishod),
+    zajednicka = first(zajednicka),
+    .groups = "drop"
+  )
+
+ggplot(sim_w15_print, aes(skupina, ishod)) +
+  geom_segment(
+    data = sazeci_w15,
+    aes(x = skupina, xend = skupina, y = zajednicka, yend = sredina),
+    inherit.aes = FALSE,
+    linewidth = 2.2,
+    colour = tok_boja("ink-mute")
+  ) +
+  geom_point(
+    position = position_jitter(width = 0.08, height = 0, seed = 1515),
+    colour = tok_boja("data-4"),
+    size = 1.7,
+    alpha = 0.8
+  ) +
+  geom_point(
+    data = sazeci_w15,
+    aes(x = skupina, y = sredina),
+    inherit.aes = FALSE,
+    shape = 18,
+    size = 3.4,
+    colour = tok_boja("ink")
+  ) +
+  facet_wrap(~stanje, ncol = 1, scales = "free_y") +
+  labs(x = NULL, y = "Simulirani ishod") +
+  theme_knjiga(mreza = "y")
+```
+:::
+
+::: {.content-visible when-format="html"}
+**Što isprobati.**
+
+1. Postavite sve tri sredine na 52 i zadržite standardnu devijaciju 6.
+2. Razmaknite sredine na 46, 52 i 58 te usporedite novi omjer s prvim.
+3. Zadržite razdvojene sredine i povećajte standardnu devijaciju na 12.
+:::
+
+U trećem stanju sredine su iste kao u drugome, ali je raspršenost unutar skupina veća, pa
+omjer pada. Uz standardnu devijaciju 11 njegova je vrijednost
+$864/121\approx7,14$, umjesto $864/36=24$ uz standardnu devijaciju šest.
+Za procjenu odstupanja od nultog modela trebamo oba izvora
+varijacije.
+
+## Veličina i F-omjer
+
+Zbroj kvadriranih odstupanja označujemo s $SS$. Dio $SS_{\text{između}}$
+sažima odstupanja skupnih sredina od zajedničke, a $SS_{\text{unutar}}$
+odstupanja pojedinaca od njihove skupne sredine. Ukupni zbroj
+$SS_{\text{ukupno}}$ jednak je zbroju tih dijelova. Udio prvog dijela u
+ukupnom pokazuje koliko je varijabilnosti povezano sa skupinama.
+
+::: {#def-eta-kvadrat}
+**Eta-kvadrat** je udio ukupne varijabilnosti ishoda koji otpada na razlike među
+skupnim sredinama.
+
+$$\eta^2 = \frac{SS_{\text{između}}}{SS_{\text{ukupno}}}$$
+:::
+
+Sada prelazimo s početne simulacije nasumično sastavljenih skupina na uzorak iz poznate simulirane populacije medijskih navika. Zadržavamo oznake pet izvora vijesti zadane pri stvaranju podataka i uspoređujemo povjerenje njihovih korisnika. Skupine zato mogu imati različite prosjeke i prije uzorkovanja. Uzorak od 300 osoba s pet izvora vijesti izvukli smo bez vraćanja iz pune populacije, zasebno od uzorka od 120 korisnika televizije i društvenih mreža. @tbl-s15-skupne-sredine pokazuje broj odgovora i sredinu koju model pridružuje svakoj osobi iste skupine.
+
+```{r}
+#| label: tbl-s15-skupne-sredine
+#| tbl-pos: "H"
+#| echo: false
+#| tbl-cap: "Pet skupina u glavnom uzorku od 300 osoba. Izrada autora."
+s15_sazetak |> transmute(Izvor = izvor_vijesti, `Broj osoba` = n,
+  Sredina = hr_broj(sredina, 2), SD = hr_broj(sd, 2)) |>
+  knitr::kable(format = if (knitr::is_latex_output()) "latex" else "pipe",
+    booktabs = TRUE, longtable = FALSE)
+```
+
+Prva uzorkovana osoba navodi `r as.character(pet_izvora$izvor_vijesti[1])`
+i povjerenje `r pet_izvora$povjerenje_medijima[1]`. Njezina skupna sredina
+je `r hr_broj(fitted(s15_model)[1], 3)`, pa u zbroj unutar skupina ulazi
+$(`r pet_izvora$povjerenje_medijima[1]` - `r hr_broj(fitted(s15_model)[1], 3)`)^2$.
+Za zbroj između skupina kvadriramo razliku svake skupne i zajedničke sredine
+te je množimo brojem osoba u toj skupini. Tako dobivamo
+`r hr_broj(s15$ss_izmedu, 2)` između i `r hr_broj(s15$ss_unutar, 2)` unutar.
+Njihov zbroj, `r hr_broj(s15$ss_izmedu + s15$ss_unutar, 2)`, nazivnik je
+eta-kvadrata. Svih 300 odgovora ulazi u oba opisa.
+
+U našem uzorku eta-kvadrat iznosi `r hr_broj(s15$eta2, 3)`. Razlike među izvorima vijesti opisuju oko `r hr_broj(s15$eta2 * 100, 0)` % varijabilnosti povjerenja. Većina razlika među ljudima ostaje izvan modela. Za tu mjeru ovdje ne prikazujemo interval, pa njezina uzoračka nesigurnost nije kvantificirana. Važnost takva udjela ovisi o pitanju jer isti udio može biti koristan za razumijevanje društvenog stava, a nedovoljan za precizno predviđanje pojedinca. Procjenu zato povezujemo s ranijim nalazima i unaprijed obrazloženim najmanjim važnim učinkom.
+
+Eta-kvadrat opisao je koliki dio ukupne varijabilnosti otpada na razlike među
+skupinama. Za test jednakosti sredina trebamo još usporediti raspršenost između
+skupina s onom koja ostaje unutar njih. Sirove zbrojeve zato najprije
+pretvaramo u usporedive srednje kvadrate. Za $k$ skupina i
+$n$ opažanja dijelimo $SS_{\text{između}}$ s $k - 1$, a
+$SS_{\text{unutar}}$ s $n - k$. Ti djelitelji predstavljaju stupnjeve
+slobode. Dobivamo $MS_{\text{između}}$ i $MS_{\text{unutar}}$, gdje $MS$
+označuje prosječnu kvadriranu raspršenost.
+
+::: {#def-f-statistika}
+**F-statistika** je omjer prosječne raspršenosti među skupnim sredinama i
+prosječne raspršenosti opažanja oko njihovih skupnih sredina.
+
+$$F = \frac{MS_{\text{između}}}{MS_{\text{unutar}}}$$
+:::
+
+Pod nultim modelom jednakih populacijskih sredina i zajedničke
+varijance, uz neovisna opažanja, oba srednja kvadrata procjenjuju tu varijancu, pa se njihov omjer F obično nalazi blizu jedinice. Stupnjevi
+slobode $k - 1$ i $n - k$ određuju referentnu F-raspodjelu. Veći omjer daje
+više razloga za preispitivanje jednakosti sredina.
+
+Referentna F-raspodjela opisuje koje bismo omjere dobivali pod tim nultim modelom uz normalne pogreške. Njezina dva parametra ovdje iznose `r s15$df1` i `r s15$df2`. Gornjih 5 % raspodjele počinje kod `r hr_broj(qf(0.95, s15$df1, s15$df2), 2)`, dok naš opaženi omjer iznosi `r hr_broj(s15$f, 2)`. Tu usporedbu koristimo za test. Veličinu i važnost razlika i dalje čitamo iz sredina, eta-kvadrata i intervala. Iako se postupak zove analiza varijance jer uspoređuje izvore varijabilnosti, njime ispitujemo pitanje o jednakosti skupnih sredina.
+
+## Isti model, više koeficijenata
+
+U prethodnom poglavlju binarna oznaka skupine imala je jedan koeficijent
+razlike. Za pet skupina trebamo četiri takva koeficijenta. Jedna skupina
+ostaje referentna, a ostale uspoređujemo s njom. U našem je računu to portal.
+
+Pokazatelji $x_1$ do $x_4$ označuju četiri nereferentne skupine. Svaki ima
+vrijednost jedan za svoju skupinu i nula za ostale. Koeficijent $\beta_0$ daje
+sredinu reference, a koeficijenti $\beta_1$ do $\beta_4$ razlike prema njoj.
+Populacijska pogreška $\varepsilon$ opisuje odstupanje od modelne
+skupne sredine. Nakon prilagodbe opaženo odstupanje zovemo rezidualom.
+
+$$\text{povjerenje} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 +
+\beta_4 x_4 + \varepsilon$$
+
+Svaka osoba pripada samo jednoj skupini. Pet koeficijenata tako opisuje pet skupnih sredina. Klasični ukupni test zajednički ispituje četiri koeficijenta razlike tako što uspoređuje model sa skupnim sredinama i model sa samo jednom zajedničkom sredinom. To je jedno globalno pitanje, različito od deset zasebnih parnih usporedbi.
+
+Klasični i Welchov postupak koriste iste točkaste procjene sredina, ali
+drukčije računaju nesigurnost. Klasična analiza varijance, kao obični
+homoskedastični linearni model, procjenjuje zajedničku rezidualnu varijancu.
+Welch zadržava zasebne skupne varijance i prilagođava stupnjeve slobode. Zato se njihovi intervali i p-vrijednosti mogu razlikovati.
+
+Taj model primjenjujemo na isti uzorak od 300 osoba s pet izvora vijesti.
+Svakoj osobi pridružujemo sredinu njezina izvora vijesti, pa odstupanja oko tih
+pet sredina uspoređujemo s odstupanjima oko jedne zajedničke sredine.
+
+Uzorak od `r s15$n` osoba dijelimo prema pet izvora vijesti. Ukupni test daje F od `r hr_broj(s15$f, 2)`, uz `r s15$df1` i `r s15$df2` stupnjeva slobode te p-vrijednost manju od 0,001. Srednji kvadrat između skupina iznosi `r hr_broj(s15$ms_izmedu, 1)`, a unutar njih `r hr_broj(s15$ms_unutar, 1)`. Opaženi rezultat teško se uklapa u pretpostavku jednakih populacijskih sredina. Još trebamo procijeniti pojedine razlike i njihovu nesigurnost. Ljudi sami biraju izvor vijesti, pa se skupine mogu razlikovati i po drugim obilježjima. Model opisuje njihove razlike u povjerenju, ali ne utvrđuje učinak izbora izvora.
+
+Oblik razlika provjeravamo na samim odgovorima. Kutije prikazuju srednjih
+50 % vrijednosti, vodoravna crta medijan, a točke pojedinačne odgovore.
+Raspršenost i preklapanje ostaju vidljivi uz razlike sredina.
+
+```{r}
+#| echo: false
+#| label: fig-pet-raspodjela
+#| fig-cap: "Povjerenje po glavnom izvoru vijesti u istom nastavnom uzorku. Izrada autora."
+#| fig-alt: "Kutije i pojedinačni odgovori pet skupina omogućuju usporedbu njihova položaja i raspršenosti."
+#| fig-height: 3.2
+ggplot(pet_izvora, aes(izvor_vijesti, povjerenje_medijima)) +
+  geom_boxplot(outlier.shape = NA, fill = tok_boja("data-1"), width = 0.5) +
+  geom_point(position = position_jitter(width = 0.12, seed = 1515),
+    alpha = 0.35, size = 0.8) +
+  scale_x_discrete(labels = function(x) gsub(" ", "\n", x)) +
+  labs(x = "Glavni izvor vijesti", y = "Povjerenje") +
+  theme_knjiga(base_size = 11)
+```
+
+## Nakon ukupnog testa
+
+Za odgovor o konkretnim skupinama trebamo procjene njihovih razlika s intervalima i jasan popis pitanja koja smo postavili. Ukupni test odgovara na šire pitanje o jednakosti svih sredina. Unaprijed planiranu usporedbu možemo provesti izravno, neovisno o njegovu rezultatu. Usporedbu određenu prije pregleda rezultata zovemo **planirana usporedba**. Za naknadne usporedbe navodimo **post-hoc postupak** i obitelj pitanja koju štiti. Tukeyjev postupak u klasičnom modelu sa zajedničkom rezidualnom varijancom obuhvaća sve parove. Daje istodobne intervale koji u toj obitelji kontroliraju stopu pogreške.
+
+Zašto tim razlikama pridružujemo šire intervale nego jednoj zasebnoj usporedbi?
+Promatramo ih više, pa najveća među deset razlika može biti velika i kada
+nijednu nismo unaprijed odabrali. Tukeyjev račun uzima u obzir taj izbor
+koristeći raspodjelu raspona među skupnim sredinama. Širina istodobnih
+intervala zato ovisi o broju skupina i povezanosti usporedbi.
+
+Za jedan par sada oduzmemo dvije sredine iz tablice. Razlici televizije
+prema mrežama pridružujemo marginu `r hr_broj((s15$tv_mreze_gornja - s15$tv_mreze_donja)/2, 2)`
+boda, izračunatu zajedničkom rezidualnom varijancom, brojnostima tih dviju
+skupina i Tukeyjevim pravilom za svih pet skupina. Oduzimanjem i dodavanjem
+te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz uzorka od 300 osoba s pet izvora vijesti.
+
+Među `r s15$parova` parova statistički su razlučive četiri usporedbe s društvenim
+mrežama. Televizija se od njih razlikuje za `r hr_broj(s15$tv_mreze, 2)` boda, uz istodobni
+95-postotni interval od `r hr_broj(s15$tv_mreze_donja, 2)` do `r hr_broj(s15$tv_mreze_gornja, 2)`. Razlika tiska prema televiziji
+iznosi `r hr_broj(s15$tv_tisak, 2)` boda, uz interval od `r hr_broj(s15$tv_tisak_donja, 2)` do `r hr_broj(s15$tv_tisak_gornja, 2)`. Taj par ovim
+uzorkom ne razlučujemo.
+
+Na zajedničkoj osi možemo pregledati svih deset razlika. U nazivu para
+prvu skupinu uspoređujemo s drugom, pa pozitivna vrijednost znači višu
+sredinu prve skupine. Crte su istodobni 95-postotni Tukeyjevi intervali.
+Okomita crta označuje izostanak razlike.
+
+```{r}
+#| echo: false
+#| label: fig-tukey-intervali
+#| fig-cap: "Svih deset parnih razlika iz istoga modela, uz istodobne intervale. Izrada autora."
+#| fig-alt: "Točke s vodoravnim intervalima prikazuju razlike pet skupina. Nulta okomica olakšava prepoznavanje intervala koji obuhvaćaju nulu."
+#| fig-height: 4.4
+prikaz_tukey <- s15_tukey |> tibble::rownames_to_column("Par")
+ggplot(prikaz_tukey, aes(diff, reorder(Par, diff))) +
+  geom_vline(xintercept = 0, linetype = "dashed", linewidth = 0.4) +
+  geom_segment(aes(x = lwr, xend = upr, yend = reorder(Par, diff))) +
+  geom_point(size = 1.8) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 1)) +
+  labs(x = "Razlika u bodovima povjerenja", y = NULL) +
+  theme_knjiga(base_size = 10)
+```
+
+Interval za televiziju i tisak širok je više od dva boda. Takav rezultat ostavlja otvoren raspon razlika u oba smjera, uključujući nulu. Za njihovo razlučivanje trebala bi nam preciznija procjena.
+
+Ako nas unaprijed zanima određena usporedba, primjerice tradicionalnih i
+digitalnih izvora, možemo je izravno planirati. Tada ne štitimo obitelj od
+deset naknadno odabranih parova. Interval može biti uži, ali samo ako je
+pitanje doista određeno prije pregleda sredina. Naknadni izbor ne smijemo
+prikazati kao unaprijed planiran.
+
+U pokusu s početka poglavlja najbolji rezultat na provjeri nakon tjedan
+dana postigla je skupina koja je vježbala prisjećanje. Prednost se
+pojavila i na pitanjima koja su tražila povezivanje ideja iz teksta
+[@karpicke2011]. Studenti su tijekom učenja, međutim, predviđali najveću
+korist od ponovljenog čitanja, a najmanju od prisjećanja
+[@karpicke2011]. Vrijedi usporediti taj nalaz s vlastitim početnim
+predviđanjem.
+
+Sada preciznije vidimo i što bi bilo potrebno za savjet o učenju. Ukupni
+test jednakosti četiriju sredina još ne bi pokazao da je prisjećanje
+bolje od izrade pojmovne mape. Ta tvrdnja traži upravo njihovu usporedbu,
+uz veličinu razlike i njezinu nesigurnost. U objavljenom pokusu vrijeme
+učenja bilo je izjednačeno za te dvije skupine [@karpicke2011]. Pri
+primjeni nalaza na vlastiti ispit dodatno razmatramo gradivo, način
+provjere i vrijeme do ispita. Možemo iskušati prisjećanje, a njegovu
+korist prosuđivati prema onome što kasnije uspijemo objasniti.
+
+## Granice pretpostavki
+
+Najprije provjeravamo neovisnost jedinica. Ponovljena mjerenja istih ljudi i zajedničko kućanstvo, razred, škola, grad, organizacija ili mrežna veza mogu stvarati ovisnost. Obični klasični, Welchov i rangovni postupak takvu strukturu ne rješavaju. Modeli za ponovljene i ugniježđene podatke prelaze opseg knjige. Zatim pregledavamo ostatke i skupne raspršenosti. Pretpostavka približne normalnosti odnosi se na ostatke. Klasična inačica pretpostavlja jednake varijance, što trebamo procijeniti iz više informacija, a ne iz jednog pokazatelja. Omjer najveće i najmanje skupne varijance iznosi `r hr_broj(s15$var_omjer, 2)`. Koristimo ga kao orijentir uz grafove, veličine skupina i način nastanka podataka. Valjanost klasičnog testa procjenjujemo iz svih tih informacija zajedno. Ako nejednake varijance izgledaju uvjerljivo, Welchov ukupni test zadržava njihove zasebne procjene.
+
+Welchov test daje F od `r hr_broj(s15$welch_f, 2)`, uz četiri stupnja slobode u brojniku i `r hr_broj(s15$welch_df2, 1)` u nazivniku.
+Procijenjene sredine i razlike ostaju iste. Provjerili smo osjetljivost
+ukupnog zaključka na račun nesigurnosti, ali time nismo dokazali jednake
+varijance ni opravdali Tukeyjeve intervale. Ako varijance nisu jednake, za
+parove možemo provesti Welchove usporedbe uz Bonferronijevu korekciju. Svaku uspoređujemo s pragom 0,05 podijeljenim brojem planiranih parova. To je zasebno od Tukeyjeva postupka.
+
+Kruskal-Wallisov postupak rangira vrijednosti i uspoređuje raspodjele rangova.
+Utjecaj krajnjeg opažanja zato više ne ovisi izravno o njegovoj brojčanoj
+udaljenosti, ali postupak i dalje ima pretpostavke i ispituje drugo pitanje. U našem uzorku
+statistika iznosi `r hr_broj(s15$kw, 1)`. Uspoređujemo je s približnom
+hi-kvadrat raspodjelom uz `r s15_k - 1` stupnjeva slobode, jedan manje od
+broja skupina. Na razini 0,05 kritična vrijednost te hi-kvadrat raspodjele iznosi
+`r hr_broj(qchisq(0.95, s15_k - 1), 2)`. To nije F-raspodjela s dvama
+brojevima stupnjeva slobode.
+Za tumačenje razlike u položaju potrebni su usporedivi oblici raspodjela.
+Rangiranje također ne uklanja ovisnost redaka.
+
+::: {.callout-divljina}
+**Značajno ovdje, neznačajno ondje.** Pretpostavimo da istražujemo
+program pomoći pri učenju u dvjema dobnim skupinama. U svakoj
+uspoređujemo sudionike programa s odgovarajućom kontrolnom
+skupinom. Prvi rezultat označen je kao značajan, a drugi
+nije. U sažetku zato napišemo da program djeluje samo na
+mlađe i predložimo da se ubuduće nudi samo njima. Ta je
+odluka ovdje zamišljena, ali pogreška na kojoj počiva
+dokumentirana je u istraživačkoj literaturi.
+
+Nieuwenhuis, Forstmann i Wagenmakers pregledali su 513 neuroznanstvenih
+radova iz pet vodećih časopisa. Među njima su
+pronašli 78 koji su izravno testirali razliku dvaju učinaka
+i 79 koji su je zaključili iz toga što je jedan učinak bio
+značajan, a drugi nije [@nieuwenhuis2011]. Zasebni testovi
+odgovaraju razlikuje li se svaki učinak od svoje nulte
+vrijednosti. Ne odgovaraju razlikuju li se učinci međusobno.
+
+U našem bi primjeru procjene koristi programa mogle biti
+slične, dok bi jedna imala širi interval zbog manjeg uzorka
+ili veće raspršenosti. Tada bi različite oznake značajnosti
+odražavale različitu preciznost, a ne dokaz da dob mijenja
+korist programa. Kad bismo prema tim oznakama suzili
+buduću primjenu, sadržajnu bismo odluku oslonili na
+usporedbu koja još nije provedena.
+
+Potrebno je izravno procijeniti razliku između dvaju učinaka i njezinu nesigurnost. Kao i pri razlikovanju ukupnog testa od pojedinačnih usporedbi, prvo određujemo koju razliku tvrdnja traži. Pritom treba opravdati nacrt unutar svake dobne skupine. Smislenost dodatnog računa ovisi o kvaliteti tako osmišljene usporedbe. Ako je interval razlike učinaka širok, možda još ne možemo odlučiti treba li program prilagoditi dobi, što je korisnije znati nego jednu skupinu proglasiti neprikladnom za program. Razlika između dviju oznaka značajnosti može biti povod za pitanje, ali odgovor traži procjenu razlike o kojoj stvarno odlučujemo.
+:::
+
+
+::: {#ex-15-callout-greska-01 .callout-greska}
+Nakon ukupnog testa razlika u povjerenju među korisnicima pet izvora
+vijesti tim želi pregledati sve parove. Podaci su iz poznate simulacije. U ovoj nastavnoj provjeri pretpostavke o neovisnosti,
+raspodjelama i jednakim varijancama smatramo zadovoljenima. Zadatak je
+procijeniti postupak donošenja odluka o parovima.
+
+Asistent je pripremio ovaj zapis, koji treba čitati, a ne izvršavati.
+
+> ```r
+> model <- aov(povjerenje_medijima ~ izvor_vijesti,
+             data = pet_izvora)
+> pairwise.t.test(
+>   pet_izvora$povjerenje_medijima,
+>   pet_izvora$izvor_vijesti,
+>   p.adjust.method = "none"
+> )
+> ```
+
+> Ukupni test ispituje jesu li sve skupne sredine jednake. S pet
+> skupina imamo deset parova. Nakon značajnog ukupnog testa svaki par
+> možemo prosuditi na razini 0,05 bez prilagodbe, a da vjerojatnost barem
+> jedne pogrešne tvrdnje o parovima ostane zaštićena na toj razini.
+
+Odvojite pitanje ukupnog testa od pitanja pojedinačnih parova. Navedite
+koju tvrdnju o zaštiti treba popraviti i predložite postupak iz poglavlja
+kojim bi tim izvijestio parne razlike uz odgovarajuću nesigurnost.
+Sačuvajte ispravno određene skupine i broj usporedbi. Ne pišite zamjenski kod.
+
+:::
+
+## Razrađeni primjer
+
+Na istom uzorku od 300 osoba s pet izvora vijesti želimo razdvojiti dva pitanja o povjerenju. Prvo
+se odnosi na ukupan obrazac skupnih sredina, a drugo na veličinu konkretnih
+razlika među izvorima. Najprije ćemo prikazati veličinu učinka i ukupni test, a
+zatim parne razlike s istodobnim intervalima. Tako će uz svaku usporedbu ostati
+vidljivo da je dio šireg skupa odluka.
+
+```{r}
+#| echo: true
+
+model <- aov(povjerenje_medijima ~ izvor_vijesti,
+             data = pet_izvora)
+tablica <- summary(model)[[1]]
+eta2 <- tablica$`Sum Sq`[1] / sum(tablica$`Sum Sq`)
+
+eta2
+tablica
+parovi <- TukeyHSD(model)$izvor_vijesti
+```
+
+Račun počinje modelom skupnih sredina. Poziv `aov` procjenjuje isti
+model kao `lm`, ali prikazuje razlaganje varijance iz kojega prvo
+računamo eta-kvadrat. Uobičajeni F-test zatim uspoređuje srednje kvadrate uz
+pretpostavku zajedničke rezidualne varijance. Pod istom pretpostavkom
+`TukeyHSD` daje parne razlike, istodobne intervale i korigirane
+p-vrijednosti. Zato te rezultate čitamo kao klasičnu analizu, uz ranije
+objašnjenu razliku prema Welchovu postupku.
+
+Zbrojevi kvadrata `r hr_broj(s15$ss_izmedu, 1)` između skupina i `r hr_broj(s15$ss_unutar, 1)` unutar njih daju opisani udio varijabilnosti. F-test provjerava ukupno odstupanje od jednakih sredina. Na prethodnom prikazu parova vidimo da se društvene mreže odvajaju od svakog preostalog izvora, dok ostale parove ne razlučujemo. U izvještaju možemo navesti da skupine u simuliranom uzorku opisuju oko desetinu varijabilnosti, uz napomenu da nesigurnost toga udjela ovdje nije procijenjena. Razlika televizije i društvenih mreža iznosi oko 1,59 bodova na ljestvici od deset, uz istodobni 95-postotni interval približno od 0,71 do 2,46. Sve četiri usporedbe s društvenim mrežama razlučive su pod pretpostavkama prikazanog postupka. Podaci ipak ne opravdavaju uzročni zaključak.
+
+## Sažetak {.sazetak}
+
+Kada usporedbu proširimo na više skupina, trebamo pratiti i veću mogućnost
+barem jednoga lažnog nalaza. Razlaganje varijabilnosti između skupina i unutar
+njih omogućuje jedno ukupno pitanje o jednakosti sredina, na koje odgovara
+F-test. Eta-kvadrat opisuje udio varijabilnosti povezan sa skupinama, uz
+ograničenje da njegovu uzoračku nesigurnost u ovom primjeru nismo
+kvantificirali. Za odgovor o konkretnoj razlici ipak trebamo planiranu
+usporedbu ili imenovani post-hoc postupak s odgovarajućim intervalima. Njihove
+pretpostavke procjenjujemo prema nacrtu, grafovima i skupnim podacima, a za
+ovisna opažanja trebamo drukčiji postupak. Dosad je model povezivao povjerenje
+s oznakom skupine, dok ćemo ga u sljedećem poglavlju proširiti na brojčane
+prediktore i više varijabli zajedno.
+
+## Pojmovi {.pojmovi}
+
+Tukeyjev postupak (*Tukey HSD*), Kruskal-Wallisov postupak (*Kruskal-Wallis test*),
+analiza varijance (*analysis of variance*), stopa obiteljske pogreške
+(*familywise error rate*), F-statistika (*F-statistic*), planirana usporedba
+(*planned comparison*), post-hoc postupak (*post-hoc procedure*), eta-kvadrat
+(*eta squared*), varijanca između skupina (*between-group variance*), varijanca
+unutar skupina (*within-group variance*)
+
+## Zadaci
+
+### Konceptualni {#ex-15-konceptualni-01 .zadaci-razina}
+
+Objasnite zašto značajan ukupni test ne znači da se svaki par skupina razlikuje.
+Skicirajte tri skupne sredine i raspršenosti uz koje bi ukupni test bio značajan,
+a samo jedan par razlučiv. Zatim pretpostavite da ste taj par odabrali tek nakon
+pregleda svih sredina. Odredite je li usporedba planirana ili post-hoc, imenujte
+obitelj koju treba zaštititi i objasnite zašto je ne smijete prikazati kao jedno
+unaprijed postavljeno pitanje.
+
+### Računski {#ex-15-racunski-01 .zadaci-razina}
+
+Razlaganje daje 120 na razlike među četirima skupinama i 480 na razlike unutar
+njih, uz ukupno sto opažanja. Izračunajte obje prosječne raspršenosti, njihov
+omjer i eta-kvadrat. Objasnite što bi se s omjerom dogodilo da je drugi broj
+dvostruko veći.
+
+### Kritički {#ex-15-kriticki-01 .zadaci-razina}
+
+Vratite se poglavlju o mjerenju i dizajnu radi razlike između opisne i uzročne
+tvrdnje te poglavlju o veličini učinka i snazi radi najmanjega važnog učinka. U
+agregiranoj tablici `data/populacija-medija-agregat.csv` pronađite retke za TV
+i društvene mreže.
+Prije računanja zapišite najmanju razliku na ljestvici od 1 do 10 koju biste
+smatrali sadržajno važnom. Izračunajte populacijsku razliku iz stupaca
+`zbroj_povjerenja` i `broj`, usporedite je sa svojim pragom i objasnite zašto
+rezultat ne dokazuje da odabir izvora uzrokuje povjerenje.
+
+
+### Revizija modela {#ex-15-revizija-modela-01 .zadaci-razina}
+
+Ocijenite postupak i obrazloženje iz okvira. Imenujte jedinu pogrešku,
+odredite koju stopu pogreške ugrožava i razdvojite taj prigovor od dijelova
+analize koji su još korisni. Predložite način izvještavanja parnih razlika
+koji odgovara cijeloj obitelji usporedbi. Ne pokrećite kod i ne pišite
+njegovu zamjenu.

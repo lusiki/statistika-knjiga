@@ -1,0 +1,826 @@
+---
+title: "Kriza i obnova"
+subtitle: "Kako se znanstveni zaključci mogu popraviti"
+---
+
+```{r}
+#| include: false
+#| cache: false
+source("R/setup.R")
+
+w12_rrr <- read.csv(
+  "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+  check.names = FALSE,
+  encoding = "UTF-8"
+)
+w12_rrr$lab[w12_rrr$study_order == 12] <- "Özdoğru"
+stopifnot(nrow(w12_rrr) == 17, sum(w12_rrr$n_total) == 1894)
+
+# REML rekonstrukcija iz provjerenih laboratorijskih sažetaka.
+# Isti kriterij kao scripts/check-p3-evidence12.py, uz granicu tau^2 >= 0.
+w12_sinteza <- function(razlika, se) {
+  cilj <- function(tau2) {
+    w <- 1 / (se^2 + tau2)
+    m <- sum(w * razlika) / sum(w)
+    0.5 * (sum(log(se^2 + tau2)) + log(sum(w)) +
+      sum(w * (razlika - m)^2))
+  }
+  kandidat <- optimize(cilj, c(0, max(1, 10 * max(razlika)^2,
+    10 * max(se^2))), tol = 1e-12)$minimum
+  tau2 <- if (cilj(kandidat) < cilj(0)) kandidat else 0
+  w <- 1 / (se^2 + tau2)
+  m <- sum(w * razlika) / sum(w)
+  pogreska <- sqrt(1 / sum(w))
+  list(procjena = m, donja = m - qnorm(0.975) * pogreska,
+    gornja = m + qnorm(0.975) * pogreska, tezine = w / sum(w), tau2 = tau2)
+}
+w12_sirova <- w12_sinteza(w12_rrr$raw_mean_difference, w12_rrr$raw_se)
+w12_standardna <- w12_sinteza(w12_rrr$cohen_d, w12_rrr$d_se)
+stopifnot(abs(w12_sirova$procjena - 0.026766) < 0.00001,
+  abs(w12_standardna$procjena - 0.014151) < 0.00001)
+
+```
+
+::: {.callout-vinjeta}
+Možemo li se oraspoložiti tako da najprije promijenimo izraz lica? Ta je zamisao privlačna jer nam daje nešto jednostavno što možemo pokušati u lošem danu. Za njezinu znanstvenu provjeru ipak treba smisliti kako promijeniti izraz lica, a da sudionicima ne sugeriramo kako bi se trebali osjećati. U poznatom pokusu sudionici su ocjenjivali stripove držeći olovku zubima ili usnama. Razlika u ocjenama protumačena je kao potpora tvrdnji da položaj mišića lica može utjecati na doživljaj zabave [@wagenmakers2016]. Gotovo tri desetljeća poslije 17 laboratorija ponovilo je postupak prema zajedničkom protokolu, s planom i analitičkim kodom pripremljenima prije uvida u podatke [@wagenmakers2016]. Što bismo trebali promijeniti u svojem uvjerenju ako takvo ponavljanje pruži drukčiju sliku? Možemo li iz njega naučiti nešto određenije od toga da je jedna studija bila „uspješna”, a druga „neuspješna”?
+:::
+
+Procjenu i njezin interval sada znamo čitati uz veličinu učinka, snagu i
+pogreške testiranja. Pri usporedbi izvornog nalaza s replikacijom otvara se
+i novo pitanje. Vidimo li sve što je istraživač mogao analizirati ili
+samo rezultat koji je na kraju odabran za objavu? Razloge odabira rezultata tražimo u zapisima istraživačkih odluka, uz provjeru samoga računa.
+
+Pokus iz vinjete pratit ćemo kroz objavljene rezultate laboratorija koji su
+ponovili postupak [@wagenmakers2016]. U tablicama s kojima radimo jedan redak sažima rezultate jednog laboratorija. Uspoređivat ćemo
+razlike u ocjenama zabavnosti između uvjeta držanja olovke, njihove intervale
+i brojnosti skupina. Ti sažeci pokazuju koliko se procjene razlikuju među stvarnim provedbama zajedničkog postupka [@wagenmakers2016]. Od njih ćemo jasno
+odvojiti nastavne simulacije u kojima sami određujemo koliko se analiza
+iskušava.
+
+Mijenjanje ishoda, podskupina ili trenutka zaustavljanja utječe na mogućnost
+lažnog nalaza, što možemo provjeriti simulacijom. Pritom razlikujemo
+namjerno traženje poželjnog rezultata od odluka koje ovise o viđenim
+podacima čak i kada istraživač provede samo jednu analizu. Izbor se
+nastavlja među studijama koje postaju dostupne čitateljima. Zato pogreške
+pojedinog testa razmatramo zajedno s postupkom kojim je od više mogućih
+nalaza odabrana objavljena tvrdnja.
+
+Obnovu istraživačke prakse zato povezujemo s dostupnošću plana, podataka i
+analitičkih odluka. Pri čitanju laboratorijskih procjena oslanjamo se na
+intervale i veličine učinka iz prethodnih poglavlja, a u razrađenom primjeru
+uspoređujemo sirovu i standardiziranu sintezu. Doseg novoga rezultata određujemo prema onome što je točno ponovljeno, preciznosti procjena i razlikama u postupku koje još treba istražiti. Na toj osnovi procjenjujemo nalaz i predlažemo sljedeću provjeru,
+uz dovoljno jasan zapis da je druga osoba može ponoviti.
+
+## Od jedne tvrdnje do provjerljivoga pitanja
+
+Istraživanje uključuje mnogo odluka prije završne tablice. Određujemo tko može
+sudjelovati, kako provodimo zadatak, što mjerimo, kako postupamo s nepotpunim
+odgovorima i koju usporedbu smatramo glavnom. Čitatelj treba znati koje smo
+odluke donijeli unaprijed, a koje nakon pregleda podataka. Inače ne može
+procijeniti koliko je rezultat utjecao na izbor analize.
+
+[P-hakiranje]{.pojam def="Prilagođavanje ili selektivno izvještavanje analiza
+dok se ne dobije poželjan rezultat." en="p-hacking" ch="12"} nastaje kada
+istraživač iskušava ishode, podskupine, pravila isključivanja ili trenutke
+zaustavljanja kako bi dobio poželjan nalaz, pa prikaže samo odabrani postupak.
+Metodološko istraživanje pokazalo je da takva neprikazana fleksibilnost povećava
+udio lažno pozitivnih zaključaka [@simmons2011]. Uobičajena p-vrijednost
+vrijedi za unaprijed određen postupak. Nakon pretraživanja ne opisuje stopu
+pogreške cijelog procesa odabira.
+
+[Vrt račvajućih putova]{.pojam def="Skup analiza koje bi bile odabrane ovisno
+o obrascima u podacima, čak i kada istraživač provede samo jednu." en="garden
+of forking paths" ch="12"} može nastati i bez svjesnog traženja poželjnog
+nalaza. Istraživač provede jednu analizu, ali bi odabrao drugu da su podaci
+izgledali drukčije. Odluka je zato ovisila o podacima čak i ako ostale
+mogućnosti nisu izračunate [@gelman2013]. P-hakiranje opisuje namjerno
+ponašanje, a račvajući putovi obilježje postupka koje treba prepoznati i
+dokumentirati.
+
+Izbor ne završava analizom unutar jedne studije.
+[Publikacijska pristranost]{.pojam def="Selekcija istraživačkih rezultata pri
+kojoj vjerojatnost javne vidljivosti ovisi o njihovu smjeru, jasnoći ili
+poželjnosti." en="publication bias" ch="12"} nastaje pri odabiru onoga što
+postaje dostupno čitateljima. Čak i korektno provedene studije mogu dati
+iskrivljenu sliku ako objavljivanje ovisi o rezultatu. Open Science
+Collaboration pokazao je važnost sustavnog proučavanja replikabilnosti većeg
+skupa nalaza [@osc2015]. Za razumijevanje literature trebamo razmotriti i
+pokušaje koji su ostali neobjavljeni.
+
+## Analitička fleksibilnost prije modela
+
+U jednom je istraživanju 29 timova analiziralo iste početne podatke i
+dobilo različite procjene povezanosti boje kože nogometaša i crvenih kartona
+[@silberzahn2018]. Razlike među rezultatima sada nastaju promjenom analize,
+dok smo pri uzorkovanju mijenjali uzorke. Uspoređujemo veličinu procijenjene
+veze, njezinu nesigurnost i opravdanost postupaka.
+
+::: {#def-analiticka-fleksibilnost}
+**Analitička fleksibilnost** je prostor više obranjivih odluka duž cijeloga puta
+podataka, od prikupljanja, uključivanja i spajanja do rekodiranja, postupanja s
+nedostajućim vrijednostima i izbora analize.
+:::
+
+U registriranom replikacijskom izvještaju (RRR) laboratoriji su unaprijed
+dogovorili kriterije uključivanja, računanje ocjene i glavnu sirovu razliku
+među skupinama. Plan i kod pripremili su prije stvarnih podataka
+[@wagenmakers2016]. Lokalne prilagodbe i dalje su bile moguće, ali trebalo ih
+je zabilježiti i usporediti s planom. Tako čitatelj može provjeriti kada je
+odluka donesena i što je promijenila.
+
+::: {#def-reproducibilnost}
+**Reproducibilnost** je mogućnost da druga osoba iz istih podataka, materijala i
+opisanoga postupka ponovno dobije iste rezultate i utvrdi gdje su nastali.
+:::
+
+Pri reproduciranju ponovno izvodimo račun iz istih podataka i materijala.
+[Replikacija]{.pojam def="Nova studija koja istu ciljnu tvrdnju provjerava
+novim podacima i dovoljno usporedivim postupkom." en="replication" ch="12"}
+jest nova studija koja istu ciljnu tvrdnju provjerava novim podacima i dovoljno usporedivim postupkom. Reproduciranjem možemo ponoviti i račun temeljen na
+lošem mjerenju. Replikacija pak može dati drukčiji rezultat zbog uzoračke
+promjenjivosti ili konteksta. Obje provjere pridonose prosudbi zaključka, zajedno s procjenom mjerenja, nacrta i konteksta.
+
+## Replikacija kao kumulativno mjerenje
+
+Da bismo procijenili što smo naučili iz replikacije, trebamo usporediti rezultate laboratorija na istoj ljestvici. Služimo se podacima iz objavljenog izvještaja, u kojem svaki laboratorij daje procjenu razlike između dvaju načina držanja olovke i njezin interval [@wagenmakers2016]. Laboratorij tako postaje jedinica usporedbe, a procjene i intervali svih 17 laboratorija izraženi su na istoj ljestvici [@wagenmakers2016]. Devet procjena bilo je pozitivno, ali nijedan interval nije bio u cijelosti iznad nule [@wagenmakers2016]. Samo dva intervala obuhvatila su izvornu razliku od 0,82 boda [@wagenmakers2016]. Podjela na devet „uspješnih” i osam „neuspješnih” replikacija zanemarila bi veličinu i nesigurnost tih procjena.
+
+Objedinjena procjena sažima prosječnu razliku u replikacijama provedenima prema zajedničkom protokolu. Vrijednost 0,03 uz interval od −0,11 do 0,16 uskladiva je s malim razlikama u oba smjera [@wagenmakers2016]. Budući da interval ne obuhvaća vrijednosti blizu izvornih 0,82 boda, ograničeno je povjerenje u prijenos izvorne veličine na ovaj postupak, ali to ne isključuje svaki mali učinak ni druge načine mjerenja facijalne povratne sprege [@wagenmakers2016]. Najprije zato čitamo istraživačko pitanje i nacrt, zatim pojedinačne procjene i intervale, pa objedinjeni rezultat. Razlike među laboratorijima mogu potjecati od uzorkovanja, lokalnog konteksta, mjerenja ili provedbe. Ovdje možemo opisati rezultate i oprezno ih prenijeti na usporedive postupke. Utvrđivanje uzroka razlika zahtijevalo bi dodatno istraživanje.
+
+## Cijeli zapis u forest plotu
+
+Procjene i intervale svih laboratorija lakše ćemo usporediti ako ih vidimo
+zajedno. Na prikazu [forest plot]{.pojam def="Prikaz procjena i njihovih intervala iz
+više studija, uz odvojenu objedinjenu procjenu i jasno označenu referentnu
+vrijednost." en="forest plot" ch="12"} svaki redak predstavlja jedan
+laboratorij. Točka označuje procijenjenu razliku, a vodoravna crta njezin
+95-postotni interval. Puna okomita crta označuje nulu, odnosno jednake
+prosječne ocjene. Isprekidana crta na 0,82 prikazuje izvornu procjenu za
+usporedbu [@wagenmakers2016]. Služi kao vanjska referenca uz laboratorije uključene u objedinjavanje.
+
+Oznaka `smile` u izvornim podacima znači držanje olovke zubima, a `pout` držanje usnama [@wagenmakers2016]. Pozitivna razlika `smile − pout` znači da je skupina s olovkom među zubima dala višu prosječnu ocjenu stripovima. Da bismo vidjeli kako nastaje jedna točka, tablicom izdvajamo prve tri laboratorijske usporedbe iz provjerenog izvornog poretka. Brojnosti su u osobama, a sredine na ljestvici ocjene stripova od 0 do 9 [@wagenmakers2016].
+
+```{r}
+#| label: tbl-s12-od-skupina-do-razlike
+#| echo: false
+#| tbl-cap: "Skupne sredine prije laboratorijske razlike. Izrada autora iz lokalne rekonstrukcije prema @wagenmakers2016."
+w12_rrr |> head(3) |>
+  transmute(Laboratorij = lab, `n zubi` = n_smile, `n usne` = n_pout,
+    `Sredina zubi` = hr_broj(mean_smile, 2),
+    `Sredina usne` = hr_broj(mean_pout, 2),
+    Razlika = hr_broj(raw_mean_difference, 2)) |> knitr::kable()
+```
+
+U prvom laboratoriju od `r hr_broj(w12_rrr$mean_smile[1], 3)` oduzimamo
+`r hr_broj(w12_rrr$mean_pout[1], 3)` i dobivamo približno
+`r hr_broj(w12_rrr$raw_mean_difference[1], 3)` boda [@wagenmakers2016]. Razlika postaje položaj
+točke. Raspršenost ocjena i broj osoba u objema skupinama određuju njezinu
+standardnu pogrešku i interval. Za račun čuvamo nezaokružene sažetke. Razlika dviju prikazanih zaokruženih sredina zato može odstupati od zaokružene razlike.
+
+Metaanaliza je objedinjavanje usporedivih rezultata više istraživanja.
+Ovdje odgovara na drugo pitanje, kolika je prosječna razlika kroz
+laboratorije. Njihove procjene množimo težinama i zbrajamo. Težine ovise o
+nesigurnosti pojedine procjene i procijenjenoj varijabilnosti među
+laboratorijima, pa svaki sudionik i svaki laboratorij nemaju automatski
+jednaku težinu. U razrađenom primjeru pokazat ćemo kako model slučajnih učinaka određuje te
+težine. U našoj rekonstrukciji sirove sinteze prvi laboratorij nosi
+`r hr_broj(100 * w12_sirova$tezine[1], 1)` % ukupne težine [@wagenmakers2016]. Svih 17 težina
+zbraja se na 100 %, a izvorni pokus iz 1988. nije među njima
+[@wagenmakers2016]. Slika povezuje tako dobivene procjene i intervale.
+
+```{r}
+#| echo: false
+#| cache: false
+#| label: fig-rrr-forest
+#| fig-cap: "Procjene sirove razlike smile − pout i 95-postotni intervali u 17 laboratorija. Objedinjena procjena RRR-a iznosi 0,03 [−0,11; 0,16], a isprekidana crta označuje izvornu procjenu 0,82, koja ne ulazi u sintezu. Izrada autora iz lokalne rekonstrukcije službenoga arhiva prema @wagenmakers2016."
+#| fig-alt: "Forest plot sa sedamnaest laboratorijskih procjena i njihovim intervalima. Svi intervali sijeku nulu. Objedinjena procjena blizu je nule, dok je izvorna procjena 0,82 desno od većine intervala."
+#| fig-width: 7.2
+#| fig-height: 6.8
+w12_laboratoriji <- w12_rrr |>
+  transmute(
+    laboratorij = factor(lab, levels = rev(lab)),
+    procjena = raw_mean_difference,
+    donja = raw_ci_low,
+    gornja = raw_ci_high
+  )
+
+ggplot(w12_laboratoriji, aes(y = laboratorij)) +
+  geom_vline(xintercept = 0, colour = sivo[[2]], linewidth = 0.55) +
+  geom_vline(
+    xintercept = 0.82,
+    colour = sivo[[4]],
+    linewidth = 0.55,
+    linetype = "dashed"
+  ) +
+  geom_segment(
+    aes(x = donja, xend = gornja, yend = laboratorij),
+    colour = sivo[[3]],
+    linewidth = 0.55
+  ) +
+  geom_point(aes(x = procjena), colour = sivo[[1]], size = 2) +
+  geom_segment(
+    data = tibble(
+      laboratorij = factor("Sinteza RRR", levels = "Sinteza RRR"),
+      donja = -0.107693,
+      gornja = 0.161225
+    ),
+    aes(x = donja, xend = gornja, y = laboratorij, yend = laboratorij),
+    inherit.aes = FALSE,
+    colour = sivo[[1]],
+    linewidth = 1.2
+  ) +
+  geom_point(
+    data = tibble(
+      laboratorij = factor("Sinteza RRR", levels = "Sinteza RRR"),
+      procjena = 0.026766
+    ),
+    aes(x = procjena, y = laboratorij),
+    inherit.aes = FALSE,
+    shape = 23,
+    fill = sivo[[1]],
+    colour = sivo[[1]],
+    size = 3
+  ) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 1)) +
+  labs(
+    x = "Sirova razlika prosječne ocjene (smile − pout)",
+    y = NULL
+  ) +
+  theme_knjiga(base_size = 12)
+```
+
+Točke se nalaze oko nule i svi je intervali presijecaju [@wagenmakers2016].
+Iako objedinjena procjena ima uži interval jer koristi informacije iz više laboratorija, i dalje se odnosi na laboratorije i postupak uključene u ovaj RRR. Značenje prikaza možemo čitati iz položaja, duljine crta i oznake
+objedinjene procjene i u crno-bijelom tisku.
+
+Razlike smo dosad izrazili u bodovima ocjene stripova. Iz prethodnog poglavlja
+znamo da ih možemo izraziti i u jedinicama standardne devijacije, pa želimo
+provjeriti ovisi li tumačenje o tom izboru. Provjera [osjetljivosti]{.pojam def="Provjera mijenja li se sadržajni
+zaključak kada se primarna analiza usporedi s jednom unaprijed obranjivom
+alternativom." en="sensitivity analysis" ch="12"} uspoređuje sirovu razliku s
+Cohenovim *d*. U našoj standardiziranoj rekonstrukciji iz objavljenih
+laboratorijskih sažetaka procjena iznosi `r hr_broj(w12_standardna$procjena, 2)`,
+uz interval od `r hr_broj(w12_standardna$donja, 2)` do
+`r hr_broj(w12_standardna$gornja, 2)`. Objavljena sirova procjena iznosila je
+0,03, uz interval od −0,11 do 0,16 [@wagenmakers2016]. Razlikujemo objavljeni
+rezultat od vlastitoga preračuna. Obje analize koriste iste laboratorije, ali
+standardizacija mijenja ciljanu veličinu i relativni doprinos laboratorija.
+Sadržajni zaključak ostaje sličan jer su procjene blizu nule, a intervali obuhvaćaju male vrijednosti u oba smjera. Ovom usporedbom provjeravamo ovisi
+li zaključak o izboru mjerila.
+
+## Reforma redoslijeda i vidljivosti
+
+[Predregistracija]{.pojam def="Vremenski označeno bilježenje istraživačkoga
+pitanja, ishoda i glavne analize prije uvida u podatke koji mogu utjecati na
+te odluke." en="preregistration" ch="12"} jest vremenski označen zapis pitanja, ishoda i glavne analize prije uvida u podatke koji bi mogli utjecati na te odluke. Omogućuje razlikovanje planiranih
+analiza od onih potaknutih podacima. Neočekivane obrasce možemo istraživati,
+ali ih trebamo označiti kao naknadne, istraživačke analize. Potvrđujuća (konfirmatorna) analiza
+provjerava unaprijed određenu tvrdnju. Istraživačka (eksploratorna) analiza
+traži obrasce i oblikuje nova pitanja. U ovom RRR-u unaprijed su
+pripremljeni i kod i ogledni prikazi. Dobiveni rezultat zato možemo usporediti
+s postupkom koji je bio vidljiv prije podataka [@wagenmakers2016].
+
+[Registrirani izvještaj]{.pojam def="Format u kojem se istraživačko pitanje i
+metoda vrednuju prije nego što je glavni rezultat poznat, a konačni se rad
+ponovno procjenjuje nakon provedbe." en="registered report" ch="12"} mijenja
+redoslijed uredničke procjene. Urednik i recenzenti razmatraju pitanje i
+metodu prije nego što znaju je li nalaz velik, nov ili značajan
+[@wagenmakers2016]. U ovom slučaju povezani su službeni članak, projekt, plan,
+kod i podaci. To je omogućilo neovisnu provjeru laboratorijskih procjena
+[@wagenmakers2016].
+
+Kad želimo da drugi provjere istraživanje, trebamo im pokazati kako
+smo došli do rezultata, a pritom sačuvati privatnost ljudi koji su u njemu
+sudjelovali i poštovati uvjete uporabe materijala. Za naše je usporedbe
+dovoljno imati rezultate pojedinih laboratorija. U knjigu smo zato
+uključili samo izvedene sažetke na toj razini, iz kojih se sudionici ne
+mogu prepoznati. Pojedinačne odgovore, službeni kod, plan i izdavačev graf
+nismo preuzeli. Uz prikaz razlikujemo što možemo provjeriti ovdje, a za
+što se trebamo vratiti službenom izvoru.
+
+Tvrdnje razlikujemo prema tome opisuju li, povezuju, uopćavaju, predviđaju, objašnjavaju uzrok ili podupiru odluku. Ovaj RRR omogućuje opis i usporedbu eksperimentalnih uvjeta, ograničen prijenos na provedene postupke te procjenu težine izvornog nalaza. Ne daje alat za predviđanje ni objašnjenje uzroka razlike između izvornog i replikacijskog rezultata. Prije prihvaćanja zaključka provjeravamo jedinicu opažanja, izostavljene jedinice, ciljanu veličinu i vrstu tvrdnje. Pitamo koju nesigurnost interval uključuje, mijenja li razumna alternativa zaključak i tko snosi posljedice pogreške. Reformirani postupci trebaju te odgovore učiniti dostupnima za provjeru, a njihovu kvalitetu zatim procjenjujemo na temelju priloženih dokaza.
+
+Priča o izrazu lica nastavila se i nakon replikacije s olovkom. Suradnja
+Many Smiles okupila je istraživače različitih polazišta u unaprijed
+registriranom istraživanju s 3.878 sudionika iz 19 zemalja
+[@coles2022]. Usporedili su više načina izazivanja izraza lica. Oponašanje
+osmijeha i namjerno pomicanje mišića lica pružili su potporu utjecaju na
+osjećaj sreće, dok su nalazi za olovku u ustima bili manje uvjerljivi
+[@coles2022]. Različiti postupci nisu dali jednak odgovor.
+
+Na početno pitanje sada možemo odgovoriti preciznije. Slabija potpora
+učinku pri ponavljanju traži promjenu uvjerenja o tom postupku i veličini njegova
+učinka. Drukčija manipulacija otvara zasebnu provjeru, s vlastitim ishodom
+i ograničenjima. Ocjena zabavnosti stripa i procjena vlastite sreće nisu
+ista mjera. Istraživanje napreduje kada tu razliku pretvorimo u jasno
+pitanje, unaprijed dogovorimo provjeru i dopustimo da nas rezultat iznenadi.
+
+## Interakcija — Pješčanik p-hakiranja
+
+Sljedeći prikaz pokazuje što se događa kada, uz odsutnost učinka, povećavamo broj analitičkih putova. Više ishoda, podskupina ili trenutaka provjere daje više prilika za rezultat ispod praga. Usporedba s korigiranim pragom pokazuje kako uzeti u obzir cijelu obitelj analiza. Za ovu zasebnu nastavnu simulaciju izravno generiramo p-vrijednosti. Pod idealiziranim nultim modelom svaki put daje neovisan broj jednoliko raspoređen između nule i jedinice. Jedno zamišljeno istraživanje s tri puta moglo bi dati 0,21, 0,03 i 0,54. To je namjerno sastavljen primjer. Ako prijavimo najmanji broj, 0,03 prolazi prag 0,05 iako u modelu učinka nema. Za unaprijed zadana tri puta korigirani prag bio bi $0,05/3$, koji taj broj ne prolazi.
+
+Prikaz provodi isti odabir najmanje vrijednosti za 1, 12 i 48 putova.
+Za svaki broj putova generiramo 5 000 cijelih istraživanja. Na svakom
+pragu brojimo istraživanja čija je najmanja p-vrijednost ispod ili na
+pragu i dijelimo s 5 000. Svi rezultati su definirani i ulaze u račun.
+Visina krivulje zato prikazuje rizik barem jednoga lažnog nalaza po
+istraživanju, a ne postotak pogrešnih testova među svim provedenim testovima.
+
+Simulacija pretpostavlja neovisne putove, pravilno kalibrirane p-vrijednosti
+pod nultim modelom i unaprijed određen skup analiza. Stvarne analize često
+koriste iste podatke, pa krivulja može izgledati drukčije. Korekcija za
+poznati skup analiza ne rješava skrivene odluke ni neprijavljeno
+prilagođavanje postupka podacima.
+
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Pješčanik p-hakiranja" data-oznaka="Widget 12.1 · interaktivno"}
+
+```{ojs}
+//| echo: false
+viewof w12_par = Inputs.form({
+  ishodi: Inputs.range(
+    [1, 12],
+    {value: 3, step: 1, label: "Broj mogućih ishoda"}
+  ),
+  podskupine: Inputs.range(
+    [1, 5],
+    {value: 2, step: 1, label: "Podskupinske inačice po ishodu"}
+  ),
+  provjere: Inputs.range(
+    [1, 4],
+    {value: 2, step: 1, label: "Trenuci provjere podataka"}
+  ),
+  ponavljanja: Inputs.range(
+    [500, 3000],
+    {value: 2000, step: 500, label: "Simulirana istraživanja"}
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  const form = viewof w12_par;
+  form.dataset.learningForm = "w12";
+  const state = document.createElement("span");
+  state.hidden = true;
+  state.dataset.experimentState = JSON.stringify(w12_par);
+  return state;
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w12
+//| fig-cap: "Udio simuliranih istraživanja s barem jednim rezultatom ispod odabranog praga nakon pretraživanja više neovisnih analitičkih putova."
+//| fig-alt: "Pri početnih dvanaest analitičkih putova kumulativna krivulja brzo raste, pa nominalni prag 0,05 zahvaća mnogo više istraživanja od praga korigiranog za broj putova."
+{
+  const tinta = "var(--tok-ink)";
+  const krivulja = "var(--tok-data-2)";
+  const korekcija = "var(--tok-data-4)";
+  const naglasak = "var(--tok-accent-deep)";
+  const linija = "var(--tok-rule)";
+  const sans = "var(--tok-font-sans)";
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4
+  });
+  const postotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    maximumFractionDigits: 1
+  });
+
+  const brojPutova =
+    w12_par.ishodi * w12_par.podskupine * w12_par.provjere;
+  const rng = d3.randomLcg(1212);
+  const najmanje = Array.from({length: w12_par.ponavljanja}, () => {
+    let najmanja = 1;
+    for (let i = 0; i < brojPutova; i += 1) {
+      najmanja = Math.min(najmanja, rng());
+    }
+    return najmanja;
+  });
+  const pragovi = d3.range(0, 0.1001, 0.002);
+  const cdf = pragovi.map(prag => ({
+    prag,
+    udio: d3.mean(najmanje, p => p <= prag)
+  }));
+  const nominalniPrag = 0.05;
+  const korigiraniPrag = nominalniPrag / brojPutova;
+  const nominalniUdio = d3.mean(najmanje, p => p <= nominalniPrag);
+  const korigiraniUdio = d3.mean(najmanje, p => p <= korigiraniPrag);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirina = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirina < 480;
+  const vrloUsko = sirina < 260;
+
+  const graf = Plot.plot({
+    width: sirina,
+    height: usko ? 430 : 350,
+    marginLeft: usko ? 66 : 62,
+    marginRight: usko ? 16 : 24,
+    marginBottom: usko ? 54 : 48,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: sans,
+      fontSize: usko ? "14px" : "12px"
+    },
+    x: {
+      label: "Prag za najmanju p-vrijednost",
+      domain: [0, 0.1],
+      ticks: vrloUsko ? 3 : usko ? 5 : undefined,
+      tickFormat: d => broj.format(d)
+    },
+    y: {
+      label: "Udio istraživanja",
+      domain: [0, 1],
+      grid: true,
+      tickFormat: d => postotak.format(d)
+    },
+    marks: [
+      Plot.lineY(cdf, {
+        x: "prag",
+        y: "udio",
+        stroke: krivulja,
+        strokeWidth: 2
+      }),
+      Plot.ruleX([nominalniPrag], {
+        stroke: naglasak,
+        strokeWidth: 1.5
+      }),
+      Plot.ruleX([korigiraniPrag], {
+        stroke: korekcija,
+        strokeWidth: 1.5,
+        strokeDasharray: "4,3"
+      }),
+      Plot.dot(
+        [{prag: nominalniPrag, udio: nominalniUdio}],
+        {x: "prag", y: "udio", fill: naglasak, stroke: tinta, r: 4.5}
+      ),
+      Plot.dot(
+        [{prag: korigiraniPrag, udio: korigiraniUdio}],
+        {x: "prag", y: "udio", fill: korekcija, stroke: tinta, r: 4.5}
+      ),
+      Plot.ruleY([0], {stroke: linija})
+    ]
+  });
+
+  return html`<div>
+    ${graf}
+    <p class="widget-foot" role="status" aria-live="polite">${brojPutova} putova daje ${postotak.format(nominalniUdio)} ispod 0,05 i ${postotak.format(korigiraniUdio)} ispod korigiranog praga ${broj.format(korigiraniPrag)}.</p>
+  </div>`;
+}
+```
+
+:::
+
+::::
+
+::: {.content-visible when-format="pdf"}
+```{r}
+#| echo: false
+#| cache: false
+#| label: fig-w12-print
+#| fig-cap: "Vjerojatnost barem jednog rezultata ispod praga raste s brojem neovisnih analitičkih putova. Puna okomita crta označuje nominalni prag 0,05, a točkasta prag 0,05/12 za zadano stanje od 12 putova. Izrada autora. Podaci i postupak opisani su u tekstu."
+#| fig-alt: "Tri kumulativne krivulje za jedan, dvanaest i četrdeset osam putova pokazuju sve brži rast udjela istraživanja s malom najmanjom p-vrijednošću. Okomite crte uspoređuju nominalni prag 0,05 s korigiranim pragom za dvanaest putova."
+#| fig-width: 6.6
+#| fig-height: 4.8
+set.seed(1212)
+
+w12_pragovi <- seq(0, 0.1, by = 0.002)
+w12_cdf <- bind_rows(lapply(c(1, 12, 48), function(broj_putova) {
+  najmanje <- replicate(5000, min(runif(broj_putova)))
+  tibble(
+    prag = w12_pragovi,
+    udio = vapply(
+      w12_pragovi,
+      function(prag) mean(najmanje <= prag),
+      numeric(1)
+    ),
+    putovi = factor(
+      broj_putova,
+      levels = c(1, 12, 48),
+      labels = c("1 put", "12 putova", "48 putova")
+    )
+  )
+}))
+
+ggplot(w12_cdf, aes(prag, udio, colour = putovi, linetype = putovi)) +
+  geom_vline(xintercept = 0.05, colour = sivo[[4]], linewidth = 0.6) +
+  geom_vline(
+    xintercept = 0.05 / 12,
+    colour = sivo[[2]],
+    linewidth = 0.6,
+    linetype = "dotted"
+  ) +
+  annotate(
+    "text",
+    x = 0.05 / 12,
+    y = 0.96,
+    label = "0,05/12",
+    hjust = -0.1,
+    colour = sivo[[2]],
+    size = 3.2
+  ) +
+  geom_line(linewidth = 0.75) +
+  scale_color_sivo(name = "Analitički putovi") +
+  scale_linetype_manual(
+    name = "Analitički putovi",
+    values = c("solid", "22", "42")
+  ) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 2)) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
+  ) +
+  labs(
+    x = "Prag za najmanju p-vrijednost",
+    y = "Udio istraživanja"
+  ) +
+  theme_knjiga(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+:::
+
+Ako unaprijed određeni broj putova označimo s $m$, prag $0{,}05/m$ dijeli
+dopušteni ukupni rizik među njima. Svaka analiza mora zadovoljiti stroži prag.
+To je Bonferronijeva korekcija. Razinu 0,05 dijelimo brojem usporedbi u unaprijed određenoj obitelji. O obitelji testova više ćemo govoriti u poglavlju Više grupa. Takva korekcija ograničava rizik lažnih nalaza u unaprijed određenom skupu
+analiza, ali ne uklanja sve probleme analitičke fleksibilnosti.
+
+:::: {.content-visible when-format="html"}
+
+**Što isprobati.**
+
+1. Provedite jednu unaprijed određenu analizu.
+2. Dodajte ishode, a podskupine i trenutke provjere ostavite jednakima.
+3. Dodajte podskupinske inačice i trenutke provjere bez promjene broja ishoda.
+4. Usporedite nominalni prag 0,05 s pragom korigiranim za sve putove.
+
+::::
+
+::: {.content-visible when-format="pdf"}
+
+Na pragu 0,05 očitajte visinu krivulje za jedan put. Na istome pragu usporedite krivulje za 12 i 48 putova. Na krivulji za 12 putova usporedite prag 0,05 s točkastim pragom 0,05/12. Objasnite što prikaz ne može reći kada analitički putovi dijele podatke.
+
+:::
+
+Kada odaberemo najmanju p-vrijednost nakon pretraživanja, trebamo opisati kako
+smo do nje došli. Tumačenje mora uzeti u obzir cijeli postupak odabira i
+moguće analize.
+
+::: {.callout-divljina}
+**Sedamnaest procjena nije referendum.** Nakon ponavljanja pokusa s olovkom i procjenom duhovitosti crteža trebalo je odlučiti što zajednički rezultati govore o izvornom nalazu. Prema izvještaju o replikaciji, devet je laboratorija dalo pozitivnu, a osam negativnu točkastu procjenu [@wagenmakers2016]. Kad bismo prebrojili samo predznake, mogli bismo zaključiti da su dokazi gotovo ravnomjerno podijeljeni. Takvo prebrojavanje svakoj procjeni daje ulogu glasa za ili protiv, pa mala razlika neposredno iznad nule vrijedi jednako kao velika, precizno procijenjena razlika. Nestaju i veličina i nesigurnost nalaza, upravo informacije zbog kojih je ponavljanje više laboratorija korisno.
+
+U ovom slučaju nijedan laboratorijski interval nije bio u
+cijelosti iznad nule, a samo su dva obuhvaćala izvornu razliku
+od 0,82 boda [@wagenmakers2016]. Objedinjena procjena iznosila
+je 0,03 boda, uz 95-postotni interval od −0,11 do 0,16
+[@wagenmakers2016]. Te brojke govore nešto određenije od
+raspodjele pozitivnih i negativnih predznaka. Pod uvjetima
+zajedničkog postupka ne podupiru ponavljanje izvorno velike
+razlike, a ostavljaju nesigurnost oko malih razlika u oba smjera.
+
+Za istraživača koji odlučuje na čemu graditi sljedeći pokus to znači da treba promijeniti očekivanje o veličini nalaza. Polaznu vrijednost za planiranje treba procijeniti u svjetlu novih, znatno manjih procjena. Budući da rezultat pritom pripada određenoj manipulaciji, mjerenju i protokolu, drugi načini povezivanja izraza lica s doživljajem ostaju predmet zasebnih provjera. Pojedinačne procjene zato čitamo uz objedinjenu, a razlike među laboratorijima ne pretvaramo u objašnjenja bez dodatnih dokaza. Uži zajednički interval nije prognoza točne vrijednosti sljedeće replikacije. Korist ponavljanja ovdje je u tome što sužava raspon uvjerljivih tvrdnji, pa umjesto pitanja koliko je laboratorija glasovalo za učinak možemo pitati koliko velik učinak njihov zajednički rad još dopušta.
+:::
+
+Unaprijed vidljiv plan omogućuje nam provjeru istraživačkih odluka. U sljedećem
+obrazloženju procijenimo što na temelju samog postojanja takva plana možemo
+zaključiti o valjanosti nalaza.
+
+::: {#ex-12-callout-greska-01 .callout-greska}
+Za bilješku o ponavljanju pokusa s izrazom lica asistent je izdvojio
+sljedeće podatke. RRR je unaprijed odredio glavni ishod, pravila
+uključivanja i primarnu analizu [@wagenmakers2016]. Objedinjena razlika
+u ocjenama stripova iznosi 0,03 boda, uz 95-postotni interval od −0,11 do 0,16
+[@wagenmakers2016].
+
+Urednički zapis navodi da su plan i završni izvještaj dostupni, ali ih
+urednik još nije usporedio. To je zamišljena situacija pregleda ovoga
+rada, a ne tvrdnja o propustu njegovih autora. Asistent predlaže bilješku.
+
+> Glavni ishod i analiza određeni su prije uvida u rezultate.
+> Objedinjena procjena blizu je nule, uz interval koji dopušta male
+> razlike u oba smjera. Predregistracija je zato dovoljan razlog da
+> prihvatimo zaključak bez usporedbe provedene analize s planom.
+
+Napišite uredniku što iz bilješke može zadržati, a koji korak pregleda
+još treba obaviti. Predložite jednu konkretnu usporedbu plana i završnog
+izvještaja te napišite zamjenu posljednje rečenice. Ne pretpostavljajte
+da provjera mora otkriti odstupanje.
+
+:::
+
+## Razrađeni primjer
+
+Dosadašnji zaključak počiva na razlici izraženoj u bodovima ocjene stripova.
+Provjerit ćemo ostaje li sadržajno sličan kada iste laboratorijske rezultate
+izrazimo standardiziranom razlikom. Prije te usporedbe trebamo potvrditi da
+obje analize polaze od istih provjerenih zapisa. Službeni arhiv sadrži
+sudioničke zapise iz 17 laboratorija, koje knjiga ne redistribuira
+[@wagenmakers2016]. Iz njih je neovisnom provjerom izvedena tablica grupnih
+sažetaka, procjena i intervala. Redci se zbrajaju na 1.894 sudionika i
+odgovaraju objavljenim sažetcima, uz jedno odstupanje u zaokruživanju
+standardne devijacije koje ne koristimo u tvrdnjama knjige [@wagenmakers2016].
+
+Tablicu možemo provjeriti bez pisanja koda. Svaki redak predstavlja
+laboratorij, a `n` broj uključenih sudionika. Interval pripada sirovoj
+razlici prosječnih ocjena između skupina koje su olovku držale zubima
+(`smile`) i usnama (`pout`).
+
+```{r}
+#| echo: false
+#| cache: false
+#| label: tbl-rrr-laboratoriji
+#| tbl-cap: "Sirove laboratorijske procjene iz RRR-a. Izrada autora iz lokalne rekonstrukcije službenoga arhiva prema @wagenmakers2016."
+w12_rrr |>
+  transmute(
+    Laboratorij = lab,
+    `n` = hr_broj(n_total, 0),
+    `Razlika` = hr_broj(raw_mean_difference, 2),
+    `95-postotni interval` = paste0(
+      "[",
+      hr_broj(raw_ci_low, 2),
+      "; ",
+      hr_broj(raw_ci_high, 2),
+      "]"
+    )
+  ) |>
+  knitr::kable(align = c("l", "r", "r", "r"))
+```
+
+Pri standardizaciji svaku laboratorijsku razliku dijelimo združenom
+standardnom devijacijom dviju skupina u tom laboratoriju. U prvom laboratoriju
+`r hr_broj(w12_rrr$raw_mean_difference[1], 3)` boda tako postaje
+$d = `r hr_broj(w12_rrr$cohen_d[1], 3)`$. Mijenjaju se mjerna jedinica,
+standardna pogreška i težina, a sudionici i smjer oduzimanja ostaju isti.
+U obje analize zadržavamo svih 17 laboratorija.
+
+Za objedinjavanje koristimo model slučajnih učinaka. Težina laboratorija
+prije normalizacije iznosi $w_i=1/(SE_i^2+\tau^2)$, gdje $SE_i$ opisuje
+nesigurnost njegove razlike, a $\tau^2$ procijenjenu varijancu razlika među
+laboratorijima. Postupak REML procjenjuje tu drugu varijancu iz svih
+laboratorijskih sažetaka. Veći laboratorij zato ne mora dobiti težinu
+razmjernu samo broju sudionika. Objavljena sirova analiza i naša
+standardizirana rekonstrukcija imaju različite jedinice i težine.
+
+Sljedeća tablica prikazuje obje rekonstrukcije iz istih 17 laboratorija.
+Intervali su normalni Waldovi intervali. Procjeni dodajemo i od nje
+oduzimamo $1,96\sqrt{1/\sum_i w_i}$. Taj račun tretira procijenjenu
+među-laboratorijsku varijancu kao zadanu, pa ne obuhvaća svu njezinu
+nesigurnost. U ovome poglavlju učimo čitati sintezu. Procjena REML-a nije
+zadatak za ručno računanje.
+
+```{r}
+#| echo: false
+#| label: tbl-rrr-sinteza
+#| tbl-cap: "Autorska rekonstrukcija dviju sinteza iz laboratorijskih sažetaka prema @wagenmakers2016. Standardizirani redak nije zasebno objavljeni nalaz."
+tibble(
+  Mjera = c("Sirova razlika", "Standardizirana razlika"),
+  Procjena = hr_broj(c(w12_sirova$procjena, w12_standardna$procjena), 3),
+  `Donja granica` = hr_broj(c(w12_sirova$donja, w12_standardna$donja), 3),
+  `Gornja granica` = hr_broj(c(w12_sirova$gornja, w12_standardna$gornja), 3)
+) |> knitr::kable()
+```
+
+Sirova procjena iznosi `r hr_broj(w12_sirova$procjena, 2)`, uz interval od
+`r hr_broj(w12_sirova$donja, 2)` do `r hr_broj(w12_sirova$gornja, 2)`.
+Standardizirana rekonstrukcija iznosi `r hr_broj(w12_standardna$procjena, 2)`,
+uz interval od `r hr_broj(w12_standardna$donja, 2)` do
+`r hr_broj(w12_standardna$gornja, 2)`. U laboratorijskoj tablici ima
+`r sum(w12_rrr$raw_mean_difference > 0)` pozitivnih procjena,
+`r sum(w12_rrr$raw_ci_low > 0)` intervala u cijelosti iznad nule i
+`r sum(w12_rrr$raw_ci_low <= 0.82 & w12_rrr$raw_ci_high >= 0.82)` intervala
+koja obuhvaćaju 0,82. Ta brojanja opisuju raspored procjena. Zaključak temeljimo na njihovoj veličini i nesigurnosti.
+
+Prema zajedničkom protokolu prosječna razlika u replikacijama bila je blizu nule i mnogo manja od izvornih 0,82 boda [@wagenmakers2016]. Sirovi i standardizirani interval iz naše rekonstrukcije obuhvaćaju male razlike u oba smjera. Zaključak se odnosi na ispitani način mjerenja facijalne povratne sprege. Uzroci razlika među procjenama i eventualni utjecaj predregistracije zahtijevali bi zasebne usporedbe osmišljene upravo za ta pitanja. Takav zaključak povezuje opaženi rezultat s provedenim postupkom. Pri odluci o težini izvornog nalaza uzimamo u obzir obje analize, uz navedene granice prijenosa.
+
+## Od testa do provjerljivog zaključka
+
+Sada možemo zajedno razmotriti nulti model, veličinu učinka, interval, posljedice pogreške i način odabira analize. Dokumentirani postupak omogućuje provjeru tih dijelova. I dalje trebamo posebno opravdati uzročni zaključak, predviđanje ili prijenos na drugo okruženje. U tablici su odgovori na šest pitanja za višelaboratorijski RRR i njegove dvije analize [@wagenmakers2016]. Povezuju rezultat s jedinicom, postupkom i dopuštenim zaključkom.
+
+| Revizijsko pitanje | Primjena na provjereni zapis |
+|---|---|
+| Koja je jedinica? | zapis za jedan laboratorij sa sažetkom razlike između eksperimentalnih uvjeta i njezine nesigurnosti |
+| Tko ili što nedostaje? | ljudi izvan uključenih uzoraka, drugi laboratoriji i drukčije operacionalizacije facijalne povratne sprege |
+| Koji je cilj tvrdnje? | prosječna razlika ocjena između uvjeta u zajedničkom postupku, opisana sirovom i standardiziranom sintezom |
+| Gdje je neizvjesnost? | preciznost laboratorijskih i objedinjenih procjena. Ne obuhvaćaju sve probleme mjerenja, odabira i provedbe |
+| Koje drugo objašnjenje ostaje? | standardizacija mijenja ciljanu veličinu i doprinos laboratorija, pa rezultate uspoređujemo sadržajno |
+| Tko snosi posljedice? | istraživači, urednici i čitatelji koji procjenjuju koliko vjerovati izvornom nalazu |
+
+: Šest revizijskih pitanja primijenjenih na provjereni RRR. Izrada autora prema @wagenmakers2016. {#tbl-revizijska-pitanja-dio-iv}
+
+Karta tvrdnji u nastavku pokazuje što iz ove analize možemo prenijeti i gdje
+su granice pojedine tvrdnje.
+
+| Dimenzija tvrdnje | Što ovaj dokaz dopušta |
+|---|---|
+| opis | opisuje laboratorijske procjene, intervale i dvije objedinjene analitičke grane |
+| povezanost | povezuje prosječnu ocjenu s eksperimentalnim uvjetom u provedenom postupku |
+| generalizacija | oprezno prenosi zaključak na usporedive provedene postupke, ne na svaku populaciju ili operacionalizaciju |
+| predviđanje | nije poduprto jer analiza ne gradi ni provjerava pravilo za novi laboratorij ili novoga sudionika |
+| uzročnost | ne podupire uzročno objašnjenje razlike između izvorne i replikacijskih procjena |
+| odluka | podupire opreznije odmjeravanje težine izvorne procjene uz obje grane i njihove intervale |
+
+: Šest dimenzija tvrdnje na granici Dijela IV. Izrada autora prema @wagenmakers2016. {#tbl-mapa-tvrdnji-dio-iv}
+
+Na kraju dijela provjerite četiri povezane teme. Zašto p-vrijednost ne daje
+vjerojatnost nulte hipoteze, a nalaz blizu nule ne dokazuje njezinu
+istinitost? Kako čitamo učinak i interval te zašto opaženi učinak nije
+neovisan ulaz za naknadnu provjeru snage? Kako pretraživanje analiza mijenja
+tumačenje najmanje p-vrijednosti? Koji dokumenti omogućuju provjeru rezultata
+i gdje bi zaključak prekoračio doseg nacrta?
+
+::: {.content-visible when-profile="kolegij"}
+P-vrijednost opisuje podatke pod zadanim nultim modelom, a ne vjerojatnost da je
+nulta hipoteza istinita. Veličina učinka i interval pokazuju razmjer i
+neizvjesnost. Snaga se planira prije podataka za najmanji važan učinak, dok je
+post hoc snaga određena istim opaženim rezultatom koji bi trebala objasniti.
+Pretraživanje više ishoda, podskupina ili trenutaka provjere povećava priliku za
+malu najmanju p-vrijednost, pa moraju biti vidljivi cijela obitelj putova,
+vrijeme odluka i svaka naknadna grana. Provjeru reproducibilnosti nose povezani
+plan, podrijetlo podataka, analitički kod, primarna i alternativna grana,
+intervali i napisana granica zaključka. Tvrdnja o svim ljudima i svim oblicima
+facijalne povratne sprege ili objašnjenje razloga razlike između izvornoga i
+replikacijskog nalaza prelazi doseg dizajna.
+:::
+
+U idućim analizama uvijek ćemo navesti ciljanu tvrdnju, primarni postupak,
+jednu razumnu alternativu, podrijetlo podataka i ograničenja. Počinjemo
+kategoričkim tablicama. Prije hi-kvadrat testa trebamo utvrditi koga smo
+prebrojili, što predstavlja ćelija, koji je nazivnik svakog postotka i kakvu
+razliku smatramo sadržajno važnom.
+
+## Sažetak {.sazetak}
+
+Nalaz možemo procijeniti tek kada uz završni račun vidimo kako su podaci
+prikupljeni, pripremljeni i analizirani te kako je rezultat odabran za objavu.
+P-hakiranje i račvajući putovi upozoravaju na različite oblike ovisnosti
+analize o podacima, zbog kojih je važan zapis trenutka i razloga odluke.
+Reproduciranjem provjeravamo račun na istom materijalu, a replikacijom
+prikupljamo nove podatke za usporedbu. U višelaboratorijskom primjeru čitanje
+procjena i intervala dalo je više od brojanja predznaka, a sirova i
+standardizirana analiza poduprle su sličan, ograničen zaključak o razlici blizu
+nule. Predregistracija, registrirani izvještaji i otvoreni materijali čine
+takvu provjeru dostupnijom, iako sami ne jamče dobro mjerenje ni valjan
+zaključak. U sljedećim analizama zato ćemo uz metodu pratiti i odluke koje su
+nas do nje dovele.
+
+
+## Pojmovi {.pojmovi}
+
+potvrđujuća analiza (*confirmatory analysis*), istraživačka analiza (*exploratory analysis*),
+p-hakiranje (*p-hacking*), vrt račvajućih putova (*garden of forking paths*),
+publikacijska pristranost (*publication bias*), analitička fleksibilnost
+(*analytical flexibility*), reproducibilnost (*reproducibility*), replikacija
+(*replication*), forest plot (*forest plot*), provjera osjetljivosti (*sensitivity
+analysis*), predregistracija (*preregistration*), registrirani izvještaj
+(*registered report*)
+
+## Zadaci
+
+### Konceptualni {#ex-12-konceptualni-01 .zadaci-razina}
+
+Istraživač je nakon pregleda podataka iskušao pet pravila isključivanja i
+objavio jedino ono koje je dalo poželjan rezultat. Druga je istraživačica prije
+analize odlučila „upotrijebit ću medijan ako je raspodjela jako asimetrična, a
+sredinu inače” i zatim provela samo odabranu granu. Objasnite koji primjer
+prikazuje p-hakiranje, a koji vrt račvajućih putova. Za svaki navedite koji bi
+trag postupka čitatelju omogućio provjeru i pokažite gdje se u primjeru nalazi
+analitička fleksibilnost [@simmons2011; @gelman2013]. Na kraju jednom rečenicom
+razlikujte reproducibilnost takve provjere od replikacije koja bi prikupila nove
+podatke.
+
+### Računski {#ex-12-racunski-01 .zadaci-razina}
+
+Koristite samo tiskanu tablicu laboratorijskih procjena, bez pisanja koda.
+Prebrojite koliko je od
+17 točkastih procjena veće od nule i izračunajte taj udio u postocima
+[@wagenmakers2016]. Zatim prebrojite koliko je 95-postotnih intervala u cijelosti
+iznad nule i koliko ih obuhvaća izvornu procjenu 0,82 [@wagenmakers2016].
+Napišite dvije rečenice koje objašnjavaju zašto prvi udio nije stopa „uspjelih
+replikacija”.
+
+
+### Kritički {#ex-12-kriticki-01 .zadaci-razina}
+
+Vratite se definiciji intervala iz poglavlja Procjena i logici nultoga modela iz poglavlja Logika testiranja. Forest plot temelji se na objavljenoj replikaciji [@wagenmakers2016]. Zamislite sljedeći pogrešan komentar. „Niti jedan laboratorij nije dobio značajan rezultat, pa je dokazano da učinak ne postoji.” Revidirajte tu tvrdnju u tri rečenice. Uključite objedinjenu
+procjenu s intervalom, objasnite što nula u prikazu znači, usporedite primarnu
+analizu sa standardiziranom granom provjere osjetljivosti te navedite jednu
+populacijsku ili kontekstualnu granicu koju forest plot ne uklanja. Dodajte
+jednu rečenicu o tome kako bi publikacijska pristranost promijenila tumačenje
+sinteze kada nevidljive studije ovise o rezultatu.
+
+### Revizija modela {#ex-12-revizija-modela-01 .zadaci-razina}
+
+Revidirajte analizu iz okvira o pogrešci. Predajte zapis s četiri polja. U
+prvome prepišite provjerene brojke, u drugome označite jedinu pogrešnu tvrdnju,
+u trećemu napišite ispravljeni zaključak, a u četvrtome navedite koji biste
+dokument ili redak postupka provjerili prije prihvaćanja analize i objasnite
+koju dodatnu vidljivost daje registrirani izvještaj. Ne traži se novi kod.
